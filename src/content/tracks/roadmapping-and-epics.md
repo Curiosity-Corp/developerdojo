@@ -55,7 +55,7 @@ Several disciplines meet in an epic. **Finance** asks what it costs and what it 
 ## How it maps to the Dojo
 
 - **Developer, week 3: Problems to epics.** Lessons 1 to 4 are the long form of week 3: list the gaps, write 4 to 8 epics, order them, put them in git and cut the first one into milestones.
-- **Developer, week 4: Defend the roadmap.** Lesson 5 supports agent-ready epics and the weekly rhythm. The stakeholder communication track (`/library/tracks/stakeholder-communication/`) covers the defence itself.
+- **Developer, week 4: Defend the roadmap.** Lesson 5 supports agent-ready epics and the weekly rhythm. The [stakeholder communication track](/library/tracks/stakeholder-communication/) covers the defence itself.
 - **Master Developer.** Your roadmap and your evidence of complete epic management are central to the Product Package, and the Master Developer review asks you to explain every epic out loud, without notes.
 
 ## Time needed
