@@ -59,4 +59,4 @@ About 75 to 90 minutes per lesson, so six hours for the track. Hands-on work nee
 
 ## Pair it with
 
-[CI/CD](/library/tracks/ci-cd) before it. [Infrastructure as code](/library/tracks/infrastructure-as-code) and [Security fundamentals](/library/tracks/security-fundamentals) alongside it. Observability and service management after it, to know whether what runs is healthy.
+[CI/CD](/library/tracks/ci-cd) before it. [Infrastructure as code](/library/tracks/infrastructure-as-code) and [Security fundamentals](/library/tracks/security-fundamentals) alongside it. [Observability and service management](/library/tracks/observability-and-service-management) after it, to know whether what runs is healthy.
