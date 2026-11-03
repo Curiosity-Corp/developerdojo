@@ -1,0 +1,69 @@
+---
+import Logo from './Logo.astro';
+import { FOOTER_LINKS } from '../lib/nav';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container inner">
+    <Logo />
+    <nav aria-label="Footer">
+      <ul>
+        {
+          FOOTER_LINKS.map((link) => (
+            <li>
+              <a href={link.href} rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+  <p class="legal container">
+    © {year} Curiosity Research Corporation. Developer Dojo is free for everyone and is sponsored by Reveltek.
+  </p>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--band-deep);
+    color: var(--band-text);
+    padding-block: var(--space-5) var(--space-4);
+    border-top: 1px solid var(--band-line);
+  }
+  .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  a {
+    color: var(--band-text);
+    text-decoration: none;
+    font-family: var(--font-serif);
+    font-size: 1rem;
+  }
+  ul a:hover {
+    color: var(--gold);
+    text-decoration: underline;
+  }
+  .legal {
+    margin: var(--space-4) auto 0;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--band-line);
+    font-size: var(--text-sm);
+    color: var(--band-muted);
+  }
+</style>

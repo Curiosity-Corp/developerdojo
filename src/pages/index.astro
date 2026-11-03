@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import NoteCard from '../components/NoteCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import RankPath from '../components/RankPath.astro';
+import DarkPanel from '../components/DarkPanel.astro';
+import EventList from '../components/EventList.astro';
+import ChallengeList from '../components/ChallengeList.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+
+const learn = [
+  { icon: 'lightbulb', title: 'Product thinking', description: 'Turn ideas into valuable products.', tone: 'gold' },
+  { icon: 'users', title: 'Customer discovery', description: 'Understand real problems and needs.', tone: 'olive' },
+  { icon: 'list-checks', title: 'Roadmap & agile', description: 'Plan, prioritize, and deliver iteratively.', tone: 'gold' },
+  { icon: 'messages-square', title: 'Stakeholder communication', description: 'Align, update, and move work forward.', tone: 'olive' },
+  { icon: 'bot', title: 'AI agents in practice', description: 'Use AI agents to plan, build, test, and ship faster.', tone: 'gold' },
+  { icon: 'code-xml', title: 'Build & launch', description: 'Turn plans into a working product and launch it.', tone: 'olive' },
+] as const;
+---
+
+<BaseLayout
+  rawTitle
+  title="Developer Dojo: free training for the new kind of developer"
+  description="Developer Dojo is free training in product development, IT development and AI-assisted building, for people who want to turn ideas into real, launched products."
+>
+  <PageHero
+    title="From idea to launched product"
+    accent="."
+    eyebrow="Developer: the new bar"
+    highlight="Free training"
+    subtitle="in product development, IT development, and AI-assisted building, for people who want to turn ideas into real, launched products."
+    ctas={[
+      { label: 'Start free', href: '/membership', icon: 'arrow-right' },
+      { label: 'See how it works', href: '/train', variant: 'ghost', icon: 'play' },
+    ]}
+  >
+    <NoteCard
+      slot="side"
+      title="A modern developer can..."
+      items={[
+        'Shape the product',
+        'Work with stakeholders',
+        'Plan and prioritize',
+        'Use AI agents effectively',
+        'Build and launch',
+        'Improve with real feedback',
+      ]}
+    />
+  </PageHero>
+
+  <section class="section" aria-labelledby="path-title">
+    <div class="container path">
+      <div id="path-title">
+        <SectionHeader
+          eyebrow="Training path"
+          title="Your path from builder to leader."
+          intro="A clear, hands-on progression that grows you from building products to guiding other developers."
+        />
+      </div>
+      <RankPath linked />
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container two-up">
+      <DarkPanel
+        split={false}
+        icon="monitor-play"
+        title="Watch builders live."
+        text="Members can watch developers build real products in real time, ask questions, and learn from their process, decisions, and tools (including AI agents)."
+      >
+        <h3 class="panel-sub">Upcoming live build sessions</h3>
+        <EventList limit={3} />
+      </DarkPanel>
+      <div class="earn">
+        <SectionHeader
+          eyebrow="Contribute and be recognised"
+          title="Share, mentor, and grow the community."
+          intro="Senseis and advanced members earn points for the time they spend screen-sharing, mentoring, and collaborating with juniors. Reward tiers are being finalised."
+        />
+        <ul class="earn-list">
+          <li><Icon name="clock" size={20} /> Hours shared</li>
+          <li><Icon name="star" size={20} /> Mentoring points</li>
+          <li><Icon name="award" size={20} /> Certification bonus</li>
+          <li><Icon name="coins" size={20} /> Reward tiers (coming)</li>
+        </ul>
+        <Button href="/sensei" variant="outline" icon="arrow-right">How Sensei works</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="learn-title">
+    <div class="container">
+      <div id="learn-title">
+        <SectionHeader
+          eyebrow="The academy"
+          title="What you'll learn."
+          intro="Practical, end-to-end training to turn ideas into products people can use."
+        />
+      </div>
+      <div class="learn">
+        <FeatureGrid items={learn} columns={6} variant="inline" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container two-up">
+      <DarkPanel
+        split
+        icon="calendar-days"
+        title="Upcoming events"
+        text="Live sessions, workshops, and community gatherings."
+      >
+        <EventList limit={3} />
+      </DarkPanel>
+      <DarkPanel
+        split
+        icon="trophy"
+        title="Active challenges"
+        text="Apply what you learn, build in public, and earn recognition."
+      >
+        <ChallengeList />
+      </DarkPanel>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .path {
+    display: grid;
+    gap: var(--space-5);
+  }
+  @media (min-width: 80rem) {
+    .path {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 2.2fr);
+      align-items: center;
+    }
+  }
+  .tight {
+    padding-block: var(--space-4);
+  }
+  .two-up {
+    display: grid;
+    gap: var(--space-5);
+  }
+  @media (min-width: 62rem) {
+    .two-up {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+  .panel-sub {
+    margin: 0 0 var(--space-3);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--band-text);
+  }
+  .earn {
+    display: grid;
+    gap: var(--space-4);
+    align-content: center;
+  }
+  .earn-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .earn-list li {
+    display: flex;
+    gap: var(--space-2);
+    align-items: center;
+    padding: var(--space-3);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    font-weight: 600;
+  }
+  .earn-list :global(svg) {
+    color: var(--gold-text);
+  }
+  .earn :global(.btn) {
+    justify-self: start;
+  }
+  .learn {
+    margin-top: var(--space-5);
+  }
+</style>

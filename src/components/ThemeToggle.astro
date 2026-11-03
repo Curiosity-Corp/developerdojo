@@ -1,0 +1,68 @@
+---
+/** Light/dark toggle. State is stored in localStorage (try/catch) and stamped as data-theme on <html>. */
+import Icon from './Icon.astro';
+---
+
+<button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme">
+  <Icon name="moon" size={18} class="to-dark" />
+  <Icon name="sun" size={18} class="to-light" />
+</button>
+
+<script>
+  const root = document.documentElement;
+  const button = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+
+  function isDark(): boolean {
+    const forced = root.getAttribute('data-theme');
+    if (forced === 'dark') return true;
+    if (forced === 'light') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+
+  function sync(): void {
+    if (!button) return;
+    const dark = isDark();
+    button.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+    button.setAttribute('data-mode', dark ? 'dark' : 'light');
+  }
+
+  button?.addEventListener('click', () => {
+    const next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('dojo-theme', next);
+    } catch (error) {
+      // Storage can be blocked (private window); the choice then lasts for this page view only.
+      console.warn('Theme preference not saved:', error);
+    }
+    sync();
+  });
+  sync();
+</script>
+
+<style>
+  .theme-toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius);
+    border: 1px solid var(--band-line);
+    background: transparent;
+    color: var(--band-text);
+    cursor: pointer;
+  }
+  .theme-toggle:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .theme-toggle :global(.to-light) {
+    display: none;
+  }
+  .theme-toggle[data-mode='dark'] :global(.to-light) {
+    display: block;
+  }
+  .theme-toggle[data-mode='dark'] :global(.to-dark) {
+    display: none;
+  }
+</style>

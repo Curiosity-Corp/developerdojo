@@ -1,0 +1,113 @@
+# developerdojo.org pipeline.
+#   Merge requests: check, test, build, e2e.
+#   master:         the same gates, then GitLab Pages internal preview and the publish of the BUILT
+#                   site (dist, with CNAME + .nojekyll) to GitHub Curiosity-Corp/developerdojo gh-pages.
+# Pattern adapted from HardMagic/website (.gitlab/ci/site-release.yml), simplified: no signed
+# provenance tag, no GitLab-side gh-pages branch.
+#
+# DroidOpsInc/launch-sequence pipelines/static-site.yml was evaluated and not included: it assumes a
+# plain-HTML source tree with no build step, deploys from the demo branch and force-pushes a
+# GitLab-side gh-pages branch with a PAT. This site is an Astro build whose artifact (not source)
+# must reach GitHub with a short-lived GitHub App token.
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+
+stages:
+  - validate
+  - build
+  - e2e
+  - deploy
+
+default:
+  # Playwright image (pinned to the @playwright/test version in package-lock.json) carries Node
+  # and the browsers, so one image serves every job.
+  image: mcr.microsoft.com/playwright:v1.64.1-noble
+  interruptible: true
+
+variables:
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+
+.node:
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm/
+  before_script:
+    - npm ci --prefer-offline --no-audit --fund=false
+
+check:
+  extends: .node
+  stage: validate
+  script:
+    - npm run check
+
+test:
+  extends: .node
+  stage: validate
+  script:
+    - npm test
+
+build:
+  extends: .node
+  stage: build
+  needs: []
+  script:
+    - npm run build
+    - test -f dist/index.html
+    - test "$(cat dist/CNAME)" = "developerdojo.org"
+    - test -f dist/.nojekyll
+  artifacts:
+    paths:
+      - dist
+    expire_in: 7 days
+
+e2e:
+  extends: .node
+  stage: e2e
+  needs: [build]
+  script:
+    - npx playwright test
+  artifacts:
+    when: always
+    paths:
+      - playwright-report
+      - test-results
+    expire_in: 7 days
+
+# Internal GitLab Pages preview of the built site.
+pages:
+  stage: deploy
+  needs: [build, e2e]
+  interruptible: false
+  script:
+    - mv dist public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_COMMIT_REF_PROTECTED == "true"'
+
+# Public release: the built artifact only, to GitHub gh-pages. The pages.yml workflow on that branch
+# deploys it to GitHub Pages at https://developerdojo.org.
+# Protected project variables: GITHUB_APP_ID, GITHUB_APP_INSTALLATION_ID,
+# GITHUB_APP_PRIVATE_KEY_B64 (masked).
+publish_github_pages:
+  stage: deploy
+  needs: [build, e2e]
+  interruptible: false
+  resource_group: github-pages-release
+  variables:
+    GITHUB_PAGES_REPOSITORY: Curiosity-Corp/developerdojo
+  script:
+    - bash .gitlab/ci/publish-github-pages.sh
+  environment:
+    name: production
+    url: https://developerdojo.org
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_COMMIT_REF_PROTECTED == "true"'

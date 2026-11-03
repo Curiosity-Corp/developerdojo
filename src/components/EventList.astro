@@ -1,0 +1,219 @@
+---
+/**
+ * List of upcoming live sessions, read from src/data/events.json (validated at build time).
+ * Renders an honest empty state while nothing is scheduled.
+ *
+ * Props:
+ *  - events?: DojoEvent[] to render instead of the data file
+ *  - limit?: maximum rows
+ *  - includePast?: also show events that already started (default false; filtered at build time)
+ *  - emptyTitle / emptyText / notifyHref / notifyLabel: copy for the empty state
+ * Rendered rows are cream cards so the list works on paper and inside <DarkPanel>.
+ */
+import { getEvents } from '../lib/data';
+import type { DojoEvent } from '../lib/schemas';
+
+interface Props {
+  events?: DojoEvent[];
+  limit?: number;
+  includePast?: boolean;
+  emptyTitle?: string;
+  emptyText?: string;
+  notifyHref?: string;
+  notifyLabel?: string;
+}
+
+const {
+  events = getEvents(),
+  limit,
+  includePast = false,
+  emptyTitle = 'Schedule announced soon',
+  emptyText = 'Live sessions are being planned. Nothing is scheduled yet, and we will not list a session until it is real.',
+  notifyHref = '/contact',
+  notifyLabel = 'Ask to be told when sessions open',
+} = Astro.props;
+
+const now = Date.now();
+const visible = events
+  .filter((event) => event.status !== 'cancelled' && (includePast || Date.parse(event.start) >= now))
+  .slice(0, limit);
+
+function parts(event: DojoEvent): { month: string; day: string; time: string } {
+  const start = new Date(event.start);
+  const zone = { timeZone: event.timezone };
+  const month = new Intl.DateTimeFormat('en-US', { ...zone, month: 'short' }).format(start).toUpperCase();
+  const day = new Intl.DateTimeFormat('en-US', { ...zone, day: 'numeric' }).format(start);
+  const clock = new Intl.DateTimeFormat('en-US', { ...zone, hour: 'numeric', minute: '2-digit' }).format(start);
+  const label =
+    event.timezoneLabel ??
+    new Intl.DateTimeFormat('en-US', { ...zone, timeZoneName: 'short' })
+      .formatToParts(start)
+      .find((part) => part.type === 'timeZoneName')?.value ??
+    event.timezone;
+  return { month, day, time: `${clock} ${label}` };
+}
+
+const STATUS_LABEL: Record<DojoEvent['status'], string> = {
+  scheduled: 'Register',
+  live: 'Live now',
+  replay: 'Watch replay',
+  cancelled: 'Cancelled',
+};
+---
+
+{
+  visible.length === 0 ? (
+    <div class="empty" role="status">
+      <p class="empty-title">{emptyTitle}</p>
+      <p class="empty-text">{emptyText}</p>
+      <a class="empty-link" href={notifyHref}>
+        {notifyLabel}
+      </a>
+    </div>
+  ) : (
+    <ul class="events">
+      {visible.map((event) => {
+        const when = parts(event);
+        const href = event.status === 'replay' ? event.replayUrl : event.registerUrl;
+        return (
+          <li class="event">
+            <time class="date" datetime={event.start}>
+              <span class="month">{when.month}</span>
+              <span class="day">{when.day}</span>
+            </time>
+            <div class="info">
+              <h3 class="name">{event.title}</h3>
+              <p class="desc">{event.description}</p>
+            </div>
+            <div class="when">
+              <span class="time">{when.time}</span>
+              {href ? (
+                <a class:list={['action', `status-${event.status}`]} href={href} rel="noopener noreferrer">
+                  {STATUS_LABEL[event.status]}
+                  <span class="visually-hidden">: {event.title}</span>
+                </a>
+              ) : (
+                <span class:list={['action', 'static', `status-${event.status}`]}>{STATUS_LABEL[event.status]}</span>
+              )}
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  )
+}
+
+<style>
+  .events {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: var(--paper-raised);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .event {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: var(--space-4);
+    align-items: center;
+    padding: var(--space-3) var(--space-4);
+  }
+  .event + .event {
+    border-top: 1px solid var(--line);
+  }
+  .date {
+    display: grid;
+    place-items: center;
+    width: 3.2rem;
+    padding: var(--space-1) 0;
+    border-radius: 8px;
+    background: var(--paper-sunk);
+    border: 1px solid var(--line);
+    line-height: 1.1;
+  }
+  .month {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+  }
+  .day {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.4rem;
+  }
+  .name {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 700;
+  }
+  .desc {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+  }
+  .when {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .time {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .action {
+    padding: 0.35rem 0.9rem;
+    border: 1.5px solid var(--line-strong);
+    border-radius: 8px;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    background: var(--paper-raised);
+  }
+  a.action:hover {
+    border-color: var(--ink);
+  }
+  .status-live {
+    background: var(--rust);
+    border-color: var(--rust);
+    color: #fff;
+  }
+  @media (max-width: 40rem) {
+    .event {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+    .when {
+      grid-column: 1 / -1;
+      justify-content: space-between;
+    }
+  }
+
+  .empty {
+    padding: var(--space-5);
+    background: var(--paper-raised);
+    color: var(--ink);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius);
+  }
+  .empty-title {
+    margin: 0 0 var(--space-2);
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: 700;
+  }
+  .empty-text {
+    margin: 0 0 var(--space-3);
+    color: var(--ink-muted);
+  }
+  .empty-link {
+    font-weight: 700;
+  }
+</style>

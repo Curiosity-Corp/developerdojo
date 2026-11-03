@@ -1,0 +1,63 @@
+---
+/**
+ * Parchment note with a checklist (the "A modern developer can..." card in the hero).
+ * Props: title, items: string[]
+ */
+import Icon from './Icon.astro';
+
+interface Props {
+  title: string;
+  items: readonly string[];
+}
+const { title, items } = Astro.props;
+---
+
+<aside class="note">
+  <p class="note-title">{title}</p>
+  <ul>
+    {
+      items.map((item) => (
+        <li>
+          <Icon name="square-check-big" size={18} />
+          <span>{item}</span>
+        </li>
+      ))
+    }
+  </ul>
+</aside>
+
+<style>
+  .note {
+    background: var(--paper-raised);
+    color: #1c2620;
+    padding: var(--space-5);
+    border-radius: 6px;
+    box-shadow: 0 10px 28px rgb(0 0 0 / 0.35);
+    transform: rotate(1.2deg);
+    border: 1px solid #d6c9a8;
+  }
+  .note-title {
+    margin: 0 0 var(--space-3);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 700;
+    font-size: var(--text-xl);
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--space-2);
+  }
+  li {
+    display: flex;
+    gap: var(--space-2);
+    align-items: flex-start;
+  }
+  li :global(svg) {
+    flex: none;
+    margin-top: 0.15rem;
+    color: #56631f;
+  }
+</style>

@@ -1,0 +1,132 @@
+---
+/**
+ * Challenge rows with status chips, read from src/data/challenges.json (validated at build time).
+ *
+ * Props:
+ *  - challenges?: Challenge[] to render instead of the data file
+ *  - status?: only show challenges with this status
+ *  - limit?: maximum rows
+ *  - emptyText?: copy when nothing matches
+ */
+import Icon from './Icon.astro';
+import { getChallenges } from '../lib/data';
+import type { Challenge } from '../lib/schemas';
+
+interface Props {
+  challenges?: Challenge[];
+  status?: Challenge['status'];
+  limit?: number;
+  emptyText?: string;
+}
+const {
+  challenges = getChallenges(),
+  status,
+  limit,
+  emptyText = 'No challenges are open right now. New briefs will be listed here.',
+} = Astro.props;
+
+const rows = challenges.filter((item) => !status || item.status === status).slice(0, limit);
+const LABEL: Record<Challenge['status'], string> = { ongoing: 'Ongoing', upcoming: 'Coming soon', closed: 'Closed' };
+---
+
+{
+  rows.length === 0 ? (
+    <p class="empty" role="status">
+      {emptyText}
+    </p>
+  ) : (
+    <ul class="challenges">
+      {rows.map((item) => {
+        const Row = item.href ? 'a' : 'div';
+        return (
+          <li>
+            <Row class="row" href={item.href}>
+              <span class="icon">
+                <Icon name={item.icon} size={26} />
+              </span>
+              <span class="info">
+                <span class="name">{item.title}</span>
+                <span class="desc">{item.summary}</span>
+              </span>
+              <span class:list={['chip', `status-${item.status}`]}>{LABEL[item.status]}</span>
+            </Row>
+          </li>
+        );
+      })}
+    </ul>
+  )
+}
+
+<style>
+  .challenges {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  li + li {
+    border-top: 1px solid var(--line);
+  }
+  .row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: var(--space-4);
+    align-items: center;
+    padding: var(--space-3) var(--space-4);
+    color: var(--ink);
+    text-decoration: none;
+  }
+  a.row:hover .name {
+    text-decoration: underline;
+  }
+  .icon {
+    color: var(--gold-text);
+    display: grid;
+  }
+  .name {
+    display: block;
+    font-weight: 700;
+  }
+  .desc {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+  }
+  .chip {
+    padding: 0.25rem 0.8rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--gold-strong);
+    color: var(--gold-text);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .status-upcoming {
+    border-color: var(--olive);
+    color: var(--olive-text);
+  }
+  .status-closed {
+    border-color: var(--line-strong);
+    color: var(--ink-muted);
+  }
+  .empty {
+    margin: 0;
+    padding: var(--space-4);
+    background: var(--paper-raised);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius);
+    color: var(--ink-muted);
+  }
+  @media (max-width: 30rem) {
+    .row {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+    .chip {
+      grid-column: 2;
+      justify-self: start;
+    }
+  }
+</style>

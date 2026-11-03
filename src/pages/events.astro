@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import EventList from '../components/EventList.astro';
+---
+
+<BaseLayout title="Events" description="The Events page will list upcoming live sessions with times and sign-up links. Nothing is scheduled yet; sessions are listed only once they are confirmed.">
+  <PageHero compact title="Events" accent="" subtitle="Live builds, workshops and community sessions." />
+  <section class="section">
+    <div class="container prose">
+      <p>The Events page will list upcoming live sessions with times and sign-up links. Nothing is scheduled yet; sessions are listed only once they are confirmed.</p>
+      <EventList />
+      <p><em>This page is a foundation stub. Its full content is being built.</em></p>
+    </div>
+  </section>
+</BaseLayout>
