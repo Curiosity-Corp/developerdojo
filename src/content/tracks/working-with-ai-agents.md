@@ -48,7 +48,20 @@ The jobs that stay are named in [People write epics](/library/people-write-epics
 | 9 | Safety, security and trust | Least privilege, prompt injection, sandboxes, approval points |
 | 10 | Disclosure and ownership | Honest disclosure, licences, and decisions that stay human |
 
-Lessons 1 to 3 give the mental model and the briefing skills. Lessons 4 to 6 teach you to specify, direct and orchestrate. Lessons 7 to 9 teach you to verify, measure and control risk. Lesson 10 closes with accountability.
+Lessons 1 to 3 give the mental model and the briefing skills. Lessons 4 to 6 teach you to specify, direct and take your first steps in orchestration. Lessons 7 to 9 teach you to verify, measure and control risk. Lesson 10 closes with accountability.
+
+## The ladder: use, delegate, orchestrate, govern
+
+Working with agents is a ladder, and each rung needs different skills.
+
+| Rung | What you do | Where it is taught |
+|---|---|---|
+| **Use** | Work with one agent, one request at a time | Lessons 1 to 3 |
+| **Delegate** | Hand a whole task to an agent with a spec and a brief, then verify it | Lessons 4, 5, 7, 8 |
+| **Orchestrate** | Run several agents or sessions at once, with you as the command chain | Lesson 6 introduces it |
+| **Govern** | Bound many agents with written policy, hooks and gates | Lesson 9 introduces it |
+
+This track teaches the first two rungs and introduces the others. To run a fleet, take the advanced track Agent orchestration next.
 
 ## How it maps to the program
 

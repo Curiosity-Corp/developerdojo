@@ -111,6 +111,10 @@ Decide in advance which steps always need a person:
 
 OpenAI's [safety best practices](https://developers.openai.com/api/docs/guides/safety-best-practices) also recommend keeping a human in the loop for high-stakes outputs and testing adversarially. Git hosting helps here: protected branches and required approvals make it impossible for an agent, or a tired human, to push straight to the default branch.
 
+### From advice to rules
+
+Everything in this lesson can be written as advice, and advice fails when many agents run at once and nobody is watching. The next step is to make the limits **mechanical**: permissions that an agent cannot exceed, protected branches that refuse direct pushes, hooks that stop a forbidden action before it runs, and pipeline gates that block a change that fails a check. This is the govern rung of the ladder. The advanced track Agent orchestration teaches how to write the policy as data and how to run these gates for a fleet. For one repository, the Git and GitLab and CI/CD tracks show the settings.
+
 ### Trust is earned in steps
 
 You would not give a new colleague the production keys on day one. You give a small task, watch, review, then widen. Treat agents the same. Trust is based on evidence (lesson 8), not on how confident the agent sounds. Anthropic's published [constitution for Claude](https://www.anthropic.com/news/claudes-constitution) explains the values its models are trained to hold, including supporting human oversight. That is helpful for understanding why models refuse some requests. It does not replace your own controls. Your safeguards must not depend on the model behaving well.

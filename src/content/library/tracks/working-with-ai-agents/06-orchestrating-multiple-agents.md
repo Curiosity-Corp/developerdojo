@@ -26,6 +26,8 @@ updated: 2026-11-03
 
 Lesson 6 of the track. It is the core of the Master Developer module on AI-agent orchestration and supports the Developer week 4 practice, where you first direct more than one agent. It assumes you can write a spec (lesson 4) and run one coding agent safely (lesson 5).
 
+**Where this sits on the ladder.** The ladder runs use, delegate, orchestrate, govern. This lesson is your first step onto the third rung: a few sessions, run by you, on one milestone. Running a standing fleet with a command chain, written policy and gates is the work of the advanced track Agent orchestration. Treat what you learn here as the foundation for it, not a substitute.
+
 ## 1. Why this matters
 
 One agent is a helper. Several agents are a **workforce**. The 2030 Product Development Manager does not type the code, the tests, the docs and the research notes. They direct a set of agents that do, in parallel, and they stay accountable for the whole.
@@ -108,6 +110,10 @@ A simple board in the planning repository is enough. Columns: Ready, Agent worki
 ### Cost and limits
 
 Agent runs use paid compute or plan limits. Decide a budget before you start many agents: a number of runs, a time limit, a stop rule ("if an agent fails twice, I take over"). Keep a log. Do not turn on automatic loops with no ceiling.
+
+### When this becomes governance
+
+Three or four sessions you can watch is orchestration by hand. Past that point, your attention is the bottleneck and the controls must move out of your head and into rules: who may decide what, which actions need approval, and which gates stop a bad change whatever any agent intends. Protected branches, required pipelines and merge trains are such gates (see the CI/CD track). The track Agent orchestration teaches how to write those rules down and run them.
 
 ### One accountable human
 
@@ -222,4 +228,4 @@ do not touch their files. Report per acceptance criterion: pass or fail and why.
 
 ## 9. Further learning
 
-Read the Anthropic and OpenAI design guides together and notice their shared advice: keep it simple. Then try the AutoGen course or the Microsoft lessons to see multi-agent patterns in code, so you understand what you are directing. Return to the Claude Code best practices for habits that scale across sessions. Practise on small milestones until your review speed matches your agents' speed.
+Read the Anthropic and OpenAI design guides together and notice their shared advice: keep it simple. Then try the AutoGen course or the Microsoft lessons to see multi-agent patterns in code, so you understand what you are directing. Return to the Claude Code best practices for habits that scale across sessions. Practise on small milestones until your review speed matches your agents' speed. When you are running more sessions than you can watch, move on to the advanced track Agent orchestration.

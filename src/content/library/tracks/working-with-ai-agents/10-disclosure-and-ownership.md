@@ -232,3 +232,7 @@ Do not add anything that is not in my notes. If something is unclear, ask me.
 ## 9. Further learning
 
 Review the organisation-level guidance from NIST and Microsoft to see how professional teams formalise these habits, and try the responsible AI lessons in Generative AI for Beginners. OpenAI Academy has material on using AI responsibly at work, and its content changes, so check the current catalogue. Most of all, keep your disclosure file up to date. It will be the most honest and useful evidence of how you learned to work with agents.
+
+## Where to go next
+
+You now have the first two rungs of the ladder: using an agent well, and delegating whole tasks with a spec, a brief, verification and honest disclosure. The next two rungs are orchestrating many sessions and governing them with written policy, hooks and gates. They are taught in the advanced track Agent orchestration. Start there when you are running more agents than you can personally watch. If you work with one repository, pair it with Git and GitLab and CI/CD, which show the protected branches and pipeline gates that keep agent work inside bounds.
