@@ -1,0 +1,9 @@
+title: "Agent SDK overview"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/agent-sdk/overview"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents]
+summary: "Introduces the Claude Agent SDK, which lets you run the same agent loop from Python or TypeScript with your own tools, hooks and limits. Read it when you want to launch and govern sessions from code. It needs an API key."
+verifiedOn: 2026-11-03
