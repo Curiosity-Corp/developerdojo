@@ -1,14 +1,307 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import RankPath from '../components/RankPath.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import ModuleStrip from '../components/ModuleStrip.astro';
+import ProgressPanel from '../components/ProgressPanel.astro';
+import DarkPanel from '../components/DarkPanel.astro';
+import EventList from '../components/EventList.astro';
+import ChallengeList from '../components/ChallengeList.astro';
+import Icon from '../components/Icon.astro';
+import { DEVELOPER_MODULES, MASTER_MODULES } from '../lib/progress';
+
+const developerChecks = [
+  'Customer discovery and problem validation',
+  'Product roadmap and agile execution',
+  'Stakeholder communication and alignment',
+  'Building with AI agents to move faster',
+  'A final Product Package you present',
+];
+const masterChecks = [
+  'Whole-product ownership (product, engineering and delivery)',
+  'Platform design and architecture basics',
+  'Operations, monitoring and reliability',
+  'Launch to production and real user adoption',
+  'AI-agent orchestration across the product lifecycle',
+  'Continuous improvement with data and feedback',
+];
 ---
 
-<BaseLayout title="Learn to build the whole product" description="The Train page will lay out the Developer path (six weeks, one product owned from idea to launch) and the advanced Master Developer path, with the week-by-week plan and the final Product Package.">
-  <PageHero compact title="Learn to build the whole product" accent="." subtitle="Free training in product thinking, roadmapping, agile, stakeholder meetings, AI-assisted building, launch and platform operations." />
-  <section class="section">
-    <div class="container prose">
-      <p>The Train page will lay out the Developer path (six weeks, one product owned from idea to launch) and the advanced Master Developer path, with the week-by-week plan and the final Product Package.</p>
-      <p><em>This page is a foundation stub. Its full content is being built.</em></p>
+<BaseLayout
+  title="Train: learn to build the whole product"
+  description="Two free training paths: Developer (six weeks, one product owned from idea to launch) and the advanced Master Developer path. Track your own progress in your browser."
+>
+  <PageHero
+    compact
+    title="Learn to build the whole product"
+    accent="."
+    highlight="Free training"
+    subtitle="in product thinking, roadmapping, agile, stakeholder meetings, AI-assisted building, launch and platform operations."
+    ctas={[
+      { label: 'Start free', href: '/membership', icon: 'arrow-right' },
+      { label: 'See the training path', href: '#developer-path', variant: 'ghost', icon: 'play' },
+    ]}
+  >
+    <div slot="side" class="ladder"><RankPath compact linked /></div>
+  </PageHero>
+
+  <section class="section" aria-labelledby="paths-title">
+    <div class="container paths">
+      <div class="paths-intro">
+        <div id="paths-title">
+          <SectionHeader
+            eyebrow="Training paths"
+            title="Two paths to turn your ideas into real, launched products."
+            intro="Build the product, grow your skills, and learn to run it in the real world, from first idea to production and beyond."
+          />
+        </div>
+      </div>
+
+      <article class="path tone-olive" id="developer">
+        <header>
+          <span class="tile"><Icon name="sprout" size={32} /></span>
+          <div>
+            <h2>Developer <span class="chip">6 weeks</span></h2>
+            <p>Learn to own one product from idea to launch.</p>
+          </div>
+        </header>
+        <ul class="checks">
+          {developerChecks.map((item) => <li><Icon name="square-check-big" size={18} /><span>{item}</span></li>)}
+        </ul>
+        <a class="path-link" href="/library/developer-path-overview">Read the six-week plan <Icon name="arrow-right" size={16} /></a>
+      </article>
+
+      <article class="path tone-gold" id="master-developer">
+        <header>
+          <span class="tile"><Icon name="mountain" size={32} /></span>
+          <div>
+            <h2>Master Developer <span class="chip">Advanced</span></h2>
+            <p>Own the whole product end to end and run it in the real world.</p>
+          </div>
+        </header>
+        <ul class="checks">
+          {masterChecks.map((item) => <li><Icon name="square-check-big" size={18} /><span>{item}</span></li>)}
+        </ul>
+        <a class="path-link" href="/library/master-developer-overview">What a Master Developer learns <Icon name="arrow-right" size={16} /></a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section tight" aria-label="Modules and your progress">
+    <div class="container modules-grid">
+      <div class="strips">
+        <ModuleStrip
+          id="developer-path"
+          icon="code-xml"
+          title="Developer path: 6-week training"
+          note="Turn an idea into a launched product in 6 weeks."
+          tone="olive"
+          modules={DEVELOPER_MODULES}
+          wide={6}
+        />
+        <ModuleStrip
+          id="master-modules"
+          icon="mountain"
+          title="Master Developer: advanced modules"
+          note="Go deeper, run it in the real world, and keep improving."
+          tone="rust"
+          modules={MASTER_MODULES}
+          wide={4}
+        />
+      </div>
+      <div class="side-col">
+        <aside class="not-coding">
+          <h2>This is not just coding.</h2>
+          <p>You learn how products get planned, built, launched, and improved. People write the epics and the roadmap. AI agents help with the building, and you disclose when they do.</p>
+          <a href="/library/the-way-five-rules">Read The Way: our five rules</a>
+        </aside>
+        <ProgressPanel />
+      </div>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container two-up">
+      <DarkPanel
+        split
+        icon="calendar-days"
+        title="Upcoming live builds"
+        text="Build real products together, live. Learn by doing, with guidance from Sensei and the community."
+      >
+        <EventList limit={3} />
+      </DarkPanel>
+      <DarkPanel
+        split
+        icon="trophy"
+        title="Challenges"
+        text="Apply what you learn, build in public, and earn recognition."
+      >
+        <ChallengeList />
+      </DarkPanel>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .ladder {
+    padding: var(--space-4);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 10px 28px rgb(0 0 0 / 0.35);
+    color: var(--ink);
+  }
+  .tight {
+    padding-block: var(--space-4);
+  }
+  .paths {
+    display: grid;
+    gap: var(--space-5);
+    align-items: start;
+  }
+  @media (min-width: 62rem) {
+    .paths {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+    .paths-intro {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (min-width: 80rem) {
+    .paths {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr) minmax(0, 1.1fr);
+    }
+    .paths-intro {
+      grid-column: auto;
+    }
+  }
+  .path {
+    --tone: var(--tone-olive);
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
+    height: 100%;
+    padding: var(--space-4) var(--space-5);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-bottom: 6px solid var(--tone);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    scroll-margin-top: calc(var(--header-h) + var(--space-4));
+  }
+  .path.tone-gold {
+    --tone: var(--tone-gold);
+  }
+  .path header {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+  }
+  .tile {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 8px;
+    background: var(--tone);
+    color: #fff;
+  }
+  .tone-gold .tile {
+    color: var(--gold-ink);
+  }
+  .path h2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    align-items: center;
+    margin: 0;
+    font-size: var(--text-xl);
+  }
+  .path header p {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+  }
+  .chip {
+    padding: 0.1rem 0.7rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--tone) 20%, var(--paper-raised));
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .checks {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-sm);
+  }
+  .checks li {
+    display: flex;
+    gap: var(--space-2);
+    align-items: flex-start;
+  }
+  .checks :global(svg) {
+    flex: none;
+    margin-top: 0.1rem;
+    color: var(--olive-text);
+  }
+  .path-link {
+    display: inline-flex;
+    gap: var(--space-2);
+    align-items: center;
+    font-weight: 700;
+    font-size: var(--text-sm);
+  }
+
+  .modules-grid {
+    display: grid;
+    gap: var(--space-5);
+    align-items: start;
+  }
+  @media (min-width: 62rem) {
+    .modules-grid {
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr);
+    }
+  }
+  .strips,
+  .side-col {
+    display: grid;
+    gap: var(--space-5);
+    min-width: 0;
+  }
+  .strips :global(.strip) {
+    scroll-margin-top: calc(var(--header-h) + var(--space-4));
+  }
+  .not-coding {
+    padding: var(--space-5);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .not-coding h2 {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-2xl);
+  }
+  .not-coding p {
+    margin: 0 0 var(--space-3);
+  }
+  .not-coding a {
+    font-weight: 700;
+  }
+  .two-up {
+    display: grid;
+    gap: var(--space-5);
+  }
+  @media (min-width: 62rem) {
+    .two-up {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+</style>
