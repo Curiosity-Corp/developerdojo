@@ -57,4 +57,4 @@ About 60 to 90 minutes a lesson, plus the exercises. The whole track takes about
 
 ## Pair it with
 
-Take it next to [Working with AI agents](/library/tracks/working-with-ai-agents). Then continue to [CI/CD](/library/tracks/ci-cd), where a merge request starts a pipeline that proves the change.
+Take it next to [Working with AI agents](/library/tracks/working-with-ai-agents). Then continue to [CI/CD](/library/tracks/ci-cd), where a merge request starts a pipeline that proves the change. When you run several agents at once, protected branches and approvals become the gates that bound them; the advanced track Agent orchestration shows how.

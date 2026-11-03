@@ -57,4 +57,4 @@ About 75 to 90 minutes per lesson. The whole track takes six to eight hours. Eac
 
 ## Pair it with
 
-[Git and GitLab](/library/tracks/git-and-gitlab) before it, and Security fundamentals and Kubernetes and GitOps after it.
+Agent orchestration when you run several agents and need gates to bound them, [Git and GitLab](/library/tracks/git-and-gitlab) before it, and Security fundamentals and Kubernetes and GitOps after it.
