@@ -65,7 +65,7 @@ Developer week 1 (see the whole product and customer discovery) is this stage. Y
 
 **Question:** What exactly do we want, what do we need, how will we know, and how does everything move?
 
-ORBITAL is the product plan: Objective, Resources, Budget, Indicators, Transport, Activities, Logistics. It has four full lessons in this track, starting with Objective, Resources and Budget. **Output:** one ORBITAL file per product.
+ORBITAL is the product plan: Objective, Resources, Budget, Indicators, Transport, Activities, Logistics. It has four full lessons in this track, starting with [Objective, Resources and Budget](/library/tracks/frameworks/11-orbital-objective-resources-budget/). **Output:** one ORBITAL file per product.
 
 ### Stage 3: STARTUP (lay the foundations)
 

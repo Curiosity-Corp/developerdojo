@@ -83,7 +83,7 @@ An agent starts every session knowing nothing about your product. If you do not 
 - the rules: people write epics and roadmaps; mark guesses; cite sources; no personal data,
 - what is out of scope.
 
-Keep it short. A tight file works better than a long one, because the agent has limited space to hold everything at once (this limit is called its *context window*, explained in the AI agents track).
+Keep it short. A tight file works better than a long one, because the agent has limited space to hold everything at once (this limit is called its *context window*, explained in the [AI agents track](/library/tracks/working-with-ai-agents/)).
 
 ### The split, scale by scale
 

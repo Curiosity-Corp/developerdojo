@@ -1,0 +1,9 @@
+title: "SDG Indicators"
+provider: "United Nations Statistics Division"
+url: "https://unstats.un.org/sdgs/indicators/indicators-list/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [data-analytics]
+summary: "The official list of the global indicators used to measure progress on the 17 Sustainable Development Goals, with a code, wording and metadata for each. Use it when you pick an SDG indicator for a product: copy the exact wording and code, and say how you would measure it."
+verifiedOn: 2026-11-03
