@@ -13,52 +13,70 @@ import Icon from '../components/Icon.astro';
 import Pagoda from '../components/Pagoda.astro';
 
 const learn = [
-  { icon: 'lightbulb', title: 'Product thinking', description: 'Turn ideas into valuable products.', tone: 'gold' },
-  { icon: 'users', title: 'Customer discovery', description: 'Understand real problems and needs.', tone: 'olive' },
-  { icon: 'list-checks', title: 'Roadmap & agile', description: 'Plan, prioritize, and deliver iteratively.', tone: 'gold' },
-  { icon: 'messages-square', title: 'Stakeholder communication', description: 'Align, update, and move work forward.', tone: 'olive' },
-  { icon: 'bot', title: 'AI agents in practice', description: 'Use AI agents to plan, build, test, and ship faster.', tone: 'gold' },
-  { icon: 'code-xml', title: 'Build & launch', description: 'Turn plans into a working product and launch it.', tone: 'olive' },
+  { icon: 'lightbulb', title: 'Strategy and product', description: 'Decide which problem is worth solving, for whom, and why.', tone: 'gold' },
+  { icon: 'users', title: 'Customers and design', description: 'Find real needs, shape the experience and the brand.', tone: 'olive' },
+  { icon: 'list-checks', title: 'Epics and roadmaps', description: 'Write them yourself. People decide; AI never does.', tone: 'gold' },
+  { icon: 'bot', title: 'Directing AI agents', description: 'Use, delegate, orchestrate and govern agents with clear briefs.', tone: 'olive' },
+  { icon: 'shield-check', title: 'Verify and manage risk', description: 'Read the diff, check the output, ask the security and cost questions.', tone: 'gold' },
+  { icon: 'rocket', title: 'Ship and operate', description: 'Launch to real users, measure, and improve.', tone: 'olive' },
+] as const;
+
+const bar = [
+  { icon: 'compass', title: 'You decide', description: 'What to build and why, who it is for, and what good enough means. No agent decides this for you.', tone: 'gold' },
+  { icon: 'bot', title: 'Agents do the lower-level work', description: 'Code, tests, drafts, data wrangling and routine tasks, from a brief you wrote.', tone: 'olive' },
+  { icon: 'badge-check', title: 'You verify and answer for it', description: 'You check what comes back and you own the result with real users.', tone: 'rust' },
 ] as const;
 ---
 
 <BaseLayout
   rawTitle
   title="Developer Dojo: free training for the new kind of developer"
-  description="Developer Dojo is free training in product development, IT development and AI-assisted building, for people who want to turn ideas into real, launched products."
+  description="Developer Dojo is free training for the 2030 Product Development Manager: blend every discipline, direct AI agents to do the lower-level work, and ship real products."
 >
   <PageHero
     title="Developer: the new bar"
     accent="."
-    eyebrow="From idea to launched product"
+    eyebrow="The 2030 Product Development Manager"
     highlight="Free training"
-    subtitle="in product development, IT development, and AI-assisted building. A developer no longer mostly types code: you own the whole product and steer the AI agents that help build it."
+    subtitle="for the top 0.1% of product people. You blend strategy, product, design, finance, operations and engineering, and you direct AI agents to do the lower-level work. You decide what to build and why, and you verify what comes back."
     ctas={[
       { label: 'Start free', href: '/membership', icon: 'arrow-right' },
-      { label: 'See how it works', href: '/train', variant: 'ghost', icon: 'play' },
+      { label: 'See the role', href: '/library/the-2030-product-development-manager', variant: 'ghost', icon: 'play' },
     ]}
   >
     <NoteCard
       slot="side"
-      title="A modern developer can..."
+      title="A 2030 Product Development Manager can..."
       items={[
-        'Shape the product',
-        'Work with stakeholders',
-        'Plan and prioritize',
-        'Use AI agents effectively',
-        'Build and launch',
-        'Improve with real feedback',
+        'Decide what to build and why',
+        'Write the spec and acceptance criteria',
+        'Own the epics and the roadmap',
+        'Direct and orchestrate AI agents',
+        'Verify what the agents produce',
+        'Ship to real users and learn',
       ]}
     />
   </PageHero>
+
+  <section class="section tight" aria-label="The bar">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Who we train"
+        title="The bar is high on purpose."
+        intro="Agents can now write the code. The scarce skill is deciding what is worth building and being sure it is right. That is the job we train for, and it is free."
+      />
+      <div class="bar-grid"><FeatureGrid items={bar} columns={3} /></div>
+      <p class="bar-link"><a href="/library/the-2030-product-development-manager">Read what the role is <Icon name="arrow-right" size={16} /></a></p>
+    </div>
+  </section>
 
   <section class="section" aria-labelledby="path-title">
     <div class="container path has-pagoda">
       <div id="path-title">
         <SectionHeader
           eyebrow="Training path"
-          title="Your path from builder to leader."
-          intro="A clear, hands-on progression that grows you from building products to guiding other developers."
+          title="Your path to leading the product."
+          intro="A clear, hands-on progression: own one product, then run a whole one with agents, then coach others to do the same."
         />
       </div>
       <RankPath linked />
@@ -101,7 +119,7 @@ const learn = [
         <SectionHeader
           eyebrow="The academy"
           title="What you'll learn."
-          intro="Practical, end-to-end training to turn ideas into products people can use."
+          intro="Enough depth in every discipline to direct agents and judge their work. We teach you to decide and verify, not to hand-type everything."
         />
       </div>
       <div class="learn">
@@ -133,6 +151,13 @@ const learn = [
 </BaseLayout>
 
 <style>
+  .bar-grid {
+    margin-top: var(--space-5);
+  }
+  .bar-link {
+    margin-top: var(--space-4);
+    font-weight: 700;
+  }
   .path {
     display: grid;
     gap: var(--space-5);

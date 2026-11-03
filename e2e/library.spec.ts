@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 test('library groups pages by section and filters client-side', async ({ page }) => {
   await page.goto('/library');
   const headings = await page.locator('[data-section] h2').allInnerTexts();
-  expect(headings.slice(0, 3)).toEqual(['The Way', 'Developer path', 'Master Developer']);
+  expect(headings.slice(0, 4)).toEqual(['Start here', 'The Way', 'Developer path', 'Master Developer']);
 
   const filter = page.locator('#library-filter');
   await filter.fill('licence');
