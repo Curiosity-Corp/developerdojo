@@ -1,0 +1,9 @@
+title: "Intercept and control agent behavior with hooks"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/agent-sdk/hooks"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents, security]
+summary: "Shows how to write hook callbacks in the Agent SDK that allow, deny or change a tool call. It is the code form of the settings-file hooks in this track."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Guardrails"
+provider: "OpenAI"
+url: "https://openai.github.io/openai-agents-python/guardrails/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents, security]
+summary: "Explains input, output and tool guardrails in the OpenAI Agents SDK, including tripwires that stop a run. It is the OpenAI counterpart to Claude Code hooks. Read it to see the same idea in a second tool."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Manage costs effectively"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/costs"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents]
+summary: "Explains how Claude Code usage is billed and how to track and limit it. Read it before you run several sessions at once, so budgets are a decision you made and not a surprise."
+verifiedOn: 2026-11-03

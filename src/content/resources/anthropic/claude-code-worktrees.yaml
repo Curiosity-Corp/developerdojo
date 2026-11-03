@@ -1,0 +1,9 @@
+title: "Run parallel sessions with worktrees"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/worktrees"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents, git-gitlab]
+summary: "How to run several Claude Code sessions at once, each in its own git worktree so their files never collide. Use it for the parallel-session lab."
+verifiedOn: 2026-11-03

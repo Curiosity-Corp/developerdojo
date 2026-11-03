@@ -1,0 +1,9 @@
+title: "Embracing Risk"
+provider: "Google"
+url: "https://sre.google/sre-book/embracing-risk/"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [observability-reliability]
+summary: "A chapter of Google's Site Reliability Engineering book on choosing how reliable a service needs to be and spending an error budget on speed. It gives you the language to decide how much autonomy and how many gates a product needs."
+verifiedOn: 2026-11-03
