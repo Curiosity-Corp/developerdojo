@@ -1,6 +1,57 @@
 import { z } from 'zod';
 
-/** Library entry frontmatter (src/content/library/*.md). */
+/** Fixed vocabularies (v2 content contract). Adding a value is a deliberate schema change. */
+export const LESSON_LEVELS = ['foundation', 'core', 'advanced'] as const;
+export const RESOURCE_LEVELS = ['beginner', 'intermediate', 'advanced'] as const;
+export const COSTS = ['free', 'free-audit', 'free-tier', 'paid'] as const;
+export const FORMATS = [
+  'course',
+  'video',
+  'docs',
+  'tutorial',
+  'interactive',
+  'book',
+  'article',
+  'certification',
+  'podcast',
+] as const;
+export const TRACK_GROUPS = ['product', 'ai', 'engineering', 'frameworks'] as const;
+export const SKILLS = [
+  'product-discovery',
+  'personas-journeys',
+  'roadmapping-epics',
+  'agile-delivery',
+  'stakeholder-communication',
+  'brand-web-design',
+  'ai-agents',
+  'prompt-engineering',
+  'ai-evaluation',
+  'git-gitlab',
+  'ci-cd',
+  'cloud-platforms',
+  'kubernetes-gitops',
+  'infrastructure-as-code',
+  'security',
+  'observability-reliability',
+  'itsm-service-management',
+  'open-source',
+  'data-analytics',
+  'communication-writing',
+  'career-portfolio',
+] as const;
+
+export type LessonLevel = (typeof LESSON_LEVELS)[number];
+export type ResourceLevel = (typeof RESOURCE_LEVELS)[number];
+export type Cost = (typeof COSTS)[number];
+export type Format = (typeof FORMATS)[number];
+export type TrackGroup = (typeof TRACK_GROUPS)[number];
+export type Skill = (typeof SKILLS)[number];
+
+const slug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'use lowercase words joined by hyphens');
+/** "<publisher-slug>/<resource-slug>" */
+export const resourceId = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*\/[a-z0-9]+(?:-[a-z0-9]+)*$/, 'use <publisher>/<resource>, for example anthropic/prompt-engineering-interactive-tutorial');
+
+/** Library entry frontmatter (markdown files under src/content/library, at any depth). The first four fields are required; the rest are optional. */
 export const librarySchema = z.object({
   title: z.string().min(1),
   description: z.string().min(1),
@@ -8,8 +59,54 @@ export const librarySchema = z.object({
   section: z.string().min(1),
   /** Sort order inside the section (ascending). */
   order: z.number().int().nonnegative(),
+  /** Track slug (a file in src/content/tracks). Checked at build time. */
+  track: slug.optional(),
+  level: z.enum(LESSON_LEVELS).optional(),
+  /** Honest estimate of reading plus exercise time, e.g. "45 min". */
+  duration: z.string().min(1).optional(),
+  /** What the learner can do afterwards. */
+  outcomes: z.array(z.string().min(1)).optional(),
+  /** Resource ids shown as "Further learning". Checked at build time. */
+  resources: z.array(resourceId).optional(),
+  /** Library slugs to read first. */
+  prerequisites: z.array(z.string().min(1)).optional(),
+  updated: z.coerce.date().optional(),
 });
 export type LibraryFrontmatter = z.infer<typeof librarySchema>;
+
+/** Track overview (src/content/tracks/<slug>.md). The body is the overview text. */
+export const trackSchema = z.object({
+  title: z.string().min(1),
+  description: z.string().min(1),
+  group: z.enum(TRACK_GROUPS),
+  order: z.number().int().nonnegative(),
+  /** lucide icon name, see src/components/Icon.astro */
+  icon: z.string().min(1),
+  level: z.enum(LESSON_LEVELS),
+  skills: z.array(z.enum(SKILLS)).min(1),
+  outcomes: z.array(z.string().min(1)).min(1),
+});
+export type TrackFrontmatter = z.infer<typeof trackSchema>;
+
+/** One external learning resource (a yaml file at src/content/resources/PUBLISHER/RESOURCE.yaml). */
+export const resourceSchema = z.object({
+  /** Exact title as the publisher shows it. */
+  title: z.string().min(1),
+  /** Publisher display name, e.g. "Anthropic". */
+  provider: z.string().min(1),
+  url: z.url({ protocol: /^https$/, hostname: z.regexes.domain }),
+  cost: z.enum(COSTS),
+  format: z.enum(FORMATS),
+  level: z.enum(RESOURCE_LEVELS),
+  /** Only when the publisher states it or it is obvious, e.g. "about 2 hours". */
+  duration: z.string().min(1).optional(),
+  skills: z.array(z.enum(SKILLS)).min(1),
+  /** Two to four sentences: what it covers and why a Dojo learner should take it. */
+  summary: z.string().min(1),
+  /** Date the URL was last checked. */
+  verifiedOn: z.coerce.date(),
+});
+export type ResourceFrontmatter = z.infer<typeof resourceSchema>;
 
 const isoDateTime = z.iso.datetime({ offset: true });
 

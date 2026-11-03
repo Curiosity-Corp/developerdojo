@@ -6,6 +6,8 @@ const PAGES = [
   '/train',
   '/sensei',
   '/library',
+  '/library/tracks',
+  '/library/resources',
   '/certificates',
   '/challenges',
   '/events',

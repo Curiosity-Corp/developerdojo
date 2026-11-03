@@ -3,8 +3,22 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 const dir = join(__dirname, '..', 'src', 'content', 'library');
-const files = readdirSync(dir).filter((f) => f.endsWith('.md'));
-const slugs = new Set(files.map((f) => f.replace(/\.md$/, '')));
+// Every markdown file at any depth, as a path relative to src/content/library (track lessons are nested).
+const files = (readdirSync(dir, { recursive: true, encoding: 'utf8' }) as string[])
+  .filter((f) => f.endsWith('.md'))
+  .map((f) => f.split('\\').join('/'))
+  .sort();
+const trackDir = join(__dirname, '..', 'src', 'content', 'tracks');
+const trackSlugs = readdirSync(trackDir)
+  .filter((f) => f.endsWith('.md'))
+  .map((f) => f.replace(/\.md$/, ''));
+// Pages a lesson may link to: other lessons, the two hubs and the track pages.
+const slugs = new Set([
+  ...files.map((f) => f.replace(/\.md$/, '')),
+  'resources',
+  'tracks',
+  ...trackSlugs.map((slug) => `tracks/${slug}`),
+]);
 
 /** Public-site scrub gate: nothing internal may reach the Library. */
 const BANNED: RegExp[] = [
@@ -36,7 +50,7 @@ describe('library content scrub', () => {
       }
     });
     it(`${file} only links to library pages that exist`, () => {
-      const links = [...body.matchAll(/\]\(\/library\/([a-z0-9-]+)\)/g)].map((m) => m[1] ?? '');
+      const links = [...body.matchAll(/\]\(\/library\/([a-z0-9][a-z0-9/-]*?)\/?(?:#[^)]*)?\)/g)].map((m) => m[1] ?? '');
       for (const slug of links) {
         expect(slugs.has(slug), `${file} links to missing /library/${slug}`).toBe(true);
       }

@@ -1,11 +1,12 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import { groupBySection } from '../../lib/library';
+import { loadContent } from '../../lib/content';
 
-const sections = groupBySection(await getCollection('library'));
+const { lessons, tracks, resources } = await loadContent();
+const sections = groupBySection(lessons);
 const total = sections.reduce((sum, section) => sum + section.entries.length, 0);
 ---
 
@@ -31,6 +32,17 @@ const total = sections.reduce((sum, section) => sum + section.entries.length, 0)
         />
         <p id="library-status" role="status" aria-live="polite">{total} pages</p>
       </form>
+
+      <ul class="hubs">
+        <li>
+          <a href="/library/tracks">Learning tracks</a>
+          <p>{tracks.length === 0 ? 'Focused series of lessons, one skill at a time. Coming soon.' : `${tracks.length} focused series of lessons, one skill at a time.`}</p>
+        </li>
+        <li>
+          <a href="/library/resources">Learning resources</a>
+          <p>{resources.length === 0 ? 'Checked free courses, videos and docs from other publishers. Coming soon.' : `${resources.length} checked free courses, videos and docs from other publishers.`}</p>
+        </li>
+      </ul>
 
       <nav class="jump" aria-label="Library sections">
         {
@@ -130,6 +142,10 @@ const total = sections.reduce((sum, section) => sum + section.entries.length, 0)
   .search p {
     margin: 0;
     color: var(--ink-muted);
+  }
+  .hubs {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    margin-bottom: var(--space-6);
   }
   .jump {
     display: flex;

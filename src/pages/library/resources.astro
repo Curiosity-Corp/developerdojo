@@ -1,0 +1,209 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ResourceCard from '../../components/ResourceCard.astro';
+import { loadContent } from '../../lib/content';
+import { COSTS, FORMATS, SKILLS } from '../../lib/schemas';
+import { COST_LABELS, FORMAT_LABELS, SKILL_LABELS } from '../../lib/labels';
+
+const { resources } = await loadContent();
+const sorted = [...resources].sort(
+  (a, b) => a.data.provider.localeCompare(b.data.provider) || a.data.title.localeCompare(b.data.title),
+);
+const providers = [...new Set(sorted.map((resource) => resource.data.provider))];
+const skillsInUse = SKILLS.filter((skill) => sorted.some((resource) => resource.data.skills.includes(skill)));
+const costsInUse = COSTS.filter((cost) => sorted.some((resource) => resource.data.cost === cost));
+const formatsInUse = FORMATS.filter((format) => sorted.some((resource) => resource.data.format === format));
+---
+
+<BaseLayout
+  title="Free learning resources"
+  description="A hand-checked list of the best free courses, videos, docs and tutorials from the companies and universities that teach this work."
+>
+  <PageHero
+    compact
+    eyebrow="Library"
+    title="Learning resources"
+    subtitle="Courses, videos, docs and tutorials from other publishers that we checked and recommend. Every link was opened by a person on the date shown."
+  />
+  <section class="section">
+    <div class="container">
+      <p class="back"><a href="/library">Back to the library</a></p>
+
+      <form id="resource-filters" class="filters" aria-label="Filter resources" hidden>
+        <label>Skill
+          <select name="skill">
+            <option value="">All skills</option>
+            {skillsInUse.map((skill) => <option value={skill}>{SKILL_LABELS[skill]}</option>)}
+          </select>
+        </label>
+        <label>Provider
+          <select name="provider">
+            <option value="">All providers</option>
+            {providers.map((provider) => <option value={provider}>{provider}</option>)}
+          </select>
+        </label>
+        <label>Cost
+          <select name="cost">
+            <option value="">Any cost</option>
+            {costsInUse.map((cost) => <option value={cost}>{COST_LABELS[cost]}</option>)}
+          </select>
+        </label>
+        <label>Format
+          <select name="format">
+            <option value="">Any format</option>
+            {formatsInUse.map((format) => <option value={format}>{FORMAT_LABELS[format]}</option>)}
+          </select>
+        </label>
+        <button type="reset" class="reset">Clear filters</button>
+      </form>
+      <p id="resource-status" role="status" aria-live="polite" class="status" hidden>{sorted.length} resources</p>
+
+      {
+        sorted.length === 0 ? (
+          <p>Resources are being added. Check back soon.</p>
+        ) : (
+          <ul class="grid" id="resource-list">
+            {sorted.map((resource) => (
+              <li
+                data-resource
+                data-skills={resource.data.skills.join(' ')}
+                data-provider={resource.data.provider}
+                data-cost={resource.data.cost}
+                data-format={resource.data.format}
+              >
+                <ResourceCard resource={resource} />
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      <p id="resource-empty" hidden>No resource matches those filters. Clear a filter to see more.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Progressive enhancement: without JavaScript every resource is listed and the filters stay hidden.
+  const form = document.getElementById('resource-filters');
+  const status = document.getElementById('resource-status');
+  const empty = document.getElementById('resource-empty');
+
+  if (form instanceof HTMLFormElement && status && empty) {
+    const items = Array.from(document.querySelectorAll<HTMLElement>('[data-resource]'));
+    const total = items.length;
+    const field = (name: string): HTMLSelectElement | undefined => {
+      const element = form.elements.namedItem(name);
+      return element instanceof HTMLSelectElement ? element : undefined;
+    };
+    const fields = {
+      skill: field('skill'),
+      provider: field('provider'),
+      cost: field('cost'),
+      format: field('format'),
+    };
+
+    const apply = (): void => {
+      const skill = fields.skill?.value ?? '';
+      const provider = fields.provider?.value ?? '';
+      const cost = fields.cost?.value ?? '';
+      const format = fields.format?.value ?? '';
+      let shown = 0;
+      for (const item of items) {
+        const match =
+          (skill === '' || (item.dataset['skills'] ?? '').split(' ').includes(skill)) &&
+          (provider === '' || item.dataset['provider'] === provider) &&
+          (cost === '' || item.dataset['cost'] === cost) &&
+          (format === '' || item.dataset['format'] === format);
+        item.hidden = !match;
+        if (match) shown += 1;
+      }
+      empty.hidden = shown !== 0;
+      status.textContent = shown === total ? `${total} resources` : `${shown} of ${total} resources`;
+
+      const params = new URLSearchParams();
+      for (const [name, select] of Object.entries(fields)) {
+        if (select && select.value !== '') params.set(name, select.value);
+      }
+      const query = params.toString();
+      history.replaceState(null, '', query === '' ? location.pathname : `${location.pathname}?${query}`);
+    };
+
+    // Restore a shared link such as /library/resources?skill=ai-agents&cost=free
+    const initial = new URLSearchParams(location.search);
+    for (const [name, select] of Object.entries(fields)) {
+      const value = initial.get(name);
+      if (select && value !== null && Array.from(select.options).some((option) => option.value === value)) {
+        select.value = value;
+      }
+    }
+
+    form.addEventListener('submit', (event) => event.preventDefault());
+    form.addEventListener('change', apply);
+    // Reset fires before the fields clear, so apply on the next turn.
+    form.addEventListener('reset', () => setTimeout(apply, 0));
+    form.hidden = false;
+    status.hidden = false;
+    apply();
+  }
+</script>
+
+<style>
+  .back {
+    margin-top: 0;
+  }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-4);
+    align-items: flex-end;
+    margin-bottom: var(--space-3);
+  }
+  .filters[hidden] {
+    display: none;
+  }
+  .filters label {
+    display: grid;
+    gap: var(--space-1);
+    font-weight: 700;
+    min-width: min(100%, 12rem);
+  }
+  .filters select {
+    font: inherit;
+    padding: var(--space-2) var(--space-3);
+    border: 2px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper-raised);
+    color: inherit;
+  }
+  .filters select:focus-visible,
+  .reset:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+  }
+  .reset {
+    font: inherit;
+    font-weight: 600;
+    padding: var(--space-2) var(--space-4);
+    border: 2px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+  .status {
+    margin: 0 0 var(--space-4);
+    color: var(--ink-muted);
+  }
+  .grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 24rem), 1fr));
+    gap: var(--space-4);
+  }
+  .grid > li[hidden] {
+    display: none;
+  }
+</style>
