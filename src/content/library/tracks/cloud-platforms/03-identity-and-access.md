@@ -43,7 +43,7 @@ Every provider uses different names, but the ideas are the same. Learn these fou
 
 | Word | Meaning | Examples |
 |---|---|---|
-| **Identity** (principal) | Someone or something that can act: a person, a program, a pipeline, an agent | A user, a service account, a managed identity |
+| **Identity** (principal) | Someone or something that can act: a person, a program, a pipeline, an agent | A user, a machine identity, a managed identity |
 | **Authentication** | Proving the identity is who it claims | Password plus a second factor, or a short-lived token |
 | **Permission** | One allowed action on one kind of thing | "Read objects in this bucket" |
 | **Role / policy** | A bundle of permissions you assign to an identity at a chosen scope | "Reader", "Storage object viewer" |
@@ -69,7 +69,7 @@ When you create an account with a provider, it comes with a first, all-powerful 
 A **long-lived credential** is an access key or password that works until someone changes it. If it leaks, it is useful to an attacker for a long time. A **short-lived credential** is a token that expires in minutes or hours. Modern clouds let pipelines and programs get short-lived tokens by proving who they are, rather than storing a key. The principle:
 
 1. **People:** sign in through a central identity system with multi-factor authentication.
-2. **Pipelines and programs:** use the platform's own identity (a service account, managed identity or role) and short-lived tokens where possible.
+2. **Pipelines and programs:** use the platform's own identity (a machine identity, managed identity or role) and short-lived tokens where possible.
 3. **Long-lived keys:** avoid. If unavoidable, store them in a secret manager, scope them narrowly, rotate them on a schedule and on any suspicion. See the OWASP [Secrets Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html).
 
 The rule in the Dojo is that secrets never live in git (see the CI/CD track, lesson 4). Here you learn why the alternative exists: an identity that does not need a stored secret at all.
