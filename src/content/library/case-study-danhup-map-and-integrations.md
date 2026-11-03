@@ -38,18 +38,106 @@ The map and the register are the two Week 1 tools. They turn "I know the app" in
 
 ## Step 1: The repository map
 
-| Name | Location | Type | Purpose | Ties into | Owner | Your access | Findings |
-|---|---|---|---|---|---|---|---|
-| Site repository | Company git host; public domain set by a CNAME file | Marketing site | Public landing page "Candidate Placement". Email capture. Built from a bought coming-soon template with leftover placeholder text. | Email-capture service (notify-me form); link to the app (planned) | Not named | write | Hosting on a static page host is likely but not proven. No pricing page, calculators or briefs found. |
-| App repository | Company git host; private app address | App | Private multi-user candidate-placement portal: interest arrives, approved outreach goes out, applications are tracked, with safety rails. | Sign-in service, private network layer, gateway, mail and chat platform, AI assistant, approval cards, model provider, workflow fleet, CRM mirror | Engineering | none | Proprietary. People who plan the product see issues, boards and milestones but no code. Several local folders are only checkouts of this one repository. |
-| Planning group | Product group in GitLab | Planning | Epics and roadmap live here, with starter repositories for ops, website and repo map. | The app (each epic links to the issues the agents file there) | Product manager | write | One epic exists today. Everything else is still to be planned. That is the Master Developer's job. |
-| Mail-triage workflow fleet | A cloud resource group; code in an infrastructure repository | Cloud microservice (workflow apps) | Classify and flag recruiter mail, draft replies, call the app's controller routes. | The app, the mail platform, the chat platform | Infrastructure | none | No front door service and no cloud functions found. These are workflow apps only. Do not claim more than the evidence shows. |
-| Identity | A sign-in service shared with other products | Integration | Sign-in for every user of the app. | The app, the gateway | Platform | none | Shared with other products. |
-| Network access | Private names for the app and its API | Integration | Keeps the app off the public internet. Only members reach it. | The app, the sign-in service | Platform | none | Design choice: the app has no public DNS. |
-| CRM mirror | A schema inside the app's code and scripts | CRM | Mirror of cases and contacts for the sales view. | The app | Engineering | none | Switched **OFF** by default. The secret is not ready yet. A planned epic could finish it. |
-| Payment gateway | **NOT FOUND** | Payments | None today. No pricing or tiers exist either. | Would tie into app sign-up, CRM and finance | Nobody | none | **FINDING:** a product that sells needs a way to be paid. Is this a gap for an epic, or a decision to stay unpaid for now? Someone must decide. |
-| Ops repository | **NOT FOUND** (no dedicated repository) | Ops | Nearest things: the app's ops dashboard page, failure-modes page and cost-gate route; the workflow infrastructure repository. | The app, the workflow infrastructure | Nobody | none | **FINDING:** operations knowledge is spread across places. Candidate epic: one clear ops home. |
-| Squeeze pages, technical briefs, interactive tools | **NOT FOUND** (only the notify-me form) | Squeeze page or interactive tool | None beyond the email capture. | The site, the email-capture service | Nobody | write | **FINDING:** the brief expected these. They do not exist yet. Epics must start from what is real. |
+### Site repository
+
+- **Location:** Company git host; public domain set by a CNAME file
+- **Type:** Marketing site
+- **Purpose:** Public landing page "Candidate Placement". Email capture. Built from a bought coming-soon template with leftover placeholder text.
+- **Ties into:** Email-capture service (notify-me form); link to the app (planned)
+- **Owner:** Not named
+- **Your access:** write
+- **Findings:** Hosting on a static page host is likely but not proven. No pricing page, calculators or briefs found.
+
+### App repository
+
+- **Location:** Company git host; private app address
+- **Type:** App
+- **Purpose:** Private multi-user candidate-placement portal: interest arrives, approved outreach goes out, applications are tracked, with safety rails.
+- **Ties into:** Sign-in service, private network layer, gateway, mail and chat platform, AI assistant, approval cards, model provider, workflow fleet, CRM mirror
+- **Owner:** Engineering
+- **Your access:** none
+- **Findings:** Proprietary. People who plan the product see issues, boards and milestones but no code. Several local folders are only checkouts of this one repository.
+
+### Planning group
+
+- **Location:** Product group in GitLab
+- **Type:** Planning
+- **Purpose:** Epics and roadmap live here, with starter repositories for ops, website and repo map.
+- **Ties into:** The app (each epic links to the issues the agents file there)
+- **Owner:** Product manager
+- **Your access:** write
+- **Findings:** One epic exists today. Everything else is still to be planned. That is the Master Developer's job.
+
+### Mail-triage workflow fleet
+
+- **Location:** A cloud resource group; code in an infrastructure repository
+- **Type:** Cloud microservice (workflow apps)
+- **Purpose:** Classify and flag recruiter mail, draft replies, call the app's controller routes.
+- **Ties into:** The app, the mail platform, the chat platform
+- **Owner:** Infrastructure
+- **Your access:** none
+- **Findings:** No front door service and no cloud functions found. These are workflow apps only. Do not claim more than the evidence shows.
+
+### Identity
+
+- **Location:** A sign-in service shared with other products
+- **Type:** Integration
+- **Purpose:** Sign-in for every user of the app.
+- **Ties into:** The app, the gateway
+- **Owner:** Platform
+- **Your access:** none
+- **Findings:** Shared with other products.
+
+### Network access
+
+- **Location:** Private names for the app and its API
+- **Type:** Integration
+- **Purpose:** Keeps the app off the public internet. Only members reach it.
+- **Ties into:** The app, the sign-in service
+- **Owner:** Platform
+- **Your access:** none
+- **Findings:** Design choice: the app has no public DNS.
+
+### CRM mirror
+
+- **Location:** A schema inside the app's code and scripts
+- **Type:** CRM
+- **Purpose:** Mirror of cases and contacts for the sales view.
+- **Ties into:** The app
+- **Owner:** Engineering
+- **Your access:** none
+- **Findings:** Switched **OFF** by default. The secret is not ready yet. A planned epic could finish it.
+
+### Payment gateway
+
+- **Location:** **NOT FOUND**
+- **Type:** Payments
+- **Purpose:** None today. No pricing or tiers exist either.
+- **Ties into:** Would tie into app sign-up, CRM and finance
+- **Owner:** Nobody
+- **Your access:** none
+- **Findings:** **FINDING:** a product that sells needs a way to be paid. Is this a gap for an epic, or a decision to stay unpaid for now? Someone must decide.
+
+### Ops repository
+
+- **Location:** **NOT FOUND** (no dedicated repository)
+- **Type:** Ops
+- **Purpose:** Nearest things: the app's ops dashboard page, failure-modes page and cost-gate route; the workflow infrastructure repository.
+- **Ties into:** The app, the workflow infrastructure
+- **Owner:** Nobody
+- **Your access:** none
+- **Findings:** **FINDING:** operations knowledge is spread across places. Candidate epic: one clear ops home.
+
+### Squeeze pages, technical briefs, interactive tools
+
+- **Location:** **NOT FOUND** (only the notify-me form)
+- **Type:** Squeeze page or interactive tool
+- **Purpose:** None beyond the email capture.
+- **Ties into:** The site, the email-capture service
+- **Owner:** Nobody
+- **Your access:** write
+- **Findings:** **FINDING:** the brief expected these. They do not exist yet. Epics must start from what is real.
+
 
 ### Commentary on the map
 
@@ -61,19 +149,138 @@ The map and the register are the two Week 1 tools. They turn "I know the app" in
 
 ## Step 2: The integrations register
 
-| Tool | What it does for us | Function | Parts | Data in and out | Owner | Cost | Login method | If it stops | Status |
-|---|---|---|---|---|---|---|---|---|---|
-| Sign-in service (open-source identity server) | Sign-in for all users | Identity and security | App | Login tokens in; user id and email claims out | Platform | Self-hosted | Standard OIDC | Nobody can log in | Live |
-| Private network layer and gateway (open source) | Private network path to the app | Identity and security | App | Requests in; checked claims out | Platform | Self-hosted | A network identity | App unreachable | Live |
-| Mail, calendar and chat platform | Reads and sends mail and calendar for outreach | Sales | App, workflow fleet | Mail and calendar data | Engineering | Platform licence | Delegated OAuth | No outreach, no mail triage | Live |
-| Chat approval cards | A human approves each reply before it is sent | Operations | App | Draft in; approval out | Engineering | Included | Chat app | Replies wait or are unsafe | Live |
-| Internal AI assistant | Drafts outreach and replies | Support | App | Drafts | Engineering | Internal | Gateway token | No drafts | Live |
-| Model provider | AI features with the candidate's own key | Product and data | App | Prompts in; text out | Candidate | Candidate pays | The candidate's key, stored encrypted | AI features stop | Live |
-| Customer-record service (CRM) | CRM mirror of cases and contacts | Sales | App | Cases and contacts | Engineering | Platform licence | App registration | Sales has no CRM view | **Off** |
-| Email-capture service | Email capture on the website | Marketing | Site | Email addresses in | **Nobody** | Free or paid tier unknown | API key | No new leads captured | Live |
-| LinkedIn sign-in link | Optional profile link | Marketing | App | Profile link | Engineering | Free | OIDC | Optional link stops | Live |
-| Secrets vault with external secrets | Holds secrets for the app | Identity and security | App | Secrets (never shown) | Platform | Cloud | Managed identity | App cannot start | Live |
-| Payment gateway | Taking money from customers | Finance | (none yet) | None | Nobody | **NOT FOUND** | **NOT FOUND** | Cannot charge anyone | **NOT FOUND** |
+### Sign-in service (open-source identity server)
+
+- **What it does for us:** Sign-in for all users
+- **Function:** Identity and security
+- **Parts:** App
+- **Data in and out:** Login tokens in; user id and email claims out
+- **Owner:** Platform
+- **Cost:** Self-hosted
+- **Login method:** Standard OIDC
+- **If it stops:** Nobody can log in
+- **Status:** Live
+
+### Private network layer and gateway (open source)
+
+- **What it does for us:** Private network path to the app
+- **Function:** Identity and security
+- **Parts:** App
+- **Data in and out:** Requests in; checked claims out
+- **Owner:** Platform
+- **Cost:** Self-hosted
+- **Login method:** A network identity
+- **If it stops:** App unreachable
+- **Status:** Live
+
+### Mail, calendar and chat platform
+
+- **What it does for us:** Reads and sends mail and calendar for outreach
+- **Function:** Sales
+- **Parts:** App, workflow fleet
+- **Data in and out:** Mail and calendar data
+- **Owner:** Engineering
+- **Cost:** Platform licence
+- **Login method:** Delegated OAuth
+- **If it stops:** No outreach, no mail triage
+- **Status:** Live
+
+### Chat approval cards
+
+- **What it does for us:** A human approves each reply before it is sent
+- **Function:** Operations
+- **Parts:** App
+- **Data in and out:** Draft in; approval out
+- **Owner:** Engineering
+- **Cost:** Included
+- **Login method:** Chat app
+- **If it stops:** Replies wait or are unsafe
+- **Status:** Live
+
+### Internal AI assistant
+
+- **What it does for us:** Drafts outreach and replies
+- **Function:** Support
+- **Parts:** App
+- **Data in and out:** Drafts
+- **Owner:** Engineering
+- **Cost:** Internal
+- **Login method:** Gateway token
+- **If it stops:** No drafts
+- **Status:** Live
+
+### Model provider
+
+- **What it does for us:** AI features with the candidate's own key
+- **Function:** Product and data
+- **Parts:** App
+- **Data in and out:** Prompts in; text out
+- **Owner:** Candidate
+- **Cost:** Candidate pays
+- **Login method:** The candidate's key, stored encrypted
+- **If it stops:** AI features stop
+- **Status:** Live
+
+### Customer-record service (CRM)
+
+- **What it does for us:** CRM mirror of cases and contacts
+- **Function:** Sales
+- **Parts:** App
+- **Data in and out:** Cases and contacts
+- **Owner:** Engineering
+- **Cost:** Platform licence
+- **Login method:** App registration
+- **If it stops:** Sales has no CRM view
+- **Status:** **Off**
+
+### Email-capture service
+
+- **What it does for us:** Email capture on the website
+- **Function:** Marketing
+- **Parts:** Site
+- **Data in and out:** Email addresses in
+- **Owner:** **Nobody**
+- **Cost:** Free or paid tier unknown
+- **Login method:** API key
+- **If it stops:** No new leads captured
+- **Status:** Live
+
+### LinkedIn sign-in link
+
+- **What it does for us:** Optional profile link
+- **Function:** Marketing
+- **Parts:** App
+- **Data in and out:** Profile link
+- **Owner:** Engineering
+- **Cost:** Free
+- **Login method:** OIDC
+- **If it stops:** Optional link stops
+- **Status:** Live
+
+### Secrets vault with external secrets
+
+- **What it does for us:** Holds secrets for the app
+- **Function:** Identity and security
+- **Parts:** App
+- **Data in and out:** Secrets (never shown)
+- **Owner:** Platform
+- **Cost:** Cloud
+- **Login method:** Managed identity
+- **If it stops:** App cannot start
+- **Status:** Live
+
+### Payment gateway
+
+- **What it does for us:** Taking money from customers
+- **Function:** Finance
+- **Parts:** (none yet)
+- **Data in and out:** None
+- **Owner:** Nobody
+- **Cost:** **NOT FOUND**
+- **Login method:** **NOT FOUND**
+- **If it stops:** Cannot charge anyone
+- **Status:** **NOT FOUND**
+
 
 Note what the register does **not** contain: any secret. The login column shows the method only: "standard OIDC", "API key", "managed identity". Never the key itself.
 
