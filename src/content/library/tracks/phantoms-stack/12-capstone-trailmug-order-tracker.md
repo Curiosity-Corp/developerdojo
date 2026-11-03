@@ -21,7 +21,7 @@ resources:
   - "gitlab/create-your-first-ci-cd-pipeline"
   - "docker/compose-quickstart"
   - "owasp/rest-security-cheat-sheet"
-  - "anthropic/building-effective-ai-agents"
+  - "anthropic/building-effective-agents"
 updated: 2026-11-03
 ---
 
@@ -270,4 +270,4 @@ This whole lesson is the practice. When you finish, your repository contains:
 
 ## 10. Further learning
 
-Re-read the public starter's guides now that you have used them. The AGENTS.md convention page and Anthropic's article on building effective agents will tighten your briefs. The GitLab pipeline tutorial and Docker Compose quickstart explain the tools under your build. Next steps: the Working with AI agents track for deeper briefing and review habits, and the Master Developer assessment, where a product like this one can become part of your Product Package.
+Re-read the public starter's guides now that you have used them. The AGENTS.md convention page and Anthropic's article on building effective agents will tighten your briefs. The GitLab pipeline tutorial and Docker Compose quickstart explain the tools under your build. Next steps: the [Working with AI agents](/library/tracks/working-with-ai-agents/) track for deeper briefing and review habits, and the Master Developer assessment, where a product like this one can become part of your Product Package.

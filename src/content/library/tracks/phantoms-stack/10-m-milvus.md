@@ -19,7 +19,7 @@ resources:
   - "milvus/hybrid-search-with-milvus"
   - "milvus/index-explained"
   - "postgresql/tutorial"
-  - "owasp/llm-applications-top-10"
+  - "owasp/top-10-for-llm-applications"
 updated: 2026-11-03
 ---
 

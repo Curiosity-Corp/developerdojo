@@ -17,13 +17,13 @@ resources:
   - "ai-sdk/ai-sdk-docs"
   - "ai-sdk/providers-and-models"
   - "ai-sdk/openai-compatible-providers"
-  - "owasp/llm-applications-top-10"
-  - "anthropic/building-effective-ai-agents"
+  - "owasp/top-10-for-llm-applications"
+  - "anthropic/building-effective-agents"
   - "zod/zod-intro"
 updated: 2026-11-03
 ---
 
-This is lesson 6 of the PHANTOMS track. It supports the Master Developer module on AI-agent orchestration, and it pairs with the Working with AI agents track. A is the letter most likely to change under your feet, which is exactly why the starter treats it as a boundary and not a vendor.
+This is lesson 6 of the PHANTOMS track. It supports the Master Developer module on AI-agent orchestration, and it pairs with the [Working with AI agents](/library/tracks/working-with-ai-agents/) track. A is the letter most likely to change under your feet, which is exactly why the starter treats it as a boundary and not a vendor.
 
 ## 1. Why this matters
 

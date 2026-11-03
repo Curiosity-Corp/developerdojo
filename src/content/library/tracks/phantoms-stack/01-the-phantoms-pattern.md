@@ -17,8 +17,8 @@ resources:
   - "curiosity-corp/phantoms-starter"
   - "agents-md/agents-md"
   - "twelve-factor/the-twelve-factor-app"
-  - "anthropic/building-effective-ai-agents"
-  - "owasp/llm-applications-top-10"
+  - "anthropic/building-effective-agents"
+  - "owasp/top-10-for-llm-applications"
 updated: 2026-11-03
 ---
 

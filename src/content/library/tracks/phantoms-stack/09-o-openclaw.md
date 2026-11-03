@@ -18,8 +18,8 @@ resources:
   - "openclaw/openclaw-architecture"
   - "openclaw/openclaw-tool-permissions"
   - "openclaw/openclaw-repository"
-  - "owasp/llm-applications-top-10"
-  - "anthropic/building-effective-ai-agents"
+  - "owasp/top-10-for-llm-applications"
+  - "anthropic/building-effective-agents"
 updated: 2026-11-03
 ---
 
