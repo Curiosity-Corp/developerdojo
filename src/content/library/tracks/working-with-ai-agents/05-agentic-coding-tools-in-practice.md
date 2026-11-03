@@ -24,7 +24,7 @@ resources:
 updated: 2026-11-03
 ---
 
-Lesson 5 of the track. It supports Developer week 4 ("AI agents in practice") and the Master Developer module on orchestrating agents. You should know a little git. If you do not, read the first lesson of the Git and GitLab track first.
+Lesson 5 of the track. It supports Developer week 4 ("AI agents in practice") and the Master Developer module on orchestrating agents. You should know a little git. If you do not, read the first lesson of the [Git and GitLab](/library/tracks/git-and-gitlab) track first.
 
 ## 1. Why this matters
 
