@@ -223,7 +223,7 @@ Output four short lists.
 
 **Disclose.** The merge request description and `roadmap/decisions.md` state which parts the agent built and which checks you ran.
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson covers the climb from **delegate** to **orchestrate**. One brief to one agent is delegation. Several briefs at once, with separate paths and shared names, is orchestration. The standing definition of done, the limits in each brief and your review are the policy and the gate that keep it safe: nothing merges until a person has run the checks. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the two upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson covers the climb from **delegate** to **orchestrate**. One brief to one agent is delegation. Several briefs at once, with separate paths and shared names, is orchestration. The standing definition of done, the limits in each brief and your review are the policy and the gate that keep it safe: nothing merges until a person has run the checks. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the two upper rungs.
 
 ## 6. Common mistakes
 
@@ -270,4 +270,4 @@ Commit with a message such as `Cut epic 1 into milestones and brief milestone 1`
 
 ## 9. Further learning
 
-Atlassian's pages on the definition of done and on user stories give common language for finished work and small slices. Its guidance on project dependencies helps you spot what blocks a milestone, and its page on epics, stories and initiatives shows how the levels fit. GitLab's documentation on milestones and merge requests shows how the work and its review are tracked. Next in the product group, the [stakeholder communication track](/library/tracks/stakeholder-communication/) shows how to defend what you built to the people who pay for it.
+Atlassian's pages on the definition of done and on user stories give common language for finished work and small slices. Its guidance on project dependencies helps you spot what blocks a milestone, and its page on epics, stories and initiatives shows how the levels fit. GitLab's documentation on milestones and merge requests shows how the work and its review are tracked. Next in the product group, the stakeholder communication track (`/library/tracks/stakeholder-communication/`) shows how to defend what you built to the people who pay for it.

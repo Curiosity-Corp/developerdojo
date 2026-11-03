@@ -201,7 +201,7 @@ Output four short lists.
 
 **Disclose.** At the end of `order.md`: "AI use: arithmetic check and a practice challenge session. The scores, method, order and reasons are mine."
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **use**, on purpose. Order is strategy and stays with you. What you may orchestrate later is the work that follows from the order, not the order itself. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the two upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **use**, on purpose. Order is strategy and stays with you. What you may orchestrate later is the work that follows from the order, not the order itself. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the two upper rungs.
 
 ## 6. Common mistakes
 

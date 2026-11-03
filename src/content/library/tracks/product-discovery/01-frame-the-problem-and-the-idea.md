@@ -174,7 +174,7 @@ Answer as a numbered list. If you are not sure of a fact, say so.
 
 **Disclose.** Add a line at the bottom of the file: "AI use: sceptical review of the brief on 2026-11-03; I wrote the brief and chose what to keep." Disclosure is a Dojo rule and a professional habit. Hiding AI use is a bigger problem than the use.
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. Here you work on the **use** rung. One agent, one question at a time, and you read every answer. Do not delegate framing: it is the part that is yours. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the two upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. Here you work on the **use** rung. One agent, one question at a time, and you read every answer. Do not delegate framing: it is the part that is yours. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the two upper rungs.
 
 ## 6. Common mistakes
 

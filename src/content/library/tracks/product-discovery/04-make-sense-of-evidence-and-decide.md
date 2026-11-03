@@ -226,7 +226,7 @@ themes, show it in both. Output as two tables.
 
 **Disclose.** Add to `synthesis.md`: "Clustering was done with an AI agent from my notes; I checked quotes and wrote the insights and grades myself."
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **delegate**, and shows the edge of it. Agents can sort and count evidence, but the decision stays yours. When several agents analyse different sources, you are orchestrating. A written rule such as "no finding without a quote" is the first piece of policy, and your check of it is a gate. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the two upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **delegate**, and shows the edge of it. Agents can sort and count evidence, but the decision stays yours. When several agents analyse different sources, you are orchestrating. A written rule such as "no finding without a quote" is the first piece of policy, and your check of it is a gate. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the two upper rungs.
 
 ## 6. Common mistakes
 
