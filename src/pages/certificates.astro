@@ -1,14 +1,527 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import { RANKS } from '../lib/ranks';
+import { getCertificates } from '../lib/data';
+import { LEVEL_LABELS } from '../lib/certificates';
+
+const certificates = getCertificates();
+// Inline JSON for the client-side lookup. "<" is escaped so the data can never close the script tag.
+const registryJson = JSON.stringify(certificates).replace(/</g, '\\u003c');
+
+interface RankDetail {
+  id: (typeof RANKS)[number]['id'];
+  summary: string;
+  requirements: { text: string; href?: string }[];
+  links: { label: string; href: string }[];
+}
+const details: RankDetail[] = [
+  {
+    id: 'developer',
+    summary: 'You own one product from the first customer conversation to a launch plan, and you can show it.',
+    requirements: [
+      { text: 'Finish the six-week Developer path.', href: '/library/developer-path-overview' },
+      { text: 'Hand in a Product Package: eight parts, kept in git.', href: '/library/product-package-standard' },
+      { text: 'Present it in 15 minutes and answer questions without notes.' },
+      { text: 'Reach level 3 on all six skills in the rubric, with none below level 2.', href: '/library/product-package-rubric' },
+    ],
+    links: [
+      { label: 'Product Package standard', href: '/library/product-package-standard' },
+      { label: 'Product Package rubric', href: '/library/product-package-rubric' },
+    ],
+  },
+  {
+    id: 'master-developer',
+    summary: 'You can run the ground products stand on, launch safely, and steer AI agents across several repositories.',
+    requirements: [
+      { text: 'Study the Master Developer path: platform, open-source-first choices, GitOps and service management.', href: '/library/master-developer-overview' },
+      { text: 'Pass the four gates, each with a written test and an observed practical.' },
+      { text: 'Pass the final mixed exam and the oral review.' },
+      { text: 'Score at least 70 points and finish every mandatory item.' },
+    ],
+    links: [{ label: 'Master Developer assessment', href: '/library/master-developer-assessment' }],
+  },
+  {
+    id: 'sensei',
+    summary: 'You coach others, host live builds and review work. Sensei is by application, not by exam.',
+    requirements: [
+      { text: 'Hold a Master Developer certificate, or be invited by the Developer Dojo team.' },
+      { text: 'Apply and talk with the team about how coaching works here.' },
+      { text: 'Keep contributing: points and tiers are explained on the Sensei page.', href: '/sensei' },
+    ],
+    links: [{ label: 'How to become a Sensei', href: '/sensei#apply' }],
+  },
+];
+
+const assessment = [
+  { icon: 'shield-check', title: 'Gates', description: 'Master Developer candidates pass four gates in order. Each has a written test and a practical task that someone watches.', tone: 'olive' },
+  { icon: 'file-check', title: 'Product Package', description: 'Developer candidates hand in one folder in git that proves they own a whole product. Reviewers look at evidence, not at promises.', tone: 'gold' },
+  { icon: 'message-square', title: 'Oral review', description: 'You explain your choices out loud, without notes. Questions test judgement: why do people write the epics, why do we fix forward.', tone: 'rust' },
+  { icon: 'scale', title: 'Integrity and AI policy', description: 'You work alone unless a task says otherwise. You disclose all AI use. People write epics and roadmaps. AI never does.', tone: 'olive' },
+] as const;
 ---
 
-<BaseLayout title="Certificates" description="The Certificates page will explain how a Developer, Master Developer or Sensei certificate is earned and let anyone check a certificate against the public registry. No certificates have been issued yet, so the registry is empty.">
-  <PageHero compact title="Certificates" accent="" subtitle="Prove what you have built." />
-  <section class="section">
-    <div class="container prose">
-      <p>The Certificates page will explain how a Developer, Master Developer or Sensei certificate is earned and let anyone check a certificate against the public registry. No certificates have been issued yet, so the registry is empty.</p>
-      <p><em>This page is a foundation stub. Its full content is being built.</em></p>
+<BaseLayout
+  title="Certificates"
+  description="How a Developer, Master Developer or Sensei certificate is earned, how assessment works, and a lookup to check a certificate against the public list."
+>
+  <PageHero
+    compact
+    title="Certificates"
+    accent="."
+    subtitle="A certificate shows that you have done real work and that people have checked it. Anyone can check a certificate here."
+    ctas={[
+      { label: 'Check a certificate', href: '#verify', variant: 'primary', icon: 'arrow-right' },
+      { label: 'How assessment works', href: '#assessment', variant: 'ghost' },
+    ]}
+  />
+
+  <section class="section" id="ranks">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Three ranks"
+        title="Developer, Master Developer, Sensei"
+        intro="Each rank has its own certificate. Here is what you need to earn each one."
+      />
+      <ol class="ranks">
+        {
+          RANKS.map((rank) => {
+            const detail = details.find((d) => d.id === rank.id);
+            if (!detail) throw new Error(`No certificate details for rank ${rank.id}`);
+            return (
+              <li class={`rank tone-${rank.tone}`} id={rank.id}>
+                <div class="rank-head">
+                  <span class="tile">
+                    <Icon name={rank.icon} size={28} />
+                  </span>
+                  <h3>{rank.name}</h3>
+                </div>
+                <p class="summary">{detail.summary}</p>
+                <h4>What you need</h4>
+                <ul>
+                  {detail.requirements.map((req) => (
+                    <li>{req.href ? <a href={req.href}>{req.text}</a> : req.text}</li>
+                  ))}
+                </ul>
+                <p class="more">
+                  {detail.links.map((link) => (
+                    <a href={link.href}>
+                      {link.label} <Icon name="arrow-right" size={16} />
+                    </a>
+                  ))}
+                </p>
+              </li>
+            );
+          })
+        }
+      </ol>
     </div>
   </section>
+
+  <section class="section alt" id="assessment">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Assessment"
+        title="How assessment works"
+        intro="You are judged on evidence in git, not on memory alone. Everything is checked by people."
+      />
+      <FeatureGrid items={assessment} columns={4} />
+      <p class="after">
+        Read the full rules: <a href="/library/master-developer-assessment">Master Developer assessment</a>{', '}
+        <a href="/library/product-package-standard">Product Package standard</a>{', '}
+        <a href="/library/people-write-epics">why people write epics</a>{' and '}
+        <a href="/library/disclose-ai-use">how to disclose AI use</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="validity">
+    <div class="container valid">
+      <SectionHeader
+        eyebrow="Validity"
+        title="Certificates are renewed every year"
+        intro="Tools and good practice change, so a certificate is valid for one year. To renew, your recent work is reviewed again. A certificate that has not been renewed after a year is no longer valid."
+      />
+    </div>
+  </section>
+
+  <section class="section verify" id="verify">
+    <div class="container verify-grid">
+      <div>
+        <SectionHeader
+          eyebrow="Verify"
+          title="Verify a certificate"
+          intro="Type the certificate ID printed on the certificate, or the holder's name. We check it against the public list of certificates on this page."
+        />
+        <form id="verify-form" class="verify-form" role="search" hidden novalidate>
+          <label for="verify-query">Certificate ID or name</label>
+          <div class="row">
+            <input id="verify-query" name="q" type="text" autocomplete="off" spellcheck="false" placeholder="For example DD-2027-0001" />
+            <button type="submit" class="btn">Check certificate</button>
+          </div>
+        </form>
+        <p class="honest" id="verify-nojs">
+          Search needs JavaScript. Without it, use the full list of issued certificates on this page: every
+          certificate we have issued is in it.
+        </p>
+        <div id="verify-result" role="status" aria-live="polite" class="result" hidden></div>
+        <details class="how">
+          <summary>How verification works</summary>
+          <ul>
+            <li>A certificate is real only if it appears in this public list. The list is part of this site's source code in git, so every change is recorded.</li>
+            <li>We list a person only when they agreed to be listed.</li>
+            <li>A name can be shared by more than one person. Check the ID, the rank and the date too.</li>
+            <li>If you are shown a certificate that you cannot find here, treat it as unverified. <a href="/contact">Contact us</a> with the ID and we will check.</li>
+          </ul>
+        </details>
+      </div>
+
+      <div>
+        <h3 class="list-title">All issued certificates</h3>
+        {
+          certificates.length === 0 ? (
+            <p class="empty" data-registry-empty>
+              <strong>No certificates have been issued yet.</strong> Developer Dojo is new, so this list is empty. Every
+              certificate that is issued will be added here, and no entry exists before the real certificate does.
+            </p>
+          ) : (
+            <div class="table-wrap">
+              <table class="registry">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Issued</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {certificates.map((cert) => (
+                    <tr>
+                      <td><code>{cert.code}</code></td>
+                      <td>{cert.holder}</td>
+                      <td>{LEVEL_LABELS[cert.level]}</td>
+                      <td>{cert.issuedOn}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container ctas">
+      <Button href="/train" variant="primary" icon="arrow-right">Start the Developer path</Button>
+      <Button href="/sensei" variant="outline">Become a Sensei</Button>
+    </div>
+  </section>
+
+  <script type="application/json" id="cert-registry" set:html={registryJson} />
 </BaseLayout>
+
+<script>
+  import { certificatesSchema, type Certificate } from '../lib/schemas';
+  import { LEVEL_LABELS, lookupCertificate, MIN_NAME_QUERY } from '../lib/certificates';
+
+  const form = document.getElementById('verify-form');
+  const input = document.getElementById('verify-query');
+  const result = document.getElementById('verify-result');
+  const source = document.getElementById('cert-registry');
+  const nojs = document.getElementById('verify-nojs');
+
+  if (
+    form instanceof HTMLFormElement &&
+    input instanceof HTMLInputElement &&
+    result instanceof HTMLElement &&
+    source instanceof HTMLElement
+  ) {
+    form.hidden = false;
+    if (nojs) nojs.hidden = true;
+
+    // The registry is read and validated on every check, so a damaged list is reported, never trusted.
+    const readRegistry = (): { ok: true; registry: Certificate[] } | { ok: false; message: string } => {
+      let raw: unknown;
+      try {
+        raw = JSON.parse(source.textContent ?? '');
+      } catch {
+        return { ok: false, message: 'The list of certificates could not be read.' };
+      }
+      const parsed = certificatesSchema.safeParse(raw);
+      if (!parsed.success) {
+        return { ok: false, message: 'The list of certificates is not in the expected format.' };
+      }
+      return { ok: true, registry: parsed.data };
+    };
+
+    const show = (state: string, nodes: Node[]): void => {
+      result.replaceChildren(...nodes);
+      result.dataset.state = state;
+      result.hidden = false;
+    };
+    const p = (text: string, strong?: string): HTMLParagraphElement => {
+      const el = document.createElement('p');
+      if (strong) {
+        const b = document.createElement('strong');
+        b.textContent = strong;
+        el.append(b, ' ');
+      }
+      el.append(text);
+      return el;
+    };
+    const contactLink = (): HTMLAnchorElement => {
+      const a = document.createElement('a');
+      a.href = '/contact';
+      a.textContent = 'contact us';
+      return a;
+    };
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const loaded = readRegistry();
+      if (!loaded.ok) {
+        show('error', [p(`${loaded.message} Please try again later, or `, 'Could not check.')]);
+        result.lastElementChild?.append(contactLink(), '.');
+        return;
+      }
+      const outcome = lookupCertificate(loaded.registry, input.value);
+      if (outcome.kind === 'empty-query') {
+        show('hint', [p('Type a certificate ID or a name first.')]);
+      } else if (outcome.kind === 'too-short') {
+        show('hint', [p(`Type at least ${MIN_NAME_QUERY} characters of the name, or the whole certificate ID.`)]);
+      } else if (outcome.kind === 'not-found') {
+        const note =
+          loaded.registry.length === 0
+            ? 'The public list is empty because no certificates have been issued yet, so nothing can match.'
+            : 'Check the spelling, or try the ID printed on the certificate.';
+        const el = p(`${note} A certificate that is not in this list cannot be verified. If someone showed you one, `, 'Not found.');
+        el.append(contactLink(), ' with its ID and we will check.');
+        show('not-found', [el]);
+      } else {
+        show(
+          'found',
+          outcome.matches.map((cert) => {
+            const card = document.createElement('div');
+            card.className = 'match';
+            card.dataset.code = cert.code;
+            card.append(
+              p(`${cert.holder}, ${LEVEL_LABELS[cert.level]}. ID ${cert.code}. Issued ${cert.issuedOn}.`, 'Verified.'),
+            );
+            if (cert.evidenceUrl) {
+              const link = document.createElement('a');
+              link.href = cert.evidenceUrl;
+              link.rel = 'noopener noreferrer';
+              link.textContent = 'See the holder’s shared work';
+              card.append(link);
+            }
+            return card;
+          }),
+        );
+      }
+    });
+  }
+</script>
+
+<style>
+  .alt {
+    background: var(--paper-sunk);
+  }
+  .ranks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-5);
+  }
+  @media (min-width: 62rem) {
+    .ranks {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .rank {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-bottom: 6px solid var(--tone);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    scroll-margin-top: calc(var(--header-h) + var(--space-4));
+  }
+  .tone-olive {
+    --tone: var(--tone-olive);
+  }
+  .tone-gold {
+    --tone: var(--tone-gold);
+  }
+  .tone-rust {
+    --tone: var(--tone-rust);
+  }
+  .rank-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .rank-head h3 {
+    margin: 0;
+  }
+  .tile {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    background: var(--tone);
+    color: #fbf6e8;
+  }
+  .summary {
+    color: var(--ink-muted);
+  }
+  .rank h4 {
+    margin: var(--space-3) 0 var(--space-2);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .rank ul {
+    margin: 0;
+    padding-inline-start: 1.2rem;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .more {
+    margin: auto 0 0;
+    padding-top: var(--space-4);
+    display: grid;
+    gap: var(--space-2);
+    font-weight: 600;
+  }
+  .more :global(svg) {
+    vertical-align: -3px;
+  }
+  .after {
+    margin-top: var(--space-5);
+    max-width: 72ch;
+  }
+  .valid :global(p) {
+    max-width: 68ch;
+  }
+  .verify {
+    background: var(--paper-sunk);
+  }
+  .verify-grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+  @media (min-width: 62rem) {
+    .verify-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+  .verify-form {
+    margin-top: var(--space-4);
+  }
+  .verify-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+  }
+  .verify-form .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  .verify-form input {
+    flex: 1 1 14rem;
+    min-width: 0;
+    padding: var(--space-3) var(--space-4);
+    font: inherit;
+    color: var(--ink);
+    background: var(--paper-raised);
+    border: 2px solid var(--line-strong);
+    border-radius: var(--radius);
+  }
+  .btn {
+    padding: var(--space-3) var(--space-5);
+    font: inherit;
+    font-weight: 700;
+    background: var(--gold);
+    color: var(--gold-ink);
+    border: 0;
+    border-radius: var(--radius);
+    cursor: pointer;
+  }
+  .btn:hover {
+    background: var(--gold-strong);
+  }
+  .result {
+    margin-top: var(--space-4);
+    padding: var(--space-4);
+    background: var(--paper-raised);
+    border: 1px solid var(--line-strong);
+    border-inline-start: 6px solid var(--gold-strong);
+    border-radius: var(--radius);
+  }
+  .result[data-state='found'] {
+    border-inline-start-color: var(--olive);
+  }
+  .result[data-state='not-found'],
+  .result[data-state='error'] {
+    border-inline-start-color: var(--rust);
+  }
+  .result :global(p) {
+    margin: 0;
+  }
+  .result :global(.match + .match) {
+    margin-top: var(--space-3);
+  }
+  .how {
+    margin-top: var(--space-4);
+  }
+  .how summary {
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .how ul {
+    padding-inline-start: 1.2rem;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .honest,
+  .empty {
+    padding: var(--space-4);
+    background: var(--paper-raised);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius);
+  }
+  .list-title {
+    margin-top: 0;
+  }
+  .table-wrap {
+    overflow-x: auto;
+  }
+  .registry {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .registry th,
+  .registry td {
+    text-align: start;
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--line);
+  }
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+</style>

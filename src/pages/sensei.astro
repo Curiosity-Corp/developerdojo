@@ -1,14 +1,434 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import NoteCard from '../components/NoteCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import RankPath from '../components/RankPath.astro';
+import DarkPanel from '../components/DarkPanel.astro';
+import EventList from '../components/EventList.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+
+const earnRows = [
+  { icon: 'star', label: 'Hours shared', value: '100 pts', unit: 'for every hour' },
+  { icon: 'users', label: 'Mentoring', value: '+50 pts', unit: 'per session' },
+  { icon: 'circle-play', label: 'Live build bonus', value: '+500 pts', unit: 'per live build' },
+  { icon: 'award', label: 'Certification bonus', value: '+1,000 pts', unit: 'per certification' },
+];
+
+const tiers = [
+  { name: 'Tier 1', points: '10,000', tone: 'olive', text: 'You have started well. You help builders on a regular basis.' },
+  { name: 'Tier 2', points: '25,000', tone: 'gold', text: 'You give steady, reliable help over many weeks.' },
+  { name: 'Tier 3', points: '50,000', tone: 'rust', text: 'You are a leader in the community and others learn from you.' },
+];
+
+const contribute = [
+  { icon: 'circle-play', title: 'Host live builds', description: 'Plan and run live sessions where a real product is built in front of the community.', tone: 'olive' },
+  { icon: 'screen-share', title: 'Share your screen while building', description: 'Work in the open, explain your choices, and solve problems out loud.', tone: 'gold' },
+  { icon: 'users', title: 'Coach junior developers', description: 'Guide, unblock, and help new developers turn ideas into working products.', tone: 'rust' },
+  { icon: 'map', title: 'Review roadmaps and launches', description: 'Give clear feedback on plans, progress and launch readiness.', tone: 'olive' },
+  { icon: 'calendar-days', title: 'Run office hours', description: 'Hold focused question and answer times or one-to-one help for builders.', tone: 'gold' },
+] as const;
+
+const levelUp = [
+  { icon: 'award', title: 'Earn certifications', description: 'Build trust and show your skill.', tone: 'olive' },
+  { icon: 'layers', title: 'Complete product builds', description: 'Ship real products and show you can finish the job.', tone: 'gold' },
+  { icon: 'users', title: 'Mentor consistently', description: 'Show up, support builders, and make steady impact.', tone: 'rust' },
+  { icon: 'trending-up', title: 'Climb the tiers', description: 'Collect points as you contribute and move up the tier ladder.', tone: 'olive' },
+] as const;
+
+const measured = [
+  { icon: 'clock', title: 'Time spent helping others', description: 'Live sessions, mentoring and office hours.' },
+  { icon: 'award', title: 'Certifications earned', description: 'Skills and product knowledge that have been checked.' },
+  { icon: 'users', title: 'Taking part in live work', description: 'Live builds, reviews and real-time support.' },
+];
+
+const steps = [
+  { title: 'Check you can apply', text: 'You are a certified Master Developer, or you have been invited by the Developer Dojo team.' },
+  { title: 'Tell us about your work', text: 'Share what you have built, who you have helped, and which kind of help you want to give.' },
+  { title: 'Talk with the team', text: 'A short conversation about how coaching works here and our Code of conduct.' },
+  { title: 'Start with a first session', text: 'You begin with one supported session. Your points are counted from then on.' },
+];
 ---
 
-<BaseLayout title="Become a Sensei" description="The Sensei page will explain what a Sensei does, how contribution is measured in points and tiers, and how to apply. Rewards are being finalised and nothing is promised until they are announced.">
-  <PageHero compact title="Become a Sensei" accent="." subtitle="Coach builders, host live sessions, review work, and earn recognition for helping others launch real products." />
-  <section class="section">
-    <div class="container prose">
-      <p>The Sensei page will explain what a Sensei does, how contribution is measured in points and tiers, and how to apply. Rewards are being finalised and nothing is promised until they are announced.</p>
-      <p><em>This page is a foundation stub. Its full content is being built.</em></p>
+<BaseLayout
+  title="Become a Sensei"
+  description="Coach builders, host live sessions and review work. See how a Sensei earns points, how the tiers work, and how to apply."
+>
+  <PageHero
+    title="Become a Sensei"
+    accent="."
+    subtitle="Coach builders, host live sessions, review work, and earn recognition for helping others launch real products."
+    ctas={[
+      { label: 'Apply to become a Sensei', href: '#apply', variant: 'primary', icon: 'arrow-right' },
+      { label: 'See how Sensei works', href: '#how-it-works', variant: 'ghost', icon: 'play' },
+    ]}
+  >
+    <NoteCard
+      slot="side"
+      title="The Sensei Program"
+      items={[
+        'Coach and mentor builders',
+        'Host live builds',
+        'Review work and give feedback',
+        'Work with junior developers',
+        'Earn points and tier recognition',
+      ]}
+    />
+  </PageHero>
+
+  <section class="section path">
+    <div class="container path-grid">
+      <SectionHeader
+        eyebrow="Rank path"
+        title="The path from builder to Sensei"
+        intro="A clear step-by-step path for members who build, ship, and then give back to the community through coaching, live builds and reviews."
+      />
+      <RankPath highlight="sensei" linked />
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <DarkPanel
+        split
+        icon="circle-play"
+        title="Watch other developers building in real time"
+        text="Live product builds, real decisions, and practical problem solving from our community of builders and Sensei."
+      >
+        <EventList limit={3} />
+      </DarkPanel>
+    </div>
+  </section>
+
+  <section class="section" id="how-it-works">
+    <div class="container earn-grid">
+      <div class="earn">
+        <SectionHeader
+          title="How Sensei earn"
+          intro="Share your time, help builders, and turn your impact into points."
+        />
+        <table class="points">
+          <caption class="visually-hidden">Points a Sensei earns</caption>
+          <thead>
+            <tr><th scope="col">What you do</th><th scope="col">Points</th></tr>
+          </thead>
+          <tbody>
+            {
+              earnRows.map((row) => (
+                <tr>
+                  <th scope="row">
+                    <Icon name={row.icon} size={20} />
+                    <span>{row.label}</span>
+                  </th>
+                  <td>
+                    <strong>{row.value}</strong> <span class="unit">{row.unit}</span>
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="ladder">
+        <SectionHeader
+          title="Sensei tier ladder"
+          intro="More contribution means a higher tier. Each tier begins at a points total."
+        />
+        <ol class="tiers">
+          {
+            tiers.map((tier) => (
+              <li class={`tier tone-${tier.tone}`}>
+                <span class="badge">{tier.name}</span>
+                <span class="tier-text">{tier.text}</span>
+                <span class="threshold">
+                  From <strong>{tier.points}</strong> pts
+                </span>
+              </li>
+            ))
+          }
+        </ol>
+        <p class="note">
+          <Icon name="info" size={18} />
+          <span>Rewards for each tier are being finalised. Nothing is promised until they are announced here.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight alt">
+    <div class="container">
+      <SectionHeader
+        title="How you contribute"
+        intro="Real ways to help others become developers, build products, and grow in confidence."
+      />
+      <FeatureGrid items={contribute} columns={3} />
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <SectionHeader
+        title="How you level up"
+        intro="Grow your impact and move up the Sensei tiers."
+      />
+      <FeatureGrid items={levelUp} columns={4} />
+    </div>
+  </section>
+
+  <section class="section section--tight measure">
+    <div class="container">
+      <SectionHeader title="Contribution is measured by" tone="paper" />
+      <FeatureGrid items={measured} columns={3} variant="inline" />
+    </div>
+  </section>
+
+  <section class="section apply" id="apply">
+    <div class="container apply-grid">
+      <div>
+        <SectionHeader
+          eyebrow="Apply"
+          title="How to apply to become a Sensei"
+          intro="Sensei applications are not open yet. This is how it will work, so you can get ready."
+        />
+        <h3 class="req-title">Who can apply</h3>
+        <ul class="req">
+          <li>You are a certified <a href="/certificates">Master Developer</a>, or the Developer Dojo team has invited you.</li>
+          <li>You can show real products or real help you have given to others.</li>
+          <li>You agree to the <a href="/code-of-conduct">Code of conduct</a> and to <a href="/library/disclose-ai-use">disclose AI use</a>.</li>
+        </ul>
+      </div>
+      <div>
+        <ol class="steps">
+          {
+            steps.map((step) => (
+              <li>
+                <strong>{step.title}</strong>
+                <span>{step.text}</span>
+              </li>
+            ))
+          }
+        </ol>
+        <p class="honest">
+          <strong>Applications open soon.</strong> There is no application form yet and we do not list an email address
+          here. To be told when applications open, or to ask a question first, use the{' '}
+          <a href="/contact">contact page</a>.
+        </p>
+        <div class="ctas">
+          <Button href="/contact" variant="primary" icon="arrow-right">Apply to become a Sensei</Button>
+          <Button href="/contact" variant="outline" icon="calendar-days">Book a coaching session</Button>
+        </div>
+        <p class="small">
+          Coaching sessions are not scheduled yet. The contact page explains how to ask for one.
+        </p>
+      </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .path-grid {
+    display: grid;
+    gap: var(--space-5);
+  }
+  @media (min-width: 62rem) {
+    .path-grid {
+      grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+      align-items: center;
+    }
+  }
+  .earn-grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+  @media (min-width: 62rem) {
+    .earn-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+  .earn,
+  .ladder {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    box-shadow: var(--shadow);
+  }
+  .points {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: var(--space-4);
+  }
+  .points thead {
+    position: absolute;
+    left: -9999px;
+  }
+  .points th,
+  .points td {
+    padding: var(--space-3) var(--space-2);
+    border-bottom: 1px solid var(--line);
+    text-align: start;
+    font-weight: 500;
+  }
+  .points tr:last-child th,
+  .points tr:last-child td {
+    border-bottom: 0;
+  }
+  .points th span {
+    margin-inline-start: var(--space-3);
+  }
+  .points th :global(svg) {
+    vertical-align: -4px;
+    color: var(--gold-text);
+  }
+  .points td {
+    text-align: end;
+  }
+  .points td strong {
+    font-size: var(--text-lg);
+    color: var(--ink);
+  }
+  .unit {
+    color: var(--ink-muted);
+    font-size: var(--text-sm);
+  }
+  .tiers {
+    list-style: none;
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .tier {
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1fr) auto;
+    gap: var(--space-3);
+    align-items: center;
+  }
+  .badge {
+    background: var(--tone);
+    color: #fbf6e8;
+    font-weight: 700;
+    text-align: center;
+    padding: var(--space-2) var(--space-3);
+    border-radius: 6px;
+  }
+  .tier-text {
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+  }
+  .threshold {
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+    white-space: nowrap;
+  }
+  @media (max-width: 36rem) {
+    .tier {
+      grid-template-columns: 5.5rem minmax(0, 1fr);
+    }
+    .threshold {
+      grid-column: 1 / -1;
+      justify-self: start;
+    }
+  }
+  .tone-olive {
+    --tone: var(--tone-olive);
+  }
+  .tone-gold {
+    --tone: var(--tone-gold);
+  }
+  .tone-rust {
+    --tone: var(--tone-rust);
+  }
+  .note {
+    display: flex;
+    gap: var(--space-2);
+    align-items: flex-start;
+    margin: var(--space-4) 0 0;
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+  }
+  .note :global(svg) {
+    flex: none;
+    margin-top: 2px;
+  }
+  .alt {
+    background: var(--paper-sunk);
+  }
+  .measure :global(h2) {
+    margin-bottom: var(--space-4);
+  }
+  .apply {
+    background: var(--paper-sunk);
+  }
+  .apply-grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+  @media (min-width: 62rem) {
+    .apply-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+  .req-title {
+    margin-top: var(--space-5);
+  }
+  .req {
+    padding-inline-start: 1.2rem;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: step;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .steps li {
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+    column-gap: var(--space-3);
+    align-items: start;
+  }
+  .steps li::before {
+    content: counter(step);
+    grid-row: 1 / span 2;
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: var(--band);
+    color: var(--band-text);
+    font-weight: 700;
+  }
+  .steps span {
+    color: var(--ink-muted);
+  }
+  .honest {
+    margin-top: var(--space-5);
+    padding: var(--space-4);
+    background: var(--paper-raised);
+    border: 1px solid var(--line-strong);
+    border-inline-start: 6px solid var(--gold-strong);
+    border-radius: var(--radius);
+  }
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+  .small {
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+  }
+</style>
