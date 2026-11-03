@@ -17,7 +17,7 @@ resources:
   - osi/licenses
   - spdx/license-list
   - openssf/scorecard
-  - adr/adr-github-io
+  - adr/architectural-decision-records
   - cognitect/documenting-architecture-decisions
 prerequisites:
   - deck-11-backstage-and-itsm-role-map

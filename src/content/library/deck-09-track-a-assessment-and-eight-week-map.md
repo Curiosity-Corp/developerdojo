@@ -11,7 +11,7 @@ outcomes:
   - "Describe the five stages of the Master Developer path and what comes after."
   - "List the six themes of Track B and the one rule that does not change."
 resources:
-  - dora/dora
+  - dora/dora-research-program
   - gov-uk/service-manual-agile-delivery
   - atlassian/what-is-agile
   - gitlab/university

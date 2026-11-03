@@ -11,10 +11,10 @@ outcomes:
   - "Name the four gates, the exam, the oral review and the badge, and the pass marks."
   - "List the five critical behaviours and say what happens if you fail one."
 resources:
-  - dora/dora
+  - dora/dora-research-program
   - gitlab/merge-requests
   - google-sre/postmortem-culture
-  - adr/adr-github-io
+  - adr/architectural-decision-records
   - opengitops/principles
   - atlassian/change-management
 prerequisites:

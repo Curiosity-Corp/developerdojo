@@ -1,9 +1,0 @@
-title: "The Twelve-Factor App"
-provider: "Adam Wiggins"
-url: "https://12factor.net/"
-cost: "free"
-format: "article"
-level: "intermediate"
-skills: [cloud-platforms, ci-cd]
-summary: "Twelve principles for building apps that deploy cleanly in the cloud, such as keeping configuration out of code. It is a classic that explains why secrets and config live outside the repository. Read the introduction and the config section."
-verifiedOn: 2026-11-03

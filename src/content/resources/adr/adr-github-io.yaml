@@ -1,9 +1,0 @@
-title: "Architectural Decision Records"
-provider: "ADR community"
-url: "https://adr.github.io/"
-cost: "free"
-format: "docs"
-level: "beginner"
-skills: [open-source, communication-writing]
-summary: "The community hub for architecture decision records, with templates and examples. It shows several common layouts so you can compare them with the decision record template. Read the introduction and one template."
-verifiedOn: 2026-11-03
