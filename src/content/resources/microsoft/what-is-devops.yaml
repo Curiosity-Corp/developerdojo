@@ -1,0 +1,9 @@
+title: "What is DevOps?"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/devops/what-is-devops"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [ci-cd, agile-delivery]
+summary: "Microsoft Learn's overview of DevOps: people, process and products working together to deliver value continuously. Read it as a second opinion next to the Atlassian page."
+verifiedOn: 2026-11-03

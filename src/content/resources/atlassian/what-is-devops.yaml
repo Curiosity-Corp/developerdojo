@@ -1,0 +1,9 @@
+title: "What is DevOps?"
+provider: "Atlassian"
+url: "https://www.atlassian.com/devops"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [ci-cd, agile-delivery]
+summary: "Explains DevOps as a way for development and operations to work together, with the usual practices (continuous delivery, monitoring, feedback). Good for seeing the loop that ANDROID Ops keeps."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "What is MLOps?"
+provider: "AWS"
+url: "https://aws.amazon.com/what-is/mlops/"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [ai-evaluation, ci-cd]
+summary: "A plain explanation of MLOps, why models need operations too, and how teams organise the work. Useful for the part of ANDROID Ops that covers AI features."
+verifiedOn: 2026-11-03

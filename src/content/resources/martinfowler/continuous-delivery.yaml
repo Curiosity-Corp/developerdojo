@@ -1,0 +1,9 @@
+title: "Continuous Delivery"
+provider: "Martin Fowler"
+url: "https://martinfowler.com/bliki/ContinuousDelivery.html"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [ci-cd]
+summary: "A short, clear definition of continuous delivery by a well-known author: keep the software always in a releasable state. It gives you a test for your own pipeline."
+verifiedOn: 2026-11-03
