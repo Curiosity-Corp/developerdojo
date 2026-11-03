@@ -2,13 +2,28 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
+import { groupBySection } from '../../lib/library';
 
 export async function getStaticPaths() {
   const entries = await getCollection('library');
-  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+  const sections = groupBySection(entries);
+  return entries.map((entry) => {
+    const siblings = sections.find((section) => section.name === entry.data.section)?.entries ?? [];
+    const index = siblings.findIndex((item) => item.id === entry.id);
+    const previous = index > 0 ? siblings[index - 1] : undefined;
+    const next = index >= 0 && index < siblings.length - 1 ? siblings[index + 1] : undefined;
+    return {
+      params: { slug: entry.id },
+      props: {
+        entry,
+        previous: previous ? { id: previous.id, title: previous.data.title } : undefined,
+        next: next ? { id: next.id, title: next.data.title } : undefined,
+      },
+    };
+  });
 }
 
-const { entry } = Astro.props;
+const { entry, previous, next } = Astro.props;
 const { Content } = await render(entry);
 ---
 
@@ -17,7 +32,26 @@ const { Content } = await render(entry);
   <article class="section">
     <div class="container prose">
       <Content />
+      <nav class="pager" aria-label="More in this section">
+        {previous && <a href={`/library/${previous.id}`}>Previous: {previous.title}</a>}
+        {next && <a href={`/library/${next.id}`}>Next: {next.title}</a>}
+      </nav>
       <p><a href="/library">Back to the library</a></p>
     </div>
   </article>
 </BaseLayout>
+
+<style>
+  .pager {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--line);
+  }
+  .pager a {
+    font-weight: 600;
+  }
+</style>
