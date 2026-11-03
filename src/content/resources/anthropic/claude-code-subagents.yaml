@@ -1,0 +1,9 @@
+title: "Create custom subagents"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/sub-agents"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents]
+summary: "How to define subagents with their own instructions, tools and model in Claude Code. It shows how to give a helper only the access its job needs. Use it when you design the sessions under each Commander."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Measuring AI agent autonomy in practice"
+provider: "Anthropic"
+url: "https://www.anthropic.com/research/measuring-agent-autonomy"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [ai-agents, ai-evaluation]
+summary: "Anthropic's research on how much freedom people actually give agents and how that changes with experience. It is a good model of measuring autonomy from evidence instead of from what a team says it does. Read it when you write the scorecard and the autonomy section of your briefing."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Claude Code in Action"
+provider: "Anthropic"
+url: "https://anthropic.skilljar.com/claude-code-in-action"
+cost: "free"
+format: "course"
+level: "intermediate"
+skills: [ai-agents]
+summary: "A free Anthropic Academy course on running long, hands-off Claude Code sessions you can trust: steering, configuring, enforcing rules that cannot be skipped, automating and verifying. It matches the use-to-govern ladder closely. Take it alongside the labs in this track. Registration is free."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Deploy managed settings"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/managed-settings"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents, security]
+summary: "How an organisation can deploy settings and hooks that individual developers cannot override. Read it to see company-level policy enforced as data, and to decide what you would put at that level for a team."
+verifiedOn: 2026-11-03

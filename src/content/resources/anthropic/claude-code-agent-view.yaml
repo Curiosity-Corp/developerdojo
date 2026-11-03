@@ -1,0 +1,9 @@
+title: "Manage multiple agents with agent view"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/agent-view"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents]
+summary: "Shows how to monitor and dispatch several background Claude Code sessions from one screen. It is a practical way to see your sessions at a glance while you run the labs."
+verifiedOn: 2026-11-03

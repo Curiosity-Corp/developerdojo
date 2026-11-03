@@ -1,0 +1,9 @@
+title: "Agent orchestration"
+provider: "OpenAI"
+url: "https://openai.github.io/openai-agents-python/multi_agent/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents]
+summary: "OpenAI's guide to two ways of orchestrating agents: let a model decide the flow, or decide it in code. It names the patterns you meet when you design a chain of command. Read it with the command chain lesson."
+verifiedOn: 2026-11-03

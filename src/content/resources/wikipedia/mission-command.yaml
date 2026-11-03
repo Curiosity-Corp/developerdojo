@@ -1,0 +1,9 @@
+title: "Mission command"
+provider: "Wikipedia"
+url: "https://en.wikipedia.org/wiki/Mission_command"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [stakeholder-communication, ai-agents]
+summary: "An encyclopedia article on mission command, the idea of giving subordinates the intent and the limits and letting them choose the method. It is the human origin of writing outcomes, not instructions, for agents."
+verifiedOn: 2026-11-03
