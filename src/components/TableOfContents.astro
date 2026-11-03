@@ -1,0 +1,100 @@
+---
+/**
+ * On-page table of contents from the rendered headings (h2 and h3).
+ * Wide screens: a sticky side list. Narrow screens: a collapsed "On this page" disclosure.
+ * The page renders it twice: variant "inline" in the article column (hidden on wide screens) and
+ * variant "side" in the aside (hidden on narrow screens). Hidden copies are display:none, so only
+ * one is in the accessibility tree at a time.
+ * Props: headings ({ depth, slug, text }[]), variant ("inline" | "side")
+ */
+import { tocHeadings, type Heading } from '../lib/lesson';
+
+interface Props {
+  headings: Heading[];
+  variant: 'inline' | 'side';
+}
+const { headings, variant } = Astro.props;
+const items = tocHeadings(headings);
+---
+
+{
+  items.length > 1 && variant === 'inline' && (
+    <nav class="toc toc-inline" aria-label="On this page">
+      <details>
+        <summary>On this page</summary>
+        <ol>
+          {items.map((item) => (
+            <li class={`depth-${item.depth}`}>
+              <a href={`#${item.slug}`}>{item.text}</a>
+            </li>
+          ))}
+        </ol>
+      </details>
+    </nav>
+  )
+}
+{
+  items.length > 1 && variant === 'side' && (
+    <nav class="toc toc-side" aria-label="Table of contents">
+      <p class="toc-title" aria-hidden="true">On this page</p>
+      <ol>
+        {items.map((item) => (
+          <li class={`depth-${item.depth}`}>
+            <a href={`#${item.slug}`}>{item.text}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}
+
+<style>
+  .toc ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+  }
+  .depth-3 {
+    padding-left: var(--space-4);
+  }
+  .toc a {
+    text-decoration: none;
+  }
+  .toc a:hover {
+    text-decoration: underline;
+  }
+  .toc-inline {
+    margin-bottom: var(--space-5);
+    padding: var(--space-3) var(--space-4);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .toc-inline summary {
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .toc-inline ol {
+    margin-top: var(--space-3);
+  }
+  @media (min-width: 70rem) {
+    .toc-inline {
+      display: none;
+    }
+    .toc-side {
+      position: sticky;
+      top: calc(var(--header-h) + var(--space-4));
+      max-height: calc(100vh - var(--header-h) - var(--space-6));
+      overflow-y: auto;
+      padding: var(--space-3) var(--space-4);
+      border-left: 3px solid var(--gold);
+    }
+    .toc-title {
+      margin: 0 0 var(--space-3);
+      font-weight: 700;
+    }
+  }
+</style>

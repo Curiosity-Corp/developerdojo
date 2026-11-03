@@ -20,7 +20,7 @@ test('library groups pages by section and filters client-side', async ({ page })
 test('a library page renders and links onward', async ({ page }) => {
   await page.goto('/library/people-write-epics');
   await expect(page.locator('h1')).toHaveText('People write epics');
-  await page.getByRole('link', { name: /Next:/ }).click();
+  await page.getByRole('navigation', { name: /^More in / }).locator('a.next').click();
   await expect(page).toHaveURL(/\/library\/git-is-the-source-of-truth/);
 });
 

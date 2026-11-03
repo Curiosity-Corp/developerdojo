@@ -121,6 +121,20 @@ const masterChecks = [
     </div>
   </section>
 
+  <section class="section tight" aria-label="Learning tracks">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Go deeper"
+        title="Learning tracks"
+        intro="Focused series of lessons on one skill at a time, each with the best free courses and videos from other publishers."
+      />
+      <p class="track-links">
+        <a class="path-link" href="/library/tracks">Browse the learning tracks <Icon name="arrow-right" size={16} /></a>
+        <a class="path-link" href="/library/resources">Free courses and videos we recommend <Icon name="arrow-right" size={16} /></a>
+      </p>
+    </div>
+  </section>
+
   <section class="section tight">
     <div class="container two-up">
       <DarkPanel
@@ -145,6 +159,11 @@ const masterChecks = [
 </BaseLayout>
 
 <style>
+  .track-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-6);
+  }
   .ladder {
     padding: var(--space-4);
     background: var(--paper-raised);

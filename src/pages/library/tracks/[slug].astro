@@ -17,6 +17,7 @@ export async function getStaticPaths() {
         title: lesson.data.title,
         description: lesson.data.description,
         duration: lesson.data.duration,
+        level: lesson.data.level,
       })),
     },
   }));
@@ -60,6 +61,7 @@ const data = track.data;
             {lessons.map((lesson) => (
               <li>
                 <a href={`/library/${lesson.id}`}>{lesson.title}</a>
+                {lesson.level && <span class="duration">{LESSON_LEVEL_LABELS[lesson.level]}</span>}
                 {lesson.duration && <span class="duration">{lesson.duration}</span>}
                 <p>{lesson.description}</p>
               </li>
