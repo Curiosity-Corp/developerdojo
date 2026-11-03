@@ -1,0 +1,9 @@
+title: "API design guide"
+provider: "Google Cloud"
+url: "https://docs.cloud.google.com/apis/design"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [cloud-platforms, communication-writing]
+summary: "Google Cloud's guide to designing consistent, resource-oriented APIs: naming, standard methods, errors, versioning and more. It is long, so read the introduction and the sections on naming and errors first. Use it to judge whether an API that an agent proposes follows clear conventions."
+verifiedOn: 2026-11-03

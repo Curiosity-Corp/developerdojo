@@ -1,0 +1,9 @@
+title: "NACE: overview"
+provider: "Eurostat"
+url: "https://ec.europa.eu/eurostat/web/nace"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [data-analytics]
+summary: "The European Union statistics office explains NACE, the classification of economic activities used across the EU, and links to the current version and its tables. Use it to find the European code for your industry, so your galaxy page can be read by partners and funders in Europe."
+verifiedOn: 2026-11-03
