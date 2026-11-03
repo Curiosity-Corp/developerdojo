@@ -234,6 +234,8 @@ any criterion that is not testable as NOT TESTABLE and explain why.
 
 **How to check.** Read each issue as if you were the agent: could you do the work with only this text? If a criterion cannot be tested, rewrite it yourself.
 
+**From delegating to orchestrating.** The board, labels, milestones and merge request rules in this lesson are the control surface for a command chain of sessions: each session takes one issue, works on one branch and opens one merge request, and protected branches and approvals bound what it can do. The [Agent orchestration](/library/tracks/agent-orchestration/) track explains the shape.
+
 ## 6. Common mistakes and how to avoid them
 
 - **Too many labels.** If nobody remembers them, nobody uses them. Start with fifteen at most.

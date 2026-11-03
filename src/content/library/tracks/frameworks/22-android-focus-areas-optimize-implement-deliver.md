@@ -201,6 +201,8 @@ If your agents work in parallel, assign them non-overlapping files. When two tou
 
 Always [disclose AI use](/library/disclose-ai-use) in the merge request and in the release record.
 
+**From delegating to orchestrating.** Optimize, Implement and Deliver are where many sessions can run in parallel. That is orchestration, and it needs a policy that says what a session may change, hooks that stop known mistakes, and gates for tests and release. The [Agent orchestration](/library/tracks/agent-orchestration/) track covers these.
+
 ## 6. Common mistakes and how to avoid them
 
 - **Choosing the measure after the result.** Write it before.

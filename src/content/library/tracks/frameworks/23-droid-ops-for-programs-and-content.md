@@ -181,6 +181,8 @@ Mark anything you assumed about the screen with [CHECK].
 
 **Other disciplines.** Support and operations know where people get stuck. Marketing knows the words customers use. A designer improves the layout. A PDM brings them in at Research and Optimize, not at the end.
 
+**From delegating to orchestrating.** Agents can draft programme and content material in parallel, for example one session per module. Keep one Commander (a person) who sets the policy, reviews each draft against the DROID Ops steps and decides what is published. See [Agent orchestration](/library/tracks/agent-orchestration/).
+
 ## 6. Common mistakes and how to avoid them
 
 - **No goal sentence.** The programme grows and has no edge. Write the sentence first.

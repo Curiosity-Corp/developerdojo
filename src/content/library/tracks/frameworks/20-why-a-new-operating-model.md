@@ -180,6 +180,8 @@ Do not suggest new roadmap items. Output only the table.
 
 **Other disciplines.** Ask an engineer to confirm the Implement row, a designer for Design, and someone who talks to customers for Research. A PDM learns to read each discipline's evidence even without being an expert.
 
+**From delegating to orchestrating.** Handing one task to one agent is delegation. When you run several sessions at once on one product, you are orchestrating, and you need written policy and pipeline gates so that speed does not outrun safety. The [Agent orchestration](/library/tracks/agent-orchestration/) track teaches the command chain (Session, Commander, Chief of Command, Admiral) and how policy is written down.
+
 ## 6. Common mistakes and how to avoid them
 
 - **Treating the seven areas as seven phases.** If you wait to "finish Research" before Design, you rebuilt waterfall. Keep several areas active.
