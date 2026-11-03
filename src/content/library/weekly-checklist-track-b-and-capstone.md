@@ -13,7 +13,7 @@ resources:
   - opengitops/principles
   - argo-cd/docs
   - renovate/docs
-  - adr/adr-github-io
+  - adr/architectural-decision-records
   - atlassian/change-management
   - google-sre/postmortem-culture
   - hashicorp/terraform-intro

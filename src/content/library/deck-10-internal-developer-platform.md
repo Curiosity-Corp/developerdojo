@@ -17,7 +17,7 @@ resources:
   - goharbor/docs
   - defectdojo/docs
   - argo-cd/docs
-  - dora/dora
+  - dora/dora-research-program
   - cncf/landscape
 prerequisites:
   - deck-09-track-a-assessment-and-eight-week-map

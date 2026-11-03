@@ -1,9 +1,0 @@
-title: "The Twelve-Factor App"
-provider: "Twelve-Factor App"
-url: "https://12factor.net/"
-cost: "free"
-format: "docs"
-level: "intermediate"
-skills: [cloud-platforms, ci-cd]
-summary: "A short, well-known set of twelve principles for building software that is easy to deploy, scale and maintain. Each factor is one page. Use it to judge how an application should receive its settings, store its data and be released, which is part of how software \"moves\" in the Transport element of ORBITAL."
-verifiedOn: 2026-11-03

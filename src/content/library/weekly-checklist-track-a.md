@@ -14,7 +14,7 @@ resources:
   - gitlab/milestones
   - gitlab/epics
   - nngroup/journey-mapping-101
-  - nngroup/personas
+  - nngroup/personas-make-users-memorable
   - atlassian/product-roadmaps
   - git/pro-git
 prerequisites:

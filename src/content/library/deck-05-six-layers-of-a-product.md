@@ -16,7 +16,7 @@ resources:
   - microsoft/azure-functions-overview
   - microsoft/logic-apps-overview
   - microsoft/front-door-overview
-  - 12factor/twelve-factor-app
+  - twelve-factor/the-twelve-factor-app
 prerequisites:
   - deck-04-no-ai-epics-rule
   - repository-map-standard

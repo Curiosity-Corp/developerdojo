@@ -11,12 +11,12 @@ outcomes:
   - "Recite the five critical behaviours and say what a zero on any one means."
   - "Plan your gate dates in order."
 resources:
-  - dora/dora
+  - dora/dora-research-program
   - google-sre/postmortem-culture
   - opengitops/principles
-  - adr/adr-github-io
+  - adr/architectural-decision-records
   - atlassian/change-management
-  - owasp/secrets-management
+  - owasp/secrets-management-cheat-sheet
 prerequisites:
   - rubric-track-a-self-assessment
   - master-developer-assessment

@@ -11,9 +11,9 @@ outcomes:
   - "Compare your score with your coach's score and use the gap to plan what to learn next."
   - "Run the weekly no-AI-epics honesty check."
 resources:
-  - dora/dora
+  - dora/dora-research-program
   - gov-uk/service-manual-agile-delivery
-  - atlassian/agile
+  - atlassian/what-is-agile
   - nngroup/ux-mapping-cheat-sheet
   - atlassian/product-roadmaps
   - gitlab/university

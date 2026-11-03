@@ -11,7 +11,7 @@ outcomes:
   - "List the ten mandatory items and explain how to meet each one."
   - "Self-grade before the final review and compare with your mentor."
 resources:
-  - adr/adr-github-io
+  - adr/architectural-decision-records
   - renovate/docs
   - goharbor/docs
   - argo-cd/docs
