@@ -43,40 +43,55 @@ test('the tracks page lists every track and each track page lists its lessons in
   }
 });
 
-test('resources list works without JavaScript and filters with it', async ({ browser }) => {
-  const plain = await browser.newContext({ javaScriptEnabled: false });
-  const noJs = await plain.newPage();
-  await noJs.goto('/library/resources');
-  const total = await noJs.locator('[data-resource]').count();
-  expect(total).toBeGreaterThan(0);
-  await expect(noJs.locator('[data-resource]').first()).toBeVisible();
-  await expect(noJs.locator('#resource-filters')).toBeHidden();
-  await plain.close();
+test.describe('without JavaScript', () => {
+  test.use({ javaScriptEnabled: false });
 
-  const context = await browser.newContext();
-  const page = await context.newPage();
+  test('the resources list is complete and the filters stay hidden', async ({ page }) => {
+    await page.goto('/library/resources');
+    expect(await page.locator('[data-resource]').count()).toBeGreaterThan(0);
+    await expect(page.locator('[data-resource]').first()).toBeVisible();
+    await expect(page.locator('#resource-filters')).toBeHidden();
+  });
+});
+
+test('resources filter by skill, provider, cost and format with JavaScript', async ({ page }) => {
   await page.goto('/library/resources');
+  const total = await page.locator('[data-resource]').count();
+  expect(total).toBeGreaterThan(0);
   const form = page.locator('#resource-filters');
   await expect(form).toBeVisible();
   await expect(page.locator('#resource-status')).toHaveText(`${total} resources`);
 
-  // Pick the first provider, check only its cards stay.
-  const provider = await page.locator('[data-resource]').first().getAttribute('data-provider');
-  await form.getByLabel('Provider').selectOption(provider ?? '');
+  // Pick the first card's provider: only that provider's cards stay.
+  const provider = (await page.locator('[data-resource]').first().getAttribute('data-provider')) ?? '';
+  await form.getByLabel('Provider').selectOption(provider);
   const visible = page.locator('[data-resource]:not([hidden])');
   expect(await visible.count()).toBeGreaterThan(0);
   for (const card of await visible.all()) {
-    await expect(card).toHaveAttribute('data-provider', provider ?? '');
+    await expect(card).toHaveAttribute('data-provider', provider);
   }
   await expect(page).toHaveURL(/provider=/);
 
-  // An impossible combination shows the empty message; clearing restores everything.
-  await form.getByLabel('Cost').selectOption('paid');
-  await form.getByLabel('Format').selectOption('podcast');
-  if ((await visible.count()) === 0) await expect(page.locator('#resource-empty')).toBeVisible();
+  // Find a provider and a format that no single card shares (needs two or more cards). The empty
+  // message shows for that pair. Only options that exist are offered, so pick from the cards.
+  const cards = await page
+    .locator('[data-resource]')
+    .evaluateAll((els) => els.map((el) => ({ provider: el.getAttribute('data-provider') ?? '', format: el.getAttribute('data-format') ?? '' })));
+  let clash: { provider: string; format: string } | undefined;
+  for (const a of cards) {
+    for (const b of cards) {
+      if (!cards.some((c) => c.provider === a.provider && c.format === b.format)) clash = { provider: a.provider, format: b.format };
+    }
+  }
+  if (clash) {
+    await form.getByLabel('Provider').selectOption(clash.provider);
+    await form.getByLabel('Format').selectOption(clash.format);
+    await expect(page.locator('#resource-empty')).toBeVisible();
+    await expect(visible).toHaveCount(0);
+  }
   await form.getByRole('button', { name: 'Clear filters' }).click();
   await expect(page.locator('#resource-status')).toHaveText(`${total} resources`);
-  await context.close();
+  await expect(page.locator('#resource-empty')).toBeHidden();
 });
 
 test('resource cards link out safely', async ({ page }) => {

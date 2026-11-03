@@ -1,7 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
 // The e2e suite runs against the BUILT site served by `astro preview` (CI builds first).
-const port = 4321;
+// PORT lets several checkouts run the suite on one machine without sharing a server.
+const port = Number(process.env['PORT'] ?? 4321);
 
 export default defineConfig({
   testDir: 'e2e',
@@ -21,7 +22,7 @@ export default defineConfig({
     { name: 'mobile', use: { ...devices['Pixel 7'], viewport: { width: 390, height: 844 } } },
   ],
   webServer: {
-    command: 'npm run preview',
+    command: `node scripts/serve-dist.mjs dist ${port}`,
     url: `http://127.0.0.1:${port}`,
     reuseExistingServer: !process.env['CI'],
     timeout: 60_000,
