@@ -1,0 +1,9 @@
+title: "Description templates"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/description_templates/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [git-gitlab, roadmapping-epics]
+summary: "Explains how to store issue and merge request templates in your repository so each new item starts with the right headings. Use it to ship your epic template with the project."
+verifiedOn: 2026-11-03

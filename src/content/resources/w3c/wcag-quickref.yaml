@@ -1,0 +1,9 @@
+title: "How to Meet WCAG (Quickref Reference)"
+provider: "W3C"
+url: "https://www.w3.org/WAI/WCAG22/quickref/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [brand-web-design]
+summary: "A filterable checklist of the WCAG 2.2 success criteria with techniques for each. Use it to write testable accessibility checks for your site."
+verifiedOn: 2026-11-03

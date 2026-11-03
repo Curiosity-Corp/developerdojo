@@ -1,0 +1,9 @@
+title: "Learn HTML"
+provider: "web.dev"
+url: "https://web.dev/learn/html"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [brand-web-design]
+summary: "A free course from the Chrome team on HTML: structure, semantics, forms and media. It gives you the literacy to judge whether an agent's page markup is sound."
+verifiedOn: 2026-11-03

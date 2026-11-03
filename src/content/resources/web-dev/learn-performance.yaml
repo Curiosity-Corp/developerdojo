@@ -1,0 +1,9 @@
+title: "Learn Performance"
+provider: "web.dev"
+url: "https://web.dev/learn/performance"
+cost: "free"
+format: "course"
+level: "intermediate"
+skills: [brand-web-design]
+summary: "A free course on web performance: what makes pages slow and how to measure it. Use it to set a speed budget for your site."
+verifiedOn: 2026-11-03

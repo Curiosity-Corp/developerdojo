@@ -1,0 +1,9 @@
+title: "Merge requests"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/merge_requests/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [git-gitlab]
+summary: "GitLab's reference for merge requests, the place where an agent's work is reviewed and merged. Read it so you can review agent output through the same door as any other change."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Manage your work with GitHub Projects"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/training/modules/manage-work-github-projects/"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [agile-delivery, git-gitlab]
+summary: "A Microsoft Learn module on planning and tracking work in GitHub Projects. The ideas (issues, boards, views) carry over to GitLab."
+verifiedOn: 2026-11-03

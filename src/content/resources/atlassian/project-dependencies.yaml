@@ -1,0 +1,9 @@
+title: "Project dependencies"
+provider: "Atlassian"
+url: "https://www.atlassian.com/agile/project-management/project-management-dependencies"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [roadmapping-epics, agile-delivery]
+summary: "Explains the kinds of dependency between pieces of work and how to track them. Read it before you order your epics."
+verifiedOn: 2026-11-03

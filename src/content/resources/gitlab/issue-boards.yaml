@@ -1,0 +1,9 @@
+title: "Issue boards"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/issue_board/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [agile-delivery, git-gitlab]
+summary: "Shows how to turn labels and milestones into a Kanban-style board in GitLab. Use it to make your work visible in one view."
+verifiedOn: 2026-11-03

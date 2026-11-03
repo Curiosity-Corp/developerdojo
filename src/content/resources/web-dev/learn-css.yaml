@@ -1,0 +1,9 @@
+title: "Learn CSS"
+provider: "web.dev"
+url: "https://web.dev/learn/css"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [brand-web-design]
+summary: "A free course on CSS, from the cascade to layout and colour. Read the first modules to understand the styling choices an agent makes on your behalf."
+verifiedOn: 2026-11-03

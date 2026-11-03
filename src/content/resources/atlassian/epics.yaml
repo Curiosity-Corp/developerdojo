@@ -1,0 +1,9 @@
+title: "Epics"
+provider: "Atlassian"
+url: "https://www.atlassian.com/agile/project-management/epics"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [roadmapping-epics]
+summary: "Atlassian's explanation of epics: large bodies of work broken into smaller stories. Note that Atlassian's meaning of epic is looser than the Dojo's, which crosses several parts of a product. Compare the two and be ready to say how they differ."
+verifiedOn: 2026-11-03

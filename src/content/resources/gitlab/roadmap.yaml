@@ -1,0 +1,9 @@
+title: "Roadmap"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/group/roadmap/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [roadmapping-epics, git-gitlab]
+summary: "GitLab's roadmap view draws epics and milestones on a timeline. Read it to see the shape of a roadmap view, and check which tier offers it."
+verifiedOn: 2026-11-03

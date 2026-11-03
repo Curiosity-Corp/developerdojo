@@ -1,0 +1,9 @@
+title: "Service Standard"
+provider: "GOV.UK Service Manual"
+url: "https://www.gov.uk/service-manual/service-standard"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [product-discovery, agile-delivery]
+summary: "The UK government's 14-point standard for building good services. Even outside government it is a strong checklist for whole-product thinking: understand users, solve a whole problem, make it simple, make it accessible."
+verifiedOn: 2026-11-03

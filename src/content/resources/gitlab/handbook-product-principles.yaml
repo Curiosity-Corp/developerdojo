@@ -1,0 +1,9 @@
+title: "Product Principles"
+provider: "GitLab"
+url: "https://handbook.gitlab.com/handbook/product/product-principles/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [product-discovery, roadmapping-epics]
+summary: "GitLab's public statement of how its product teams make decisions. Read it as a worked example of principles you can write for your own product."
+verifiedOn: 2026-11-03
