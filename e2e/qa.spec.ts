@@ -175,6 +175,8 @@ test.describe('accessibility (WCAG 2.1 AA, no serious or critical violations)', 
   for (const theme of ['light', 'dark'] as const) {
     for (const route of DEEP_SCAN) {
       test(`${route} (${theme})`, async ({ page, isMobile }) => {
+        // /library/resources lists every catalogued resource; axe needs more than the default minute there.
+        test.slow();
         // The desktop project scans every page; the phone project scans the three flagship pages
         // (the markup is shared, so a full second pass only slows CI).
         test.skip(isMobile && !['/', '/train/', '/sensei/'].includes(route), 'covered by the desktop project');
