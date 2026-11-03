@@ -1,0 +1,9 @@
+title: "Rules of Machine Learning"
+provider: "Google"
+url: "https://developers.google.com/machine-learning/guides/rules-of-ml"
+cost: free
+format: article
+level: intermediate
+skills: [ai-evaluation, data-analytics]
+summary: "A guide of practical rules from engineers who ship ML products. Its advice to start with a simple baseline and to measure before you tune carries over to AI features in general."
+verifiedOn: 2026-11-03

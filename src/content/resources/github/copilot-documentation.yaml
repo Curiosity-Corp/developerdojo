@@ -1,0 +1,9 @@
+title: "GitHub Copilot documentation"
+provider: "GitHub"
+url: "https://docs.github.com/en/copilot"
+cost: free
+format: docs
+level: beginner
+skills: [ai-agents]
+summary: "The official GitHub documentation for Copilot, covering chat, code suggestions and agent features. Read the sections on how to review its output and what data it uses. Some features need a paid plan, so check which plan you have."
+verifiedOn: 2026-11-03

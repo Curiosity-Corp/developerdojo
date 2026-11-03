@@ -1,0 +1,9 @@
+title: "Prompt engineering"
+provider: "OpenAI"
+url: "https://developers.openai.com/api/docs/guides/prompt-engineering"
+cost: free
+format: docs
+level: beginner
+skills: [prompt-engineering]
+summary: "OpenAI's guide to writing instructions that work: message roles, few-shot examples, giving reference text and testing prompts. A good second opinion next to the Claude guide, because the core habits are the same."
+verifiedOn: 2026-11-03

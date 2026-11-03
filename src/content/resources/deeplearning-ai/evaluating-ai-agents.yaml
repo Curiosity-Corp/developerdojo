@@ -1,0 +1,9 @@
+title: "Evaluating AI Agents"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses/evaluating-ai-agents"
+cost: free
+format: course
+level: intermediate
+skills: [ai-evaluation, ai-agents]
+summary: "A short course on how to measure whether an agent does its job, including tracing each step it takes and scoring the results. Take it when you want to move from 'it looks right' to 'we tested it'."
+verifiedOn: 2026-11-03

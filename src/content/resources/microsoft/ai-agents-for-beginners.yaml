@@ -1,0 +1,9 @@
+title: "AI Agents for Beginners"
+provider: "Microsoft"
+url: "https://github.com/microsoft/ai-agents-for-beginners"
+cost: free
+format: course
+level: beginner
+skills: [ai-agents]
+summary: "A free open-source course of lessons on agent design, tools, planning, multi-agent patterns and trust and safety. Use it as a broad tour of how agent systems are built."
+verifiedOn: 2026-11-03

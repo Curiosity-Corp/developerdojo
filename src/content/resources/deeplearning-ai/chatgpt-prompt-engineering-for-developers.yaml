@@ -1,0 +1,9 @@
+title: "ChatGPT Prompt Engineering for Developers"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses/chatgpt-prompt-eng"
+cost: free
+format: course
+level: beginner
+skills: [prompt-engineering]
+summary: "A short course, taught with OpenAI, on writing prompts in code: clear instructions, iterating, summarising, inferring, transforming and expanding text. It is quick and hands-on. The API details change, the habits do not."
+verifiedOn: 2026-11-03

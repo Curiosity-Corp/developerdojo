@@ -1,0 +1,9 @@
+title: "Prompt engineering overview"
+provider: "Anthropic"
+url: "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview"
+cost: free
+format: docs
+level: beginner
+skills: [prompt-engineering]
+summary: "The official Claude guide to writing prompts: be clear and direct, give examples, let the model think, use structure and chain steps. Read it before you write your first long prompt and again when an answer disappoints you."
+verifiedOn: 2026-11-03

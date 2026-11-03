@@ -1,0 +1,9 @@
+title: "Best practices for Claude Code - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/best-practices"
+cost: free
+format: docs
+level: intermediate
+skills: [ai-agents, prompt-engineering]
+summary: "Practical advice from the makers: give the agent a way to verify its work, explore and plan before coding, keep context clean and write project instructions. The habits apply to any coding agent."
+verifiedOn: 2026-11-03

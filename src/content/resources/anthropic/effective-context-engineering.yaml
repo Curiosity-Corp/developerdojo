@@ -1,0 +1,9 @@
+title: "Effective context engineering for AI agents"
+provider: "Anthropic"
+url: "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"
+cost: free
+format: article
+level: intermediate
+skills: [ai-agents, prompt-engineering]
+summary: "Explains why the information you put in front of a model matters as much as the words of the prompt, and how to keep that context small, relevant and fresh over a long task. Useful when your agent forgets things or drifts."
+verifiedOn: 2026-11-03
