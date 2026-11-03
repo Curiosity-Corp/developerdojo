@@ -15,9 +15,9 @@ prerequisites:
   - "git-is-the-source-of-truth"
   - "iac-gitops-and-drift"
 resources:
-  - "cncf/opengitops"
-  - "argo-project/argo-cd"
-  - "argo-project/automated-sync-policy"
+  - "opengitops/principles"
+  - "argo-cd/docs"
+  - "argo-cd/automated-sync"
   - "flux-project/flux-documentation"
   - "gitlab/merge-requests"
   - "helm/using-helm"

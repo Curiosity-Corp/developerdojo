@@ -15,10 +15,10 @@ prerequisites:
   - "the-way-five-rules"
   - "iac-gitops-and-drift"
 resources:
-  - "hashicorp/what-is-terraform"
+  - "hashicorp/terraform-intro"
   - "hashicorp/terraform-tutorials"
   - "hashicorp/terraform-get-started-aws"
-  - "opentofu/opentofu-documentation"
+  - "opentofu/docs"
   - "youtube-freecodecamp/terraform-course-automate-your-aws-cloud-infrastructure"
   - "google-cloud/terraform-on-google-cloud"
 updated: 2026-11-03

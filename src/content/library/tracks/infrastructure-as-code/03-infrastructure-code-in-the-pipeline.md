@@ -17,7 +17,7 @@ resources:
   - "gitlab/iac-with-opentofu-and-gitlab"
   - "gitlab/gitlab-managed-terraform-state"
   - "hashicorp/terraform-plan-command"
-  - "cncf/opengitops"
+  - "opengitops/principles"
   - "hashicorp/terraform-tutorials"
   - "gitlab/merge-requests"
 updated: 2026-11-03

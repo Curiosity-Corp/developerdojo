@@ -17,7 +17,7 @@ resources:
   - "hashicorp/terraform-state"
   - "hashicorp/terraform-modules"
   - "gitlab/gitlab-managed-terraform-state"
-  - "opentofu/opentofu-documentation"
+  - "opentofu/docs"
   - "hashicorp/terraform-tutorials"
 updated: 2026-11-03
 ---

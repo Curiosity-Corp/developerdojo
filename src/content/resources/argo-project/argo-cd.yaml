@@ -1,9 +1,0 @@
-title: "Argo CD - Declarative GitOps CD for Kubernetes"
-provider: "Argo CD project"
-url: "https://argo-cd.readthedocs.io/en/stable/"
-cost: free
-format: docs
-level: intermediate
-skills: [kubernetes-gitops]
-summary: "The official documentation of Argo CD, a GitOps controller that syncs a cluster from a git repository. Read the overview and core concepts first."
-verifiedOn: 2026-11-03

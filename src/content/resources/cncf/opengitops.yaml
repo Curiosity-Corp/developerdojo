@@ -1,9 +1,0 @@
-title: "OpenGitOps"
-provider: "CNCF"
-url: "https://opengitops.dev/"
-cost: free
-format: docs
-level: beginner
-skills: [kubernetes-gitops]
-summary: "The community definition of GitOps in four principles: declarative, versioned and immutable, pulled automatically, continuously reconciled. Read it in five minutes."
-verifiedOn: 2026-11-03

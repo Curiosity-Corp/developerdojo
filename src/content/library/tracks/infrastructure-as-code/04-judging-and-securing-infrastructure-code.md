@@ -14,9 +14,9 @@ outcomes:
 prerequisites:
   - "the-way-five-rules"
 resources:
-  - "trivy/trivy-overview"
+  - "trivy/docs"
   - "hashicorp/terraform-plan-command"
-  - "cncf/opengitops"
+  - "opengitops/principles"
   - "gitlab/iac-with-opentofu-and-gitlab"
   - "google-cloud/terraform-on-google-cloud"
   - "hashicorp/terraform-tutorials"
