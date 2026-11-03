@@ -5,7 +5,7 @@ group: "product"
 order: 6
 icon: "palette"
 level: "core"
-skills: [brand-and-design]
+skills: [brand-web-design]
 outcomes:
   - "Choose a product name with evidence and write a one-sentence promise you can keep"
   - "Write a one-page brand sheet: name, promise, tone of voice, colours and a font"
