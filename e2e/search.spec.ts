@@ -34,7 +34,12 @@ test('results are grouped and the index covers the words we promise', async ({ p
   // Pick a query the index itself says is absent. Pagefind matches by a word's leading letters
   // and fuzzily, so any fixed or random string can start matching as content grows.
   const absent = await page.evaluate(async () => {
-    const pagefind = await import(/* @vite-ignore */ '/pagefind/pagefind.js');
+    interface PagefindModule {
+      init(): Promise<void>;
+      search(query: string): Promise<{ results: unknown[] }>;
+    }
+    const url = '/pagefind/pagefind.js';
+    const pagefind = (await import(/* @vite-ignore */ url)) as PagefindModule;
     await pagefind.init();
     for (let attempt = 0; attempt < 50; attempt += 1) {
       const candidate = Array.from({ length: 9 }, () => 'bcdfghjklmnpqrstvwxz'[Math.floor(Math.random() * 20)]).join('') + '7';
