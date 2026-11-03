@@ -1,0 +1,9 @@
+title: "Grafana Loki documentation"
+provider: "Grafana"
+url: "https://grafana.com/docs/loki/latest/"
+cost: free
+format: docs
+level: intermediate
+skills: [observability-reliability]
+summary: "The documentation of Loki, an open-source log aggregation system. Read its concepts page to see how logs are labelled and queried."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Monitoring Distributed Systems"
+provider: "Google"
+url: "https://sre.google/sre-book/monitoring-distributed-systems/"
+cost: free
+format: book
+level: intermediate
+skills: [observability-reliability]
+summary: "The SRE book chapter on what to monitor, with the four golden signals: latency, traffic, errors and saturation."
+verifiedOn: 2026-11-03

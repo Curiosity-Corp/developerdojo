@@ -1,0 +1,9 @@
+title: "Observability primer"
+provider: "OpenTelemetry"
+url: "https://opentelemetry.io/docs/concepts/observability-primer/"
+cost: free
+format: docs
+level: beginner
+skills: [observability-reliability]
+summary: "A short vendor-neutral explanation of observability, logs, metrics and traces from the OpenTelemetry project. Read it first."
+verifiedOn: 2026-11-03

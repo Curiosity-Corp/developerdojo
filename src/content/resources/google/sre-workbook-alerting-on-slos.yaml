@@ -1,0 +1,9 @@
+title: "Alerting on SLOs"
+provider: "Google"
+url: "https://sre.google/workbook/alerting-on-slos/"
+cost: free
+format: book
+level: advanced
+skills: [observability-reliability]
+summary: "A workbook chapter on turning an SLO into alerts using burn rates, so people are paged for what matters."
+verifiedOn: 2026-11-03
