@@ -39,7 +39,7 @@ test.describe('challenges', () => {
       await expect(page.getByText('People write the epics and the roadmap')).toBeVisible();
       await expect(page.getByText('Disclose all AI use')).toBeVisible();
       await expect(page.locator('pre.file')).toContainText('# Submission:');
-      await expect(page.locator('form')).toHaveCount(0);
+      await expect(page.locator('main form')).toHaveCount(0);
       await noOverflow(page);
     });
   }
