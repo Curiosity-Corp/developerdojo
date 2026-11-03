@@ -1,0 +1,9 @@
+title: "[1hr Talk] Intro to Large Language Models"
+provider: "YouTube: Andrej Karpathy"
+url: "https://www.youtube.com/watch?v=zjkBMFhNj_g"
+cost: free
+format: video
+level: beginner
+skills: [ai-agents]
+summary: "A one-hour talk that explains what a large language model is, how it is trained and where it fails, with no maths wall. Watch it once to build a correct mental picture before you steer agents."
+verifiedOn: 2026-11-03

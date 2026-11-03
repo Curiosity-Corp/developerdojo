@@ -1,0 +1,9 @@
+title: "Building effective AI agents"
+provider: "Anthropic"
+url: "https://www.anthropic.com/research/building-effective-agents"
+cost: free
+format: article
+level: intermediate
+skills: [ai-agents]
+summary: "An engineering essay on the difference between workflows and agents, and on the simple patterns that work: prompt chaining, routing, parallelisation and evaluator loops. It argues for the simplest design that works. Read it before you give an agent a big job."
+verifiedOn: 2026-11-03

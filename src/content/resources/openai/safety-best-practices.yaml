@@ -1,0 +1,9 @@
+title: "Safety best practices"
+provider: "OpenAI"
+url: "https://developers.openai.com/api/docs/guides/safety-best-practices"
+cost: free
+format: docs
+level: intermediate
+skills: [ai-agents, security]
+summary: "OpenAI's list of safety practices for products built on its models: moderate input and output, keep a human in the loop, test adversarially and limit what users can do. Read it before you put AI in front of customers."
+verifiedOn: 2026-11-03

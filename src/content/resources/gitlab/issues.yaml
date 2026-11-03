@@ -1,0 +1,9 @@
+title: "Issues"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/issues/"
+cost: free
+format: docs
+level: beginner
+skills: [git-gitlab, agile-delivery]
+summary: "The reference for GitLab issues: how to create, assign, link and close them. Issues are where work is planned on the free plan."
+verifiedOn: 2026-11-03

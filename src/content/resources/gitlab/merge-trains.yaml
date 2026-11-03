@@ -1,0 +1,9 @@
+title: "Merge trains"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/pipelines/merge_trains/"
+cost: free
+format: docs
+level: advanced
+skills: [ci-cd]
+summary: "Explains how merge trains test each change against the changes queued ahead of it, so the default branch stays green. Check which plan includes the feature."
+verifiedOn: 2026-11-03

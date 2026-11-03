@@ -1,0 +1,9 @@
+title: "Writing effective tools for AI agents"
+provider: "Anthropic"
+url: "https://www.anthropic.com/research/writing-tools-for-agents"
+cost: free
+format: article
+level: advanced
+skills: [ai-agents, ai-evaluation]
+summary: "Shows how to design and test the tools an agent can call, and why evaluation comes before polish. Read it when you start connecting agents to your own systems."
+verifiedOn: 2026-11-03

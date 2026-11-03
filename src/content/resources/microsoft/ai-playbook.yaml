@@ -1,0 +1,9 @@
+title: "AI playbook"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/ai/playbook/"
+cost: free
+format: docs
+level: intermediate
+skills: [ai-agents]
+summary: "Microsoft's guidance for planning and running AI projects, including responsible AI practices. Read the parts on risk and responsible use before you ship an AI feature."
+verifiedOn: 2026-11-03

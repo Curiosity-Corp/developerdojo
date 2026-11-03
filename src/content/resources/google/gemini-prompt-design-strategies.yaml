@@ -1,0 +1,9 @@
+title: "Prompt design strategies"
+provider: "Google"
+url: "https://aistudio.google.com/docs/prompting-strategies"
+cost: free
+format: docs
+level: beginner
+skills: [prompt-engineering]
+summary: "Google's guide to prompting Gemini models: clear instructions, examples, context and constraints, and how to iterate. A third vendor view that confirms the habits are shared across models."
+verifiedOn: 2026-11-03

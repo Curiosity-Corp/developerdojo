@@ -1,0 +1,9 @@
+title: "AI Agentic Design Patterns with AutoGen"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses/ai-agentic-design-patterns-with-autogen"
+cost: free
+format: course
+level: intermediate
+skills: [ai-agents]
+summary: "A short course on building systems where several agents cooperate: reflection, tool use, planning and multi-agent chat. Take it after you have used a single coding agent for a while and want to see how teams of agents work."
+verifiedOn: 2026-11-03
