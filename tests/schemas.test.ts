@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import { parse as parseYaml } from 'yaml';
 import {
   certificatesSchema,
   challengesSchema,
@@ -39,12 +40,8 @@ describe('library frontmatter', () => {
       const text = readFileSync(join(dir, file), 'utf8');
       const match = /^---\n([\s\S]*?)\n---/.exec(text);
       expect(match, `${file} has frontmatter`).not.toBeNull();
-      const data: Record<string, string | number> = {};
-      for (const line of (match?.[1] ?? '').split('\n')) {
-        const [key, ...rest] = line.split(':');
-        const value = rest.join(':').trim();
-        if (key) data[key.trim()] = /^\d+$/.test(value) ? Number(value) : value;
-      }
+      // Real YAML parsing: v2 lessons carry arrays (outcomes, resources, prerequisites).
+      const data: unknown = parseYaml(match?.[1] ?? '');
       expect(() => librarySchema.parse(data), file).not.toThrow();
     }
   });

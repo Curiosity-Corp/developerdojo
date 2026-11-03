@@ -46,16 +46,16 @@ Two notes on the table:
 - The deck gives time frames for each level. Treat them as a guide. A small product may have a two-week epic. A large one may have a four-month epic.
 - "Agents detail it" for milestones means: you decide the slice and its date, and an agent may propose the list of issues inside it. You still review the list.
 
-### One idea at four levels (DanHup, as a shape)
+### One idea at four levels (the worked-example product, as a shape)
 
-Slide 6 follows one idea through the levels, using a product called DanHup. The slide is labelled "example only". Its job is to show the **shape** of each level. Your own epics need your own thinking. Here are the four lines from the slide, in the same order:
+Slide 6 follows one idea through the levels, using the hiring-website product from the program's worked example. The slide is labelled "example only". Its job is to show the **shape** of each level. Your own epics need your own thinking. Here are the four lines from the slide, in the same order:
 
 - **Vision:** every person who needs the product finds it, joins it and gets value without friction.
 - **Epic (an imagined one):** "A hiring manager can go from the website to a posted job in one session." It touches the site, the app, the CRM and email.
 - **Milestone:** "The website's 'Create Job Posting' button opens the app sign-up, tested, by 14 November."
 - **Issue:** "Pass the campaign tag from the website link into the sign-up form."
 
-Notice what only the epic needs: **a human who sees the whole company**. The vision is general. The milestone is one slice. The issue is one small change. The epic is where site, app, CRM and email meet. The program also has a full DanHup worked example, which you will meet later.
+Notice what only the epic needs: **a human who sees the whole company**. The vision is general. The milestone is one slice. The issue is one small change. The epic is where site, app, CRM and email meet. The program also has a full worked example of this product, which you will meet later.
 
 ## A worked example: TrailMug
 
@@ -125,7 +125,7 @@ This program trains the **Product Development Manager of 2030**: a person who bl
 ## For facilitators (speaker notes)
 
 - **Slide 5.** Show that the levels go from why, to what, to how. Humans own the top two. The epic is the hinge.
-- **Slide 6.** Make clear the DanHup text is an example of the shape. Their own epics need their own thinking.
+- **Slide 6.** Make clear the worked-example text is an example of the shape. Their own epics need their own thinking.
 
 ## Where to go next
 

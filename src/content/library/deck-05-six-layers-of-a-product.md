@@ -32,9 +32,9 @@ Epics come from the places where parts of the product meet. If you cannot list t
 
 ### The six layers
 
-The deck uses a product called DanHup as the picture, marked "example only". Every product has these layers, even if some are small.
+The deck uses a hiring-website product from the program's worked example as the picture, marked "example only". Every product has these layers, even if some are small.
 
-| Layer | What is in it | In the DanHup picture |
+| Layer | What is in it | In the worked-example picture |
 |---|---|---|
 | **Reach** | How people find you | Marketing site (hosted as static pages), squeeze pages, technical briefs |
 | **Use** | What people use | The app (proprietary), interactive tools |
@@ -59,7 +59,7 @@ The map has **one row per repo, domain or service**. The columns are:
 | Purpose | One sentence: what it is for |
 | Ties into | Which other rows it depends on or feeds |
 | Owner | A named person or team |
-| Planner access | `write` or `none`. The proprietary app is often `none`. |
+| Your access | `write` or `none`: can you change this part? The proprietary app is often `none`. |
 
 The goal is that **no part of the product is a mystery to you**. The speaker note adds a key point: the **ties into** column is the most important one. It is where epics come from.
 
@@ -83,7 +83,7 @@ This is where trainees see the company, not only the code.
 
 Here are the first rows of a repository map for TrailMug. Names follow the site's naming rule: product prefix, then a short type word, all lowercase.
 
-| # | Name | Type | Purpose | Ties into | Owner | Planner access |
+| # | Name | Type | Purpose | Ties into | Owner | Your access |
 |---|---|---|---|---|---|---|
 | 1 | trailmug-planning | planning | Vision, epics, roadmap, templates | all | Product owner (placeholder) | write |
 | 2 | trailmug-site | marketing site | Tells commuters and cafés what TrailMug is | trailmug-app, trailmug-lp-cafes | Marketing lead (placeholder) | write |
@@ -94,7 +94,7 @@ Here are the first rows of a repository map for TrailMug. Names follow the site'
 | 7 | trailmug-pay | payments | Takes and returns deposits | trailmug-app | Finance lead (placeholder) | none |
 | 8 | trailmug-ops | ops | Monitoring, deploy, secrets | all | Engineering lead | write |
 
-Reading the **Ties into** column, you can already see candidate epics. The app depends on payments, and the payments row has no `write` access for the planner. A commuter journey that includes a deposit refund crosses four rows. That crossing is an epic.
+Reading the **Ties into** column, you can already see candidate epics. The app depends on payments, and the payments row has no `write` access for you. A commuter journey that includes a deposit refund crosses four rows. That crossing is an epic.
 
 For integrations, TrailMug's email service serves **support** and **marketing**. Ask: who uses it? Support sends return reminders. What data goes in? Commuter email and cup id. What breaks if it stops? Reminders stop and cups are not returned on time. Who owns it? If the table says nobody, you have found a risk worth an issue.
 
@@ -103,7 +103,7 @@ For integrations, TrailMug's email service serves **support** and **marketing**.
 - **Allowed:** an agent can read a repository and answer a fact question: "What does this service call?" Use this to fill the **ties into** column faster, then check the answer yourself.
 - **Allowed:** an agent can check that your map has no blank cells, or that names follow the naming rule, after you wrote it.
 - **Not allowed:** do not ask an agent to "draw the product map" from the repos and then accept it. You must write the **purpose** and **owner** columns yourself. An agent cannot know that a repo is dead, or that the person named as owner left last month.
-- **Careful:** when you give an agent access, record that in the **planner access** column. The map tells everyone what an agent may change.
+- **Careful:** when you give an agent access, record that in the **your access** column. The map tells everyone what an agent may change.
 
 ## The 2030 Product Development Manager lens
 
@@ -114,7 +114,7 @@ This program trains the **Product Development Manager of 2030**: a person who bl
 - **The brief you would write:** "Read the repository trailmug-svc-returns. List every other service, API and database it calls. Output a table: target, kind of call, file where it is called. Do not guess; write 'not found' when unsure."
 - **You verify by:** opening the code that the agent cites, confirming each tie, and phoning the person named as owner.
 - **Disciplines involved:** operations (hosting and monitoring), sales and finance (CRM and payments), marketing (reach), security (who can access what), engineering (the services).
-- **On the agent ladder:** **use**: an agent answers fact questions about code to fill your map. The map also becomes what a command chain needs: which repos exist, who owns them and what an agent may change (the planner-access column).
+- **On the agent ladder:** **use**: an agent answers fact questions about code to fill your map. The map also becomes what a command chain needs: which repos exist, who owns them and what an agent may change (the access column).
 
 ## Common mistakes
 
@@ -136,7 +136,7 @@ This program trains the **Product Development Manager of 2030**: a person who bl
 
 - [ ] I can name the six layers and give an example of each.
 - [ ] My map has one row per repo, domain or service.
-- [ ] Every row has a purpose, a ties-into list, an owner and a planner access value.
+- [ ] Every row has a purpose, a ties-into list, an owner and an access value.
 - [ ] I asked the three questions for every integration.
 - [ ] I found and recorded at least one risk or gap.
 
