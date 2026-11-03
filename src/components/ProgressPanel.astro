@@ -1,0 +1,323 @@
+---
+/**
+ * "Your progress" panel. Server-rendered at zero so it is honest without JavaScript; the script
+ * reads this browser's localStorage (key dojo-progress-v1), wires every [data-module] toggle on the
+ * page, and updates the numbers. No accounts, no network: nothing leaves the browser.
+ */
+import Icon from './Icon.astro';
+import { ALL_MODULES, DEVELOPER_MODULES } from '../lib/progress';
+---
+
+<section class="progress" id="progress" aria-labelledby="progress-title" data-progress-panel>
+  <h2 id="progress-title"><Icon name="chart-no-axes-column" size={20} /> Your progress</h2>
+  <dl class="stats">
+    <div class="stat">
+      <dt><Icon name="layers" size={22} /> Modules completed</dt>
+      <dd><span data-stat="modules">0</span> / {ALL_MODULES.length}</dd>
+      <div class="bar" role="progressbar" aria-label="Modules completed" aria-valuemin="0" aria-valuemax={ALL_MODULES.length} aria-valuenow="0" data-bar="modules"><span></span></div>
+    </div>
+    <div class="stat">
+      <dt><Icon name="flame" size={22} /> Current streak</dt>
+      <dd><span data-stat="streak">0</span> <span data-streak-unit>days</span></dd>
+      <p class="hint">Days in a row with a module marked complete.</p>
+    </div>
+    <div class="stat">
+      <dt><Icon name="award" size={22} /> Certificate progress</dt>
+      <dd><span data-stat="certificate">0</span>%</dd>
+      <div class="bar" role="progressbar" aria-label="Developer certificate progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-bar="certificate"><span></span></div>
+    </div>
+  </dl>
+  <div class="next">
+    <Icon name="scroll-text" size={34} />
+    <div>
+      <p class="next-title">Next up: <span data-next-title>Developer Certificate</span></p>
+      <p class="next-text" data-next-text>
+        Complete the {DEVELOPER_MODULES.length}-week Developer path to earn your certificate.
+      </p>
+    </div>
+  </div>
+  <p class="note" data-note>
+    <span data-note-nojs>Turn on JavaScript to track your progress in this browser.</span>
+    <span data-note-js hidden>Saved only in this browser. Nothing is sent anywhere, and there is no account.</span>
+  </p>
+  <button type="button" class="reset" data-reset hidden>Reset my progress</button>
+</section>
+
+<style>
+  .progress {
+    padding: var(--space-5);
+    background: var(--band);
+    color: var(--band-text);
+    border: 1px solid var(--band-line);
+    border-radius: var(--radius-lg);
+  }
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0 0 var(--space-4);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--band-text);
+  }
+  h2 :global(svg) {
+    color: var(--gold);
+  }
+  .stats {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0 0 var(--space-4);
+    padding: var(--space-4);
+    background: var(--band-deep);
+    border: 1px solid var(--band-line);
+    border-radius: var(--radius);
+  }
+  .stat {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-2) var(--space-3);
+    align-items: center;
+  }
+  dt {
+    display: flex;
+    gap: var(--space-2);
+    align-items: center;
+    color: var(--band-text);
+  }
+  dt :global(svg) {
+    flex: none;
+    color: var(--gold);
+  }
+  dd {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    text-align: right;
+  }
+  .bar {
+    grid-column: 1 / -1;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--band-line);
+    overflow: hidden;
+  }
+  .bar span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: var(--gold);
+    transition: width 0.3s;
+  }
+  .hint {
+    grid-column: 1 / -1;
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--band-muted);
+  }
+  .next {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--band-line);
+  }
+  .next :global(svg) {
+    flex: none;
+    color: var(--gold);
+  }
+  .next-title {
+    margin: 0;
+    font-weight: 700;
+  }
+  .next-text {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--band-muted);
+  }
+  .note {
+    margin: var(--space-3) 0 0;
+    font-size: var(--text-sm);
+    color: var(--band-muted);
+  }
+  .note span[hidden] {
+    display: none;
+  }
+  :global(html.js) [data-note-nojs] {
+    display: none;
+  }
+  .reset {
+    margin-top: var(--space-3);
+    padding: 0.35rem 0.8rem;
+    font: inherit;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--band-text);
+    background: transparent;
+    border: 1.5px solid var(--band-muted);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .reset[hidden] {
+    display: none;
+  }
+  .reset:hover {
+    border-color: var(--band-text);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bar span {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import {
+    ALL_MODULES,
+    DEVELOPER_MODULES,
+    PROGRESS_STORAGE_KEY,
+    computeStreak,
+    countDone,
+    emptyState,
+    parseState,
+    percent,
+    toggleModule,
+    type ProgressState,
+  } from '../lib/progress';
+
+  function query<T extends Element>(selector: string): T | null {
+    return document.querySelector<T>(selector);
+  }
+
+  function readState(): ProgressState {
+    try {
+      return parseState(window.localStorage.getItem(PROGRESS_STORAGE_KEY));
+    } catch (error) {
+      console.warn('Developer Dojo: could not read saved progress', error);
+      return emptyState();
+    }
+  }
+
+  function writeState(state: ProgressState): boolean {
+    try {
+      window.localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(state));
+      return true;
+    } catch (error) {
+      console.warn('Developer Dojo: could not save progress', error);
+      return false;
+    }
+  }
+
+  function storageWorks(): boolean {
+    try {
+      const probe = `${PROGRESS_STORAGE_KEY}-probe`;
+      window.localStorage.setItem(probe, '1');
+      window.localStorage.removeItem(probe);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function setText(selector: string, value: string): void {
+    const el = query<HTMLElement>(selector);
+    if (el) el.textContent = value;
+  }
+
+  function setBar(name: string, value: number): void {
+    const bar = query<HTMLElement>(`[data-bar="${name}"]`);
+    if (!bar) return;
+    bar.setAttribute('aria-valuenow', String(value));
+    const fill = bar.firstElementChild;
+    const max = Number(bar.getAttribute('aria-valuemax')) || 100;
+    if (fill instanceof HTMLElement) fill.style.width = `${Math.round((value / max) * 100)}%`;
+  }
+
+  function render(state: ProgressState): void {
+    const done = countDone(state, ALL_MODULES);
+    const devDone = countDone(state, DEVELOPER_MODULES);
+    const certificate = percent(devDone, DEVELOPER_MODULES.length);
+    const streak = computeStreak(state, new Date());
+
+    setText('[data-stat="modules"]', String(done));
+    setText('[data-stat="streak"]', String(streak));
+    setText('[data-streak-unit]', streak === 1 ? 'day' : 'days');
+    setText('[data-stat="certificate"]', String(certificate));
+    setBar('modules', done);
+    setBar('certificate', certificate);
+
+    if (devDone === DEVELOPER_MODULES.length) {
+      setText('[data-next-title]', 'Present your Product Package');
+      setText(
+        '[data-next-text]',
+        'All six weeks are marked complete. The final step is presenting your Product Package.',
+      );
+    } else {
+      setText('[data-next-title]', 'Developer Certificate');
+      setText(
+        '[data-next-text]',
+        `Complete the ${DEVELOPER_MODULES.length}-week Developer path to earn your certificate. ${DEVELOPER_MODULES.length - devDone} to go.`,
+      );
+    }
+
+    for (const button of document.querySelectorAll<HTMLButtonElement>('[data-module]')) {
+      const id = button.dataset['module'] ?? '';
+      const isDone = Boolean(state.completed[id]);
+      button.setAttribute('aria-pressed', String(isDone));
+      const label = button.querySelector('.mark-label');
+      if (label) label.textContent = isDone ? 'Completed' : 'Mark complete';
+      button.closest('[data-module-card]')?.classList.toggle('done', isDone);
+    }
+  }
+
+  function init(): void {
+    const panel = query<HTMLElement>('[data-progress-panel]');
+    if (!panel) return;
+    if (!storageWorks()) {
+      setText('[data-note]', 'Your browser is blocking local storage, so progress cannot be saved here.');
+      return;
+    }
+    let state = readState();
+    render(state);
+
+    for (const button of document.querySelectorAll<HTMLButtonElement>('[data-module]')) {
+      button.hidden = false;
+      button.addEventListener('click', () => {
+        state = toggleModule(readState(), button.dataset['module'] ?? '', new Date());
+        if (!writeState(state)) {
+          setText('[data-note]', 'Could not save your progress in this browser.');
+        }
+        render(state);
+      });
+    }
+    const reset = query<HTMLButtonElement>('[data-reset]');
+    if (reset) {
+      reset.hidden = false;
+      reset.addEventListener('click', () => {
+        if (reset.dataset['armed'] !== 'true') {
+          reset.dataset['armed'] = 'true';
+          reset.textContent = 'Click again to confirm reset';
+          return;
+        }
+        reset.dataset['armed'] = 'false';
+        reset.textContent = 'Reset my progress';
+        state = emptyState();
+        writeState(state);
+        render(state);
+      });
+    }
+    const note = query<HTMLElement>('[data-note-js]');
+    if (note) note.hidden = false;
+    // Keep several open tabs in step.
+    window.addEventListener('storage', (event) => {
+      if (event.key === PROGRESS_STORAGE_KEY) {
+        state = readState();
+        render(state);
+      }
+    });
+  }
+
+  init();
+</script>

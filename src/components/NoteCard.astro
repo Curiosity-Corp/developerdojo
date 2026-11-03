@@ -28,8 +28,12 @@ const { title, items } = Astro.props;
 
 <style>
   .note {
-    background: var(--paper-raised);
-    color: #1c2620;
+    /* Parchment in both themes: fixed light paper with dark ink, never the themed surface tokens. */
+    --note-paper: #fbf6e8;
+    --note-ink: #1c2620;
+    --note-check: #56631f;
+    background: var(--note-paper);
+    color: var(--note-ink);
     padding: var(--space-5);
     border-radius: 6px;
     box-shadow: 0 10px 28px rgb(0 0 0 / 0.35);
