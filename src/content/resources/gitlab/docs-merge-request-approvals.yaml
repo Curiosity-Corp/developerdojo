@@ -1,0 +1,9 @@
+title: "Merge request approvals"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/merge_requests/approvals/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [git-gitlab, security]
+summary: "How to require approvals before a merge. Use it to make \"a human reviews every agent change\" a rule the platform enforces."
+verifiedOn: 2026-11-03

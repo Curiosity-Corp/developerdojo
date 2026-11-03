@@ -1,0 +1,9 @@
+title: "Managing Incidents (SRE book chapter)"
+provider: "Google"
+url: "https://sre.google/sre-book/managing-incidents/"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [observability-reliability]
+summary: "Shows why incidents need clear roles, a shared record and calm hand-offs. Read it before your first real incident, not during it."
+verifiedOn: 2026-11-03

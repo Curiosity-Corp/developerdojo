@@ -1,0 +1,9 @@
+title: "The Twelve-Factor App"
+provider: "Twelve-Factor App"
+url: "https://12factor.net/"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [cloud-platforms, ci-cd]
+summary: "A short, widely read set of rules for building apps that are easy to deploy and run. Read it to know what to ask of an agent that scaffolds a service."
+verifiedOn: 2026-11-03

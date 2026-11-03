@@ -1,0 +1,9 @@
+title: "Audit events"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/compliance/audit_events/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [security, itsm-service-management]
+summary: "How GitLab records who did what. This is the platform side of the governance stage. Availability depends on plan."
+verifiedOn: 2026-11-03
