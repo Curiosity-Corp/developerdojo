@@ -1,0 +1,9 @@
+title: "Dependency scanning"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/application_security/dependency_scanning/"
+cost: free
+format: docs
+level: intermediate
+skills: [security]
+summary: "Explains scanning of the libraries your project uses for known vulnerabilities. Check plan availability."
+verifiedOn: 2026-11-03

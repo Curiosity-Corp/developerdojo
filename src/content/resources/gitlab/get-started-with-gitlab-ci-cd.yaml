@@ -1,0 +1,9 @@
+title: "Get started with GitLab CI/CD"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/"
+cost: free
+format: docs
+level: beginner
+skills: [ci-cd]
+summary: "The entry page to GitLab's CI/CD documentation: what pipelines, jobs and runners are and where to go next. Start here, then follow the tutorial."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Get started"
+provider: "Docker"
+url: "https://docs.docker.com/get-started/"
+cost: free
+format: tutorial
+level: beginner
+skills: [ci-cd, kubernetes-gitops]
+summary: "Docker's own introduction to containers and images, with a hands-on workshop. You need to understand images before you can understand pipelines that build them."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Version Control (Git)"
+provider: "MIT Missing Semester"
+url: "https://missing.csail.mit.edu/2020/version-control/"
+cost: free
+format: article
+level: beginner
+skills: [git-gitlab]
+summary: "A lecture from MIT's Missing Semester that explains Git from its data model upward. Read it when you want to understand why Git behaves as it does, not just which commands to type."
+verifiedOn: 2026-11-03

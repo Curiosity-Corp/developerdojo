@@ -1,0 +1,9 @@
+title: "Tutorial: Create and run your first GitLab CI/CD pipeline"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/quick_start/"
+cost: free
+format: tutorial
+level: beginner
+skills: [ci-cd]
+summary: "A hands-on tutorial that takes you from an empty file to a running pipeline. Do it before you write your own pipeline for a real project."
+verifiedOn: 2026-11-03

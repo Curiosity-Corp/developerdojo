@@ -1,0 +1,9 @@
+title: "BuildKit"
+provider: "Docker"
+url: "https://docs.docker.com/build/buildkit/"
+cost: free
+format: docs
+level: advanced
+skills: [ci-cd]
+summary: "Explains BuildKit, the modern engine that builds container images, with caching and secrets handling. Read it when you need faster or safer image builds."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "DORA's software delivery performance metrics"
+provider: "DORA"
+url: "https://dora.dev/guides/dora-metrics/"
+cost: free
+format: docs
+level: intermediate
+skills: [ci-cd, observability-reliability]
+summary: "The guide that defines the delivery metrics and warns against using them to compare or rank people. Read it before you put numbers on a dashboard."
+verifiedOn: 2026-11-03

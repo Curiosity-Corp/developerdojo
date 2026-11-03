@@ -1,0 +1,9 @@
+title: "Application security testing"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/application_security/"
+cost: free
+format: docs
+level: intermediate
+skills: [security, ci-cd]
+summary: "Overview of the scanners GitLab can run in a pipeline. Check which scanners are in your plan, because some features are paid."
+verifiedOn: 2026-11-03

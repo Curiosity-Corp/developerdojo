@@ -1,0 +1,9 @@
+title: "CI/CD components"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/components/"
+cost: free
+format: docs
+level: advanced
+skills: [ci-cd]
+summary: "Describes reusable pipeline building blocks that you can share across projects. This is the basis of a standard pipeline template."
+verifiedOn: 2026-11-03

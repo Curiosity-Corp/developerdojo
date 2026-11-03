@@ -1,0 +1,9 @@
+title: "Docker Tutorial for Beginners [FULL COURSE in 3 Hours]"
+provider: "YouTube: TechWorld with Nana"
+url: "https://www.youtube.com/watch?v=3c-iBn73dDE"
+cost: free
+format: video
+level: beginner
+skills: [ci-cd, kubernetes-gitops]
+summary: "A long free video course on Docker images, containers and Compose. A good way to learn containers before Kubernetes."
+verifiedOn: 2026-11-03

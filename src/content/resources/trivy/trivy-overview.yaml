@@ -1,0 +1,9 @@
+title: "Overview - Trivy"
+provider: "Trivy"
+url: "https://trivy.dev/docs/latest/guide/"
+cost: free
+format: docs
+level: intermediate
+skills: [security, infrastructure-as-code]
+summary: "The Trivy guide: an open-source scanner for container images, dependencies, secrets and infrastructure-as-code misconfigurations."
+verifiedOn: 2026-11-03

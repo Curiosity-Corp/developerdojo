@@ -1,0 +1,9 @@
+title: "Learn Git Branching"
+provider: "Learn Git Branching"
+url: "https://learngitbranching.js.org/"
+cost: free
+format: interactive
+level: beginner
+skills: [git-gitlab]
+summary: "An interactive, visual game that teaches branching, merging, rebasing and more by moving commits on a diagram. Do it in your browser after you know the basic commands. It makes rebase finally make sense."
+verifiedOn: 2026-11-03

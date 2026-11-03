@@ -1,0 +1,9 @@
+title: "Learn GitLab with tutorials"
+provider: "GitLab"
+url: "https://docs.gitlab.com/tutorials/"
+cost: free
+format: tutorial
+level: beginner
+skills: [git-gitlab, ci-cd]
+summary: "GitLab's index of step-by-step tutorials on Git, merge requests, issues, CI/CD, security and more. Start here to find a guided lesson on the GitLab feature you need."
+verifiedOn: 2026-11-03
