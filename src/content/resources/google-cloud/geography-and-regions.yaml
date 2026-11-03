@@ -1,0 +1,9 @@
+title: "Geography and regions"
+provider: "Google Cloud"
+url: "https://docs.cloud.google.com/docs/geography-and-regions"
+cost: free
+format: docs
+level: beginner
+skills: [cloud-platforms]
+summary: "Explains Google Cloud regions and zones and how to choose them. A short, clear page on a concept that all clouds share."
+verifiedOn: 2026-11-03

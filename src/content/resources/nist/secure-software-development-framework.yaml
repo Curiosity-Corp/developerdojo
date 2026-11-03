@@ -1,0 +1,9 @@
+title: "SP 800-218, Secure Software Development Framework (SSDF) Version 1.1"
+provider: "NIST"
+url: "https://csrc.nist.gov/pubs/sp/800/218/final"
+cost: free
+format: docs
+level: advanced
+skills: [security]
+summary: "A core set of secure development practices used by many organisations, written for readers who need a formal reference."
+verifiedOn: 2026-11-03

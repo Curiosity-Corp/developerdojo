@@ -1,0 +1,9 @@
+title: "Pro Git (the book)"
+provider: "Git"
+url: "https://git-scm.com/book/en/v2"
+cost: free
+format: book
+level: beginner
+skills: [git-gitlab]
+summary: "The free, official book on Git by Scott Chacon and Ben Straub. Chapters 1 to 3 teach the basics and branching. Keep it as the reference you search when a Git message confuses you."
+verifiedOn: 2026-11-03

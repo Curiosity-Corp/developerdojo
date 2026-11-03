@@ -1,0 +1,9 @@
+title: "Google Cloud Well-Architected Framework"
+provider: "Google Cloud"
+url: "https://docs.cloud.google.com/architecture/framework"
+cost: free
+format: docs
+level: intermediate
+skills: [cloud-platforms, observability-reliability]
+summary: "Google's guidance for designing and operating cloud workloads across pillars like security, reliability, cost and operational excellence."
+verifiedOn: 2026-11-03

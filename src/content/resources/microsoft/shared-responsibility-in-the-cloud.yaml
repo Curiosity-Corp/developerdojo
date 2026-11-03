@@ -1,0 +1,9 @@
+title: "Shared responsibility in the cloud"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/azure/security/fundamentals/shared-responsibility"
+cost: free
+format: docs
+level: beginner
+skills: [cloud-platforms, security]
+summary: "Microsoft's table of who is responsible for what across on-premises, IaaS, PaaS and SaaS. A clear picture of the model."
+verifiedOn: 2026-11-03

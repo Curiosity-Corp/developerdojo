@@ -1,0 +1,9 @@
+title: "IAM overview"
+provider: "Google Cloud"
+url: "https://docs.cloud.google.com/iam/docs/overview"
+cost: free
+format: docs
+level: intermediate
+skills: [cloud-platforms, security]
+summary: "Explains how Google Cloud's identity and access system decides who can do what on which resource. Read it to learn principals, roles and policies in Google's terms."
+verifiedOn: 2026-11-03

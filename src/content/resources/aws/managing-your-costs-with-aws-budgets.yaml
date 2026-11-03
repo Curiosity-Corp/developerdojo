@@ -1,0 +1,9 @@
+title: "Managing your costs with AWS Budgets"
+provider: "AWS"
+url: "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html"
+cost: free
+format: docs
+level: beginner
+skills: [cloud-platforms]
+summary: "Explains AWS Budgets, which track spending and send alerts when it passes a limit you set. Set one before any hands-on work."
+verifiedOn: 2026-11-03

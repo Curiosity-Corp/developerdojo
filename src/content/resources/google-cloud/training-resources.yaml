@@ -1,0 +1,9 @@
+title: "Training resources"
+provider: "Google Cloud"
+url: "https://cloud.google.com/learn/training"
+cost: free-tier
+format: course
+level: beginner
+skills: [cloud-platforms, career-portfolio]
+summary: "Google Cloud's hub for learning, including Google Cloud Skills Boost. Some labs and courses are free and some need credits or a subscription, so check each item."
+verifiedOn: 2026-11-03

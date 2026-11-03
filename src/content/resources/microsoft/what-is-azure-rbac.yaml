@@ -1,0 +1,9 @@
+title: "What is Azure role-based access control (Azure RBAC)?"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/azure/role-based-access-control/overview"
+cost: free
+format: docs
+level: intermediate
+skills: [cloud-platforms, security]
+summary: "Explains how Azure grants access through roles assigned to people and services at a chosen scope. Use it to see the same ideas as AWS and Google Cloud under Azure's names."
+verifiedOn: 2026-11-03

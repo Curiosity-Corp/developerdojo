@@ -1,0 +1,9 @@
+title: "AWS Free Tier"
+provider: "AWS"
+url: "https://aws.amazon.com/free/"
+cost: free-tier
+format: docs
+level: beginner
+skills: [cloud-platforms]
+summary: "AWS's description of its free offers. Read the current terms and limits carefully before you create an account, because they change."
+verifiedOn: 2026-11-03

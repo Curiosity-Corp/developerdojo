@@ -1,0 +1,9 @@
+title: "CI/CD variables"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/variables/"
+cost: free
+format: docs
+level: intermediate
+skills: [ci-cd, security]
+summary: "Explains how to pass settings and secrets to jobs, including masked and protected variables. Read the security notes before you store any token."
+verifiedOn: 2026-11-03
