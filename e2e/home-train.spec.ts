@@ -125,3 +125,14 @@ test.describe('train', () => {
     }
   });
 });
+
+test('hero note card stays readable in dark mode', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await page.goto('/');
+  const colors = await page.locator('.note').first().evaluate((el) => {
+    const style = getComputedStyle(el);
+    return { bg: style.backgroundColor, fg: style.color };
+  });
+  expect(colors.bg).toBe('rgb(251, 246, 232)');
+  expect(colors.fg).toBe('rgb(28, 38, 32)');
+});
