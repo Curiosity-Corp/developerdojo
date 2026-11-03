@@ -167,9 +167,13 @@ const formatsInUse = FORMATS.filter((format) => sorted.some((resource) => resour
     gap: var(--space-1);
     font-weight: 700;
     min-width: min(100%, 12rem);
+    max-width: 100%;
   }
   .filters select {
     font: inherit;
+    max-width: 100%;
+    min-width: 0;
+    text-overflow: ellipsis;
     padding: var(--space-2) var(--space-3);
     border: 2px solid var(--line);
     border-radius: var(--radius);
