@@ -4,13 +4,15 @@
     "title": "Build a Real MVP",
     "summary": "Turn an idea into a working, testable product.",
     "icon": "chart-no-axes-combined",
-    "status": "ongoing"
+    "status": "ongoing",
+    "href": "/challenges/build-a-real-mvp"
   },
   {
     "id": "ai-agent-workflow-challenge",
     "title": "AI Agent Workflow Challenge",
     "summary": "Use AI agents to plan, build, and ship a feature faster.",
     "icon": "layers",
-    "status": "ongoing"
+    "status": "ongoing",
+    "href": "/challenges/ai-agent-workflow-challenge"
   }
 ]

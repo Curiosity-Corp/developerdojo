@@ -1,14 +1,88 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import Button from '../components/Button.astro';
+import { CRC_SITE } from '../lib/community';
+
+const values = [
+  { icon: 'gift', title: 'Free for anyone', description: 'Training is free. A person with a laptop and curiosity can start today.', tone: 'olive' as const },
+  { icon: 'git-branch', title: 'Open by default', description: 'Guides, templates and standards are public. Work lives in git, where it can be reviewed.', tone: 'gold' as const },
+  { icon: 'user-check', title: 'People stay in charge', description: 'AI agents help build. People decide what to build and why, and say when AI was used.', tone: 'rust' as const },
+];
 ---
 
-<BaseLayout title="About Curiosity Research Corporation" description="Developer Dojo is run by Curiosity Research Corporation (CRC), a U.S. education nonprofit. This page will tell the CRC story and explain how the program is funded and governed.">
-  <PageHero compact title="About Curiosity Research Corporation" accent="" subtitle="The nonprofit behind Developer Dojo." />
+<BaseLayout title="About Curiosity Research Corporation" description="Developer Dojo is run by Curiosity Research Corporation (CRC), a U.S. education nonprofit. Read the mission, how the program is funded, and what we do and do not claim.">
+  <PageHero compact title="About CRC" accent="." eyebrow="Curiosity Research Corporation" subtitle="The U.S. education nonprofit behind Developer Dojo." />
+
   <section class="section">
     <div class="container prose">
-      <p>Developer Dojo is run by Curiosity Research Corporation (CRC), a U.S. education nonprofit. This page will tell the CRC story and explain how the program is funded and governed.</p>
-      <p><em>This page is a foundation stub. Its full content is being built.</em></p>
+      <SectionHeader eyebrow="Our mission" title="Make the world more curious" />
+      <p>
+        Curiosity Research Corporation (CRC) is a U.S. education nonprofit. We study how curiosity works in people, and we turn what we learn into teaching that helps people learn the skills of the future. Our wider work is described on the <a href={CRC_SITE} rel="noopener noreferrer">CRC website</a>.
+      </p>
+      <p>
+        Developer Dojo is one of CRC's programs. It is a free training academy for the new kind of developer. A developer no longer mostly types code. A developer owns a whole product (the customers, the plan, the brand, the website and the roadmap) and steers AI agents that do much of the building.
+      </p>
+      <h2>What Developer Dojo does</h2>
+      <ul>
+        <li>Teaches a six-week <a href="/train">Developer path</a>, then advanced Master Developer work, and trains Sensei who coach others.</li>
+        <li>Publishes a free <a href="/library">Library</a> of rules, standards and templates.</li>
+        <li>Runs <a href="/challenges">Build Sprints</a> and, when they are scheduled, <a href="/events">live sessions</a>.</li>
+        <li>Is built for juniors, career changers, developers moving to AI agents, and mentors. Many of our learners read English as a second language, so we write in plain words.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <SectionHeader eyebrow="How we work" title="Three promises" />
+      <div class="grid"><FeatureGrid items={values} columns={3} /></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose">
+      <h2 id="status">Our status, stated plainly</h2>
+      <p>
+        CRC has applied to the U.S. Internal Revenue Service for recognition as a 501(c)(3) organization. <strong>That application is pending.</strong> We have not been told that we are tax-exempt, so we do not say we are, and we do not describe gifts as tax-deductible.
+      </p>
+      <p>
+        Developer Dojo is not an accredited school or college. A Developer Dojo certificate shows that someone completed our program and had their work reviewed. It is not a degree.
+      </p>
+      <h2 id="funding">How the program is funded</h2>
+      <p>
+        Developer Dojo is sponsored by <a href="/sponsors">Reveltek</a>. That sponsorship is what keeps the training free. Organizations that want to help can read how to <a href="/sponsors#become-a-sponsor">become a sponsor</a>.
+      </p>
+      <h2 id="open">Open and reviewable</h2>
+      <p>
+        The built website is published in the open on <a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer">GitHub</a>. We do not publish invented numbers, testimonials, events or people. If a page has nothing real to show yet, it says so.
+      </p>
+      <div class="cta-row">
+        <Button href="/membership" icon="arrow-right">Join free</Button>
+        <Button href="/contact" variant="outline">Contact CRC</Button>
+      </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .alt {
+    background: var(--paper-sunk);
+    border-block: 1px solid var(--line);
+  }
+  .prose :global(a) {
+    color: var(--link);
+    font-weight: 600;
+  }
+  .grid {
+    margin-top: var(--space-5);
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+  }
+</style>

@@ -1,0 +1,295 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import FeatureGrid from '../../components/FeatureGrid.astro';
+import Steps from '../../components/Steps.astro';
+import Button from '../../components/Button.astro';
+import Icon from '../../components/Icon.astro';
+import { getChallenges } from '../../lib/data';
+import { BRIEFS, RUBRIC_SKILLS, SHARED_RULES, type ChallengeBrief } from '../../lib/challenge-briefs';
+import { CRC_CONTACT_URL, GITHUB_SIGNUP, GITLAB_SIGNUP } from '../../lib/community';
+import type { Challenge } from '../../lib/schemas';
+
+export const getStaticPaths = (() => {
+  const challenges = getChallenges();
+  return BRIEFS.flatMap((brief) => {
+    const challenge = challenges.find((item) => item.id === brief.id);
+    return challenge ? [{ params: { slug: brief.id }, props: { challenge, brief } }] : [];
+  });
+}) satisfies GetStaticPaths;
+
+const { challenge, brief } = Astro.props as { challenge: Challenge; brief: ChallengeBrief };
+const STATUS = { ongoing: 'Open now', upcoming: 'Coming soon', closed: 'Closed' } as const;
+
+const submitSteps = [
+  { title: 'Make a public repository', body: `Create a free account on <a href="${GITLAB_SIGNUP}" rel="noopener noreferrer">GitLab.com</a> or <a href="${GITHUB_SIGNUP}" rel="noopener noreferrer">GitHub</a> if you do not have one. Create a new <strong>public</strong> repository. Use a plain name such as <code>${brief.id}</code>.` },
+  { title: 'Put your work in it', body: 'Copy the <a href="/library/templates-overview">templates</a> you need. Add the <a href="/library/product-package-standard">Product Package folder</a>, your epics, your decision log and your AI-use note. Commit as you go: your history is part of the result.' },
+  { title: 'Add a SUBMISSION.md file', body: 'In the root of the repository, add the short file shown below. It tells the reviewers where everything is.' },
+  { title: 'Check it as a stranger', body: 'Open the repository in a private browser window. If you can see everything without signing in, so can the reviewers.' },
+  { title: 'Send us the link', body: `Use the <a href="${CRC_CONTACT_URL}" rel="noopener noreferrer">Curiosity Research Corporation contact form</a> (it opens on the CRC website). Use the subject <strong>Build Sprint: ${challenge.title}</strong>. Include your repository link and the names or handles of everyone on the team.` },
+  { title: 'Wait for your review', body: 'Reviewers score the six rubric skills and write short feedback. We cannot promise a date yet. You can keep improving your repository while you wait, and tell us when you have a new version.' },
+];
+
+const submissionFile = `# Submission: ${challenge.title}
+
+- Team: <names or handles of every human who took part>
+- Product: <name and one sentence>
+- Product Package: ./product-package/README.md
+- Demo: <link or ./product-package/06-demo/>
+- AI-use note: ./product-package/08-evidence/ai-use.md
+- Licence: <the licence of your work>
+- I confirm that I wrote the epics and the roadmap myself.`;
+
+const judging = RUBRIC_SKILLS.map((skill) => ({
+  icon: 'circle-check',
+  title: `${skill.code}. ${skill.name}`,
+  description: skill.question,
+  tone: 'olive' as const,
+}));
+---
+
+<BaseLayout title={challenge.title} description={`${challenge.summary} A Developer Dojo Build Sprint: the full brief, who it is for, the rules, how it is judged and how to submit.`}>
+  <PageHero compact title={challenge.title} accent="." eyebrow={`${brief.eyebrow} · ${STATUS[challenge.status]}`} subtitle={brief.tagline} ctas={[{ label: 'How to submit', href: '#how-to-submit', icon: 'arrow-right' }, { label: 'All challenges', href: '/challenges', variant: 'ghost' }]} />
+
+  <section class="section">
+    <div class="container layout">
+      <div class="main">
+        <section id="brief">
+          <SectionHeader eyebrow="The brief" title="What you are asked to do" />
+          <p class="goal"><Icon name="target" size={22} /> <span><strong>The goal in one line.</strong> {brief.goal}</span></p>
+          {brief.brief.map((paragraph) => <p>{paragraph}</p>)}
+          <p class="pace"><Icon name="clock" size={18} /> {brief.pace}</p>
+        </section>
+
+        <section id="who-for">
+          <SectionHeader eyebrow="Who it is for" title="Is this challenge for you?" />
+          <div class="two">
+            <div>
+              <h3>Good fit</h3>
+              <ul>{brief.whoFor.map((line) => <li>{line}</li>)}</ul>
+            </div>
+            <div>
+              <h3>Not a good fit</h3>
+              <ul>{brief.notFor.map((line) => <li>{line}</li>)}</ul>
+            </div>
+          </div>
+          <p>You do not need to be an expert. You need to be curious and honest. Plain English is fine. You can take the free <a href="/train">Developer path</a> alongside.</p>
+        </section>
+
+        <section id="what-to-hand-in">
+          <SectionHeader eyebrow="What to hand in" title="Your deliverables" />
+          <ul class="deliverables">
+            {brief.deliverables.map((item) => (
+              <li><strong>{item.title}.</strong> {item.text}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section id="rules">
+          <SectionHeader eyebrow="Rules" title="The rules of this sprint" intro="These come from The Way. Two of them decide most disagreements: people write epics, and you disclose AI use." />
+          <ul class="rules">
+            {SHARED_RULES.map((rule) => (
+              <li><strong>{rule.title}.</strong> {rule.text}</li>
+            ))}
+            {brief.extraRules.map((rule) => <li class="extra"><strong>This brief.</strong> {rule}</li>)}
+          </ul>
+          <p>
+            Read more: <a href="/library/people-write-epics">People write epics</a>, <a href="/library/disclose-ai-use">Disclose AI use</a> and <a href="/library/the-way-five-rules">The Way: five rules</a>.
+          </p>
+        </section>
+
+        <section id="how-judged">
+          <SectionHeader eyebrow="How it is judged" title="Judged on the Product Package" intro="Reviewers do not count lines of code. They read your Product Package and score six skills from 1 (beginning) to 4 (strong). The target is level 3 on all six." />
+          <FeatureGrid items={judging} columns={3} headingLevel="h3" />
+          <ul class="judge-notes">
+            {brief.judgeNotes.map((note) => <li>{note}</li>)}
+          </ul>
+          <p>
+            A missing part of the package is a gap to fix, not a score. Full levels and examples are in the <a href="/library/product-package-rubric">Product Package rubric</a>; the eight parts are in the <a href="/library/product-package-standard">Product Package standard</a>. Rewards are being finalised, and no prize is promised.
+          </p>
+        </section>
+
+        <section id="how-to-submit">
+          <SectionHeader eyebrow="How to submit" title="Six steps. No form on this site." intro="You hand in a public repository. This website collects nothing from you." />
+          <Steps items={submitSteps} />
+          <h3 class="file-title">SUBMISSION.md</h3>
+          <pre class="file"><code>{submissionFile}</code></pre>
+          <div class="cta-row">
+            <Button href={CRC_CONTACT_URL} icon="arrow-up-right">Open the CRC contact form</Button>
+            <Button href="/challenges" variant="outline">Back to all challenges</Button>
+          </div>
+        </section>
+      </div>
+
+      <aside class="side" aria-label="Quick facts">
+        <dl>
+          <dt>Status</dt>
+          <dd>{STATUS[challenge.status]}</dd>
+          <dt>Team size</dt>
+          <dd>One person, or up to three</dd>
+          <dt>Cost</dt>
+          <dd>Free</dd>
+          <dt>Judged on</dt>
+          <dd><a href="/library/product-package-rubric">Product Package rubric</a></dd>
+          <dt>Hand in</dt>
+          <dd>A public repository</dd>
+          <dt>Rewards</dt>
+          <dd>Being finalised</dd>
+        </dl>
+        <nav aria-label="On this page">
+          <ul>
+            <li><a href="#brief">The brief</a></li>
+            <li><a href="#who-for">Who it is for</a></li>
+            <li><a href="#what-to-hand-in">What to hand in</a></li>
+            <li><a href="#rules">Rules</a></li>
+            <li><a href="#how-judged">How it is judged</a></li>
+            <li><a href="#how-to-submit">How to submit</a></li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 17rem;
+    gap: var(--space-7);
+    align-items: start;
+  }
+  .main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-7);
+    min-width: 0;
+  }
+  .main section {
+    max-width: 72ch;
+    scroll-margin-top: calc(var(--header-h) + var(--space-4));
+  }
+  .main section :global(.feature-grid) {
+    max-width: none;
+  }
+  #how-judged {
+    max-width: none;
+  }
+  .main section p,
+  .main section ul {
+    margin-block: var(--space-3);
+  }
+  .main a {
+    color: var(--link);
+    font-weight: 600;
+  }
+  .goal {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-start;
+    padding: var(--space-4);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--radius);
+  }
+  .goal :global(svg) {
+    flex: none;
+    margin-top: 0.15rem;
+    color: var(--gold-text);
+  }
+  .pace {
+    display: flex;
+    gap: var(--space-2);
+    align-items: flex-start;
+    color: var(--ink-muted);
+  }
+  .pace :global(svg) {
+    flex: none;
+    margin-top: 0.2rem;
+  }
+  .two {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: var(--space-5);
+  }
+  .two h3 {
+    margin: 0;
+  }
+  .deliverables,
+  .rules,
+  .judge-notes {
+    padding-left: 1.2rem;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .rules .extra {
+    color: var(--rust-text);
+  }
+  .file-title {
+    margin: var(--space-5) 0 var(--space-2);
+  }
+  .file {
+    overflow-x: auto;
+    padding: var(--space-4);
+    background: var(--band);
+    color: var(--band-text);
+    border-radius: var(--radius);
+    font-size: var(--text-sm);
+    margin: 0 0 var(--space-4);
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  .side {
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-4));
+    display: grid;
+    gap: var(--space-4);
+  }
+  .side dl {
+    margin: 0;
+    padding: var(--space-4);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  dt {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  dd {
+    margin: 0 0 var(--space-3);
+    font-weight: 600;
+  }
+  .side nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-1);
+  }
+  .side nav a {
+    color: var(--link);
+    font-weight: 600;
+  }
+  @media (max-width: 62rem) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .side {
+      position: static;
+      order: -1;
+    }
+    .side nav {
+      display: none;
+    }
+  }
+</style>
