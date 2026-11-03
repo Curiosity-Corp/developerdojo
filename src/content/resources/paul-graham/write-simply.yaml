@@ -1,0 +1,9 @@
+title: "Write Simply"
+provider: "Paul Graham"
+url: "https://paulgraham.com/simply.html"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [communication-writing, prompt-engineering]
+summary: "A short essay on writing in plain words. Clear writing is the core of briefing agents, so this is directly useful for prompt and spec writing."
+verifiedOn: 2026-11-03

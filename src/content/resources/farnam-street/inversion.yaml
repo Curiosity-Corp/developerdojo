@@ -1,0 +1,9 @@
+title: "Inversion: The Power of Avoiding Stupidity"
+provider: "Farnam Street"
+url: "https://fs.blog/inversion/"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [product-discovery, security]
+summary: "Explains solving problems by asking what to avoid. It is also a natural method for risk reviews and pre-mortems."
+verifiedOn: 2026-11-03

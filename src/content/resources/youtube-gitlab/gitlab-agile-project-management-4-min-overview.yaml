@@ -1,0 +1,10 @@
+title: "GitLab Agile Project Management 4-min Overview"
+provider: "GitLab"
+url: "https://www.youtube.com/watch?v=wmtZKC8m2ew"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 4 minutes"
+skills: [agile-delivery, git-gitlab]
+summary: "GitLab's short overview of agile project management in GitLab. Shows issues, boards and iterations together."
+verifiedOn: 2026-11-03
