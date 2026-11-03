@@ -1,0 +1,9 @@
+title: "Push rules"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/repository/push_rules/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [git-gitlab, security]
+summary: "Explains rules that reject pushes by commit message, file type or author. A guardrail that acts before code even reaches review. Check the page for which plan includes it."
+verifiedOn: 2026-11-03

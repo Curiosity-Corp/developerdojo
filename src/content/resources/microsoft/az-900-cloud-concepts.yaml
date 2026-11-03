@@ -1,0 +1,9 @@
+title: "Introduction to Cloud Infrastructure: Describe Cloud Concepts - Training"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/training/paths/microsoft-azure-fundamentals-describe-cloud-concepts/"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [cloud-platforms]
+summary: "A free Microsoft Learn path on cloud concepts such as shared responsibility, cost models and cloud types. Vendor-neutral enough to be a good first step."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "CI/CD components"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/components/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ci-cd]
+summary: "Describes reusable pipeline building blocks you can share and version. Shared components are how an organisation applies the same checks everywhere. Read it when you standardise pipelines across products."
+verifiedOn: 2026-11-03

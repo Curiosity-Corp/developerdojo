@@ -1,0 +1,9 @@
+title: "Incident management"
+provider: "GitLab"
+url: "https://docs.gitlab.com/operations/incident_management/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [itsm-service-management, observability-reliability]
+summary: "Explains how GitLab tracks incidents, alerts and on-call. Check the page for plan availability. Read it to see an incident process built into the tracker."
+verifiedOn: 2026-11-03

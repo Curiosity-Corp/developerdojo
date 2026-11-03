@@ -1,0 +1,9 @@
+title: "Hello Minikube"
+provider: "Kubernetes"
+url: "https://kubernetes.io/docs/tutorials/hello-minikube/"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [kubernetes-gitops]
+summary: "A short tutorial for running a small app on a local Kubernetes cluster. It is hands-on proof of the concepts."
+verifiedOn: 2026-11-03

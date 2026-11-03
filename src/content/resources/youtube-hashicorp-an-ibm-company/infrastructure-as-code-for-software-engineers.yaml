@@ -1,0 +1,10 @@
+title: "Infrastructure as Code for Software Engineers"
+provider: "HashiCorp, an IBM Company"
+url: "https://www.youtube.com/watch?v=2zrhcyv9Yiw"
+cost: "free"
+format: "video"
+level: "intermediate"
+duration: "about 30 minutes"
+skills: [infrastructure-as-code]
+summary: "HashiCorp's talk on infrastructure as code for software engineers. Explains the practices around it."
+verifiedOn: 2026-11-03

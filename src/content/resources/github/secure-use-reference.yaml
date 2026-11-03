@@ -1,0 +1,9 @@
+title: "Secure use reference - GitHub Docs"
+provider: "GitHub"
+url: "https://docs.github.com/en/actions/reference/security/secure-use"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [security, ci-cd]
+summary: "GitHub's guidance on securing Actions workflows, including secrets, third-party actions and permissions. The lessons apply to any pipeline."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Application security testing"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/application_security/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security, ci-cd]
+summary: "Overview of GitLab's security scanning: SAST, dependency and secret scanning and more. Read it to know which automatic checks can gate agent-written code. Check the page for which scanners are in your plan."
+verifiedOn: 2026-11-03

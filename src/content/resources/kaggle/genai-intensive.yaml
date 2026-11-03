@@ -1,0 +1,9 @@
+title: "5-Day Gen AI Intensive Course with Google"
+provider: "Kaggle"
+url: "https://www.kaggle.com/learn-guide/5-day-genai"
+cost: "free"
+format: "course"
+level: "intermediate"
+skills: [ai-agents, prompt-engineering]
+summary: "A free five-day generative AI course from Google and Kaggle. Covers foundation models, prompting, agents and more. Good structured depth."
+verifiedOn: 2026-11-03

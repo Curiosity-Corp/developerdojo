@@ -1,0 +1,9 @@
+title: "Style Guide"
+provider: "HashiCorp"
+url: "https://developer.hashicorp.com/terraform/language/style"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [infrastructure-as-code]
+summary: "HashiCorp's style guide for Terraform. A useful standard to give agents when asking for infrastructure code."
+verifiedOn: 2026-11-03

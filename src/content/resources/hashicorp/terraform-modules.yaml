@@ -1,0 +1,9 @@
+title: "Reuse Configuration with Modules"
+provider: "HashiCorp"
+url: "https://developer.hashicorp.com/terraform/tutorials/modules"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [infrastructure-as-code]
+summary: "A tutorial on reusable Terraform modules. Standard modules are how organisations keep infrastructure consistent."
+verifiedOn: 2026-11-03

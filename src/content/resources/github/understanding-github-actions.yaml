@@ -1,0 +1,9 @@
+title: "Understanding GitHub Actions - GitHub Docs"
+provider: "GitHub"
+url: "https://docs.github.com/en/actions/get-started/understand-github-actions"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [ci-cd]
+summary: "A conceptual introduction to workflows, jobs, steps and runners. It is the quickest primer for reading an automation file."
+verifiedOn: 2026-11-03

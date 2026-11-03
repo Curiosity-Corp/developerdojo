@@ -1,0 +1,9 @@
+title: "OWASP WebGoat"
+provider: "OWASP"
+url: "https://owasp.org/www-project-webgoat/"
+cost: "free"
+format: "interactive"
+level: "intermediate"
+skills: [security]
+summary: "A deliberately insecure application with lessons on web vulnerabilities. Learn by seeing."
+verifiedOn: 2026-11-03

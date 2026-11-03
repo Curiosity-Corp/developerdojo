@@ -1,0 +1,9 @@
+title: "Google SRE: Digital Library, Books and Resources Hub"
+provider: "Google"
+url: "https://sre.google/resources/"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [observability-reliability]
+summary: "Google's hub for SRE books and articles. Browse it to find case studies and guides."
+verifiedOn: 2026-11-03

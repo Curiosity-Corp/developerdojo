@@ -1,0 +1,9 @@
+title: "OWASP Top 10"
+provider: "OWASP"
+url: "https://owasp.org/www-project-top-ten/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [security]
+summary: "The standard awareness list of the most critical web application security risks. Every product owner should know it by heart; ask for it to be checked on every release."
+verifiedOn: 2026-11-03

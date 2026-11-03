@@ -1,0 +1,9 @@
+title: "Microsoft Security Development Lifecycle"
+provider: "Microsoft"
+url: "https://www.microsoft.com/en-us/securityengineering/sdl"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [security]
+summary: "Microsoft's secure development practices. A sound menu of practices to expect in any serious project."
+verifiedOn: 2026-11-03

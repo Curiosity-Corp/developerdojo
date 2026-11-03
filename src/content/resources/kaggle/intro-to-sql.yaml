@@ -1,0 +1,9 @@
+title: "Intro to SQL"
+provider: "Kaggle"
+url: "https://www.kaggle.com/learn/intro-to-sql"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [data-analytics]
+summary: "Kaggle's free SQL course. SQL lets you ask your own questions of data."
+verifiedOn: 2026-11-03

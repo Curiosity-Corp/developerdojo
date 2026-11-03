@@ -1,0 +1,9 @@
+title: "Getting Started - Cloud Computing Tutorials for Building on AWS"
+provider: "AWS"
+url: "https://aws.amazon.com/getting-started/"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [cloud-platforms]
+summary: "AWS's hub of getting-started tutorials. Pick one for a hands-on feel of the cloud. Mind costs outside the free tier."
+verifiedOn: 2026-11-03

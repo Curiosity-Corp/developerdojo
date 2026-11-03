@@ -1,0 +1,9 @@
+title: "Get Started - AWS"
+provider: "HashiCorp"
+url: "https://developer.hashicorp.com/terraform/tutorials/aws-get-started"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [infrastructure-as-code, cloud-platforms]
+summary: "The step-by-step Terraform tutorial for building infrastructure on AWS. Shows the write, plan and apply cycle that makes infrastructure reviewable."
+verifiedOn: 2026-11-03

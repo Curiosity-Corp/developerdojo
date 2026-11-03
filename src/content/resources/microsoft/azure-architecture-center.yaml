@@ -1,0 +1,9 @@
+title: "Azure Architecture Center"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/azure/architecture/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [cloud-platforms]
+summary: "Microsoft's library of reference architectures and design guides. A rich source of patterns to compare with agent proposals."
+verifiedOn: 2026-11-03

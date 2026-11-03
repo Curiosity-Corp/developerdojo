@@ -1,0 +1,9 @@
+title: "Introduction - OWASP Cheat Sheet Series"
+provider: "OWASP"
+url: "https://cheatsheetseries.owasp.org/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security]
+summary: "Concise, practical security guides on topics from authentication to input validation. Give them to agents as references and use them to check output."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Security Checklist"
+provider: "Kubernetes"
+url: "https://kubernetes.io/docs/concepts/security/security-checklist/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security, kubernetes-gitops]
+summary: "The Kubernetes project's security checklist. It is ready-made list of questions for a cluster review."
+verifiedOn: 2026-11-03

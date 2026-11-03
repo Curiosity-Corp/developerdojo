@@ -1,0 +1,9 @@
+title: "What is Backstage?"
+provider: "CNCF"
+url: "https://backstage.io/docs/overview/what-is-backstage"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [open-source, cloud-platforms]
+summary: "The overview of Backstage, an open platform for building developer portals. It shows how platform teams present services and docs in one place."
+verifiedOn: 2026-11-03

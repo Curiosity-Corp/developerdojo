@@ -1,0 +1,9 @@
+title: "Pro Git"
+provider: "GitHub"
+url: "https://git-scm.com/book/en/v2"
+cost: "free"
+format: "book"
+level: "beginner"
+skills: [git-gitlab]
+summary: "The free online book on Git by Scott Chacon and Ben Straub. It is the definitive reference. Read chapters 1 to 3 and keep the rest for later."
+verifiedOn: 2026-11-03

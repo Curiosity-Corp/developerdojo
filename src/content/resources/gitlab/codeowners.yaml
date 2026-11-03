@@ -1,0 +1,9 @@
+title: "Code Owners"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/codeowners/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [git-gitlab, security]
+summary: "Explains the CODEOWNERS file, which names who must review changes to certain paths. It is how you reserve sensitive areas, such as roadmaps or infrastructure, for the right people."
+verifiedOn: 2026-11-03

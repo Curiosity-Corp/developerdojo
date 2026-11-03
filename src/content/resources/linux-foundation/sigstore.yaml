@@ -1,0 +1,9 @@
+title: "Overview"
+provider: "Linux Foundation"
+url: "https://docs.sigstore.dev/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [security, open-source]
+summary: "The Sigstore docs: signing and verifying software artifacts. It is about proving what you shipped came from where you say."
+verifiedOn: 2026-11-03

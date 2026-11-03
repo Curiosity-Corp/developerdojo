@@ -1,0 +1,9 @@
+title: "Free Cloud Computing Services - AWS Free Tier"
+provider: "AWS"
+url: "https://aws.amazon.com/free/"
+cost: "free-tier"
+format: "docs"
+level: "beginner"
+skills: [cloud-platforms]
+summary: "AWS's free tier page. Learn the model: some services are free for a period or up to a limit. Know it before you experiment so you are not surprised by a bill."
+verifiedOn: 2026-11-03

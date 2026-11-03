@@ -1,0 +1,9 @@
+title: "Open Source Guides"
+provider: "GitHub"
+url: "https://opensource.guide/"
+cost: "free"
+format: "book"
+level: "beginner"
+skills: [open-source]
+summary: "GitHub's guides to open source for contributors and maintainers. A friendly, practical starting point for working in the open."
+verifiedOn: 2026-11-03

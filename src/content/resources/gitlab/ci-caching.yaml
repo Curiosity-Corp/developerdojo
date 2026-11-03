@@ -1,0 +1,9 @@
+title: "Caching in GitLab CI/CD"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/caching/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ci-cd]
+summary: "Explains caches and how they speed up pipelines. Pipeline time is a team cost, and caching is the usual first fix. Read it when pipelines get slow."
+verifiedOn: 2026-11-03

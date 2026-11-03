@@ -1,0 +1,9 @@
+title: "Security and code quality documentation - GitHub Docs"
+provider: "GitHub"
+url: "https://docs.github.com/en/code-security"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security]
+summary: "Documents GitHub's security features such as secret scanning and dependency alerts. Read it to know what automated checks are available."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Merged results pipelines"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/pipelines/merged_results_pipelines/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ci-cd, git-gitlab]
+summary: "Explains pipelines that test the merge request combined with the latest target branch. They catch the failures that only appear when two good changes meet, which is common when many agents work in parallel. Read it before you add merge trains."
+verifiedOn: 2026-11-03

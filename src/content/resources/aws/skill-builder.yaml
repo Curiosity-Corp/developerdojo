@@ -1,0 +1,9 @@
+title: "AWS Skill Builder"
+provider: "AWS"
+url: "https://skillbuilder.aws/"
+cost: "free-tier"
+format: "course"
+level: "beginner"
+skills: [cloud-platforms]
+summary: "AWS's learning centre with free digital training and an optional paid subscription for extras. Start with its free cloud fundamentals material."
+verifiedOn: 2026-11-03

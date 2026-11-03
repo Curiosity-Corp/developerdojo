@@ -1,0 +1,9 @@
+title: "What is OpenGitOps?"
+provider: "CNCF"
+url: "https://opengitops.dev/"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [kubernetes-gitops]
+summary: "The OpenGitOps principles: declarative, versioned, pulled automatically and continuously reconciled. A short, vendor-neutral definition you can quote in design reviews."
+verifiedOn: 2026-11-03

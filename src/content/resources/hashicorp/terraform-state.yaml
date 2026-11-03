@@ -1,0 +1,9 @@
+title: "State"
+provider: "HashiCorp"
+url: "https://developer.hashicorp.com/terraform/language/state"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [infrastructure-as-code, security]
+summary: "Explains Terraform state and why it matters. State can hold secrets and is a common source of risk."
+verifiedOn: 2026-11-03

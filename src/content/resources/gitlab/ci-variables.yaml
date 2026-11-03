@@ -1,0 +1,9 @@
+title: "CI/CD variables"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/variables/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ci-cd, security]
+summary: "Describes how variables work in pipelines, including masked and protected variables. Knowing where configuration and secrets live is basic security literacy for a manager. Read it before you review any pipeline that deploys."
+verifiedOn: 2026-11-03

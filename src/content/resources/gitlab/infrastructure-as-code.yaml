@@ -1,0 +1,9 @@
+title: "Infrastructure as Code with OpenTofu and GitLab"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/infrastructure/iac/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [infrastructure-as-code]
+summary: "Explains managing infrastructure code and state with GitLab. It shows how infrastructure changes can go through the same merge request review as software."
+verifiedOn: 2026-11-03

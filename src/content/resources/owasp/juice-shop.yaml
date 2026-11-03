@@ -1,0 +1,9 @@
+title: "OWASP Juice Shop"
+provider: "OWASP"
+url: "https://owasp.org/www-project-juice-shop/"
+cost: "free"
+format: "interactive"
+level: "intermediate"
+skills: [security]
+summary: "A deliberately insecure web app for learning how attacks work. Hands-on proof of why reviews matter. Run it only in a safe environment."
+verifiedOn: 2026-11-03

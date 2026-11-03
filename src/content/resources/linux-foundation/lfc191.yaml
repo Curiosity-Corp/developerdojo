@@ -1,0 +1,10 @@
+title: "Open Source Licensing Basics for Software Developers (LFC191)"
+provider: "Linux Foundation"
+url: "https://training.linuxfoundation.org/training/open-source-licensing-basics-for-software-developers/"
+cost: "free"
+format: "course"
+level: "beginner"
+duration: "about 2 hours"
+skills: [open-source]
+summary: "A free short course on open source licence basics. Licence mistakes become product risks, and generated code makes the question more common. Take it before you release anything open source."
+verifiedOn: 2026-11-03

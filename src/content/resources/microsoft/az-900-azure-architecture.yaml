@@ -1,0 +1,9 @@
+title: "Introduction to Cloud Infrastructure: Describe Azure Architecture and Services - Training"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/training/paths/azure-fundamentals-describe-azure-architecture-services/"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [cloud-platforms]
+summary: "A free Microsoft Learn path on Azure architecture and services. It maps out the common building blocks of a cloud platform."
+verifiedOn: 2026-11-03

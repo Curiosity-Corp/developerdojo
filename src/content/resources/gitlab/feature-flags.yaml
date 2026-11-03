@@ -1,0 +1,9 @@
+title: "Feature flags"
+provider: "GitLab"
+url: "https://docs.gitlab.com/operations/feature_flags/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ci-cd]
+summary: "Explains feature flags for turning features on and off without redeploying. Flags let you release safely and learn from users. Check the page for plan availability."
+verifiedOn: 2026-11-03

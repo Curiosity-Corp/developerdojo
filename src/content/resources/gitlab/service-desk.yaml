@@ -1,0 +1,9 @@
+title: "Service Desk"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/service_desk/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [itsm-service-management]
+summary: "Explains turning incoming emails into issues so outsiders can request work without a GitLab account. It is a lightweight service-desk intake. Read it for a simple ITSM pattern."
+verifiedOn: 2026-11-03

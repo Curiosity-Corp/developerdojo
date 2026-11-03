@@ -1,0 +1,9 @@
+title: "REST API"
+provider: "GitLab"
+url: "https://docs.gitlab.com/api/rest/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [git-gitlab, ci-cd]
+summary: "Explains GitLab's REST API basics. It is how automation, schedules and agents act on a project. Read the introduction to learn what automation can touch."
+verifiedOn: 2026-11-03

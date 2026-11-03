@@ -1,0 +1,9 @@
+title: "Argo CD - Declarative GitOps CD for Kubernetes"
+provider: "CNCF"
+url: "https://argo-cd.readthedocs.io/en/stable/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [kubernetes-gitops, ci-cd]
+summary: "The documentation for Argo CD, which keeps clusters in sync with what is in git. It is the engine behind git as source of truth for deployments."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Tutorials - Vault - HashiCorp Developer"
+provider: "HashiCorp"
+url: "https://developer.hashicorp.com/vault/tutorials"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [security]
+summary: "Tutorials for Vault, a secrets manager. Learn why secrets are kept outside code."
+verifiedOn: 2026-11-03

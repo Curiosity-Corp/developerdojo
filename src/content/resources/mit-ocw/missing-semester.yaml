@@ -1,0 +1,9 @@
+title: "The Missing Semester of Your CS Education"
+provider: "MIT OpenCourseWare"
+url: "https://missing.csail.mit.edu/"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [git-gitlab, open-source]
+summary: "MIT's free course on the tools programmers use daily: the shell, version control, debugging and more. It builds the literacy to read what an agent did in a terminal."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "SLSA specification"
+provider: "Linux Foundation"
+url: "https://slsa.dev/spec/v1.0/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [security, ci-cd]
+summary: "SLSA, a framework of levels for supply chain security. A clear ladder you can use to say how trustworthy your build process is."
+verifiedOn: 2026-11-03

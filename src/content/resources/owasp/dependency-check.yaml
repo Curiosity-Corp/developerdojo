@@ -1,0 +1,9 @@
+title: "OWASP Dependency-Check"
+provider: "OWASP"
+url: "https://owasp.org/www-project-dependency-check/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security, open-source]
+summary: "A tool for finding known-vulnerable dependencies. Read it to understand supply chain risk from packages."
+verifiedOn: 2026-11-03

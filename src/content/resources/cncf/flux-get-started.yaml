@@ -1,0 +1,9 @@
+title: "Get Started with Flux"
+provider: "CNCF"
+url: "https://fluxcd.io/flux/get-started/"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [kubernetes-gitops]
+summary: "The getting-started guide for Flux, a GitOps tool. Compare it with Argo CD to separate the principle from the product."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "GitHub Pages documentation - GitHub Docs"
+provider: "GitHub"
+url: "https://docs.github.com/en/pages"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [brand-web-design, ci-cd]
+summary: "Explains how to host a static site from a repository. Handy for publishing a product website at no cost."
+verifiedOn: 2026-11-03

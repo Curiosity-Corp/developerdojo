@@ -1,0 +1,9 @@
+title: "Security Whitepaper"
+provider: "CNCF"
+url: "https://tag-security.cncf.io/community/resources/security-whitepaper/"
+cost: "free"
+format: "book"
+level: "advanced"
+skills: [security, cloud-platforms]
+summary: "The CNCF security community's whitepaper on cloud-native security across the lifecycle. A thorough framework for security conversations."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Tutorials - Terraform - HashiCorp Developer"
+provider: "HashiCorp"
+url: "https://developer.hashicorp.com/terraform/tutorials"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [infrastructure-as-code]
+summary: "HashiCorp's official Terraform tutorials. Terraform is the most common tool for describing infrastructure as code. Work through the first few to read an infrastructure file with understanding."
+verifiedOn: 2026-11-03

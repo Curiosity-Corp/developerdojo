@@ -1,0 +1,10 @@
+title: "Introduction to Kubernetes (LFS158)"
+provider: "Linux Foundation"
+url: "https://training.linuxfoundation.org/training/introduction-to-kubernetes/"
+cost: "free"
+format: "course"
+level: "beginner"
+duration: "about 15 to 20 hours"
+skills: [kubernetes-gitops, cloud-platforms]
+summary: "A free self-paced course on Kubernetes concepts, listed at no cost. A good structured route to understanding how modern applications are run."
+verifiedOn: 2026-11-03

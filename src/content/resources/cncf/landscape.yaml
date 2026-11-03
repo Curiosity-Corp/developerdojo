@@ -1,0 +1,9 @@
+title: "CNCF Landscape"
+provider: "CNCF"
+url: "https://landscape.cncf.io/"
+cost: "free"
+format: "interactive"
+level: "beginner"
+skills: [kubernetes-gitops, cloud-platforms, open-source]
+summary: "An interactive map of the cloud-native ecosystem. Use it to place any tool you hear about and to find open source alternatives."
+verifiedOn: 2026-11-03

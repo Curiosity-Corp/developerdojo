@@ -1,0 +1,10 @@
+title: "Git and GitHub for Beginners - Crash Course"
+provider: "freeCodeCamp.org"
+url: "https://www.youtube.com/watch?v=RGOj5yH7evk"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 68 minutes"
+skills: [git-gitlab]
+summary: "freeCodeCamp's crash course on Git and GitHub. Literacy in version control for those who review agent changes."
+verifiedOn: 2026-11-03

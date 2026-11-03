@@ -1,0 +1,9 @@
+title: "The Kubernetes Handbook – Learn Kubernetes for Beginners"
+provider: "freeCodeCamp"
+url: "https://www.freecodecamp.org/news/the-kubernetes-handbook/"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [kubernetes-gitops]
+summary: "A free handbook on Kubernetes. A gentle introduction in writing."
+verifiedOn: 2026-11-03

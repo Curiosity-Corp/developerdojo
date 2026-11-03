@@ -1,0 +1,9 @@
+title: "Google Skills"
+provider: "Google Cloud"
+url: "https://www.skills.google/"
+cost: "free-tier"
+format: "course"
+level: "beginner"
+skills: [cloud-platforms]
+summary: "Google's learning platform, which includes the former Cloud Skills Boost courses and labs. Some content is free and some needs credits or a subscription, so check the page."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Merge request approvals"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/merge_requests/approvals/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [git-gitlab, security]
+summary: "Explains requiring approvals before a merge. Approval rules turn \"a person looked at this\" into a rule the system enforces. Read it when you set who must sign off on what."
+verifiedOn: 2026-11-03

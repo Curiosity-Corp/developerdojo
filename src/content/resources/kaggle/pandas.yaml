@@ -1,0 +1,9 @@
+title: "Pandas"
+provider: "Kaggle"
+url: "https://www.kaggle.com/learn/pandas"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [data-analytics]
+summary: "Kaggle's free course on pandas, the standard Python data library. Data-handling literacy."
+verifiedOn: 2026-11-03

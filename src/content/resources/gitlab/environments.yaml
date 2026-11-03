@@ -1,0 +1,9 @@
+title: "Environments"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/environments/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ci-cd]
+summary: "Explains how GitLab tracks deployments to environments such as staging and production. It is how you see what is deployed where and roll forward. Read it when you design a release path."
+verifiedOn: 2026-11-03

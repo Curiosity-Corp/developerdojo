@@ -1,0 +1,9 @@
+title: "Free Course: Developing Secure Software (LFD121)"
+provider: "Linux Foundation"
+url: "https://openssf.org/training/courses/"
+cost: "free"
+format: "course"
+level: "intermediate"
+skills: [security, open-source]
+summary: "The OpenSSF's free course on secure software development. It covers the practices you should expect from your team and from agents. Take it to hold sound security conversations."
+verifiedOn: 2026-11-03

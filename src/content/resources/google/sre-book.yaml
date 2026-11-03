@@ -1,0 +1,9 @@
+title: "Site Reliability Engineering: How Google Runs Production Systems"
+provider: "Google"
+url: "https://sre.google/sre-book/table-of-contents/"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [observability-reliability, itsm-service-management]
+summary: "Google's free online SRE book. It introduces service level objectives, error budgets and blameless postmortems, which are the language of reliability. Read chapters on SLOs and postmortems first."
+verifiedOn: 2026-11-03

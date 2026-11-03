@@ -1,0 +1,9 @@
+title: "DORA"
+provider: "Google Cloud"
+url: "https://dora.dev/"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [ci-cd, agile-delivery, observability-reliability]
+summary: "The research programme behind the four key delivery metrics: deployment frequency, lead time, change failure rate and recovery time. They are among the best-evidenced ways to measure software delivery."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Azure Well-Architected Framework - Microsoft Azure Well-Architected Framework"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/azure/well-architected/"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [cloud-platforms, observability-reliability, security]
+summary: "Microsoft's framework for workload quality. Compare it with the AWS and Google versions to see the shared pillars."
+verifiedOn: 2026-11-03

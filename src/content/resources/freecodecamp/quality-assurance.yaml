@@ -1,0 +1,9 @@
+title: "Quality Assurance"
+provider: "freeCodeCamp"
+url: "https://www.freecodecamp.org/learn/quality-assurance/"
+cost: "free"
+format: "course"
+level: "intermediate"
+skills: [ai-evaluation]
+summary: "freeCodeCamp's free curriculum on testing. Tests are how you verify agent work."
+verifiedOn: 2026-11-03

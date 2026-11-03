@@ -1,0 +1,9 @@
+title: "Shared Responsibility Model - Amazon Web Services (AWS)"
+provider: "AWS"
+url: "https://aws.amazon.com/compliance/shared-responsibility-model/"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [security, cloud-platforms]
+summary: "Explains what AWS secures and what the customer must secure. It is the essential security idea of using any cloud."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Observability primer"
+provider: "CNCF"
+url: "https://opentelemetry.io/docs/concepts/observability-primer/"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [observability-reliability]
+summary: "A plain introduction to observability, telemetry, logs, metrics and traces. Read it first."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Signed commits"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/repository/signed_commits/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [git-gitlab, security]
+summary: "Explains signing commits so you can verify who made a change. It supports accountability when humans and agents both commit. Read it when audit trails matter."
+verifiedOn: 2026-11-03

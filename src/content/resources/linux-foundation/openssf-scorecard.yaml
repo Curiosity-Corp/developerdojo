@@ -1,0 +1,9 @@
+title: "OpenSSF Scorecard"
+provider: "Linux Foundation"
+url: "https://scorecard.dev/"
+cost: "free"
+format: "interactive"
+level: "intermediate"
+skills: [security, open-source]
+summary: "A tool and site that scores open source projects on security practices. Use it to judge dependencies, including ones an agent proposes."
+verifiedOn: 2026-11-03

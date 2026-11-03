@@ -1,0 +1,9 @@
+title: "OWASP Application Security Verification Standard (ASVS)"
+provider: "OWASP"
+url: "https://asvs.owasp.org/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [security]
+summary: "A detailed list of security requirements for web applications. It makes security a set of testable acceptance criteria. Use it when writing a security spec."
+verifiedOn: 2026-11-03

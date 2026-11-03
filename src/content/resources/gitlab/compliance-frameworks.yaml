@@ -1,0 +1,9 @@
+title: "Compliance frameworks"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/compliance/compliance_frameworks/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [security, ci-cd]
+summary: "Describes labelling projects with compliance requirements and enforcing controls. It shows policy tied to projects. Check the page for plan availability."
+verifiedOn: 2026-11-03

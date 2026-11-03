@@ -1,0 +1,9 @@
+title: "Connecting a Kubernetes cluster with GitLab"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/clusters/agent/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [kubernetes-gitops]
+summary: "Explains GitLab's agent for connecting Kubernetes clusters and GitOps style delivery. Read it to see how a repository and a cluster stay in sync."
+verifiedOn: 2026-11-03

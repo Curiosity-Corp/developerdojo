@@ -1,0 +1,9 @@
+title: "Google Engineering Practices Documentation"
+provider: "Google"
+url: "https://google.github.io/eng-practices/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [communication-writing, agile-delivery]
+summary: "Google's published guides to code review. The reviewer's guide is directly useful for reviewing agent output."
+verifiedOn: 2026-11-03

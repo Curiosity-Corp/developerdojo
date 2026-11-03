@@ -1,0 +1,9 @@
+title: "Cloud Adoption Framework for Microsoft - Cloud Adoption Framework"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [cloud-platforms, stakeholder-communication]
+summary: "Microsoft's guidance on strategy, planning and governance for adopting cloud. It speaks to business decisions as well as technical ones."
+verifiedOn: 2026-11-03

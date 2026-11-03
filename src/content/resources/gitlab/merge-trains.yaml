@@ -1,0 +1,9 @@
+title: "Merge trains"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/pipelines/merge_trains/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ci-cd, git-gitlab]
+summary: "Explains merge trains: queueing merge requests so each is tested against the ones ahead of it before merging. This is the gate that keeps main green when many changes land at once. Essential reading for governing a fleet of agents."
+verifiedOn: 2026-11-03

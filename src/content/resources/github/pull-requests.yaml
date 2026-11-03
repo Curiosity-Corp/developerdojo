@@ -1,0 +1,9 @@
+title: "Pull requests documentation - GitHub Docs"
+provider: "GitHub"
+url: "https://docs.github.com/en/pull-requests"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [git-gitlab]
+summary: "The documentation for pull requests, GitHub's equivalent of merge requests. Read it to compare how two platforms handle review."
+verifiedOn: 2026-11-03

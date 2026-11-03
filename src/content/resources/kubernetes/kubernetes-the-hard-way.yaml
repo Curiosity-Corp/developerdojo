@@ -1,0 +1,9 @@
+title: "kelseyhightower/kubernetes-the-hard-way"
+provider: "Kubernetes"
+url: "https://github.com/kelseyhightower/kubernetes-the-hard-way"
+cost: "free"
+format: "tutorial"
+level: "advanced"
+skills: [kubernetes-gitops, open-source]
+summary: "A famous walk-through of setting up Kubernetes by hand to learn what each part does. Not for everyone; skim it to understand how many pieces a cluster hides."
+verifiedOn: 2026-11-03

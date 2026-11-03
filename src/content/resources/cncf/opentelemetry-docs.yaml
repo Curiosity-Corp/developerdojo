@@ -1,0 +1,9 @@
+title: "Documentation"
+provider: "CNCF"
+url: "https://opentelemetry.io/docs/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [observability-reliability, open-source]
+summary: "The OpenTelemetry documentation. The open standard for traces, metrics and logs; it is the common language of observability."
+verifiedOn: 2026-11-03

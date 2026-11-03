@@ -1,0 +1,9 @@
+title: "Cherry-pick changes with Git"
+provider: "GitLab"
+url: "https://docs.gitlab.com/topics/git/cherry_pick/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [git-gitlab]
+summary: "Explains copying a single commit to another branch. A handy technique for fixes that need to land in more than one place."
+verifiedOn: 2026-11-03

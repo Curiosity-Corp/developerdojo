@@ -1,0 +1,9 @@
+title: "Overview"
+provider: "CNCF"
+url: "https://prometheus.io/docs/introduction/overview/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [observability-reliability]
+summary: "An overview of Prometheus, the monitoring system. Read it to understand metrics and alerts."
+verifiedOn: 2026-11-03
