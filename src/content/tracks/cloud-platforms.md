@@ -42,7 +42,7 @@ Product managers, founders and developers who will ask agents to build and run t
 
 ## How it maps to the program
 
-The Master Developer program asks you to keep infrastructure in git and to treat production as something changed only through reviewed merge requests. See [Everything as code, GitOps and drift](/library/iac-gitops-and-drift). This track teaches what that infrastructure is made of. The [Infrastructure as code](/library/tracks/infrastructure-as-code) track shows how to write it down, and [Security fundamentals](/library/tracks/security-fundamentals) goes deeper on defence.
+The Master Developer program asks you to keep infrastructure in git and to treat production as something changed only through reviewed merge requests. See [Everything as code, GitOps and drift](/library/iac-gitops-and-drift). This track teaches what that infrastructure is made of. The Infrastructure as code track shows how to write it down, and Security fundamentals goes deeper on defence.
 
 ## Vendor neutral
 
@@ -62,4 +62,4 @@ Cloud providers want you to use more of their services. Their training is good, 
 
 ## Pair it with
 
-[CI/CD](/library/tracks/ci-cd) so that changes arrive through a pipeline, [Infrastructure as code](/library/tracks/infrastructure-as-code) to write the design down, and [Observability and service management](/library/tracks/observability-and-service-management) to know it is working.
+[CI/CD](/library/tracks/ci-cd) so that changes arrive through a pipeline, Infrastructure as code to write the design down, and Observability and service management to know it is working.
