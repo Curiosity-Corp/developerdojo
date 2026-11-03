@@ -31,8 +31,6 @@ test('results are grouped and the index covers the words we promise', async ({ p
     await expect(dialog.getByRole('status')).toContainText(new RegExp(`\\d+ results? for "${word}"`));
     await expect(dialog.getByRole('heading', { level: 3 }).first()).toBeVisible();
   }
-  // Pagefind also matches by a word's leading letters, and a lesson with a lone "Z" made the old
-  // query "zzzzqqqq" find a page. Start with letters that no indexed word begins with.
   // A random token with digits cannot be a word in any lesson, and Pagefind's fuzzy
   // matching does not reach it (a fixed repeated-letter query once matched a lone "Z").
   const absent = `x${Math.random().toString(36).slice(2, 8)}9${Date.now() % 1000}q`;
