@@ -23,6 +23,8 @@ interface Props {
   hideSponsorBand?: boolean;
   /** Use the title as is, without the site-name suffix. */
   rawTitle?: boolean;
+  /** Error pages: tell crawlers not to index and publish no canonical URL. */
+  noindex?: boolean;
 }
 
 const {
@@ -31,6 +33,7 @@ const {
   ogImage = findImage('og'),
   hideSponsorBand = false,
   rawTitle = false,
+  noindex = false,
 } = Astro.props;
 
 const fullTitle = rawTitle ? title : `${title} · Developer Dojo`;
@@ -45,14 +48,14 @@ const ogUrl = ogImage ? new URL(ogImage, Astro.site).href : undefined;
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="color-scheme" content="light dark" />
     <meta property="og:site_name" content="Developer Dojo" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonical} />
+    {!noindex && <meta property="og:url" content={canonical} />}
     {ogUrl && <meta property="og:image" content={ogUrl} />}
     <meta name="twitter:card" content={ogUrl ? 'summary_large_image' : 'summary'} />
     <link rel="sitemap" href="/sitemap-index.xml" />

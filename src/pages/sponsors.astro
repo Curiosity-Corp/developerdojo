@@ -6,9 +6,7 @@ import FeatureGrid from '../components/FeatureGrid.astro';
 import DarkPanel from '../components/DarkPanel.astro';
 import Button from '../components/Button.astro';
 import { CRC_CONTACT_URL } from '../lib/community';
-import { findImage } from '../lib/images';
 
-const logo = findImage('reveltek-logo');
 
 const ways = [
   { icon: 'heart-handshake', title: 'Sponsor the program', description: 'Help keep Developer Dojo free. This supports the Library, the live sessions and the review of members’ work.', tone: 'gold' as const },
@@ -26,7 +24,7 @@ const ways = [
       <SectionHeader eyebrow="Program sponsor" title="Reveltek sponsors Developer Dojo" />
       <div class="sponsor-card">
         <div class="mark">
-          {logo ? <img src={logo} alt="Reveltek" height="48" /> : <span class="wordmark">REVELTEK</span>}
+          <img class="only-light" src="/images/reveltek-logo.svg" alt="Reveltek" height="48" /><img class="only-dark" src="/images/reveltek-logo-white.svg" alt="Reveltek" height="48" />
         </div>
         <p>
           Reveltek sponsors the Developer Dojo program. Their support is what lets Curiosity Research Corporation offer the training, the Library and the challenges free to anyone.

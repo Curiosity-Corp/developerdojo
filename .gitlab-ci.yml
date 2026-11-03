@@ -1,6 +1,7 @@
 # developerdojo.org pipeline.
 #   Merge requests: check, test, build, e2e.
-#   master:         the same gates, then GitLab Pages internal preview and the publish of the BUILT
+#   master and the nightly schedule (02:00 UTC, so date-filtered event lists stay current):
+#                   the same gates, then GitLab Pages internal preview and the publish of the BUILT
 #                   site (dist, with CNAME + .nojekyll) to GitHub Curiosity-Corp/developerdojo gh-pages.
 # Pattern adapted from HardMagic/website (.gitlab/ci/site-release.yml), simplified: no signed
 # provenance tag, no GitLab-side gh-pages branch.
@@ -13,6 +14,7 @@
 workflow:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    # Pushes to master AND the nightly pipeline schedule (a schedule runs on master as a branch pipeline).
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
 
 stages:
@@ -67,6 +69,16 @@ build:
       - dist
     expire_in: 7 days
 
+# Blocking: dist/ link check. Every internal href/src/srcset in the built pages must resolve.
+links:
+  extends: .node
+  stage: e2e
+  needs: [build]
+  script:
+    - node scripts/check-links.mjs dist
+
+# Blocking: Playwright e2e over the built site: every route, nav/footer links, image wiring, no
+# horizontal scroll at 390, and the axe-core WCAG 2.1 AA scan (zero serious/critical) in light and dark.
 e2e:
   extends: .node
   stage: e2e
@@ -83,7 +95,7 @@ e2e:
 # Internal GitLab Pages preview of the built site.
 pages:
   stage: deploy
-  needs: [build, e2e]
+  needs: [build, e2e, links]
   interruptible: false
   script:
     - mv dist public
@@ -97,9 +109,11 @@ pages:
 # deploys it to GitHub Pages at https://developerdojo.org.
 # Protected project variables: GITHUB_APP_ID, GITHUB_APP_INSTALLATION_ID,
 # GITHUB_APP_PRIVATE_KEY_B64 (masked).
+# Runs on every master pipeline, including the nightly schedule, so the rebuilt site (date-filtered
+# event lists evaluated at build time) always reaches GitHub Pages.
 publish_github_pages:
   stage: deploy
-  needs: [build, e2e]
+  needs: [build, e2e, links]
   interruptible: false
   resource_group: github-pages-release
   variables:

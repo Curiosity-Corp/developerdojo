@@ -28,9 +28,14 @@ const { highlight, compact = false, descriptions = {}, linked = false } = Astro.
         <>
           <li class:list={['rank', `tone-${rank.tone}`, { highlighted: highlight === rank.id }]}>
             <Card class="card" href={linked ? rank.href : undefined}>
-              <span class="tile">
-                <Icon name={rank.icon} size={compact ? 26 : 30} />
-              </span>
+              <img
+                class="tile"
+                src={`/images/rank-${rank.id}.svg`}
+                alt=""
+                aria-hidden="true"
+                width={compact ? 44 : 56}
+                height={compact ? 44 : 56}
+              />
               <span class="text">
                 <span class="name">{rank.name}</span>
                 {!compact && <span class="desc">{descriptions[rank.id] ?? rank.description}</span>}
@@ -61,18 +66,24 @@ const { highlight, compact = false, descriptions = {}, linked = false } = Astro.
   @media (min-width: 62rem) {
     .rank-path {
       grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
-      gap: var(--space-4);
+      gap: var(--space-3);
     }
   }
   .rank {
     display: flex;
   }
   .card {
-    display: flex;
+    display: grid;
     flex: 1;
-    gap: var(--space-4);
-    align-items: flex-start;
-    padding: var(--space-4) var(--space-5);
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      'tile name'
+      'desc desc';
+    column-gap: var(--space-3);
+    row-gap: var(--space-2);
+    align-items: center;
+    align-content: start;
+    padding: var(--space-4);
     background: var(--paper-raised);
     color: var(--ink);
     border: 1px solid var(--line);
@@ -89,28 +100,24 @@ const { highlight, compact = false, descriptions = {}, linked = false } = Astro.
     border-color: var(--tone);
   }
   .tile {
-    flex: none;
-    display: grid;
-    place-items: center;
-    width: 54px;
-    height: 54px;
-    border-radius: 10px;
-    background: var(--tone);
-    color: #fbf6e8;
+    grid-area: tile;
+    display: block;
+    width: 56px;
+    height: 56px;
   }
   .text {
-    display: block;
-    min-width: 0;
+    display: contents;
   }
   .name {
     display: block;
     font-family: var(--font-serif);
     font-weight: 700;
+    grid-area: name;
     font-size: var(--text-xl);
     line-height: 1.15;
-    margin-bottom: var(--space-1);
   }
   .desc {
+    grid-area: desc;
     display: block;
     font-size: var(--text-sm);
     color: var(--ink-muted);
@@ -128,11 +135,16 @@ const { highlight, compact = false, descriptions = {}, linked = false } = Astro.
     }
   }
   .compact .card {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'tile' 'name';
+    justify-items: center;
     text-align: center;
     padding: var(--space-3);
     gap: var(--space-2);
+  }
+  .compact .tile {
+    width: 44px;
+    height: 44px;
   }
   .compact .name {
     font-size: var(--text-base);

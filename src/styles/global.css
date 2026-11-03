@@ -12,6 +12,8 @@ html {
 }
 
 body {
+  position: relative;
+  isolation: isolate;
   margin: 0;
   background: var(--paper);
   color: var(--ink);
@@ -116,8 +118,12 @@ svg {
 .prose table {
   width: 100%;
   border-collapse: collapse;
-  display: block;
-  overflow-x: auto;
+  /* Never a scroll container (those need keyboard focus): wrap long words and code instead. */
+  overflow-wrap: anywhere;
+}
+.prose td code,
+.prose th code {
+  white-space: normal;
 }
 .prose th,
 .prose td {
@@ -130,6 +136,9 @@ svg {
   padding: var(--space-2) var(--space-5);
   border-left: 4px solid var(--gold);
   background: var(--paper-raised);
+}
+.prose :not(pre) > code {
+  overflow-wrap: anywhere;
 }
 .prose code {
   font-size: 0.9em;
@@ -156,5 +165,71 @@ svg {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Paper texture: a tileable grain laid over the cream (or dark) page ground, behind all content. */
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.4;
+  background-image: url('/images/paper-tile.jpg');
+  background-image: image-set(
+    url('/images/paper-tile.avif') type('image/avif'),
+    url('/images/paper-tile.webp') type('image/webp'),
+    url('/images/paper-tile.jpg') type('image/jpeg')
+  );
+  background-size: 256px 256px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) body::before {
+    opacity: 0.22;
+    background-image: url('/images/paper-tile-dark.jpg');
+    background-image: image-set(
+      url('/images/paper-tile-dark.avif') type('image/avif'),
+      url('/images/paper-tile-dark.webp') type('image/webp'),
+      url('/images/paper-tile-dark.jpg') type('image/jpeg')
+    );
+  }
+}
+:root[data-theme='dark'] body::before {
+  opacity: 0.22;
+  background-image: url('/images/paper-tile-dark.jpg');
+  background-image: image-set(
+    url('/images/paper-tile-dark.avif') type('image/avif'),
+    url('/images/paper-tile-dark.webp') type('image/webp'),
+    url('/images/paper-tile-dark.jpg') type('image/jpeg')
+  );
+}
+
+/* Theme-aware art pairs: render both, show one. */
+.only-dark {
+  display: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .only-light {
+    display: none;
+  }
+  :root:not([data-theme='light']) .only-dark {
+    display: inline;
+  }
+}
+:root[data-theme='dark'] .only-light {
+  display: none;
+}
+:root[data-theme='dark'] .only-dark {
+  display: inline;
+}
+
+/* A section whose right edge holds the pagoda art: leave it room on wide screens. */
+.has-pagoda {
+  position: relative;
+}
+@media (min-width: 80rem) {
+  .has-pagoda {
+    padding-right: 11rem;
   }
 }

@@ -9,4 +9,6 @@ export default defineConfig({
   trailingSlash: 'ignore',
   build: { format: 'directory' },
   integrations: [sitemap()],
+  // The dev toolbar never ships in production output; keep it off for dev screenshots too.
+  devToolbar: { enabled: false },
 });

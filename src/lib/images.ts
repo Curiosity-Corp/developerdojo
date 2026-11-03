@@ -16,3 +16,8 @@ export function findImage(baseName: string): string | undefined {
   }
   return undefined;
 }
+
+/** True when `public/images/<baseName>.<ext>` exists. */
+export function hasImage(baseName: string, ext: string): boolean {
+  return existsSync(join(process.cwd(), 'public', 'images', `${baseName}.${ext}`));
+}

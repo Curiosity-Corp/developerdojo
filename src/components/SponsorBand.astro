@@ -1,40 +1,31 @@
 ---
 /**
  * "Sponsored by Reveltek" band shown above the footer on every page (BaseLayout renders it).
+ * Ink-wash mountains behind (cream version in light theme, dark version in dark theme) and the
+ * official Reveltek logo (colour on cream, white on dark).
  *
- * Props:
- *  - image?: URL of the ink-mountain backdrop. Defaults to public/images/mountains-band.* if present,
- *    otherwise the built-in SVG placeholder.
- *  - logo?: URL of the sponsor logo. Defaults to public/images/reveltek-logo.* if present,
- *    otherwise a plain text wordmark.
- *  - sponsor (default "Reveltek"), href (default "/sponsors")
+ * Props: sponsor (default "Reveltek"), href (default "/sponsors")
  */
-import MountainsArt from './MountainsArt.astro';
-import { findImage } from '../lib/images';
+import Picture from './Picture.astro';
 
 interface Props {
-  image?: string;
-  logo?: string;
   sponsor?: string;
   href?: string;
 }
-const {
-  image = findImage('mountains-band'),
-  logo = findImage('reveltek-logo'),
-  sponsor = 'Reveltek',
-  href = '/sponsors',
-} = Astro.props;
+const { sponsor = 'Reveltek', href = '/sponsors' } = Astro.props;
 ---
 
 <section class="sponsor-band" aria-label={`Sponsored by ${sponsor}`}>
-  <div class="backdrop" style={image ? `background-image:url('${image}')` : undefined} aria-hidden="true">
-    {!image && <MountainsArt />}
+  <div class="backdrop" aria-hidden="true">
+    <span class="only-light"><Picture base="mountains-band" fallback="png" width={2400} height={220} /></span>
+    <span class="only-dark"><Picture base="mountains-band-dark" fallback="png" width={2400} height={220} /></span>
   </div>
   <div class="container inner">
     <span class="lead">Sponsored by</span>
     <span class="rule" aria-hidden="true"></span>
     <a class="sponsor" href={href}>
-      {logo ? <img src={logo} alt={sponsor} height="40" /> : <span class="wordmark">{sponsor.toUpperCase()}</span>}
+      <img class="only-light" src="/images/reveltek-logo.svg" alt={sponsor} width="134" height="79" />
+      <img class="only-dark" src="/images/reveltek-logo-white.svg" alt={sponsor} width="134" height="79" />
     </a>
     <span class="rule" aria-hidden="true"></span>
   </div>
@@ -52,9 +43,21 @@ const {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background-size: cover;
-    background-position: center bottom;
-    background-repeat: no-repeat;
+  }
+  .backdrop span {
+    position: absolute;
+    inset: 0;
+  }
+  .backdrop :global(picture) {
+    display: block;
+    height: 100%;
+  }
+  .backdrop :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
   }
   .inner {
     display: flex;
@@ -81,16 +84,8 @@ const {
     text-decoration: none;
   }
   .sponsor img {
-    display: block;
-    height: 40px;
+    height: 72px;
     width: auto;
-  }
-  .wordmark {
-    font-family: var(--font-sans);
-    font-weight: 800;
-    font-size: 1.7rem;
-    letter-spacing: 0.22em;
-    color: var(--rust-text);
   }
   @media (max-width: 40rem) {
     .rule {

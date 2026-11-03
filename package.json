@@ -14,7 +14,8 @@
     "test": "vitest run",
     "build": "astro build",
     "preview": "node scripts/serve-dist.mjs dist 4321",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "check:links": "node scripts/check-links.mjs dist"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
+    "@axe-core/playwright": "^4.14.0",
     "@playwright/test": "^1.64.1",
     "@types/node": "^26.6.6",
     "typescript": "^6.0.3",

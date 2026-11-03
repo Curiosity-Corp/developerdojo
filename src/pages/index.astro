@@ -10,6 +10,7 @@ import ChallengeList from '../components/ChallengeList.astro';
 import FeatureGrid from '../components/FeatureGrid.astro';
 import Button from '../components/Button.astro';
 import Icon from '../components/Icon.astro';
+import Pagoda from '../components/Pagoda.astro';
 
 const learn = [
   { icon: 'lightbulb', title: 'Product thinking', description: 'Turn ideas into valuable products.', tone: 'gold' },
@@ -52,7 +53,7 @@ const learn = [
   </PageHero>
 
   <section class="section" aria-labelledby="path-title">
-    <div class="container path">
+    <div class="container path has-pagoda">
       <div id="path-title">
         <SectionHeader
           eyebrow="Training path"
@@ -61,6 +62,7 @@ const learn = [
         />
       </div>
       <RankPath linked />
+      <Pagoda />
     </div>
   </section>
 
@@ -68,6 +70,7 @@ const learn = [
     <div class="container two-up">
       <DarkPanel
         split={false}
+        art="bamboo"
         icon="monitor-play"
         title="Watch builders live."
         text="Members can watch developers build real products in real time, ask questions, and learn from their process, decisions, and tools (including AI agents)."
@@ -136,7 +139,7 @@ const learn = [
   }
   @media (min-width: 80rem) {
     .path {
-      grid-template-columns: minmax(0, 0.8fr) minmax(0, 2.2fr);
+      grid-template-columns: 17rem minmax(0, 1fr);
       align-items: center;
     }
   }

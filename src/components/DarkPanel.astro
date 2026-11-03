@@ -6,11 +6,12 @@
  *  - title?, text?, icon?: heading block (title renders as `as`, default h2)
  *  - split?: when true the panel becomes a two-column row: dark heading block on the left and the
  *    default slot (usually <EventList/> or <ChallengeList/>) on the right, as in the mockups
- *  - image?: optional backdrop art URL (bamboo, laptop, etc.) shown softly behind the heading block
+ *  - art?: base name of transparent art in public/images (e.g. "bamboo") shown along the left edge of the heading block
  *  - tone?: "deep" (default) | "raised"
  * Slots: default (content), "aside" (extra content under the text in the heading block)
  */
 import Icon from './Icon.astro';
+import Picture from './Picture.astro';
 
 interface Props {
   title?: string;
@@ -18,14 +19,21 @@ interface Props {
   icon?: string;
   as?: 'h2' | 'h3';
   split?: boolean;
-  image?: string;
+  art?: string;
   tone?: 'deep' | 'raised';
 }
-const { title, text, icon, as: Heading = 'h2', split = false, image, tone = 'deep' } = Astro.props;
+const { title, text, icon, as: Heading = 'h2', split = false, art, tone = 'deep' } = Astro.props;
 ---
 
 <div class="panel-wrap"><section class:list={['dark-panel', `tone-${tone}`, { split }]}>
-  <div class="head" style={image ? `--panel-image:url('${image}')` : undefined}>
+  <div class:list={['head', { 'has-art': Boolean(art) }]}>
+    {
+      art && (
+        <div class="art" aria-hidden="true">
+          <Picture base={art} fallback="png" width={520} height={900} />
+        </div>
+      )
+    }
     <div class="head-inner">
       {icon && <Icon name={icon} size={34} class="head-icon" />}
       <div>
@@ -55,9 +63,31 @@ const { title, text, icon, as: Heading = 'h2', split = false, image, tone = 'dee
   .head {
     position: relative;
     padding: var(--space-5);
-    background-image: var(--panel-image);
-    background-size: cover;
-    background-position: center;
+  }
+  .head.has-art {
+    padding-left: 5.5rem;
+  }
+  .art {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4.5rem;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .art :global(picture) {
+    display: block;
+    height: 100%;
+  }
+  .art :global(img) {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    object-fit: cover;
+    object-position: left bottom;
+    opacity: 0.9;
   }
   .head-inner {
     display: flex;

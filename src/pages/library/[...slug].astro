@@ -55,3 +55,11 @@ const { Content } = await render(entry);
     font-weight: 600;
   }
 </style>
+
+<script>
+  // Markdown checklists render bare checkboxes. Give each one its item text as an accessible name.
+  for (const input of document.querySelectorAll<HTMLInputElement>('.prose .task-list-item > input[type="checkbox"]')) {
+    const text = input.parentElement?.textContent?.trim();
+    if (text) input.setAttribute('aria-label', text);
+  }
+</script>

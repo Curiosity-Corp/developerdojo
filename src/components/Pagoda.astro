@@ -1,0 +1,30 @@
+---
+/** Decorative pagoda on a misty cliff at the right edge of a `.has-pagoda` container (wide screens only). */
+import Picture from './Picture.astro';
+---
+
+<div class="pagoda" aria-hidden="true">
+  <Picture base="pagoda-cliff" fallback="png" width={705} height={540} />
+</div>
+
+<style>
+  .pagoda {
+    display: none;
+    position: absolute;
+    right: var(--gutter);
+    bottom: -0.5rem;
+    width: 9.5rem;
+    pointer-events: none;
+    opacity: 0.9;
+  }
+  .pagoda :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  @media (min-width: 80rem) {
+    .pagoda {
+      display: block;
+    }
+  }
+</style>
