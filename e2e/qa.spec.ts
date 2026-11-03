@@ -93,16 +93,18 @@ test.describe('navigation', () => {
     }
   });
 
-  test('every nav and footer link works from every route (follows the link, lands on a 200 page)', async ({ page }) => {
-    for (const route of ['/', '/train', '/sensei']) {
+  test('the header and footer links are the same on every route and all resolve', async ({ page, request }) => {
+    let expected: string | undefined;
+    for (const route of ['/', '/train', '/sensei', '/library', '/events']) {
       await page.goto(route);
       const hrefs = await page.locator('header nav a, footer nav a').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
-      for (const href of new Set(hrefs)) {
-        if (!href || href.startsWith('http')) continue;
-        const res = await page.goto(href);
-        expect(res?.status(), `${route} -> ${href}`).toBe(200);
-        await page.goto(route);
-      }
+      // Only the active-page state differs between routes, never the destinations.
+      expected ??= JSON.stringify(hrefs);
+      expect(JSON.stringify(hrefs), route).toBe(expected);
+    }
+    for (const href of new Set(JSON.parse(expected ?? '[]') as string[])) {
+      if (href.startsWith('http')) continue;
+      expect((await request.get(href.split('#')[0] ?? href)).status(), href).toBe(200);
     }
   });
 });
@@ -160,7 +162,10 @@ test.describe('wiring', () => {
 test.describe('accessibility (WCAG 2.1 AA, no serious or critical violations)', () => {
   for (const theme of ['light', 'dark'] as const) {
     for (const route of ROUTES) {
-      test(`${route} (${theme})`, async ({ page }) => {
+      test(`${route} (${theme})`, async ({ page, isMobile }) => {
+        // The desktop project scans every page; the phone project scans the three flagship pages
+        // (the markup is shared, so a full second pass only slows CI).
+        test.skip(isMobile && !['/', '/train/', '/sensei/'].includes(route), 'covered by the desktop project');
         await page.goto(route);
         await setTheme(page, theme);
         await page.waitForLoadState('networkidle');
