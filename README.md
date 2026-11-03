@@ -7,6 +7,8 @@ types code; a developer owns a whole product and steers AI agents that do the bu
 This repository is the source of truth (GitLab `Curiosity-Corp/developerdojo`, default branch `master`).
 The GitHub copy only ever receives the **built** site on its `gh-pages` branch.
 
+Running the site: [CONTRIBUTING.md](CONTRIBUTING.md) (how to change a page), [docs/handbook.md](docs/handbook.md) (maintainer handbook), [ROADMAP.md](ROADMAP.md) (what is next).
+
 ## Stack
 
 Astro (static output), TypeScript strict, content collections validated with zod, self-hosted fonts
