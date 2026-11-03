@@ -1,0 +1,10 @@
+title: "PostgreSQL Documentation: Constraints"
+provider: "PostgreSQL Global Development Group"
+url: "https://www.postgresql.org/docs/current/ddl-constraints.html"
+cost: "free"
+format: "docs"
+level: "intermediate"
+duration: "about 30 minutes"
+skills: [data-analytics]
+summary: "The official guide to primary keys, foreign keys, NOT NULL and CHECK rules. Read it to see how the database itself can refuse bad data, whatever the app code does."
+verifiedOn: 2026-11-03

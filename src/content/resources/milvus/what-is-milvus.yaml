@@ -1,0 +1,10 @@
+title: "What is Milvus"
+provider: "Milvus"
+url: "https://milvus.io/docs/overview.md"
+cost: "free"
+format: "docs"
+level: "beginner"
+duration: "about 15 minutes"
+skills: [data-analytics, ai-agents]
+summary: "The official overview of Milvus, an open-source vector database: what it stores, what searches it supports and where it fits. Read it first, then decide whether your product needs it at all."
+verifiedOn: 2026-11-03

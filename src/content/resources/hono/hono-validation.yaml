@@ -1,0 +1,10 @@
+title: "Validation - Hono"
+provider: "Hono"
+url: "https://hono.dev/docs/guides/validation"
+cost: "free"
+format: "docs"
+level: "intermediate"
+duration: "about 15 minutes"
+skills: [security]
+summary: "How Hono checks request data before your code uses it, including with Zod. Use it as the reference for the rule that every API boundary validates input."
+verifiedOn: 2026-11-03

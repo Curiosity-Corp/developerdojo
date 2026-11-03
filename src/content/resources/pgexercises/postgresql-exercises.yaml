@@ -1,0 +1,10 @@
+title: "PostgreSQL Exercises"
+provider: "PGExercises"
+url: "https://pgexercises.com/"
+cost: "free"
+format: "interactive"
+level: "beginner"
+duration: "several hours"
+skills: [data-analytics]
+summary: "A free site of graded SQL questions you answer in the browser, from simple selects to joins and aggregates. Practise reading and writing queries so you can check an agent's SQL."
+verifiedOn: 2026-11-03

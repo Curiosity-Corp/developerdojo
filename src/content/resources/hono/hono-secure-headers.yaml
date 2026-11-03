@@ -1,0 +1,10 @@
+title: "Secure Headers Middleware - Hono"
+provider: "Hono"
+url: "https://hono.dev/docs/middleware/builtin/secure-headers"
+cost: "free"
+format: "docs"
+level: "intermediate"
+duration: "about 10 minutes"
+skills: [security]
+summary: "The built-in Hono middleware that adds safe HTTP response headers. Read it to know which protections a one-line change can add."
+verifiedOn: 2026-11-03

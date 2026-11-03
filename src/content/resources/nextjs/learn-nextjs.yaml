@@ -1,0 +1,10 @@
+title: "Learn Next.js"
+provider: "Vercel"
+url: "https://nextjs.org/learn"
+cost: "free"
+format: "course"
+level: "beginner"
+duration: "about 4 hours"
+skills: [brand-web-design, cloud-platforms]
+summary: "The official free Next.js course: build a dashboard app step by step with routing, data and styling. Take it to understand what the web layer of a PHANTOMS product can do."
+verifiedOn: 2026-11-03

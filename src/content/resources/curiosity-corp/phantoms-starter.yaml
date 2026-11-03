@@ -1,0 +1,9 @@
+title: "PHANTOMS: agent-ready learning stack (public starter)"
+provider: "Curiosity Research Corporation"
+url: "https://github.com/Curiosity-Corp/phantoms"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [open-source, ai-agents, cloud-platforms]
+summary: "The public PHANTOMS core starter: a runnable Bun, PostgreSQL, Hono and Next.js app with an AGENTS.md file and guides for setup, security and CI. Clone it to follow the Dojo track, and read its docs to see how a repository can brief an AI agent."
+verifiedOn: 2026-11-03

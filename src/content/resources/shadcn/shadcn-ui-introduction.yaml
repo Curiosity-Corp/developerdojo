@@ -1,0 +1,10 @@
+title: "Introduction - shadcn/ui"
+provider: "shadcn/ui"
+url: "https://ui.shadcn.com/docs"
+cost: "free"
+format: "docs"
+level: "beginner"
+duration: "about 15 minutes"
+skills: [brand-web-design, open-source]
+summary: "The shadcn/ui introduction: accessible, copy-into-your-repo components you own and can change. Read it to see why teams and agents like this approach to a design system."
+verifiedOn: 2026-11-03

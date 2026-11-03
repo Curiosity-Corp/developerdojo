@@ -1,0 +1,10 @@
+title: "The Twelve-Factor App"
+provider: "Twelve-Factor project"
+url: "https://12factor.net/"
+cost: "free"
+format: "book"
+level: "intermediate"
+duration: "about 45 minutes"
+skills: [cloud-platforms, ci-cd]
+summary: "Twelve short rules for building apps that are easy to deploy and run, including keeping configuration in the environment and treating backing services as swappable. Use it to judge any starter or agent-built project for operations readiness."
+verifiedOn: 2026-11-03

@@ -1,0 +1,10 @@
+title: "Tool and agent permissions - OpenClaw"
+provider: "OpenClaw"
+url: "https://docs.openclaw.ai/gateway/security/tool-permissions"
+cost: "free"
+format: "docs"
+level: "intermediate"
+duration: "about 20 minutes"
+skills: [ai-agents, security]
+summary: "The official guide to allowing and denying tools per agent. It is the page the PHANTOMS security notes point to, and the basis for a deny-by-default agent policy."
+verifiedOn: 2026-11-03

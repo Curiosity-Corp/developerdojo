@@ -1,0 +1,10 @@
+title: "Tutorial: Create and run your first GitLab CI/CD pipeline"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/quick_start/"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+duration: "about 30 minutes"
+skills: [ci-cd, git-gitlab]
+summary: "The official first-pipeline tutorial from GitLab: write a .gitlab-ci.yml file, run jobs in stages and read the results. Take it so you can read any pipeline an agent proposes and see which checks guard your product."
+verifiedOn: 2026-11-03

@@ -1,0 +1,10 @@
+title: "Index Explained | Milvus Documentation"
+provider: "Milvus"
+url: "https://milvus.io/docs/index-explained.md"
+cost: "free"
+format: "docs"
+level: "advanced"
+duration: "about 30 minutes"
+skills: [data-analytics]
+summary: "Explains the index types Milvus offers and the trade-offs between speed, memory and accuracy. It gives you the words to question the cost of a retrieval design."
+verifiedOn: 2026-11-03

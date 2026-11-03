@@ -1,0 +1,10 @@
+title: "Philosophy - Hono"
+provider: "Hono"
+url: "https://hono.dev/docs/concepts/motivation"
+cost: "free"
+format: "article"
+level: "beginner"
+duration: "about 10 minutes"
+skills: [open-source, cloud-platforms]
+summary: "A short page from the Hono team on why the framework is small and built on web standards. It helps you see why one API code base can move between runtimes."
+verifiedOn: 2026-11-03

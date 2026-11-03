@@ -1,0 +1,10 @@
+title: "Introduction"
+provider: "Turborepo (Vercel)"
+url: "https://turborepo.dev/docs"
+cost: "free"
+format: "docs"
+level: "beginner"
+duration: "about 15 minutes"
+skills: [ci-cd, cloud-platforms]
+summary: "The official introduction to Turborepo, which runs the tasks of a multi-package repository in the right order and skips work it has already done. Start here before you read turbo.json."
+verifiedOn: 2026-11-03

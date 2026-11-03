@@ -1,0 +1,10 @@
+title: "Running tasks | Turborepo"
+provider: "Vercel"
+url: "https://turborepo.dev/docs/crafting-your-repository/running-tasks"
+cost: "free"
+format: "docs"
+level: "intermediate"
+duration: "about 20 minutes"
+skills: [ci-cd]
+summary: "How task dependencies are declared and run, including the build order across packages. Read it to judge whether an agent has wired a new package into the task graph correctly."
+verifiedOn: 2026-11-03

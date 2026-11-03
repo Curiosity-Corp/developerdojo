@@ -1,0 +1,9 @@
+title: "Welcome to Bun"
+provider: "Bun"
+url: "https://bun.sh/docs"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [cloud-platforms, open-source]
+summary: "The official Bun documentation: the runtime, package manager, test runner and bundler in one toolkit. Use it to look up any command an agent runs in a PHANTOMS repository."
+verifiedOn: 2026-11-03

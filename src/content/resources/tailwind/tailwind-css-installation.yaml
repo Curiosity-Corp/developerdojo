@@ -1,0 +1,10 @@
+title: "Installing Tailwind CSS with Vite"
+provider: "Tailwind Labs"
+url: "https://tailwindcss.com/docs/installation"
+cost: "free"
+format: "docs"
+level: "beginner"
+duration: "about 15 minutes"
+skills: [brand-web-design]
+summary: "The official Tailwind CSS installation guide, the entry point to the styling system used in the PHANTOMS+ web variant. Read it to judge whether a design system fits your product."
+verifiedOn: 2026-11-03

@@ -1,0 +1,10 @@
+title: "What is Amazon S3? - Amazon Simple Storage Service"
+provider: "AWS"
+url: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html"
+cost: "free"
+format: "docs"
+level: "beginner"
+duration: "about 15 minutes"
+skills: [cloud-platforms]
+summary: "AWS's introduction to object storage: buckets, objects and keys. It defines the S3 model that SeaweedFS and many other stores copy."
+verifiedOn: 2026-11-03

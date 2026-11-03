@@ -1,0 +1,9 @@
+title: "charmbracelet/bubbletea"
+provider: "Charm"
+url: "https://github.com/charmbracelet/bubbletea"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [open-source]
+summary: "The Bubble Tea repository: README, examples and releases. Check it for the current API before you accept an agent's terminal UI code."
+verifiedOn: 2026-11-03

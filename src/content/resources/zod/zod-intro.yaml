@@ -1,0 +1,10 @@
+title: "Intro | Zod"
+provider: "Zod"
+url: "https://zod.dev/"
+cost: "free"
+format: "docs"
+level: "beginner"
+duration: "about 20 minutes"
+skills: [security, open-source]
+summary: "The introduction to Zod, the TypeScript library that describes the shape of data and checks it at runtime. It is used in PHANTOMS for API input, configuration and AI output."
+verifiedOn: 2026-11-03

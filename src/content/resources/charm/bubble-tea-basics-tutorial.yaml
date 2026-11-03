@@ -1,0 +1,10 @@
+title: "Bubble Tea basics tutorial"
+provider: "Charm"
+url: "https://github.com/charmbracelet/bubbletea/tree/main/tutorials/basics"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+duration: "about 30 minutes"
+skills: [open-source]
+summary: "The official step-by-step tutorial for Bubble Tea, a Go framework for terminal apps built on a model, an update step and a view. Read it so you can follow how a terminal app keeps state."
+verifiedOn: 2026-11-03

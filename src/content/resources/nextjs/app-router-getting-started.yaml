@@ -1,0 +1,10 @@
+title: "Getting Started | Next.js"
+provider: "Vercel"
+url: "https://nextjs.org/docs/app/getting-started"
+cost: "free"
+format: "docs"
+level: "beginner"
+duration: "about 1 hour"
+skills: [cloud-platforms]
+summary: "The official getting-started path for the Next.js App Router: layouts, pages, linking, data and deployment. Read it to follow the folder structure in apps/web."
+verifiedOn: 2026-11-03

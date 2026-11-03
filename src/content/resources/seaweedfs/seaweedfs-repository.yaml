@@ -1,0 +1,9 @@
+title: "seaweedfs/seaweedfs"
+provider: "SeaweedFS"
+url: "https://github.com/seaweedfs/seaweedfs"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [cloud-platforms, open-source]
+summary: "The source repository of SeaweedFS with its releases and licence. Check releases and open issues here before you adopt or upgrade it."
+verifiedOn: 2026-11-03
