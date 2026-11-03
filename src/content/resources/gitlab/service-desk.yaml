@@ -1,0 +1,9 @@
+title: "Service Desk"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/service_desk/"
+cost: free
+format: docs
+level: intermediate
+skills: [itsm-service-management]
+summary: "Explains GitLab's Service Desk, which turns emails from customers into issues. A git-based request intake."
+verifiedOn: 2026-11-03

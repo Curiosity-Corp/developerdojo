@@ -1,0 +1,9 @@
+title: "Azure Monitor overview"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/azure/azure-monitor/fundamentals/overview"
+cost: free
+format: docs
+level: intermediate
+skills: [observability-reliability, cloud-platforms]
+summary: "Microsoft's overview of its monitoring service for logs, metrics and alerts on Azure."
+verifiedOn: 2026-11-03

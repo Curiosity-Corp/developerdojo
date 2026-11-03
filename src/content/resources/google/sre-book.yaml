@@ -1,0 +1,9 @@
+title: "Site Reliability Engineering (Table of Contents)"
+provider: "Google"
+url: "https://sre.google/sre-book/table-of-contents/"
+cost: free
+format: book
+level: intermediate
+skills: [observability-reliability]
+summary: "The free online edition of Google's book on running reliable systems. You do not read it end to end: pick the chapters on service level objectives, monitoring, incidents and postmortems."
+verifiedOn: 2026-11-03

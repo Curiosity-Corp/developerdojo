@@ -62,4 +62,4 @@ Cloud providers want you to use more of their services. Their training is good, 
 
 ## Pair it with
 
-[CI/CD](/library/tracks/ci-cd) so that changes arrive through a pipeline, [Infrastructure as code](/library/tracks/infrastructure-as-code) to write the design down, and Observability and service management to know it is working.
+[CI/CD](/library/tracks/ci-cd) so that changes arrive through a pipeline, [Infrastructure as code](/library/tracks/infrastructure-as-code) to write the design down, and [Observability and service management](/library/tracks/observability-and-service-management) to know it is working.

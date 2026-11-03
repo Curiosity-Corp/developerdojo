@@ -1,0 +1,9 @@
+title: "Overview"
+provider: "Prometheus"
+url: "https://prometheus.io/docs/introduction/overview/"
+cost: free
+format: docs
+level: beginner
+skills: [observability-reliability]
+summary: "The official overview of Prometheus, the open-source metrics system, and how it collects and stores time series."
+verifiedOn: 2026-11-03

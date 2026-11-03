@@ -1,0 +1,9 @@
+title: "Implementing SLOs"
+provider: "Google"
+url: "https://sre.google/workbook/implementing-slos/"
+cost: free
+format: book
+level: advanced
+skills: [observability-reliability]
+summary: "A workbook chapter with practical steps and examples for setting SLOs and using error budgets."
+verifiedOn: 2026-11-03
