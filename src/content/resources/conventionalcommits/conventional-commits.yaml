@@ -1,0 +1,9 @@
+title: "Conventional Commits"
+provider: "Conventional Commits"
+url: "https://www.conventionalcommits.org/en/v1.0.0/"
+cost: free
+format: docs
+level: beginner
+skills: [git-gitlab]
+summary: "A small specification for commit messages with a type, an optional scope and a description. It makes history readable by people and tools. You may adopt it fully or just borrow the habit."
+verifiedOn: 2026-11-03

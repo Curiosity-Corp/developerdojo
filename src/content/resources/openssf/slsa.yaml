@@ -1,0 +1,9 @@
+title: "SLSA: Supply-chain Levels for Software Artifacts"
+provider: "OpenSSF"
+url: "https://slsa.dev/"
+cost: free
+format: docs
+level: advanced
+skills: [security, ci-cd]
+summary: "A specification of levels of build integrity that describes how to prove an artifact came from the source you think it did."
+verifiedOn: 2026-11-03

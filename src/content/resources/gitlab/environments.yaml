@@ -1,0 +1,9 @@
+title: "Environments"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/environments/"
+cost: free
+format: docs
+level: intermediate
+skills: [ci-cd]
+summary: "Explains environments and deployments in GitLab: how a pipeline records where each version runs. Read it when you add a staging or production stage."
+verifiedOn: 2026-11-03

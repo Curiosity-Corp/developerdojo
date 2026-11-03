@@ -1,0 +1,9 @@
+title: "Signed commits"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/repository/signed_commits/"
+cost: free
+format: docs
+level: intermediate
+skills: [git-gitlab, security]
+summary: "How to sign your commits so that GitLab can show they came from you. Read it when you want proof of who wrote a change."
+verifiedOn: 2026-11-03

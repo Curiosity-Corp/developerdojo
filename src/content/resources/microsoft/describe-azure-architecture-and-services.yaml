@@ -1,0 +1,9 @@
+title: "Introduction to Cloud Infrastructure: Describe Azure Architecture and Services"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/training/paths/azure-fundamentals-describe-azure-architecture-services/"
+cost: free
+format: course
+level: beginner
+skills: [cloud-platforms]
+summary: "The second AZ-900 path: regions, availability zones, compute, networking, storage and identity on Azure. Useful even if you will use another cloud, because the building blocks are alike."
+verifiedOn: 2026-11-03

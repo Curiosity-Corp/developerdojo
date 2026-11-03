@@ -1,0 +1,9 @@
+title: "Protected branches"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/repository/branches/protected/"
+cost: free
+format: docs
+level: intermediate
+skills: [git-gitlab, security]
+summary: "Explains how to stop direct pushes and force pushes to important branches such as your default branch. It is the rule that makes review mandatory."
+verifiedOn: 2026-11-03

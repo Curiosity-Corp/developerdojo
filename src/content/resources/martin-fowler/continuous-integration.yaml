@@ -1,0 +1,9 @@
+title: "Continuous Integration"
+provider: "Martin Fowler"
+url: "https://martinfowler.com/articles/continuousIntegration.html"
+cost: free
+format: article
+level: beginner
+skills: [ci-cd]
+summary: "The classic essay on continuous integration: integrate often, keep the build fast, fix a broken build first. The habits are the point, not the tools."
+verifiedOn: 2026-11-03

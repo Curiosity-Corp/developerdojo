@@ -1,0 +1,9 @@
+title: "Caching in GitLab CI/CD"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/caching/"
+cost: free
+format: docs
+level: intermediate
+skills: [ci-cd]
+summary: "Shows how to keep downloaded dependencies between jobs so pipelines run faster, and how caches differ from artifacts."
+verifiedOn: 2026-11-03

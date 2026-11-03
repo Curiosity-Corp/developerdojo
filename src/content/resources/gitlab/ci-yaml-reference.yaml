@@ -1,0 +1,9 @@
+title: "CI/CD YAML syntax reference"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/yaml/"
+cost: free
+format: docs
+level: intermediate
+skills: [ci-cd]
+summary: "The full reference for every keyword in a .gitlab-ci.yml file. You will not read it end to end. Search it whenever a keyword is unclear."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Create, edit, or delete budgets and budget alerts"
+provider: "Google Cloud"
+url: "https://docs.cloud.google.com/billing/docs/how-to/budgets"
+cost: free
+format: docs
+level: beginner
+skills: [cloud-platforms]
+summary: "Shows how to set a budget and alerts on Google Cloud so a mistake cannot run up a bill unseen. Do this before any hands-on work."
+verifiedOn: 2026-11-03

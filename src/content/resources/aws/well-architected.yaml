@@ -1,0 +1,9 @@
+title: "AWS Well-Architected"
+provider: "AWS"
+url: "https://aws.amazon.com/architecture/well-architected/"
+cost: free
+format: docs
+level: intermediate
+skills: [cloud-platforms, security, observability-reliability]
+summary: "AWS's framework of design questions grouped by pillars such as security, reliability, cost and operations. Even if you do not use AWS, the questions are a good review checklist."
+verifiedOn: 2026-11-03

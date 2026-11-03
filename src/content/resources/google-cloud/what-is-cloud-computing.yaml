@@ -1,0 +1,9 @@
+title: "What is Cloud Computing?"
+provider: "Google Cloud"
+url: "https://cloud.google.com/learn/what-is-cloud-computing"
+cost: free
+format: article
+level: beginner
+skills: [cloud-platforms]
+summary: "A plain-language explanation of cloud computing, its service models and why organisations use it."
+verifiedOn: 2026-11-03

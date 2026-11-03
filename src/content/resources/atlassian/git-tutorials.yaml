@@ -1,0 +1,9 @@
+title: "Git Tutorials and Training"
+provider: "Atlassian"
+url: "https://www.atlassian.com/git/tutorials"
+cost: free
+format: tutorial
+level: beginner
+skills: [git-gitlab]
+summary: "A well-illustrated tutorial series on Git, including comparisons of workflows and when to merge or rebase. Use it for the picture-based explanations."
+verifiedOn: 2026-11-03

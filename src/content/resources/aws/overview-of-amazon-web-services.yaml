@@ -1,0 +1,9 @@
+title: "Overview of Amazon Web Services"
+provider: "AWS"
+url: "https://docs.aws.amazon.com/whitepapers/latest/aws-overview/introduction.html"
+cost: free
+format: docs
+level: beginner
+skills: [cloud-platforms]
+summary: "A whitepaper that tours the AWS service categories in plain language. Use it to learn what services exist and what they are called."
+verifiedOn: 2026-11-03

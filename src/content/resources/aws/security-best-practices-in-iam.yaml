@@ -1,0 +1,9 @@
+title: "Security best practices in IAM"
+provider: "AWS"
+url: "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html"
+cost: free
+format: docs
+level: intermediate
+skills: [cloud-platforms, security]
+summary: "AWS's checklist for identity and access: protect the root account, use temporary credentials, grant least privilege and turn on multi-factor sign-in. Read it before you let any person or agent hold AWS access."
+verifiedOn: 2026-11-03

@@ -4,6 +4,6 @@ url: "https://trivy.dev/docs/latest/guide/"
 cost: "free"
 format: "docs"
 level: "intermediate"
-skills: [security, ci-cd]
+skills: [security, ci-cd, infrastructure-as-code]
 summary: "The docs for Trivy, a free scanner for images, repositories and configuration files. It shows what a scan reports and how to read a result. Read the overview and the image scanning page."
 verifiedOn: 2026-11-03

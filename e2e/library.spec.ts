@@ -98,8 +98,11 @@ test('resource cards link out safely', async ({ page }) => {
   await page.goto('/library/resources');
   const links = page.locator('[data-resource] h3 a');
   expect(await links.count()).toBeGreaterThan(0);
-  for (const link of await links.all()) {
-    await expect(link).toHaveAttribute('href', /^https:\/\//);
-    await expect(link).toHaveAttribute('rel', /noopener/);
-  }
+  // One browser-side pass: per-link assertions time out as the catalogue grows.
+  const unsafe = await links.evaluateAll((anchors) =>
+    anchors
+      .filter((a) => !/^https:\/\//.test(a.getAttribute('href') ?? '') || !/noopener/.test(a.getAttribute('rel') ?? ''))
+      .map((a) => a.getAttribute('href') ?? '(no href)'),
+  );
+  expect(unsafe).toEqual([]);
 });

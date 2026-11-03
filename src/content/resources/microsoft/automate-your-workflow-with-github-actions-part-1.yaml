@@ -1,0 +1,9 @@
+title: "Automate your workflow with GitHub Actions Part 1 of 2"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/training/paths/github-actions/"
+cost: free
+format: course
+level: beginner
+skills: [ci-cd]
+summary: "A Microsoft Learn path with modules on building workflows in GitHub Actions. Good guided practice for the ideas of continuous integration."
+verifiedOn: 2026-11-03
