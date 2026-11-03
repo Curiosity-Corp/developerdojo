@@ -3,6 +3,23 @@ title: "Week 4: Defend the roadmap"
 description: "Check dependencies, map stakeholders, defend your choices, and learn to steer AI agents with agent-ready epics."
 section: "Developer path"
 order: 4
+level: core
+duration: "8 to 10 hours"
+outcomes:
+  - "Fix your epics after the review and check dependencies."
+  - "Cut the first epic into three to five dated milestones."
+  - "Prepare and give a ten-minute roadmap presentation."
+  - "Pass level 3 on all six skills with none below 2."
+resources:
+  - gitlab/roadmap
+  - atlassian/tips-presenting-product-roadmaps
+  - atlassian/definition-of-done
+  - atlassian/project-dependencies
+  - microsoft/azure-architecture-center
+  - anthropic/building-effective-agents
+prerequisites:
+  - week-3-problems-to-epics
+  - disclose-ai-use
 ---
 
 **Outcome:** your roadmap survives a review, and your first epic is ready for AI agents to build.
@@ -119,3 +136,29 @@ Use the [weekly cadence](/library/weekly-cadence-and-common-mistakes) from now o
 ## Final review
 
 Present to a panel or coach. They ask: is it your thinking, does it cover the whole product, can agents build from it?
+
+## How the program supports this week
+
+### How your Sensei works this week
+
+This is the final review for the planning level. You present a ten-minute roadmap to a panel: the picture, the order, the risks and what you chose NOT to do. The panel checks three things: is it your thinking, does it cover the whole product, and can agents build from it? Read [how your Sensei works with you](/library/program-how-sensei-work) to prepare.
+
+### Show your work in git
+
+Corrected epics after the Week 3 review, `milestones/` with 3 to 5 dated milestones for the first epic, `stakeholders.md`, `decisions/` and your presentation notes. Show the changes in merge requests. See [your files and git](/library/program-your-work-in-git).
+
+### AI use this week
+
+**May:** break the milestones you wrote into issues and build them, draft a release note. **May not:** change scope, decide dependencies or approve their own issues. Write the disclosure line in every merge request.
+
+### Skill tracks that match
+
+[Your roadmap in git](/library/tracks/roadmapping-and-epics/04-your-roadmap-in-git), [Agent-ready milestones](/library/tracks/roadmapping-and-epics/05-agent-ready-milestones), [Map the stakeholders](/library/tracks/stakeholder-communication/01-map-the-stakeholders), [Present and defend the roadmap](/library/tracks/stakeholder-communication/03-present-and-defend-the-roadmap) and [Orchestrating multiple agents](/library/tracks/working-with-ai-agents/06-orchestrating-multiple-agents).
+
+### The 2030 Product Development Manager lens
+
+You decide scope, order, risks and what you will not do. You delegate issues for approved milestones. A sample brief: "Break milestone 1.1 into issues of at most two days, each with a done-when line. List your questions. Do not change scope." You verify by reading every issue against the milestone. On the agent ladder this week is **delegate**, with **orchestrate** coming next.
+
+### Reading for this week
+
+Week 4 of Track A in [the learning path week by week](/library/learning-path-week-by-week): 9 items, about 259 hours, mostly optional certificates. After the review, pass level is 3 on all six skills and none below 2: see [how you are assessed](/library/program-assessment-and-pass-level).

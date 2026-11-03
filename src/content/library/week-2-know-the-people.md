@@ -3,6 +3,23 @@ title: "Week 2: Know the people"
 description: "Interview users, write personas, map touch points and draw user and customer journeys."
 section: "Developer path"
 order: 2
+level: foundation
+duration: "8 to 10 hours"
+outcomes:
+  - "Name your customers and users and how they find, buy and use the product."
+  - "Write three to five personas from real evidence."
+  - "Draw touch points, a user journey and a customer journey."
+  - "Say where the journey breaks today."
+resources:
+  - svpg/alternative-to-roadmaps
+  - nngroup/journeys-vs-flows
+  - ixdf/personas
+  - nngroup/user-interviews-101
+  - gitlab/roadmap
+  - gitlab/milestones
+  - scrum-org/scrum-guide
+prerequisites:
+  - week-1-see-the-whole-product
 ---
 
 **Outcome:** you can name your customers and users, and describe how they find, buy and use the product.
@@ -98,3 +115,29 @@ Present one persona and one journey. Say where the journey breaks today.
 - [ ] A user journey and a customer journey are complete.
 - [ ] Top five unknowns written, each with a plan.
 - [ ] A second person read my files and asked questions.
+
+## How the program supports this week
+
+### How your Sensei works this week
+
+At the checkpoint you present one persona and one journey, and say where the journey breaks today. Expect: "Where did this persona come from?" and "Whose words are these?" A persona with no source will not survive the second question. Read [how your Sensei works with you](/library/program-how-sensei-work) to prepare.
+
+### Show your work in git
+
+`people/personas.md` with an evidence line for every claim, `people/journeys.md` with a user journey and a customer journey, and your interview notes (kept private). Mark every guess as inferred. See [your files and git](/library/program-your-work-in-git).
+
+### AI use this week
+
+**May:** summarise interview notes you took, check spelling. **May not:** invent personas, journey steps or customer quotes, and never fill the feeling column. Disclose any help in your weekly note.
+
+### Skill tracks that match
+
+[Talk to customers](/library/tracks/product-discovery/02-talk-to-customers), [Write personas from evidence](/library/tracks/personas-and-journeys/02-write-personas-from-evidence), [Touch points and journey maps](/library/tracks/personas-and-journeys/03-touch-points-and-journey-maps) and [Find the breaks and hand over](/library/tracks/personas-and-journeys/04-find-the-breaks-and-hand-over).
+
+### The 2030 Product Development Manager lens
+
+You decide who you need to talk to and what the persona says. You delegate summaries of notes you collected, with a brief such as "Group these notes by theme and quote the line for each. Do not add themes." You verify by reading three original notes. On the agent ladder this week is **use**.
+
+### Reading for this week
+
+Week 2 of Track A in [the learning path week by week](/library/learning-path-week-by-week): 7 items, about 3.5 hours.

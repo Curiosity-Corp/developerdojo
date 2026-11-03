@@ -3,6 +3,22 @@ title: "Week 5: Brand, website and mockups"
 description: "Choose a brand name, publish a simple product website, and draw mockups of the next version."
 section: "Developer path"
 order: 5
+level: core
+duration: "8 to 10 hours"
+outcomes:
+  - "Choose a brand name and a one-line promise."
+  - "Publish a simple product website."
+  - "Make mockups of the next version, each linked to an epic."
+  - "Check contrast and basic usability."
+resources:
+  - gov-uk/naming-your-service
+  - gov-uk/design-system
+  - gov-uk/making-prototypes
+  - gov-uk/making-service-accessible
+  - nngroup/usability-101
+  - gitlab/pages
+prerequisites:
+  - week-4-defend-the-roadmap
 ---
 
 **Outcome:** your product has a name people can say and remember, a simple public website, and mockups showing what comes next.
@@ -68,3 +84,29 @@ Link each mockup to an epic. A mockup with no epic is decoration.
 - [ ] The privacy notice exists and is linked.
 - [ ] Every mockup links to an epic.
 - [ ] I said how I used AI for the site and the mockups.
+
+## How the program supports this week
+
+### How your Sensei works this week
+
+At the checkpoint you show the published page and say what each mockup links to. Expect: "Which epic does this screen serve?" and "Why this name?" A mockup with no epic behind it is decoration. Read [how your Sensei works with you](/library/program-how-sensei-work) to prepare.
+
+### Show your work in git
+
+`brand/brand-sheet.md`, the website source and its published address, and `mockups/` with each file named after the epic it supports. See [your files and git](/library/program-your-work-in-git).
+
+### AI use this week
+
+**May:** check contrast and spelling, draft alternative page text for you to choose from. **May not:** pick the name, write the promise or decide the design for you. Mark every AI-assisted idea.
+
+### Skill tracks that match
+
+[Name and promise](/library/tracks/brand-website-and-mockups/01-name-and-promise), [Voice, colour, type and the brand sheet](/library/tracks/brand-website-and-mockups/02-voice-colour-type-and-the-brand-sheet), [Mockups that link to epics](/library/tracks/brand-website-and-mockups/03-mockups-that-link-to-epics), [Build and publish the website](/library/tracks/brand-website-and-mockups/04-build-and-publish-the-website) and [Test accessibility and usability](/library/tracks/brand-website-and-mockups/05-test-accessibility-and-usability).
+
+### The 2030 Product Development Manager lens
+
+You decide the name, the promise and which design to adopt. You delegate checks of contrast, spelling and links. A sample brief: "List every colour pair on this page with its contrast ratio. Do not change colours." You verify by opening the page on a phone. On the agent ladder this week is **use** and **delegate**.
+
+### Reading for this week
+
+Week 5 has no separate list. Use the design and website resources in the skill tracks above.
