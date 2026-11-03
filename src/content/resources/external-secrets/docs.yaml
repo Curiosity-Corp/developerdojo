@@ -1,0 +1,9 @@
+title: "External Secrets Operator"
+provider: "External Secrets"
+url: "https://external-secrets.io/latest/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security, kubernetes-gitops]
+summary: "Documents a Kubernetes add-on that reads secrets from a vault and creates cluster secrets, so git holds only the names. It is the practical form of the rule that secret names go in git but values do not. Read the introduction."
+verifiedOn: 2026-11-03

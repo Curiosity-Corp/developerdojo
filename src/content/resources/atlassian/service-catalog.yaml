@@ -1,0 +1,9 @@
+title: "Atlassian: IT service catalogs"
+provider: "Atlassian"
+url: "https://www.atlassian.com/itsm/service-request-management/service-catalog"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [itsm-service-management]
+summary: "Explains what a service catalogue is and what an entry usually contains. It is written for classic IT teams, so compare it with a catalogue kept as files in git. Use it to understand why owners and support details matter."
+verifiedOn: 2026-11-03

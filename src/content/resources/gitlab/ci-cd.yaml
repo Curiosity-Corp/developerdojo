@@ -1,0 +1,9 @@
+title: "GitLab Docs: Get started with GitLab CI/CD"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [ci-cd, git-gitlab]
+summary: "An entry point to pipelines, jobs and runners. It shows how a .gitlab-ci.yml file turns a commit into tests, scans and a build. Read the getting-started section before you design a pipeline gate."
+verifiedOn: 2026-11-03

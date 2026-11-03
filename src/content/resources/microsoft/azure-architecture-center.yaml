@@ -1,0 +1,9 @@
+title: "Azure Architecture Center"
+provider: "Microsoft Learn"
+url: "https://learn.microsoft.com/en-us/azure/architecture/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [cloud-platforms]
+summary: "Reference architectures and guides for cloud systems. Use it to see how a product is split into parts. Read the application architecture fundamentals."
+verifiedOn: 2026-11-03

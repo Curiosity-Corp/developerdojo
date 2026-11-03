@@ -1,0 +1,9 @@
+title: "The C4 model"
+provider: "Simon Brown"
+url: "https://c4model.com/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [cloud-platforms, communication-writing]
+summary: "A simple way to draw software at four zoom levels: context, containers, components and code. It helps you draw the layers of a product so others can follow. Read the introduction page."
+verifiedOn: 2026-11-03

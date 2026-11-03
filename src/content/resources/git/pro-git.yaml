@@ -1,0 +1,9 @@
+title: "Pro Git book"
+provider: "Git SCM"
+url: "https://git-scm.com/book/en/v2"
+cost: "free"
+format: "book"
+level: "beginner"
+skills: [git-gitlab]
+summary: "The free, full book on Git. Read the first three chapters on basics and branching. Use the rest as a reference."
+verifiedOn: 2026-11-03

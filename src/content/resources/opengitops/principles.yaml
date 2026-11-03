@@ -1,0 +1,9 @@
+title: "OpenGitOps"
+provider: "OpenGitOps (CNCF)"
+url: "https://opengitops.dev/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [kubernetes-gitops, infrastructure-as-code]
+summary: "States the four GitOps principles: declarative, versioned, pulled automatically and continuously reconciled. A short page that gives the idea in a few lines. Read it first, then the tool docs."
+verifiedOn: 2026-11-03

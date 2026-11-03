@@ -1,0 +1,9 @@
+title: "GitLab Docs: Manage epics"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/group/epics/manage_epics/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [roadmapping-epics, git-gitlab]
+summary: "Step-by-step instructions for creating an epic, editing it, adding child epics and linking issues. Use it as the practical companion when you move your hand-written epics into GitLab. It is reference material, so scan the headings and read only the steps you need."
+verifiedOn: 2026-11-03

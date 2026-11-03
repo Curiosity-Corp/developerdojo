@@ -1,0 +1,9 @@
+title: "Atlassian: Incident management"
+provider: "Atlassian"
+url: "https://www.atlassian.com/incident-management"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [observability-reliability, itsm-service-management]
+summary: "A guide to how teams detect, respond to and learn from incidents. It covers roles such as the incident commander. Use it to compare with the incident loop taught in this program."
+verifiedOn: 2026-11-03

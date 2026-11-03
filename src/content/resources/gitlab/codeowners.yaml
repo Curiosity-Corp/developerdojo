@@ -1,0 +1,9 @@
+title: "GitLab Docs: Code Owners"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/codeowners/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [git-gitlab, itsm-service-management]
+summary: "Describes the CODEOWNERS file, which names the people or groups who must review changes to given paths. Use it to record who owns what, in git, next to the code. Pair it with approval rules for sensitive files."
+verifiedOn: 2026-11-03

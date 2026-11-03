@@ -1,0 +1,9 @@
+title: "REUSE: Make licensing easy"
+provider: "Free Software Foundation Europe"
+url: "https://reuse.software/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [open-source]
+summary: "A simple standard for marking the licence and copyright of every file in a repository. It shows good practice for your own patch sets and forks. Read the tutorial page."
+verifiedOn: 2026-11-03

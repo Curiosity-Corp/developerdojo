@@ -1,0 +1,9 @@
+title: "What is Terraform"
+provider: "HashiCorp"
+url: "https://developer.hashicorp.com/terraform/intro"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [infrastructure-as-code, cloud-platforms]
+summary: "A short introduction to describing cloud resources as code, planning a change and applying it. It explains the plan step that this program asks you to put in the merge request. Read it first, then try a tutorial."
+verifiedOn: 2026-11-03

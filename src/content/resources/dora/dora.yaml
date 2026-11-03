@@ -1,0 +1,9 @@
+title: "DORA research programme"
+provider: "DORA"
+url: "https://dora.dev/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ci-cd, agile-delivery, observability-reliability]
+summary: "Research on what makes software teams deliver well, including the four key measures of delivery speed and stability. Use it to choose honest measures. Read the guides page for the plain summaries."
+verifiedOn: 2026-11-03

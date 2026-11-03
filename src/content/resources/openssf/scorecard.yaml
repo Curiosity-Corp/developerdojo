@@ -1,0 +1,9 @@
+title: "OpenSSF Scorecard"
+provider: "Open Source Security Foundation"
+url: "https://scorecard.dev/"
+cost: "free"
+format: "interactive"
+level: "intermediate"
+skills: [open-source, security]
+summary: "A free tool that scores the security habits of open source projects, such as review and dependency updates. Use it as one input when you judge the health of a candidate project. A score is a hint, not a verdict."
+verifiedOn: 2026-11-03

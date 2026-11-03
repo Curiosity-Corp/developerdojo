@@ -1,0 +1,9 @@
+title: "Atlassian: Problem management in ITIL"
+provider: "Atlassian"
+url: "https://www.atlassian.com/itsm/problem-management"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [itsm-service-management, observability-reliability]
+summary: "Explains the difference between an incident and a problem, and how to find root causes. It supports the five-whys habit taught in the incident lessons. Skim the process steps and keep the vocabulary."
+verifiedOn: 2026-11-03

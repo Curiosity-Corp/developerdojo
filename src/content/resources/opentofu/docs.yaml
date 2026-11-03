@@ -1,0 +1,9 @@
+title: "OpenTofu documentation"
+provider: "OpenTofu"
+url: "https://opentofu.org/docs/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [infrastructure-as-code]
+summary: "The docs for OpenTofu, the open source fork of Terraform. Use them if you prefer a community-governed licence. Most Terraform ideas carry over."
+verifiedOn: 2026-11-03

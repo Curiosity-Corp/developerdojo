@@ -1,0 +1,9 @@
+title: "SVPG: The alternative to roadmaps"
+provider: "Silicon Valley Product Group"
+url: "https://www.svpg.com/the-alternative-to-roadmaps/"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [roadmapping-epics]
+summary: "A short essay that argues for stating problems to solve rather than lists of features. It supports writing epics as changed situations. A good second opinion after the Atlassian guide."
+verifiedOn: 2026-11-03

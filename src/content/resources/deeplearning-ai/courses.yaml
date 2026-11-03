@@ -1,0 +1,9 @@
+title: "DeepLearning.AI short courses"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses"
+cost: "free-audit"
+format: "course"
+level: "beginner"
+skills: [ai-agents, prompt-engineering]
+summary: "Short, free video courses on working with language models and agents. Pick one that matches the tools you use. Check each course page, as a few may change over time."
+verifiedOn: 2026-11-03

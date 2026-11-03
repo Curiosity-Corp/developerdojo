@@ -1,0 +1,9 @@
+title: "Atlassian: IT change management"
+provider: "Atlassian"
+url: "https://www.atlassian.com/itsm/change-management"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [itsm-service-management]
+summary: "Describes ITIL-style change types such as standard, normal and emergency, and why teams classify changes. It uses traditional tools, so translate each idea into a merge request. Read it to understand the words auditors and large companies use."
+verifiedOn: 2026-11-03

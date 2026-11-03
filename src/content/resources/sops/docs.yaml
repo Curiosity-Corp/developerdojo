@@ -1,0 +1,9 @@
+title: "SOPS documentation"
+provider: "SOPS project"
+url: "https://getsops.io/docs/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security, infrastructure-as-code]
+summary: "Explains how to encrypt the values in a file so the file can sit safely in git. It helps you understand encrypted secrets next to the rule of never committing plaintext. Read the overview and the quick start."
+verifiedOn: 2026-11-03

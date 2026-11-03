@@ -1,0 +1,9 @@
+title: "Google Technical Writing courses"
+provider: "Google"
+url: "https://developers.google.com/tech-writing"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [communication-writing]
+summary: "Free short courses on writing clearly for engineers: short sentences, active voice, good lists. The habits make epics and issues easier to read. Start with the first course."
+verifiedOn: 2026-11-03

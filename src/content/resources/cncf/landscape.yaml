@@ -1,0 +1,9 @@
+title: "CNCF Cloud Native Landscape"
+provider: "Cloud Native Computing Foundation"
+url: "https://landscape.cncf.io/"
+cost: "free"
+format: "interactive"
+level: "intermediate"
+skills: [cloud-platforms, open-source]
+summary: "A searchable map of open source cloud tools grouped by job. Use it for the search step of the open-source-first ladder. Filter by category and licence."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Open Source Guides: The legal side of open source"
+provider: "GitHub"
+url: "https://opensource.guide/legal/"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [open-source]
+summary: "Explains in plain language why licences matter and what happens when code has none. It supports the rule that code with no licence file is not open source. A short, readable guide."
+verifiedOn: 2026-11-03

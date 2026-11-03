@@ -1,0 +1,9 @@
+title: "Azure Front Door overview"
+provider: "Microsoft Learn"
+url: "https://learn.microsoft.com/en-us/azure/frontdoor/front-door-overview"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [cloud-platforms]
+summary: "Describes a global entry point that routes web traffic to backends. It helps you read a map where a front door sits before the services. Skim the overview."
+verifiedOn: 2026-11-03

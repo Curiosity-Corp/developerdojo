@@ -1,0 +1,9 @@
+title: "Atlassian: How to run a blameless postmortem"
+provider: "Atlassian"
+url: "https://www.atlassian.com/incident-management/postmortem/blameless"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [observability-reliability, communication-writing]
+summary: "Explains why a review after an incident should look at process and design, not at a person to blame. It gives a simple structure you can reuse. Read it before you write your first review."
+verifiedOn: 2026-11-03

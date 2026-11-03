@@ -1,0 +1,9 @@
+title: "Argo CD documentation"
+provider: "Argo Project"
+url: "https://argo-cd.readthedocs.io/en/stable/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [kubernetes-gitops, ci-cd]
+summary: "The official docs for Argo CD, a tool that keeps a Kubernetes cluster equal to what is in git. Start with the overview and the getting started guide. It is reference material to dip into."
+verifiedOn: 2026-11-03
