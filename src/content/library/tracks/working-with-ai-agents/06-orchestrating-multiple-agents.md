@@ -113,7 +113,7 @@ Agent runs use paid compute or plan limits. Decide a budget before you start man
 
 ### When this becomes governance
 
-Three or four sessions you can watch is orchestration by hand. Past that point, your attention is the bottleneck and the controls must move out of your head and into rules: who may decide what, which actions need approval, and which gates stop a bad change whatever any agent intends. Protected branches, required pipelines and merge trains are such gates (see the CI/CD track). The track Agent orchestration teaches how to write those rules down and run them.
+Three or four sessions you can watch is orchestration by hand. Past that point, your attention is the bottleneck and the controls must move out of your head and into rules: who may decide what, which actions need approval, and which gates stop a bad change whatever any agent intends. Protected branches, required pipelines and merge trains are such gates (see the [CI/CD track](/library/tracks/ci-cd)). The track Agent orchestration teaches how to write those rules down and run them.
 
 ### One accountable human
 

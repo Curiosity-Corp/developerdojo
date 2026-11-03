@@ -113,7 +113,7 @@ OpenAI's [safety best practices](https://developers.openai.com/api/docs/guides/s
 
 ### From advice to rules
 
-Everything in this lesson can be written as advice, and advice fails when many agents run at once and nobody is watching. The next step is to make the limits **mechanical**: permissions that an agent cannot exceed, protected branches that refuse direct pushes, hooks that stop a forbidden action before it runs, and pipeline gates that block a change that fails a check. This is the govern rung of the ladder. The advanced track Agent orchestration teaches how to write the policy as data and how to run these gates for a fleet. For one repository, the Git and GitLab and CI/CD tracks show the settings.
+Everything in this lesson can be written as advice, and advice fails when many agents run at once and nobody is watching. The next step is to make the limits **mechanical**: permissions that an agent cannot exceed, protected branches that refuse direct pushes, hooks that stop a forbidden action before it runs, and pipeline gates that block a change that fails a check. This is the govern rung of the ladder. The advanced track Agent orchestration teaches how to write the policy as data and how to run these gates for a fleet. For one repository, the [Git and GitLab](/library/tracks/git-and-gitlab) and [CI/CD](/library/tracks/ci-cd) tracks show the settings.
 
 ### Trust is earned in steps
 
