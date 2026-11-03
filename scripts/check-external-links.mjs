@@ -201,6 +201,8 @@ async function checkUrl(url) {
     return { verdict: 'unverified', detail: `HTTP ${last.status} from a known bot-blocking host` };
   }
   if (last.status !== undefined) return { verdict: 'broken', detail: `HTTP ${last.status}` };
+  // Bot-blocking hosts also drop the connection or the HTTP/2 session instead of answering.
+  if (BOT_BLOCKERS.has(host)) return { verdict: 'unverified', detail: `${last.error} (known bot-blocking host)` };
   return { verdict: 'broken', detail: last.error };
 }
 
