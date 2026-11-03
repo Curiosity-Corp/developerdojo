@@ -17,8 +17,8 @@ test.describe('home', () => {
   test('renders the hero, path, learn grid and empty states', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('main h1')).toContainText('Developer: the new bar');
-    await expect(page.getByText('A modern developer can...')).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Your path from builder to leader.' })).toBeVisible();
+    await expect(page.getByText('A 2030 Product Development Manager can...')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Your path to leading the product.' })).toBeVisible();
     for (const rank of ['Developer', 'Master Developer', 'Sensei']) {
       await expect(page.locator('.rank-path').getByText(rank, { exact: true })).toBeVisible();
     }
@@ -46,7 +46,7 @@ test.describe('home', () => {
 test.describe('train', () => {
   test('renders paths, real weeks, module strips and the progress panel', async ({ page }) => {
     await page.goto('/train');
-    await expect(page.locator('main h1')).toContainText('Learn to build the whole product');
+    await expect(page.locator('main h1')).toContainText('Train to lead the whole product');
     await expect(page.locator('#developer')).toContainText('6 weeks');
     await expect(page.locator('#master-developer')).toContainText('Advanced');
     await expect(page.locator('#developer-path .module')).toHaveCount(6);

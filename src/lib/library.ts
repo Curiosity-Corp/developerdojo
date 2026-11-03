@@ -2,6 +2,7 @@ import type { CollectionEntry } from 'astro:content';
 
 /** Order in which sections appear on /library. Unknown sections follow, sorted by name. */
 export const SECTION_ORDER = [
+  'Start here',
   'The Way',
   'Developer path',
   'Master Developer',
