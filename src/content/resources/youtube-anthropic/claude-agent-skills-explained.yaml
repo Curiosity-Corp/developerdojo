@@ -1,0 +1,10 @@
+title: "Claude Agent Skills Explained"
+provider: "Anthropic"
+url: "https://www.youtube.com/watch?v=fOxC44g8vig"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 3 minutes"
+skills: [ai-agents]
+summary: "A short Anthropic explainer of Agent Skills, reusable packages of instructions for agents. Shows one way to codify your team's know-how for agents."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Policy Language"
+provider: "Open Policy Agent"
+url: "https://www.openpolicyagent.org/docs/policy-language"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [security, infrastructure-as-code]
+summary: "Introduces Rego, the policy language of Open Policy Agent. Even if you never write it, seeing policy expressed as data and rules is a good model for governing systems and agents with code."
+verifiedOn: 2026-11-03

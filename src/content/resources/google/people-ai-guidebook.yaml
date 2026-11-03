@@ -1,0 +1,9 @@
+title: "PAIR Guidebook"
+provider: "Google"
+url: "https://pair.withgoogle.com/guidebook/"
+cost: "free"
+format: "book"
+level: "beginner"
+skills: [product-discovery, brand-web-design]
+summary: "Google's guidebook on designing human-centred AI products, with patterns on user needs, trust, errors and feedback. It covers the product and design decisions around AI that engineers cannot make for you. Read it when you design an AI feature."
+verifiedOn: 2026-11-03

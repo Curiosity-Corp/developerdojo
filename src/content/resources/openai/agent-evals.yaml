@@ -1,0 +1,9 @@
+title: "Evaluate agent workflows"
+provider: "OpenAI"
+url: "https://developers.openai.com/api/docs/guides/agent-evals"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-evaluation, ai-agents]
+summary: "OpenAI's guide to measuring how well an agent workflow performs. Pair it with Anthropic's evals article to see two vendors' approaches. Read it before you define pass or fail for an agent."
+verifiedOn: 2026-11-03

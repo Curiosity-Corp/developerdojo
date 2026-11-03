@@ -29,6 +29,12 @@ const formatsInUse = FORMATS.filter((format) => sorted.some((resource) => resour
   <section class="section">
     <div class="container">
       <p class="back"><a href="/library">Back to the library</a></p>
+      <p class="how">
+        How to use this hub: pick a skill, then narrow by cost and format. Start with the shortest item that suits your level, and
+        keep a note of what you would change in your own work. Items marked "free tier" or "paid" say so, and a duration appears only
+        when the publisher states it. Summaries explain why each resource matters to someone who directs AI agents rather than writes
+        every line of code.
+      </p>
 
       <form id="resource-filters" class="filters" aria-label="Filter resources" hidden>
         <label>Skill
@@ -152,6 +158,9 @@ const formatsInUse = FORMATS.filter((format) => sorted.some((resource) => resour
 <style>
   .back {
     margin-top: 0;
+  }
+  .how {
+    max-width: 70ch;
   }
   .filters {
     display: flex;

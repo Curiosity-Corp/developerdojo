@@ -1,0 +1,9 @@
+title: "OPA for Kubernetes Admission Control"
+provider: "Open Policy Agent"
+url: "https://www.openpolicyagent.org/docs/kubernetes"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [kubernetes-gitops, security]
+summary: "Explains using OPA to approve or reject what gets deployed to a Kubernetes cluster. It is policy enforcement at the last gate before production."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Cookbook"
+provider: "OpenAI"
+url: "https://developers.openai.com/cookbook"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [ai-agents, prompt-engineering]
+summary: "OpenAI's collection of worked examples for building with its models, including agents, evaluations and structured outputs. Browse it to see concrete patterns and to give engineers a shared reference. Search by topic when you need an example of a specific technique."
+verifiedOn: 2026-11-03

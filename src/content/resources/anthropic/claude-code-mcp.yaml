@@ -1,0 +1,9 @@
+title: "Connect Claude Code to tools via MCP - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/mcp"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents]
+summary: "Explains how to connect Claude Code to external tools and data through the Model Context Protocol. It shows how an agent reaches your issue tracker, docs and services, and why each connection widens what could go wrong. Read it before you grant an agent new tools."
+verifiedOn: 2026-11-03

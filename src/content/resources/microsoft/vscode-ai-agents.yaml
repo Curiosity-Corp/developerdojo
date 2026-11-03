@@ -1,0 +1,9 @@
+title: "Build with AI in VS Code"
+provider: "Microsoft"
+url: "https://code.visualstudio.com/docs/agents/overview"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [ai-agents]
+summary: "Visual Studio Code's documentation on working with AI agents in the editor. It shows how agent features appear to a developer and what a reviewer sees. Skim it to know what your team's tools can do."
+verifiedOn: 2026-11-03

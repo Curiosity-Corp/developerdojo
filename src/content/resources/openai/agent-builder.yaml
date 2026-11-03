@@ -1,0 +1,9 @@
+title: "Agent Builder"
+provider: "OpenAI"
+url: "https://developers.openai.com/api/docs/guides/agent-builder"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents]
+summary: "Documents OpenAI's visual canvas for composing agent workflows. A visual tool like this is how non-engineers can prototype and reason about multi-step agent flows. Read it to see agent logic laid out as a diagram."
+verifiedOn: 2026-11-03

@@ -1,0 +1,10 @@
+title: "Automated Testing for LLMOps"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses/automated-testing-llmops"
+cost: "free"
+format: "course"
+level: "intermediate"
+duration: "1 hour 12 minutes"
+skills: [ai-evaluation, ci-cd]
+summary: "A free short course on putting automated evaluations into a CI pipeline for AI applications. It is a direct example of gates for AI work. Take it to see tests running on every change."
+verifiedOn: 2026-11-03

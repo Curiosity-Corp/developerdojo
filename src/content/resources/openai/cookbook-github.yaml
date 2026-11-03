@@ -1,0 +1,9 @@
+title: "openai/openai-cookbook"
+provider: "OpenAI"
+url: "https://github.com/openai/openai-cookbook"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [ai-agents, open-source]
+summary: "The open-source repository behind the OpenAI Cookbook, with notebooks and guides for the API. Use the repository when you want to read or reuse the underlying examples."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Agent Development Kit (ADK)"
+provider: "Google"
+url: "https://google.github.io/adk-docs/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents, open-source]
+summary: "Documentation for Google's open-source framework for building and orchestrating agents. It offers another take on multi-agent design, workflows and evaluation. Read the concepts to widen your view beyond a single vendor."
+verifiedOn: 2026-11-03

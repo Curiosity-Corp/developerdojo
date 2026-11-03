@@ -1,0 +1,9 @@
+title: "Guidelines for secure AI system development"
+provider: "NCSC"
+url: "https://www.ncsc.gov.uk/collection/guidelines-secure-ai-system-development"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security, ai-agents]
+summary: "Guidelines from the UK NCSC and international partners on designing, building, deploying and operating AI systems securely. Written for decision makers as well as engineers. Read it for a high-level security checklist."
+verifiedOn: 2026-11-03

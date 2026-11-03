@@ -1,0 +1,10 @@
+title: "Learn to build effective Agentic AI systems with Andrew Ng"
+provider: "DeepLearningAI"
+url: "https://www.youtube.com/watch?v=w7vqXL4PWEE"
+cost: "free"
+format: "video"
+level: "intermediate"
+duration: "about 3 minutes"
+skills: [ai-agents]
+summary: "A short DeepLearning.AI introduction to building agentic AI systems with Andrew Ng. Shows why agent workflows can beat a single prompt."
+verifiedOn: 2026-11-03

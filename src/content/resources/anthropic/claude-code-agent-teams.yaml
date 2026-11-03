@@ -1,0 +1,9 @@
+title: "Orchestrate teams of Claude Code sessions - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/agent-teams"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents]
+summary: "Covers coordinating several Claude Code sessions that work on one goal together. It is a hands-on look at the orchestrate rung of the agent ladder: shared tasks, roles and hand-offs. Read it after you are comfortable delegating to a single agent."
+verifiedOn: 2026-11-03

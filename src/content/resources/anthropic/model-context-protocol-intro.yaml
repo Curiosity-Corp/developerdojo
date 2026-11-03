@@ -1,0 +1,9 @@
+title: "What is the Model Context Protocol (MCP)?"
+provider: "Anthropic"
+url: "https://modelcontextprotocol.io/docs/getting-started/intro"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [ai-agents]
+summary: "The introduction to MCP, the open standard for connecting AI applications to tools and data. It explains the idea in plain terms: one common plug instead of many custom ones. Read it to follow conversations about how agents get access to your systems."
+verifiedOn: 2026-11-03

@@ -1,0 +1,10 @@
+title: "Multi AI Agent Systems with crewAI"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses/multi-ai-agent-systems-with-crewai"
+cost: "free"
+format: "course"
+level: "beginner"
+duration: "3 hours 6 minutes"
+skills: [ai-agents, open-source]
+summary: "A free short course on assigning roles, goals and tasks to a crew of agents for business workflows. It maps well to how a manager thinks about a team. Take it to practise decomposing a process."
+verifiedOn: 2026-11-03

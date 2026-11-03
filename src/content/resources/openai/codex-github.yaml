@@ -1,0 +1,9 @@
+title: "openai/codex"
+provider: "OpenAI"
+url: "https://github.com/openai/codex"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents, open-source]
+summary: "OpenAI's open-source coding agent that runs in your terminal. Reading its README and docs shows what another vendor's coding agent offers, which is useful for comparing tools. Try it on a small repository you own."
+verifiedOn: 2026-11-03

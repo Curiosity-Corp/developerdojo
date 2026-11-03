@@ -1,0 +1,9 @@
+title: "Run Claude Code programmatically - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/headless"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents, ci-cd]
+summary: "Shows how to run Claude Code from scripts and pipelines without a person at the keyboard. This is how agent work moves from a chat window into automation you can schedule, review and gate. Read it when you want agents inside your CI/CD process."
+verifiedOn: 2026-11-03

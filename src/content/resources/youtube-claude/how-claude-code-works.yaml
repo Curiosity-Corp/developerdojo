@@ -1,0 +1,10 @@
+title: "How Claude Code Works"
+provider: "Claude"
+url: "https://www.youtube.com/watch?v=6bs5b4FltCU"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 3 minutes"
+skills: [ai-agents]
+summary: "A short video on how Claude Code works. Understanding the loop of an agent helps you set realistic expectations and review its work."
+verifiedOn: 2026-11-03

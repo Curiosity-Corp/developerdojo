@@ -1,0 +1,9 @@
+title: "MCP servers"
+provider: "OpenAI"
+url: "https://developers.openai.com/api/docs/guides/tools-connectors-mcp"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents]
+summary: "How to connect models to remote MCP servers in the OpenAI API. It shows that the same open standard works across vendors. Read it alongside the MCP introduction."
+verifiedOn: 2026-11-03

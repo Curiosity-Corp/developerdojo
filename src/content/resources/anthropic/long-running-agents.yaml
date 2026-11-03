@@ -1,0 +1,9 @@
+title: "Effective harnesses for long-running agents"
+provider: "Anthropic"
+url: "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [ai-agents]
+summary: "Describes how to keep an agent productive over many sessions using progress files, feature lists and clean hand-offs. The ideas map directly to how a manager structures long projects for agents. Read it when work spans more than one sitting."
+verifiedOn: 2026-11-03

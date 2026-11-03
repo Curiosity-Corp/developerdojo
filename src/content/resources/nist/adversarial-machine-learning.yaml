@@ -1,0 +1,9 @@
+title: "Adversarial Machine Learning: A Taxonomy and Terminology of Attacks and Mitigations"
+provider: "NIST"
+url: "https://csrc.nist.gov/pubs/ai/100/2/e2025/final"
+cost: "free"
+format: "book"
+level: "advanced"
+skills: [security]
+summary: "NIST's taxonomy of attacks on AI systems such as poisoning, evasion and prompt injection. A reference vocabulary for security reviews. Read the introduction for the categories."
+verifiedOn: 2026-11-03

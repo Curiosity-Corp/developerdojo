@@ -1,0 +1,10 @@
+title: "How to Build Custom AI Agents with GitLab Duo Agent Platform"
+provider: "GitLab"
+url: "https://www.youtube.com/watch?v=PpfT40mqr4A"
+cost: "free"
+format: "video"
+level: "intermediate"
+duration: "about 14 minutes"
+skills: [ai-agents, git-gitlab]
+summary: "GitLab's tutorial on building custom AI agents with its Duo Agent Platform. Shows how you can define what an agent does inside your delivery platform."
+verifiedOn: 2026-11-03

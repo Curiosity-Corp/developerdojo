@@ -1,0 +1,9 @@
+title: "Create custom subagents - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/sub-agents"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents]
+summary: "Explains how to define specialised subagents with their own instructions and tool access, so one session can hand narrow jobs to focused helpers. This is the first rung of orchestration: splitting work between agents with clear roles. Read it when one agent is no longer enough."
+verifiedOn: 2026-11-03

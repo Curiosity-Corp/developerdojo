@@ -1,0 +1,10 @@
+title: "How to Automate Your SDLC with GitLab Duo Agent Platform"
+provider: "GitLab"
+url: "https://www.youtube.com/watch?v=C9vr9-17Woc"
+cost: "free"
+format: "video"
+level: "intermediate"
+duration: "about 5 minutes"
+skills: [ai-agents, ci-cd]
+summary: "GitLab shows automating the software lifecycle with its agent platform. A practical view of agents across planning, build and review."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Guardrails - OpenAI Agents SDK"
+provider: "OpenAI"
+url: "https://openai.github.io/openai-agents-python/guardrails/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents, security]
+summary: "Explains input and output guardrails that check what goes into and out of an agent. It is a concrete picture of automated gates around an AI worker. Read it to see where policy checks can sit."
+verifiedOn: 2026-11-03

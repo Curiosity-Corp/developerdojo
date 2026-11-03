@@ -1,0 +1,10 @@
+title: "Building Systems with the ChatGPT API"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses/chatgpt-building-system"
+cost: "free"
+format: "course"
+level: "beginner"
+duration: "1 hour 55 minutes"
+skills: [ai-agents, ai-evaluation, prompt-engineering]
+summary: "A free short course on chaining prompts, classifying inputs, checking outputs and evaluating a multi-step system. It teaches the shape of an AI workflow, which is the base for orchestrating agents."
+verifiedOn: 2026-11-03

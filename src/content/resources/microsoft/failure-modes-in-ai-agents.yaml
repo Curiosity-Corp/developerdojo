@@ -1,0 +1,9 @@
+title: "New whitepaper outlines the taxonomy of failure modes in AI agents"
+provider: "Microsoft"
+url: "https://www.microsoft.com/en-us/security/blog/2025/04/24/new-whitepaper-outlines-the-taxonomy-of-failure-modes-in-ai-agents/"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [security, ai-agents, ai-evaluation]
+summary: "Microsoft's AI Red Team summary of a taxonomy of ways agents fail, security and safety. It gives a vocabulary and checklist for risk reviews. Use it when you assess an agent design."
+verifiedOn: 2026-11-03

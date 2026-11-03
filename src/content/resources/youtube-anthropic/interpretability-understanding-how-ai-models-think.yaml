@@ -1,0 +1,10 @@
+title: "Interpretability: Understanding how AI models think"
+provider: "Anthropic"
+url: "https://www.youtube.com/watch?v=fGKNUvivvnc"
+cost: "free"
+format: "video"
+level: "advanced"
+duration: "about 59 minutes"
+skills: [ai-evaluation]
+summary: "A long Anthropic conversation on interpretability. For those who want a serious grounding in why models behave as they do and how that bears on trust."
+verifiedOn: 2026-11-03

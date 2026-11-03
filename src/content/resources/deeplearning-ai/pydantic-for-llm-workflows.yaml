@@ -1,0 +1,10 @@
+title: "Pydantic for LLM Workflows"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses/pydantic-for-llm-workflows"
+cost: "free"
+format: "course"
+level: "intermediate"
+duration: "1 hour 50 minutes"
+skills: [ai-agents, ai-evaluation]
+summary: "A free short course on validating and structuring model outputs. Validation is a gate between agent steps. Take it for the idea of checking data before it moves on."
+verifiedOn: 2026-11-03

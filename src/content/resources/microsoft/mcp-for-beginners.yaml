@@ -1,0 +1,9 @@
+title: "microsoft/mcp-for-beginners"
+provider: "Microsoft"
+url: "https://github.com/microsoft/mcp-for-beginners"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [ai-agents, open-source]
+summary: "An open-source curriculum introducing the Model Context Protocol with real-world examples. Use it for a hands-on view of how agents are connected to tools and data."
+verifiedOn: 2026-11-03

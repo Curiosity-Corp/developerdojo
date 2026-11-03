@@ -1,0 +1,9 @@
+title: "Computer use tool - Claude Platform Docs"
+provider: "Anthropic"
+url: "https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents, security]
+summary: "Documents letting Claude operate a computer by looking at the screen and clicking. It shows both the reach of agents beyond code and the safety measures they need. Read it to judge proposals that let an agent act in a real interface."
+verifiedOn: 2026-11-03

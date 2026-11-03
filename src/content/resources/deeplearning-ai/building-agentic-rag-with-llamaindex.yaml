@@ -1,0 +1,10 @@
+title: "Building Agentic RAG with Llamaindex"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses/building-agentic-rag-with-llamaindex"
+cost: "free"
+format: "course"
+level: "beginner"
+duration: "54 minutes"
+skills: [ai-agents, data-analytics]
+summary: "A short free course on agents that retrieve and reason over documents. RAG is the standard way to ground AI in your own knowledge, so you will meet it often. Take it for the concept."
+verifiedOn: 2026-11-03

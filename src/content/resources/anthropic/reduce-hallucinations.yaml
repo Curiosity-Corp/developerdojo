@@ -1,0 +1,9 @@
+title: "Reduce hallucinations - Claude Platform Docs"
+provider: "Anthropic"
+url: "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-evaluation, prompt-engineering]
+summary: "Practical methods to make a model less likely to state things it does not know, such as allowing it to say it does not know and requiring quotes from sources. Use it to design verification into your workflow instead of hoping for accuracy."
+verifiedOn: 2026-11-03

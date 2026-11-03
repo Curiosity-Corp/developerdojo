@@ -1,0 +1,9 @@
+title: "The Batch"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/the-batch"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [ai-agents, career-portfolio]
+summary: "DeepLearning.AI's weekly AI newsletter and archive, with Andrew Ng's letters. It is a low-effort way to keep up with the field. Subscribe or skim the archive for trends."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Tool use with Claude - Claude Platform Docs"
+provider: "Anthropic"
+url: "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents]
+summary: "Explains how a model calls tools: you define them, the model decides when to use them, your code runs them. Understanding this loop demystifies what an agent is and where control sits. Read it so agent diagrams make sense to you."
+verifiedOn: 2026-11-03

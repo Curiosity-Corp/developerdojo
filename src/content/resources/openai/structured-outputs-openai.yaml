@@ -1,0 +1,9 @@
+title: "Structured model outputs"
+provider: "OpenAI"
+url: "https://developers.openai.com/api/docs/guides/structured-outputs"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents, prompt-engineering]
+summary: "Shows how to make a model return data that follows a schema. Reliable structure is what allows agents and software to pass work between them safely."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "NIST AI RMF Playbook"
+provider: "NIST"
+url: "https://airc.nist.gov/airmf-resources/playbook/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [security, ai-evaluation]
+summary: "Suggested actions for each part of the NIST AI Risk Management Framework. Use it to turn the framework into concrete checks for a product."
+verifiedOn: 2026-11-03

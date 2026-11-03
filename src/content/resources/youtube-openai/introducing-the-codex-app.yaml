@@ -1,0 +1,10 @@
+title: "Introducing the Codex app"
+provider: "OpenAI"
+url: "https://www.youtube.com/watch?v=HFM3se4lNiw"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 4 minutes"
+skills: [ai-agents]
+summary: "OpenAI introduces its Codex app for agentic coding. A short look at how another vendor frames delegating coding work to agents."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "How Claude remembers your project - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/memory"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [ai-agents, prompt-engineering]
+summary: "Covers the project instruction files and memory that give an agent standing context about your product and rules. Writing these files well is a core manager skill: you state the house rules once instead of in every prompt. Read it when you start a real repository."
+verifiedOn: 2026-11-03

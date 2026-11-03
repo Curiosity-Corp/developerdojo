@@ -1,0 +1,10 @@
+title: "GitLab Duo Agent Platform Explained: AI Agent Tutorial"
+provider: "GitLab"
+url: "https://www.youtube.com/watch?v=hXb_JJmjiRg"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 2 minutes"
+skills: [ai-agents, git-gitlab]
+summary: "GitLab explains its Duo Agent Platform. Shows how AI agents are being built into the same issues and merge requests you manage."
+verifiedOn: 2026-11-03

@@ -1,0 +1,10 @@
+title: "Function-calling and data extraction with LLMs"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses/function-calling-and-data-extraction-with-llms"
+cost: "free"
+format: "course"
+level: "beginner"
+duration: "1 hour 19 minutes"
+skills: [ai-agents]
+summary: "A free short course on how models call functions and extract structured data. It is a compact way to see the tool-use loop working."
+verifiedOn: 2026-11-03

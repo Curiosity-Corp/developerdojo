@@ -1,0 +1,9 @@
+title: "Function calling"
+provider: "OpenAI"
+url: "https://developers.openai.com/api/docs/guides/function-calling"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents]
+summary: "Explains how a model is given functions it can call to fetch data or take actions. It is the same core idea as tool use in other platforms, shown from OpenAI's side. Read it to understand how agents act on your systems."
+verifiedOn: 2026-11-03

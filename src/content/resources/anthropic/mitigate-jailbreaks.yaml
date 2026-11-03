@@ -1,0 +1,9 @@
+title: "Mitigate jailbreaks and prompt injections - Claude Platform Docs"
+provider: "Anthropic"
+url: "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security, ai-evaluation]
+summary: "Explains layered ways to reduce jailbreaks and prompt injection, including screening inputs and constraining outputs. Prompt injection is the top security risk for agents that read untrusted content. Read it before an agent touches email, web pages or tickets."
+verifiedOn: 2026-11-03

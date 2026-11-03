@@ -1,0 +1,9 @@
+title: "Handoffs - OpenAI Agents SDK"
+provider: "OpenAI"
+url: "https://openai.github.io/openai-agents-python/handoffs/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents]
+summary: "Explains handoffs, where one agent passes a task to a more suitable agent. It is a precise description of delegation between agents. Read it when you design who does what in a multi-agent flow."
+verifiedOn: 2026-11-03

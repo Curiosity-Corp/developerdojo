@@ -1,0 +1,9 @@
+title: "The Anthropic Economic Index"
+provider: "Anthropic"
+url: "https://www.anthropic.com/economic-index"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [ai-agents, data-analytics]
+summary: "Anthropic's ongoing research on how people actually use AI across tasks and occupations. For a 2030 manager it is data about which work is being delegated to AI today. Read it to ground your view of the job market in evidence."
+verifiedOn: 2026-11-03
