@@ -1,0 +1,102 @@
+---
+/**
+ * Dark ink-green panel.
+ *
+ * Props:
+ *  - title?, text?, icon?: heading block (title renders as `as`, default h2)
+ *  - split?: when true the panel becomes a two-column row: dark heading block on the left and the
+ *    default slot (usually <EventList/> or <ChallengeList/>) on the right, as in the mockups
+ *  - image?: optional backdrop art URL (bamboo, laptop, etc.) shown softly behind the heading block
+ *  - tone?: "deep" (default) | "raised"
+ * Slots: default (content), "aside" (extra content under the text in the heading block)
+ */
+import Icon from './Icon.astro';
+
+interface Props {
+  title?: string;
+  text?: string;
+  icon?: string;
+  as?: 'h2' | 'h3';
+  split?: boolean;
+  image?: string;
+  tone?: 'deep' | 'raised';
+}
+const { title, text, icon, as: Heading = 'h2', split = false, image, tone = 'deep' } = Astro.props;
+---
+
+<div class="panel-wrap"><section class:list={['dark-panel', `tone-${tone}`, { split }]}>
+  <div class="head" style={image ? `--panel-image:url('${image}')` : undefined}>
+    <div class="head-inner">
+      {icon && <Icon name={icon} size={34} class="head-icon" />}
+      <div>
+        {title && <Heading class="title">{title}</Heading>}
+        {text && <p class="text">{text}</p>}
+        <slot name="aside" />
+      </div>
+    </div>
+  </div>
+  <div class="body"><slot /></div>
+</section></div>
+
+<style>
+  .panel-wrap {
+    container: panel / inline-size;
+  }
+  .dark-panel {
+    background: var(--band);
+    color: var(--band-text);
+    border: 1px solid var(--band-line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .tone-raised {
+    background: var(--band-raised);
+  }
+  .head {
+    position: relative;
+    padding: var(--space-5);
+    background-image: var(--panel-image);
+    background-size: cover;
+    background-position: center;
+  }
+  .head-inner {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+  }
+  .dark-panel :global(.head-icon) {
+    flex: none;
+    color: var(--gold);
+  }
+  .title {
+    color: var(--band-text);
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-2);
+  }
+  .text {
+    margin: 0;
+    color: var(--band-muted);
+  }
+  .body {
+    padding: 0 var(--space-5) var(--space-5);
+  }
+  .split .body {
+    padding: var(--space-4);
+    background: color-mix(in srgb, var(--band-deep) 55%, transparent);
+  }
+  .dark-panel:not(.split) .body:empty {
+    display: none;
+  }
+  @container panel (min-width: 46rem) {
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      align-items: stretch;
+    }
+    .split .body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+</style>

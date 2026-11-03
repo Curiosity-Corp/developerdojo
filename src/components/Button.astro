@@ -1,0 +1,77 @@
+---
+/**
+ * Link styled as a button.
+ * Props: href, variant ("primary" gold | "ghost" outline on dark | "outline" outline on paper),
+ *        icon? (lucide name shown after the label; "play" is shown before), size ("md" | "sm").
+ * Slot: label.
+ */
+import Icon from './Icon.astro';
+
+interface Props {
+  href: string;
+  variant?: 'primary' | 'ghost' | 'outline';
+  icon?: string;
+  size?: 'md' | 'sm';
+  class?: string;
+}
+const { href, variant = 'primary', icon, size = 'md', class: className } = Astro.props;
+const leading = icon === 'play';
+const external = /^https?:\/\//.test(href);
+---
+
+<a
+  class:list={['btn', `btn--${variant}`, `btn--${size}`, className]}
+  href={href}
+  rel={external ? 'noopener noreferrer' : undefined}
+>
+  {icon && leading && <Icon name={icon} size={16} />}
+  <span><slot /></span>
+  {icon && !leading && <Icon name={icon} size={18} />}
+</a>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.7rem 1.25rem;
+    border-radius: var(--radius);
+    border: 2px solid transparent;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: var(--text-base);
+    line-height: 1.2;
+    text-decoration: none;
+    transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .btn--sm {
+    padding: 0.5rem 1rem;
+    font-size: var(--text-sm);
+  }
+  .btn--primary {
+    background: var(--gold);
+    color: var(--gold-ink);
+    border-color: var(--gold);
+  }
+  .btn--primary:hover {
+    background: var(--gold-strong);
+    border-color: var(--gold-strong);
+  }
+  .btn--ghost {
+    color: var(--band-text);
+    border-color: rgb(244 236 216 / 0.7);
+    background: rgb(15 23 20 / 0.35);
+  }
+  .btn--ghost:hover {
+    background: rgb(244 236 216 / 0.14);
+    border-color: var(--band-text);
+  }
+  .btn--outline {
+    color: var(--ink);
+    border-color: var(--line-strong);
+    background: var(--paper-raised);
+  }
+  .btn--outline:hover {
+    border-color: var(--ink);
+  }
+</style>

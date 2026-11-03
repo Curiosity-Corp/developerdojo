@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ChallengeList from '../components/ChallengeList.astro';
+---
+
+<BaseLayout title="Challenges" description="The Challenges page will describe each open build challenge and how to take part. Two briefs are open now: Build a Real MVP and the AI Agent Workflow Challenge.">
+  <PageHero compact title="Challenges" accent="" subtitle="Apply what you learn, build in public, and earn recognition." />
+  <section class="section">
+    <div class="container prose">
+      <p>The Challenges page will describe each open build challenge and how to take part. Two briefs are open now: Build a Real MVP and the AI Agent Workflow Challenge.</p>
+      <ChallengeList />
+      <p><em>This page is a foundation stub. Its full content is being built.</em></p>
+    </div>
+  </section>
+</BaseLayout>

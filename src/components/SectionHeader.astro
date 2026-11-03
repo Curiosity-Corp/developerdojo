@@ -1,0 +1,74 @@
+---
+/**
+ * Eyebrow + title (+ optional intro). Renders the heading at level `as` (default h2).
+ * Props: eyebrow?, title, intro?, as ("h1"|"h2"|"h3"), tone ("paper" | "dark"), align ("start" | "center")
+ */
+interface Props {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  as?: 'h1' | 'h2' | 'h3';
+  tone?: 'paper' | 'dark';
+  align?: 'start' | 'center';
+}
+const { eyebrow, title, intro, as: Tag = 'h2', tone = 'paper', align = 'start' } = Astro.props;
+---
+
+<header class:list={['section-header', `tone-${tone}`, `align-${align}`]}>
+  {
+    eyebrow && (
+      <p class="eyebrow">
+        <span>{eyebrow}</span>
+        <span class="eyebrow-rule" aria-hidden="true" />
+      </p>
+    )
+  }
+  <Tag class="title">{title}</Tag>
+  {intro && <p class="intro">{intro}</p>}
+</header>
+
+<style>
+  .section-header {
+    max-width: 38rem;
+  }
+  .align-center {
+    margin-inline: auto;
+    text-align: center;
+  }
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin: 0 0 var(--space-2);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--rust-text);
+  }
+  .align-center .eyebrow {
+    justify-content: center;
+  }
+  .eyebrow-rule {
+    flex: 0 1 4rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.55;
+  }
+  .title {
+    margin-bottom: var(--space-2);
+  }
+  .intro {
+    margin: 0;
+    color: var(--ink-muted);
+  }
+  .tone-dark .eyebrow {
+    color: var(--gold);
+  }
+  .tone-dark .title {
+    color: var(--band-text);
+  }
+  .tone-dark .intro {
+    color: var(--band-muted);
+  }
+</style>

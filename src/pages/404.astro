@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<BaseLayout title="Page not found" description="That page does not exist.">
+  <PageHero
+    compact
+    title="Page not found"
+    subtitle="That page does not exist or has moved."
+    ctas={[{ label: 'Back to the home page', href: '/', icon: 'arrow-right' }]}
+  />
+</BaseLayout>

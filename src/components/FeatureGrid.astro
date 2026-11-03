@@ -1,0 +1,83 @@
+---
+/**
+ * Responsive grid of IconCards.
+ * Props: items: { icon, title, description?, tone?, href?, meta? }[],
+ *        columns (2-6, default 3; collapses to 1-2 on small screens),
+ *        variant ("card" | "inline"), headingLevel ("h2"|"h3"|"h4", default h3)
+ */
+import IconCard from './IconCard.astro';
+import type { Tone } from '../lib/ranks';
+
+interface Item {
+  icon: string;
+  title: string;
+  description?: string;
+  tone?: Tone;
+  href?: string;
+  meta?: string;
+}
+interface Props {
+  items: readonly Item[];
+  columns?: 2 | 3 | 4 | 5 | 6;
+  variant?: 'card' | 'inline';
+  headingLevel?: 'h2' | 'h3' | 'h4';
+}
+const { items, columns = 3, variant = 'card', headingLevel = 'h3' } = Astro.props;
+---
+
+<ul class:list={['feature-grid', `cols-${columns}`, `variant-${variant}`]}>
+  {
+    items.map((item) => (
+      <li>
+        <IconCard {...item} variant={variant} as={headingLevel} />
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .feature-grid {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .variant-inline {
+    gap: var(--space-5);
+  }
+  @media (min-width: 40rem) {
+    .feature-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 62rem) {
+    .cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .cols-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .cols-5 {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+    .cols-6 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 80rem) {
+    .cols-6 {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+  .variant-inline li + li {
+    border-left: 0;
+  }
+  @media (min-width: 80rem) {
+    .variant-inline.cols-6 li + li {
+      border-left: 1px solid var(--line);
+      padding-left: var(--space-4);
+    }
+  }
+</style>

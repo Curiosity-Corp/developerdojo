@@ -1,0 +1,16 @@
+[
+  {
+    "id": "build-a-real-mvp",
+    "title": "Build a Real MVP",
+    "summary": "Turn an idea into a working, testable product.",
+    "icon": "chart-no-axes-combined",
+    "status": "ongoing"
+  },
+  {
+    "id": "ai-agent-workflow-challenge",
+    "title": "AI Agent Workflow Challenge",
+    "summary": "Use AI agents to plan, build, and ship a feature faster.",
+    "icon": "layers",
+    "status": "ongoing"
+  }
+]

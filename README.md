@@ -1,96 +1,69 @@
-<h1 align="center">
-  <br>
-  <img src="https://github.com/taolearning/developerdojo/blob/gh-pages/images/logo.svg" alt="Developer Dojo" width="400">
-</h1>
-<h1 align="center">Become A Bushido Coder</h1>
+# Developer Dojo
 
-- We Teach Mindful Programming, IT Development, DevOps Strategy and the Art of Zen Tech Leadership. Students gain experience and work with experts in development to become Bushido Coders.
-- We have Senior Developers who volunteer their time to create easy to understand, yet very in-depth training material to lead the programmers of tomorrow. With over 20 years’ experience in IT development while leading international teams in startups, we have found a clear disconnect between those who have a desire to code and those who have mastered the art. This free coding academy breaks down the philosophy of IT and teaches how it is a poetic artistic expression. We expand the mind of the student to understand new literacy.
-- We share industry-standard resources such as LeetCode and TeamBlind so those seeking career advancement have access to the best tools available. Our senior developers have Live Streams where participants can follow along as we create enterprise-level software and IT Solutions.
+Source of [developerdojo.org](https://developerdojo.org): a free training academy for the new kind of
+developer, run by Curiosity Research Corporation and sponsored by Reveltek. A developer no longer mostly
+types code; a developer owns a whole product and steers AI agents that do the building.
 
-# ANDROID OPS
+This repository is the source of truth (GitLab `Curiosity-Corp/developerdojo`, default branch `master`).
+The GitHub copy only ever receives the **built** site on its `gh-pages` branch.
 
-A.N.D.R.O.I.D. Ops is a comprehensive operational framework designed to optimize business processes and drive efficiency, leveraging automation, digital technologies, and collaborative practices. It encompasses the following focus areas:
+## Stack
 
-**Advance**: Streamline and automate repetitive tasks and processes, integrating digital tools and technologies to enhance efficiency, reduce errors, and promote scalability.
+Astro (static output), TypeScript strict, content collections validated with zod, self-hosted fonts
+(`@fontsource`), lucide icons inlined at build time. No backend, no trackers, no CDN, no runtime calls to
+other hosts.
 
-**Network**: Foster collaboration and communication across departments and teams, leveraging digital platforms and technologies to enable real-time collaboration, virtual teamwork, and effective knowledge sharing.
+## Commands
 
-**Design**: Create optimized operational systems by aligning processes with organizational goals, customer needs, and sustainability principles, ensuring scalability, customer-centricity, and efficient resource utilization.
+| Command | What it does |
+| --- | --- |
+| `npm ci` | Install dependencies |
+| `npm run dev` | Dev server on http://localhost:4321 |
+| `npm run check` | `astro check` (types and templates) |
+| `npm test` | Vitest: data and frontmatter schemas |
+| `npm run build` | Static build into `dist/` |
+| `npm run preview` | Serve `dist/` on http://127.0.0.1:4321 |
+| `npm run test:e2e` | Playwright smoke tests against the built site (run `build` first) |
 
-**Research**: Conduct thorough research and analysis to identify improvement areas, emerging trends, and innovative practices, utilizing data and analytics to drive informed decision-making and continuous improvement efforts.
+CI is the gate of record: merge requests run check, test, build and e2e; `master` also publishes.
 
-**Optimize**: Continuously evaluate and refine operational processes to maximize efficiency, productivity, and quality, utilizing performance metrics and KPIs to measure progress and identify opportunities for optimization.
+## Layout
 
-**Implement**: Successfully execute optimized processes, leveraging automation, and digital technologies, while providing training and support to employees to ensure smooth implementation and adoption of new practices.
+```
+src/
+  components/    shared components (see below)
+  layouts/BaseLayout.astro
+  pages/         one file per route; library/[...slug].astro renders library entries
+  content/library/*.md   frontmatter: title, description, section, order
+  data/          events.json, challenges.json, certificates.json (typed in src/lib/schemas.ts)
+  lib/           nav, ranks, schemas, data loaders, image lookup, custom icons
+  styles/        tokens.css (light + dark design tokens), global.css
+public/          CNAME, .nojekyll, favicon, images/ (art goes here)
+e2e/             Playwright tests      tests/   Vitest tests
+.gitlab/ci/      publish script and the GitHub Pages workflow template
+```
 
-**Deliver**: Focus on delivering value to customers through efficient and effective operations, monitoring customer feedback, measuring satisfaction, and making necessary adjustments to enhance the delivery process.
+## Components
 
-The A.N.D.R.O.I.D. Ops framework integrates sustainability, scalability, collaboration, risk management, customer-centricity, change management, digital transformation, employee empowerment, and performance metrics into each stage of the operational lifecycle. By adopting A.N.D.R.O.I.D. Ops, organizations can optimize their processes, enhance productivity, drive innovation, and adapt to the changing demands of the automation age while remaining focused on delivering exceptional value to their customers.
+Art slots resolve `public/images/<name>.(avif|webp|jpg|png|svg)` automatically:
+`hero-dojo`, `mountains-band`, `reveltek-logo`, `og`. Until a file exists a CSS/SVG placeholder shows.
+Every component also takes an explicit image prop.
 
+`PageHero`, `SectionHeader`, `RankPath`, `IconCard`, `FeatureGrid`, `EventList`, `ChallengeList`,
+`DarkPanel`, `NoteCard`, `Button`, `Icon`. Props are documented at the top of each file.
 
+## Content rules
 
+No invented events, people, numbers or testimonials; empty data files render an honest empty state.
+No internal hostnames or infrastructure details on public pages. Reward amounts are not published.
 
+## Publishing
 
-
-
-## Getting Started
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-### Prerequisites
-
-Tools/IDE:
-1. <a href="https://code.visualstudio.com/download">VS Code <small>(Preferred)</small></a> or any another IDE to make changes into the code.
-2. Git should be installed in the system.
-
-Languages/Technologies used in the project:
-1. HTML
-2. CSS
-3. JavaScript
-4. JQuery
-
-### Installation:
-#### Direct Download
-1. Download <a href="https://github.com/taolearning/developerdojo/archive/gh-pages.zip" target="_blank">Developer Dojo.zip</a>
-2. Extract the zip file.
-3. Open the folder in <b>VS Code</b> or any other <b>Code Editor</b>.
-
-### For developers using git
-1. First, <a href="https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo"><b>Fork</b></a> this repo.
-
-2. Clone the forked repo locally:
-    ```sh
-    $ git clone {your_forked_repo_url }
-    $ cd {folder_name}
-    ```
-    **Note: Current branch should be gh-pages. To check the current branch type following in git bash**
-    ```sh
-    $ git branch
-    ```
-    <b>To change the branch to gh-pages.</b>
-
-    ```sh
-    $ git checkout gh-pages
-    ```
-3. If using <b>VS Code</b> project can be opened directly using command line:
-    ```sh
-    $ code .
-    ```
-   Else open the project in your code editor.
-
-**Note: Always make a new branch before making changes.**
-
-
-### To see your changes locally when you make changes:
-1. Open the html file in which changes were made directly in the browser and <kbd>Command/ctrl + R</kbd> - Reload  everytime if you make changes.
-2. Also, if <b>VS Code</b> <b><a href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer">Live Server</a></b> can be used to see the changes directly without refreshing the page manually.
-
-
-## Contributing
-> We welcome <a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests" target="_blank">Pull Requests</a> from everyone, whether you are a student, a teacher, or an expert in the field. When first making a pull request, please keep it short &amp; brief as we establish a relationship.
-
-To contribute to the project, fix the <a href="https://github.com/taolearning/developerdojo/issues"><b>Issues</b></a>, and then make a <a href="https://github.com/taolearning/developerdojo/pulls"><b>Pull request</b></a>.
+`master` pipelines build the site, publish an internal GitLab Pages preview, and push `dist/` (with
+`CNAME` and `.nojekyll`) plus `.github/workflows/pages.yml` to the GitHub `gh-pages` branch, which GitHub
+Pages serves at https://developerdojo.org. Protected CI variables: `GITHUB_APP_ID`,
+`GITHUB_APP_INSTALLATION_ID`, `GITHUB_APP_PRIVATE_KEY_B64`.
 
 ## License
 
-
+See [LICENSE](LICENSE).

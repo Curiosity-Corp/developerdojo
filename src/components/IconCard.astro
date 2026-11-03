@@ -1,0 +1,127 @@
+---
+/**
+ * Card with a toned icon tile, title and description. Use inside <FeatureGrid> or on its own.
+ * Props: icon (lucide name), title, description, tone ("olive"|"gold"|"rust"|"neutral"),
+ *        href? (makes the whole card a link), meta? (small chip, e.g. "6 weeks"),
+ *        variant ("card" | "inline" - inline has no box, used for "What you'll learn" columns),
+ *        as ("h2"|"h3"|"h4", default h3)
+ */
+import Icon from './Icon.astro';
+import type { Tone } from '../lib/ranks';
+
+interface Props {
+  icon: string;
+  title: string;
+  description?: string;
+  tone?: Tone;
+  href?: string;
+  meta?: string;
+  variant?: 'card' | 'inline';
+  as?: 'h2' | 'h3' | 'h4';
+}
+const { icon, title, description, tone = 'olive', href, meta, variant = 'card', as: Heading = 'h3' } = Astro.props;
+const Wrapper = href ? 'a' : 'div';
+---
+
+<Wrapper class:list={['icon-card', `tone-${tone}`, `variant-${variant}`, { link: Boolean(href) }]} href={href}>
+  <span class="tile"><Icon name={icon} size={variant === 'card' ? 28 : 30} /></span>
+  <span class="body">
+    <Heading class="card-title">
+      {title}
+      {meta && <span class="meta">{meta}</span>}
+    </Heading>
+    {description && <span class="desc">{description}</span>}
+    <slot />
+  </span>
+</Wrapper>
+
+<style>
+  .icon-card {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .variant-card {
+    padding: var(--space-4) var(--space-5);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-bottom: 5px solid var(--tone);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .variant-inline {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .link:hover {
+    border-color: var(--tone);
+  }
+  .tile {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    background: var(--tone);
+    color: #fbf6e8;
+  }
+  .variant-inline .tile {
+    width: auto;
+    height: auto;
+    background: none;
+    color: var(--tone-text);
+    justify-items: start;
+  }
+  .body {
+    display: block;
+    min-width: 0;
+  }
+  .card-title {
+    margin: 0 0 var(--space-1);
+    font-size: var(--text-xl);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .variant-inline .card-title {
+    font-size: var(--text-base);
+    font-family: var(--font-sans);
+    font-weight: 700;
+  }
+  .meta {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.1rem 0.6rem;
+    border-radius: 999px;
+    background: var(--paper-sunk);
+    color: var(--ink-muted);
+    border: 1px solid var(--line);
+  }
+  .desc {
+    display: block;
+    color: var(--ink-muted);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+  .tone-olive {
+    --tone: var(--tone-olive);
+    --tone-text: var(--olive-text);
+  }
+  .tone-gold {
+    --tone: var(--tone-gold);
+    --tone-text: var(--gold-text);
+  }
+  .tone-rust {
+    --tone: var(--tone-rust);
+    --tone-text: var(--rust-text);
+  }
+  .tone-neutral {
+    --tone: var(--tone-neutral);
+    --tone-text: var(--ink-muted);
+  }
+</style>

@@ -1,0 +1,209 @@
+---
+/** Site header: logo, primary nav with active state, theme toggle, Start free, mobile drawer. */
+import Logo from './Logo.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import Icon from './Icon.astro';
+import { NAV, START_FREE, isActive } from '../lib/nav';
+
+const pathname = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="bar">
+    <Logo />
+    <button
+      type="button"
+      class="menu-button"
+      data-menu-button
+      aria-expanded="false"
+      aria-controls="primary-nav"
+      aria-label="Open menu"
+    >
+      <Icon name="menu" size={22} class="open-icon" />
+      <Icon name="x" size={22} class="close-icon" />
+    </button>
+    <nav id="primary-nav" class="nav" aria-label="Primary" data-nav>
+      <ul>
+        {
+          NAV.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isActive(pathname, item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="actions">
+        <ThemeToggle />
+        <a class="start" href={START_FREE.href}>{START_FREE.label}</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('[data-menu-button]');
+  const nav = document.querySelector<HTMLElement>('[data-nav]');
+  const header = document.querySelector<HTMLElement>('.site-header');
+
+  function setOpen(open: boolean): void {
+    if (!button || !header) return;
+    header.toggleAttribute('data-open', open);
+    button.setAttribute('aria-expanded', String(open));
+    button.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+
+  button?.addEventListener('click', () => setOpen(button.getAttribute('aria-expanded') !== 'true'));
+  nav?.addEventListener('click', (event) => {
+    if (event.target instanceof HTMLAnchorElement) setOpen(false);
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && button?.getAttribute('aria-expanded') === 'true') {
+      setOpen(false);
+      button.focus();
+    }
+  });
+  window.matchMedia('(min-width: 62rem)').addEventListener('change', (event) => {
+    if (event.matches) setOpen(false);
+  });
+  document.documentElement.classList.add('js');
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--band-deep);
+    color: var(--band-text);
+    border-bottom: 1px solid var(--band-line);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: var(--header-h);
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    margin-left: auto;
+  }
+  ul {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.75rem, 2vw, 2rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .nav a {
+    color: var(--band-text);
+    text-decoration: none;
+    font-family: var(--font-serif);
+    font-size: 1.08rem;
+    font-weight: 600;
+    padding-block: 0.4rem;
+    border-bottom: 2px solid transparent;
+  }
+  .nav ul a:hover {
+    color: var(--gold);
+  }
+  .nav ul a[aria-current='page'] {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .nav .start {
+    background: var(--gold);
+    color: var(--gold-ink);
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: var(--text-base);
+    padding: 0.55rem 1.1rem;
+    border-radius: var(--radius);
+    border: 0;
+  }
+  .nav .start:hover {
+    background: var(--gold-strong);
+  }
+  .menu-button {
+    display: none;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    background: transparent;
+    color: var(--band-text);
+    border: 1px solid var(--band-line);
+    border-radius: var(--radius);
+    cursor: pointer;
+  }
+  .menu-button :global(.close-icon) {
+    display: none;
+  }
+  .site-header[data-open] .menu-button :global(.close-icon) {
+    display: block;
+  }
+  .site-header[data-open] .menu-button :global(.open-icon) {
+    display: none;
+  }
+
+  /* Tablet and phone: drawer under the bar. Without JS the nav simply stays visible. */
+  @media (max-width: 61.99rem) {
+    .menu-button {
+      display: inline-grid;
+    }
+    :global(html.js) .nav {
+      display: none;
+    }
+    :global(html.js) .site-header[data-open] .nav {
+      display: flex;
+    }
+    .nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-4);
+      padding: var(--space-4) var(--gutter) var(--space-5);
+      background: var(--band-deep);
+      border-bottom: 1px solid var(--band-line);
+      max-height: calc(100dvh - var(--header-h));
+      overflow-y: auto;
+    }
+    ul {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+    .nav ul a {
+      display: block;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--band-line);
+      font-size: 1.2rem;
+    }
+    .nav ul a[aria-current='page'] {
+      border-bottom-color: var(--gold);
+    }
+    .actions {
+      justify-content: space-between;
+    }
+    .nav .start {
+      flex: 1;
+      text-align: center;
+      padding-block: 0.8rem;
+    }
+  }
+</style>

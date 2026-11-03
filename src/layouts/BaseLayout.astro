@@ -1,0 +1,82 @@
+---
+/**
+ * Base layout for every page: head, skip link, header, <main>, sponsor band, footer.
+ *
+ * Props:
+ *  - title: page title (rendered as "{title} · Developer Dojo"; the home page passes homeTitle)
+ *  - description: meta description
+ *  - ogImage?: absolute path of a social image, default /images/og.* if present
+ *  - hideSponsorBand?: true only for pages that must not show the sponsor band
+ */
+import '@fontsource-variable/source-serif-4';
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SponsorBand from '../components/SponsorBand.astro';
+import { findImage } from '../lib/images';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  hideSponsorBand?: boolean;
+  /** Use the title as is, without the site-name suffix. */
+  rawTitle?: boolean;
+}
+
+const {
+  title,
+  description = 'Developer Dojo is a free training academy for the new kind of developer: own a whole product and steer AI agents to build it.',
+  ogImage = findImage('og'),
+  hideSponsorBand = false,
+  rawTitle = false,
+} = Astro.props;
+
+const fullTitle = rawTitle ? title : `${title} · Developer Dojo`;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogUrl = ogImage ? new URL(ogImage, Astro.site).href : undefined;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:site_name" content="Developer Dojo" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    {ogUrl && <meta property="og:image" content={ogUrl} />}
+    <meta name="twitter:card" content={ogUrl ? 'summary_large_image' : 'summary'} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <script is:inline>
+      // Runs before first paint: apply the saved theme and mark JS as available.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('dojo-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    {!hideSponsorBand && <SponsorBand />}
+    <Footer />
+  </body>
+</html>
