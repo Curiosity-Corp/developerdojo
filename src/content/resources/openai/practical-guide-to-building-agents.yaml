@@ -1,0 +1,9 @@
+title: "A practical guide to building agents"
+provider: "OpenAI"
+url: "https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf"
+cost: free
+format: book
+level: intermediate
+skills: [ai-agents]
+summary: "A PDF guide on when an agent is the right tool, how to choose models, define tools and instructions, and add guardrails and human oversight. Short enough to read in one sitting."
+verifiedOn: 2026-11-03

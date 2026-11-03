@@ -1,0 +1,9 @@
+title: "Deep Dive into LLMs like ChatGPT"
+provider: "YouTube: Andrej Karpathy"
+url: "https://www.youtube.com/watch?v=7xTGNNLPyMI"
+cost: free
+format: video
+level: intermediate
+skills: [ai-agents]
+summary: "A longer, more detailed talk on how models like ChatGPT are built, why they hallucinate and how to think about their limits. Watch it after the short intro if you want the full picture."
+verifiedOn: 2026-11-03

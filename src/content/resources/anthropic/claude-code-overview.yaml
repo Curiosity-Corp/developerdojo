@@ -1,0 +1,9 @@
+title: "Overview - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/overview"
+cost: free
+format: docs
+level: beginner
+skills: [ai-agents]
+summary: "The official introduction to Claude Code, an agentic coding tool that works in your terminal and editor. Read it to see what such a tool can do and how permissions work, before you let one touch a repository."
+verifiedOn: 2026-11-03

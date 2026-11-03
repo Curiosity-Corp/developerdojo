@@ -1,0 +1,9 @@
+title: "Anthropic Courses"
+provider: "Anthropic"
+url: "https://anthropic.skilljar.com/"
+cost: free
+format: course
+level: beginner
+skills: [ai-agents, prompt-engineering]
+summary: "Anthropic's learning site with short courses on using Claude, building with the API and working with Claude Code. Check the catalogue for the current list, because courses are added over time. Use it to get a structured start before you build."
+verifiedOn: 2026-11-03

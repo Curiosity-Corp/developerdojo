@@ -1,0 +1,9 @@
+title: "OpenAI Academy"
+provider: "OpenAI"
+url: "https://academy.openai.com/"
+cost: free
+format: course
+level: beginner
+skills: [ai-agents, prompt-engineering]
+summary: "OpenAI's learning hub with videos, guides and workshops on using ChatGPT and building with the API. Good for getting comfortable with the basics. Content changes, so pick what fits your level today."
+verifiedOn: 2026-11-03

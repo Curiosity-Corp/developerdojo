@@ -1,0 +1,9 @@
+title: "Claude's constitution"
+provider: "Anthropic"
+url: "https://www.anthropic.com/news/claudes-constitution"
+cost: free
+format: article
+level: intermediate
+skills: [ai-agents]
+summary: "Anthropic's published statement of the values and priorities it trains Claude to hold. Read it to understand why a model refuses, hedges or pushes back, and why you still own the decision."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "OWASP Top 10 for Large Language Model Applications"
+provider: "OWASP"
+url: "https://genai.owasp.org/llm-top-10/"
+cost: free
+format: docs
+level: intermediate
+skills: [security, ai-agents]
+summary: "OWASP's list of the main security risks of applications built on language models, including prompt injection, leaking sensitive data and excessive agency. Read it before you give any agent access to real systems."
+verifiedOn: 2026-11-03

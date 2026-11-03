@@ -1,0 +1,9 @@
+title: "Working with evals"
+provider: "OpenAI"
+url: "https://developers.openai.com/api/docs/guides/evals"
+cost: free
+format: docs
+level: intermediate
+skills: [ai-evaluation]
+summary: "Explains how to define a test for model output, run it on a set of examples and compare changes. Read it to learn why you measure an AI system instead of trusting a few good-looking answers."
+verifiedOn: 2026-11-03
