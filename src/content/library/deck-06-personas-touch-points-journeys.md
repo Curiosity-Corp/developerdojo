@@ -125,6 +125,7 @@ This program trains the **Product Development Manager of 2030**: a person who bl
 - **The brief you would write:** "Here are 40 support messages. Group them by theme. For each theme give a count and two verbatim examples. Do not summarise beyond the text."
 - **You verify by:** reading a sample of each group in the original messages, and speaking to at least three real people before a persona is accepted.
 - **Disciplines involved:** user research and design (evidence and journeys), marketing (reach touch points), sales and support (owners), data (counts).
+- **On the agent ladder:** **use**: transcription and grouping of evidence you collected. Evidence stays human; the rung is about speed on routine work.
 
 ## Common mistakes
 

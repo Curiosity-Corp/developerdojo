@@ -129,6 +129,7 @@ This program trains the **Product Development Manager of 2030**: a person who bl
 - **The brief you would write:** "Here is a YAML list of labels, milestones and dates. Create them in the project through the API. Print what you created. Do not rename, reorder or add anything."
 - **You verify by:** opening the roadmap view as a stranger, and comparing each created item with your list.
 - **Disciplines involved:** product and strategy (the story), delivery (dates and boards), finance (budget windows), engineering (the tool setup).
+- **On the agent ladder:** **delegate**: setup of labels, milestones and boards from a list. Written lists in git are the first form of policy as data: the same setup can be repeated and checked.
 
 ## Common mistakes
 

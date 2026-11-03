@@ -96,6 +96,7 @@ On Friday at 17:00 the notification email starts sending the same message to eve
 - **The brief you would write:** "Here are the incident messages and the deploy log. Build a timeline: time, event, source. Do not assign blame or give causes. List what is unknown."
 - **You verify by:** reading the timeline against your own memory, challenging each "why" in the five-whys chain, and checking that the added gate really would have failed on the original change.
 - **Disciplines involved:** service management (change and incident), engineering (flags and fixes), operations (monitoring), legal and compliance (evidence for auditors), communication (telling customers honestly), leadership (commander role).
+- **On the agent ladder:** **govern**: CODEOWNERS, approval rules and change labels are policy and gates. In an incident, a named human commander directs the sessions. An agent is never the commander.
 
 ## Working with AI agents
 

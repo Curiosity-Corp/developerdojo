@@ -118,6 +118,7 @@ This program trains the **Product Development Manager of 2030**: a person who bl
 - **The brief you would write:** "Here is my epic. Act as a partner cafe owner. List five reasons you would not use this flow. Do not rewrite the epic."
 - **You verify by:** checking each objection against real conversations, then deciding what, if anything, to change in your own words.
 - **Disciplines involved:** strategy (why), product and design (the person), finance (the measure and the risk), engineering (parts touched), operations (dependencies).
+- **On the agent ladder:** **use** only. The epic is where delegation stops. An agent may read it as an adversary, and the epic becomes the brief that every lower session works from.
 
 ## Common mistakes
 

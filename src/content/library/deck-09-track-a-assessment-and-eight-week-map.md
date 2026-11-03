@@ -96,6 +96,7 @@ The deck calls the learner a Master Developer. Under the program's current posit
 - **The brief you would write:** "List every file I changed this week in the planning repo with its commit message. Do not interpret. I will write the weekly note myself."
 - **You verify by:** checking the list against your own memory, and writing the self-score before you look at any agent-made summary.
 - **Disciplines involved:** coaching and leadership (feedback), product and strategy (the roadmap review), delivery (weekly rhythm).
+- **On the agent ladder:** your honest self-score is the evidence for which rung you have reached. Master Developer asks for orchestrate and govern, not only use and delegate.
 
 ## Working with AI agents
 

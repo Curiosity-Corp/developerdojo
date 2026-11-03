@@ -104,6 +104,7 @@ This program trains the **Product Development Manager of 2030**: a person who bl
 - **The brief you would write:** "Here is my milestone and its date. Propose the issues needed. For each, give a title, one sentence and a done-when line. Add nothing outside the milestone."
 - **You verify by:** reading the proposed issues against your own epic and asking one question of every item: does this belong to the outcome I chose?
 - **Disciplines involved:** strategy and product (owns the idea), engineering (agents build), operations and finance (the facts agents cannot see).
+- **On the agent ladder:** the whole deck climbs a four-rung ladder: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** many sessions in a command chain, and **govern** them with written policy, hooks and gates. Track A mostly practises use and delegate. Master Developer reaches orchestrate and govern.
 
 ## Common mistakes
 

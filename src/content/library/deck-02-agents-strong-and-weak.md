@@ -102,6 +102,7 @@ This program trains the **Product Development Manager of 2030**: a person who bl
 - **The brief you would write:** "Search this repository and tell me every place the deposit amount is set. Give file names and line numbers. Do not change anything."
 - **You verify by:** opening the files the agent named, checking at least two of its claims yourself, and asking the agent for the strongest reason the idea might be wrong, then deciding yourself.
 - **Disciplines involved:** product and customer research (the facts), engineering (agent output), finance and legal (promises and contracts).
+- **On the agent ladder:** this lesson is the **use** and **delegate** rungs: you learn which tasks an agent can take whole, and why a clear input and finish line are what make a brief delegable.
 
 ## Common mistakes
 

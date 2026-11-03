@@ -113,6 +113,7 @@ No one used `kubectl` to fix drift. The system is back to "git equals live", and
 - **The brief you would write:** "Here is the plan output for the cloud change. List every resource that will be created, changed or destroyed. Flag any destroy. Do not apply. Do not edit any file."
 - **You verify by:** reading the plan yourself, looking for destroys and for secret values in the diff, and checking that the digest in production equals the one that passed staging.
 - **Disciplines involved:** operations and platform (the loop), security (secrets and posture), finance (cloud cost shown in plans), engineering (overlays), risk and compliance (the evidence trail).
+- **On the agent ladder:** **govern**: the rules that never bend are written policy. A gate in the pipeline and a self-heal setting in the controller enforce them without asking anyone. Agents may not hold production secrets.
 
 ## Working with AI agents
 

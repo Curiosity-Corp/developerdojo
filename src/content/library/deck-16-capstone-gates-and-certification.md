@@ -111,6 +111,7 @@ The mentor signs the five checkpoints. The total score is 76, and all ten mandat
 - **The brief you would write:** "Here is the capstone rubric and my repository. Check every mandatory item: for each, say 'met' or 'not met', and cite the file and line. Do not fix anything. Do not score."
 - **You verify by:** opening each cited file yourself, then writing your own grade first.
 - **Disciplines involved:** all of them: strategy (epic), engineering (build), security (secrets and licences), operations (GitOps and drift), service management (change and incident), finance (the debt statement), communication (the review and the oral).
+- **On the agent ladder:** **orchestrate and govern**: the capstone asks you to run several pieces of work in one product under written rules, with a mentor acting as the gate. The advanced agent-orchestration track in this program goes deeper into command chains and policy.
 
 ## Working with AI agents
 

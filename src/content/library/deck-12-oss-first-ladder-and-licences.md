@@ -123,6 +123,7 @@ Tool B's 100 percent is a trap. The licence is network copyleft, and TrailMug wo
 - **The brief you would write:** "For each of these three projects, open the repository, find the LICENSE file, and tell me: the file name, the SPDX id, the exact first line of the licence text, and the date of the last release. Do not summarise. Say 'not found' if the file is absent."
 - **You verify by:** opening the licence file for the final candidate yourself, recomputing the fit percentage by hand, and checking that every unmet MUST is on the list.
 - **Disciplines involved:** legal (licences), finance (maintenance cost), security (project health), engineering (extension points), operations (running it), strategy (build or reuse).
+- **On the agent ladder:** **govern**: the licence gate is a policy enforced in the pipeline, with exceptions only through a decision record that carries a human name. Agents search and format inside that policy.
 
 ## Working with AI agents
 

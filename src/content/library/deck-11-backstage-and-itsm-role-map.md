@@ -98,6 +98,7 @@ TrailMug's role map has an extra row: **Customer support desk.** Who plays this 
 - **The brief you would write:** "Compare these three developer portals using only their public documentation. Give a table: licence, how to host, what it needs to run, what it replaces. Cite the page for each cell. Mark 'not found' if you cannot cite."
 - **You verify by:** opening three of the cited pages yourself, and checking the licence text, not the summary.
 - **Disciplines involved:** strategy (build or buy), finance (cost of running), operations (upgrade burden), engineering (extension points), legal (licences), service management (the role map).
+- **On the agent ladder:** **govern**: choosing what the platform will and will not adopt is a policy decision. A written decision with a named owner is policy as data, and the role map is the record.
 
 ## Working with AI agents
 

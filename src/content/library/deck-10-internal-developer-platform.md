@@ -104,6 +104,7 @@ In the status table for this platform, step 6 is **Partial** (manual). So the mi
 - **The brief you would write:** "The licence check failed on this merge request. Find the dependency that has no licence. Propose two alternatives with licences, fit and last release date. Do not change the code until I choose."
 - **You verify by:** reading the pipeline result yourself, reading the diff of any dependency change, and checking that the image deployed has the same digest that was tested.
 - **Disciplines involved:** engineering and platform (the tools), security (scans and findings), operations (the map and the cluster), finance (what each tool costs to run), legal (licences).
+- **On the agent ladder:** **delegate and orchestrate**: agents open one merge request per issue. When many issues run in parallel as several sessions, you are orchestrating, and the pipeline is the gate that governs them.
 
 ## Working with AI agents
 

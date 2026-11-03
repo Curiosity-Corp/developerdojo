@@ -98,6 +98,7 @@ This program trains the **Product Development Manager of 2030**: a person who bl
 - **The brief you would write:** "Milestone: Returns at a second cafe, tested with three pilot cafes, by 20 March. List issues. For each give title, description, done-when. Flag anything you think is outside the milestone instead of adding it."
 - **You verify by:** checking the issue list against the milestone date and scope, then reviewing each merge request against its done-when line.
 - **Disciplines involved:** strategy (vision), product and design (epic), delivery and engineering (milestones and issues), finance (dates and budget).
+- **On the agent ladder:** **delegate**: a milestone with a date becomes a brief an agent can take whole. When one milestone is split across several agents working at once, you have moved to **orchestrate**.
 
 ## Common mistakes
 

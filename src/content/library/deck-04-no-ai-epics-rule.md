@@ -101,6 +101,7 @@ This program trains the **Product Development Manager of 2030**: a person who bl
 - **The brief you would write:** "Here is my persona text, written from five interviews. Check spelling and grammar only. Do not change meaning or add detail. Show each change."
 - **You verify by:** reading every change the agent suggests, rejecting any that add a fact, and writing a one-line AI-use note.
 - **Disciplines involved:** research and design (evidence for personas), communication (plain writing), leadership (owning and defending a decision).
+- **On the agent ladder:** **govern** starts here in its simplest form. The no-AI-epics rule is a written policy about who decides, and the disclosure note is its evidence. Later rungs add hooks and gates that enforce policy automatically.
 
 ## Common mistakes
 

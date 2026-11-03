@@ -103,6 +103,7 @@ Next month, upstream releases the delivery report feature. The refresh script ex
 - **The brief you would write:** "Patch 0002 fails against v3.8.0. Show me the failing hunk and what changed upstream. Propose a minimal fix. Do not change any other patch. After the fix, regenerate the patches and show the diff of each."
 - **You verify by:** reading the regenerated patches line by line, confirming that the licence and notice files are unchanged, and checking the change notes for migrations before approving production.
 - **Disciplines involved:** engineering (the patches), security (scan results and signing), operations (production roll-out), open source community (upstream relationship), legal (licence duties), product (why each patch exists).
+- **On the agent ladder:** **orchestrate and govern**: an update bot, a pipeline and a human merge form a small command chain. Several agents may fix several patches at once, and the red merge request is the gate that stops a bad bump.
 
 ## Working with AI agents
 

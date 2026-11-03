@@ -114,6 +114,7 @@ This program trains the **Product Development Manager of 2030**: a person who bl
 - **The brief you would write:** "Read the repository trailmug-svc-returns. List every other service, API and database it calls. Output a table: target, kind of call, file where it is called. Do not guess; write 'not found' when unsure."
 - **You verify by:** opening the code that the agent cites, confirming each tie, and phoning the person named as owner.
 - **Disciplines involved:** operations (hosting and monitoring), sales and finance (CRM and payments), marketing (reach), security (who can access what), engineering (the services).
+- **On the agent ladder:** **use**: an agent answers fact questions about code to fill your map. The map also becomes what a command chain needs: which repos exist, who owns them and what an agent may change (the planner-access column).
 
 ## Common mistakes
 
