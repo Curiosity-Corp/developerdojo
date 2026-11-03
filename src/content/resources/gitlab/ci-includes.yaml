@@ -1,0 +1,9 @@
+title: "Use CI/CD configuration from other files"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/yaml/includes/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ci-cd]
+summary: "How to build one shared pipeline file and include it in many projects, pinned to a version. It is the technique behind one pipeline template for every product."
+verifiedOn: 2026-11-03

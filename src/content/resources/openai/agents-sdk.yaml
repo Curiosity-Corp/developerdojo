@@ -1,0 +1,9 @@
+title: "OpenAI Agents SDK"
+provider: "OpenAI"
+url: "https://openai.github.io/openai-agents-python/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents]
+summary: "The home page of OpenAI's open-source Python SDK for building agents with tools, handoffs, guardrails and tracing. Use it to build the same command chain with a different vendor and see which ideas are not tied to one tool. It needs an API key."
+verifiedOn: 2026-11-03
