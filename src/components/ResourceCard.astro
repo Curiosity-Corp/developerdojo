@@ -1,0 +1,100 @@
+---
+/**
+ * One external learning resource. Used on /library/resources and in "Further learning" on lessons.
+ * Props: resource (a `resources` collection entry), compact? (hide the summary skills and date)
+ */
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+import { COST_LABELS, FORMAT_LABELS, RESOURCE_LEVEL_LABELS, SKILL_LABELS, formatDate } from '../lib/labels';
+
+interface Props {
+  resource: CollectionEntry<'resources'>;
+  compact?: boolean;
+}
+const { resource, compact = false } = Astro.props;
+const data = resource.data;
+---
+
+<article class="resource" data-resource-id={resource.id}>
+  <p class="provider">{data.provider}</p>
+  <h3>
+    <a href={data.url} rel="noopener noreferrer" target="_blank">
+      {data.title}<span class="visually-hidden"> (opens the publisher's site in a new tab)</span>
+      <Icon name="external-link" size={16} />
+    </a>
+  </h3>
+  <ul class="chips" aria-label="About this resource">
+    <li class:list={['chip', `cost-${data.cost}`]}>{COST_LABELS[data.cost]}</li>
+    <li class="chip">{FORMAT_LABELS[data.format]}</li>
+    <li class="chip">{RESOURCE_LEVEL_LABELS[data.level]}</li>
+    {data.duration && <li class="chip">{data.duration}</li>}
+  </ul>
+  <p class="summary">{data.summary}</p>
+  {
+    !compact && (
+      <p class="meta">
+        Skills: {data.skills.map((skill) => SKILL_LABELS[skill]).join(', ')}. Link checked {formatDate(data.verifiedOn)}.
+      </p>
+    )
+  }
+</article>
+
+<style>
+  .resource {
+    display: grid;
+    gap: var(--space-2);
+    align-content: start;
+    padding: var(--space-4) var(--space-5);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .provider {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--olive-text);
+  }
+  h3 {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    line-height: 1.25;
+  }
+  h3 a {
+    display: inline-flex;
+    gap: var(--space-2);
+    align-items: baseline;
+  }
+  h3 :global(svg) {
+    flex: none;
+    align-self: center;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .chip {
+    padding: 0.1rem 0.6rem;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    background: var(--paper-sunk);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+  }
+  .summary,
+  .meta {
+    margin: 0;
+  }
+  .meta {
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+  }
+</style>

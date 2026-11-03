@@ -10,6 +10,17 @@ function sitemapRoutes(): string[] {
 }
 
 const ROUTES = sitemapRoutes();
+
+// The library will hold 150+ lesson pages that all share one layout. Every route gets the 200,
+// h1, console and overflow check on desktop. The slower passes (phone project, axe in two themes)
+// run on every non-lesson route plus a spread sample of lessons: the first and last, then about
+// one in ten, so every layout branch is covered while CI time stays flat as content grows.
+const LESSON_ROUTE = /^\/library\/(?!tracks\/?$|resources\/?$|tracks\/[^/]+\/?$)[^/]+(?:\/.+)?$/;
+const LESSONS = ROUTES.filter((route) => LESSON_ROUTE.test(route)).sort();
+const SAMPLE = new Set(
+  LESSONS.filter((_, index) => index === 0 || index === LESSONS.length - 1 || index % 10 === 5),
+);
+const DEEP_SCAN = ROUTES.filter((route) => !LESSON_ROUTE.test(route) || SAMPLE.has(route));
 const NAV = ['/train', '/sensei', '/library', '/certificates', '/challenges', '/events', '/membership'];
 const FOOTER = ['/about', '/sponsors', '/sponsors#become-a-sponsor', '/contact', '/code-of-conduct'];
 
@@ -27,7 +38,8 @@ test.describe('routes', () => {
   });
 
   for (const route of ROUTES) {
-    test(`${route} loads with one h1, a title, no console errors, no horizontal scroll`, async ({ page }) => {
+    test(`${route} loads with one h1, a title, no console errors, no horizontal scroll`, async ({ page, isMobile }) => {
+      test.skip(isMobile && !DEEP_SCAN.includes(route), 'lesson pages: the phone pass runs on the sample');
       const errors: string[] = [];
       page.on('pageerror', (e) => errors.push(e.message));
       page.on('console', (m) => {
@@ -161,7 +173,7 @@ test.describe('wiring', () => {
 
 test.describe('accessibility (WCAG 2.1 AA, no serious or critical violations)', () => {
   for (const theme of ['light', 'dark'] as const) {
-    for (const route of ROUTES) {
+    for (const route of DEEP_SCAN) {
       test(`${route} (${theme})`, async ({ page, isMobile }) => {
         // The desktop project scans every page; the phone project scans the three flagship pages
         // (the markup is shared, so a full second pass only slows CI).

@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SectionHeader from '../../../components/SectionHeader.astro';
+import IconCard from '../../../components/IconCard.astro';
+import { loadContent, lessonsOfTrack } from '../../../lib/content';
+import { TRACK_GROUPS } from '../../../lib/schemas';
+import { GROUP_LABELS, LESSON_LEVEL_LABELS } from '../../../lib/labels';
+
+const { tracks, lessons } = await loadContent();
+const groups = TRACK_GROUPS.map((group) => ({
+  group,
+  tracks: tracks
+    .filter((track) => track.data.group === group)
+    .sort((a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title)),
+})).filter((entry) => entry.tracks.length > 0);
+---
+
+<BaseLayout
+  title="Learning tracks"
+  description="Focused tracks of lessons for the new kind of developer: product skills, working with AI agents, and engineering skills."
+>
+  <PageHero
+    compact
+    eyebrow="Library"
+    title="Learning tracks"
+    subtitle="Each track is a short series of lessons on one skill, with the best free courses and videos to go further."
+  />
+  <section class="section">
+    <div class="container">
+      <p class="back"><a href="/library">Back to the library</a> · <a href="/library/resources">All learning resources</a></p>
+      {
+        groups.length === 0 ? (
+          <p>Tracks are being written. Check back soon.</p>
+        ) : (
+          groups.map(({ group, tracks: groupTracks }) => (
+            <div class="group">
+              <SectionHeader eyebrow="Tracks" title={GROUP_LABELS[group]} />
+              <ul class="cards">
+                {groupTracks.map((track) => {
+                  const count = lessonsOfTrack(lessons, track.id).length;
+                  return (
+                    <li>
+                      <IconCard
+                        icon={track.data.icon}
+                        title={track.data.title}
+                        description={track.data.description}
+                        href={`/library/tracks/${track.id}`}
+                        meta={`${LESSON_LEVEL_LABELS[track.data.level]} · ${count} ${count === 1 ? 'lesson' : 'lessons'}`}
+                        tone={group === 'product' ? 'olive' : group === 'ai' ? 'gold' : 'rust'}
+                      />
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .back {
+    margin-top: 0;
+  }
+  .group {
+    margin-bottom: var(--space-6);
+  }
+  .cards {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+    gap: var(--space-4);
+  }
+  .cards > li {
+    display: grid;
+  }
+</style>

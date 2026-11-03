@@ -1,0 +1,9 @@
+title: "Anthropic's Interactive Prompt Engineering Tutorial"
+provider: "Anthropic"
+url: "https://github.com/anthropics/prompt-eng-interactive-tutorial"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [prompt-engineering, ai-agents]
+summary: "A step-by-step set of notebooks from Anthropic that teaches how to write clear instructions for Claude, with exercises you run yourself. Take it before you start delegating work to AI agents, so you know how to give a precise brief and how to check the answer."
+verifiedOn: 2026-11-03

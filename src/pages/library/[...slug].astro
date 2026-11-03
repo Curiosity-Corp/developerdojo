@@ -1,11 +1,13 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import { groupBySection } from '../../lib/library';
+import { loadContent } from '../../lib/content';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('library');
+  // loadContent also fails the build when a track or resource reference does not resolve.
+  const { lessons: entries } = await loadContent();
   const sections = groupBySection(entries);
   return entries.map((entry) => {
     const siblings = sections.find((section) => section.name === entry.data.section)?.entries ?? [];
