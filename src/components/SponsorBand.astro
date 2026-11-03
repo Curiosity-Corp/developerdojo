@@ -84,8 +84,17 @@ const { sponsor = 'Reveltek', href = '/sponsors' } = Astro.props;
     text-decoration: none;
   }
   .sponsor img {
-    height: 72px;
+    height: 84px;
     width: auto;
+  }
+  /* Full-colour logo sits on a paper plate so it keeps its true colours against the ink-wash hills. */
+  .sponsor img.only-light {
+    box-sizing: content-box;
+    padding: 0.9rem 1.6rem;
+    background: #fffaf0;
+    border: 1px solid rgb(122 106 74 / 0.35);
+    border-radius: 1rem;
+    box-shadow: 0 6px 18px rgb(60 48 28 / 0.18);
   }
   @media (max-width: 40rem) {
     .rule {
