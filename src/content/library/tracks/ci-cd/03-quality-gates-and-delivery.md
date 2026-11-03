@@ -75,6 +75,10 @@ Gates that cannot block are decoration. Test them by trying to pass a bad change
 
 **Continuous delivery** keeps software always releasable, with a person pressing the button. **Continuous deployment** removes the button. For a small, low-risk product with excellent tests, automatic is fine. For anything with money, personal data or health in it, keep a human approval for production, at least at first. Read the Continuous Delivery site for the reasoning on both.
 
+### Gates are how agents are governed
+
+On the ladder of agent skill (use, delegate, orchestrate, govern), a quality gate is the govern rung in its simplest form. An agent can be wrong, confused or tricked, and the gate does not care. It checks the change, and either lets it pass or does not. When several agents deliver changes at once, the gates, plus a merge train, are what keep the default branch safe. The advanced track Agent orchestration shows how to design and operate gates for a fleet of agents.
+
 ### Merge trains and keeping the default branch green
 
 When many changes arrive at once, each can pass on its own and still break when combined. A **merge train** (a GitLab feature, check your plan) tests each change as if it had already been merged with the ones ahead of it in the queue, and only merges if that combined result passes. See the [merge trains documentation](https://docs.gitlab.com/ci/pipelines/merge_trains/). With many agents producing changes, this matters. The idea works even without the feature: after any merge, run the pipeline on the default branch, and treat a red default branch as the team's first priority.

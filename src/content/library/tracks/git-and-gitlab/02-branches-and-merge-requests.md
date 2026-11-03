@@ -74,6 +74,10 @@ A **protected branch** is a branch with rules that stop risky actions. For the d
 
 The [protected branches documentation](https://docs.gitlab.com/user/project/repository/branches/protected/) shows the settings. This is the single most useful guardrail when agents have access to a repository: even a confused or tricked agent cannot write to the default branch.
 
+### Why this is the bound on agent work
+
+Protected branches, required approvals and required pipelines are the **gates** that limit what any agent can do, whatever it was told. One agent working on one issue is delegation. Several agents working at once is orchestration, and then these gates carry the load, because you cannot watch every session. Writing the gates down as policy and running them for a whole fleet is taught in the advanced track Agent orchestration.
+
 ### Approvals and code owners
 
 An **approval** is a person's recorded yes. You can require a number of approvals before merging. Some approval features, such as required approval rules, depend on the plan, so read the [approvals documentation](https://docs.gitlab.com/user/project/merge_requests/approvals/) for what your plan offers. Even if the tool cannot enforce it, you can enforce it by rule: nobody merges their own work.
