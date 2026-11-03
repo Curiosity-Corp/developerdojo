@@ -16,8 +16,8 @@ prerequisites:
 resources:
   - "martin-fowler/continuous-integration"
   - "continuous-delivery/what-is-continuous-delivery"
-  - "gitlab/get-started-with-gitlab-ci-cd"
-  - "gitlab/first-pipeline-tutorial"
+  - "gitlab/ci-cd"
+  - "gitlab/create-your-first-ci-cd-pipeline"
   - "github/understanding-github-actions"
   - "gitlab/ci-yaml-reference"
   - "microsoft/automate-your-workflow-with-github-actions-part-1"

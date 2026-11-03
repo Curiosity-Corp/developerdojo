@@ -1,9 +1,0 @@
-title: "Azure Well-Architected Framework"
-provider: "Microsoft"
-url: "https://learn.microsoft.com/en-us/azure/well-architected/"
-cost: free
-format: docs
-level: intermediate
-skills: [cloud-platforms, observability-reliability]
-summary: "Microsoft's guidance on building reliable, secure, cost-aware workloads, organised by pillars. Compare it with the AWS and Google versions to see the shared ideas."
-verifiedOn: 2026-11-03

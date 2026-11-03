@@ -15,7 +15,7 @@ prerequisites:
   - "fix-forward"
   - "git-is-the-source-of-truth"
 resources:
-  - "git-scm/pro-git"
+  - "git/pro-git"
   - "gitlab/signed-commits"
   - "gitlab/secret-detection"
   - "mit-ocw/missing-semester-version-control"

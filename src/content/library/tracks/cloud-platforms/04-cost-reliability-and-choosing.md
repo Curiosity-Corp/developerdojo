@@ -16,7 +16,7 @@ prerequisites:
 resources:
   - "finops/what-is-finops"
   - "aws/well-architected"
-  - "microsoft/azure-well-architected-framework"
+  - "microsoft/well-architected"
   - "google-cloud/well-architected-framework"
   - "aws/managing-your-costs-with-aws-budgets"
   - "google-cloud/create-edit-or-delete-budgets-and-budget-alerts"

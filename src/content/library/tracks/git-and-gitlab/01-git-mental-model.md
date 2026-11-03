@@ -14,7 +14,7 @@ outcomes:
 prerequisites:
   - "git-is-the-source-of-truth"
 resources:
-  - "git-scm/pro-git"
+  - "git/pro-git"
   - "mit-ocw/missing-semester-version-control"
   - "git-scm/learn-git-branching"
   - "youtube-freecodecamp/git-and-github-for-beginners-crash-course"

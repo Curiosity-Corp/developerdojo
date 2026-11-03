@@ -17,7 +17,7 @@ resources:
   - "gitlab/merge-requests"
   - "gitlab/protected-branches"
   - "gitlab/merge-request-approvals"
-  - "gitlab/code-owners"
+  - "gitlab/codeowners"
   - "atlassian/git-tutorials"
   - "conventionalcommits/conventional-commits"
 updated: 2026-11-03

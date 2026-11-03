@@ -16,7 +16,7 @@ prerequisites:
 resources:
   - "gitlab/environments"
   - "gitlab/merge-trains"
-  - "dora/dora-home"
+  - "dora/dora-research-program"
   - "dora/software-delivery-performance-metrics"
   - "continuous-delivery/what-is-continuous-delivery"
   - "gitlab/ci-components"

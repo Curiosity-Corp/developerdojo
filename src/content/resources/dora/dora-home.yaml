@@ -1,9 +1,0 @@
-title: "DORA: Get Better at Getting Better"
-provider: "DORA"
-url: "https://dora.dev/"
-cost: free
-format: docs
-level: intermediate
-skills: [ci-cd, observability-reliability]
-summary: "The research program behind the four delivery metrics (deployment frequency, lead time, change failure rate, recovery time). It explains what the best teams measure and which practices relate to it."
-verifiedOn: 2026-11-03

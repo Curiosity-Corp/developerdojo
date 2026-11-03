@@ -4,6 +4,6 @@ url: "https://dora.dev/"
 cost: "free"
 format: "docs"
 level: "beginner"
-skills: [agile-delivery, ci-cd]
+skills: [agile-delivery, ci-cd, observability-reliability]
 summary: "The research programme behind the well-known delivery metrics, with guides and capabilities that help a team improve. Use it to see delivery as a set of habits you can measure and improve."
 verifiedOn: 2026-11-03

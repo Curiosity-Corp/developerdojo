@@ -21,7 +21,7 @@ resources:
   - "gitlab/application-security-testing"
   - "openssf/slsa"
   - "sigstore/sigstore-overview"
-  - "trivy/trivy-overview"
+  - "trivy/docs"
   - "nist/secure-software-development-framework"
 updated: 2026-11-03
 ---

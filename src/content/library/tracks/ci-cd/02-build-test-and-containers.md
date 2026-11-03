@@ -19,7 +19,7 @@ resources:
   - "gitlab/caching"
   - "youtube-techworld-with-nana/docker-tutorial-for-beginners"
   - "twelve-factor/the-twelve-factor-app"
-  - "gitlab/first-pipeline-tutorial"
+  - "gitlab/create-your-first-ci-cd-pipeline"
 updated: 2026-11-03
 ---
 

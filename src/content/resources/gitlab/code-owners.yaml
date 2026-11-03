@@ -1,9 +1,0 @@
-title: "Code Owners"
-provider: "GitLab"
-url: "https://docs.gitlab.com/user/project/codeowners/"
-cost: free
-format: docs
-level: intermediate
-skills: [git-gitlab]
-summary: "How a CODEOWNERS file names the people who must review changes to certain paths. Some enforcement features need a paid plan. The file itself is a good habit on any plan."
-verifiedOn: 2026-11-03
