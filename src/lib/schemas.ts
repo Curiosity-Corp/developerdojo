@@ -15,7 +15,7 @@ export const FORMATS = [
   'certification',
   'podcast',
 ] as const;
-export const TRACK_GROUPS = ['product', 'ai', 'engineering'] as const;
+export const TRACK_GROUPS = ['product', 'ai', 'engineering', 'frameworks'] as const;
 export const SKILLS = [
   'product-discovery',
   'personas-journeys',

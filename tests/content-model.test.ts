@@ -145,6 +145,7 @@ describe('schemas', () => {
       outcomes: ['Interview a customer'],
     };
     expect(trackSchema.safeParse(track).success).toBe(true);
+    expect(trackSchema.safeParse({ ...track, group: 'frameworks' }).success).toBe(true);
     expect(trackSchema.safeParse({ ...track, group: 'design' }).success).toBe(false);
   });
 });

@@ -36,6 +36,7 @@ export const GROUP_LABELS: Record<TrackGroup, string> = {
   product: 'Product skills',
   ai: 'Working with AI',
   engineering: 'Engineering skills',
+  frameworks: 'Frameworks',
 };
 
 export const SKILL_LABELS: Record<Skill, string> = {
