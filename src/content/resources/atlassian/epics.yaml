@@ -1,0 +1,9 @@
+title: "Epics"
+provider: "Atlassian"
+url: "https://www.atlassian.com/agile/project-management/epics"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [roadmapping-epics, agile-delivery]
+summary: "A short explanation of epics, how they relate to stories, and how they are tracked. Remember that in the Dojo people write the epics."
+verifiedOn: 2026-11-03

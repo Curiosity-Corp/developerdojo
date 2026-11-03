@@ -1,0 +1,9 @@
+title: "Description templates"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/description_templates/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [git-gitlab, agile-delivery]
+summary: "How to keep issue and merge request templates in the repository so every change starts with the same questions. Use it to build a change record template."
+verifiedOn: 2026-11-03

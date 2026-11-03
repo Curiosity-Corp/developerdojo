@@ -1,0 +1,9 @@
+title: "What Is Continuous Delivery?"
+provider: "Atlassian"
+url: "https://www.atlassian.com/continuous-delivery"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [ci-cd]
+summary: "Describes continuous integration and delivery, the pipeline idea that sits under Launch Sequence. A gentle first read before the GitLab pipeline docs."
+verifiedOn: 2026-11-03

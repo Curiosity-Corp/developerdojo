@@ -1,0 +1,9 @@
+title: "Site Reliability Engineering: How Google Runs Production Systems"
+provider: "Google"
+url: "https://sre.google/sre-book/table-of-contents/"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [observability-reliability]
+summary: "The free online book from Google's reliability teams. You do not read it cover to cover; pick the chapters on service level objectives, incidents and launches that this lesson names."
+verifiedOn: 2026-11-03

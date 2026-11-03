@@ -1,0 +1,9 @@
+title: "DORA's software delivery performance metrics"
+provider: "DORA"
+url: "https://dora.dev/guides/dora-metrics-four-keys/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [agile-delivery, ci-cd, observability-reliability]
+summary: "Explains the measures of delivery speed and stability (how often you ship, how long a change takes, how often changes fail, how fast you recover). Use them as the health numbers on your Mission Control board."
+verifiedOn: 2026-11-03

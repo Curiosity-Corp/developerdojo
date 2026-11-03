@@ -1,0 +1,9 @@
+title: "Epics"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/group/epics/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [git-gitlab, roadmapping-epics]
+summary: "How epics group issues across milestones. Epics are a paid-tier feature on GitLab.com, so check the page for your plan."
+verifiedOn: 2026-11-03

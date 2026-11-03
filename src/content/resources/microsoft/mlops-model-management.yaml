@@ -1,0 +1,9 @@
+title: "MLOps: machine learning model management"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/azure/machine-learning/concept-model-management-and-deployment"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-evaluation, ci-cd]
+summary: "Explains MLOps as DevOps ideas applied to machine learning: reproducible training, registered models, automated deployment and monitoring. The examples use Azure, but the ideas are not vendor-specific."
+verifiedOn: 2026-11-03

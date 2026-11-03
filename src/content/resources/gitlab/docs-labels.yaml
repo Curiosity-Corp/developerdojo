@@ -1,0 +1,9 @@
+title: "Labels"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/labels/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [git-gitlab, agile-delivery]
+summary: "How labels work in GitLab, including which label features need which plan. Read it before you design your own status and type labels."
+verifiedOn: 2026-11-03

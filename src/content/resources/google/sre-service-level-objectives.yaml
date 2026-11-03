@@ -1,0 +1,9 @@
+title: "Service Level Objectives (SRE book chapter)"
+provider: "Google"
+url: "https://sre.google/sre-book/service-level-objectives/"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [observability-reliability]
+summary: "Defines indicators, objectives and agreements and shows how to choose them. Read it before you write the first target for your own product."
+verifiedOn: 2026-11-03
