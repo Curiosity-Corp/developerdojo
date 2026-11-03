@@ -1,0 +1,9 @@
+title: "Microsoft REST API Guidelines"
+provider: "Microsoft (GitHub)"
+url: "https://github.com/microsoft/api-guidelines"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [cloud-platforms, communication-writing]
+summary: "Microsoft's public guidelines for designing REST APIs: naming, errors, versioning, long-running operations and more. Use them with the Google guide to judge whether an interface drafted by an agent follows clear conventions."
+verifiedOn: 2026-11-03

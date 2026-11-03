@@ -35,9 +35,9 @@ A Product Development Manager talks to many disciplines in one day. A finance co
 | "Which official code describes our industry?" | NAICS or SIC, inside UBF | [NAICS, SIC and your galaxy](/library/tracks/frameworks/06-naics-sic-and-your-galaxy/) |
 | "Where does this project sit, where is it going, how does it connect, what will it reach?" | STAR | [STAR](/library/tracks/frameworks/08-star-describe-a-project/) |
 | "Should we change focus for a few hours?" | SHIFT | [SHIFT](/library/tracks/frameworks/10-shift-the-focus-shift/) |
-| "What is the plan, the budget and the measure of success?" | ORBITAL | ORBITAL: Objective, Resources, Budget |
+| "What is the plan, the budget and the measure of success?" | ORBITAL | [ORBITAL: Objective, Resources, Budget](/library/tracks/frameworks/11-orbital-objective-resources-budget/) |
 | "How does work flow from idea to delivery?" | ANDROID Ops | Why a new operating model |
-| "Which technology do we start with?" | PHANTOMS | PHANTOMS track |
+| "Which technology do we start with?" | PHANTOMS | [PHANTOMS track](/library/tracks/phantoms-stack/) |
 | "Where are we on the journey?" | SuperNova path | [The SuperNova path](/library/tracks/frameworks/02-the-supernova-path/) |
 
 ## 3. Every acronym spelled out
@@ -126,7 +126,7 @@ PHANTOMS is a **family** of agent-ready starting stacks. You choose each piece b
 | **M** | Milvus | Optional search by meaning (vectors). |
 | **S** | SeaweedFS | Optional file and object storage. |
 
-Variants today: **PHANTOMS core** (the learning starter), **PHANTOMS+ web** (adds a modern styling and component layer such as Tailwind CSS and shadcn/ui), and **PHANTOMS TUI** (terminal apps written in Go with the Charm libraries). More will follow. Read the PHANTOMS track.
+Variants today: **PHANTOMS core** (the learning starter), **PHANTOMS+ web** (adds a modern styling and component layer such as Tailwind CSS and shadcn/ui), and **PHANTOMS TUI** (terminal apps written in Go with the Charm libraries). More will follow. Read [the PHANTOMS track](/library/tracks/phantoms-stack/).
 
 ### Agents and the command chain
 

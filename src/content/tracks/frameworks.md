@@ -67,16 +67,16 @@ The frameworks come from World Enterprise Group, a business incubator. They use 
 
 **ORBITAL (lessons 11 to 16)**
 
-11. ORBITAL: Objective, Resources, Budget
-12. ORBITAL: Indicators, KPIs and the SDGs
-13. ORBITAL: Transport for software
-14. ORBITAL: Activities and Logistics
-15. ORBITAL: TrailMug in full
-16. From ORBITAL to milestones and issues
+11. [ORBITAL: Objective, Resources, Budget](/library/tracks/frameworks/11-orbital-objective-resources-budget/)
+12. [ORBITAL: Indicators, KPIs and the SDGs](/library/tracks/frameworks/12-orbital-indicators-kpis-and-sdgs/)
+13. [ORBITAL: Transport for software](/library/tracks/frameworks/13-orbital-transport-for-software/)
+14. [ORBITAL: Activities and Logistics](/library/tracks/frameworks/14-orbital-activities-and-logistics/)
+15. [ORBITAL: TrailMug in full](/library/tracks/frameworks/15-orbital-trailmug-in-full/)
+16. [From ORBITAL to milestones and issues](/library/tracks/frameworks/16-from-orbital-to-milestones-and-issues/)
 
 **ANDROID Ops, Launch Sequence, Mission Control and the capstone (lessons 20 onward)**
 
-These lessons start with Why a new operating model and continue with the seven ANDROID Ops focus areas, DROID Ops, Launch Sequence, Mission Control and an interdisciplinary capstone that takes TrailMug from idea to running product, with pages that show how designers, marketers, finance and operations people use the same frameworks. The technology lessons live in the separate PHANTOMS stack track.
+These lessons start with Why a new operating model and continue with the seven ANDROID Ops focus areas, DROID Ops, Launch Sequence, Mission Control and an interdisciplinary capstone that takes TrailMug from idea to running product, with pages that show how designers, marketers, finance and operations people use the same frameworks. The technology lessons live in the separate [PHANTOMS stack track](/library/tracks/phantoms-stack/).
 
 ## How it maps to the Developer programme
 
