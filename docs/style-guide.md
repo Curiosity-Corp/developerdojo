@@ -165,8 +165,8 @@ Some sites block automatic checkers. That is why a person opens the link. If you
 Developers can run the same check from a terminal:
 `curl -sL -o /dev/null -w '%{http_code}' -A 'Mozilla/5.0' URL` should print `200`.
 
-A scheduled job checks every resource link on a timer and opens a `link-rot` issue when one breaks. Fix those
-in a small MR: new `url` and new `verifiedOn`, or remove the resource.
+The project is getting a scheduled job that re-checks every resource link and opens an issue labelled `link-rot`
+when one breaks. Fix those in a small MR: new `url` and new `verifiedOn`, or remove the resource.
 
 ## Before you open the MR: a short checklist
 

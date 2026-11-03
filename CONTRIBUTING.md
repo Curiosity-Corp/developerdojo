@@ -237,5 +237,5 @@ Still stuck? Do not guess for hours. Write the MR link and the job name in a mes
 
 - Close the GitLab issue if the work finished it (the line `Closes #N` in the MR does this by itself).
 - If you noticed something else to do, open a new issue with the label `status::ready`.
-- Every outside link rots over time. If someone reports a dead link, fix the resource file in a small MR (new
+- Every outside link rots over time. If someone reports a dead link (or an issue labelled `link-rot` appears), fix the resource file in a small MR (new
   `url` and a new `verifiedOn` date), or delete the file and remove its id from lessons.
