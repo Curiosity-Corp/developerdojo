@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Working with AI agents · Developer Dojo</title><meta name="description" content="The flagship track: direct AI agents as your workforce. Write specs and acceptance criteria, orchestrate several agents, verify their work, measure it with evals and manage the risk, while people own the epics and the roadmap."><link rel="canonical" href="https://developerdojo.org/library/tracks/working-with-ai-agents/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="color-scheme" content="light dark"><meta property="og:site_name" content="Developer Dojo"><meta property="og:title" content="Working with AI agents · Developer Dojo"><meta property="og:description" content="The flagship track: direct AI agents as your workforce. Write specs and acceptance criteria, orchestrate several agents, verify their work, measure it with evals and manage the risk, while people own the epics and the roadmap."><meta property="og:type" content="website"><meta property="og:url" content="https://developerdojo.org/library/tracks/working-with-ai-agents/"><meta name="twitter:card" content="summary"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      // Runs before first paint: apply the saved theme and mark JS as available.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('dojo-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/PageHero.zOqh7M6S.css"><style>.section-header[data-astro-cid-pb4nux2a]{max-width:38rem}.align-center[data-astro-cid-pb4nux2a]{text-align:center;margin-inline:auto}.eyebrow[data-astro-cid-pb4nux2a]{align-items:center;gap:var(--space-3);margin:0 0 var(--space-2);letter-spacing:.14em;text-transform:uppercase;color:var(--rust-text);font-size:.78rem;font-weight:700;display:flex}.align-center[data-astro-cid-pb4nux2a] .eyebrow[data-astro-cid-pb4nux2a]{justify-content:center}.eyebrow-rule[data-astro-cid-pb4nux2a]{opacity:.55;background:currentColor;flex:0 4rem;height:1px}.title[data-astro-cid-pb4nux2a]{margin-bottom:var(--space-2)}.intro[data-astro-cid-pb4nux2a]{color:var(--ink-muted);margin:0}.tone-dark[data-astro-cid-pb4nux2a] .eyebrow[data-astro-cid-pb4nux2a]{color:var(--gold)}.tone-dark[data-astro-cid-pb4nux2a] .title[data-astro-cid-pb4nux2a]{color:var(--band-text)}.tone-dark[data-astro-cid-pb4nux2a] .intro[data-astro-cid-pb4nux2a]{color:var(--band-muted)}
+.layout[data-astro-cid-hni7vhbe]{gap:var(--space-6);grid-template-columns:minmax(0,1fr);align-items:start;display:grid}@media (width>=62rem){.layout[data-astro-cid-hni7vhbe]{grid-template-columns:minmax(0,1fr) 22rem}}.facts[data-astro-cid-hni7vhbe]{padding:var(--space-4) var(--space-5);background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.facts[data-astro-cid-hni7vhbe] h2[data-astro-cid-hni7vhbe]{font-size:var(--text-xl);margin-top:0}.facts[data-astro-cid-hni7vhbe] h3[data-astro-cid-hni7vhbe]{font-size:var(--text-lg)}.facts[data-astro-cid-hni7vhbe] dt[data-astro-cid-hni7vhbe]{font-weight:700}.facts[data-astro-cid-hni7vhbe] dd[data-astro-cid-hni7vhbe]{margin:0 0 var(--space-3)}.lesson-list[data-astro-cid-hni7vhbe]{gap:var(--space-4);padding-left:var(--space-5);display:grid}.lesson-list[data-astro-cid-hni7vhbe] a[data-astro-cid-hni7vhbe]{font-family:var(--font-serif);font-size:var(--text-xl);font-weight:700}.lesson-list[data-astro-cid-hni7vhbe] p[data-astro-cid-hni7vhbe]{color:var(--ink-muted);margin:0}.duration[data-astro-cid-hni7vhbe]{margin-left:var(--space-3);font-size:var(--text-sm);color:var(--ink-muted)}.back[data-astro-cid-hni7vhbe]{margin-top:var(--space-5)}
+</style></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header" data-astro-cid-nen7h5rs><div class="bar" data-astro-cid-nen7h5rs><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><button type="button" class="menu-button" data-menu-button aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu" data-astro-cid-nen7h5rs><svg class="icon open-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"/></svg><svg class="icon close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><nav id="primary-nav" class="nav" aria-label="Primary" data-nav data-astro-cid-nen7h5rs><ul data-astro-cid-nen7h5rs><li data-astro-cid-nen7h5rs><a href="/train" data-astro-cid-nen7h5rs>Train</a></li><li data-astro-cid-nen7h5rs><a href="/sensei" data-astro-cid-nen7h5rs>Sensei</a></li><li data-astro-cid-nen7h5rs><a href="/library" aria-current="page" data-astro-cid-nen7h5rs>Library</a></li><li data-astro-cid-nen7h5rs><a href="/certificates" data-astro-cid-nen7h5rs>Certificates</a></li><li data-astro-cid-nen7h5rs><a href="/challenges" data-astro-cid-nen7h5rs>Challenges</a></li><li data-astro-cid-nen7h5rs><a href="/events" data-astro-cid-nen7h5rs>Events</a></li><li data-astro-cid-nen7h5rs><a href="/membership" data-astro-cid-nen7h5rs>Membership</a></li></ul><div class="actions" data-astro-cid-nen7h5rs><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" data-astro-cid-l6lhmie6><svg class="icon to-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="icon to-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g></svg></button><script type="module">var e=document.documentElement,t=document.querySelector(`[data-theme-toggle]`);function n(){let t=e.getAttribute(`data-theme`);return t===`dark`||t!==`light`&&window.matchMedia(`(prefers-color-scheme: dark)`).matches}function r(){if(!t)return;let e=n();t.setAttribute(`aria-label`,e?`Switch to light theme`:`Switch to dark theme`),t.setAttribute(`data-mode`,e?`dark`:`light`)}t?.addEventListener(`click`,()=>{let t=n()?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`dojo-theme`,t)}catch(e){console.warn(`Theme preference not saved:`,e)}r()}),r();</script><a class="start" href="/membership" data-astro-cid-nen7h5rs>Start free</a></div></nav></div></header><script type="module">var e=document.querySelector(`[data-menu-button]`),t=document.querySelector(`[data-nav]`),n=document.querySelector(`.site-header`);function r(t){e&&n&&(n.toggleAttribute(`data-open`,t),e.setAttribute(`aria-expanded`,String(t)),e.setAttribute(`aria-label`,t?`Close menu`:`Open menu`))}e?.addEventListener(`click`,()=>r(e.getAttribute(`aria-expanded`)!==`true`)),t?.addEventListener(`click`,e=>{e.target instanceof HTMLAnchorElement&&r(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e?.getAttribute(`aria-expanded`)===`true`&&(r(!1),e.focus())}),window.matchMedia(`(min-width: 62rem)`).addEventListener(`change`,e=>{e.matches&&r(!1)}),document.documentElement.classList.add(`js`);</script><main id="main"><section class="hero compact" data-astro-cid-75ysl5lo><div class="art" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/hero-dojo-mobile.avif" media="(max-width: 40rem)"><source type="image/webp" srcset="/images/hero-dojo-mobile.webp" media="(max-width: 40rem)"><source srcset="/images/hero-dojo-mobile.jpg" media="(max-width: 40rem)"><source type="image/avif" srcset="/images/hero-dojo.avif"><source type="image/webp" srcset="/images/hero-dojo.webp"><img class="art-img" src="/images/hero-dojo.jpg" alt width="2400" height="900" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="scrim" aria-hidden="true" data-astro-cid-75ysl5lo></div><div class="enso" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/enso.avif"><source type="image/webp" srcset="/images/enso.webp"><img src="/images/enso.png" alt width="800" height="800" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="container grid" data-astro-cid-75ysl5lo><div class="copy" data-astro-cid-75ysl5lo><p class="eyebrow" data-astro-cid-75ysl5lo>Track · Working with AI</p><h1 data-astro-cid-75ysl5lo>Working with AI agents</h1><p class="subtitle" data-astro-cid-75ysl5lo>The flagship track: direct AI agents as your workforce. Write specs and acceptance criteria, orchestrate several agents, verify their work, measure it with evals and manage the risk, while people own the epics and the roadmap.</p></div></div></section><section class="section" data-astro-cid-hni7vhbe><div class="container layout" data-astro-cid-hni7vhbe><article class="prose" data-astro-cid-hni7vhbe><p>Developer Dojo trains the <strong>2030 Product Development Manager</strong>: a person who blends strategy, product, design, brand, finance, operations, security and engineering, and who treats AI agents as the workforce for lower-level work. Agents write the code, the tests, the draft documents and the research notes. The human decides what to build and why, writes the specification, owns the epics and the roadmap, directs the agents, verifies what they return, manages the risk and ships to real users.</p>
+<p>This track is where that job is taught. It is the flagship of the Library. The demand is high, and the tone is welcoming: every term is explained, and every lesson ends with something you can commit to git.</p>
+<h2 id="who-this-track-is-for">Who this track is for</h2>
+<ul>
+<li>Developers and product people who want a method for directing agents, not a collection of tricks.</li>
+<li>Career changers who want to start with strong habits.</li>
+<li>Mentors and coaches who need shared words for reviewing AI-assisted work.</li>
+</ul>
+<p>You do not need to know machine learning. You need to read a little code, or be willing to learn. The agent builds quickly. You must be able to judge what it built.</p>
+<h2 id="what-you-will-be-able-to-do">What you will be able to do</h2>
+<p>Take a problem you chose, write it as a one-page spec with acceptance criteria, brief an agent, or several agents, review the results, prove they meet the criteria, and ship with a record of what each agent did and what you decided. You will also know the limits: which jobs you hand over and which stay with you.</p>
+<p>The jobs that stay are named in <a href="/library/people-write-epics">People write epics</a>: who the customer is, what the product is and is not, which problem comes first, and why. People write epics and roadmaps. AI never does.</p>
+<h2 id="the-ten-lessons">The ten lessons</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Lesson</th>
+<th>What you learn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>How AI agents work</td>
+<td>Models, context, tools, loops, and why agents sound sure when wrong</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Prompting that works</td>
+<td>Briefing an agent: goal, context, constraints, examples, format</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Context and instructions</td>
+<td>What agents can see, and a project instruction file in git</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Specs and acceptance criteria</td>
+<td>Turn a decision into a testable one-page spec</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Agentic coding tools in practice</td>
+<td>One issue, one branch, plan first, tests as the judge</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Orchestrating multiple agents</td>
+<td>Split work, assign roles, isolate branches, checkpoints</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Reviewing and verifying AI output</td>
+<td>A review method, and the signs of plausible nonsense</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Evals and testing AI work</td>
+<td>Test sets, scoring, baselines, regressions</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Safety, security and trust</td>
+<td>Least privilege, prompt injection, sandboxes, approval points</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Disclosure and ownership</td>
+<td>Honest disclosure, licences, and decisions that stay human</td>
+</tr>
+</tbody>
+</table>
+<p>Lessons 1 to 3 give the mental model and the briefing skills. Lessons 4 to 6 teach you to specify, direct and take your first steps in orchestration. Lessons 7 to 9 teach you to verify, measure and control risk. Lesson 10 closes with accountability.</p>
+<h2 id="the-ladder-use-delegate-orchestrate-govern">The ladder: use, delegate, orchestrate, govern</h2>
+<p>Working with agents is a ladder, and each rung needs different skills.</p>
+<table>
+<thead>
+<tr>
+<th>Rung</th>
+<th>What you do</th>
+<th>Where it is taught</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Use</strong></td>
+<td>Work with one agent, one request at a time</td>
+<td>Lessons 1 to 3</td>
+</tr>
+<tr>
+<td><strong>Delegate</strong></td>
+<td>Hand a whole task to an agent with a spec and a brief, then verify it</td>
+<td>Lessons 4, 5, 7, 8</td>
+</tr>
+<tr>
+<td><strong>Orchestrate</strong></td>
+<td>Run several agents or sessions at once, with you as the command chain</td>
+<td>Lesson 6 introduces it</td>
+</tr>
+<tr>
+<td><strong>Govern</strong></td>
+<td>Bound many agents with written policy, hooks and gates</td>
+<td>Lesson 9 introduces it</td>
+</tr>
+</tbody>
+</table>
+<p>This track teaches the first two rungs and introduces the others. To run a fleet, take the advanced track Agent orchestration next.</p>
+<h2 id="how-it-maps-to-the-program">How it maps to the program</h2>
+<p>In the Developer six weeks, agents appear in practice in week 4. Lessons 1 to 5 prepare you for that week and support the evidence in the Product Package. For the Master Developer, lessons 6 to 9 are the AI-agent orchestration module: several agents, separate branches, and reviews through merge requests. Lesson 10 supports the “How I used AI” section of the Product Package.</p>
+<h2 id="the-running-example">The running example</h2>
+<p>Every lesson uses TrailMug, the fictional reusable-cup product for cafés. Maya, the product owner, writes specs, briefs agents, reviews their work and keeps the decisions. TrailMug and its people are invented.</p>
+<h2 id="time-and-effort">Time and effort</h2>
+<p>Plan about 60 to 90 minutes per lesson, including the exercise. The track takes about 15 to 20 hours, and fits next to the program at one lesson a week or more. Most exercises ask for three files in your git repository: your spec, your agent brief and your review notes. Those files are real evidence of how you work.</p>
+<p>Free courses and tools exist, and the lessons point to the best of them. Some tools have paid plans. Nothing here requires payment, and prices change, so check the provider’s site first. Work in git from day one. If git is new to you, start the Git and GitLab track alongside this one. The five rules of <a href="/library/the-way-five-rules">The Way</a> apply in every lesson.</p>
+</article><aside class="facts" aria-label="Track facts" data-astro-cid-hni7vhbe><h2 data-astro-cid-hni7vhbe>At a glance</h2><dl data-astro-cid-hni7vhbe><dt data-astro-cid-hni7vhbe>Starting level</dt><dd data-astro-cid-hni7vhbe>Foundation</dd><dt data-astro-cid-hni7vhbe>Skills</dt><dd data-astro-cid-hni7vhbe>AI agents, Prompt engineering, AI evaluation</dd></dl><h3 data-astro-cid-hni7vhbe>You will be able to</h3><ul data-astro-cid-hni7vhbe><li data-astro-cid-hni7vhbe>Explain in plain words what a language model and an agent are, and where they fail</li><li data-astro-cid-hni7vhbe>Write a specification with testable acceptance criteria from a decision you made yourself</li><li data-astro-cid-hni7vhbe>Orchestrate several agents on separate issues, in separate branches, with one accountable human</li><li data-astro-cid-hni7vhbe>Verify AI output against the spec: tests, diff, running product and sources</li><li data-astro-cid-hni7vhbe>Build a small evaluation set so you can measure an AI workflow instead of guessing</li><li data-astro-cid-hni7vhbe>Limit agent power, protect secrets, and disclose AI use honestly in every merge request</li></ul></aside></div></section><section class="section section--tight lessons" data-astro-cid-hni7vhbe><div class="container" data-astro-cid-hni7vhbe><header class="section-header tone-paper align-start" data-astro-cid-pb4nux2a><p class="eyebrow" data-astro-cid-pb4nux2a><span data-astro-cid-pb4nux2a>Lessons</span><span class="eyebrow-rule" aria-hidden="true" data-astro-cid-pb4nux2a></span></p><h2 class="title" data-astro-cid-pb4nux2a="true">Lessons in order</h2></header><ol class="lesson-list" data-astro-cid-hni7vhbe><li data-astro-cid-hni7vhbe><a href="/library/tracks/working-with-ai-agents/01-how-ai-agents-work" data-astro-cid-hni7vhbe>How AI agents work</a><span class="duration" data-astro-cid-hni7vhbe>Foundation</span><span class="duration" data-astro-cid-hni7vhbe>60 min</span><p data-astro-cid-hni7vhbe>A plain-words model of what a language model is, what turns it into an agent, and why it can sound sure while being wrong.</p></li><li data-astro-cid-hni7vhbe><a href="/library/tracks/working-with-ai-agents/02-prompting-that-works" data-astro-cid-hni7vhbe>Prompting that works</a><span class="duration" data-astro-cid-hni7vhbe>Foundation</span><span class="duration" data-astro-cid-hni7vhbe>75 min</span><p data-astro-cid-hni7vhbe>Write clear tasks for an AI model: goal, context, constraints, examples and output format, and a loop for improving a prompt one change at a time.</p></li><li data-astro-cid-hni7vhbe><a href="/library/tracks/working-with-ai-agents/03-context-and-instructions" data-astro-cid-hni7vhbe>Context and instructions</a><span class="duration" data-astro-cid-hni7vhbe>Core</span><span class="duration" data-astro-cid-hni7vhbe>75 min</span><p data-astro-cid-hni7vhbe>Decide what an agent can see, keep that context small and relevant, and write a project instruction file that every session starts from.</p></li><li data-astro-cid-hni7vhbe><a href="/library/tracks/working-with-ai-agents/04-specs-and-acceptance-criteria" data-astro-cid-hni7vhbe>Specs and acceptance criteria</a><span class="duration" data-astro-cid-hni7vhbe>Core</span><span class="duration" data-astro-cid-hni7vhbe>90 min</span><p data-astro-cid-hni7vhbe>Turn a decision into a specification an agent can build and you can verify: problem, scope, acceptance criteria, limits and examples.</p></li><li data-astro-cid-hni7vhbe><a href="/library/tracks/working-with-ai-agents/05-agentic-coding-tools-in-practice" data-astro-cid-hni7vhbe>Agentic coding tools in practice</a><span class="duration" data-astro-cid-hni7vhbe>Core</span><span class="duration" data-astro-cid-hni7vhbe>90 min</span><p data-astro-cid-hni7vhbe>Run a coding agent safely on real work: one issue, one branch, plan first, small steps, tests as the judge, and permissions you control.</p></li><li data-astro-cid-hni7vhbe><a href="/library/tracks/working-with-ai-agents/06-orchestrating-multiple-agents" data-astro-cid-hni7vhbe>Orchestrating multiple agents</a><span class="duration" data-astro-cid-hni7vhbe>Advanced</span><span class="duration" data-astro-cid-hni7vhbe>90 min</span><p data-astro-cid-hni7vhbe>Run several agents at once on separate issues without losing control: split work, isolate branches, define roles, sequence reviews and keep one human accountable.</p></li><li data-astro-cid-hni7vhbe><a href="/library/tracks/working-with-ai-agents/07-reviewing-and-verifying-ai-output" data-astro-cid-hni7vhbe>Reviewing and verifying AI output</a><span class="duration" data-astro-cid-hni7vhbe>Core</span><span class="duration" data-astro-cid-hni7vhbe>75 min</span><p data-astro-cid-hni7vhbe>A review method for AI-written code, text and data: how to read a diff, spot plausible nonsense and decide what to accept, fix or reject.</p></li><li data-astro-cid-hni7vhbe><a href="/library/tracks/working-with-ai-agents/08-evals-and-testing-ai-work" data-astro-cid-hni7vhbe>Evals and testing AI work</a><span class="duration" data-astro-cid-hni7vhbe>Advanced</span><span class="duration" data-astro-cid-hni7vhbe>90 min</span><p data-astro-cid-hni7vhbe>Measure an AI workflow instead of guessing: build a small test set, score the results, compare changes and catch regressions.</p></li><li data-astro-cid-hni7vhbe><a href="/library/tracks/working-with-ai-agents/09-safety-security-and-trust" data-astro-cid-hni7vhbe>Safety, security and trust</a><span class="duration" data-astro-cid-hni7vhbe>Advanced</span><span class="duration" data-astro-cid-hni7vhbe>90 min</span><p data-astro-cid-hni7vhbe>Keep secrets and systems safe when agents act: least privilege, prompt injection, safe sandboxes, human approval and what never goes into a chat.</p></li><li data-astro-cid-hni7vhbe><a href="/library/tracks/working-with-ai-agents/10-disclosure-and-ownership" data-astro-cid-hni7vhbe>Disclosure and ownership</a><span class="duration" data-astro-cid-hni7vhbe>Advanced</span><span class="duration" data-astro-cid-hni7vhbe>60 min</span><p data-astro-cid-hni7vhbe>Tell people honestly when and how you used AI, handle licences and credit, and keep the epics, roadmap and decisions in human hands.</p></li></ol><p class="back" data-astro-cid-hni7vhbe><a href="/library/tracks" data-astro-cid-hni7vhbe>All tracks</a> · <a href="/library/resources" data-astro-cid-hni7vhbe>Learning resources</a></p></div></section></main><section class="sponsor-band" aria-label="Sponsored by Reveltek" data-astro-cid-ji2uitki><div class="backdrop" aria-hidden="true" data-astro-cid-ji2uitki><span class="only-light" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band.avif"><source type="image/webp" srcset="/images/mountains-band.webp"><img src="/images/mountains-band.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span><span class="only-dark" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band-dark.avif"><source type="image/webp" srcset="/images/mountains-band-dark.webp"><img src="/images/mountains-band-dark.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span></div><div class="container inner" data-astro-cid-ji2uitki><span class="lead" data-astro-cid-ji2uitki>Sponsored by</span><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span><a class="sponsor" href="/sponsors" data-astro-cid-ji2uitki><img class="only-light" src="/images/reveltek-logo.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki><img class="only-dark" src="/images/reveltek-logo-white.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki></a><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span></div></section><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="container inner" data-astro-cid-jo6i4kqk><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><nav aria-label="Footer" data-astro-cid-jo6i4kqk><ul data-astro-cid-jo6i4kqk><li data-astro-cid-jo6i4kqk><a href="/about" data-astro-cid-jo6i4kqk>About CRC</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors" data-astro-cid-jo6i4kqk>Sponsors (Reveltek)</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors#become-a-sponsor" data-astro-cid-jo6i4kqk>Become a sponsor</a></li><li data-astro-cid-jo6i4kqk><a href="/contact" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href="/code-of-conduct" data-astro-cid-jo6i4kqk>Code of conduct</a></li><li data-astro-cid-jo6i4kqk><a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>GitHub</a></li></ul></nav></div><p class="legal container" data-astro-cid-jo6i4kqk>© 2026 Curiosity Research Corporation. Developer Dojo is free for everyone and is sponsored by Reveltek.</p></footer></body></html>
