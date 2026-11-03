@@ -11,11 +11,11 @@ outcomes:
   - "List touch points before, during and after purchase, each with an owner."
   - "Map a user journey and a customer journey, and mark gaps and pain points as candidate epics."
 resources:
-  - nngroup/personas
+  - nngroup/personas-make-users-memorable
   - nngroup/journey-mapping-101
   - nngroup/customer-journey-mapping
   - nngroup/journeys-vs-flows
-  - nngroup/user-interviews
+  - nngroup/user-interviews-101
   - gov-uk/service-manual-user-research
   - ixdf/personas
 prerequisites:
