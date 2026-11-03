@@ -3,6 +3,7 @@
 import Logo from './Logo.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import Icon from './Icon.astro';
+import SearchDialog from './SearchDialog.astro';
 import { NAV, START_FREE, isActive } from '../lib/nav';
 
 const pathname = Astro.url.pathname;
@@ -11,6 +12,7 @@ const pathname = Astro.url.pathname;
 <header class="site-header">
   <div class="bar">
     <Logo />
+    <SearchDialog mode="button-phone" />
     <button
       type="button"
       class="menu-button"
@@ -35,11 +37,13 @@ const pathname = Astro.url.pathname;
         }
       </ul>
       <div class="actions">
+        <SearchDialog mode="button-desktop" />
         <ThemeToggle />
         <a class="start" href={START_FREE.href}>{START_FREE.label}</a>
       </div>
     </nav>
   </div>
+  <SearchDialog mode="dialog" />
 </header>
 
 <script>

@@ -76,7 +76,7 @@ const ogUrl = ogImage ? new URL(ogImage, Astro.site).href : undefined;
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <Header />
-    <main id="main">
+    <main id="main" data-pagefind-body={noindex ? undefined : ''} data-pagefind-ignore={noindex ? '' : undefined}>
       <slot />
     </main>
     {!hideSponsorBand && <SponsorBand />}

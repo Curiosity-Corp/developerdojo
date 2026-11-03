@@ -19,7 +19,7 @@ const items = tocHeadings(headings);
 
 {
   items.length > 1 && variant === 'inline' && (
-    <nav class="toc toc-inline" aria-label="On this page">
+    <nav class="toc toc-inline" aria-label="On this page" data-pagefind-ignore>
       <details>
         <summary>On this page</summary>
         <ol>
