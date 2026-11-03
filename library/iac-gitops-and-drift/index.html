@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Everything as code, GitOps and drift · Developer Dojo</title><meta name="description" content="Run infrastructure and applications from git, keep secrets out, and find and close drift."><link rel="canonical" href="https://developerdojo.org/library/iac-gitops-and-drift/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="color-scheme" content="light dark"><meta property="og:site_name" content="Developer Dojo"><meta property="og:title" content="Everything as code, GitOps and drift · Developer Dojo"><meta property="og:description" content="Run infrastructure and applications from git, keep secrets out, and find and close drift."><meta property="og:type" content="website"><meta property="og:url" content="https://developerdojo.org/library/iac-gitops-and-drift/"><meta name="twitter:card" content="summary"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      // Runs before first paint: apply the saved theme and mark JS as available.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('dojo-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/PageHero.Do9oKQ7x.css"><style>.pager[data-astro-cid-ecbjlo7c]{justify-content:space-between;gap:var(--space-3);margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--line);flex-wrap:wrap;display:flex}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]{font-weight:600}
+</style></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header" data-astro-cid-nen7h5rs><div class="bar" data-astro-cid-nen7h5rs><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><svg class="mark" viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false" data-astro-cid-f7espo7c><path d="M15 5 5 20l10 15M25 5l10 15-10 15" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-f7espo7c></path></svg><span class="word" aria-hidden="true" data-astro-cid-f7espo7c>DEVELOPER<span class="dojo" data-astro-cid-f7espo7c>DOJO</span></span></a><button type="button" class="menu-button" data-menu-button aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu" data-astro-cid-nen7h5rs><svg class="icon open-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"/></svg><svg class="icon close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><nav id="primary-nav" class="nav" aria-label="Primary" data-nav data-astro-cid-nen7h5rs><ul data-astro-cid-nen7h5rs><li data-astro-cid-nen7h5rs><a href="/train" data-astro-cid-nen7h5rs>Train</a></li><li data-astro-cid-nen7h5rs><a href="/sensei" data-astro-cid-nen7h5rs>Sensei</a></li><li data-astro-cid-nen7h5rs><a href="/library" aria-current="page" data-astro-cid-nen7h5rs>Library</a></li><li data-astro-cid-nen7h5rs><a href="/certificates" data-astro-cid-nen7h5rs>Certificates</a></li><li data-astro-cid-nen7h5rs><a href="/challenges" data-astro-cid-nen7h5rs>Challenges</a></li><li data-astro-cid-nen7h5rs><a href="/events" data-astro-cid-nen7h5rs>Events</a></li><li data-astro-cid-nen7h5rs><a href="/membership" data-astro-cid-nen7h5rs>Membership</a></li></ul><div class="actions" data-astro-cid-nen7h5rs><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" data-astro-cid-l6lhmie6><svg class="icon to-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="icon to-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g></svg></button><script type="module">var e=document.documentElement,t=document.querySelector(`[data-theme-toggle]`);function n(){let t=e.getAttribute(`data-theme`);return t===`dark`||t!==`light`&&window.matchMedia(`(prefers-color-scheme: dark)`).matches}function r(){if(!t)return;let e=n();t.setAttribute(`aria-label`,e?`Switch to light theme`:`Switch to dark theme`),t.setAttribute(`data-mode`,e?`dark`:`light`)}t?.addEventListener(`click`,()=>{let t=n()?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`dojo-theme`,t)}catch(e){console.warn(`Theme preference not saved:`,e)}r()}),r();</script><a class="start" href="/membership" data-astro-cid-nen7h5rs>Start free</a></div></nav></div></header><script type="module">var e=document.querySelector(`[data-menu-button]`),t=document.querySelector(`[data-nav]`),n=document.querySelector(`.site-header`);function r(t){e&&n&&(n.toggleAttribute(`data-open`,t),e.setAttribute(`aria-expanded`,String(t)),e.setAttribute(`aria-label`,t?`Close menu`:`Open menu`))}e?.addEventListener(`click`,()=>r(e.getAttribute(`aria-expanded`)!==`true`)),t?.addEventListener(`click`,e=>{e.target instanceof HTMLAnchorElement&&r(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e?.getAttribute(`aria-expanded`)===`true`&&(r(!1),e.focus())}),window.matchMedia(`(min-width: 62rem)`).addEventListener(`change`,e=>{e.matches&&r(!1)}),document.documentElement.classList.add(`js`);</script><main id="main"><section class="hero compact" data-astro-cid-75ysl5lo><div class="art" aria-hidden="true" data-astro-cid-75ysl5lo><div class="placeholder" data-astro-cid-75ysl5lo><span class="window" data-astro-cid-75ysl5lo></span></div></div><div class="scrim" aria-hidden="true" data-astro-cid-75ysl5lo></div><svg class="enso" viewBox="0 0 200 200" aria-hidden="true" focusable="false" data-astro-cid-75ysl5lo><path d="M150 28C95 4 28 38 24 104c-4 62 56 94 108 74 38-14 52-50 44-78" fill="none" stroke="var(--gold)" stroke-width="15" stroke-linecap="round" opacity="0.85" data-astro-cid-75ysl5lo></path></svg><div class="container grid" data-astro-cid-75ysl5lo><div class="copy" data-astro-cid-75ysl5lo><p class="eyebrow" data-astro-cid-75ysl5lo>Master Developer</p><h1 data-astro-cid-75ysl5lo>Everything as code, GitOps and drift</h1><p class="subtitle" data-astro-cid-75ysl5lo>Run infrastructure and applications from git, keep secrets out, and find and close drift.</p></div></div></section><article class="section" data-astro-cid-ecbjlo7c><div class="container prose" data-astro-cid-ecbjlo7c><h2 id="desired-state-and-actual-state">Desired state and actual state</h2>
+<ul>
+<li><strong>Desired state</strong> is what git says should exist.</li>
+<li><strong>Actual state</strong> is what is really running.</li>
+<li><strong>Drift</strong> is any difference between them.</li>
+</ul>
+<p>The aim of everything-as-code is to make the desired state live in git and to make the actual state follow it.</p>
+<h2 id="idempotency">Idempotency</h2>
+<p>An action is <strong>idempotent</strong> if running it twice gives the same result as running it once. Declarative tools are idempotent: you say what you want, not the steps to get there. This makes them safe to repeat.</p>
+<h2 id="infrastructure-as-code-iac">Infrastructure as code (IaC)</h2>
+<p><strong>IaC</strong> means the setup of your cloud (networks, servers, databases, DNS) is written as files in git. Tools such as Terraform and OpenTofu read the files and create the resources.</p>
+<p>Good habits:</p>
+<ul>
+<li><strong>State.</strong> The tool keeps a record of what it created. Store that record in a shared, locked, backed-up place.</li>
+<li><strong>Plan in the merge request, apply after merge.</strong> The plan shows exactly what will change. A person reads it.</li>
+<li><strong>Modules and environments.</strong> Reuse the same code for test, staging and production, with different settings.</li>
+<li><strong>No clickops.</strong> Never change a cloud setting by hand in a web console. A hand change is invisible and will be undone or forgotten.</li>
+</ul>
+<h2 id="gitops-for-kubernetes">GitOps for Kubernetes</h2>
+<p><strong>GitOps</strong> means a controller inside the cluster watches git and makes the cluster match it. Four principles (from the OpenGitOps project): the system is declarative, versioned in git, pulled automatically, and continuously reconciled.</p>
+<p>Useful ideas:</p>
+<ul>
+<li><strong>App-of-apps and application sets.</strong> One parent definition creates many applications, so adding an environment is a small change.</li>
+<li><strong>Sync policy.</strong> <em>Prune</em> removes things that are no longer in git. <em>Self-heal</em> undoes manual changes. Together they make git the only way to change the cluster.</li>
+<li><strong>Sync waves.</strong> Order matters. Create namespaces and databases before the apps that need them.</li>
+</ul>
+<h2 id="never-change-the-cluster-by-hand">Never change the cluster by hand</h2>
+<p>Do not run commands that create, patch or apply objects directly. Read-only commands (get, describe, logs, diff) are fine. All changes go through git.</p>
+<h2 id="secrets-never-plaintext">Secrets: never plaintext</h2>
+<p>A secret is a password, key or token. Rules:</p>
+<ol>
+<li>Never commit a plain secret.</li>
+<li>Store the value in a secret manager.</li>
+<li>In git, keep only a reference (the secret’s <strong>name</strong>). A tool such as an external-secrets operator fetches the value at runtime.</li>
+<li>If a secret must be in git (rare), encrypt it first with a tool such as SOPS.</li>
+<li>If a secret leaks, rotate it at once. That is a real emergency.</li>
+</ol>
+<h2 id="the-delivery-spine">The delivery spine</h2>
+<p>Every change passes the same stages:</p>
+<ol>
+<li><strong>Source checks.</strong> Lint, tests, secret scan, licence scan.</li>
+<li><strong>Supply chain.</strong> Build the image, make the SBOM, sign it.</li>
+<li><strong>Artifact security.</strong> Scan the image. Send findings to one tracker.</li>
+<li><strong>Deployment.</strong> Update git. The controller rolls it out.</li>
+<li><strong>Governance.</strong> Record the change and its evidence.</li>
+</ol>
+<p>Promotion from test to staging to production uses the <strong>same image digest</strong>. You do not rebuild for production. What you tested is what you ship.</p>
+<h2 id="drift-find-it-and-close-it">Drift: find it and close it</h2>
+<p>Look for drift in four layers:</p>
+<ol>
+<li><strong>Cloud.</strong> Resources changed in the console.</li>
+<li><strong>Cluster.</strong> Objects changed by hand.</li>
+<li><strong>Image.</strong> A running image that is not the one git names.</li>
+<li><strong>Secrets and settings.</strong> Values changed outside the store.</li>
+</ol>
+<h3 id="closing-drift">Closing drift</h3>
+<ol>
+<li><strong>Detect.</strong> A plan that shows changes you did not make, or a controller that says out of sync.</li>
+<li><strong>Decide.</strong> Is the manual change right or wrong?</li>
+<li><strong>If wrong:</strong> let self-heal revert it, or re-apply from git.</li>
+<li><strong>If right:</strong> write it into git by merge request. Now git is true again.</li>
+<li><strong>Prevent.</strong> Remove the permission that allowed the manual change, or add an alert.</li>
+</ol>
+<p>You close drift by a change in git. You do not close it by another manual change.</p>
+<h2 id="key-points">Key points</h2>
+<ul>
+<li>Git holds the desired state. Controllers make reality follow.</li>
+<li>No clickops. No manual cluster changes. No plain secrets.</li>
+<li>Promote the same digest. Fix drift through git.</li>
+</ul>
+<nav class="pager" aria-label="More in this section" data-astro-cid-ecbjlo7c><a href="/library/patch-sets-and-forks" data-astro-cid-ecbjlo7c>Previous: Patch sets and maintained forks</a><a href="/library/itil-in-git" data-astro-cid-ecbjlo7c>Next: Service management in git</a></nav><p data-astro-cid-ecbjlo7c><a href="/library" data-astro-cid-ecbjlo7c>Back to the library</a></p></div></article></main><section class="sponsor-band" aria-label="Sponsored by Reveltek" data-astro-cid-ji2uitki><div class="backdrop" aria-hidden="true" data-astro-cid-ji2uitki><svg class="mountains" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true" focusable="false" data-astro-cid-7wk3pij6><path d="M0 140V92l70-30 60 24 90-52 80 56 70-30 110 58 80-40 120 52 90-60 100 46 80-34 110 62 90-48 110 44 70-28 100 44V140Z" fill="currentColor" opacity="0.1" data-astro-cid-7wk3pij6></path><path d="M0 140V112l90-26 70 20 100-40 90 38 90-24 110 40 90-30 120 36 100-44 90 34 100-22 110 34 90-26 100 32 90-20 100 24V140Z" fill="currentColor" opacity="0.16" data-astro-cid-7wk3pij6></path></svg></div><div class="container inner" data-astro-cid-ji2uitki><span class="lead" data-astro-cid-ji2uitki>Sponsored by</span><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span><a class="sponsor" href="/sponsors" data-astro-cid-ji2uitki><span class="wordmark" data-astro-cid-ji2uitki>REVELTEK</span></a><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span></div></section><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="container inner" data-astro-cid-jo6i4kqk><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><svg class="mark" viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false" data-astro-cid-f7espo7c><path d="M15 5 5 20l10 15M25 5l10 15-10 15" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-f7espo7c></path></svg><span class="word" aria-hidden="true" data-astro-cid-f7espo7c>DEVELOPER<span class="dojo" data-astro-cid-f7espo7c>DOJO</span></span></a><nav aria-label="Footer" data-astro-cid-jo6i4kqk><ul data-astro-cid-jo6i4kqk><li data-astro-cid-jo6i4kqk><a href="/about" data-astro-cid-jo6i4kqk>About CRC</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors" data-astro-cid-jo6i4kqk>Sponsors (Reveltek)</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors#become-a-sponsor" data-astro-cid-jo6i4kqk>Become a sponsor</a></li><li data-astro-cid-jo6i4kqk><a href="/contact" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href="/code-of-conduct" data-astro-cid-jo6i4kqk>Code of conduct</a></li><li data-astro-cid-jo6i4kqk><a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>GitHub</a></li></ul></nav></div><p class="legal container" data-astro-cid-jo6i4kqk>© 2026 Curiosity Research Corporation. Developer Dojo is free for everyone and is sponsored by Reveltek.</p></footer></body></html>

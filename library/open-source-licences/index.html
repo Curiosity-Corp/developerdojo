@@ -1,0 +1,203 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Open source licences in plain English · Developer Dojo</title><meta name="description" content="The licence families, the traps (especially network copyleft), and how to check a licence."><link rel="canonical" href="https://developerdojo.org/library/open-source-licences/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="color-scheme" content="light dark"><meta property="og:site_name" content="Developer Dojo"><meta property="og:title" content="Open source licences in plain English · Developer Dojo"><meta property="og:description" content="The licence families, the traps (especially network copyleft), and how to check a licence."><meta property="og:type" content="website"><meta property="og:url" content="https://developerdojo.org/library/open-source-licences/"><meta name="twitter:card" content="summary"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      // Runs before first paint: apply the saved theme and mark JS as available.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('dojo-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/PageHero.Do9oKQ7x.css"><style>.pager[data-astro-cid-ecbjlo7c]{justify-content:space-between;gap:var(--space-3);margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--line);flex-wrap:wrap;display:flex}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]{font-weight:600}
+</style></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header" data-astro-cid-nen7h5rs><div class="bar" data-astro-cid-nen7h5rs><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><svg class="mark" viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false" data-astro-cid-f7espo7c><path d="M15 5 5 20l10 15M25 5l10 15-10 15" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-f7espo7c></path></svg><span class="word" aria-hidden="true" data-astro-cid-f7espo7c>DEVELOPER<span class="dojo" data-astro-cid-f7espo7c>DOJO</span></span></a><button type="button" class="menu-button" data-menu-button aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu" data-astro-cid-nen7h5rs><svg class="icon open-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"/></svg><svg class="icon close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><nav id="primary-nav" class="nav" aria-label="Primary" data-nav data-astro-cid-nen7h5rs><ul data-astro-cid-nen7h5rs><li data-astro-cid-nen7h5rs><a href="/train" data-astro-cid-nen7h5rs>Train</a></li><li data-astro-cid-nen7h5rs><a href="/sensei" data-astro-cid-nen7h5rs>Sensei</a></li><li data-astro-cid-nen7h5rs><a href="/library" aria-current="page" data-astro-cid-nen7h5rs>Library</a></li><li data-astro-cid-nen7h5rs><a href="/certificates" data-astro-cid-nen7h5rs>Certificates</a></li><li data-astro-cid-nen7h5rs><a href="/challenges" data-astro-cid-nen7h5rs>Challenges</a></li><li data-astro-cid-nen7h5rs><a href="/events" data-astro-cid-nen7h5rs>Events</a></li><li data-astro-cid-nen7h5rs><a href="/membership" data-astro-cid-nen7h5rs>Membership</a></li></ul><div class="actions" data-astro-cid-nen7h5rs><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" data-astro-cid-l6lhmie6><svg class="icon to-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="icon to-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g></svg></button><script type="module">var e=document.documentElement,t=document.querySelector(`[data-theme-toggle]`);function n(){let t=e.getAttribute(`data-theme`);return t===`dark`||t!==`light`&&window.matchMedia(`(prefers-color-scheme: dark)`).matches}function r(){if(!t)return;let e=n();t.setAttribute(`aria-label`,e?`Switch to light theme`:`Switch to dark theme`),t.setAttribute(`data-mode`,e?`dark`:`light`)}t?.addEventListener(`click`,()=>{let t=n()?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`dojo-theme`,t)}catch(e){console.warn(`Theme preference not saved:`,e)}r()}),r();</script><a class="start" href="/membership" data-astro-cid-nen7h5rs>Start free</a></div></nav></div></header><script type="module">var e=document.querySelector(`[data-menu-button]`),t=document.querySelector(`[data-nav]`),n=document.querySelector(`.site-header`);function r(t){e&&n&&(n.toggleAttribute(`data-open`,t),e.setAttribute(`aria-expanded`,String(t)),e.setAttribute(`aria-label`,t?`Close menu`:`Open menu`))}e?.addEventListener(`click`,()=>r(e.getAttribute(`aria-expanded`)!==`true`)),t?.addEventListener(`click`,e=>{e.target instanceof HTMLAnchorElement&&r(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e?.getAttribute(`aria-expanded`)===`true`&&(r(!1),e.focus())}),window.matchMedia(`(min-width: 62rem)`).addEventListener(`change`,e=>{e.matches&&r(!1)}),document.documentElement.classList.add(`js`);</script><main id="main"><section class="hero compact" data-astro-cid-75ysl5lo><div class="art" aria-hidden="true" data-astro-cid-75ysl5lo><div class="placeholder" data-astro-cid-75ysl5lo><span class="window" data-astro-cid-75ysl5lo></span></div></div><div class="scrim" aria-hidden="true" data-astro-cid-75ysl5lo></div><svg class="enso" viewBox="0 0 200 200" aria-hidden="true" focusable="false" data-astro-cid-75ysl5lo><path d="M150 28C95 4 28 38 24 104c-4 62 56 94 108 74 38-14 52-50 44-78" fill="none" stroke="var(--gold)" stroke-width="15" stroke-linecap="round" opacity="0.85" data-astro-cid-75ysl5lo></path></svg><div class="container grid" data-astro-cid-75ysl5lo><div class="copy" data-astro-cid-75ysl5lo><p class="eyebrow" data-astro-cid-75ysl5lo>Master Developer</p><h1 data-astro-cid-75ysl5lo>Open source licences in plain English</h1><p class="subtitle" data-astro-cid-75ysl5lo>The licence families, the traps (especially network copyleft), and how to check a licence.</p></div></div></section><article class="section" data-astro-cid-ecbjlo7c><div class="container prose" data-astro-cid-ecbjlo7c><p>This page is not legal advice. It is the working knowledge a developer needs to avoid common errors. When in doubt, stop and ask a person with legal responsibility.</p>
+<h2 id="why-the-licence-matters">Why the licence matters</h2>
+<p>When you use someone else’s code you accept a deal. The licence is the deal. If you break it, you may lose the right to use the code or have to publish your own.</p>
+<p>Three questions decide everything:</p>
+<ol>
+<li><strong>How do you use it?</strong> Inside your company only? As a service over the web? Handed to customers as a program or image?</li>
+<li><strong>How do you connect it?</strong> As a library inside your program, or as a separate service?</li>
+<li><strong>Do you change it?</strong></li>
+</ol>
+<h2 id="the-licence-families">The licence families</h2>
+<table>
+<thead>
+<tr>
+<th>Family</th>
+<th>Examples (SPDX id)</th>
+<th>In plain English</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Permissive</td>
+<td>MIT, BSD-2-Clause, BSD-3-Clause, ISC, Apache-2.0</td>
+<td>Do almost anything. Keep the copyright notice. Apache-2.0 also gives a patent licence.</td>
+</tr>
+<tr>
+<td>Weak copyleft</td>
+<td>LGPL-2.1-or-later, LGPL-3.0-or-later, MPL-2.0</td>
+<td>If you change the library (LGPL) or the file (MPL) and distribute it, share those changes. Your own code stays yours.</td>
+</tr>
+<tr>
+<td>Strong copyleft</td>
+<td>GPL-2.0-only, GPL-3.0-or-later and similar</td>
+<td>If you distribute a program containing the code, the whole program must be offered under the GPL with source.</td>
+</tr>
+<tr>
+<td>Network copyleft</td>
+<td>AGPL-3.0-only, AGPL-3.0-or-later</td>
+<td>Like GPL, and if you modify it and let people use it over a network, you must offer them the source.</td>
+</tr>
+<tr>
+<td>Source-available (not open source)</td>
+<td>BUSL-1.1, SSPL-1.0, Elastic License 2.0, Commons Clause, FSL</td>
+<td>The code is visible but use is limited, often “no competing service”. Not approved by the Open Source Initiative.</td>
+</tr>
+<tr>
+<td>No licence</td>
+<td>No file, or custom text</td>
+<td>You have no right to use it. Stop.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Copyleft</strong> means: if you pass on the code, you must pass on the same freedoms. The name is a joke on “copyright”.</p>
+<p><strong>Dual licence:</strong> one project offers two licences. You choose the one that fits. The commercial one costs money.</p>
+<p><strong>Open core:</strong> the base is open and some folders are paid. Always read the top-level licence file for lines such as “content under the enterprise folder is licensed under…”.</p>
+<h2 id="a-quick-matrix">A quick matrix</h2>
+<table>
+<thead>
+<tr>
+<th>Licence</th>
+<th>Inside company only</th>
+<th>Service to customers</th>
+<th>Give to customers</th>
+<th>Link as library</th>
+<th>Run as separate service</th>
+<th>You modify it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MIT, BSD, ISC</td>
+<td>OK</td>
+<td>OK</td>
+<td>OK, keep notice</td>
+<td>OK, keep notice</td>
+<td>OK</td>
+<td>OK, keep notice</td>
+</tr>
+<tr>
+<td>Apache-2.0</td>
+<td>OK</td>
+<td>OK</td>
+<td>OK, keep notice file</td>
+<td>OK</td>
+<td>OK</td>
+<td>OK, mark changes</td>
+</tr>
+<tr>
+<td>MPL-2.0</td>
+<td>OK</td>
+<td>OK</td>
+<td>Offer MPL files</td>
+<td>OK (file level)</td>
+<td>OK</td>
+<td>Share changed MPL files if distributed</td>
+</tr>
+<tr>
+<td>LGPL</td>
+<td>OK</td>
+<td>OK</td>
+<td>Offer library source</td>
+<td>OK if swappable</td>
+<td>OK</td>
+<td>Share library changes if distributed</td>
+</tr>
+<tr>
+<td>GPL</td>
+<td>OK</td>
+<td>OK</td>
+<td>Offer whole work source</td>
+<td>Not in a closed product</td>
+<td>OK at arm’s length</td>
+<td>Share if distributed</td>
+</tr>
+<tr>
+<td>AGPL</td>
+<td>OK unmodified</td>
+<td>Ask first. Modified: share source with users.</td>
+<td>Offer whole work source</td>
+<td>Not in a closed product</td>
+<td>OK if unmodified</td>
+<td>Share source with every user</td>
+</tr>
+<tr>
+<td>SSPL, BUSL, Elastic, Commons Clause, FSL</td>
+<td>Often OK</td>
+<td>Usually NO</td>
+<td>Ask</td>
+<td>Ask</td>
+<td>Usually NO</td>
+<td>Ask</td>
+</tr>
+<tr>
+<td>No licence</td>
+<td>NO</td>
+<td>NO</td>
+<td>NO</td>
+<td>NO</td>
+<td>NO</td>
+<td>NO</td>
+</tr>
+</tbody>
+</table>
+<p>“Ask” means stop and get a decision from a person responsible for legal matters.</p>
+<h2 id="the-network-copyleft-trap">The network-copyleft trap</h2>
+<p>Most services are software as a service. For plain GPL, running software on your own servers for customers is not distribution, so no source duty appears. <strong>AGPL closes that gap on purpose.</strong> If you modify an AGPL program and let users use it over a network, you must offer them your modified source.</p>
+<p>For a business this can mean publishing code you wanted to keep private. So: an unmodified AGPL tool used internally is usually fine. A modified AGPL tool offered to customers needs a decision from a person with legal responsibility.</p>
+<h2 id="compatibility-between-licences">Compatibility between licences</h2>
+<p>Sometimes you combine two components in one program. You must be able to obey both licences at once.</p>
+<ul>
+<li>MIT, BSD and Apache-2.0 can go into a GPL or AGPL program.</li>
+<li>Apache-2.0 with GPL-3.0 works.</li>
+<li>Apache-2.0 with GPL-2.0-only does <strong>not</strong> work in one distributed program.</li>
+<li>GPL-2.0-only and GPL-3.0 do not work together.</li>
+<li>GPL-2.0-or-later can be used as GPL-3.0.</li>
+</ul>
+<p>This is why the SPDX id matters. <code>GPL-2.0-only</code> and <code>GPL-2.0-or-later</code> are different deals. Read the file header.</p>
+<h2 id="containers-are-distribution">Containers are distribution</h2>
+<p>If you give a customer an image, it contains every package inside, including base-system packages. Most are GPL or LGPL. That is usually fine when they are separate programs, but you must keep the notices and be ready to offer source.</p>
+<h2 id="patents-attribution-sbom">Patents, attribution, SBOM</h2>
+<ul>
+<li>Apache-2.0 includes a patent grant. MIT does not mention patents.</li>
+<li>Keep copyright and notice files when the licence asks.</li>
+<li>A <strong>software bill of materials (SBOM)</strong> lists the parts inside your software and their licences. Produce one in your pipeline.</li>
+</ul>
+<h2 id="how-to-check-a-licence">How to check a licence</h2>
+<ol>
+<li>Find the licence file at the top of the repo. Read it.</li>
+<li>Write the SPDX id.</li>
+<li>Check subfolders for different licences.</li>
+<li>Answer the three questions: how do you use it, how do you connect it, do you change it?</li>
+<li>Look up the result in the matrix.</li>
+<li>Record it. Use a licence check record.</li>
+</ol>
+<h2 id="worked-check">Worked check</h2>
+<p>TrailMug wants a free scheduling tool. The repo has an MIT licence file at the top and a folder <code>enterprise/</code> with its own paid licence. Use as a separate service, unmodified. Result: OK for the MIT part. The <code>enterprise/</code> features are paid, so they do <strong>not</strong> count toward fit. Record the SPDX id, the file read and the date.</p>
+<h2 id="mistakes">Mistakes</h2>
+<ul>
+<li>“It is on a public site, so it is free to use.”</li>
+<li>Counting features from a paid folder as free.</li>
+<li>Copying code from a paid folder “just to learn”.</li>
+<li>Not re-checking the licence after an update. Licences can change.</li>
+</ul>
+<h2 id="key-points">Key points</h2>
+<ul>
+<li>The licence is the deal. Read it.</li>
+<li>Check how you use it, connect it and change it.</li>
+<li>Treat network copyleft and source-available licences with care.</li>
+<li>Write the result down.</li>
+</ul>
+<nav class="pager" aria-label="More in this section" data-astro-cid-ecbjlo7c><a href="/library/oss-first-ladder" data-astro-cid-ecbjlo7c>Previous: The OSS-first ladder</a><a href="/library/patch-sets-and-forks" data-astro-cid-ecbjlo7c>Next: Patch sets and maintained forks</a></nav><p data-astro-cid-ecbjlo7c><a href="/library" data-astro-cid-ecbjlo7c>Back to the library</a></p></div></article></main><section class="sponsor-band" aria-label="Sponsored by Reveltek" data-astro-cid-ji2uitki><div class="backdrop" aria-hidden="true" data-astro-cid-ji2uitki><svg class="mountains" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true" focusable="false" data-astro-cid-7wk3pij6><path d="M0 140V92l70-30 60 24 90-52 80 56 70-30 110 58 80-40 120 52 90-60 100 46 80-34 110 62 90-48 110 44 70-28 100 44V140Z" fill="currentColor" opacity="0.1" data-astro-cid-7wk3pij6></path><path d="M0 140V112l90-26 70 20 100-40 90 38 90-24 110 40 90-30 120 36 100-44 90 34 100-22 110 34 90-26 100 32 90-20 100 24V140Z" fill="currentColor" opacity="0.16" data-astro-cid-7wk3pij6></path></svg></div><div class="container inner" data-astro-cid-ji2uitki><span class="lead" data-astro-cid-ji2uitki>Sponsored by</span><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span><a class="sponsor" href="/sponsors" data-astro-cid-ji2uitki><span class="wordmark" data-astro-cid-ji2uitki>REVELTEK</span></a><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span></div></section><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="container inner" data-astro-cid-jo6i4kqk><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><svg class="mark" viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false" data-astro-cid-f7espo7c><path d="M15 5 5 20l10 15M25 5l10 15-10 15" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-f7espo7c></path></svg><span class="word" aria-hidden="true" data-astro-cid-f7espo7c>DEVELOPER<span class="dojo" data-astro-cid-f7espo7c>DOJO</span></span></a><nav aria-label="Footer" data-astro-cid-jo6i4kqk><ul data-astro-cid-jo6i4kqk><li data-astro-cid-jo6i4kqk><a href="/about" data-astro-cid-jo6i4kqk>About CRC</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors" data-astro-cid-jo6i4kqk>Sponsors (Reveltek)</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors#become-a-sponsor" data-astro-cid-jo6i4kqk>Become a sponsor</a></li><li data-astro-cid-jo6i4kqk><a href="/contact" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href="/code-of-conduct" data-astro-cid-jo6i4kqk>Code of conduct</a></li><li data-astro-cid-jo6i4kqk><a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>GitHub</a></li></ul></nav></div><p class="legal container" data-astro-cid-jo6i4kqk>© 2026 Curiosity Research Corporation. Developer Dojo is free for everyone and is sponsored by Reveltek.</p></footer></body></html>
