@@ -11,11 +11,11 @@ outcomes:
   - "Set up a four-layer Mission Control board with service levels, an error budget and incident roles"
   - "Run a short incident drill with agent sessions inside policy and write a blameless review"
 resources:
-  - "google/sre-service-level-objectives"
-  - "google/sre-managing-incidents"
-  - "google/sre-postmortem-culture"
+  - "google-sre/service-level-objectives"
+  - "google-sre/managing-incidents"
+  - "google-sre/postmortem-culture"
   - "dora/software-delivery-performance-metrics"
-  - "opengitops/opengitops"
+  - "opengitops/principles"
   - "gitlab/docs-protected-environments"
   - "sigstore/sigstore-overview"
 prerequisites:

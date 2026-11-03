@@ -14,14 +14,14 @@ resources:
   - "sba/plan-your-business"
   - "mit-ocw/new-enterprises"
   - "atlassian/agile-roadmaps"
-  - "finops-foundation/what-is-finops"
+  - "finops/what-is-finops"
   - "atlassian/raci-chart"
 prerequisites:
   - "tracks/frameworks/30-capstone-overview-and-dream-discovery"
 updated: 2026-11-03
 ---
 
-**Dojo programme link:** this lesson matches Developer week 1 (see the whole product) and week 3 (plan the work), and the Master Developer work on planning and budgets. It uses the framework lessons on [UBF](@@UBF@@), [STAR and SHIFT](@@STAR@@) and [ORBITAL](@@ORBITAL@@); read those first if the words are new. This is capstone steps 2, 3 and 4 of [the overview](/library/tracks/frameworks/30-capstone-overview-and-dream-discovery/).
+**Dojo programme link:** this lesson matches Developer week 1 (see the whole product) and week 3 (plan the work), and the Master Developer work on planning and budgets. It uses the framework lessons on [UBF](/library/tracks/frameworks/05-ubf-the-business-galaxy/), [STAR and SHIFT](/library/tracks/frameworks/08-star-describe-a-project/) and [ORBITAL](/library/tracks/frameworks/11-orbital-objective-resources-budget/); read those first if the words are new. This is capstone steps 2, 3 and 4 of [the overview](/library/tracks/frameworks/30-capstone-overview-and-dream-discovery/).
 
 ## 1. Why this matters
 

@@ -15,7 +15,7 @@ resources:
   - "mit-ocw/new-enterprises"
   - "sba/plan-your-business"
   - "atlassian/product-launch"
-  - "finops-foundation/what-is-finops"
+  - "finops/what-is-finops"
   - "dora/dora-research-program"
 prerequisites:
   - "tracks/frameworks/40-role-lens-one-shared-language"

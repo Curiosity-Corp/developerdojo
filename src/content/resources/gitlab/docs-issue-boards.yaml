@@ -1,9 +1,0 @@
-title: "Issue boards"
-provider: "GitLab"
-url: "https://docs.gitlab.com/user/project/issue_board/"
-cost: "free"
-format: "docs"
-level: "beginner"
-skills: [git-gitlab, agile-delivery]
-summary: "How to build a board whose columns are labels, so moving a card changes its status. This is the tool for running focus areas as lanes."
-verifiedOn: 2026-11-03

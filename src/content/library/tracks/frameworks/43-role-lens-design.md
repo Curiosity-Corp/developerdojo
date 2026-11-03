@@ -11,12 +11,12 @@ outcomes:
   - "Use agent sessions to draft alternatives and run checks while keeping the design decision with a person"
   - "Produce a design brief, accessible mockups and a design review checklist in git"
 resources:
-  - "w3c/web-accessibility-introduction"
+  - "w3c/intro-web-accessibility"
   - "web-dev/learn-accessibility"
   - "atlassian/what-is-agile"
   - "anthropic/building-effective-agents"
   - "gitlab/docs-review-apps"
-  - "twelve-factor/twelve-factor-app"
+  - "twelve-factor/the-twelve-factor-app"
 prerequisites:
   - "tracks/frameworks/40-role-lens-one-shared-language"
 updated: 2026-11-03

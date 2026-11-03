@@ -14,9 +14,9 @@ resources:
   - "atlassian/product-owner"
   - "atlassian/epics"
   - "atlassian/agile-roadmaps"
-  - "scrumguides/scrum-guide"
-  - "gitlab/docs-issue-boards"
-  - "gitlab/docs-milestones"
+  - "scrum-org/scrum-guide"
+  - "gitlab/issue-boards"
+  - "gitlab/milestones"
 prerequisites:
   - "tracks/frameworks/40-role-lens-one-shared-language"
 updated: 2026-11-03

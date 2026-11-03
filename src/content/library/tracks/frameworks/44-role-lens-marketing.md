@@ -15,7 +15,7 @@ resources:
   - "yc/startup-library"
   - "mit-ocw/new-enterprises"
   - "sba/plan-your-business"
-  - "w3c/web-accessibility-introduction"
+  - "w3c/intro-web-accessibility"
   - "dora/dora-research-program"
 prerequisites:
   - "tracks/frameworks/40-role-lens-one-shared-language"

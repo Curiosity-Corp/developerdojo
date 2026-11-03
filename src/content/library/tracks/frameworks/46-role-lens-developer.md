@@ -17,7 +17,7 @@ resources:
   - "nist/secure-software-development-framework"
   - "owasp/ci-cd-security-cheat-sheet"
   - "dora/software-delivery-performance-metrics"
-  - "gitlab/docs-merge-request-approvals"
+  - "gitlab/merge-request-approvals"
 prerequisites:
   - "tracks/frameworks/40-role-lens-one-shared-language"
 updated: 2026-11-03

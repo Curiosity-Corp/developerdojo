@@ -11,10 +11,10 @@ outcomes:
   - "Set service levels, an error budget and incident roles that operations can run"
   - "Delegate gathering and drafting to agent sessions while keeping spend and incident decisions with people"
 resources:
-  - "finops-foundation/what-is-finops"
+  - "finops/what-is-finops"
   - "finops-foundation/framework"
-  - "google/sre-service-level-objectives"
-  - "google/sre-managing-incidents"
+  - "google-sre/service-level-objectives"
+  - "google-sre/managing-incidents"
   - "atlassian/incident-management"
   - "gitlab/docs-audit-events"
 prerequisites:

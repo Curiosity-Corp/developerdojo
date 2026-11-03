@@ -1,9 +1,0 @@
-title: "Postmortem Culture: Learning from Failure (SRE book chapter)"
-provider: "Google"
-url: "https://sre.google/sre-book/postmortem-culture/"
-cost: "free"
-format: "article"
-level: "intermediate"
-skills: [observability-reliability]
-summary: "Explains blameless postmortems: write down what happened and what will change, without blaming people. A template-worthy habit for any team using agents too."
-verifiedOn: 2026-11-03

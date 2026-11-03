@@ -14,7 +14,7 @@ resources:
   - "atlassian/product-launch"
   - "yc/startup-library"
   - "mit-ocw/new-enterprises"
-  - "finops-foundation/what-is-finops"
+  - "finops/what-is-finops"
   - "dora/dora-research-program"
   - "atlassian/raci-chart"
 prerequisites:

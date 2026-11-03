@@ -14,9 +14,9 @@ resources:
   - "atlassian/epics"
   - "atlassian/agile-roadmaps"
   - "atlassian/product-owner"
-  - "gitlab/docs-epics"
-  - "gitlab/docs-milestones"
-  - "w3c/web-accessibility-introduction"
+  - "gitlab/epics"
+  - "gitlab/milestones"
+  - "w3c/intro-web-accessibility"
 prerequisites:
   - "tracks/frameworks/31-capstone-ubf-star-orbital"
 updated: 2026-11-03

@@ -1,9 +1,0 @@
-title: "OpenGitOps"
-provider: "OpenGitOps"
-url: "https://opengitops.dev/"
-cost: "free"
-format: "docs"
-level: "intermediate"
-skills: [kubernetes-gitops, infrastructure-as-code]
-summary: "States the GitOps principles (declarative, versioned, pulled automatically, continuously reconciled). Read the four principles before you design how a release reaches production."
-verifiedOn: 2026-11-03

@@ -1,9 +1,0 @@
-title: "Milestones"
-provider: "GitLab"
-url: "https://docs.gitlab.com/user/project/milestones/"
-cost: "free"
-format: "docs"
-level: "beginner"
-skills: [git-gitlab, roadmapping-epics]
-summary: "How to group issues and merge requests into a milestone with dates. A milestone is the simplest way to track a release goal."
-verifiedOn: 2026-11-03

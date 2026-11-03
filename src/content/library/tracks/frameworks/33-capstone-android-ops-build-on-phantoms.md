@@ -15,8 +15,8 @@ resources:
   - "anthropic/claude-code-best-practices"
   - "agents-md/agents-md"
   - "gitlab/docs-merge-request-pipelines"
-  - "gitlab/docs-merge-request-approvals"
-  - "twelve-factor/twelve-factor-app"
+  - "gitlab/merge-request-approvals"
+  - "twelve-factor/the-twelve-factor-app"
 prerequisites:
   - "tracks/frameworks/32-capstone-catalogue-personas-and-roadmap"
 updated: 2026-11-03
