@@ -49,6 +49,12 @@ test.describe('Sensei', () => {
     await expect(apply.getByText('Applications open soon.')).toBeVisible();
     await expect(apply.getByRole('link', { name: 'contact page' })).toHaveAttribute('href', '/contact');
     expect(await apply.innerText()).not.toMatch(/\S+@\S+/);
+    // Apply and coaching requests go to the real CRC contact form, worded as requests, not bookings.
+    const crc = 'https://curiositycorp.org/get-involved/contact.html';
+    await expect(apply.getByRole('link', { name: 'Tell CRC you want to apply' })).toHaveAttribute('href', crc);
+    await expect(apply.getByRole('link', { name: 'Ask about a coaching session' })).toHaveAttribute('href', crc);
+    await expect(apply.getByText('this is a request, not a booking')).toBeVisible();
+    expect(await apply.getByRole('link', { name: 'Book a coaching session' }).count()).toBe(0);
   });
 });
 

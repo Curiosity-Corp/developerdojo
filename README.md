@@ -23,9 +23,10 @@ other hosts.
 | `npm test` | Vitest: data and frontmatter schemas |
 | `npm run build` | Static build into `dist/` |
 | `npm run preview` | Serve `dist/` on http://127.0.0.1:4321 |
-| `npm run test:e2e` | Playwright smoke tests against the built site (run `build` first) |
+| `npm run test:e2e` | Playwright e2e + axe-core accessibility scan against the built site (run `build` first) |
+| `npm run check:links` | Every internal link, image and anchor in `dist/` must resolve (run `build` first) |
 
-CI is the gate of record: merge requests run check, test, build and e2e; `master` also publishes.
+CI is the gate of record: merge requests run check, test, build, link check and e2e (routes, nav, axe WCAG 2.1 AA light and dark); `master` also publishes, and a nightly schedule (02:00 UTC) re-runs master so date-filtered event lists stay current.
 
 ## Layout
 

@@ -115,7 +115,7 @@ const judging = RUBRIC_SKILLS.map((skill) => ({
           <SectionHeader eyebrow="How to submit" title="Six steps. No form on this site." intro="You hand in a public repository. This website collects nothing from you." />
           <Steps items={submitSteps} />
           <h3 class="file-title">SUBMISSION.md</h3>
-          <pre class="file"><code>{submissionFile}</code></pre>
+          <pre class="file" tabindex="0"><code>{submissionFile}</code></pre>
           <div class="cta-row">
             <Button href={CRC_CONTACT_URL} icon="arrow-up-right">Open the CRC contact form</Button>
             <Button href="/challenges" variant="outline">Back to all challenges</Button>

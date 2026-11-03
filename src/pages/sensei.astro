@@ -9,6 +9,8 @@ import EventList from '../components/EventList.astro';
 import FeatureGrid from '../components/FeatureGrid.astro';
 import Button from '../components/Button.astro';
 import Icon from '../components/Icon.astro';
+import Pagoda from '../components/Pagoda.astro';
+import { CRC_CONTACT_URL } from '../lib/community';
 
 const earnRows = [
   { icon: 'star', label: 'Hours shared', value: '100 pts', unit: 'for every hour' },
@@ -57,6 +59,7 @@ const steps = [
   description="Coach builders, host live sessions and review work. See how a Sensei earns points, how the tiers work, and how to apply."
 >
   <PageHero
+    art="hero-dojo-torii"
     title="Become a Sensei"
     accent="."
     subtitle="Coach builders, host live sessions, review work, and earn recognition for helping others launch real products."
@@ -79,13 +82,14 @@ const steps = [
   </PageHero>
 
   <section class="section path">
-    <div class="container path-grid">
+    <div class="container path-grid has-pagoda">
       <SectionHeader
         eyebrow="Rank path"
         title="The path from builder to Sensei"
         intro="A clear step-by-step path for members who build, ship, and then give back to the community through coaching, live builds and reviews."
       />
       <RankPath highlight="sensei" linked />
+      <Pagoda />
     </div>
   </section>
 
@@ -93,6 +97,7 @@ const steps = [
     <div class="container">
       <DarkPanel
         split
+        art="bamboo"
         icon="circle-play"
         title="Watch other developers building in real time"
         text="Live product builds, real decisions, and practical problem solving from our community of builders and Sensei."
@@ -217,11 +222,11 @@ const steps = [
           <a href="/contact">contact page</a>.
         </p>
         <div class="ctas">
-          <Button href="/contact" variant="primary" icon="arrow-right">Apply to become a Sensei</Button>
-          <Button href="/contact" variant="outline" icon="calendar-days">Book a coaching session</Button>
+          <Button href={CRC_CONTACT_URL} variant="primary" icon="arrow-right">Tell CRC you want to apply</Button>
+          <Button href={CRC_CONTACT_URL} variant="outline" icon="calendar-days">Ask about a coaching session</Button>
         </div>
         <p class="small">
-          Coaching sessions are not scheduled yet. The contact page explains how to ask for one.
+          Both buttons open the contact form on the Curiosity Research Corporation website. Coaching sessions are not scheduled yet, so this is a request, not a booking.
         </p>
       </div>
     </div>
@@ -235,7 +240,7 @@ const steps = [
   }
   @media (min-width: 62rem) {
     .path-grid {
-      grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+      grid-template-columns: 17rem minmax(0, 1fr);
       align-items: center;
     }
   }

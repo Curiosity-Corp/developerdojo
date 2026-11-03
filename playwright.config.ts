@@ -6,6 +6,9 @@ const port = 4321;
 export default defineConfig({
   testDir: 'e2e',
   fullyParallel: true,
+  // The CI runner pod has little CPU: 16 browser workers starved each other into 30s timeouts.
+  workers: process.env['CI'] ? 3 : undefined,
+  timeout: process.env['CI'] ? 60_000 : 30_000,
   forbidOnly: Boolean(process.env['CI']),
   retries: process.env['CI'] ? 1 : 0,
   reporter: process.env['CI'] ? [['list'], ['html', { open: 'never' }]] : 'list',

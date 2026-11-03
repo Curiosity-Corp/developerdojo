@@ -10,23 +10,23 @@ import { ALL_MODULES, DEVELOPER_MODULES } from '../lib/progress';
 
 <section class="progress" id="progress" aria-labelledby="progress-title" data-progress-panel>
   <h2 id="progress-title"><Icon name="chart-no-axes-column" size={20} /> Your progress</h2>
-  <dl class="stats">
-    <div class="stat">
-      <dt><Icon name="layers" size={22} /> Modules completed</dt>
-      <dd><span data-stat="modules">0</span> / {ALL_MODULES.length}</dd>
+  <ul class="stats">
+    <li class="stat">
+      <span class="label"><Icon name="layers" size={22} /> Modules completed</span>
+      <span class="value"><span data-stat="modules">0</span> / {ALL_MODULES.length}</span>
       <div class="bar" role="progressbar" aria-label="Modules completed" aria-valuemin="0" aria-valuemax={ALL_MODULES.length} aria-valuenow="0" data-bar="modules"><span></span></div>
-    </div>
-    <div class="stat">
-      <dt><Icon name="flame" size={22} /> Current streak</dt>
-      <dd><span data-stat="streak">0</span> <span data-streak-unit>days</span></dd>
+    </li>
+    <li class="stat">
+      <span class="label"><Icon name="flame" size={22} /> Current streak</span>
+      <span class="value"><span data-stat="streak">0</span> <span data-streak-unit>days</span></span>
       <p class="hint">Days in a row with a module marked complete.</p>
-    </div>
-    <div class="stat">
-      <dt><Icon name="award" size={22} /> Certificate progress</dt>
-      <dd><span data-stat="certificate">0</span>%</dd>
+    </li>
+    <li class="stat">
+      <span class="label"><Icon name="award" size={22} /> Certificate progress</span>
+      <span class="value"><span data-stat="certificate">0</span>%</span>
       <div class="bar" role="progressbar" aria-label="Developer certificate progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-bar="certificate"><span></span></div>
-    </div>
-  </dl>
+    </li>
+  </ul>
   <div class="next">
     <Icon name="scroll-text" size={34} />
     <div>
@@ -66,6 +66,7 @@ import { ALL_MODULES, DEVELOPER_MODULES } from '../lib/progress';
     color: var(--gold);
   }
   .stats {
+    list-style: none;
     display: grid;
     gap: var(--space-4);
     margin: 0 0 var(--space-4);
@@ -80,17 +81,17 @@ import { ALL_MODULES, DEVELOPER_MODULES } from '../lib/progress';
     gap: var(--space-2) var(--space-3);
     align-items: center;
   }
-  dt {
+  .label {
     display: flex;
     gap: var(--space-2);
     align-items: center;
     color: var(--band-text);
   }
-  dt :global(svg) {
+  .label :global(svg) {
     flex: none;
     color: var(--gold);
   }
-  dd {
+  .value {
     margin: 0;
     font-family: var(--font-serif);
     font-size: var(--text-xl);

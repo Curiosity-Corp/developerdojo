@@ -1,0 +1,75 @@
+---
+/**
+ * Decorative or meaningful art as <picture>: AVIF, then WebP, then the fallback file.
+ * Missing formats are skipped at build time, so art can be swapped without code changes.
+ *
+ * Props:
+ *  - base: file name without extension in public/images (e.g. "hero-dojo")
+ *  - fallback?: extension of the universal fallback file ("jpg" default, "png" for transparent art)
+ *  - mobile?: { base, maxWidth? } smaller crop used at or below maxWidth (default 40rem)
+ *  - width, height: intrinsic size of `base` (prevents layout shift)
+ *  - alt?: empty by default; an empty alt also sets aria-hidden (decorative)
+ *  - eager?: load immediately (first-screen art), otherwise lazy
+ *  - class?: forwarded to the <img>
+ */
+import { hasImage } from '../lib/images';
+
+interface Mobile {
+  base: string;
+  maxWidth?: string;
+}
+interface Props {
+  base: string;
+  fallback?: 'jpg' | 'png';
+  mobile?: Mobile;
+  width: number;
+  height: number;
+  alt?: string;
+  eager?: boolean;
+  class?: string;
+}
+const { base, fallback = 'jpg', mobile, width, height, alt = '', eager = false, class: className } = Astro.props;
+
+const FORMATS = [
+  ['avif', 'image/avif'],
+  ['webp', 'image/webp'],
+] as const;
+
+function sources(name: string, media?: string): { type: string; srcset: string; media?: string }[] {
+  return FORMATS.filter(([ext]) => hasImage(name, ext)).map(([ext, type]) => ({
+    type,
+    srcset: `/images/${name}.${ext}`,
+    media,
+  }));
+}
+
+const mobileMedia = mobile ? `(max-width: ${mobile.maxWidth ?? '40rem'})` : undefined;
+const mobileSources = mobile && hasImage(mobile.base, fallback) ? sources(mobile.base, mobileMedia) : [];
+const mobileFallback =
+  mobile && hasImage(mobile.base, fallback)
+    ? { srcset: `/images/${mobile.base}.${fallback}`, media: mobileMedia }
+    : undefined;
+const all = [...mobileSources, ...(mobileFallback ? [mobileFallback] : []), ...sources(base)];
+const present = hasImage(base, fallback);
+const decorative = alt === '';
+---
+
+{
+  present && (
+    <picture>
+      {all.map((s) => (
+        <source {...s} />
+      ))}
+      <img
+        class={className}
+        src={`/images/${base}.${fallback}`}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
+        aria-hidden={decorative ? 'true' : undefined}
+      />
+    </picture>
+  )
+}
