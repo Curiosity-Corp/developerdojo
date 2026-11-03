@@ -56,7 +56,7 @@ Lessons 1 to 3 give you the map and the ground. Lessons 4 to 8 cover the **core*
 
 This track mostly supports the **Master Developer** modules on platform, production launch and AI-agent orchestration. It also helps in Developer weeks 4 and 6: when you defend a roadmap you need to know what a technical choice costs, and when you present a demo you need a working product behind it. It builds on [the Way](/library/the-way-five-rules): people write the epics and the roadmap, git is the source of truth, open source comes first, you fix forward, and you disclose AI use. 
 
-Pair it with the [Working with AI agents](/library/tracks/working-with-ai-agents/) track. That track teaches how to brief and review agents in general. This one gives you a concrete repository to practise on.
+Pair it with the Working with AI agents track. That track teaches how to brief and review agents in general. This one gives you a concrete repository to practise on.
 
 ## Time needed
 
