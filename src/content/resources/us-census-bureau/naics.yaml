@@ -1,0 +1,9 @@
+title: "North American Industry Classification System (NAICS)"
+provider: "U.S. Census Bureau"
+url: "https://www.census.gov/naics/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [data-analytics]
+summary: "The official home of NAICS, the industry codes used by the United States, Canada and Mexico. It has a code search, the code structure and the full definitions with what each code includes and excludes. Use it to define the boundary of your UBF galaxy, and always read the definition before you choose a code."
+verifiedOn: 2026-11-03

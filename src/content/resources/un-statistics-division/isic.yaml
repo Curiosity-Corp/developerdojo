@@ -1,0 +1,9 @@
+title: "ISIC"
+provider: "United Nations Statistics Division"
+url: "https://unstats.un.org/unsd/classifications/Econ/isic"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [data-analytics]
+summary: "The United Nations Statistics Division page for ISIC, the International Standard Industrial Classification of All Economic Activities, which many national systems are based on. Use it to find the international code for your industry and to download the structure."
+verifiedOn: 2026-11-03

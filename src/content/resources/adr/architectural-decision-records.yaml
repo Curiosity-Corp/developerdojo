@@ -1,0 +1,9 @@
+title: "Architectural Decision Records (ADRs)"
+provider: "ADR community (adr.github.io)"
+url: "https://adr.github.io/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [communication-writing, stakeholder-communication]
+summary: "A community-maintained home for architectural decision records: short files that record a decision, the options considered and the reason. It explains the idea, lists templates and links to examples. Read it before you write your first decision record, so you can capture decisions in git in a form that a colleague, or an AI agent, can read later."
+verifiedOn: 2026-11-03

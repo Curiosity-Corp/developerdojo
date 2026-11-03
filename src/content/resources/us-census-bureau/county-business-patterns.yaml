@@ -1,0 +1,9 @@
+title: "County Business Patterns"
+provider: "U.S. Census Bureau"
+url: "https://www.census.gov/programs-surveys/cbp.html"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [data-analytics]
+summary: "The Census Bureau's annual statistics on businesses with paid employees, by industry and place: number of locations, employment and payroll. Use it with your NAICS code to find an honest count of businesses in your market. It covers the United States only; look for your own country's equivalent."
+verifiedOn: 2026-11-03

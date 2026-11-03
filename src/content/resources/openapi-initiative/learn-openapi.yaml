@@ -1,0 +1,9 @@
+title: "Getting Started"
+provider: "OpenAPI Initiative"
+url: "https://learn.openapis.org/"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [communication-writing, cloud-platforms]
+summary: "The OpenAPI Initiative's beginner guide to describing an API in an OpenAPI document, a standard file that says what an API accepts and returns. Use it to write the contract for an interface in the Assist part of STAR, or to check one that an agent drafted."
+verifiedOn: 2026-11-03

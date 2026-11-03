@@ -1,0 +1,9 @@
+title: "SIC Manual"
+provider: "U.S. Occupational Safety and Health Administration"
+url: "https://www.osha.gov/data/sic-manual"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [data-analytics]
+summary: "The older four-digit Standard Industrial Classification, still found in many company records, hosted online by the US safety regulator with a search and a page per code. Use it to look up the SIC code for your industry when a partner, database or old document uses it."
+verifiedOn: 2026-11-03
