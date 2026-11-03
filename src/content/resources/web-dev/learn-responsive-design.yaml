@@ -1,0 +1,9 @@
+title: "Learn Responsive Design"
+provider: "web.dev"
+url: "https://web.dev/learn/design"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [brand-web-design]
+summary: "A free course on making sites that work on small and large screens. Use it to write precise acceptance checks for the phone and desktop views of your site."
+verifiedOn: 2026-11-03

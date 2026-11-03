@@ -1,0 +1,9 @@
+title: "Tutorials: Plan and track your work"
+provider: "GitLab"
+url: "https://docs.gitlab.com/tutorials/plan_and_track/"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [git-gitlab, agile-delivery]
+summary: "A list of GitLab's own tutorials on planning and tracking work with issues, milestones, labels and boards. Pick the ones that match your plan tier."
+verifiedOn: 2026-11-03

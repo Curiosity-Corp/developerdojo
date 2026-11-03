@@ -1,0 +1,9 @@
+title: "Web Vitals"
+provider: "web.dev"
+url: "https://web.dev/articles/vitals"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [brand-web-design]
+summary: "Explains Google's Web Vitals metrics for loading, interactivity and visual stability. Use them as measurable acceptance criteria for a site."
+verifiedOn: 2026-11-03

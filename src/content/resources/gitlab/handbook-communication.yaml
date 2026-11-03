@@ -1,0 +1,9 @@
+title: "GitLab Communication"
+provider: "GitLab"
+url: "https://handbook.gitlab.com/handbook/communication/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [stakeholder-communication, communication-writing]
+summary: "How a large remote company communicates: write things down, work in public by default and keep a single source of truth. A real, public example of the habits taught in the Dojo."
+verifiedOn: 2026-11-03

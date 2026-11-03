@@ -1,0 +1,9 @@
+title: "Epics"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/group/epics/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [roadmapping-epics, git-gitlab]
+summary: "GitLab's documentation for epics, which group related issues across projects. Check the page for which GitLab tier includes the feature before you rely on it. On the free plan, use labelled issues instead."
+verifiedOn: 2026-11-03

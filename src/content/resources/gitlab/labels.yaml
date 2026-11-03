@@ -1,0 +1,9 @@
+title: "Labels"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/labels/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [git-gitlab, agile-delivery]
+summary: "Explains how to create and use labels to classify issues. Read it to design a small label set (for example epic, bug, blocked) that agents and people both follow."
+verifiedOn: 2026-11-03

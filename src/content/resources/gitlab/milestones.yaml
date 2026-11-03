@@ -1,0 +1,9 @@
+title: "Milestones"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/milestones/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [roadmapping-epics, git-gitlab]
+summary: "Explains GitLab milestones: dated goals that group issues and merge requests, with progress tracking. Milestones are how you give dates to a plan on the free plan."
+verifiedOn: 2026-11-03

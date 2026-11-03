@@ -1,0 +1,9 @@
+title: "What is Azure Boards"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/azure/devops/boards/get-started/what-is-azure-boards"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [agile-delivery]
+summary: "Microsoft's introduction to work items, boards, backlogs and sprints in Azure Boards. A useful second view on how another tool models epics, features and stories."
+verifiedOn: 2026-11-03

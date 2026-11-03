@@ -1,0 +1,9 @@
+title: "GitLab Pages"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/pages/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [git-gitlab, brand-web-design]
+summary: "Explains how GitLab Pages publishes a static website straight from a repository. A free way to host a product website with its source in git."
+verifiedOn: 2026-11-03

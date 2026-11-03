@@ -1,0 +1,9 @@
+title: "Learn Accessibility"
+provider: "web.dev"
+url: "https://web.dev/learn/accessibility"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [brand-web-design]
+summary: "A free course on accessibility: colour contrast, focus, keyboard use, semantics and more. It teaches what to check before you accept a page from an agent."
+verifiedOn: 2026-11-03

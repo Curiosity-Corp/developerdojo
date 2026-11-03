@@ -1,0 +1,9 @@
+title: "What is Agile delivery?"
+provider: "GitLab"
+url: "https://about.gitlab.com/topics/agile-delivery/"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [agile-delivery]
+summary: "GitLab's short explainer of Agile delivery and how it connects planning to shipping. Read it to see the same ideas through the lens of a single source of truth."
+verifiedOn: 2026-11-03

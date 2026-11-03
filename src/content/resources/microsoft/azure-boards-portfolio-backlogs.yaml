@@ -1,0 +1,9 @@
+title: "Manage product and portfolio backlogs"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/azure/devops/boards/plans/portfolio-management"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [roadmapping-epics, agile-delivery]
+summary: "Explains how backlogs at several levels (epic, feature, story) fit together in Azure Boards. Read it to see a four-level plan modelled in a different tool."
+verifiedOn: 2026-11-03

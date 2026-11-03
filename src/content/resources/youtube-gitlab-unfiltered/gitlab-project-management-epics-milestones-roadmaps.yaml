@@ -1,0 +1,10 @@
+title: "GitLab Project Management: How to use Issues, Epics, Milestones, and Roadmaps"
+provider: "GitLab Unfiltered"
+url: "https://www.youtube.com/watch?v=9W4oxjdAwUs"
+cost: "free"
+format: "video"
+level: "intermediate"
+duration: "about 14 minutes"
+skills: [roadmapping-epics, git-gitlab]
+summary: "A GitLab walk-through of issues, epics, milestones and roadmaps. Note that epics and roadmaps need a paid GitLab tier, so on the free plan follow the issues, labels and milestones parts."
+verifiedOn: 2026-11-03
