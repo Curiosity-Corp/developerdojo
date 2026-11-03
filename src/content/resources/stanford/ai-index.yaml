@@ -1,0 +1,9 @@
+title: "AI Index"
+provider: "Stanford"
+url: "https://hai.stanford.edu/ai-index"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [ai-agents, data-analytics]
+summary: "Stanford HAI's annual data-rich report on the state of AI. A 2030 PDM needs a reliable view of where AI capability and adoption really stand."
+verifiedOn: 2026-11-03

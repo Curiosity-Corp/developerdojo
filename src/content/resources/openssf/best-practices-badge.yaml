@@ -1,0 +1,9 @@
+title: "BadgeApp"
+provider: "OpenSSF"
+url: "https://www.bestpractices.dev/en"
+cost: "free"
+format: "interactive"
+level: "intermediate"
+skills: [security, open-source]
+summary: "The OpenSSF Best Practices Badge programme, a checklist of practices for open source projects. A concrete list to hold a project to."
+verifiedOn: 2026-11-03

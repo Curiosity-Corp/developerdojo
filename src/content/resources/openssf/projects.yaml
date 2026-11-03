@@ -1,0 +1,9 @@
+title: "Projects – Open Source Security Foundation"
+provider: "OpenSSF"
+url: "https://openssf.org/projects/"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [security, open-source]
+summary: "The OpenSSF's list of security projects such as Scorecard and Sigstore. Browse to know what supply chain tools exist."
+verifiedOn: 2026-11-03
