@@ -167,13 +167,15 @@ const hasArt = hasImage(art, 'jpg');
   .enso {
     position: absolute;
     z-index: -1;
-    left: -250px;
+    /* A whole brush circle sitting behind the headline, inside the page gutter. */
+    left: 1rem;
     top: 50%;
-    width: 320px;
-    height: 320px;
+    height: 94%;
+    max-height: 30rem;
+    aspect-ratio: 1;
     transform: translateY(-50%);
     pointer-events: none;
-    opacity: 0.9;
+    opacity: 0.42;
   }
   .enso :global(img) {
     display: block;
@@ -237,10 +239,7 @@ const hasArt = hasImage(art, 'jpg');
       background: linear-gradient(180deg, rgb(11 17 15 / 0.9), rgb(11 17 15 / 0.78));
     }
     .enso {
-      left: -150px;
-      width: 220px;
-      height: 220px;
-      opacity: 0.55;
+      display: none;
     }
     .window {
       display: none;
