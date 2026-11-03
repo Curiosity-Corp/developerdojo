@@ -62,4 +62,4 @@ Every lesson uses TrailMug, the fictional reusable-cup product for cafés. Maya,
 
 Plan about 60 to 90 minutes per lesson, including the exercise. The track takes about 15 to 20 hours, and fits next to the program at one lesson a week or more. Most exercises ask for three files in your git repository: your spec, your agent brief and your review notes. Those files are real evidence of how you work.
 
-Free courses and tools exist, and the lessons point to the best of them. Some tools have paid plans. Nothing here requires payment, and prices change, so check the provider's site first. Work in git from day one. If git is new to you, start the [Git and GitLab](/library/tracks/git-and-gitlab) track alongside this one. The five rules of [The Way](/library/the-way-five-rules) apply in every lesson.
+Free courses and tools exist, and the lessons point to the best of them. Some tools have paid plans. Nothing here requires payment, and prices change, so check the provider's site first. Work in git from day one. If git is new to you, start the Git and GitLab track alongside this one. The five rules of [The Way](/library/the-way-five-rules) apply in every lesson.
