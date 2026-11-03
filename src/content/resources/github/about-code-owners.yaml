@@ -1,0 +1,9 @@
+title: "About code owners - GitHub Docs"
+provider: "GitHub"
+url: "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [git-gitlab, security]
+summary: "GitHub's code owners feature. The concept of naming required reviewers per path is the same across platforms."
+verifiedOn: 2026-11-03

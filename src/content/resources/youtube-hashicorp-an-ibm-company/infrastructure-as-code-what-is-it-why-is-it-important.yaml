@@ -1,0 +1,10 @@
+title: "Infrastructure as code: What is it? Why is it important?"
+provider: "HashiCorp, an IBM Company"
+url: "https://www.youtube.com/watch?v=RO7VcUAsf-I"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 3 minutes"
+skills: [infrastructure-as-code]
+summary: "A short HashiCorp explainer on infrastructure as code. The case for treating infrastructure like software."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Operational Excellence Pillar - AWS Well-Architected Framework - Operational Excellence Pillar"
+provider: "AWS"
+url: "https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/welcome.html"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [observability-reliability, itsm-service-management]
+summary: "The operational excellence pillar: running and monitoring systems and improving continually. A short guide to operating what you ship."
+verifiedOn: 2026-11-03

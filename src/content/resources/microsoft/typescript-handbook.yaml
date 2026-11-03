@@ -1,0 +1,9 @@
+title: "The TypeScript Handbook"
+provider: "Microsoft"
+url: "https://www.typescriptlang.org/docs/handbook/intro.html"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [open-source]
+summary: "The official handbook for TypeScript, widely used in agent-built web projects. Read the first chapters so that you can read type definitions."
+verifiedOn: 2026-11-03

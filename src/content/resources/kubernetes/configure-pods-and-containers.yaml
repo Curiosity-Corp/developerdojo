@@ -1,0 +1,9 @@
+title: "Configure Pods and Containers"
+provider: "Kubernetes"
+url: "https://kubernetes.io/docs/tasks/configure-pod-container/"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [kubernetes-gitops]
+summary: "Task guides for configuring resources, probes and security contexts. They show the settings that make an app reliable and safe."
+verifiedOn: 2026-11-03

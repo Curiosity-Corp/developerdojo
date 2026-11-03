@@ -1,0 +1,9 @@
+title: "OWASP SAMM"
+provider: "OWASP"
+url: "https://owasp.org/www-project-samm/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [security]
+summary: "A model for measuring and improving an organisation's software security maturity. A management-level framework."
+verifiedOn: 2026-11-03

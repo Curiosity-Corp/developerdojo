@@ -1,0 +1,9 @@
+title: "Documentation for Visual Studio Code"
+provider: "Microsoft"
+url: "https://code.visualstudio.com/docs"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [git-gitlab]
+summary: "The Visual Studio Code documentation. VS Code is a common place for reviewing diffs; learn to use it."
+verifiedOn: 2026-11-03

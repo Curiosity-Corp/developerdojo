@@ -1,0 +1,9 @@
+title: "GitLab Docs"
+provider: "GitLab"
+url: "https://docs.gitlab.com/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [git-gitlab]
+summary: "The official GitLab documentation, the first place to look when you are unsure how a feature works. Learning to navigate it is a core skill because agents and teammates will both ask you to check what GitLab really supports. Bookmark it."
+verifiedOn: 2026-11-03

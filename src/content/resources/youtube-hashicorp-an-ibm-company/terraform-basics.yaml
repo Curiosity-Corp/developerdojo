@@ -1,0 +1,10 @@
+title: "Terraform Basics"
+provider: "HashiCorp, an IBM Company"
+url: "https://www.youtube.com/watch?v=_45W3Z8XWL4"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 21 minutes"
+skills: [infrastructure-as-code]
+summary: "HashiCorp's Terraform basics video. Pair with the introduction to follow a small example."
+verifiedOn: 2026-11-03

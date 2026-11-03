@@ -1,0 +1,9 @@
+title: "Merge request reviews"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/merge_requests/reviews/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [git-gitlab]
+summary: "Explains how to review merge requests with comments, threads and suggestions. A clear review is how you steer agents and humans alike. Read it to review faster and better."
+verifiedOn: 2026-11-03

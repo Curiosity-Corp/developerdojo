@@ -1,0 +1,9 @@
+title: "HTTP: Hypertext Transfer Protocol"
+provider: "MDN Web Docs"
+url: "https://developer.mozilla.org/en-US/docs/Web/HTTP"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [cloud-platforms, security]
+summary: "MDN's HTTP documentation. Shows how browsers and servers talk, behind every web product."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "AWS Well-Architected Labs :: AWS Well-Architected Labs"
+provider: "AWS"
+url: "https://www.wellarchitectedlabs.com/"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [cloud-platforms, security]
+summary: "Hands-on labs for the Well-Architected pillars. Practise on a real account to see a review turn into changes. Labs may create billable resources, so watch costs."
+verifiedOn: 2026-11-03

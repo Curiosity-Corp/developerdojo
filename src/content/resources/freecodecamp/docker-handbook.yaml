@@ -1,0 +1,9 @@
+title: "The Docker Handbook – Learn Docker for Beginners"
+provider: "freeCodeCamp"
+url: "https://www.freecodecamp.org/news/the-docker-handbook/"
+cost: "free"
+format: "book"
+level: "beginner"
+skills: [ci-cd, cloud-platforms]
+summary: "A free handbook on Docker. Containers are the unit of deployment; understand them."
+verifiedOn: 2026-11-03

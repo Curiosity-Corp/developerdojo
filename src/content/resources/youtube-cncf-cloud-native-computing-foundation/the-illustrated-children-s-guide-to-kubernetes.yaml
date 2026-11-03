@@ -1,0 +1,10 @@
+title: "The Illustrated Children's Guide to Kubernetes"
+provider: "CNCF [Cloud Native Computing Foundation]"
+url: "https://www.youtube.com/watch?v=3I9PkvZ80BQ"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 9 minutes"
+skills: [kubernetes-gitops]
+summary: "The CNCF's illustrated guide to Kubernetes as a story. A friendly way to explain Kubernetes to non-engineers."
+verifiedOn: 2026-11-03

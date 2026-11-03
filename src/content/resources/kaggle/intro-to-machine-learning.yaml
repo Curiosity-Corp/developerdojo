@@ -1,0 +1,9 @@
+title: "Intro to Machine Learning"
+provider: "Kaggle"
+url: "https://www.kaggle.com/learn/intro-to-machine-learning"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [data-analytics, ai-evaluation]
+summary: "Kaggle's free introduction to machine learning. Builds intuition for what models do."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Fundamentals of Bicep - Training"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/training/paths/fundamentals-bicep/"
+cost: "free"
+format: "course"
+level: "intermediate"
+skills: [infrastructure-as-code]
+summary: "A free Microsoft Learn path on Bicep, Azure's infrastructure-as-code language. A second language shows what is common to all infrastructure code."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Protected tags"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/protected_tags/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [git-gitlab, security]
+summary: "Explains restricting who can create release tags. Tags mark releases, so controlling them controls what can be shipped."
+verifiedOn: 2026-11-03

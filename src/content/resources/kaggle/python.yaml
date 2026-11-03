@@ -1,0 +1,9 @@
+title: "Python"
+provider: "Kaggle"
+url: "https://www.kaggle.com/learn/python"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [data-analytics]
+summary: "Kaggle's free short Python course with exercises. Gets you reading Python quickly."
+verifiedOn: 2026-11-03

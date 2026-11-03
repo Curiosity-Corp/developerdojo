@@ -1,0 +1,9 @@
+title: "Builders Library"
+provider: "AWS"
+url: "https://builder.aws.com/learn/topics/builders-library"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [cloud-platforms, observability-reliability]
+summary: "Articles by Amazon engineers on how Amazon builds and operates systems, covering reliability, deployment and architecture. They are written for decision makers as well as engineers."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Azure Monitor documentation - Azure Monitor"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/azure/azure-monitor/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [observability-reliability, cloud-platforms]
+summary: "The documentation for Azure Monitor. Shows how a cloud provider packages metrics, logs and alerts."
+verifiedOn: 2026-11-03

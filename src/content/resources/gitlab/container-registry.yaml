@@ -1,0 +1,9 @@
+title: "GitLab container registry"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/packages/container_registry/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ci-cd]
+summary: "Explains GitLab's built-in registry for container images. It is where build output is stored before deployment. Read it to follow how an image moves from build to run."
+verifiedOn: 2026-11-03

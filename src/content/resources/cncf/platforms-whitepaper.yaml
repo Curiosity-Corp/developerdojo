@@ -1,0 +1,9 @@
+title: "CNCF Platforms White Paper"
+provider: "CNCF"
+url: "https://tag-app-delivery.cncf.io/whitepapers/platforms/"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [cloud-platforms, agile-delivery]
+summary: "A CNCF paper on internal platforms and why they exist. It gives product-minded language for treating a platform as a product with users."
+verifiedOn: 2026-11-03

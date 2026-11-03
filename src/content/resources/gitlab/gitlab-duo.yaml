@@ -1,0 +1,9 @@
+title: "GitLab Duo"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/gitlab_duo/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents, git-gitlab]
+summary: "Documents GitLab's AI features. Check the page for plan availability. Read it to see how AI assistance is built into the same merge requests and pipelines you already govern."
+verifiedOn: 2026-11-03

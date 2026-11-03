@@ -1,0 +1,9 @@
+title: "The Falco Project"
+provider: "CNCF"
+url: "https://falco.org/docs/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [security, kubernetes-gitops]
+summary: "The docs for Falco, runtime security detection for cloud-native systems. Read the intro for the idea of watching what running workloads actually do."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Pipeline security"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/pipeline_security/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ci-cd, security]
+summary: "Describes how to secure pipelines: protecting variables, restricting runners and controlling who can trigger what. A pipeline is powerful and so is a target. Read it before you let agents change CI configuration."
+verifiedOn: 2026-11-03

@@ -1,0 +1,10 @@
+title: "Thales & GitLab: A DevSecOps Case Study"
+provider: "GitLab"
+url: "https://www.youtube.com/watch?v=H2aVrBmaU_g"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 3 minutes"
+skills: [security, ci-cd]
+summary: "GitLab's case study of Thales using DevSecOps. A real example of security built into delivery."
+verifiedOn: 2026-11-03

@@ -1,0 +1,10 @@
+title: "Introduction to DevOps and Site Reliability Engineering (LFS162)"
+provider: "Linux Foundation"
+url: "https://training.linuxfoundation.org/training/introduction-to-devops-and-site-reliability-engineering-lfs162/"
+cost: "free"
+format: "course"
+level: "beginner"
+duration: "about 10 to 12 hours"
+skills: [ci-cd, observability-reliability]
+summary: "A free self-paced course on DevOps and SRE ideas such as automation, monitoring and incident response. A strong base for the operations half of product ownership."
+verifiedOn: 2026-11-03

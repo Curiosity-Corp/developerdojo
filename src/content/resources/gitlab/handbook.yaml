@@ -1,0 +1,9 @@
+title: "The GitLab Handbook"
+provider: "GitLab"
+url: "https://handbook.gitlab.com/"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [communication-writing, open-source, agile-delivery]
+summary: "GitLab's public handbook of how the company works, written down in the open. It is one of the best real examples of handbook-first, written communication at scale. Browse sections that match your role."
+verifiedOn: 2026-11-03

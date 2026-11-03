@@ -1,0 +1,9 @@
+title: "Machine Learning Explainability"
+provider: "Kaggle"
+url: "https://www.kaggle.com/learn/machine-learning-explainability"
+cost: "free"
+format: "course"
+level: "intermediate"
+skills: [ai-evaluation, data-analytics]
+summary: "Kaggle's free course on explaining model decisions. Explainability is part of trust and verification."
+verifiedOn: 2026-11-03

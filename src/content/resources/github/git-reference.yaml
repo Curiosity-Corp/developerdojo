@@ -1,0 +1,9 @@
+title: "Git - Reference"
+provider: "GitHub"
+url: "https://git-scm.com/docs"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [git-gitlab]
+summary: "The official reference manual for every Git command. Use it to check exactly what a command an agent ran will do."
+verifiedOn: 2026-11-03

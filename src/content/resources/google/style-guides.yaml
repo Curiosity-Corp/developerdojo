@@ -1,0 +1,9 @@
+title: "Google Style Guides"
+provider: "Google"
+url: "https://google.github.io/styleguide/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [communication-writing]
+summary: "Google's coding style guides for many languages. Giving a style guide to an agent is a simple way to make its code consistent."
+verifiedOn: 2026-11-03

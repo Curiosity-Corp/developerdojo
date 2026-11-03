@@ -1,0 +1,9 @@
+title: "kubectl Quick Reference"
+provider: "Kubernetes"
+url: "https://kubernetes.io/docs/reference/kubectl/quick-reference/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [kubernetes-gitops]
+summary: "A cheat sheet of common kubectl commands. Use it to read what an agent did on a cluster."
+verifiedOn: 2026-11-03

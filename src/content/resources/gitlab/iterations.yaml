@@ -1,0 +1,9 @@
+title: "Iterations"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/group/iterations/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [agile-delivery]
+summary: "Explains iterations, GitLab's time-boxed sprint feature. Check the page for plan availability. Read it if you run Scrum in GitLab."
+verifiedOn: 2026-11-03

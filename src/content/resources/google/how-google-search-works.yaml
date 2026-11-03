@@ -1,0 +1,9 @@
+title: "In-Depth Guide to How Google Search Works"
+provider: "Google"
+url: "https://developers.google.com/search/docs/fundamentals/how-search-works"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [brand-web-design]
+summary: "Explains how Google crawls, indexes and ranks pages. Useful for understanding why a new site is or is not found."
+verifiedOn: 2026-11-03

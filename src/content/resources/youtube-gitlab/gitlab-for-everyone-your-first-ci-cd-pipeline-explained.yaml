@@ -1,0 +1,10 @@
+title: "GitLab for Everyone: Your First CI/CD Pipeline Explained"
+provider: "GitLab"
+url: "https://www.youtube.com/watch?v=IV5MQUEUx44"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 10 minutes"
+skills: [ci-cd, git-gitlab]
+summary: "GitLab's short video explaining a first CI/CD pipeline. A fast orientation for people who have never read one."
+verifiedOn: 2026-11-03

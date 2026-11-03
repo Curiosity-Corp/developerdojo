@@ -1,0 +1,9 @@
+title: "Amazon EKS Workshop"
+provider: "AWS"
+url: "https://www.eksworkshop.com/"
+cost: "free"
+format: "tutorial"
+level: "advanced"
+skills: [kubernetes-gitops, cloud-platforms]
+summary: "A hands-on workshop for Kubernetes on AWS. Labs may create billable resources."
+verifiedOn: 2026-11-03

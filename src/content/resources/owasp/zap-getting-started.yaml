@@ -1,0 +1,9 @@
+title: "ZAP – Getting Started"
+provider: "OWASP"
+url: "https://www.zaproxy.org/getting-started/"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [security]
+summary: "The getting-started guide for ZAP, a free web security scanner. Try it against your own test site."
+verifiedOn: 2026-11-03

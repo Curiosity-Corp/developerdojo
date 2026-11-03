@@ -1,0 +1,9 @@
+title: "Quickstart Guide"
+provider: "Kubernetes"
+url: "https://helm.sh/docs/intro/quickstart/"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [kubernetes-gitops]
+summary: "The Helm quickstart. Helm packages Kubernetes applications as charts, which agents often generate; this lets you read them."
+verifiedOn: 2026-11-03

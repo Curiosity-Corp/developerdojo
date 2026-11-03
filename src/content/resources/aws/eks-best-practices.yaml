@@ -1,0 +1,9 @@
+title: "Introduction - EKS Best Practices Guides"
+provider: "AWS"
+url: "https://aws.github.io/aws-eks-best-practices/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [kubernetes-gitops, security]
+summary: "AWS's best practices for Kubernetes. Useful for security and reliability checklists."
+verifiedOn: 2026-11-03

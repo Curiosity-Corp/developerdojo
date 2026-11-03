@@ -1,0 +1,9 @@
+title: "What is DevSecOps?"
+provider: "GitLab"
+url: "https://about.gitlab.com/topics/devsecops/"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [security, ci-cd]
+summary: "A plain explainer of DevSecOps: security built into the delivery pipeline rather than added at the end. Read it for the shared vocabulary."
+verifiedOn: 2026-11-03

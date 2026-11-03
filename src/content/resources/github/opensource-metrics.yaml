@@ -1,0 +1,9 @@
+title: "Open Source Metrics"
+provider: "GitHub"
+url: "https://opensource.guide/metrics/"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [open-source, data-analytics]
+summary: "Explains which measures show the health of a project and how to use them. A good small lesson in choosing metrics that inform decisions."
+verifiedOn: 2026-11-03

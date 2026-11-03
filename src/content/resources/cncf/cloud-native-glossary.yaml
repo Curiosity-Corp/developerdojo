@@ -1,0 +1,9 @@
+title: "Cloud Native Glossary"
+provider: "CNCF"
+url: "https://glossary.cncf.io/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [cloud-platforms, kubernetes-gitops]
+summary: "Plain-language definitions of cloud-native terms. It is useful to keep open in design reviews."
+verifiedOn: 2026-11-03

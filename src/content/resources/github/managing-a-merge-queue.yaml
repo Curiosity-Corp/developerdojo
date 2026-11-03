@@ -1,0 +1,9 @@
+title: "Managing a merge queue - GitHub Docs"
+provider: "GitHub"
+url: "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ci-cd, git-gitlab]
+summary: "GitHub's merge queue, the equivalent of GitLab merge trains. Reading both shows the same idea twice."
+verifiedOn: 2026-11-03

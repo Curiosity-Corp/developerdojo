@@ -1,0 +1,9 @@
+title: "Overview - Amazon Bedrock"
+provider: "AWS"
+url: "https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents, cloud-platforms]
+summary: "The overview of Amazon Bedrock, AWS's service for using foundation models. It shows how a cloud provider offers many models behind one interface."
+verifiedOn: 2026-11-03

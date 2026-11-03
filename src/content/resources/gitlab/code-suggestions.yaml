@@ -1,0 +1,9 @@
+title: "Code Suggestions"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/repository/code_suggestions/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [ai-agents]
+summary: "Explains AI code suggestions in GitLab. Check the page for plan availability. Read it to know what a developer sees when an assistant is on."
+verifiedOn: 2026-11-03

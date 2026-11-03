@@ -1,0 +1,9 @@
+title: "Getting started"
+provider: "CNCF"
+url: "https://prometheus.io/docs/prometheus/latest/getting_started/"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [observability-reliability]
+summary: "A hands-on first run of Prometheus. Shows how metrics are collected and queried."
+verifiedOn: 2026-11-03

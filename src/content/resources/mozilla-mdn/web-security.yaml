@@ -1,0 +1,9 @@
+title: "Security"
+provider: "MDN Web Docs"
+url: "https://developer.mozilla.org/en-US/docs/Web/Security"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security]
+summary: "MDN's web security documentation. A practical reference on browser security features."
+verifiedOn: 2026-11-03

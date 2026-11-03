@@ -1,0 +1,9 @@
+title: "Artificial Intelligence"
+provider: "MIT OpenCourseWare"
+url: "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/"
+cost: "free"
+format: "course"
+level: "advanced"
+skills: [ai-agents]
+summary: "MIT's free classical AI course. Historical foundations for current AI."
+verifiedOn: 2026-11-03
