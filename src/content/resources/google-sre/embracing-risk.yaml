@@ -1,0 +1,9 @@
+title: "Google SRE Book: Embracing risk"
+provider: "Google"
+url: "https://sre.google/sre-book/embracing-risk/"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [observability-reliability]
+summary: "A chapter that explains why perfect reliability is the wrong goal and how error budgets balance speed and safety. It is the base for the service level ideas in this program. Read it slowly; the ideas matter more than the maths."
+verifiedOn: 2026-11-03

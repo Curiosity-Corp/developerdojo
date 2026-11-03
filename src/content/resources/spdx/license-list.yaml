@@ -1,0 +1,9 @@
+title: "SPDX License List"
+provider: "SPDX"
+url: "https://spdx.org/licenses/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [open-source]
+summary: "The reference list of short licence identifiers such as MIT and Apache-2.0. These identifiers are what you write in a licence check record. Use it as a lookup, not as reading material."
+verifiedOn: 2026-11-03

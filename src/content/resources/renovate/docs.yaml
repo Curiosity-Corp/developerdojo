@@ -1,0 +1,9 @@
+title: "Renovate documentation"
+provider: "Mend Renovate"
+url: "https://docs.renovatebot.com/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ci-cd, open-source]
+summary: "The official docs for Renovate, a bot that opens merge requests when dependencies have new versions. Read the introduction and the configuration basics. It supports keeping a patched fork close to upstream."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Harbor documentation"
+provider: "Harbor project"
+url: "https://goharbor.io/docs/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ci-cd, security]
+summary: "The official docs for Harbor, an open source container registry with scanning and signing. Use it to learn what a registry does for a team. Read the overview before the install pages."
+verifiedOn: 2026-11-03

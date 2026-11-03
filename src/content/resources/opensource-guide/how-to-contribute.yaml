@@ -1,0 +1,9 @@
+title: "Open Source Guides: How to contribute"
+provider: "GitHub"
+url: "https://opensource.guide/how-to-contribute/"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [open-source, git-gitlab]
+summary: "Walks through how to send a first contribution to someone else's project. It is useful for the step of sending a change upstream before keeping a patch. Read it before you open an upstream pull request."
+verifiedOn: 2026-11-03

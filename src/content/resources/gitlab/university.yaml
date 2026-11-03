@@ -1,0 +1,9 @@
+title: "GitLab University"
+provider: "GitLab"
+url: "https://university.gitlab.com/"
+cost: "free-audit"
+format: "course"
+level: "beginner"
+skills: [git-gitlab, ci-cd, agile-delivery]
+summary: "Free self-paced courses from GitLab on planning, source control and CI/CD. Pick the short beginner paths that match your week, not the whole catalogue. Some certificates may cost money; the learning material itself is free to follow."
+verifiedOn: 2026-11-03

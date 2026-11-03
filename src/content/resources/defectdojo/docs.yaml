@@ -1,0 +1,9 @@
+title: "DefectDojo documentation"
+provider: "DefectDojo"
+url: "https://docs.defectdojo.com/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security]
+summary: "Docs for a free tool that collects security findings from many scanners in one place. Read the introduction to understand why one findings tracker helps. It is reference material."
+verifiedOn: 2026-11-03

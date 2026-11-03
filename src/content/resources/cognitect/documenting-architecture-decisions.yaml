@@ -1,0 +1,9 @@
+title: "Documenting Architecture Decisions"
+provider: "Cognitect"
+url: "https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [communication-writing, open-source]
+summary: "The short blog post that made decision records popular. It argues for one short document per decision with context, decision and consequences. A five-minute read."
+verifiedOn: 2026-11-03

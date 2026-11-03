@@ -1,0 +1,9 @@
+title: "Azure Functions overview"
+provider: "Microsoft Learn"
+url: "https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [cloud-platforms]
+summary: "Explains serverless functions that run small pieces of code on demand. It helps you read a repository map that lists function apps. A short overview."
+verifiedOn: 2026-11-03

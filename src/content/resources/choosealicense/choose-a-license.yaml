@@ -1,0 +1,9 @@
+title: "Choose a License"
+provider: "GitHub"
+url: "https://choosealicense.com/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [open-source]
+summary: "A plain summary of common open source licences with what each lets you do. It is a quick way to learn the families in the licence table. It is not legal advice, so read the real licence file."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Open Source Guides"
+provider: "GitHub"
+url: "https://opensource.guide/"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [open-source]
+summary: "A set of free guides on using, contributing to and running open source projects. Start with the legal and contribution guides. It gives the culture behind the open-source-first habit."
+verifiedOn: 2026-11-03

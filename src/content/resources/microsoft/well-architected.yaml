@@ -1,0 +1,9 @@
+title: "Azure Well-Architected Framework"
+provider: "Microsoft Learn"
+url: "https://learn.microsoft.com/en-us/azure/well-architected/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [cloud-platforms, observability-reliability, security]
+summary: "Five pillars for judging a cloud design: reliability, security, cost, operations and performance. It gives a checklist mindset for reviewing a product. Read the overview and one pillar."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Backstage Software Catalog"
+provider: "Backstage"
+url: "https://backstage.io/docs/features/software-catalog/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [itsm-service-management, cloud-platforms]
+summary: "Explains how a catalogue of services can be kept as files in the same repositories as the code. This is the same idea as catalogue entries in git. Read the overview to see what an entry holds."
+verifiedOn: 2026-11-03

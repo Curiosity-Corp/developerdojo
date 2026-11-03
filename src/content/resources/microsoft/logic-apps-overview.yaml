@@ -1,0 +1,9 @@
+title: "What is Azure Logic Apps?"
+provider: "Microsoft Learn"
+url: "https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-overview"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [cloud-platforms, product-discovery]
+summary: "Explains a cloud service that connects apps and data with workflows built from steps. It shows how an integration can run without a full application. Read it when you list integrations."
+verifiedOn: 2026-11-03

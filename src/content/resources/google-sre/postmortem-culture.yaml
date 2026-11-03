@@ -1,0 +1,9 @@
+title: "Google SRE Book: Postmortem culture"
+provider: "Google"
+url: "https://sre.google/sre-book/postmortem-culture/"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [observability-reliability, communication-writing]
+summary: "Explains how to learn from failure without blame and how to make reviews useful. It pairs well with the five-whys method. Read it before you write your first review."
+verifiedOn: 2026-11-03

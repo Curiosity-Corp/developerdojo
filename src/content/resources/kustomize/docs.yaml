@@ -1,0 +1,9 @@
+title: "Kustomize reference"
+provider: "Kubernetes SIG CLI"
+url: "https://kubectl.docs.kubernetes.io/references/kustomize/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [kubernetes-gitops, infrastructure-as-code]
+summary: "The reference for Kustomize, which builds Kubernetes configuration from a base plus overlays for staging and production. Read the overview to understand the base and overlay idea. Look things up as you need them."
+verifiedOn: 2026-11-03

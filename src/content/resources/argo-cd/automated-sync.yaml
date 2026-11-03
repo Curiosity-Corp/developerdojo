@@ -1,0 +1,9 @@
+title: "Argo CD: Automated sync policy"
+provider: "Argo Project"
+url: "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [kubernetes-gitops]
+summary: "Explains automatic sync, pruning and self-heal. These are the settings that make git the only way to change the cluster. Read it to understand what happens when someone edits the cluster by hand."
+verifiedOn: 2026-11-03
