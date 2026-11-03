@@ -133,4 +133,4 @@ Note what the register does **not** contain: any secret. The login column shows 
 
 ## Further learning
 
-Continue with [people, touch points and journeys](/library/case-study-danhup-people-and-journeys). Go back to [page 1](/library/case-study-danhup-the-product-on-one-page) for the product on one page.
+Continue with [people, touch points and journeys](/library/case-study-danhup-people-and-journeys). For the full four-layer catalogue of a fictional product, see the [catalogue framework](/library/catalogue-framework-overview) and the [full TrailMug example](/library/catalogue-trailmug-full-example). Go back to [page 1](/library/case-study-danhup-the-product-on-one-page) for the product on one page.

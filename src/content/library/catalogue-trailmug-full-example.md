@@ -77,6 +77,8 @@ The example is split into the four layers. Each part starts with its own metadat
 | **A** Activities | Epic 1 returns status (Leo): milestone 1.1 status field live 2027-04-15; milestone 1.2 app screen 2027-05-13. Depends on payments approval. |
 | **L** Logistics | Tablets bought for 12 cafés. Weekly café check-in call. Read access to the payments dashboard for finance. |
 
+For the same product taught element by element, see [ORBITAL in full for TrailMug](/library/tracks/frameworks/15-orbital-trailmug-in-full).
+
 **Commentary.** Resources use names from the Master layer. Every indicator has a number, a date, a baseline and a source. The budget has its assumption beside it.
 
 ## Part 3: ANDROID catalogue
@@ -227,4 +229,4 @@ The [catalogue entry template](/library/template-catalogue-entry) gives each ser
 
 ## Further learning
 
-Compare with the real worked example in the [DanHup case study](/library/case-study-danhup-the-product-on-one-page). Read the [Product Catalogue standard](/library/product-catalogue-standard) for the short version, and the [overview of this framework](/library/catalogue-framework-overview) to start again.
+Read the [Product Catalogue standard](/library/product-catalogue-standard) for the short version, and the [overview of this framework](/library/catalogue-framework-overview) to start again.

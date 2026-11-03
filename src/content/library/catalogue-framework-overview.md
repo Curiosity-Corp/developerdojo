@@ -122,4 +122,4 @@ A change in one layer may need an update in another. Say so in the change record
 
 ## Further learning
 
-Continue with the [Master layer](/library/catalogue-master-layer). See the same four layers in the [Product Catalogue standard](/library/product-catalogue-standard), and a worked product in the [DanHup case study](/library/case-study-danhup-the-product-on-one-page).
+Continue with the [Master layer](/library/catalogue-master-layer). See the same four layers in the [Product Catalogue standard](/library/product-catalogue-standard).

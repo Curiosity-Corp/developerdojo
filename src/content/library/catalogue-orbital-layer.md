@@ -114,4 +114,4 @@ Indicators should be **observable and time-bound** wherever possible. Prefer evi
 
 ## Further learning
 
-Next: the [ANDROID layer](/library/catalogue-android-layer). Review [roadmap standard](/library/roadmap-standard) and the [epic roadmap template](/library/template-epic-roadmap) for the activities.
+Go deeper in the frameworks track: [objective, resources and budget](/library/tracks/frameworks/11-orbital-objective-resources-budget), [indicators](/library/tracks/frameworks/12-orbital-indicators-kpis-and-sdgs), [transport](/library/tracks/frameworks/13-orbital-transport-for-software), [activities and logistics](/library/tracks/frameworks/14-orbital-activities-and-logistics), [ORBITAL in full for TrailMug](/library/tracks/frameworks/15-orbital-trailmug-in-full) and [from ORBITAL to milestones and issues](/library/tracks/frameworks/16-from-orbital-to-milestones-and-issues). Next: the [ANDROID layer](/library/catalogue-android-layer). Review [roadmap standard](/library/roadmap-standard) and the [epic roadmap template](/library/template-epic-roadmap) for the activities.
