@@ -1,0 +1,10 @@
+title: "AGENTS.md"
+provider: "AGENTS.md project"
+url: "https://agents.md/"
+cost: "free"
+format: "docs"
+level: "beginner"
+duration: "about 15 minutes"
+skills: [ai-agents, prompt-engineering]
+summary: "The home page of the AGENTS.md convention: one plain file in a repository that tells coding agents how the project works, how to build it and what to avoid. Read it before you write your first agent brief, so your instructions live in git where every agent can find them."
+verifiedOn: 2026-11-03

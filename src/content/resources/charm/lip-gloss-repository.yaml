@@ -1,0 +1,9 @@
+title: "charmbracelet/lipgloss"
+provider: "Charm"
+url: "https://github.com/charmbracelet/lipgloss"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [open-source, brand-web-design]
+summary: "Lip Gloss is the Charm library for styling terminal output: colours, borders, padding and layout. Look here to see how a terminal app gets its brand look."
+verifiedOn: 2026-11-03

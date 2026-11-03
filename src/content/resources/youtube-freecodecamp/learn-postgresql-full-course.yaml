@@ -1,0 +1,9 @@
+title: "Learn PostgreSQL Tutorial - Full Course for Beginners"
+provider: "freeCodeCamp.org (YouTube)"
+url: "https://www.youtube.com/watch?v=qw--VYLpxG4"
+cost: "free"
+format: "video"
+level: "beginner"
+skills: [data-analytics]
+summary: "A long video course from the freeCodeCamp.org channel that walks through installing PostgreSQL and writing SQL from scratch. Watch it if you prefer to see the commands run before you read the manual."
+verifiedOn: 2026-11-03

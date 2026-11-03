@@ -1,0 +1,10 @@
+title: "Security Overview - SeaweedFS Wiki"
+provider: "SeaweedFS"
+url: "https://github.com/seaweedfs/seaweedfs/wiki/Security-Overview"
+cost: "free"
+format: "docs"
+level: "intermediate"
+duration: "about 20 minutes"
+skills: [security, cloud-platforms]
+summary: "The official page on securing SeaweedFS: access control and encrypted connections between its parts. Read it before any customer file goes into the store."
+verifiedOn: 2026-11-03

@@ -1,0 +1,10 @@
+title: "Drizzle ORM - Why Drizzle?"
+provider: "Drizzle Team"
+url: "https://orm.drizzle.team/docs/overview"
+cost: "free"
+format: "docs"
+level: "intermediate"
+duration: "about 20 minutes"
+skills: [data-analytics, open-source]
+summary: "The overview of Drizzle ORM, the SQL-first TypeScript library the PHANTOMS starter uses for its database package. Read it to understand schema files and migrations before you review an agent's database change."
+verifiedOn: 2026-11-03

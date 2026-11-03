@@ -1,0 +1,10 @@
+title: "PostgreSQL Documentation: Part I. Tutorial"
+provider: "PostgreSQL Global Development Group"
+url: "https://www.postgresql.org/docs/current/tutorial.html"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+duration: "about 2 hours"
+skills: [data-analytics]
+summary: "The official PostgreSQL tutorial: tables, queries, joins, updates and transactions, with small examples. It is the best first read for anyone who must understand the data an agent creates."
+verifiedOn: 2026-11-03

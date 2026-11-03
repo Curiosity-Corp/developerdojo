@@ -1,0 +1,10 @@
+title: "OpenAI Compatible Providers | AI SDK"
+provider: "Vercel"
+url: "https://ai-sdk.dev/providers/openai-compatible-providers"
+cost: "free"
+format: "docs"
+level: "intermediate"
+duration: "about 15 minutes"
+skills: [ai-agents, open-source]
+summary: "How to reach any model server that speaks the common OpenAI-style protocol, hosted or self-hosted, from the AI SDK. This is the exact route the PHANTOMS adapter uses."
+verifiedOn: 2026-11-03

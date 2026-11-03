@@ -1,0 +1,10 @@
+title: "A Tour of Go"
+provider: "Go"
+url: "https://go.dev/tour/"
+cost: "free"
+format: "interactive"
+level: "beginner"
+duration: "about 3 hours"
+skills: [open-source]
+summary: "The official interactive tour of the Go language, run in the browser. Take it for enough reading ability to follow the code of a PHANTOMS TUI app."
+verifiedOn: 2026-11-03

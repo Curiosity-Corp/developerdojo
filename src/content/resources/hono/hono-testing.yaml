@@ -1,0 +1,10 @@
+title: "Testing - Hono"
+provider: "Hono"
+url: "https://hono.dev/docs/guides/testing"
+cost: "free"
+format: "docs"
+level: "intermediate"
+duration: "about 10 minutes"
+skills: [ci-cd]
+summary: "How to test Hono routes without starting a server, by calling the app directly. This is the pattern behind the fast API tests in the PHANTOMS starter."
+verifiedOn: 2026-11-03

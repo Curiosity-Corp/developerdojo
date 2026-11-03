@@ -1,0 +1,10 @@
+title: "REST Security - OWASP Cheat Sheet Series"
+provider: "OWASP"
+url: "https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html"
+cost: "free"
+format: "docs"
+level: "intermediate"
+duration: "about 30 minutes"
+skills: [security]
+summary: "A compact checklist for securing HTTP APIs: authentication, authorization, input checks, status codes and error handling. Use it as a review list when you judge an API that an agent wrote."
+verifiedOn: 2026-11-03

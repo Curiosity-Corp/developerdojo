@@ -1,0 +1,10 @@
+title: "Tutorial: Get started with Go"
+provider: "Go"
+url: "https://go.dev/doc/tutorial/getting-started"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+duration: "about 15 minutes"
+skills: [open-source]
+summary: "The official first Go tutorial: install Go, write a small program and run it. A good first hour before you review any Go code an agent writes."
+verifiedOn: 2026-11-03

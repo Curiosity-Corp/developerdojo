@@ -1,0 +1,10 @@
+title: "Providers and Models | AI SDK"
+provider: "Vercel"
+url: "https://ai-sdk.dev/docs/foundations/providers-and-models"
+cost: "free"
+format: "docs"
+level: "intermediate"
+duration: "about 15 minutes"
+skills: [ai-agents]
+summary: "Explains how the AI SDK hides differences between model providers behind one interface. Read it to understand how a product can swap models without changing product code."
+verifiedOn: 2026-11-03

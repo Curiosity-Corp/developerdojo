@@ -1,0 +1,10 @@
+title: "Quickstart | Milvus Documentation"
+provider: "Milvus"
+url: "https://milvus.io/docs/quickstart.md"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+duration: "about 30 minutes"
+skills: [data-analytics]
+summary: "A hands-on quickstart that creates a collection, inserts vectors and runs a similarity search. Do it once to see what 'semantic search' means in practice."
+verifiedOn: 2026-11-03

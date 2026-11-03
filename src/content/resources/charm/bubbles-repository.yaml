@@ -1,0 +1,9 @@
+title: "charmbracelet/bubbles"
+provider: "Charm"
+url: "https://github.com/charmbracelet/bubbles"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [open-source]
+summary: "Bubbles is the library of ready-made terminal components for Bubble Tea, such as lists, tables, spinners and text inputs. Read it to learn what you can ask an agent to reuse instead of rebuilding."
+verifiedOn: 2026-11-03

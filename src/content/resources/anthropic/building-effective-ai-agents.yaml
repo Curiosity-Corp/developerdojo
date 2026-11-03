@@ -1,0 +1,10 @@
+title: "Building effective AI agents"
+provider: "Anthropic"
+url: "https://www.anthropic.com/engineering/building-effective-agents"
+cost: "free"
+format: "article"
+level: "intermediate"
+duration: "about 30 minutes"
+skills: [ai-agents, ai-evaluation]
+summary: "An engineering article that separates simple workflows from true agents and shows patterns such as routing, parallel work and evaluator loops. Read it when you decide how much freedom an agent should get, and why simple designs usually win."
+verifiedOn: 2026-11-03

@@ -1,0 +1,10 @@
+title: "Bun - Hono"
+provider: "Hono"
+url: "https://hono.dev/docs/getting-started/bun"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+duration: "about 10 minutes"
+skills: [cloud-platforms]
+summary: "The official steps for running Hono on Bun, including serving a small API. Follow it to see the smallest working version of the PHANTOMS API layer."
+verifiedOn: 2026-11-03

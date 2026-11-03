@@ -1,0 +1,10 @@
+title: "Hybrid Search with Milvus"
+provider: "Milvus"
+url: "https://milvus.io/docs/hybrid_search_with_milvus.md"
+cost: "free"
+format: "tutorial"
+level: "advanced"
+duration: "about 30 minutes"
+skills: [data-analytics, ai-agents]
+summary: "Shows how to combine vector search with keyword-style search and merge the results. Read it when plain meaning-based search misses exact names or codes."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Bun Guides"
+provider: "Bun"
+url: "https://bun.sh/guides"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [cloud-platforms]
+summary: "Short, task-based guides from the Bun team: build an HTTP server, read files, connect to a database, write tests. Pick the one that matches the job in front of you."
+verifiedOn: 2026-11-03

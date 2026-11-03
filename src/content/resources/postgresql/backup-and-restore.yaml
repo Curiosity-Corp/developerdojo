@@ -1,0 +1,10 @@
+title: "PostgreSQL Documentation: Backup and Restore"
+provider: "PostgreSQL Global Development Group"
+url: "https://www.postgresql.org/docs/current/backup.html"
+cost: "free"
+format: "docs"
+level: "intermediate"
+duration: "about 45 minutes"
+skills: [data-analytics, observability-reliability]
+summary: "The official chapter on dumping, file-level backup and point-in-time recovery. Read it to learn the questions to ask before a product keeps real customer data."
+verifiedOn: 2026-11-03

@@ -1,0 +1,10 @@
+title: "OWASP Top 10"
+provider: "OWASP"
+url: "https://owasp.org/www-project-top-ten/"
+cost: "free"
+format: "docs"
+level: "beginner"
+duration: "about 1 hour"
+skills: [security]
+summary: "The best-known list of the most serious web application security risks, with plain descriptions and examples. Use it as a checklist of questions to ask whenever an agent builds a web API or page."
+verifiedOn: 2026-11-03

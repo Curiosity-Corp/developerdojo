@@ -1,0 +1,9 @@
+title: "SeaweedFS Wiki"
+provider: "SeaweedFS"
+url: "https://github.com/seaweedfs/seaweedfs/wiki"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [cloud-platforms, open-source]
+summary: "The official SeaweedFS wiki: its parts, how to start a cluster, and its features. Use it to understand what running your own object storage involves."
+verifiedOn: 2026-11-03

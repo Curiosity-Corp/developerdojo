@@ -1,0 +1,10 @@
+title: "Docker Compose Quickstart"
+provider: "Docker"
+url: "https://docs.docker.com/compose/gettingstarted/"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+duration: "about 30 minutes"
+skills: [cloud-platforms]
+summary: "Docker's official quickstart for running a small multi-service app with one compose file. It explains the same idea PHANTOMS uses to start a local PostgreSQL database with one command."
+verifiedOn: 2026-11-03

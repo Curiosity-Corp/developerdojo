@@ -1,0 +1,10 @@
+title: "How to create a static export of your Next.js application"
+provider: "Vercel"
+url: "https://nextjs.org/docs/app/guides/static-exports"
+cost: "free"
+format: "docs"
+level: "intermediate"
+duration: "about 15 minutes"
+skills: [cloud-platforms]
+summary: "The guide to building a Next.js app as plain static files, and the list of features that do not work in that mode. It explains a key trade-off in the PHANTOMS starter."
+verifiedOn: 2026-11-03

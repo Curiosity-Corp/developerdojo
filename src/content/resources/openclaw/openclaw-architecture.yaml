@@ -1,0 +1,10 @@
+title: "Gateway architecture - OpenClaw"
+provider: "OpenClaw"
+url: "https://docs.openclaw.ai/concepts/architecture"
+cost: "free"
+format: "docs"
+level: "intermediate"
+duration: "about 20 minutes"
+skills: [ai-agents, cloud-platforms]
+summary: "Describes the parts of an OpenClaw deployment and how they connect. Read it to see where the trust boundaries sit."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "charmbracelet/huh"
+provider: "Charm"
+url: "https://github.com/charmbracelet/huh"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [open-source]
+summary: "Huh builds forms and prompts for the terminal, such as selects, confirms and text inputs. It is the part of the Charm family that collects structured input from a user."
+verifiedOn: 2026-11-03

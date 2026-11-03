@@ -1,0 +1,10 @@
+title: "Caching | Turborepo"
+provider: "Vercel"
+url: "https://turborepo.dev/docs/crafting-your-repository/caching"
+cost: "free"
+format: "docs"
+level: "intermediate"
+duration: "about 20 minutes"
+skills: [ci-cd, cloud-platforms]
+summary: "Explains how Turborepo decides a task can be skipped, and what outputs it saves. It shows where a faster pipeline, and a lower CI bill, come from."
+verifiedOn: 2026-11-03

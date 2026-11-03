@@ -1,0 +1,9 @@
+title: "OpenClaw Docs"
+provider: "OpenClaw"
+url: "https://docs.openclaw.ai"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents]
+summary: "The official OpenClaw documentation for its agent gateway, tools and setup. Use it to learn what the runtime can do before you decide whether a product needs it."
+verifiedOn: 2026-11-03

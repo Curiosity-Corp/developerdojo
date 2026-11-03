@@ -1,0 +1,10 @@
+title: "Amazon S3 API - SeaweedFS Wiki"
+provider: "SeaweedFS"
+url: "https://github.com/seaweedfs/seaweedfs/wiki/Amazon-S3-API"
+cost: "free"
+format: "docs"
+level: "intermediate"
+duration: "about 20 minutes"
+skills: [cloud-platforms]
+summary: "Describes how SeaweedFS speaks the S3 protocol that most tools and libraries already know, and what is supported. Read it to see why an S3-compatible store keeps your code portable."
+verifiedOn: 2026-11-03
