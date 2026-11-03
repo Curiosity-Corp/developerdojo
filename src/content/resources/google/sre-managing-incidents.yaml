@@ -1,9 +1,0 @@
-title: "Managing Incidents"
-provider: "Google"
-url: "https://sre.google/sre-book/managing-incidents/"
-cost: free
-format: book
-level: intermediate
-skills: [observability-reliability, itsm-service-management]
-summary: "The SRE book chapter on running an incident with clear roles and a live record. Read it before you are on call."
-verifiedOn: 2026-11-03

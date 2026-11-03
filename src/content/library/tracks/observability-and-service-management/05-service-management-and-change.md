@@ -16,10 +16,10 @@ prerequisites:
   - "template-change-record"
 resources:
   - "atlassian/itsm"
-  - "atlassian/it-change-management"
+  - "atlassian/change-management"
   - "gitlab/service-desk"
   - "google/sre-book"
-  - "dora/dora-home"
+  - "dora/dora-research-program"
 updated: 2026-11-03
 ---
 

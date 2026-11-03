@@ -14,7 +14,7 @@ outcomes:
 prerequisites:
   - "the-way-five-rules"
 resources:
-  - "google/sre-postmortem-culture"
+  - "google-sre/postmortem-culture"
   - "atlassian/blameless-postmortem"
   - "atlassian/incident-management"
   - "gitlab/incident-management"

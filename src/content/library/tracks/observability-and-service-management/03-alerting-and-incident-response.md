@@ -14,7 +14,7 @@ outcomes:
 prerequisites:
   - "the-way-five-rules"
 resources:
-  - "google/sre-managing-incidents"
+  - "google-sre/managing-incidents"
   - "pagerduty/incident-response-documentation"
   - "atlassian/incident-management"
   - "gitlab/incident-management"

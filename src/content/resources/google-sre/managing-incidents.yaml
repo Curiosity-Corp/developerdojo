@@ -4,6 +4,6 @@ url: "https://sre.google/sre-book/managing-incidents/"
 cost: "free"
 format: "book"
 level: "intermediate"
-skills: [observability-reliability]
+skills: [observability-reliability, itsm-service-management]
 summary: "Describes incident roles, a clear command structure and a live incident document. It supports the idea of a named human commander. Read it before the incident rehearsal."
 verifiedOn: 2026-11-03

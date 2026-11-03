@@ -1,9 +1,0 @@
-title: "Postmortem Culture: Learning from Failure"
-provider: "Google"
-url: "https://sre.google/sre-book/postmortem-culture/"
-cost: free
-format: book
-level: intermediate
-skills: [observability-reliability, itsm-service-management]
-summary: "The SRE book chapter on blameless postmortems: why they matter, what they contain and how to build the habit."
-verifiedOn: 2026-11-03

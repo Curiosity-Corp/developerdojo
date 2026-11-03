@@ -1,9 +1,0 @@
-title: "Service Level Objectives"
-provider: "Google"
-url: "https://sre.google/sre-book/service-level-objectives/"
-cost: free
-format: book
-level: intermediate
-skills: [observability-reliability]
-summary: "The SRE book chapter that defines SLIs, SLOs and SLAs and shows how to choose them. The best single reading on the topic."
-verifiedOn: 2026-11-03

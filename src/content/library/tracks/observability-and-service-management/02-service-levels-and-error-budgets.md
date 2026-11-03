@@ -14,12 +14,12 @@ outcomes:
 prerequisites:
   - "template-catalogue-entry"
 resources:
-  - "google/sre-service-level-objectives"
+  - "google-sre/service-level-objectives"
   - "google/sre-workbook-implementing-slos"
   - "google/sre-workbook-alerting-on-slos"
   - "google/sre-book"
   - "dora/software-delivery-performance-metrics"
-  - "dora/dora-home"
+  - "dora/dora-research-program"
 updated: 2026-11-03
 ---
 
