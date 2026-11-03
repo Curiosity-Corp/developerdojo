@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
+import SearchPanel from '../../components/SearchPanel.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import { groupBySection } from '../../lib/library';
 import { loadContent } from '../../lib/content';
@@ -21,8 +22,12 @@ const total = sections.reduce((sum, section) => sum + section.entries.length, 0)
   />
   <section class="section">
     <div class="container">
-      <form class="search" role="search" id="library-search">
-        <label for="library-filter">Search the library</label>
+      <div class="site-search">
+        <SearchPanel id="library-site-search" label="Search every lesson, track and resource" />
+      </div>
+
+      <form class="search" role="search" aria-label="Filter the library list" id="library-search">
+        <label for="library-filter">Filter this list by title</label>
         <input
           id="library-filter"
           type="search"
@@ -118,6 +123,10 @@ const total = sections.reduce((sum, section) => sum + section.entries.length, 0)
 </script>
 
 <style>
+  .site-search {
+    max-width: 48rem;
+    margin-bottom: var(--space-6);
+  }
   .search {
     display: grid;
     gap: var(--space-2);

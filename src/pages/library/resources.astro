@@ -63,9 +63,10 @@ const formatsInUse = FORMATS.filter((format) => sorted.some((resource) => resour
         sorted.length === 0 ? (
           <p>Resources are being added. Check back soon.</p>
         ) : (
-          <ul class="grid" id="resource-list">
+          <ul class="grid" id="resource-list" data-pagefind-ignore>
             {sorted.map((resource) => (
               <li
+                id={`r-${resource.id.replace(/[^a-z0-9]+/g, '-')}`}
                 data-resource
                 data-skills={resource.data.skills.join(' ')}
                 data-provider={resource.data.provider}
@@ -126,7 +127,7 @@ const formatsInUse = FORMATS.filter((format) => sorted.some((resource) => resour
         if (select && select.value !== '') params.set(name, select.value);
       }
       const query = params.toString();
-      history.replaceState(null, '', query === '' ? location.pathname : `${location.pathname}?${query}`);
+      history.replaceState(null, '', (query === '' ? location.pathname : `${location.pathname}?${query}`) + location.hash);
     };
 
     // Restore a shared link such as /library/resources?skill=ai-agents&cost=free

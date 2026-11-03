@@ -1,0 +1,206 @@
+---
+/**
+ * Search box with results, backed by the Pagefind index that `npm run build` writes to /pagefind.
+ * Without JavaScript (or in `astro dev`, where there is no index) it explains itself instead of failing.
+ * The behaviour lives in the script below and attaches to every [data-search] root on the page.
+ *
+ * Props: id (unique prefix for element ids), label? (visible label), autofocus? (dialog use)
+ */
+interface Props {
+  id: string;
+  label?: string;
+}
+const { id, label = 'Search the whole site' } = Astro.props;
+---
+
+<div class="search-panel" data-search data-pagefind-ignore>
+  <form role="search" aria-label={label} data-search-form>
+    <label for={`${id}-input`}>{label}</label>
+    <input
+      id={`${id}-input`}
+      type="search"
+      placeholder="Try: epic, persona, roadmap, Kubernetes"
+      autocomplete="off"
+      spellcheck="false"
+      aria-describedby={`${id}-status`}
+      data-search-input
+    />
+  </form>
+  <p id={`${id}-status`} class="status" role="status" aria-live="polite" data-search-status></p>
+  <div class="results" data-search-results></div>
+  <noscript><p>Search needs JavaScript. You can still browse the <a href="/library">library</a>.</p></noscript>
+</div>
+
+<script>
+  import { SEARCH_GROUP_LABELS, SEARCH_GROUP_ORDER, classifyUrl, type SearchGroup } from '../lib/search-groups';
+
+  interface PagefindResultData {
+    url: string;
+    excerpt: string;
+    meta: { title?: string; group?: string };
+  }
+  interface PagefindSearch {
+    results: { data: () => Promise<PagefindResultData> }[];
+  }
+  interface PagefindApi {
+    init: () => Promise<void>;
+    debouncedSearch: (term: string, options?: object, wait?: number) => Promise<PagefindSearch | null>;
+  }
+
+  let pagefind: Promise<PagefindApi> | undefined;
+  function loadPagefind(): Promise<PagefindApi> {
+    // The index is generated after the Astro build, so the bundler must not try to resolve it.
+    const url = '/pagefind/pagefind.js';
+    pagefind ??= import(/* @vite-ignore */ url).then(async (api: PagefindApi) => {
+      await api.init();
+      return api;
+    });
+    return pagefind;
+  }
+
+  const MAX_RESULTS = 24;
+
+  function renderResults(container: HTMLElement, items: PagefindResultData[]): void {
+    container.replaceChildren();
+    const groups = new Map<SearchGroup, PagefindResultData[]>();
+    for (const item of items) {
+      const group = classifyUrl(item.url);
+      groups.set(group, [...(groups.get(group) ?? []), item]);
+    }
+    for (const group of SEARCH_GROUP_ORDER) {
+      const entries = groups.get(group);
+      if (!entries) continue;
+      const section = document.createElement('section');
+      const heading = document.createElement('h3');
+      heading.textContent = SEARCH_GROUP_LABELS[group];
+      const list = document.createElement('ul');
+      for (const entry of entries) {
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = entry.url;
+        link.textContent = entry.meta.title ?? entry.url;
+        li.append(link);
+        if (entry.meta.group) {
+          const where = document.createElement('span');
+          where.className = 'where';
+          where.textContent = entry.meta.group;
+          li.append(where);
+        }
+        const snippet = document.createElement('p');
+        // Pagefind returns the excerpt as escaped text with <mark> around the matches.
+        snippet.innerHTML = entry.excerpt;
+        li.append(snippet);
+        list.append(li);
+      }
+      section.append(heading, list);
+      container.append(section);
+    }
+  }
+
+  for (const root of document.querySelectorAll<HTMLElement>('[data-search]')) {
+    const input = root.querySelector<HTMLInputElement>('[data-search-input]');
+    const form = root.querySelector<HTMLFormElement>('[data-search-form]');
+    const status = root.querySelector<HTMLElement>('[data-search-status]');
+    const results = root.querySelector<HTMLElement>('[data-search-results]');
+    if (!input || !form || !status || !results) continue;
+
+    let latest = 0;
+    const run = async (): Promise<void> => {
+      const term = input.value.trim();
+      const ticket = ++latest;
+      if (term.length === 0) {
+        status.textContent = '';
+        results.replaceChildren();
+        return;
+      }
+      try {
+        const api = await loadPagefind();
+        const search = await api.debouncedSearch(term, {}, 150);
+        if (search === null || ticket !== latest) return; // a newer keystroke replaced this search
+        const data = await Promise.all(search.results.slice(0, MAX_RESULTS).map((result) => result.data()));
+        if (ticket !== latest) return;
+        renderResults(results, data);
+        status.textContent =
+          search.results.length === 0
+            ? `No results for "${term}". Try a shorter or different word.`
+            : `${search.results.length} ${search.results.length === 1 ? 'result' : 'results'} for "${term}"`;
+      } catch (error) {
+        console.warn('Search is not available:', error);
+        status.textContent = 'Search is not available here. It works on the published site.';
+      }
+    };
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      void run();
+    });
+    input.addEventListener('input', () => void run());
+  }
+</script>
+
+<style>
+  .search-panel {
+    display: grid;
+    gap: var(--space-2);
+    color: var(--ink);
+  }
+  form {
+    display: grid;
+    gap: var(--space-2);
+  }
+  label {
+    font-weight: 700;
+  }
+  input {
+    font: inherit;
+    padding: var(--space-3) var(--space-4);
+    border: 2px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: var(--paper-raised);
+    color: inherit;
+  }
+  input:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+  }
+  .status {
+    margin: 0;
+    min-height: 1.5em;
+    color: var(--ink-muted);
+  }
+  .results {
+    display: grid;
+    gap: var(--space-4);
+  }
+  .results :global(h3) {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-lg);
+  }
+  .results :global(ul) {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .results :global(li a) {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: 700;
+  }
+  .results :global(.where) {
+    margin-left: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+  }
+  .results :global(li p) {
+    margin: var(--space-1) 0 0;
+    color: var(--ink-muted);
+  }
+  .results :global(mark) {
+    background: var(--gold);
+    color: var(--gold-ink);
+    padding-inline: 0.1em;
+    border-radius: 3px;
+  }
+</style>

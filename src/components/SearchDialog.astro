@@ -1,0 +1,138 @@
+---
+/**
+ * Header search: two icon buttons (one in the desktop actions, one in the phone bar) that open a
+ * modal dialog holding the search panel. "/" and Ctrl/Cmd+K open it too. Esc closes it (native).
+ */
+import Icon from './Icon.astro';
+import SearchPanel from './SearchPanel.astro';
+
+interface Props {
+  /** Which button to render: the nav action or the phone bar button. */
+  mode: 'button-desktop' | 'button-phone' | 'dialog';
+}
+const { mode } = Astro.props;
+---
+
+{
+  mode !== 'dialog' ? (
+    <button
+      type="button"
+      class:list={['search-open', mode]}
+      data-search-open
+      aria-label="Search"
+      aria-keyshortcuts="/ Control+K Meta+K"
+    >
+      <Icon name="search" size={18} />
+    </button>
+  ) : (
+    <dialog class="search-dialog" data-search-dialog aria-label="Search">
+      <button type="button" class="close" data-search-close aria-label="Close search">
+        <Icon name="x" size={20} />
+      </button>
+      <SearchPanel id="site-search" />
+    </dialog>
+  )
+}
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('[data-search-dialog]');
+  const opener = { current: null as HTMLElement | null };
+
+  function open(from: HTMLElement | null): void {
+    if (!dialog || dialog.open) return;
+    opener.current = from;
+    dialog.showModal();
+    dialog.querySelector<HTMLInputElement>('input[type="search"]')?.focus();
+  }
+
+  for (const button of document.querySelectorAll<HTMLButtonElement>('[data-search-open]')) {
+    button.addEventListener('click', () => open(button));
+  }
+  dialog?.querySelector('[data-search-close]')?.addEventListener('click', () => dialog.close());
+  // A click on the backdrop (the dialog element itself, outside its content box) closes it.
+  dialog?.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+  dialog?.addEventListener('close', () => opener.current?.focus());
+  // Close the dialog after following a result so the next page opens clean.
+  dialog?.addEventListener('click', (event) => {
+    if (event.target instanceof HTMLAnchorElement) dialog.close();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    const target = event.target;
+    const typing =
+      target instanceof HTMLInputElement ||
+      target instanceof HTMLTextAreaElement ||
+      target instanceof HTMLSelectElement ||
+      (target instanceof HTMLElement && target.isContentEditable);
+    const slash = event.key === '/' && !typing && !event.ctrlKey && !event.metaKey && !event.altKey;
+    const chord = event.key.toLowerCase() === 'k' && (event.ctrlKey || event.metaKey);
+    if (slash || chord) {
+      event.preventDefault();
+      open(document.activeElement instanceof HTMLElement ? document.activeElement : null);
+    }
+  });
+</script>
+
+<style>
+  .search-open {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius);
+    border: 1px solid var(--band-line);
+    background: transparent;
+    color: var(--band-text);
+    cursor: pointer;
+  }
+  .search-open:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  /* The desktop button lives in the nav actions, the phone button in the bar next to the menu button. */
+  .button-phone {
+    display: none;
+  }
+  @media (max-width: 61.99rem) {
+    .button-desktop {
+      display: none;
+    }
+    .button-phone {
+      display: inline-grid;
+      margin-left: auto;
+      width: 44px;
+      height: 44px;
+    }
+  }
+  .search-dialog {
+    width: min(48rem, calc(100vw - 2 * var(--gutter)));
+    max-height: calc(100dvh - 2 * var(--space-5));
+    margin: var(--space-5) auto;
+    padding: var(--space-5);
+    overflow-y: auto;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 60px rgb(0 0 0 / 0.45);
+  }
+  .search-dialog::backdrop {
+    background: rgb(10 16 13 / 0.7);
+  }
+  .close {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+</style>

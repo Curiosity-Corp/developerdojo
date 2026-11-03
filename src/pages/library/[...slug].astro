@@ -78,7 +78,7 @@ const groupLabel = track ? `${track.title}, lesson ${position?.index ?? 1} of ${
       <div class="main">
         <Breadcrumbs items={crumbs} />
 
-        <ul class="facts" aria-label="About this lesson">
+        <ul class="facts" aria-label="About this lesson" data-pagefind-ignore>
           {data.level && <li><Icon name="signal" size={16} />{LESSON_LEVEL_LABELS[data.level]}</li>}
           {data.duration && <li><Icon name="clock" size={16} />{data.duration}</li>}
           <li><Icon name="book-open" size={16} />{minutes} min read</li>
@@ -115,7 +115,7 @@ const groupLabel = track ? `${track.title}, lesson ${position?.index ?? 1} of ${
 
         {
           further.length > 0 && (
-            <section class="further" aria-label="Further learning">
+            <section class="further" aria-label="Further learning" data-pagefind-ignore>
               <SectionHeader eyebrow="Go deeper" title="Further learning" as="h2" />
               <p class="further-intro">Free or low-cost material from other publishers. We opened every link; check the cost label before you start.</p>
               <ul class="cards">
@@ -125,7 +125,7 @@ const groupLabel = track ? `${track.title}, lesson ${position?.index ?? 1} of ${
           )
         }
 
-        <nav class="pager" aria-label={`More in ${groupLabel}`}>
+        <nav class="pager" data-pagefind-ignore aria-label={`More in ${groupLabel}`}>
           {previous ? <a class="prev" href={`/library/${previous.id}`}><span>Previous</span>{previous.title}</a> : <span />}
           {next ? <a class="next" href={`/library/${next.id}`}><span>Next</span>{next.title}</a> : <span />}
         </nav>
@@ -133,7 +133,7 @@ const groupLabel = track ? `${track.title}, lesson ${position?.index ?? 1} of ${
           {track ? <a href={`/library/tracks/${track.id}`}>Back to the track: {track.title}</a> : <a href="/library">Back to the library</a>}
         </p>
       </div>
-      <aside class="side"><TableOfContents headings={headings} variant="side" /></aside>
+      <aside class="side" data-pagefind-ignore><TableOfContents headings={headings} variant="side" /></aside>
     </div>
   </article>
 </BaseLayout>

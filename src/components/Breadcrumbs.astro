@@ -13,7 +13,7 @@ interface Props {
 const { items } = Astro.props;
 ---
 
-<nav class="crumbs" aria-label="Breadcrumb">
+<nav class="crumbs" aria-label="Breadcrumb" data-pagefind-ignore>
   <ol>
     {
       items.map((item, index) => (
