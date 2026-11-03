@@ -6,7 +6,9 @@ The technical contract for lessons, tracks and resources. The step by step editi
 The schemas live in `src/lib/schemas.ts` and the collections in `src/content.config.ts`.
 Tests (`npm test`) and the build both check every file, and say which file is wrong.
 
-## Lessons: `src/content/library/**/*.md`
+## Lessons
+
+Files: any `.md` file under `src/content/library`.
 
 ```yaml
 title: "..."               # required
@@ -29,7 +31,9 @@ Track lessons live in `src/content/library/tracks/<track-slug>/<NN>-<lesson-slug
 The URL is `/library/tracks/<track-slug>/<NN>-<lesson-slug>/`. `section` is the track title and
 `track` is the track slug. A lesson in a track folder with the wrong `track` fails the build.
 
-## Tracks: `src/content/tracks/<slug>.md`
+## Tracks
+
+Files: `src/content/tracks/<slug>.md`.
 
 ```yaml
 title: "Product discovery"
@@ -44,9 +48,9 @@ outcomes: ["...", "..."]
 
 The body is the track overview. The page is `/library/tracks/<slug>/` and lists the track's lessons in `order`.
 
-## Resources: `src/content/resources/<publisher>/<resource>.yaml`
+## Resources
 
-The id is the path without `.yaml`: `anthropic/prompt-engineering-interactive-tutorial`.
+Files: `src/content/resources/<publisher>/<resource>.yaml`. The id is the path without `.yaml`: `anthropic/prompt-engineering-interactive-tutorial`.
 
 ```yaml
 title: "Exact title as the publisher shows it"
