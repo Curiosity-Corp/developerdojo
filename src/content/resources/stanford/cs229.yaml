@@ -1,0 +1,9 @@
+title: "CS229: Machine Learning"
+provider: "Stanford"
+url: "https://cs229.stanford.edu/"
+cost: "free"
+format: "course"
+level: "advanced"
+skills: [data-analytics, ai-evaluation]
+summary: "Stanford's machine learning course materials. Deep, technical, and optional for literacy in how models are trained and judged."
+verifiedOn: 2026-11-03
