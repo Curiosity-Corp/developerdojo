@@ -1,0 +1,9 @@
+title: "GPT-4.1 Prompting Guide"
+provider: "OpenAI"
+url: "https://developers.openai.com/cookbook/examples/gpt4-1_prompting_guide"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [prompt-engineering, ai-agents]
+summary: "OpenAI's guide to prompting a model for agentic coding and long-context work, with advice on instructions, tool use and planning. Read it next to Anthropic's guide to see which prompting habits transfer across vendors and which are model-specific."
+verifiedOn: 2026-11-03

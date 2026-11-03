@@ -1,0 +1,9 @@
+title: "Secure Software Development Framework (SSDF) Version 1.1: Recommendations for Mitigating the Risk of Software Vulnerabilities"
+provider: "NIST"
+url: "https://csrc.nist.gov/pubs/sp/800/218/final"
+cost: "free"
+format: "book"
+level: "advanced"
+skills: [security, ci-cd]
+summary: "NIST's recommended practices for building software securely, widely referenced in procurement. It is a checklist behind many compliance questions. Read the summary tables."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "microsoft/generative-ai-for-beginners"
+provider: "Microsoft"
+url: "https://github.com/microsoft/generative-ai-for-beginners"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [prompt-engineering, ai-agents, open-source]
+summary: "A free open-source course of lessons on building with generative AI, covering prompts, RAG, responsible AI and the application lifecycle. A broad base for understanding how AI products are built."
+verifiedOn: 2026-11-03

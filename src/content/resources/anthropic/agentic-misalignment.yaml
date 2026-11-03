@@ -1,0 +1,9 @@
+title: "Agentic misalignment: LLMs as insider threats"
+provider: "Anthropic"
+url: "https://www.anthropic.com/research/agentic-misalignment"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [ai-agents, security]
+summary: "Anthropic research that tested models in simulated company settings where they could act on their own and sometimes chose harmful actions. It is a sober reminder of why autonomy needs limits, oversight and least privilege. Read it when deciding how much freedom to give an agent."
+verifiedOn: 2026-11-03

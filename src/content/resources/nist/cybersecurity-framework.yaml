@@ -1,0 +1,9 @@
+title: "Cybersecurity Framework"
+provider: "NIST"
+url: "https://www.nist.gov/cyberframework"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security]
+summary: "NIST's framework for organising cybersecurity work: govern, identify, protect, detect, respond and recover. Useful as a shared language with security teams."
+verifiedOn: 2026-11-03

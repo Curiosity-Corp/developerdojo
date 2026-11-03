@@ -1,0 +1,9 @@
+title: "Microsoft AI Red Team"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/security/ai-red-team/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [security, ai-evaluation]
+summary: "Microsoft's overview of red teaming AI systems: deliberately attacking them to find weaknesses. It teaches you to ask whether anyone has tried to break your agent before users do."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Intercept and control agent behavior with hooks - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/agent-sdk/hooks"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents, security]
+summary: "Shows how to intercept an SDK agent's actions with hooks to approve, block or log them. It is policy-as-code applied to a custom agent. Read it when you need controls in an agent you build yourself."
+verifiedOn: 2026-11-03

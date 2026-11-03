@@ -1,0 +1,10 @@
+title: "LLMOps"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses/llmops"
+cost: "free"
+format: "course"
+level: "beginner"
+duration: "1 hour 31 minutes"
+skills: [ai-evaluation, ci-cd]
+summary: "A free short course on automating the pipeline for building, testing and running language-model applications. It links CI/CD ideas to AI products. Take it if you will run AI features in production."
+verifiedOn: 2026-11-03

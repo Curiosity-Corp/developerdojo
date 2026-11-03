@@ -1,0 +1,10 @@
+title: "LangChain Chat with Your Data"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses/langchain-chat-with-your-data"
+cost: "free"
+format: "course"
+level: "beginner"
+duration: "1 hour 18 minutes"
+skills: [ai-agents, data-analytics]
+summary: "A free short course on building a chatbot over your own documents. It illustrates the retrieval pattern behind many internal AI assistants."
+verifiedOn: 2026-11-03

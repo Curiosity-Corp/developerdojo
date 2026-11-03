@@ -1,0 +1,9 @@
+title: "anthropics/courses"
+provider: "Anthropic"
+url: "https://github.com/anthropics/courses"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [prompt-engineering, ai-agents]
+summary: "Anthropic's open repository of educational courses as notebooks, covering the API, prompt engineering, real-world prompting, prompt evaluations and tool use. It is hands-on and free. Use it to practise the skills behind good briefs and evaluations."
+verifiedOn: 2026-11-03

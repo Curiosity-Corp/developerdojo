@@ -1,0 +1,9 @@
+title: "Context windows - Claude Platform Docs"
+provider: "Anthropic"
+url: "https://platform.claude.com/docs/en/build-with-claude/context-windows"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents, prompt-engineering]
+summary: "Explains what a context window is and how it fills during long work. Many agent failures come from running out of or polluting context, so this is core mental-model material for anyone running long tasks. Read it to understand why briefs should be tight."
+verifiedOn: 2026-11-03

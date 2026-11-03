@@ -1,0 +1,9 @@
+title: "Claude's Constitution"
+provider: "Anthropic"
+url: "https://www.anthropic.com/constitution"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [ai-agents, security]
+summary: "The document Anthropic uses to describe the values and character it wants Claude to have. Reading it helps you predict how the model will behave when instructions are unclear, which is useful when writing policy for agents."
+verifiedOn: 2026-11-03

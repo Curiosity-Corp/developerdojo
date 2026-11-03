@@ -1,0 +1,9 @@
+title: "Agent Skills - Claude Platform Docs"
+provider: "Anthropic"
+url: "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents]
+summary: "Describes Agent Skills: folders of instructions and files an agent loads only when needed. It is a clear model of how to give agents your organisation's know-how without bloating every prompt. Read it with the Claude Code skills page."
+verifiedOn: 2026-11-03

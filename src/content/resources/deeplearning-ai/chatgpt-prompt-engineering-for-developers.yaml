@@ -1,0 +1,10 @@
+title: "ChatGPT Prompt Engineering for Developers"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses/chatgpt-prompt-eng"
+cost: "free"
+format: "course"
+level: "beginner"
+duration: "1 hour 40 minutes"
+skills: [prompt-engineering]
+summary: "A free short course by Isa Fulford and Andrew Ng on writing prompts and using models for summarising, inferring, transforming and expanding text. It is the classic fast route to prompting fundamentals. Take it first if you have never structured a prompt."
+verifiedOn: 2026-11-03

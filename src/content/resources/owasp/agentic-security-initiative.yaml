@@ -1,0 +1,9 @@
+title: "Agentic Security Initiative - OWASP Gen AI Security Project"
+provider: "OWASP"
+url: "https://genai.owasp.org/initiatives/agentic-security-initiative/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [security, ai-agents]
+summary: "OWASP's work on the security of agentic AI, including threat models and guidance. It gathers current community thinking about agent risks. Read it before you scale a fleet."
+verifiedOn: 2026-11-03

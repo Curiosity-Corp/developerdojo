@@ -1,0 +1,9 @@
+title: "Using OPA in CI/CD Pipelines"
+provider: "Open Policy Agent"
+url: "https://www.openpolicyagent.org/docs/cicd"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ci-cd, security]
+summary: "Shows how to check configuration and changes against policy inside a CI/CD pipeline. This is a concrete example of policy gates that stop bad changes automatically. Read it when you design gates for agent output."
+verifiedOn: 2026-11-03

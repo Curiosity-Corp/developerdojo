@@ -1,0 +1,9 @@
+title: "AGENTS.md"
+provider: "OpenAI"
+url: "https://agents.md/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [ai-agents, prompt-engineering]
+summary: "The open convention for an AGENTS.md file: a plain README for coding agents that states how to build, test and behave in a repository. It is the simplest, most portable way to write standing instructions for any agent. Create one in every repository you own."
+verifiedOn: 2026-11-03

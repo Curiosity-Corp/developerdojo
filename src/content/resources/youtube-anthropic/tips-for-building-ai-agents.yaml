@@ -1,0 +1,10 @@
+title: "Tips for building AI agents"
+provider: "Anthropic"
+url: "https://www.youtube.com/watch?v=LP5OCa20Zpg"
+cost: "free"
+format: "video"
+level: "intermediate"
+duration: "about 18 minutes"
+skills: [ai-agents]
+summary: "Practical tips from Anthropic for building AI agents. Useful before you brief or review an agent build, because it shows what experienced builders watch for."
+verifiedOn: 2026-11-03

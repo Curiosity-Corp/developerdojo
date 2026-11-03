@@ -1,0 +1,9 @@
+title: "Monitoring - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/monitoring-usage"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents, observability-reliability]
+summary: "Describes how to collect usage and activity data from Claude Code with OpenTelemetry. You cannot manage a fleet of agents you cannot see; this page shows what can be measured. Read it when you start tracking cost and activity per team."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Usage Policy"
+provider: "Anthropic"
+url: "https://www.anthropic.com/legal/aup"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [security]
+summary: "Anthropic's rules for what its models may and may not be used for. A product owner building on any AI provider must know the provider's acceptable-use terms. Read it before you design a feature around AI."
+verifiedOn: 2026-11-03

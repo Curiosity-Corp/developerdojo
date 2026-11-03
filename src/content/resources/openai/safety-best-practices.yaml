@@ -1,0 +1,9 @@
+title: "Safety best practices"
+provider: "OpenAI"
+url: "https://developers.openai.com/api/docs/guides/safety-best-practices"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [security, ai-evaluation]
+summary: "OpenAI's checklist for building safer AI features: moderation, adversarial testing, human review and limiting inputs and outputs. A sound starting list for any product that uses an AI model."
+verifiedOn: 2026-11-03

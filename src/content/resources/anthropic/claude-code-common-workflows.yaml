@@ -1,0 +1,9 @@
+title: "Common workflows - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/common-workflows"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [ai-agents]
+summary: "Step-by-step recipes for everyday tasks with Claude Code, such as exploring an unfamiliar codebase, fixing bugs, refactoring, writing tests and creating pull requests. Use it to learn what is reasonable to delegate and how to phrase each request."
+verifiedOn: 2026-11-03

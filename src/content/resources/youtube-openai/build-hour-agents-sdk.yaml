@@ -1,0 +1,10 @@
+title: "Build Hour: Agents SDK"
+provider: "OpenAI"
+url: "https://www.youtube.com/watch?v=tK32trvj_b4"
+cost: "free"
+format: "video"
+level: "intermediate"
+duration: "about 48 minutes"
+skills: [ai-agents]
+summary: "OpenAI's Build Hour on the Agents SDK, covering how to build and orchestrate agents. A hands-on view of orchestration, one of the four steps of the agent ladder."
+verifiedOn: 2026-11-03

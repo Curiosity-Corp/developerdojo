@@ -1,0 +1,10 @@
+title: "LLMs as Operating Systems: Agent Memory"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses/llms-as-operating-systems-agent-memory"
+cost: "free"
+format: "course"
+level: "intermediate"
+duration: "1 hour 32 minutes"
+skills: [ai-agents]
+summary: "A free short course on how agents manage memory beyond one conversation. Memory shapes how agents behave across sessions and what they may reveal."
+verifiedOn: 2026-11-03

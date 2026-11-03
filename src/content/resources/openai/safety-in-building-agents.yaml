@@ -1,0 +1,9 @@
+title: "Safety in building agents"
+provider: "OpenAI"
+url: "https://developers.openai.com/api/docs/guides/agent-builder-safety"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security, ai-agents]
+summary: "OpenAI's guidance on reducing risk when building agents, including prompt injection and tool approvals. Use it as a checklist of risks to raise in any agent design review."
+verifiedOn: 2026-11-03

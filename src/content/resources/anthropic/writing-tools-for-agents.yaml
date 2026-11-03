@@ -1,0 +1,9 @@
+title: "Writing effective tools for AI agents"
+provider: "Anthropic"
+url: "https://www.anthropic.com/research/writing-tools-for-agents"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [ai-agents, ai-evaluation]
+summary: "Shows how to design and test the tools agents use, and why tool descriptions matter as much as code. It treats tool quality as something you measure with evaluations. Read it to judge the interfaces your agents are given."
+verifiedOn: 2026-11-03

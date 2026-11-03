@@ -1,0 +1,10 @@
+title: "The Model Context Protocol (MCP)"
+provider: "Anthropic"
+url: "https://www.youtube.com/watch?v=CQywdSdi5iA"
+cost: "free"
+format: "video"
+level: "intermediate"
+duration: "about 20 minutes"
+skills: [ai-agents]
+summary: "Anthropic's talk on the Model Context Protocol, the standard way for AI tools to connect to data and services. It helps you understand how agents get access to your systems, and so what to govern."
+verifiedOn: 2026-11-03

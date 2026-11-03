@@ -1,0 +1,9 @@
+title: "Extend Claude with skills - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/skills"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents, prompt-engineering]
+summary: "Shows how to package repeatable instructions and resources as skills that an agent loads when relevant. Skills are reusable delegation briefs for your team's recurring work. Read it when you notice you keep rewriting the same prompt."
+verifiedOn: 2026-11-03

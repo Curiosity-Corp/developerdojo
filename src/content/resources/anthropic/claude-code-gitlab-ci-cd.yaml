@@ -1,0 +1,9 @@
+title: "Claude Code GitLab CI/CD - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/gitlab-ci-cd"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents, ci-cd, git-gitlab]
+summary: "The GitLab counterpart: running Claude Code from GitLab CI/CD jobs and merge requests. Since the Dojo uses GitLab, this is the closest official guide to agents working inside your own pipeline. Read it with the GitLab merge request docs open."
+verifiedOn: 2026-11-03

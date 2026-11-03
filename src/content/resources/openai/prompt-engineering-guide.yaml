@@ -1,0 +1,9 @@
+title: "Prompt engineering"
+provider: "OpenAI"
+url: "https://developers.openai.com/api/docs/guides/prompt-engineering"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [prompt-engineering]
+summary: "OpenAI's guide to writing prompts that get dependable results: message roles, clear instructions, examples and testing prompt changes. A concise vendor-neutral foundation for writing briefs."
+verifiedOn: 2026-11-03

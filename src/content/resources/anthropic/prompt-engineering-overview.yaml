@@ -1,0 +1,9 @@
+title: "Prompt engineering overview - Claude Platform Docs"
+provider: "Anthropic"
+url: "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [prompt-engineering]
+summary: "Anthropic's entry point to prompt engineering: when prompting is the right tool, how to define success first, and where to go next. Use it to learn the vocabulary and the order of operations before you write long briefs."
+verifiedOn: 2026-11-03

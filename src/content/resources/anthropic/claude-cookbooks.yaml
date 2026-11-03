@@ -1,0 +1,9 @@
+title: "anthropics/claude-cookbooks"
+provider: "Anthropic"
+url: "https://github.com/anthropics/claude-cookbooks"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [ai-agents, prompt-engineering]
+summary: "A collection of notebooks and recipes showing effective ways to use Claude, from tool use to evaluations. You do not need to run them all; skim to see what is possible and to give engineers concrete examples to build from."
+verifiedOn: 2026-11-03

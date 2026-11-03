@@ -1,0 +1,9 @@
+title: "Agents in Microsoft Foundry"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/azure/foundry/agents/overview"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents, cloud-platforms]
+summary: "Microsoft's documentation for its managed agent service. Reading it shows how a cloud provider packages agents, tools and governance. Read it when your organisation is already on Azure."
+verifiedOn: 2026-11-03

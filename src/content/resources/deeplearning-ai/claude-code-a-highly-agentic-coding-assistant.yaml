@@ -1,0 +1,10 @@
+title: "Claude Code: A Highly Agentic Coding Assistant"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses/claude-code-a-highly-agentic-coding-assistant"
+cost: "free"
+format: "course"
+level: "intermediate"
+duration: "2 hours"
+skills: [ai-agents]
+summary: "A free short course by Anthropic's Elie Schoppik on exploring, building, testing and refactoring with Claude Code, including running several instances at once. It shows agent delegation in practice. Take it before your first real project."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Tracing - OpenAI Agents SDK"
+provider: "OpenAI"
+url: "https://openai.github.io/openai-agents-python/tracing/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents, observability-reliability]
+summary: "Shows how to record every step an agent takes so you can review what happened. Traces are how you audit and debug agent work. Read it to learn what visibility to demand from an agent system."
+verifiedOn: 2026-11-03

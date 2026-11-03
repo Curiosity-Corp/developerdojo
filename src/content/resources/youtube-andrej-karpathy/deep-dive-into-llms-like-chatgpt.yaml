@@ -1,0 +1,10 @@
+title: "Deep Dive into LLMs like ChatGPT"
+provider: "Andrej Karpathy"
+url: "https://www.youtube.com/watch?v=7xTGNNLPyMI"
+cost: "free"
+format: "video"
+level: "intermediate"
+duration: "about 3.5 hours"
+skills: [ai-evaluation]
+summary: "Andrej Karpathy's deep dive into how large language models like ChatGPT work. A leading explanation to build the intuition for model strengths and failures you need when judging output."
+verifiedOn: 2026-11-03

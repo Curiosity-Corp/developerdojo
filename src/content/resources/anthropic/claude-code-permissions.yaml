@@ -1,0 +1,9 @@
+title: "Configure permissions - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/permissions"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents, security]
+summary: "Explains how to allow, ask or deny specific tools and commands for the agent. Permissions are the simplest guardrail you control as a manager: what an agent may do without asking. Read it before you give any agent access to real systems."
+verifiedOn: 2026-11-03

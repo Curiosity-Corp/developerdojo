@@ -1,0 +1,10 @@
+title: "AI Agentic Design Patterns with AutoGen"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses/ai-agentic-design-patterns-with-autogen"
+cost: "free"
+format: "course"
+level: "beginner"
+duration: "1 hour 35 minutes"
+skills: [ai-agents]
+summary: "A free short course on building multi-agent systems with roles, conversation and tool use. It makes patterns like reflection and collaboration concrete. Take it to see agents cooperating."
+verifiedOn: 2026-11-03

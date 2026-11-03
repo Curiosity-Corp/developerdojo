@@ -1,0 +1,9 @@
+title: "Overview - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/overview"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [ai-agents]
+summary: "Start here for Claude Code, Anthropic's coding agent. It shows what the agent can do in a repository and how to install and run it. A 2030 Product Development Manager reads it first to understand what a delegated coding session actually looks like before writing any brief."
+verifiedOn: 2026-11-03

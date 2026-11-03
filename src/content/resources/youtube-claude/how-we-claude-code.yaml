@@ -1,0 +1,10 @@
+title: "How we Claude Code"
+provider: "Claude"
+url: "https://www.youtube.com/watch?v=IlqJqcl8ONE"
+cost: "free"
+format: "video"
+level: "intermediate"
+duration: "about 32 minutes"
+skills: [ai-agents]
+summary: "A talk on how a team uses Claude Code in its own work. A real example of agent-assisted development you can learn working habits from."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "GitHub Copilot documentation - GitHub Docs"
+provider: "Microsoft"
+url: "https://docs.github.com/en/copilot"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [ai-agents, git-gitlab]
+summary: "The documentation for GitHub Copilot, including chat, agent mode and the coding agent. Even if your team uses another tool, this shows what a mainstream AI assistant does inside the developer workflow."
+verifiedOn: 2026-11-03

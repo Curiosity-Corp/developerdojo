@@ -1,0 +1,9 @@
+title: "Machine Learning Crash Course"
+provider: "Google"
+url: "https://developers.google.com/machine-learning/crash-course"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [data-analytics, ai-evaluation]
+summary: "Google's free course with videos, explanations and exercises on how machine learning works. It builds the intuition to judge what AI can and cannot do and to ask good questions about data and evaluation. Take it for literacy, not to become a modeller."
+verifiedOn: 2026-11-03

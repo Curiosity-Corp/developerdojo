@@ -1,0 +1,9 @@
+title: "Developer quickstart"
+provider: "OpenAI"
+url: "https://developers.openai.com/api/docs/quickstart"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [ai-agents]
+summary: "OpenAI's quickstart for making a first API call. Reading it shows how little code a basic AI feature needs, which helps you question estimates. Use it to see what a minimal integration involves."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "OpenAI Agents SDK TypeScript"
+provider: "OpenAI"
+url: "https://openai.github.io/openai-agents-js/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents, open-source]
+summary: "The TypeScript edition of OpenAI's Agents SDK documentation. It matters if your product team works in a JavaScript stack and wants the same agent building blocks."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Prompt design strategies - Gemini API"
+provider: "Google"
+url: "https://ai.google.dev/gemini-api/docs/prompting-strategies"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [prompt-engineering]
+summary: "Google's guidance on writing prompts for Gemini: clear instructions, examples, context and iteration. Compare it with Anthropic and OpenAI to see the common core of good prompting."
+verifiedOn: 2026-11-03

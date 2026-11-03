@@ -1,0 +1,9 @@
+title: "Agent orchestration - OpenAI Agents SDK"
+provider: "OpenAI"
+url: "https://openai.github.io/openai-agents-python/multi_agent/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents]
+summary: "Describes two ways to orchestrate agents: let a model decide, or control the flow in code. That choice, flexibility against predictability, is central to governing a fleet. Read it before you pick an orchestration style."
+verifiedOn: 2026-11-03

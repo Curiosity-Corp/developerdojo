@@ -1,0 +1,9 @@
+title: "Introduction to Machine Learning Problem Framing"
+provider: "Google"
+url: "https://developers.google.com/machine-learning/problem-framing"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [data-analytics, product-discovery]
+summary: "Teaches how to decide whether a problem suits machine learning and how to state it. Deciding what to build and why is the manager's job, so this is directly on target. Read it before you propose any AI feature."
+verifiedOn: 2026-11-03

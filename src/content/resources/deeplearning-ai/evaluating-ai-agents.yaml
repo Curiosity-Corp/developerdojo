@@ -1,0 +1,10 @@
+title: "Evaluating AI Agents"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses/evaluating-ai-agents"
+cost: "free"
+format: "course"
+level: "beginner"
+duration: "2 hours 36 minutes"
+skills: [ai-evaluation, ai-agents]
+summary: "A free short course on how to measure and improve agent behaviour with evaluations and observability. Verification is the manager's core skill; this course makes it practical. Highly recommended."
+verifiedOn: 2026-11-03

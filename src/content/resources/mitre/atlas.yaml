@@ -1,0 +1,9 @@
+title: "MITRE ATLAS™"
+provider: "MITRE"
+url: "https://atlas.mitre.org/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [security, ai-evaluation]
+summary: "A knowledge base of real-world adversary tactics against AI systems. It is the AI counterpart to the ATT&CK matrix. Browse it to see the range of threats."
+verifiedOn: 2026-11-03

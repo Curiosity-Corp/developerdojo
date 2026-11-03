@@ -1,0 +1,9 @@
+title: "A practical guide to building agents"
+provider: "OpenAI"
+url: "https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [ai-agents]
+summary: "OpenAI's guide for product and engineering teams on when to build an agent, how to choose models and tools, how to write instructions, and how to orchestrate and set guardrails. It is aimed at the people who decide to build an agent. Read it with Anthropic's Building effective AI agents and compare."
+verifiedOn: 2026-11-03

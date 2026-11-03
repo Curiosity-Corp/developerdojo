@@ -1,0 +1,9 @@
+title: "OpenAI Academy"
+provider: "OpenAI"
+url: "https://academy.openai.com/"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [ai-agents, prompt-engineering]
+summary: "OpenAI's free learning hub with courses, videos and community resources on using AI. It is a good broad start for people who are not engineers. Use it to see how a major provider teaches AI literacy to work teams."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Claude Code GitHub Actions - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/github-actions"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents, ci-cd]
+summary: "Shows how to run Claude Code inside GitHub Actions workflows, for example to review pull requests or act on issues. It illustrates agents as a step in a pipeline you already govern. Read it to see how review and automation can combine."
+verifiedOn: 2026-11-03

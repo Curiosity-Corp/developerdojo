@@ -1,0 +1,9 @@
+title: "Working with evals"
+provider: "OpenAI"
+url: "https://developers.openai.com/api/docs/guides/evals"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-evaluation]
+summary: "OpenAI's introduction to building evaluations for model-based applications. It shows the loop of defining criteria, running tests and iterating. Read it to make \"is this good enough?\" something you can measure."
+verifiedOn: 2026-11-03

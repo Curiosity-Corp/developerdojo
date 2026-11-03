@@ -1,0 +1,9 @@
+title: "Agent SDK overview - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/agent-sdk/overview"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents]
+summary: "Introduces the Claude Agent SDK, which lets you build your own agents on the same engine as Claude Code. A manager does not need to code agents, but needs to know what is possible and how an agent loop is built so they can specify one. Read it to judge what your engineers propose."
+verifiedOn: 2026-11-03

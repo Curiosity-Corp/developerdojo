@@ -1,0 +1,9 @@
+title: "AI Risk Management Framework"
+provider: "NIST"
+url: "https://www.nist.gov/itl/ai-risk-management-framework"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security, ai-evaluation]
+summary: "The US NIST framework for managing AI risk through four functions: govern, map, measure and manage. It is the standard reference for AI governance and gives a manager a structure for risk conversations. Read the overview first, then the playbook."
+verifiedOn: 2026-11-03

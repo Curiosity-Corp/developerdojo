@@ -1,0 +1,9 @@
+title: "2025 Top 10 Risk & Mitigations for LLMs and Gen AI Apps"
+provider: "OWASP"
+url: "https://genai.owasp.org/llm-top-10/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security, ai-evaluation]
+summary: "The OWASP list of the most critical risks for applications built on large language models, including prompt injection and excessive agency. A must-read before you launch any AI feature. Use it as a design-review checklist."
+verifiedOn: 2026-11-03

@@ -1,0 +1,10 @@
+title: "Red Teaming LLM Applications"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses/red-teaming-llm-applications"
+cost: "free"
+format: "course"
+level: "beginner"
+duration: "1 hour 39 minutes"
+skills: [security, ai-evaluation]
+summary: "A free short course on finding weaknesses in AI applications by attacking them. It teaches the mindset and basic techniques. Take it before your first launch of an AI feature."
+verifiedOn: 2026-11-03

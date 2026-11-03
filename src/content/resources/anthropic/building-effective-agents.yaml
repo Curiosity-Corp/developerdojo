@@ -1,0 +1,9 @@
+title: "Building effective AI agents"
+provider: "Anthropic"
+url: "https://www.anthropic.com/research/building-effective-agents"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [ai-agents]
+summary: "Anthropic's widely cited guide to agent design. It separates simple workflows from true agents, lists proven patterns (prompt chaining, routing, parallelisation, orchestrator-workers, evaluator-optimizer) and advises starting simple. It is the best single reading to place a task on the use, delegate, orchestrate ladder."
+verifiedOn: 2026-11-03

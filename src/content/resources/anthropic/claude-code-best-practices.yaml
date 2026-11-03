@@ -1,0 +1,9 @@
+title: "Best practices for Claude Code - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/best-practices"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents, prompt-engineering]
+summary: "Anthropic's own advice on getting reliable results from a coding agent: give it a way to verify its work, explore first and plan before coding, and manage context. These are the habits behind a good delegation brief. Read it before you hand an agent real work."
+verifiedOn: 2026-11-03

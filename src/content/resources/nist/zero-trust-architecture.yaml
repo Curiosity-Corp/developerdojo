@@ -1,0 +1,9 @@
+title: "Zero Trust Architecture"
+provider: "NIST"
+url: "https://csrc.nist.gov/pubs/sp/800/207/final"
+cost: "free"
+format: "book"
+level: "advanced"
+skills: [security]
+summary: "NIST's definition of zero trust: never trust a request because of where it comes from. The mindset applies directly to giving agents access. Read the overview for the principles."
+verifiedOn: 2026-11-03

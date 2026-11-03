@@ -1,0 +1,9 @@
+title: "Add MCP servers in VS Code"
+provider: "Microsoft"
+url: "https://code.visualstudio.com/docs/agent-customization/mcp-servers"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents]
+summary: "How to add MCP servers so that agents in VS Code can use extra tools. It shows how tool access is granted and approved in a real product. Useful for thinking about least-privilege access."
+verifiedOn: 2026-11-03

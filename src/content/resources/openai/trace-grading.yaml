@@ -1,0 +1,9 @@
+title: "Trace grading"
+provider: "OpenAI"
+url: "https://developers.openai.com/api/docs/guides/trace-grading"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-evaluation, ai-agents]
+summary: "Explains grading the full trace of an agent run, not just its final answer. Judging the path as well as the result is how you catch agents that reach the right answer the wrong way."
+verifiedOn: 2026-11-03
