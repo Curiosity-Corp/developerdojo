@@ -3,30 +3,60 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
+import { groupBySection } from '../../lib/library';
 
-const entries = (await getCollection('library')).sort((a, b) => a.data.order - b.data.order);
-const sections = new Map<string, typeof entries>();
-for (const entry of entries) {
-  const list = sections.get(entry.data.section) ?? [];
-  list.push(entry);
-  sections.set(entry.data.section, list);
-}
+const sections = groupBySection(await getCollection('library'));
+const total = sections.reduce((sum, section) => sum + section.entries.length, 0);
 ---
 
-<BaseLayout title="Library" description="Free guides and references for builders: platform, delivery and product practice.">
-  <PageHero compact title="Library" subtitle="Free guides and references for builders." />
+<BaseLayout
+  title="Library"
+  description="Free guides, standards, templates and a learning path for the new kind of developer."
+>
+  <PageHero
+    compact
+    title="Library"
+    subtitle="The rules of the dojo, the six-week Developer path, standards, templates and a free learning path."
+  />
   <section class="section">
     <div class="container">
+      <form class="search" role="search" id="library-search">
+        <label for="library-filter">Search the library</label>
+        <input
+          id="library-filter"
+          type="search"
+          placeholder="Try: epic, licence, roadmap, persona"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <p id="library-status" role="status" aria-live="polite">{total} pages</p>
+      </form>
+
+      <nav class="jump" aria-label="Library sections">
+        {
+          sections.map((section) => (
+            <a href={`#section-${section.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{section.name}</a>
+          ))
+        }
+      </nav>
+
       {
-        sections.size === 0 ? (
+        sections.length === 0 ? (
           <p>The library is empty. Guides will be added here.</p>
         ) : (
-          [...sections.entries()].map(([section, items]) => (
-            <div class="group">
-              <SectionHeader eyebrow="Guides" title={section} />
+          sections.map((section) => (
+            <div
+              class="group"
+              data-section
+              id={`section-${section.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+            >
+              <SectionHeader eyebrow="Guides" title={section.name} />
               <ul>
-                {items.map((entry) => (
-                  <li>
+                {section.entries.map((entry) => (
+                  <li
+                    data-entry
+                    data-text={`${entry.data.title} ${entry.data.description} ${section.name}`.toLowerCase()}
+                  >
                     <a href={`/library/${entry.id}`}>{entry.data.title}</a>
                     <p>{entry.data.description}</p>
                   </li>
@@ -36,12 +66,80 @@ for (const entry of entries) {
           ))
         )
       }
-      <p><em>This page is a foundation stub. Search, filters and richer layout are being built.</em></p>
+      <p id="library-empty" hidden>No page matches. Try a shorter word.</p>
     </div>
   </section>
 </BaseLayout>
 
+<script>
+  const form = document.getElementById('library-search');
+  const input = document.getElementById('library-filter');
+  const status = document.getElementById('library-status');
+  const empty = document.getElementById('library-empty');
+
+  if (form instanceof HTMLFormElement && input instanceof HTMLInputElement && status && empty) {
+    const groups = Array.from(document.querySelectorAll<HTMLElement>('[data-section]'));
+    const total = document.querySelectorAll('[data-entry]').length;
+
+    const apply = (): void => {
+      const words = input.value.toLowerCase().split(/\s+/).filter((word) => word.length > 0);
+      let shown = 0;
+      for (const group of groups) {
+        let groupShown = 0;
+        for (const item of Array.from(group.querySelectorAll<HTMLElement>('[data-entry]'))) {
+          const text = item.dataset.text ?? '';
+          const match = words.every((word) => text.includes(word));
+          item.hidden = !match;
+          if (match) groupShown += 1;
+        }
+        group.hidden = groupShown === 0;
+        shown += groupShown;
+      }
+      empty.hidden = shown !== 0;
+      status.textContent = words.length === 0 ? `${total} pages` : `${shown} of ${total} pages`;
+    };
+
+    form.addEventListener('submit', (event) => event.preventDefault());
+    input.addEventListener('input', apply);
+    apply();
+  }
+</script>
+
 <style>
+  .search {
+    display: grid;
+    gap: var(--space-2);
+    max-width: 40rem;
+    margin-bottom: var(--space-5);
+  }
+  .search label {
+    font-weight: 700;
+  }
+  .search input {
+    font: inherit;
+    padding: var(--space-3) var(--space-4);
+    border: 2px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper-raised);
+    color: inherit;
+  }
+  .search input:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+  }
+  .search p {
+    margin: 0;
+    color: var(--ink-muted);
+  }
+  .jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+  .jump a {
+    font-weight: 600;
+  }
   .group {
     margin-bottom: var(--space-6);
   }
