@@ -16,7 +16,7 @@ resources:
   - "atlassian/project-dependencies"
   - "openapi-initiative/learn-openapi"
   - "google-cloud/api-design-guide"
-  - "twelve-factor-app/the-twelve-factor-app"
+  - "twelve-factor/the-twelve-factor-app"
   - "strategyzer/business-model-canvas"
 prerequisites:
   - "01-the-frameworks-map"
