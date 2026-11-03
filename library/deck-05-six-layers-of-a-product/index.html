@@ -1,0 +1,259 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Deck 5: Six layers of a product · Developer Dojo</title><meta name="description" content="See the whole product as six layers, build the repository map in Week 1, and learn why every integration belongs to a company function."><link rel="canonical" href="https://developerdojo.org/library/deck-05-six-layers-of-a-product/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="color-scheme" content="light dark"><meta property="og:site_name" content="Developer Dojo"><meta property="og:title" content="Deck 5: Six layers of a product · Developer Dojo"><meta property="og:description" content="See the whole product as six layers, build the repository map in Week 1, and learn why every integration belongs to a company function."><meta property="og:type" content="website"><meta property="og:url" content="https://developerdojo.org/library/deck-05-six-layers-of-a-product/"><meta name="twitter:card" content="summary"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      // Runs before first paint: apply the saved theme and mark JS as available.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('dojo-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/PageHero.CB5u5E89.css"><style>.crumbs[data-astro-cid-vx4iavld] ol[data-astro-cid-vx4iavld]{gap:var(--space-1) var(--space-2);margin:0 0 var(--space-4);font-size:var(--text-sm);flex-wrap:wrap;padding:0;list-style:none;display:flex}.crumbs[data-astro-cid-vx4iavld] li[data-astro-cid-vx4iavld]+li[data-astro-cid-vx4iavld]:before{content:"/";margin-right:var(--space-2);color:var(--ink-muted)}.crumbs[data-astro-cid-vx4iavld] [data-astro-cid-vx4iavld][aria-current=page]{color:var(--ink-muted)}.toc[data-astro-cid-p33bl5ka] ol[data-astro-cid-p33bl5ka]{gap:var(--space-2);font-size:var(--text-sm);margin:0;padding:0;list-style:none;display:grid}.depth-3[data-astro-cid-p33bl5ka]{padding-left:var(--space-4)}.toc[data-astro-cid-p33bl5ka] a[data-astro-cid-p33bl5ka]{text-decoration:none}.toc[data-astro-cid-p33bl5ka] a[data-astro-cid-p33bl5ka]:hover{text-decoration:underline}.toc-inline[data-astro-cid-p33bl5ka]{margin-bottom:var(--space-5);padding:var(--space-3) var(--space-4);background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius)}.toc-inline[data-astro-cid-p33bl5ka] summary[data-astro-cid-p33bl5ka]{cursor:pointer;font-weight:700}.toc-inline[data-astro-cid-p33bl5ka] ol[data-astro-cid-p33bl5ka]{margin-top:var(--space-3)}@media (width>=70rem){.toc-inline[data-astro-cid-p33bl5ka]{display:none}.toc-side[data-astro-cid-p33bl5ka]{top:calc(var(--header-h) + var(--space-4));max-height:calc(100vh - var(--header-h) - var(--space-6));padding:var(--space-3) var(--space-4);border-left:3px solid var(--gold);position:sticky;overflow-y:auto}.toc-title[data-astro-cid-p33bl5ka]{margin:0 0 var(--space-3);font-weight:700}}.lesson[data-astro-cid-ecbjlo7c]{gap:var(--space-6);grid-template-columns:minmax(0,1fr);align-items:start;display:grid}.side[data-astro-cid-ecbjlo7c]{display:none}@media (width>=70rem){.side[data-astro-cid-ecbjlo7c]{align-self:stretch;display:block}.lesson[data-astro-cid-ecbjlo7c]{grid-template-columns:minmax(0,72ch) 16rem;justify-content:center}}.facts[data-astro-cid-ecbjlo7c]{gap:var(--space-2) var(--space-4);margin:0 0 var(--space-4);font-size:var(--text-sm);flex-wrap:wrap;padding:0;font-weight:600;list-style:none;display:flex}.facts[data-astro-cid-ecbjlo7c] li[data-astro-cid-ecbjlo7c]{align-items:center;gap:var(--space-2);display:inline-flex}.box[data-astro-cid-ecbjlo7c]{margin-bottom:var(--space-4);padding:var(--space-3) var(--space-5);background:var(--paper-raised);border:1px solid var(--line);border-left:5px solid var(--olive);border-radius:var(--radius)}.box[data-astro-cid-ecbjlo7c] h2[data-astro-cid-ecbjlo7c]{margin:0 0 var(--space-2);font-size:var(--text-lg)}.box[data-astro-cid-ecbjlo7c] ul[data-astro-cid-ecbjlo7c]{padding-left:var(--space-5);margin:0}.further[data-astro-cid-ecbjlo7c]{margin-top:var(--space-7)}.further-intro[data-astro-cid-ecbjlo7c]{color:var(--ink-muted)}.cards[data-astro-cid-ecbjlo7c]{gap:var(--space-4);margin:0;padding:0;list-style:none;display:grid}.pager[data-astro-cid-ecbjlo7c]{gap:var(--space-3);margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--line);grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));display:grid}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]{gap:var(--space-1);padding:var(--space-3) var(--space-4);background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius);font-weight:600;text-decoration:none;display:grid}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]:hover{border-color:var(--olive)}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c] span[data-astro-cid-ecbjlo7c]{font-size:var(--text-sm);letter-spacing:.04em;text-transform:uppercase;color:var(--ink-muted);font-weight:700}.back[data-astro-cid-ecbjlo7c]{margin-top:var(--space-5)}.pager[data-astro-cid-ecbjlo7c] .next[data-astro-cid-ecbjlo7c]{text-align:right}
+.section-header[data-astro-cid-pb4nux2a]{max-width:38rem}.align-center[data-astro-cid-pb4nux2a]{text-align:center;margin-inline:auto}.eyebrow[data-astro-cid-pb4nux2a]{align-items:center;gap:var(--space-3);margin:0 0 var(--space-2);letter-spacing:.14em;text-transform:uppercase;color:var(--rust-text);font-size:.78rem;font-weight:700;display:flex}.align-center[data-astro-cid-pb4nux2a] .eyebrow[data-astro-cid-pb4nux2a]{justify-content:center}.eyebrow-rule[data-astro-cid-pb4nux2a]{opacity:.55;background:currentColor;flex:0 4rem;height:1px}.title[data-astro-cid-pb4nux2a]{margin-bottom:var(--space-2)}.intro[data-astro-cid-pb4nux2a]{color:var(--ink-muted);margin:0}.tone-dark[data-astro-cid-pb4nux2a] .eyebrow[data-astro-cid-pb4nux2a]{color:var(--gold)}.tone-dark[data-astro-cid-pb4nux2a] .title[data-astro-cid-pb4nux2a]{color:var(--band-text)}.tone-dark[data-astro-cid-pb4nux2a] .intro[data-astro-cid-pb4nux2a]{color:var(--band-muted)}
+.resource[data-astro-cid-jtgbjsdm]{gap:var(--space-2);overflow-wrap:anywhere;min-width:0;padding:var(--space-4) var(--space-5);background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);align-content:start;display:grid}.provider[data-astro-cid-jtgbjsdm]{font-size:var(--text-sm);letter-spacing:.04em;text-transform:uppercase;color:var(--olive-text);margin:0;font-weight:700}h3[data-astro-cid-jtgbjsdm]{font-family:var(--font-serif);font-size:var(--text-xl);margin:0;line-height:1.25}h3[data-astro-cid-jtgbjsdm] a[data-astro-cid-jtgbjsdm]{gap:var(--space-2);align-items:baseline;display:inline-flex}h3[data-astro-cid-jtgbjsdm] svg{flex:none;align-self:center}.chips[data-astro-cid-jtgbjsdm]{gap:var(--space-2);flex-wrap:wrap;margin:0;padding:0;list-style:none;display:flex}.chip[data-astro-cid-jtgbjsdm]{font-size:var(--text-sm);background:var(--paper-sunk);border:1px solid var(--line);border-radius:999px;padding:.1rem .6rem;font-weight:600}.summary[data-astro-cid-jtgbjsdm],.meta[data-astro-cid-jtgbjsdm]{margin:0}.meta[data-astro-cid-jtgbjsdm]{font-size:var(--text-sm);color:var(--ink-muted)}
+</style></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header" data-astro-cid-nen7h5rs><div class="bar" data-astro-cid-nen7h5rs><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><button type="button" class="search-open button-phone" data-search-open aria-label="Search" aria-keyshortcuts="/ Control+K Meta+K" data-astro-cid-e66w4awt><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"/><circle cx="11" cy="11" r="8"/></g></svg></button><script type="module">var e=document.querySelector(`[data-search-dialog]`),t={current:null};function n(n){e&&!e.open&&(t.current=n,e.showModal(),e.querySelector(`input[type="search"]`)?.focus())}for(let e of document.querySelectorAll(`[data-search-open]`))e.addEventListener(`click`,()=>n(e));e?.querySelector(`[data-search-close]`)?.addEventListener(`click`,()=>e.close()),e?.addEventListener(`click`,t=>{t.target===e&&e.close()}),e?.addEventListener(`close`,()=>t.current?.focus()),e?.addEventListener(`click`,t=>{t.target instanceof HTMLAnchorElement&&e.close()}),document.addEventListener(`keydown`,e=>{let t=e.target,r=t instanceof HTMLInputElement||t instanceof HTMLTextAreaElement||t instanceof HTMLSelectElement||t instanceof HTMLElement&&t.isContentEditable,i=e.key===`/`&&!r&&!e.ctrlKey&&!e.metaKey&&!e.altKey,a=e.key.toLowerCase()===`k`&&(e.ctrlKey||e.metaKey);(i||a)&&(e.preventDefault(),n(document.activeElement instanceof HTMLElement?document.activeElement:null))});</script><button type="button" class="menu-button" data-menu-button aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu" data-astro-cid-nen7h5rs><svg class="icon open-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"/></svg><svg class="icon close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><nav id="primary-nav" class="nav" aria-label="Primary" data-nav data-astro-cid-nen7h5rs><ul data-astro-cid-nen7h5rs><li data-astro-cid-nen7h5rs><a href="/train" data-astro-cid-nen7h5rs>Train</a></li><li data-astro-cid-nen7h5rs><a href="/sensei" data-astro-cid-nen7h5rs>Sensei</a></li><li data-astro-cid-nen7h5rs><a href="/library" aria-current="page" data-astro-cid-nen7h5rs>Library</a></li><li data-astro-cid-nen7h5rs><a href="/certificates" data-astro-cid-nen7h5rs>Certificates</a></li><li data-astro-cid-nen7h5rs><a href="/challenges" data-astro-cid-nen7h5rs>Challenges</a></li><li data-astro-cid-nen7h5rs><a href="/events" data-astro-cid-nen7h5rs>Events</a></li><li data-astro-cid-nen7h5rs><a href="/membership" data-astro-cid-nen7h5rs>Membership</a></li></ul><div class="actions" data-astro-cid-nen7h5rs><button type="button" class="search-open button-desktop" data-search-open aria-label="Search" aria-keyshortcuts="/ Control+K Meta+K" data-astro-cid-e66w4awt><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"/><circle cx="11" cy="11" r="8"/></g></svg></button><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" data-astro-cid-l6lhmie6><svg class="icon to-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="icon to-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g></svg></button><script type="module">var e=document.documentElement,t=document.querySelector(`[data-theme-toggle]`);function n(){let t=e.getAttribute(`data-theme`);return t===`dark`||t!==`light`&&window.matchMedia(`(prefers-color-scheme: dark)`).matches}function r(){if(!t)return;let e=n();t.setAttribute(`aria-label`,e?`Switch to light theme`:`Switch to dark theme`),t.setAttribute(`data-mode`,e?`dark`:`light`)}t?.addEventListener(`click`,()=>{let t=n()?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`dojo-theme`,t)}catch(e){console.warn(`Theme preference not saved:`,e)}r()}),r();</script><a class="start" href="/membership" data-astro-cid-nen7h5rs>Start free</a></div></nav></div><dialog class="search-dialog" data-search-dialog aria-label="Search" data-astro-cid-e66w4awt><button type="button" class="close" data-search-close aria-label="Close search" data-astro-cid-e66w4awt><svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><div class="search-panel" data-search data-pagefind-ignore data-astro-cid-5gryy2vu><form role="search" aria-label="Search the whole site" data-search-form data-astro-cid-5gryy2vu><label for="site-search-input" data-astro-cid-5gryy2vu>Search the whole site</label><input id="site-search-input" type="search" placeholder="Try: epic, persona, roadmap, Kubernetes" autocomplete="off" spellcheck="false" aria-describedby="site-search-status" data-search-input data-astro-cid-5gryy2vu></form><p id="site-search-status" class="status" role="status" aria-live="polite" data-search-status data-astro-cid-5gryy2vu></p><div class="results" data-search-results data-astro-cid-5gryy2vu></div><noscript><p data-astro-cid-5gryy2vu>Search needs JavaScript. You can still browse the <a href="/library" data-astro-cid-5gryy2vu>library</a>.</p></noscript></div><script type="module">var e=[`lessons`,`tracks`,`resources`,`pages`],t={lessons:`Lessons and guides`,tracks:`Tracks`,resources:`Learning resources`,pages:`Other pages`};function n(e){let[t=``,n=``]=e.split(`#`),r=t.split(`/`).filter(e=>e.length>0);return r[0]===`library`?r[1]===`resources`?n?`resources`:`pages`:r[1]===`tracks`?r.length===1||r.length===2?`pages`:r.length===3?`tracks`:`lessons`:r.length>=2?`lessons`:`pages`:`pages`}var r;function i(){return r??=import(`/pagefind/pagefind.js`).then(async e=>(await e.init(),e)),r}var a=24;function o(r,i){r.replaceChildren();let a=new Map;for(let e of i){let t=n(e.url);a.set(t,[...a.get(t)??[],e])}for(let n of e){let e=a.get(n);if(!e)continue;let i=document.createElement(`section`),o=document.createElement(`h3`);o.textContent=t[n];let s=document.createElement(`ul`);for(let t of e){let e=document.createElement(`li`),n=document.createElement(`a`);if(n.href=t.url,n.textContent=t.meta.title??t.url,e.append(n),t.meta.group){let n=document.createElement(`span`);n.className=`where`,n.textContent=t.meta.group,e.append(n)}let r=document.createElement(`p`);r.innerHTML=t.excerpt,e.append(r),s.append(e)}i.append(o,s),r.append(i)}}for(let e of document.querySelectorAll(`[data-search]`)){let t=e.querySelector(`[data-search-input]`),n=e.querySelector(`[data-search-form]`),r=e.querySelector(`[data-search-status]`),s=e.querySelector(`[data-search-results]`);if(!t||!n||!r||!s)continue;let c=0,l=async()=>{let e=t.value.trim(),n=++c;if(e.length===0)r.textContent=``,s.replaceChildren();else try{let t=await(await i()).debouncedSearch(e,{},150);if(t===null||n!==c)return;let l=await Promise.all(t.results.slice(0,a).map(e=>e.data()));if(n!==c)return;o(s,l),r.textContent=t.results.length===0?`No results for "${e}". Try a shorter or different word.`:`${t.results.length} ${t.results.length===1?`result`:`results`} for "${e}"`}catch(e){console.warn(`Search is not available:`,e),r.textContent=`Search is not available here. It works on the published site.`}};n.addEventListener(`submit`,e=>{e.preventDefault(),l()}),t.addEventListener(`input`,()=>void l())}</script></dialog></header><script type="module">var e=document.querySelector(`[data-menu-button]`),t=document.querySelector(`[data-nav]`),n=document.querySelector(`.site-header`);function r(t){e&&n&&(n.toggleAttribute(`data-open`,t),e.setAttribute(`aria-expanded`,String(t)),e.setAttribute(`aria-label`,t?`Close menu`:`Open menu`))}e?.addEventListener(`click`,()=>r(e.getAttribute(`aria-expanded`)!==`true`)),t?.addEventListener(`click`,e=>{e.target instanceof HTMLAnchorElement&&r(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e?.getAttribute(`aria-expanded`)===`true`&&(r(!1),e.focus())}),window.matchMedia(`(min-width: 62rem)`).addEventListener(`change`,e=>{e.matches&&r(!1)}),document.documentElement.classList.add(`js`);</script><main id="main" data-pagefind-body><section class="hero compact" data-astro-cid-75ysl5lo><div class="art" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/hero-dojo-mobile.avif" media="(max-width: 40rem)"><source type="image/webp" srcset="/images/hero-dojo-mobile.webp" media="(max-width: 40rem)"><source srcset="/images/hero-dojo-mobile.jpg" media="(max-width: 40rem)"><source type="image/avif" srcset="/images/hero-dojo.avif"><source type="image/webp" srcset="/images/hero-dojo.webp"><img class="art-img" src="/images/hero-dojo.jpg" alt width="2400" height="900" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="scrim" aria-hidden="true" data-astro-cid-75ysl5lo></div><div class="enso" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/enso.avif"><source type="image/webp" srcset="/images/enso.webp"><img src="/images/enso.png" alt width="800" height="800" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="container grid" data-astro-cid-75ysl5lo><div class="copy" data-astro-cid-75ysl5lo><p class="eyebrow" data-astro-cid-75ysl5lo>Teaching deck</p><h1 data-astro-cid-75ysl5lo>Deck 5: Six layers of a product</h1><p class="subtitle" data-astro-cid-75ysl5lo>See the whole product as six layers, build the repository map in Week 1, and learn why every integration belongs to a company function.</p></div></div></section><article class="section" data-astro-cid-ecbjlo7c><div class="container lesson" data-astro-cid-ecbjlo7c><div class="main" data-astro-cid-ecbjlo7c><nav class="crumbs" aria-label="Breadcrumb" data-pagefind-ignore data-astro-cid-vx4iavld><ol data-astro-cid-vx4iavld><li data-astro-cid-vx4iavld><a href="/library" data-astro-cid-vx4iavld>Library</a></li><li data-astro-cid-vx4iavld><a href="/library#section-teaching-deck" data-astro-cid-vx4iavld>Teaching deck</a></li><li data-astro-cid-vx4iavld><span aria-current="page" data-astro-cid-vx4iavld>Deck 5: Six layers of a product</span></li></ol></nav><ul class="facts" aria-label="About this lesson" data-pagefind-ignore data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 20h.01M7 20v-4m5 4v-8m5 8V8m5-4v16"/></svg>Foundation</li><li data-astro-cid-ecbjlo7c><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></g></svg>90 min</li><li data-astro-cid-ecbjlo7c><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v16m8.001-2A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2a5 5 0 0 1 4-2z"/></svg>9 min read</li></ul><section class="box outcomes" aria-labelledby="outcomes-title" data-astro-cid-ecbjlo7c><h2 id="outcomes-title" data-astro-cid-ecbjlo7c>After this lesson you can</h2><ul data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c>Describe the six layers of a product: Reach, Use, Run, Connect, Money and sales, Operate.</li><li data-astro-cid-ecbjlo7c>Build a product repository map with every column filled.</li><li data-astro-cid-ecbjlo7c>For each integration, name who uses it, what data goes in and out and what breaks if it stops.</li><li data-astro-cid-ecbjlo7c>Find a risk by spotting an integration that has no owner.</li></ul></section><section class="box" aria-labelledby="prereq-title" data-astro-cid-ecbjlo7c><h2 id="prereq-title" data-astro-cid-ecbjlo7c>Read these first</h2><ul data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c><a href="/library/deck-04-no-ai-epics-rule" data-astro-cid-ecbjlo7c>Deck 4: The no-AI-epics rule</a></li><li data-astro-cid-ecbjlo7c><a href="/library/repository-map-standard" data-astro-cid-ecbjlo7c>Repository map standard</a></li></ul></section><nav class="toc toc-inline" aria-label="On this page" data-pagefind-ignore data-astro-cid-p33bl5ka><details data-astro-cid-p33bl5ka><summary data-astro-cid-p33bl5ka>On this page</summary><ol data-astro-cid-p33bl5ka><li class="depth-2" data-astro-cid-p33bl5ka><a href="#why-it-matters" data-astro-cid-p33bl5ka>Why it matters</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#key-ideas" data-astro-cid-p33bl5ka>Key ideas</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#the-six-layers" data-astro-cid-p33bl5ka>The six layers</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#week-1-tool-the-product-repository-map" data-astro-cid-p33bl5ka>Week 1 tool: the product repository map</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#integrations-belong-to-company-functions" data-astro-cid-p33bl5ka>Integrations belong to company functions</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#a-worked-example-trailmug" data-astro-cid-p33bl5ka>A worked example: TrailMug</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#working-with-ai-agents" data-astro-cid-p33bl5ka>Working with AI agents</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#the-2030-product-development-manager-lens" data-astro-cid-p33bl5ka>The 2030 Product Development Manager lens</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#common-mistakes" data-astro-cid-p33bl5ka>Common mistakes</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#practice" data-astro-cid-p33bl5ka>Practice</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#checklist" data-astro-cid-p33bl5ka>Checklist</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#for-facilitators-speaker-notes" data-astro-cid-p33bl5ka>For facilitators (speaker notes)</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#where-to-go-next" data-astro-cid-p33bl5ka>Where to go next</a></li></ol></details></nav><div class="prose" data-astro-cid-ecbjlo7c><p>This lesson covers slides 10, 11 and 12. Slide 10 shows a product as six layers. Slide 11 introduces the Week 1 tool, the product repository map. Slide 12 explains why every integration belongs to a part of the company. Together they teach you to <strong>see the whole product</strong> before you write a single epic.</p>
+<h2 id="why-it-matters">Why it matters</h2>
+<p>Epics come from the places where parts of the product meet. If you cannot list the parts, you cannot find the joins. A product map is also an honest check of your own knowledge: the first time you try to fill it in, you will find rows you cannot complete. Those gaps are the first things to learn, and often the first epics.</p>
+<h2 id="key-ideas">Key ideas</h2>
+<h3 id="the-six-layers">The six layers</h3>
+<p>The deck uses a hiring-website product from the program’s worked example as the picture, marked “example only”. Every product has these layers, even if some are small.</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>What is in it</th>
+<th>In the worked-example picture</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Reach</strong></td>
+<td>How people find you</td>
+<td>Marketing site (hosted as static pages), squeeze pages, technical briefs</td>
+</tr>
+<tr>
+<td><strong>Use</strong></td>
+<td>What people use</td>
+<td>The app (proprietary), interactive tools</td>
+</tr>
+<tr>
+<td><strong>Run</strong></td>
+<td>What runs behind the scenes</td>
+<td>Cloud microservices, workflow services and functions, a front door if used</td>
+</tr>
+<tr>
+<td><strong>Connect</strong></td>
+<td>How the product talks to other tools</td>
+<td>Integrations; email, chat and identity</td>
+</tr>
+<tr>
+<td><strong>Money and sales</strong></td>
+<td>How money and customers are handled</td>
+<td>A customer relationship manager (CRM); a payment gateway, noted as <strong>none yet = a gap</strong></td>
+</tr>
+<tr>
+<td><strong>Operate</strong></td>
+<td>How the product is kept running</td>
+<td>The operations repo: monitoring, deploy, secrets</td>
+</tr>
+</tbody>
+</table>
+<p>Two points to notice. First, a <strong>gap is information, not an insult</strong>. “Payment gateway: none yet” is a useful line. Second, the layers cross repositories. The product is not a single code base.</p>
+<p>A short note on words in the table: a <strong>squeeze page</strong> is a simple web page with one goal, such as collecting an email address. A <strong>CRM</strong> is a system that stores customers and sales contacts. A <strong>gateway</strong> here means the service that takes card payments. A <strong>microservice</strong> is a small program that does one job and is called by others.</p>
+<h3 id="week-1-tool-the-product-repository-map">Week 1 tool: the product repository map</h3>
+<p>The map has <strong>one row per repo, domain or service</strong>. The columns are:</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>What to write</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>The short, consistent name of the repo, domain or service</td>
+</tr>
+<tr>
+<td>URL or domain</td>
+<td>Where it lives</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>Marketing site, app, squeeze page or tool, cloud microservice, integration, CRM, payments, ops</td>
+</tr>
+<tr>
+<td>Purpose</td>
+<td>One sentence: what it is for</td>
+</tr>
+<tr>
+<td>Ties into</td>
+<td>Which other rows it depends on or feeds</td>
+</tr>
+<tr>
+<td>Owner</td>
+<td>A named person or team</td>
+</tr>
+<tr>
+<td>Your access</td>
+<td><code>write</code> or <code>none</code>: can you change this part? The proprietary app is often <code>none</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>The goal is that <strong>no part of the product is a mystery to you</strong>. The speaker note adds a key point: the <strong>ties into</strong> column is the most important one. It is where epics come from.</p>
+<h3 id="integrations-belong-to-company-functions">Integrations belong to company functions</h3>
+<p>Slide 12 moves from code to company. Every third-party tool serves part of the company: sales, marketing, finance, support, operations, identity.</p>
+<p>For each tool, ask three questions:</p>
+<ol>
+<li><strong>Who uses it?</strong></li>
+<li><strong>What data goes in and out?</strong></li>
+<li><strong>What breaks if it stops?</strong></li>
+</ol>
+<p>Examples from the slide: the CRM serves sales. The payment gateway serves finance and the customer. Identity (sign-in) serves everyone.</p>
+<blockquote>
+<p>When you cannot name the owner of an integration, you have found a risk.</p>
+</blockquote>
+<p>This is where trainees see the company, not only the code.</p>
+<h2 id="a-worked-example-trailmug">A worked example: TrailMug</h2>
+<p>Here are the first rows of a repository map for TrailMug. Names follow the site’s naming rule: product prefix, then a short type word, all lowercase.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Name</th>
+<th>Type</th>
+<th>Purpose</th>
+<th>Ties into</th>
+<th>Owner</th>
+<th>Your access</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>trailmug-planning</td>
+<td>planning</td>
+<td>Vision, epics, roadmap, templates</td>
+<td>all</td>
+<td>Product owner (placeholder)</td>
+<td>write</td>
+</tr>
+<tr>
+<td>2</td>
+<td>trailmug-site</td>
+<td>marketing site</td>
+<td>Tells commuters and cafés what TrailMug is</td>
+<td>trailmug-app, trailmug-lp-cafes</td>
+<td>Marketing lead (placeholder)</td>
+<td>write</td>
+</tr>
+<tr>
+<td>3</td>
+<td>trailmug-app</td>
+<td>app</td>
+<td>Borrow and return cups</td>
+<td>trailmug-svc-returns, trailmug-pay</td>
+<td>Engineering lead (placeholder)</td>
+<td>none</td>
+</tr>
+<tr>
+<td>4</td>
+<td>trailmug-lp-cafes</td>
+<td>squeeze page</td>
+<td>Collects café sign-ups</td>
+<td>trailmug-crm</td>
+<td>Marketing lead</td>
+<td>write</td>
+</tr>
+<tr>
+<td>5</td>
+<td>trailmug-svc-returns</td>
+<td>microservice</td>
+<td>Records cup returns</td>
+<td>trailmug-app, trailmug-int-email</td>
+<td>Engineering lead</td>
+<td>write</td>
+</tr>
+<tr>
+<td>6</td>
+<td>trailmug-crm</td>
+<td>CRM</td>
+<td>Stores café partners and leads</td>
+<td>trailmug-lp-cafes</td>
+<td>Operations lead (placeholder)</td>
+<td>none</td>
+</tr>
+<tr>
+<td>7</td>
+<td>trailmug-pay</td>
+<td>payments</td>
+<td>Takes and returns deposits</td>
+<td>trailmug-app</td>
+<td>Finance lead (placeholder)</td>
+<td>none</td>
+</tr>
+<tr>
+<td>8</td>
+<td>trailmug-ops</td>
+<td>ops</td>
+<td>Monitoring, deploy, secrets</td>
+<td>all</td>
+<td>Engineering lead</td>
+<td>write</td>
+</tr>
+</tbody>
+</table>
+<p>Reading the <strong>Ties into</strong> column, you can already see candidate epics. The app depends on payments, and the payments row has no <code>write</code> access for you. A commuter journey that includes a deposit refund crosses four rows. That crossing is an epic.</p>
+<p>For integrations, TrailMug’s email service serves <strong>support</strong> and <strong>marketing</strong>. Ask: who uses it? Support sends return reminders. What data goes in? Commuter email and cup id. What breaks if it stops? Reminders stop and cups are not returned on time. Who owns it? If the table says nobody, you have found a risk worth an issue.</p>
+<h2 id="working-with-ai-agents">Working with AI agents</h2>
+<ul>
+<li><strong>Allowed:</strong> an agent can read a repository and answer a fact question: “What does this service call?” Use this to fill the <strong>ties into</strong> column faster, then check the answer yourself.</li>
+<li><strong>Allowed:</strong> an agent can check that your map has no blank cells, or that names follow the naming rule, after you wrote it.</li>
+<li><strong>Not allowed:</strong> do not ask an agent to “draw the product map” from the repos and then accept it. You must write the <strong>purpose</strong> and <strong>owner</strong> columns yourself. An agent cannot know that a repo is dead, or that the person named as owner left last month.</li>
+<li><strong>Careful:</strong> when you give an agent access, record that in the <strong>your access</strong> column. The map tells everyone what an agent may change.</li>
+</ul>
+<h2 id="the-2030-product-development-manager-lens">The 2030 Product Development Manager lens</h2>
+<p>This program trains the <strong>Product Development Manager of 2030</strong>: a person who blends strategy, product, design, brand and marketing, finance, operations, security and engineering, and who treats AI agents as the workforce for lower-level work. The bar is high, and the method is plain. In this lesson:</p>
+<ul>
+<li><strong>You decide:</strong> the purpose and owner of each row, which joins matter, and which risks become issues.</li>
+<li><strong>You delegate to agents:</strong> fact-finding in repositories to fill the ties-into column, and checks that names and cells follow the standard.</li>
+<li><strong>The brief you would write:</strong> “Read the repository trailmug-svc-returns. List every other service, API and database it calls. Output a table: target, kind of call, file where it is called. Do not guess; write ‘not found’ when unsure.”</li>
+<li><strong>You verify by:</strong> opening the code that the agent cites, confirming each tie, and phoning the person named as owner.</li>
+<li><strong>Disciplines involved:</strong> operations (hosting and monitoring), sales and finance (CRM and payments), marketing (reach), security (who can access what), engineering (the services).</li>
+<li><strong>On the agent ladder:</strong> <strong>use</strong>: an agent answers fact questions about code to fill your map. The map also becomes what a command chain needs: which repos exist, who owns them and what an agent may change (the access column).</li>
+</ul>
+<h2 id="common-mistakes">Common mistakes</h2>
+<ol>
+<li><strong>Mapping only the code you wrote.</strong> The CRM and the payment gateway count.</li>
+<li><strong>A vague purpose.</strong> “Helps users” tells nobody anything. Say what it does.</li>
+<li><strong>No owner.</strong> An unowned row is a risk, not a detail.</li>
+<li><strong>Skipping the “ties into” column.</strong> It is the most useful column.</li>
+<li><strong>Treating a proprietary part as invisible.</strong> If the app is closed to you, mark access <code>none</code>, but still map it and name who can answer questions.</li>
+<li><strong>Names that break the pattern.</strong> Mixed capitals, version numbers and dates in names make the map hard to search.</li>
+</ol>
+<h2 id="practice">Practice</h2>
+<ol>
+<li>Fill in a repository map for a product you know, with at least eight rows. Do not use AI to write it.</li>
+<li>For each row, check the <strong>ties into</strong> column. Draw lines between the rows on paper. Circle any join that crosses three or more rows.</li>
+<li>List five integrations of your product. For each, answer the three questions: who uses it, what data goes in and out, what breaks if it stops.</li>
+<li>Mark each integration with an owner. If you cannot, write “risk” in red and add it to a list of issues.</li>
+</ol>
+<h2 id="checklist">Checklist</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> I can name the six layers and give an example of each.</li>
+<li class="task-list-item"><input type="checkbox" disabled> My map has one row per repo, domain or service.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Every row has a purpose, a ties-into list, an owner and an access value.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I asked the three questions for every integration.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I found and recorded at least one risk or gap.</li>
+</ul>
+<h2 id="for-facilitators-speaker-notes">For facilitators (speaker notes)</h2>
+<ul>
+<li><strong>Slide 10.</strong> Use the example product as the picture. Every product has these layers, even if some are small.</li>
+<li><strong>Slide 11.</strong> Show the spreadsheet. The ties-into column is the most important one. It is where epics come from.</li>
+<li><strong>Slide 12.</strong> This is where trainees see the company, not only the code.</li>
+</ul>
+<h2 id="where-to-go-next">Where to go next</h2>
+<p>Continue with <a href="/library/deck-06-personas-touch-points-journeys">Deck 6: Personas, touch points and journeys</a>. The map is described as a standard in <a href="/library/repository-map-standard">Repository map standard</a>, and the blank form is the <a href="/library/template-repository-map">repository map template</a>.</p>
+</div><section class="further" aria-label="Further learning" data-pagefind-ignore data-astro-cid-ecbjlo7c><header class="section-header tone-paper align-start" data-astro-cid-pb4nux2a><p class="eyebrow" data-astro-cid-pb4nux2a><span data-astro-cid-pb4nux2a>Go deeper</span><span class="eyebrow-rule" aria-hidden="true" data-astro-cid-pb4nux2a></span></p><h2 class="title" data-astro-cid-pb4nux2a="true">Further learning</h2></header><p class="further-intro" data-astro-cid-ecbjlo7c>Free or low-cost material from other publishers. We opened every link; check the cost label before you start.</p><ul class="cards" data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="c4model/c4" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>Simon Brown</p><h3 data-astro-cid-jtgbjsdm><a href="https://c4model.com/" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>The C4 model<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Docs</li><li class="chip" data-astro-cid-jtgbjsdm>Beginner</li></ul><p class="summary" data-astro-cid-jtgbjsdm>A simple way to draw software at four zoom levels: context, containers, components and code. It helps you draw the layers of a product so others can follow. Read the introduction page.</p></article></li><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="microsoft/azure-architecture-center" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>Microsoft Learn</p><h3 data-astro-cid-jtgbjsdm><a href="https://learn.microsoft.com/en-us/azure/architecture/" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>Azure Architecture Center<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Docs</li><li class="chip" data-astro-cid-jtgbjsdm>Intermediate</li></ul><p class="summary" data-astro-cid-jtgbjsdm>Reference architectures and guides for cloud systems. Use it to see how a product is split into parts. Read the application architecture fundamentals.</p></article></li><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="microsoft/azure-functions-overview" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>Microsoft Learn</p><h3 data-astro-cid-jtgbjsdm><a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>Azure Functions overview<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Docs</li><li class="chip" data-astro-cid-jtgbjsdm>Beginner</li></ul><p class="summary" data-astro-cid-jtgbjsdm>Explains serverless functions that run small pieces of code on demand. It helps you read a repository map that lists function apps. A short overview.</p></article></li><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="microsoft/logic-apps-overview" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>Microsoft Learn</p><h3 data-astro-cid-jtgbjsdm><a href="https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-overview" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>What is Azure Logic Apps?<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Docs</li><li class="chip" data-astro-cid-jtgbjsdm>Beginner</li></ul><p class="summary" data-astro-cid-jtgbjsdm>Explains a cloud service that connects apps and data with workflows built from steps. It shows how an integration can run without a full application. Read it when you list integrations.</p></article></li><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="microsoft/front-door-overview" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>Microsoft Learn</p><h3 data-astro-cid-jtgbjsdm><a href="https://learn.microsoft.com/en-us/azure/frontdoor/front-door-overview" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>Azure Front Door overview<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Docs</li><li class="chip" data-astro-cid-jtgbjsdm>Intermediate</li></ul><p class="summary" data-astro-cid-jtgbjsdm>Describes a global entry point that routes web traffic to backends. It helps you read a map where a front door sits before the services. Skim the overview.</p></article></li><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="twelve-factor/the-twelve-factor-app" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>Twelve-Factor project</p><h3 data-astro-cid-jtgbjsdm><a href="https://12factor.net/" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>The Twelve-Factor App<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Book</li><li class="chip" data-astro-cid-jtgbjsdm>Intermediate</li><li class="chip" data-astro-cid-jtgbjsdm>about 45 minutes</li></ul><p class="summary" data-astro-cid-jtgbjsdm>Twelve short rules for building apps that are easy to deploy and run, including keeping configuration in the environment and treating backing services as swappable. Use it to judge any starter or agent-built project for operations readiness.</p></article></li></ul></section><nav class="pager" data-pagefind-ignore aria-label="More in Teaching deck" data-astro-cid-ecbjlo7c><a class="prev" href="/library/deck-04-no-ai-epics-rule" data-astro-cid-ecbjlo7c><span data-astro-cid-ecbjlo7c>Previous</span>Deck 4: The no-AI-epics rule</a><a class="next" href="/library/deck-06-personas-touch-points-journeys" data-astro-cid-ecbjlo7c><span data-astro-cid-ecbjlo7c>Next</span>Deck 6: Personas, touch points and journeys</a></nav><p class="back" data-astro-cid-ecbjlo7c><a href="/library" data-astro-cid-ecbjlo7c>Back to the library</a></p></div><aside class="side" data-pagefind-ignore data-astro-cid-ecbjlo7c><nav class="toc toc-side" aria-label="Table of contents" data-astro-cid-p33bl5ka><p class="toc-title" aria-hidden="true" data-astro-cid-p33bl5ka>On this page</p><ol data-astro-cid-p33bl5ka><li class="depth-2" data-astro-cid-p33bl5ka><a href="#why-it-matters" data-astro-cid-p33bl5ka>Why it matters</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#key-ideas" data-astro-cid-p33bl5ka>Key ideas</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#the-six-layers" data-astro-cid-p33bl5ka>The six layers</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#week-1-tool-the-product-repository-map" data-astro-cid-p33bl5ka>Week 1 tool: the product repository map</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#integrations-belong-to-company-functions" data-astro-cid-p33bl5ka>Integrations belong to company functions</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#a-worked-example-trailmug" data-astro-cid-p33bl5ka>A worked example: TrailMug</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#working-with-ai-agents" data-astro-cid-p33bl5ka>Working with AI agents</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#the-2030-product-development-manager-lens" data-astro-cid-p33bl5ka>The 2030 Product Development Manager lens</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#common-mistakes" data-astro-cid-p33bl5ka>Common mistakes</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#practice" data-astro-cid-p33bl5ka>Practice</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#checklist" data-astro-cid-p33bl5ka>Checklist</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#for-facilitators-speaker-notes" data-astro-cid-p33bl5ka>For facilitators (speaker notes)</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#where-to-go-next" data-astro-cid-p33bl5ka>Where to go next</a></li></ol></nav></aside></div></article></main><section class="sponsor-band" aria-label="Sponsored by Reveltek" data-astro-cid-ji2uitki><div class="backdrop" aria-hidden="true" data-astro-cid-ji2uitki><span class="only-light" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band.avif"><source type="image/webp" srcset="/images/mountains-band.webp"><img src="/images/mountains-band.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span><span class="only-dark" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band-dark.avif"><source type="image/webp" srcset="/images/mountains-band-dark.webp"><img src="/images/mountains-band-dark.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span></div><div class="container inner" data-astro-cid-ji2uitki><span class="lead" data-astro-cid-ji2uitki>Sponsored by</span><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span><a class="sponsor" href="/sponsors" data-astro-cid-ji2uitki><img class="only-light" src="/images/reveltek-logo.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki><img class="only-dark" src="/images/reveltek-logo-white.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki></a><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span></div></section><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="container inner" data-astro-cid-jo6i4kqk><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><nav aria-label="Footer" data-astro-cid-jo6i4kqk><ul data-astro-cid-jo6i4kqk><li data-astro-cid-jo6i4kqk><a href="/about" data-astro-cid-jo6i4kqk>About CRC</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors" data-astro-cid-jo6i4kqk>Sponsors (Reveltek)</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors#become-a-sponsor" data-astro-cid-jo6i4kqk>Become a sponsor</a></li><li data-astro-cid-jo6i4kqk><a href="/contact" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href="/code-of-conduct" data-astro-cid-jo6i4kqk>Code of conduct</a></li><li data-astro-cid-jo6i4kqk><a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>GitHub</a></li></ul></nav></div><p class="legal container" data-astro-cid-jo6i4kqk>© 2026 Curiosity Research Corporation. Developer Dojo is free for everyone and is sponsored by Reveltek.</p></footer></body></html><script type="module">for(let e of document.querySelectorAll(`.prose .task-list-item > input[type="checkbox"]`)){let t=e.parentElement?.textContent?.trim();t&&e.setAttribute(`aria-label`,t)}</script>

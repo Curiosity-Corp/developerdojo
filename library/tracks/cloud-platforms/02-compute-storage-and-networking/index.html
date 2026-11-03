@@ -1,0 +1,322 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Compute, storage and networking · Developer Dojo</title><meta name="description" content="The building blocks every cloud offers, what each is for, how AWS, Azure and Google Cloud name them, and the questions that expose a weak design."><link rel="canonical" href="https://developerdojo.org/library/tracks/cloud-platforms/02-compute-storage-and-networking/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="color-scheme" content="light dark"><meta property="og:site_name" content="Developer Dojo"><meta property="og:title" content="Compute, storage and networking · Developer Dojo"><meta property="og:description" content="The building blocks every cloud offers, what each is for, how AWS, Azure and Google Cloud name them, and the questions that expose a weak design."><meta property="og:type" content="website"><meta property="og:url" content="https://developerdojo.org/library/tracks/cloud-platforms/02-compute-storage-and-networking/"><meta name="twitter:card" content="summary"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      // Runs before first paint: apply the saved theme and mark JS as available.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('dojo-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/PageHero.CB5u5E89.css"><style>.crumbs[data-astro-cid-vx4iavld] ol[data-astro-cid-vx4iavld]{gap:var(--space-1) var(--space-2);margin:0 0 var(--space-4);font-size:var(--text-sm);flex-wrap:wrap;padding:0;list-style:none;display:flex}.crumbs[data-astro-cid-vx4iavld] li[data-astro-cid-vx4iavld]+li[data-astro-cid-vx4iavld]:before{content:"/";margin-right:var(--space-2);color:var(--ink-muted)}.crumbs[data-astro-cid-vx4iavld] [data-astro-cid-vx4iavld][aria-current=page]{color:var(--ink-muted)}.toc[data-astro-cid-p33bl5ka] ol[data-astro-cid-p33bl5ka]{gap:var(--space-2);font-size:var(--text-sm);margin:0;padding:0;list-style:none;display:grid}.depth-3[data-astro-cid-p33bl5ka]{padding-left:var(--space-4)}.toc[data-astro-cid-p33bl5ka] a[data-astro-cid-p33bl5ka]{text-decoration:none}.toc[data-astro-cid-p33bl5ka] a[data-astro-cid-p33bl5ka]:hover{text-decoration:underline}.toc-inline[data-astro-cid-p33bl5ka]{margin-bottom:var(--space-5);padding:var(--space-3) var(--space-4);background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius)}.toc-inline[data-astro-cid-p33bl5ka] summary[data-astro-cid-p33bl5ka]{cursor:pointer;font-weight:700}.toc-inline[data-astro-cid-p33bl5ka] ol[data-astro-cid-p33bl5ka]{margin-top:var(--space-3)}@media (width>=70rem){.toc-inline[data-astro-cid-p33bl5ka]{display:none}.toc-side[data-astro-cid-p33bl5ka]{top:calc(var(--header-h) + var(--space-4));max-height:calc(100vh - var(--header-h) - var(--space-6));padding:var(--space-3) var(--space-4);border-left:3px solid var(--gold);position:sticky;overflow-y:auto}.toc-title[data-astro-cid-p33bl5ka]{margin:0 0 var(--space-3);font-weight:700}}.lesson[data-astro-cid-ecbjlo7c]{gap:var(--space-6);grid-template-columns:minmax(0,1fr);align-items:start;display:grid}.side[data-astro-cid-ecbjlo7c]{display:none}@media (width>=70rem){.side[data-astro-cid-ecbjlo7c]{align-self:stretch;display:block}.lesson[data-astro-cid-ecbjlo7c]{grid-template-columns:minmax(0,72ch) 16rem;justify-content:center}}.facts[data-astro-cid-ecbjlo7c]{gap:var(--space-2) var(--space-4);margin:0 0 var(--space-4);font-size:var(--text-sm);flex-wrap:wrap;padding:0;font-weight:600;list-style:none;display:flex}.facts[data-astro-cid-ecbjlo7c] li[data-astro-cid-ecbjlo7c]{align-items:center;gap:var(--space-2);display:inline-flex}.box[data-astro-cid-ecbjlo7c]{margin-bottom:var(--space-4);padding:var(--space-3) var(--space-5);background:var(--paper-raised);border:1px solid var(--line);border-left:5px solid var(--olive);border-radius:var(--radius)}.box[data-astro-cid-ecbjlo7c] h2[data-astro-cid-ecbjlo7c]{margin:0 0 var(--space-2);font-size:var(--text-lg)}.box[data-astro-cid-ecbjlo7c] ul[data-astro-cid-ecbjlo7c]{padding-left:var(--space-5);margin:0}.further[data-astro-cid-ecbjlo7c]{margin-top:var(--space-7)}.further-intro[data-astro-cid-ecbjlo7c]{color:var(--ink-muted)}.cards[data-astro-cid-ecbjlo7c]{gap:var(--space-4);margin:0;padding:0;list-style:none;display:grid}.pager[data-astro-cid-ecbjlo7c]{gap:var(--space-3);margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--line);grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));display:grid}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]{gap:var(--space-1);padding:var(--space-3) var(--space-4);background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius);font-weight:600;text-decoration:none;display:grid}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]:hover{border-color:var(--olive)}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c] span[data-astro-cid-ecbjlo7c]{font-size:var(--text-sm);letter-spacing:.04em;text-transform:uppercase;color:var(--ink-muted);font-weight:700}.back[data-astro-cid-ecbjlo7c]{margin-top:var(--space-5)}.pager[data-astro-cid-ecbjlo7c] .next[data-astro-cid-ecbjlo7c]{text-align:right}
+.section-header[data-astro-cid-pb4nux2a]{max-width:38rem}.align-center[data-astro-cid-pb4nux2a]{text-align:center;margin-inline:auto}.eyebrow[data-astro-cid-pb4nux2a]{align-items:center;gap:var(--space-3);margin:0 0 var(--space-2);letter-spacing:.14em;text-transform:uppercase;color:var(--rust-text);font-size:.78rem;font-weight:700;display:flex}.align-center[data-astro-cid-pb4nux2a] .eyebrow[data-astro-cid-pb4nux2a]{justify-content:center}.eyebrow-rule[data-astro-cid-pb4nux2a]{opacity:.55;background:currentColor;flex:0 4rem;height:1px}.title[data-astro-cid-pb4nux2a]{margin-bottom:var(--space-2)}.intro[data-astro-cid-pb4nux2a]{color:var(--ink-muted);margin:0}.tone-dark[data-astro-cid-pb4nux2a] .eyebrow[data-astro-cid-pb4nux2a]{color:var(--gold)}.tone-dark[data-astro-cid-pb4nux2a] .title[data-astro-cid-pb4nux2a]{color:var(--band-text)}.tone-dark[data-astro-cid-pb4nux2a] .intro[data-astro-cid-pb4nux2a]{color:var(--band-muted)}
+.resource[data-astro-cid-jtgbjsdm]{gap:var(--space-2);overflow-wrap:anywhere;min-width:0;padding:var(--space-4) var(--space-5);background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);align-content:start;display:grid}.provider[data-astro-cid-jtgbjsdm]{font-size:var(--text-sm);letter-spacing:.04em;text-transform:uppercase;color:var(--olive-text);margin:0;font-weight:700}h3[data-astro-cid-jtgbjsdm]{font-family:var(--font-serif);font-size:var(--text-xl);margin:0;line-height:1.25}h3[data-astro-cid-jtgbjsdm] a[data-astro-cid-jtgbjsdm]{gap:var(--space-2);align-items:baseline;display:inline-flex}h3[data-astro-cid-jtgbjsdm] svg{flex:none;align-self:center}.chips[data-astro-cid-jtgbjsdm]{gap:var(--space-2);flex-wrap:wrap;margin:0;padding:0;list-style:none;display:flex}.chip[data-astro-cid-jtgbjsdm]{font-size:var(--text-sm);background:var(--paper-sunk);border:1px solid var(--line);border-radius:999px;padding:.1rem .6rem;font-weight:600}.summary[data-astro-cid-jtgbjsdm],.meta[data-astro-cid-jtgbjsdm]{margin:0}.meta[data-astro-cid-jtgbjsdm]{font-size:var(--text-sm);color:var(--ink-muted)}
+</style></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header" data-astro-cid-nen7h5rs><div class="bar" data-astro-cid-nen7h5rs><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><button type="button" class="search-open button-phone" data-search-open aria-label="Search" aria-keyshortcuts="/ Control+K Meta+K" data-astro-cid-e66w4awt><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"/><circle cx="11" cy="11" r="8"/></g></svg></button><script type="module">var e=document.querySelector(`[data-search-dialog]`),t={current:null};function n(n){e&&!e.open&&(t.current=n,e.showModal(),e.querySelector(`input[type="search"]`)?.focus())}for(let e of document.querySelectorAll(`[data-search-open]`))e.addEventListener(`click`,()=>n(e));e?.querySelector(`[data-search-close]`)?.addEventListener(`click`,()=>e.close()),e?.addEventListener(`click`,t=>{t.target===e&&e.close()}),e?.addEventListener(`close`,()=>t.current?.focus()),e?.addEventListener(`click`,t=>{t.target instanceof HTMLAnchorElement&&e.close()}),document.addEventListener(`keydown`,e=>{let t=e.target,r=t instanceof HTMLInputElement||t instanceof HTMLTextAreaElement||t instanceof HTMLSelectElement||t instanceof HTMLElement&&t.isContentEditable,i=e.key===`/`&&!r&&!e.ctrlKey&&!e.metaKey&&!e.altKey,a=e.key.toLowerCase()===`k`&&(e.ctrlKey||e.metaKey);(i||a)&&(e.preventDefault(),n(document.activeElement instanceof HTMLElement?document.activeElement:null))});</script><button type="button" class="menu-button" data-menu-button aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu" data-astro-cid-nen7h5rs><svg class="icon open-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"/></svg><svg class="icon close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><nav id="primary-nav" class="nav" aria-label="Primary" data-nav data-astro-cid-nen7h5rs><ul data-astro-cid-nen7h5rs><li data-astro-cid-nen7h5rs><a href="/train" data-astro-cid-nen7h5rs>Train</a></li><li data-astro-cid-nen7h5rs><a href="/sensei" data-astro-cid-nen7h5rs>Sensei</a></li><li data-astro-cid-nen7h5rs><a href="/library" aria-current="page" data-astro-cid-nen7h5rs>Library</a></li><li data-astro-cid-nen7h5rs><a href="/certificates" data-astro-cid-nen7h5rs>Certificates</a></li><li data-astro-cid-nen7h5rs><a href="/challenges" data-astro-cid-nen7h5rs>Challenges</a></li><li data-astro-cid-nen7h5rs><a href="/events" data-astro-cid-nen7h5rs>Events</a></li><li data-astro-cid-nen7h5rs><a href="/membership" data-astro-cid-nen7h5rs>Membership</a></li></ul><div class="actions" data-astro-cid-nen7h5rs><button type="button" class="search-open button-desktop" data-search-open aria-label="Search" aria-keyshortcuts="/ Control+K Meta+K" data-astro-cid-e66w4awt><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"/><circle cx="11" cy="11" r="8"/></g></svg></button><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" data-astro-cid-l6lhmie6><svg class="icon to-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="icon to-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g></svg></button><script type="module">var e=document.documentElement,t=document.querySelector(`[data-theme-toggle]`);function n(){let t=e.getAttribute(`data-theme`);return t===`dark`||t!==`light`&&window.matchMedia(`(prefers-color-scheme: dark)`).matches}function r(){if(!t)return;let e=n();t.setAttribute(`aria-label`,e?`Switch to light theme`:`Switch to dark theme`),t.setAttribute(`data-mode`,e?`dark`:`light`)}t?.addEventListener(`click`,()=>{let t=n()?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`dojo-theme`,t)}catch(e){console.warn(`Theme preference not saved:`,e)}r()}),r();</script><a class="start" href="/membership" data-astro-cid-nen7h5rs>Start free</a></div></nav></div><dialog class="search-dialog" data-search-dialog aria-label="Search" data-astro-cid-e66w4awt><button type="button" class="close" data-search-close aria-label="Close search" data-astro-cid-e66w4awt><svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><div class="search-panel" data-search data-pagefind-ignore data-astro-cid-5gryy2vu><form role="search" aria-label="Search the whole site" data-search-form data-astro-cid-5gryy2vu><label for="site-search-input" data-astro-cid-5gryy2vu>Search the whole site</label><input id="site-search-input" type="search" placeholder="Try: epic, persona, roadmap, Kubernetes" autocomplete="off" spellcheck="false" aria-describedby="site-search-status" data-search-input data-astro-cid-5gryy2vu></form><p id="site-search-status" class="status" role="status" aria-live="polite" data-search-status data-astro-cid-5gryy2vu></p><div class="results" data-search-results data-astro-cid-5gryy2vu></div><noscript><p data-astro-cid-5gryy2vu>Search needs JavaScript. You can still browse the <a href="/library" data-astro-cid-5gryy2vu>library</a>.</p></noscript></div><script type="module">var e=[`lessons`,`tracks`,`resources`,`pages`],t={lessons:`Lessons and guides`,tracks:`Tracks`,resources:`Learning resources`,pages:`Other pages`};function n(e){let[t=``,n=``]=e.split(`#`),r=t.split(`/`).filter(e=>e.length>0);return r[0]===`library`?r[1]===`resources`?n?`resources`:`pages`:r[1]===`tracks`?r.length===1||r.length===2?`pages`:r.length===3?`tracks`:`lessons`:r.length>=2?`lessons`:`pages`:`pages`}var r;function i(){return r??=import(`/pagefind/pagefind.js`).then(async e=>(await e.init(),e)),r}var a=24;function o(r,i){r.replaceChildren();let a=new Map;for(let e of i){let t=n(e.url);a.set(t,[...a.get(t)??[],e])}for(let n of e){let e=a.get(n);if(!e)continue;let i=document.createElement(`section`),o=document.createElement(`h3`);o.textContent=t[n];let s=document.createElement(`ul`);for(let t of e){let e=document.createElement(`li`),n=document.createElement(`a`);if(n.href=t.url,n.textContent=t.meta.title??t.url,e.append(n),t.meta.group){let n=document.createElement(`span`);n.className=`where`,n.textContent=t.meta.group,e.append(n)}let r=document.createElement(`p`);r.innerHTML=t.excerpt,e.append(r),s.append(e)}i.append(o,s),r.append(i)}}for(let e of document.querySelectorAll(`[data-search]`)){let t=e.querySelector(`[data-search-input]`),n=e.querySelector(`[data-search-form]`),r=e.querySelector(`[data-search-status]`),s=e.querySelector(`[data-search-results]`);if(!t||!n||!r||!s)continue;let c=0,l=async()=>{let e=t.value.trim(),n=++c;if(e.length===0)r.textContent=``,s.replaceChildren();else try{let t=await(await i()).debouncedSearch(e,{},150);if(t===null||n!==c)return;let l=await Promise.all(t.results.slice(0,a).map(e=>e.data()));if(n!==c)return;o(s,l),r.textContent=t.results.length===0?`No results for "${e}". Try a shorter or different word.`:`${t.results.length} ${t.results.length===1?`result`:`results`} for "${e}"`}catch(e){console.warn(`Search is not available:`,e),r.textContent=`Search is not available here. It works on the published site.`}};n.addEventListener(`submit`,e=>{e.preventDefault(),l()}),t.addEventListener(`input`,()=>void l())}</script></dialog></header><script type="module">var e=document.querySelector(`[data-menu-button]`),t=document.querySelector(`[data-nav]`),n=document.querySelector(`.site-header`);function r(t){e&&n&&(n.toggleAttribute(`data-open`,t),e.setAttribute(`aria-expanded`,String(t)),e.setAttribute(`aria-label`,t?`Close menu`:`Open menu`))}e?.addEventListener(`click`,()=>r(e.getAttribute(`aria-expanded`)!==`true`)),t?.addEventListener(`click`,e=>{e.target instanceof HTMLAnchorElement&&r(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e?.getAttribute(`aria-expanded`)===`true`&&(r(!1),e.focus())}),window.matchMedia(`(min-width: 62rem)`).addEventListener(`change`,e=>{e.matches&&r(!1)}),document.documentElement.classList.add(`js`);</script><main id="main" data-pagefind-body><section class="hero compact" data-astro-cid-75ysl5lo><div class="art" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/hero-dojo-mobile.avif" media="(max-width: 40rem)"><source type="image/webp" srcset="/images/hero-dojo-mobile.webp" media="(max-width: 40rem)"><source srcset="/images/hero-dojo-mobile.jpg" media="(max-width: 40rem)"><source type="image/avif" srcset="/images/hero-dojo.avif"><source type="image/webp" srcset="/images/hero-dojo.webp"><img class="art-img" src="/images/hero-dojo.jpg" alt width="2400" height="900" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="scrim" aria-hidden="true" data-astro-cid-75ysl5lo></div><div class="enso" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/enso.avif"><source type="image/webp" srcset="/images/enso.webp"><img src="/images/enso.png" alt width="800" height="800" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="container grid" data-astro-cid-75ysl5lo><div class="copy" data-astro-cid-75ysl5lo><p class="eyebrow" data-astro-cid-75ysl5lo>Track · Cloud platforms</p><h1 data-astro-cid-75ysl5lo>Compute, storage and networking</h1><p class="subtitle" data-astro-cid-75ysl5lo>The building blocks every cloud offers, what each is for, how AWS, Azure and Google Cloud name them, and the questions that expose a weak design.</p></div></div></section><article class="section" data-astro-cid-ecbjlo7c><div class="container lesson" data-astro-cid-ecbjlo7c><div class="main" data-astro-cid-ecbjlo7c><nav class="crumbs" aria-label="Breadcrumb" data-pagefind-ignore data-astro-cid-vx4iavld><ol data-astro-cid-vx4iavld><li data-astro-cid-vx4iavld><a href="/library" data-astro-cid-vx4iavld>Library</a></li><li data-astro-cid-vx4iavld><a href="/library/tracks" data-astro-cid-vx4iavld>Tracks</a></li><li data-astro-cid-vx4iavld><a href="/library/tracks/cloud-platforms" data-astro-cid-vx4iavld>Cloud platforms</a></li><li data-astro-cid-vx4iavld><span aria-current="page" data-astro-cid-vx4iavld>Compute, storage and networking</span></li></ol></nav><ul class="facts" aria-label="About this lesson" data-pagefind-ignore data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 20h.01M7 20v-4m5 4v-8m5 8V8m5-4v16"/></svg>Foundation</li><li data-astro-cid-ecbjlo7c><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></g></svg>90 min</li><li data-astro-cid-ecbjlo7c><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v16m8.001-2A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2a5 5 0 0 1 4-2z"/></svg>11 min read</li><li data-astro-cid-ecbjlo7c><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M8 2v3m8-3v3"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01M16 17h.01"/></g></svg>Updated <time datetime="2026-11-03" data-astro-cid-ecbjlo7c>3 November 2026</time></li></ul><section class="box outcomes" aria-labelledby="outcomes-title" data-astro-cid-ecbjlo7c><h2 id="outcomes-title" data-astro-cid-ecbjlo7c>After this lesson you can</h2><ul data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c>Describe compute, storage, databases and networking and choose among the options</li><li data-astro-cid-ecbjlo7c>Match the common services across AWS, Azure and Google Cloud</li><li data-astro-cid-ecbjlo7c>Read a network picture and spot an exposed database</li><li data-astro-cid-ecbjlo7c>Direct an agent to draft a design and verify its choices</li></ul></section><section class="box" aria-labelledby="prereq-title" data-astro-cid-ecbjlo7c><h2 id="prereq-title" data-astro-cid-ecbjlo7c>Read these first</h2><ul data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c><a href="/library/the-way-five-rules" data-astro-cid-ecbjlo7c>The Way: five rules</a></li></ul></section><nav class="toc toc-inline" aria-label="On this page" data-pagefind-ignore data-astro-cid-p33bl5ka><details data-astro-cid-p33bl5ka><summary data-astro-cid-p33bl5ka>On this page</summary><ol data-astro-cid-p33bl5ka><li class="depth-2" data-astro-cid-p33bl5ka><a href="#1-why-this-matters" data-astro-cid-p33bl5ka>1. Why this matters</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#2-key-ideas-explained" data-astro-cid-p33bl5ka>2. Key ideas, explained</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#block-one-compute" data-astro-cid-p33bl5ka>Block one: compute</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#block-two-storage" data-astro-cid-p33bl5ka>Block two: storage</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#block-three-databases" data-astro-cid-p33bl5ka>Block three: databases</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#block-four-networking" data-astro-cid-p33bl5ka>Block four: networking</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#names-across-the-three-providers" data-astro-cid-p33bl5ka>Names across the three providers</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#a-failure-story-for-each-block" data-astro-cid-p33bl5ka>A failure story for each block</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#3-step-by-step-review-a-four-block-design" data-astro-cid-p33bl5ka>3. Step by step: review a four-block design</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#4-worked-example-trailmug" data-astro-cid-p33bl5ka>4. Worked example: TrailMug</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#5-working-with-ai-agents-on-this" data-astro-cid-p33bl5ka>5. Working with AI agents on this</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#6-common-mistakes-and-how-to-avoid-them" data-astro-cid-p33bl5ka>6. Common mistakes and how to avoid them</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#7-practice" data-astro-cid-p33bl5ka>7. Practice</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#8-checklist" data-astro-cid-p33bl5ka>8. Checklist</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#9-further-learning" data-astro-cid-p33bl5ka>9. Further learning</a></li></ol></details></nav><div class="prose" data-astro-cid-ecbjlo7c><p>Lesson 2 of the Cloud platforms track. It supports the Master Developer module on infrastructure. Lesson 1 should come first.</p>
+<h2 id="1-why-this-matters">1. Why this matters</h2>
+<p>Cloud catalogues are huge, but the problems are few. Your product needs somewhere to run code, somewhere to keep files, somewhere to keep structured records, and a way for people and parts to reach each other. Every provider sells those four things under different names.</p>
+<p>If you learn the four, you can read an agent’s proposal on any platform, and notice when it picked an expensive, risky or needlessly complicated option. This lesson is a map, not a manual.</p>
+<table>
+<thead>
+<tr>
+<th>The 2030 PDM decides</th>
+<th>Delegates to agents</th>
+<th>Verifies by</th>
+<th>Other disciplines</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>How much control versus effort is right, what must be backed up, what may touch the internet</td>
+<td>Choosing and configuring services, drafting diagrams, writing setup code</td>
+<td>Reading the design with the four-block lens, checking exposure, asking for a failure story</td>
+<td>Security (exposure), operations (running it), data (what is stored), finance (what each block costs), architecture (fit with the rest)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-key-ideas-explained">2. Key ideas, explained</h2>
+<h3 id="block-one-compute">Block one: compute</h3>
+<p><strong>Compute</strong> is where your code runs. The options form a ladder from more control to less work.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>What it is</th>
+<th>You manage</th>
+<th>Good when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Virtual machine</strong></td>
+<td>A whole rented computer</td>
+<td>OS, patches, scaling, software</td>
+<td>You need full control, or legacy software</td>
+</tr>
+<tr>
+<td><strong>Containers</strong></td>
+<td>Your app packed as an image (see CI/CD lesson 2), run by a service</td>
+<td>The image, the settings</td>
+<td>Most modern services</td>
+</tr>
+<tr>
+<td><strong>Container orchestration</strong></td>
+<td>A system, usually Kubernetes, that runs many containers</td>
+<td>A lot, unless fully managed</td>
+<td>Large or complex systems</td>
+</tr>
+<tr>
+<td><strong>Serverless functions</strong></td>
+<td>Small pieces of code run only when called</td>
+<td>Just the code</td>
+<td>Event-driven or spiky workloads</td>
+</tr>
+<tr>
+<td><strong>Platform services</strong></td>
+<td>You hand over code, the platform runs it</td>
+<td>Code and settings</td>
+<td>Small web apps and APIs</td>
+</tr>
+</tbody>
+</table>
+<p>Rule of thumb for a young product: start as far down the table as the product allows, because everything you manage you must secure and patch. Move up only for a reason you can write down. The Twelve-Factor App (<a href="https://12factor.net/">12factor.net</a>) lists habits that make an app easy to run in any of these: configuration in the environment, logs to standard output, disposable processes.</p>
+<h3 id="block-two-storage">Block two: storage</h3>
+<p>There are three shapes of storage, and picking the wrong one is a common agent mistake.</p>
+<table>
+<thead>
+<tr>
+<th>Shape</th>
+<th>Holds</th>
+<th>Behaves like</th>
+<th>Typical use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Object storage</strong></td>
+<td>Files of any size, such as images, backups, site files</td>
+<td>A huge filing cabinet with web addresses</td>
+<td>Website assets, uploads, backups</td>
+</tr>
+<tr>
+<td><strong>Block storage</strong></td>
+<td>A disk attached to a machine</td>
+<td>A hard drive</td>
+<td>A virtual machine’s disk</td>
+</tr>
+<tr>
+<td><strong>File storage</strong></td>
+<td>A shared folder many machines can open</td>
+<td>A network drive</td>
+<td>Shared files for several servers</td>
+</tr>
+</tbody>
+</table>
+<p>Object storage is the one most products use first. It is also where the famous breaches happen: a bucket set to “public” that held private files. Always ask: <strong>is this storage private, and who can read it?</strong></p>
+<h3 id="block-three-databases">Block three: databases</h3>
+<p>A <strong>database</strong> holds structured records and lets you search them. Two families.</p>
+<table>
+<thead>
+<tr>
+<th>Family</th>
+<th>How it thinks</th>
+<th>Good for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Relational (SQL)</strong></td>
+<td>Tables with rows and columns, linked by keys, strict structure</td>
+<td>Orders, accounts, money, anything where consistency matters</td>
+</tr>
+<tr>
+<td><strong>Non-relational (NoSQL)</strong></td>
+<td>Flexible documents, key-value pairs, or other shapes</td>
+<td>Very high scale, flexible data, caches</td>
+</tr>
+</tbody>
+</table>
+<p>Most products start with a relational database. Providers sell <strong>managed</strong> databases: they handle backups, patching and failover. A managed database is nearly always better than one an agent installs on a virtual machine, because the work you avoid is the work that gets forgotten. Ask three things of any database: <strong>who can connect, how is it backed up, and has anyone ever tested restoring it?</strong> A backup that was never restored is a hope.</p>
+<h3 id="block-four-networking">Block four: networking</h3>
+<p>A <strong>network</strong> decides who can talk to whom. Key parts:</p>
+<ul>
+<li><strong>Virtual network</strong> (a VPC on AWS and Google Cloud, a virtual network on Azure): your own private space in the cloud. Parts inside can talk freely; the outside cannot, unless you say so.</li>
+<li><strong>Subnet</strong>: a section of the network. A common split is <strong>public</strong> subnets (reachable from the internet, for load balancers) and <strong>private</strong> subnets (not reachable, for databases and internal services).</li>
+<li><strong>Firewall rules / security groups</strong>: lists of what traffic is allowed in and out. “Allow from anywhere” is written as <code>0.0.0.0/0</code>. Seeing that on a database port is a red flag.</li>
+<li><strong>Load balancer</strong>: spreads incoming requests across copies of a service, and checks that each is healthy.</li>
+<li><strong>DNS</strong>: turns names like <code>trailmug.example</code> into addresses.</li>
+<li><strong>CDN</strong> (content delivery network): keeps copies of static files near users for speed.</li>
+<li><strong>Gateway / private connection</strong>: how your private network reaches the internet or your office, and how you reach provider services without crossing the public internet.</li>
+</ul>
+<p>The mental picture: <strong>the internet touches as little as possible.</strong> The load balancer and the CDN face outward. Everything else sits behind them. The most useful question you can ask is “what is directly reachable from the internet, and why?”</p>
+<h3 id="names-across-the-three-providers">Names across the three providers</h3>
+<p>These are the closest equivalents. They are not identical. Treat the table as a translation aid, then read the provider’s page.</p>
+<table>
+<thead>
+<tr>
+<th>Building block</th>
+<th>AWS</th>
+<th>Azure</th>
+<th>Google Cloud</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Virtual machine</td>
+<td>EC2</td>
+<td>Virtual Machines</td>
+<td>Compute Engine</td>
+</tr>
+<tr>
+<td>Serverless function</td>
+<td>Lambda</td>
+<td>Functions</td>
+<td>Cloud Run functions</td>
+</tr>
+<tr>
+<td>Run a container</td>
+<td>ECS, Fargate</td>
+<td>Container Apps</td>
+<td>Cloud Run</td>
+</tr>
+<tr>
+<td>Managed Kubernetes</td>
+<td>EKS</td>
+<td>AKS</td>
+<td>GKE</td>
+</tr>
+<tr>
+<td>Object storage</td>
+<td>S3</td>
+<td>Blob Storage</td>
+<td>Cloud Storage</td>
+</tr>
+<tr>
+<td>Managed relational database</td>
+<td>RDS</td>
+<td>Azure SQL Database, Database for PostgreSQL</td>
+<td>Cloud SQL</td>
+</tr>
+<tr>
+<td>Virtual network</td>
+<td>VPC</td>
+<td>Virtual Network</td>
+<td>VPC</td>
+</tr>
+<tr>
+<td>Load balancer</td>
+<td>Elastic Load Balancing</td>
+<td>Load Balancer, Application Gateway</td>
+<td>Cloud Load Balancing</td>
+</tr>
+<tr>
+<td>DNS</td>
+<td>Route 53</td>
+<td>Azure DNS</td>
+<td>Cloud DNS</td>
+</tr>
+<tr>
+<td>CDN</td>
+<td>CloudFront</td>
+<td>Front Door / CDN</td>
+<td>Cloud CDN</td>
+</tr>
+</tbody>
+</table>
+<p>Product names change often, so check the provider’s own pages before you rely on one. Each provider has free beginner material: AWS <a href="https://aws.amazon.com/getting-started/">Getting started</a>, Microsoft’s learning path <a href="https://learn.microsoft.com/en-us/training/paths/azure-fundamentals-describe-azure-architecture-services/">Describe Azure architecture and services</a>, and the Google Cloud <a href="https://cloud.google.com/learn/training">training resources</a>. If you like to learn from video, the long freeCodeCamp course <a href="https://www.youtube.com/watch?v=NhDYbskXRgc">AWS Certified Cloud Practitioner</a> is a thorough, free walk through the AWS version of everything above. You do not need to sit the exam.</p>
+<h3 id="a-failure-story-for-each-block">A failure story for each block</h3>
+<p>Ask the agent to tell you a failure story for each block in your design: “If this fails, what happens to the customer, and how do we recover?” If it cannot tell a clear story, the design is not ready.</p>
+<table>
+<thead>
+<tr>
+<th>Block</th>
+<th>Failure story to ask for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compute</td>
+<td>One copy crashes. Does a second take over?</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>A file is deleted by mistake. Can we get it back?</td>
+</tr>
+<tr>
+<td>Database</td>
+<td>The zone fails. Is there a copy elsewhere, and how fast?</td>
+</tr>
+<tr>
+<td>Network</td>
+<td>A firewall rule is wrong. Who is exposed?</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-step-by-step-review-a-four-block-design">3. Step by step: review a four-block design</h2>
+<ol>
+<li><strong>Get a design</strong> from an agent, with each of the four blocks named.</li>
+<li><strong>Compute:</strong> which option, and why is it as managed as it can be?</li>
+<li><strong>Storage:</strong> which shape, and is each store private? Who can read, who can write?</li>
+<li><strong>Database:</strong> managed? Who can connect? Backups, and a restore test?</li>
+<li><strong>Network:</strong> draw what faces the internet. Everything else should be private.</li>
+<li><strong>Firewall rules:</strong> look for <code>0.0.0.0/0</code> on anything other than the load balancer or CDN.</li>
+<li><strong>Ask the failure stories.</strong></li>
+<li><strong>Check the equivalents:</strong> ask how the same design looks on one other provider. Differences reveal assumptions.</li>
+<li><strong>Record decisions</strong> in git.</li>
+</ol>
+<h2 id="4-worked-example-trailmug">4. Worked example: TrailMug</h2>
+<p>Maya asks for a design for the sign-up service. The agent’s second draft: static site files in object storage behind a CDN; a serverless function for the sign-up form; a managed PostgreSQL database in a private subnet; a firewall that allows the function to connect to the database and nothing else.</p>
+<p>She goes through the steps. <strong>Compute</strong> is serverless: she likes it, as it means no machine to patch. <strong>Storage:</strong> the site bucket is public for reading, which is correct for a public website, but the same bucket also holds a folder <code>exports/</code> for customer lists. She rejects that: one private bucket for exports, separate from the site files. <strong>Database:</strong> managed, with daily backups, and the agent had not mentioned restores. She adds a requirement: “Restore the latest backup into a scratch database once before launch, and note the time it took.” <strong>Network:</strong> the database is private. The firewall allows only the function’s network on the database port. She checks the rule text herself and finds no <code>0.0.0.0/0</code> except the CDN.</p>
+<p>For the failure stories, the agent says the function platform restarts failed calls automatically; the database has a standby only if she buys it, and she decides not to before launch. She writes that in the decision record with a date to revisit.</p>
+<p>Finally she asks: “How would this look on Azure?” The agent names the equivalents and notes that one serverless limit differs. Maya now knows which parts are portable (the code, the SQL) and which are tied to the platform (the function wrapper and the CDN rules). That goes into Lesson 4’s lock-in note.</p>
+<h2 id="5-working-with-ai-agents-on-this">5. Working with AI agents on this</h2>
+<p><strong>What the PDM decides:</strong> how much to manage yourself, what must be private, how much downtime and data loss is acceptable, which restore times you need.</p>
+<p><strong>Delegate:</strong> choosing among services, drawing the picture as text, translating names between providers, writing the setup as code (see the Infrastructure as code track), explaining a firewall rule.</p>
+<p><strong>Verify:</strong> run the six-line review in section 3 yourself. Ask for the failure stories. Check every rule that says “allow from anywhere”. Ask for a restore test for any data you cannot recreate.</p>
+<p><strong>Prompt for a four-block review:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Review this design. For each of compute, storage, database and network, state:</span></span>
+<span class="line"><span>what option was chosen, the more-managed alternative, who can reach it from the</span></span>
+<span class="line"><span>internet, and what the failure story is. List every firewall rule that allows</span></span>
+<span class="line"><span>traffic from anywhere. List anything that is public. Do not change the design;</span></span>
+<span class="line"><span>only report, and mark what you are unsure about.</span></span>
+<span class="line"><span>&lt;paste design&gt;</span></span></code></pre>
+<p><strong>Prompt for a cross-provider translation:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Translate each component of this design to its closest equivalent on &lt;provider&gt;.</span></span>
+<span class="line"><span>Note where behaviour, limits or pricing models differ in ways that affect the</span></span>
+<span class="line"><span>design. Say where you are not sure. Do not create any resources.</span></span></code></pre>
+<p><strong>Disclose</strong> the agent’s role in the design and which checks you ran yourself.</p>
+<h2 id="6-common-mistakes-and-how-to-avoid-them">6. Common mistakes and how to avoid them</h2>
+<ul>
+<li><strong>A database reachable from the internet.</strong> Fix: private subnet, narrow rule.</li>
+<li><strong>Public storage holding private files.</strong> Fix: separate stores, private by default.</li>
+<li><strong>Running your own database on a virtual machine.</strong> Fix: managed service.</li>
+<li><strong>Backups never restored.</strong> Fix: a restore test, timed.</li>
+<li><strong>One giant machine instead of small parts.</strong> Fix: ask for the failure story.</li>
+<li><strong>Choosing a service because the agent knows it best.</strong> Fix: ask for alternatives and reasons.</li>
+<li><strong>No design in git.</strong> Fix: the design is a file in the repository.</li>
+</ul>
+<h2 id="7-practice">7. Practice</h2>
+<p><strong>Deliverable in git:</strong> <code>specs/cloud-02.md</code>, <code>briefs/cloud-02.md</code>, <code>reviews/cloud-02.md</code>.</p>
+<ol>
+<li>Take the design from Lesson 1, or a new one.</li>
+<li>Write a spec for a four-block design with at least six acceptance criteria: each block named, private by default, no rule allowing traffic from anywhere except the load balancer or CDN, backups with a restore test, a failure story per block.</li>
+<li>Brief an agent to produce the design and the translation to one other provider. Plan first, and do not create resources.</li>
+<li>Verify with the section 3 steps. Record each finding.</li>
+<li>Record one thing you rejected and why.</li>
+<li>Write the decision record, including what you would revisit before launch.</li>
+<li>Open a merge request with a disclosure block.</li>
+</ol>
+<h2 id="8-checklist">8. Checklist</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> I can name the four blocks and the options in each.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Every store and database is private unless there is a reason.</li>
+<li class="task-list-item"><input type="checkbox" disabled> No rule allows traffic from anywhere except the front door.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Backups exist and a restore has been tested.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I read a failure story for each block.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I know which parts of the design are portable.</li>
+<li class="task-list-item"><input type="checkbox" disabled> The design is in git.</li>
+</ul>
+<h2 id="9-further-learning">9. Further learning</h2>
+<p>Pick the provider that fits your situation and work through its beginner path, using the others’ names as a translation aid. The Twelve-Factor App is short and worth reading to understand what makes an app easy to run in any of these. The freeCodeCamp video is good if you prefer a long guided tour.</p>
+</div><section class="further" aria-label="Further learning" data-pagefind-ignore data-astro-cid-ecbjlo7c><header class="section-header tone-paper align-start" data-astro-cid-pb4nux2a><p class="eyebrow" data-astro-cid-pb4nux2a><span data-astro-cid-pb4nux2a>Go deeper</span><span class="eyebrow-rule" aria-hidden="true" data-astro-cid-pb4nux2a></span></p><h2 class="title" data-astro-cid-pb4nux2a="true">Further learning</h2></header><p class="further-intro" data-astro-cid-ecbjlo7c>Free or low-cost material from other publishers. We opened every link; check the cost label before you start.</p><ul class="cards" data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="aws/getting-started" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>AWS</p><h3 data-astro-cid-jtgbjsdm><a href="https://aws.amazon.com/getting-started/" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>Getting Started - Cloud Computing Tutorials for Building on AWS<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Tutorial</li><li class="chip" data-astro-cid-jtgbjsdm>Beginner</li></ul><p class="summary" data-astro-cid-jtgbjsdm>AWS&#39;s entry page with hands-on tutorials and guided paths for first steps. Choose a tutorial that matches your task and watch for charges, then delete what you create.</p></article></li><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="microsoft/describe-azure-architecture-and-services" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>Microsoft</p><h3 data-astro-cid-jtgbjsdm><a href="https://learn.microsoft.com/en-us/training/paths/azure-fundamentals-describe-azure-architecture-services/" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>Introduction to Cloud Infrastructure: Describe Azure Architecture and Services<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Course</li><li class="chip" data-astro-cid-jtgbjsdm>Beginner</li></ul><p class="summary" data-astro-cid-jtgbjsdm>The second AZ-900 path: regions, availability zones, compute, networking, storage and identity on Azure. Useful even if you will use another cloud, because the building blocks are alike.</p></article></li><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="google-cloud/training-resources" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>Google Cloud</p><h3 data-astro-cid-jtgbjsdm><a href="https://cloud.google.com/learn/training" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>Training resources<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free-tier" data-astro-cid-jtgbjsdm>Free tier</li><li class="chip" data-astro-cid-jtgbjsdm>Course</li><li class="chip" data-astro-cid-jtgbjsdm>Beginner</li></ul><p class="summary" data-astro-cid-jtgbjsdm>Google Cloud&#39;s hub for learning, including Google Cloud Skills Boost. Some labs and courses are free and some need credits or a subscription, so check each item.</p></article></li><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="youtube-freecodecamp/aws-certified-cloud-practitioner-clf-c02" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>YouTube: freeCodeCamp.org</p><h3 data-astro-cid-jtgbjsdm><a href="https://www.youtube.com/watch?v=NhDYbskXRgc" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>AWS Certified Cloud Practitioner Certification Course (CLF-C02) - Pass the Exam!<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Video</li><li class="chip" data-astro-cid-jtgbjsdm>Beginner</li></ul><p class="summary" data-astro-cid-jtgbjsdm>A long free video course covering AWS fundamentals for the Cloud Practitioner exam. Watch parts of it to learn the services and words, even if you never sit the exam.</p></article></li><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="twelve-factor/the-twelve-factor-app" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>Twelve-Factor project</p><h3 data-astro-cid-jtgbjsdm><a href="https://12factor.net/" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>The Twelve-Factor App<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Book</li><li class="chip" data-astro-cid-jtgbjsdm>Intermediate</li><li class="chip" data-astro-cid-jtgbjsdm>about 45 minutes</li></ul><p class="summary" data-astro-cid-jtgbjsdm>Twelve short rules for building apps that are easy to deploy and run, including keeping configuration in the environment and treating backing services as swappable. Use it to judge any starter or agent-built project for operations readiness.</p></article></li></ul></section><nav class="pager" data-pagefind-ignore aria-label="More in Cloud platforms, lesson 2 of 4" data-astro-cid-ecbjlo7c><a class="prev" href="/library/tracks/cloud-platforms/01-what-the-cloud-is" data-astro-cid-ecbjlo7c><span data-astro-cid-ecbjlo7c>Previous</span>What the cloud is</a><a class="next" href="/library/tracks/cloud-platforms/03-identity-and-access" data-astro-cid-ecbjlo7c><span data-astro-cid-ecbjlo7c>Next</span>Identity and access in the cloud</a></nav><p class="back" data-astro-cid-ecbjlo7c><a href="/library/tracks/cloud-platforms" data-astro-cid-ecbjlo7c>Back to the track: Cloud platforms</a></p></div><aside class="side" data-pagefind-ignore data-astro-cid-ecbjlo7c><nav class="toc toc-side" aria-label="Table of contents" data-astro-cid-p33bl5ka><p class="toc-title" aria-hidden="true" data-astro-cid-p33bl5ka>On this page</p><ol data-astro-cid-p33bl5ka><li class="depth-2" data-astro-cid-p33bl5ka><a href="#1-why-this-matters" data-astro-cid-p33bl5ka>1. Why this matters</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#2-key-ideas-explained" data-astro-cid-p33bl5ka>2. Key ideas, explained</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#block-one-compute" data-astro-cid-p33bl5ka>Block one: compute</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#block-two-storage" data-astro-cid-p33bl5ka>Block two: storage</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#block-three-databases" data-astro-cid-p33bl5ka>Block three: databases</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#block-four-networking" data-astro-cid-p33bl5ka>Block four: networking</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#names-across-the-three-providers" data-astro-cid-p33bl5ka>Names across the three providers</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#a-failure-story-for-each-block" data-astro-cid-p33bl5ka>A failure story for each block</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#3-step-by-step-review-a-four-block-design" data-astro-cid-p33bl5ka>3. Step by step: review a four-block design</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#4-worked-example-trailmug" data-astro-cid-p33bl5ka>4. Worked example: TrailMug</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#5-working-with-ai-agents-on-this" data-astro-cid-p33bl5ka>5. Working with AI agents on this</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#6-common-mistakes-and-how-to-avoid-them" data-astro-cid-p33bl5ka>6. Common mistakes and how to avoid them</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#7-practice" data-astro-cid-p33bl5ka>7. Practice</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#8-checklist" data-astro-cid-p33bl5ka>8. Checklist</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#9-further-learning" data-astro-cid-p33bl5ka>9. Further learning</a></li></ol></nav></aside></div></article></main><section class="sponsor-band" aria-label="Sponsored by Reveltek" data-astro-cid-ji2uitki><div class="backdrop" aria-hidden="true" data-astro-cid-ji2uitki><span class="only-light" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band.avif"><source type="image/webp" srcset="/images/mountains-band.webp"><img src="/images/mountains-band.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span><span class="only-dark" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band-dark.avif"><source type="image/webp" srcset="/images/mountains-band-dark.webp"><img src="/images/mountains-band-dark.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span></div><div class="container inner" data-astro-cid-ji2uitki><span class="lead" data-astro-cid-ji2uitki>Sponsored by</span><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span><a class="sponsor" href="/sponsors" data-astro-cid-ji2uitki><img class="only-light" src="/images/reveltek-logo.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki><img class="only-dark" src="/images/reveltek-logo-white.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki></a><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span></div></section><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="container inner" data-astro-cid-jo6i4kqk><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><nav aria-label="Footer" data-astro-cid-jo6i4kqk><ul data-astro-cid-jo6i4kqk><li data-astro-cid-jo6i4kqk><a href="/about" data-astro-cid-jo6i4kqk>About CRC</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors" data-astro-cid-jo6i4kqk>Sponsors (Reveltek)</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors#become-a-sponsor" data-astro-cid-jo6i4kqk>Become a sponsor</a></li><li data-astro-cid-jo6i4kqk><a href="/contact" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href="/code-of-conduct" data-astro-cid-jo6i4kqk>Code of conduct</a></li><li data-astro-cid-jo6i4kqk><a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>GitHub</a></li></ul></nav></div><p class="legal container" data-astro-cid-jo6i4kqk>© 2026 Curiosity Research Corporation. Developer Dojo is free for everyone and is sponsored by Reveltek.</p></footer></body></html><script type="module">for(let e of document.querySelectorAll(`.prose .task-list-item > input[type="checkbox"]`)){let t=e.parentElement?.textContent?.trim();t&&e.setAttribute(`aria-label`,t)}</script>
