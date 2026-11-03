@@ -1,0 +1,9 @@
+title: "Learn Kubernetes Basics"
+provider: "Kubernetes"
+url: "https://kubernetes.io/docs/tutorials/kubernetes-basics/"
+cost: free
+format: tutorial
+level: beginner
+skills: [kubernetes-gitops]
+summary: "The official interactive tutorial: create a cluster, deploy an app, explore, expose, scale and update it. It is the best first hour with Kubernetes."
+verifiedOn: 2026-11-03

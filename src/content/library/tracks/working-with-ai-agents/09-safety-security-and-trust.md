@@ -66,7 +66,7 @@ A **secret** is a password, API key, token, private key or anything that proves 
 4. **Use a secret manager**, and let the real application read the secret at run time, not the agent.
 5. **If a secret leaks, rotate it at once.** That means replace it with a new one and disable the old. Do not wait to see if anyone used it.
 
-Tools such as the secret detection in the [GitLab documentation](https://docs.gitlab.com/user/application_security/secret_detection/) scan for secrets that were committed. They are a safety net, not a licence to be careless. The security track goes deeper.
+Tools such as the secret detection in the [GitLab documentation](https://docs.gitlab.com/user/application_security/secret_detection/) scan for secrets that were committed. They are a safety net, not a licence to be careless. The [security track](/library/tracks/security-fundamentals) goes deeper.
 
 ### Other things that never go into a chat
 

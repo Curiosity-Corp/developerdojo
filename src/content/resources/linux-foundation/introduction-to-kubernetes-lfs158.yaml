@@ -1,0 +1,9 @@
+title: "Introduction to Kubernetes (LFS158)"
+provider: "Linux Foundation"
+url: "https://training.linuxfoundation.org/training/introduction-to-kubernetes/"
+cost: free
+format: course
+level: beginner
+skills: [kubernetes-gitops]
+summary: "A free self-paced course from the Linux Foundation that introduces Kubernetes architecture and core objects. A good structured follow-up to the official tutorial. Any certificate is separate and paid."
+verifiedOn: 2026-11-03

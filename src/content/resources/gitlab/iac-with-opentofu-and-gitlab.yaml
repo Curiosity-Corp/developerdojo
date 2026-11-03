@@ -1,0 +1,9 @@
+title: "Infrastructure as Code with OpenTofu and GitLab"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/infrastructure/iac/"
+cost: free
+format: docs
+level: intermediate
+skills: [infrastructure-as-code, ci-cd]
+summary: "Shows how GitLab runs OpenTofu in pipelines and stores state. Read it to wire plan and apply into merge requests."
+verifiedOn: 2026-11-03

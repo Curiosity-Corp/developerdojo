@@ -1,0 +1,9 @@
+title: "Terraform on Google Cloud documentation"
+provider: "Google Cloud"
+url: "https://docs.cloud.google.com/docs/terraform"
+cost: free
+format: docs
+level: intermediate
+skills: [infrastructure-as-code, cloud-platforms]
+summary: "Google's guidance and tutorials for using Terraform on Google Cloud."
+verifiedOn: 2026-11-03

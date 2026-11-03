@@ -1,0 +1,9 @@
+title: "OWASP Dependency-Check"
+provider: "OWASP"
+url: "https://owasp.org/projects/dependency-check"
+cost: free
+format: docs
+level: intermediate
+skills: [security, open-source]
+summary: "A free tool that finds known-vulnerable libraries in your project. Read it to understand what dependency scanning does."
+verifiedOn: 2026-11-03

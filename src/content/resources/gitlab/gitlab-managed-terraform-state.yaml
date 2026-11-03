@@ -1,0 +1,9 @@
+title: "GitLab-managed Terraform/OpenTofu state"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/infrastructure/iac/terraform_state/"
+cost: free
+format: docs
+level: intermediate
+skills: [infrastructure-as-code]
+summary: "Explains how GitLab can store and lock state for you, so the state file does not sit on a laptop."
+verifiedOn: 2026-11-03

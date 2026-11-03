@@ -1,0 +1,9 @@
+title: "OWASP WebGoat"
+provider: "OWASP"
+url: "https://owasp.org/projects/webgoat"
+cost: free
+format: interactive
+level: intermediate
+skills: [security]
+summary: "A deliberately insecure application that you run yourself to practise finding and fixing vulnerabilities with guided lessons. Run it only on a machine you own, never on a network you share."
+verifiedOn: 2026-11-03

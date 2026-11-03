@@ -1,0 +1,9 @@
+title: "Ingress"
+provider: "Kubernetes"
+url: "https://kubernetes.io/docs/concepts/services-networking/ingress/"
+cost: free
+format: docs
+level: intermediate
+skills: [kubernetes-gitops]
+summary: "Explains how outside traffic reaches Services inside a cluster. Read it with a note that newer designs may use the Gateway API, which the Kubernetes docs also cover."
+verifiedOn: 2026-11-03

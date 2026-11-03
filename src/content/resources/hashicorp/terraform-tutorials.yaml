@@ -1,0 +1,9 @@
+title: "Tutorials | Terraform"
+provider: "HashiCorp"
+url: "https://developer.hashicorp.com/terraform/tutorials"
+cost: free
+format: tutorial
+level: beginner
+skills: [infrastructure-as-code]
+summary: "HashiCorp's hands-on tutorials for Terraform, from the first resource to state, modules and workflows. Choose a cloud and follow the Get Started track."
+verifiedOn: 2026-11-03

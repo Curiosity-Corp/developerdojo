@@ -1,0 +1,9 @@
+title: "State"
+provider: "HashiCorp"
+url: "https://developer.hashicorp.com/terraform/language/state"
+cost: free
+format: docs
+level: intermediate
+skills: [infrastructure-as-code]
+summary: "Explains Terraform state: what it stores, why it must be protected and how remote state and locking work."
+verifiedOn: 2026-11-03

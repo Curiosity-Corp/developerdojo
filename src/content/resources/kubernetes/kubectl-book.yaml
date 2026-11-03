@@ -1,0 +1,9 @@
+title: "SIG CLI (Kubectl and Kustomize docs)"
+provider: "Kubernetes"
+url: "https://kubectl.docs.kubernetes.io/"
+cost: free
+format: docs
+level: intermediate
+skills: [kubernetes-gitops]
+summary: "The documentation site of the Kubernetes CLI special interest group, with guides for kubectl and Kustomize, the tool for customising manifests without templates."
+verifiedOn: 2026-11-03

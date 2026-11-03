@@ -1,0 +1,9 @@
+title: "Secure by Design"
+provider: "CISA"
+url: "https://www.cisa.gov/securebydesign"
+cost: free
+format: docs
+level: intermediate
+skills: [security]
+summary: "The U.S. cyber agency's guidance asking software makers to take ownership of customer security outcomes. It shows the direction of the industry."
+verifiedOn: 2026-11-03

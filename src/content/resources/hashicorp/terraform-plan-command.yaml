@@ -1,0 +1,9 @@
+title: "terraform plan command reference"
+provider: "HashiCorp"
+url: "https://developer.hashicorp.com/terraform/cli/commands/plan"
+cost: free
+format: docs
+level: intermediate
+skills: [infrastructure-as-code]
+summary: "The reference for the plan command that previews changes. It is the heart of the review step in an infrastructure merge request."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "AWS | Terraform"
+provider: "HashiCorp"
+url: "https://developer.hashicorp.com/terraform/tutorials/aws-get-started"
+cost: free
+format: tutorial
+level: beginner
+skills: [infrastructure-as-code, cloud-platforms]
+summary: "The Get Started tutorial for Terraform on AWS: install, build, change, destroy and use variables. Do it with a free account and destroy everything at the end."
+verifiedOn: 2026-11-03

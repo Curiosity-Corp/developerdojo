@@ -1,0 +1,9 @@
+title: "OWASP Application Security Verification Standard"
+provider: "OWASP"
+url: "https://asvs.owasp.org/"
+cost: free
+format: docs
+level: advanced
+skills: [security]
+summary: "A detailed list of security requirements you can test an application against. Use it as a reference when you need a rigorous checklist."
+verifiedOn: 2026-11-03

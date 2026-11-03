@@ -1,0 +1,9 @@
+title: "Troubleshooting Applications"
+provider: "Kubernetes"
+url: "https://kubernetes.io/docs/tasks/debug/debug-application/"
+cost: free
+format: docs
+level: intermediate
+skills: [kubernetes-gitops, observability-reliability]
+summary: "Step-by-step help for debugging Pods and Services: pending, crashing, and not reachable. You will use it often."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "OWASP Cheat Sheet Series"
+provider: "OWASP"
+url: "https://cheatsheetseries.owasp.org/"
+cost: free
+format: docs
+level: intermediate
+skills: [security]
+summary: "A large set of short, practical guides on how to build securely, one topic per sheet. Search it when you build login, input handling, secrets or APIs."
+verifiedOn: 2026-11-03
