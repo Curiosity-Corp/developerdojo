@@ -1,0 +1,10 @@
+title: "Don't Build Agents, Build Skills Instead – Barry Zhang & Mahesh Murag, Anthropic"
+provider: "AI Engineer"
+url: "https://www.youtube.com/watch?v=CEvIs9y1uog"
+cost: "free"
+format: "video"
+level: "intermediate"
+duration: "about 16 minutes"
+skills: [ai-agents]
+summary: "Barry Zhang and Mahesh Murag of Anthropic argue for building skills instead of many bespoke agents. It gives a practical view of how agent capabilities may be packaged and governed."
+verifiedOn: 2026-11-03

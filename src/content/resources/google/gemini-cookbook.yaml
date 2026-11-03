@@ -1,0 +1,9 @@
+title: "google-gemini/cookbook"
+provider: "Google"
+url: "https://github.com/google-gemini/cookbook"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [ai-agents, open-source]
+summary: "Google's open repository of examples and guides for the Gemini API. Use it for concrete examples when you evaluate whether to build on Google's models."
+verifiedOn: 2026-11-03

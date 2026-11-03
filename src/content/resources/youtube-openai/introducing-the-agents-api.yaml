@@ -1,0 +1,10 @@
+title: "Introducing the Agents API"
+provider: "OpenAI"
+url: "https://www.youtube.com/watch?v=2YHa1vhnmK0"
+cost: "free"
+format: "video"
+level: "intermediate"
+duration: "about 2 minutes"
+skills: [ai-agents]
+summary: "OpenAI introduces its Agents API. A quick view of the building blocks vendors offer for agents."
+verifiedOn: 2026-11-03

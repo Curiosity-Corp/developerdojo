@@ -1,0 +1,9 @@
+title: "Plugins overview - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/plugins"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents]
+summary: "An overview of bundling commands, agents, hooks and tools into plugins that a whole team can install. It matters for governance because a plugin is how you ship the same guardrails to every session. Read it when you standardise how a team uses agents."
+verifiedOn: 2026-11-03

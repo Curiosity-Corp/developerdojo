@@ -1,0 +1,9 @@
+title: "Security - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/security"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents, security]
+summary: "Anthropic's description of how Claude Code is designed to be safe and what risks remain with you. It is a model of the security questions to ask about any coding agent: access, approvals, prompt injection. Read it before rolling agents out to a team."
+verifiedOn: 2026-11-03

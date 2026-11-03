@@ -1,0 +1,9 @@
+title: "Connect to external tools with MCP - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/agent-sdk/mcp"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents]
+summary: "Describes giving an SDK-built agent access to external tools through MCP servers. It helps you scope which tools an agent should have for a given job. Read it when specifying the tool list for a new agent."
+verifiedOn: 2026-11-03

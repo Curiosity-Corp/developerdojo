@@ -1,0 +1,9 @@
+title: "Hooks reference - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/hooks"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents, security]
+summary: "The full reference for hook events, inputs and decisions in Claude Code. Use it when you need to specify exactly which actions an agent fleet may take and which must be stopped or logged. Pair it with the hooks guide."
+verifiedOn: 2026-11-03

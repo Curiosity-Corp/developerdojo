@@ -1,0 +1,9 @@
+title: "Agents - Cookbook"
+provider: "OpenAI"
+url: "https://developers.openai.com/cookbook/topic/agents"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [ai-agents]
+summary: "The agents section of the OpenAI Cookbook, gathering worked examples of building agents. Use it to compare how agent patterns look across providers."
+verifiedOn: 2026-11-03

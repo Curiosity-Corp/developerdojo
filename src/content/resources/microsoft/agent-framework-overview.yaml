@@ -1,0 +1,9 @@
+title: "Microsoft Agent Framework Overview"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/agent-framework/overview/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents, open-source]
+summary: "Microsoft's open-source framework for building agents and multi-agent workflows. It offers one more provider-neutral view of orchestration concepts. Read it to compare with the OpenAI and Google agent kits."
+verifiedOn: 2026-11-03

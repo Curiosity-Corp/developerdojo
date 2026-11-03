@@ -1,0 +1,9 @@
+title: "Agents"
+provider: "OpenAI"
+url: "https://developers.openai.com/api/docs/guides/agents"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents]
+summary: "OpenAI's overview of building agents with its platform, covering the main building blocks. Use it to learn the shared vocabulary of agents: instructions, tools, hand-offs and guardrails."
+verifiedOn: 2026-11-03

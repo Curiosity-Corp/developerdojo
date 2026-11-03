@@ -1,0 +1,9 @@
+title: "Introducing advanced tool use for Claude"
+provider: "Anthropic"
+url: "https://www.anthropic.com/research/advanced-tool-use"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [ai-agents]
+summary: "Announces features that help agents discover and call many tools efficiently. Read it to understand how tool-heavy agents are being made practical and what to ask engineers about it."
+verifiedOn: 2026-11-03

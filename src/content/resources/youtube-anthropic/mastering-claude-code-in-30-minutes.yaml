@@ -1,0 +1,10 @@
+title: "Mastering Claude Code in 30 minutes"
+provider: "Anthropic"
+url: "https://www.youtube.com/watch?v=6eBSHbLKuN0"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 28 minutes"
+skills: [ai-agents]
+summary: "A half-hour walk-through of Claude Code from Anthropic. A fast way to see what an agentic coding tool does, so you can judge its output."
+verifiedOn: 2026-11-03

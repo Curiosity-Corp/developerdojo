@@ -1,0 +1,9 @@
+title: "Subagents in the SDK - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/agent-sdk/subagents"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents]
+summary: "Explains how to define and use subagents when building with the Agent SDK. It is the programmatic side of delegation: what context each subagent gets and what comes back. Read it after the Claude Code subagents page."
+verifiedOn: 2026-11-03

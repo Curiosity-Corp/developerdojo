@@ -1,0 +1,9 @@
+title: "Fairness"
+provider: "Google"
+url: "https://developers.google.com/machine-learning/crash-course/fairness"
+cost: "free"
+format: "course"
+level: "intermediate"
+skills: [ai-evaluation, security]
+summary: "A module from Google's ML Crash Course on bias, evaluating fairness and mitigation. Product owners are accountable for who their AI feature works for and who it fails. Read it before you ship anything that affects people."
+verifiedOn: 2026-11-03

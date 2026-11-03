@@ -1,0 +1,9 @@
+title: "Settings files and precedence - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/settings"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents, security]
+summary: "Shows where Claude Code settings live and which level wins when they conflict (personal, project, organisation). Understanding precedence is the basis of governing many agents with one policy. Read it before you write team-wide rules."
+verifiedOn: 2026-11-03

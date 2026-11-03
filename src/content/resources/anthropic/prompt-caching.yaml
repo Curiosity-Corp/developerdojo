@@ -1,0 +1,9 @@
+title: "Prompt caching - Claude Platform Docs"
+provider: "Anthropic"
+url: "https://platform.claude.com/docs/en/build-with-claude/prompt-caching"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents]
+summary: "Explains how to reuse repeated prompt content to cut cost and latency. It is useful business-literacy for agent work, where the same long instructions are sent again and again. Read it when you start budgeting agent spend."
+verifiedOn: 2026-11-03

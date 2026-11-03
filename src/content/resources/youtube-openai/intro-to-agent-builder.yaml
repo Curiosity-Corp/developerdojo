@@ -1,0 +1,10 @@
+title: "Intro to Agent Builder"
+provider: "OpenAI"
+url: "https://www.youtube.com/watch?v=44eFf-tRiSg"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 6 minutes"
+skills: [ai-agents]
+summary: "A short OpenAI introduction to Agent Builder, a visual tool for composing agent workflows. Shows how non-coders may design agent flows."
+verifiedOn: 2026-11-03

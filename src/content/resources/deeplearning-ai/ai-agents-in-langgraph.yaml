@@ -1,0 +1,10 @@
+title: "AI Agents in LangGraph"
+provider: "DeepLearning.AI"
+url: "https://www.deeplearning.ai/courses/ai-agents-in-langgraph"
+cost: "free"
+format: "course"
+level: "intermediate"
+duration: "1 hour 42 minutes"
+skills: [ai-agents]
+summary: "A free short course on building agents as controllable graphs with persistence and human-in-the-loop steps. It shows how to put a person into an agent workflow. Take it when you want to see approvals designed in."
+verifiedOn: 2026-11-03

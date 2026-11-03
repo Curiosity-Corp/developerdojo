@@ -1,0 +1,9 @@
+title: "Prompting best practices - Claude Platform Docs"
+provider: "Anthropic"
+url: "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [prompt-engineering]
+summary: "A single page of concrete techniques from Anthropic: be clear and direct, give examples, structure prompts with XML tags, give a role and let the model think. It is the best short reference for writing specifications an agent can follow. Keep it open while you draft briefs."
+verifiedOn: 2026-11-03

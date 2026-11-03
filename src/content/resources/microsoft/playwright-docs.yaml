@@ -1,0 +1,9 @@
+title: "Installation"
+provider: "Microsoft"
+url: "https://playwright.dev/docs/intro"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [ai-evaluation, ci-cd, open-source]
+summary: "The Playwright getting-started guide for automated browser testing, a Microsoft open-source tool. Automated end-to-end tests are one of the best ways to verify agent-built features. Read it so you can ask for and read these tests."
+verifiedOn: 2026-11-03

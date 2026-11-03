@@ -1,0 +1,9 @@
+title: "Mitigating prompt injections in browser use"
+provider: "Anthropic"
+url: "https://www.anthropic.com/research/prompt-injection-defenses"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [security, ai-agents]
+summary: "Describes the prompt injection risk for agents that browse the web and the defences Anthropic applies. It makes the threat concrete for non-specialists. Read it before you allow any agent to read content you do not control."
+verifiedOn: 2026-11-03

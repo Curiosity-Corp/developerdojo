@@ -1,0 +1,9 @@
+title: "Agents"
+provider: "Google"
+url: "https://www.kaggle.com/whitepaper-agents"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [ai-agents]
+summary: "A whitepaper from Google's Kaggle generative AI course explaining what agents are, their parts and how they are used. A calm, structured overview if you want the whole picture before the details."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Evals - Cookbook"
+provider: "OpenAI"
+url: "https://developers.openai.com/cookbook/topic/evals"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [ai-evaluation]
+summary: "The evaluation section of the OpenAI Cookbook, with examples of measuring model and agent quality. Read it to learn what a real evaluation looks like before you ask for one."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "The \"think\" tool for complex tool use"
+provider: "Anthropic"
+url: "https://www.anthropic.com/research/claude-think-tool"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [ai-agents, ai-evaluation]
+summary: "Shows how giving an agent a place to pause and reason improved results on policy-heavy tasks, with measured benchmarks. It is also a lesson in how to test a design idea before adopting it. Read it as a short example of evidence-based agent design."
+verifiedOn: 2026-11-03

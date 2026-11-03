@@ -1,0 +1,9 @@
+title: "Configure the sandboxed Bash tool - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/sandboxing"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents, security]
+summary: "Describes running the agent's shell commands inside a sandbox that limits file and network access. It is a practical example of defence in depth for autonomous agents. Read it to ask the right security questions about any agent your team runs."
+verifiedOn: 2026-11-03

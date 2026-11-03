@@ -1,0 +1,10 @@
+title: "How We Build Effective Agents: Barry Zhang, Anthropic"
+provider: "AI Engineer"
+url: "https://www.youtube.com/watch?v=D7_ipDqhtwk"
+cost: "free"
+format: "video"
+level: "intermediate"
+duration: "about 15 minutes"
+skills: [ai-agents]
+summary: "Barry Zhang of Anthropic on how to build effective agents, at the AI Engineer conference. A compact version of the principles in Anthropic's own guide. Good for forming a clear mental model of agent design."
+verifiedOn: 2026-11-03

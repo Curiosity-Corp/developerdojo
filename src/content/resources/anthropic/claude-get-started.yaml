@@ -1,0 +1,9 @@
+title: "Get started with Claude - Claude Platform Docs"
+provider: "Anthropic"
+url: "https://platform.claude.com/docs/en/get-started"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [ai-agents, prompt-engineering]
+summary: "The quickstart for building with the Claude API. A non-coder can read it to see the minimum moving parts of an AI feature: a key, a model, a message. Read it so you can talk to engineers about what an integration really involves."
+verifiedOn: 2026-11-03

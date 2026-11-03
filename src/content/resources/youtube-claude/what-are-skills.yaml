@@ -1,0 +1,10 @@
+title: "What are skills?"
+provider: "Claude"
+url: "https://www.youtube.com/watch?v=bjdBVZa66oU"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 3 minutes"
+skills: [ai-agents]
+summary: "A short Claude video on skills. Pairs with the Agent Skills explainer to show how to teach agents repeatable procedures."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Moderation"
+provider: "OpenAI"
+url: "https://developers.openai.com/api/docs/guides/moderation"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [security, ai-evaluation]
+summary: "Explains how to check text and images for harmful content before or after a model sees them. It is one simple, concrete guardrail. Read it when you design a feature that shows model output to the public."
+verifiedOn: 2026-11-03

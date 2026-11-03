@@ -1,0 +1,9 @@
+title: "anthropics/claude-quickstarts"
+provider: "Anthropic"
+url: "https://github.com/anthropics/claude-quickstarts"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [ai-agents]
+summary: "Ready-to-adapt starter projects for building with Claude, such as a customer support agent and a computer-use demo. Looking at them shows what a real agent project contains. Use them as reference when you review a proposed build."
+verifiedOn: 2026-11-03

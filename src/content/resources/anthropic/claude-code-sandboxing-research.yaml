@@ -1,0 +1,9 @@
+title: "Making Claude Code safer with sandboxing"
+provider: "Anthropic"
+url: "https://www.anthropic.com/research/claude-code-sandboxing"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [security, ai-agents]
+summary: "Explains why Anthropic added sandboxing to Claude Code and how it reduces permission prompts while limiting damage. It is a clear case study in trading safety against friction. Read it for the reasoning, then use the docs for set-up."
+verifiedOn: 2026-11-03

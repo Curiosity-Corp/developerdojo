@@ -1,0 +1,9 @@
+title: "Prompt engineering techniques - Microsoft Foundry"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/prompt-engineering"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [prompt-engineering]
+summary: "Microsoft's guide to prompt techniques with examples. It is another vendor's expression of the same ideas, useful to confirm what is general."
+verifiedOn: 2026-11-03

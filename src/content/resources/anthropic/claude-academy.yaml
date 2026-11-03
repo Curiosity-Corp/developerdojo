@@ -1,0 +1,9 @@
+title: "Claude Academy - Learn to work and build with Claude"
+provider: "Anthropic"
+url: "https://academy.claude.com/"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [ai-agents, prompt-engineering]
+summary: "Anthropic's free learning hub with courses on using Claude, building with the API, Claude Code and more. It is the official starting place for structured learning on the tools the Dojo teaches. Pick the course that matches where you are on the use, delegate, orchestrate ladder."
+verifiedOn: 2026-11-03

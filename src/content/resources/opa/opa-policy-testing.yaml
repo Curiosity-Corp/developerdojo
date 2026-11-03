@@ -1,0 +1,9 @@
+title: "Policy Testing"
+provider: "Open Policy Agent"
+url: "https://www.openpolicyagent.org/docs/policy-testing"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [security, ai-evaluation]
+summary: "How to test policies as code. Governing with policy means testing the policy too. Read it to appreciate that guardrails need their own tests."
+verifiedOn: 2026-11-03

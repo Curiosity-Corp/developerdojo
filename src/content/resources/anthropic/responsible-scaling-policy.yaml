@@ -1,0 +1,9 @@
+title: "Introducing Anthropic's Responsible Scaling Policy"
+provider: "Anthropic"
+url: "https://www.anthropic.com/news/anthropics-responsible-scaling-policy"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [security, ai-agents]
+summary: "Anthropic's first public description of its framework for linking model safeguards to capability levels. It is a worked example of governance by written policy with defined triggers. Read it as a model for writing your own policy."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Building a C compiler with parallel Claudes"
+provider: "Anthropic"
+url: "https://www.anthropic.com/research/building-c-compiler"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [ai-agents, ai-evaluation]
+summary: "Anthropic's account of running many Claude agents in parallel on one large, well-tested goal, including how tests steered the work. It is one of the clearest public examples of orchestration at scale and of why tests are the manager's lever. Read it to see what a fleet can and cannot do."
+verifiedOn: 2026-11-03

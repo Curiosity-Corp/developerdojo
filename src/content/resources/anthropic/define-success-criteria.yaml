@@ -1,0 +1,9 @@
+title: "Define success criteria and build evaluations - Claude Platform Docs"
+provider: "Anthropic"
+url: "https://platform.claude.com/docs/en/test-and-evaluate/develop-tests"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-evaluation]
+summary: "Teaches how to write measurable success criteria and turn them into test cases for an AI system. This is acceptance criteria for AI work, which a Product Development Manager owns. Read it before you accept any agent output as done."
+verifiedOn: 2026-11-03

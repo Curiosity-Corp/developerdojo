@@ -1,0 +1,9 @@
+title: "Engineering - Anthropic"
+provider: "Anthropic"
+url: "https://www.anthropic.com/engineering"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [ai-agents]
+summary: "The index of Anthropic's engineering articles on agents, tools, evaluations and Claude Code. Bookmark it: new practical guidance appears here first. Skim it monthly to keep your agent practice current."
+verifiedOn: 2026-11-03

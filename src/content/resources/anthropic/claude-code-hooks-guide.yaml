@@ -1,0 +1,9 @@
+title: "Automate actions with hooks - Claude Code Docs"
+provider: "Anthropic"
+url: "https://code.claude.com/docs/en/hooks-guide"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents, security, ci-cd]
+summary: "A guide to hooks: small scripts that run automatically at set points in an agent session, for example to block a risky command or run checks after an edit. Hooks are how a manager turns written policy into something an agent cannot skip. Start here, then use the reference page for details."
+verifiedOn: 2026-11-03

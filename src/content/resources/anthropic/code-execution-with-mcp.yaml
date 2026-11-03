@@ -1,0 +1,9 @@
+title: "Code execution with MCP for efficient agents"
+provider: "Anthropic"
+url: "https://www.anthropic.com/research/code-execution-with-mcp"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [ai-agents]
+summary: "Explains letting agents write code to call tools instead of loading every tool into context, saving cost and time. It is a good example of an architecture trade-off a manager should be able to follow. Read it when tool lists get long."
+verifiedOn: 2026-11-03

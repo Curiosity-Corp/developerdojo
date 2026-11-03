@@ -1,0 +1,9 @@
+title: "Prompt caching"
+provider: "OpenAI"
+url: "https://developers.openai.com/api/docs/guides/prompt-caching"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents]
+summary: "Explains how repeated prompt content can be reused to reduce cost and latency. It is relevant when you budget agent workloads with long shared instructions."
+verifiedOn: 2026-11-03

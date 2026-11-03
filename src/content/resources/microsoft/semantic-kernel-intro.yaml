@@ -1,0 +1,9 @@
+title: "Introduction to Semantic Kernel"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/semantic-kernel/overview/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-agents, open-source]
+summary: "Microsoft's open-source SDK for integrating AI models into applications. Read the overview to understand common building blocks such as plugins and planners."
+verifiedOn: 2026-11-03

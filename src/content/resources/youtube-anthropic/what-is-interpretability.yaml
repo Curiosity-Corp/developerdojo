@@ -1,0 +1,10 @@
+title: "What is interpretability?"
+provider: "Anthropic"
+url: "https://www.youtube.com/watch?v=TxhhMTOTMDg"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 4 minutes"
+skills: [ai-evaluation]
+summary: "A short Anthropic explainer of interpretability, the research on understanding how models work inside. A concise way to understand why verification of AI output matters."
+verifiedOn: 2026-11-03

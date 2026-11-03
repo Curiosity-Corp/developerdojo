@@ -1,0 +1,10 @@
+title: "Getting started with Codex"
+provider: "OpenAI"
+url: "https://www.youtube.com/watch?v=px7XlbYgk7I"
+cost: "free"
+format: "video"
+level: "intermediate"
+duration: "about 53 minutes"
+skills: [ai-agents]
+summary: "OpenAI's session on getting started with Codex. Watching a second tool alongside Claude Code shows what is common to all coding agents."
+verifiedOn: 2026-11-03

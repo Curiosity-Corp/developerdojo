@@ -1,0 +1,9 @@
+title: "Demystifying evals for AI agents"
+provider: "Anthropic"
+url: "https://www.anthropic.com/research/demystifying-evals-for-ai-agents"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [ai-evaluation, ai-agents]
+summary: "A practical guide to evaluating agents: types of graders, how to build tasks and how to read results. Evals are how you verify agent work at scale, which is the manager's job. Read it before you design your own acceptance tests."
+verifiedOn: 2026-11-03

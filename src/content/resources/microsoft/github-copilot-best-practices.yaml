@@ -1,0 +1,9 @@
+title: "Best practices for using GitHub Copilot - GitHub Docs"
+provider: "Microsoft"
+url: "https://docs.github.com/en/copilot/get-started/best-practices"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [ai-agents, prompt-engineering]
+summary: "Practical advice on prompting and reviewing Copilot output. The same habits apply to any assistant. Read it to calibrate how closely to check what an assistant suggests."
+verifiedOn: 2026-11-03

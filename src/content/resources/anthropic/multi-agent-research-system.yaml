@@ -1,0 +1,9 @@
+title: "How we built our multi-agent research system"
+provider: "Anthropic"
+url: "https://www.anthropic.com/research/multi-agent-research-system"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [ai-agents, ai-evaluation]
+summary: "A candid engineering account of how Anthropic built a system where a lead agent directs several subagents, including what worked, what failed and how they evaluated it. It is real evidence of the costs and benefits of orchestration. Read it before you propose a multi-agent design."
+verifiedOn: 2026-11-03

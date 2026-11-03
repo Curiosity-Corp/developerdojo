@@ -1,0 +1,9 @@
+title: "Equipping agents with Agent Skills"
+provider: "Anthropic"
+url: "https://www.anthropic.com/research/equipping-agents-for-the-real-world-with-agent-skills"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [ai-agents]
+summary: "The design story behind Agent Skills: packaging procedures and expertise so agents can use them on demand. It frames skills as organisational memory. Read it when you want your team's way of working to travel with the agent."
+verifiedOn: 2026-11-03

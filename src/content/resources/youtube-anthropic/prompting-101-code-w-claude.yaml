@@ -1,0 +1,10 @@
+title: "Prompting 101 | Code w/ Claude"
+provider: "Anthropic"
+url: "https://www.youtube.com/watch?v=ysPbXH0LpIE"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 25 minutes"
+skills: [prompt-engineering]
+summary: "Anthropic's Prompting 101 from Code with Claude. Clear prompts are the core brief you give to agents, so this is foundational for a PDM."
+verifiedOn: 2026-11-03
