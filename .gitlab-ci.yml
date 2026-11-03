@@ -77,6 +77,23 @@ links:
   script:
     - node scripts/check-links.mjs dist
 
+# Scheduled only: weekly external link audit (schedule variable LINK_CHECK=true). Reads every resource
+# YAML url and every external link in library/track markdown, fetches them politely and fails with
+# link-check-report.md as the artifact when a link is broken. It needs no npm install: Node alone.
+# No issue is opened (that needs a masked project access token CI variable, which does not exist yet).
+external_links:
+  stage: e2e
+  needs: []
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $LINK_CHECK == "true"'
+  script:
+    - node scripts/check-external-links.mjs --report link-check-report.md
+  artifacts:
+    when: always
+    expire_in: 90 days
+    paths:
+      - link-check-report.md
+
 # Blocking: Playwright e2e over the built site: every route, nav/footer links, image wiring, no
 # horizontal scroll at 390, and the axe-core WCAG 2.1 AA scan (zero serious/critical) in light and dark.
 e2e:
