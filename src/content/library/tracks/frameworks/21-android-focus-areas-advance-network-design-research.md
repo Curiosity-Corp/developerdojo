@@ -17,7 +17,7 @@ resources:
   - "atlassian/what-is-agile"
   - "google/sre-book"
 prerequisites:
-  - "20-why-a-new-operating-model"
+  - "tracks/frameworks/20-why-a-new-operating-model"
 updated: 2026-11-03
 ---
 

@@ -20,7 +20,7 @@ resources:
   - "gitlab/docs-merge-requests"
   - "gitlab/docs-ci-quick-start"
 prerequisites:
-  - "20-why-a-new-operating-model"
+  - "tracks/frameworks/20-why-a-new-operating-model"
   - "issues-milestones-labels"
 updated: 2026-11-03
 ---

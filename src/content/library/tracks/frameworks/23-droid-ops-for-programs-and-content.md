@@ -17,7 +17,7 @@ resources:
   - "agile-manifesto/manifesto"
   - "dora/dora-research-program"
 prerequisites:
-  - "20-why-a-new-operating-model"
+  - "tracks/frameworks/20-why-a-new-operating-model"
 updated: 2026-11-03
 ---
 

@@ -18,7 +18,7 @@ resources:
   - "microsoft/mlops-model-management"
   - "gitlab/docs-merge-request-pipelines"
 prerequisites:
-  - "21-android-focus-areas-advance-network-design-research"
+  - "tracks/frameworks/21-android-focus-areas-advance-network-design-research"
 updated: 2026-11-03
 ---
 
