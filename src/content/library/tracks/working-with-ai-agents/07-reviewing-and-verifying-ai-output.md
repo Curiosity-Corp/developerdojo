@@ -16,7 +16,7 @@ prerequisites:
 resources:
   - "gitlab/merge-requests"
   - "anthropic/claude-code-best-practices"
-  - "youtube-andrej-karpathy/deep-dive-into-llms-like-chatgpt"
+  - "youtube-andrej-karpathy/deep-dive-into-llms"
   - "owasp/top-10-for-llm-applications"
   - "openai/safety-best-practices"
   - "google/rules-of-machine-learning"
@@ -90,7 +90,7 @@ You will use agents for text and data: summaries, translations, drafts, tables. 
 
 ### Why review is hard, and what helps
 
-Karpathy's longer talk [Deep Dive into LLMs like ChatGPT](https://www.youtube.com/watch?v=7xTGNNLPyMI) shows why models produce errors that look right: they produce likely text, not verified text. Google's [Rules of Machine Learning](https://developers.google.com/machine-learning/guides/rules-of-ml) are about a different field, but their habit carries over: measure, start simple, and be suspicious of results that seem too good.
+Andrej Karpathy's longer talk on how language models work, listed under further learning, shows why models produce errors that look right: they produce likely text, not verified text. Google's [Rules of Machine Learning](https://developers.google.com/machine-learning/guides/rules-of-ml) are about a different field, but their habit carries over: measure, start simple, and be suspicious of results that seem too good.
 
 Three habits make review easier.
 

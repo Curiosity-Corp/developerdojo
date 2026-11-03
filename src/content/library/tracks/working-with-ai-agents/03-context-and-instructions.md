@@ -18,7 +18,7 @@ resources:
   - "anthropic/claude-code-best-practices"
   - "anthropic/prompt-engineering-overview"
   - "anthropic/writing-tools-for-agents"
-  - "youtube-andrej-karpathy/deep-dive-into-llms-like-chatgpt"
+  - "youtube-andrej-karpathy/deep-dive-into-llms"
 updated: 2026-11-03
 ---
 

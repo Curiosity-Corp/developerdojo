@@ -18,7 +18,7 @@ resources:
   - "anthropic/prompt-engineering-overview"
   - "openai/prompt-engineering-guide"
   - "google/gemini-prompt-design-strategies"
-  - "deeplearning-ai/chatgpt-prompt-engineering-for-developers"
+  - "deeplearning-ai/prompt-engineering-for-developers"
 updated: 2026-11-03
 ---
 
@@ -117,7 +117,7 @@ The best prompt writers do not get it right the first time. They try, look at th
 
 Changing one thing at a time matters. If you change five things and the result improves, you do not know which change helped. Next time you will guess again.
 
-The [Anthropic interactive tutorial](https://github.com/anthropics/prompt-eng-interactive-tutorial) is built around this loop, with exercises you run yourself. The short DeepLearning.AI course [ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/courses/chatgpt-prompt-eng) teaches the same habit with code. Google's [prompt design strategies](https://aistudio.google.com/docs/prompting-strategies) show that the advice is the same across vendors.
+The [Anthropic interactive tutorial](https://github.com/anthropics/prompt-eng-interactive-tutorial) is built around this loop, with exercises you run yourself. The short DeepLearning.AI course on prompt engineering for developers, listed under further learning, teaches the same habit with code. Google's [prompt design strategies](https://aistudio.google.com/docs/prompting-strategies) show that the advice is the same across vendors.
 
 ## 4. Worked example: TrailMug
 
