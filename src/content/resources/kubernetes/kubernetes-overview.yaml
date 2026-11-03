@@ -1,0 +1,9 @@
+title: "Overview"
+provider: "Kubernetes"
+url: "https://kubernetes.io/docs/concepts/overview/"
+cost: free
+format: docs
+level: beginner
+skills: [kubernetes-gitops]
+summary: "The official explanation of what Kubernetes is and why it exists, with the components of a cluster. Read it to get the vocabulary right."
+verifiedOn: 2026-11-03

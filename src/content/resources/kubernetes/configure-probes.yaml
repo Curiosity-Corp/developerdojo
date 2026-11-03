@@ -1,0 +1,9 @@
+title: "Configure Liveness, Readiness and Startup Probes"
+provider: "Kubernetes"
+url: "https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/"
+cost: free
+format: docs
+level: intermediate
+skills: [kubernetes-gitops, observability-reliability]
+summary: "How to tell Kubernetes when your app is alive and ready for traffic. A bad probe causes outages, so read this carefully."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Modules overview"
+provider: "HashiCorp"
+url: "https://developer.hashicorp.com/terraform/language/modules"
+cost: free
+format: docs
+level: intermediate
+skills: [infrastructure-as-code]
+summary: "Explains modules, the way to package and reuse configuration across environments."
+verifiedOn: 2026-11-03

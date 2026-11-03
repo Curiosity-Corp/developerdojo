@@ -1,0 +1,9 @@
+title: "Resource Management for Pods and Containers"
+provider: "Kubernetes"
+url: "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+cost: free
+format: docs
+level: intermediate
+skills: [kubernetes-gitops]
+summary: "Explains CPU and memory requests and limits and what happens when a container exceeds them."
+verifiedOn: 2026-11-03

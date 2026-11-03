@@ -1,0 +1,9 @@
+title: "What is Terraform"
+provider: "HashiCorp"
+url: "https://developer.hashicorp.com/terraform/intro"
+cost: free
+format: docs
+level: beginner
+skills: [infrastructure-as-code]
+summary: "A short introduction to Terraform's workflow of write, plan and apply, and why declarative infrastructure helps."
+verifiedOn: 2026-11-03

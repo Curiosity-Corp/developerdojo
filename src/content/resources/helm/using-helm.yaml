@@ -1,0 +1,9 @@
+title: "Using Helm"
+provider: "Helm"
+url: "https://helm.sh/docs/intro/using_helm/"
+cost: free
+format: docs
+level: intermediate
+skills: [kubernetes-gitops]
+summary: "Explains charts, releases and values in Helm, the package manager for Kubernetes applications."
+verifiedOn: 2026-11-03

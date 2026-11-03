@@ -1,0 +1,9 @@
+title: "Terraform Course - Automate your AWS cloud infrastructure"
+provider: "YouTube: freeCodeCamp.org"
+url: "https://www.youtube.com/watch?v=SLB_c_ayRMo"
+cost: free
+format: video
+level: beginner
+skills: [infrastructure-as-code]
+summary: "A long free video course that builds AWS infrastructure with Terraform step by step. The tool versions have moved on, so use it for the ideas and check the docs for current syntax."
+verifiedOn: 2026-11-03

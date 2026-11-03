@@ -1,0 +1,9 @@
+title: "OWASP Juice Shop"
+provider: "OWASP"
+url: "https://owasp.org/projects/juice-shop"
+cost: free
+format: interactive
+level: intermediate
+skills: [security]
+summary: "A deliberately insecure web shop used for training. It lets you try attacks legally and safely on your own machine and see how the Top 10 risks look in practice."
+verifiedOn: 2026-11-03

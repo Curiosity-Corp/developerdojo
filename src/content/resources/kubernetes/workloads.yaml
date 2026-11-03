@@ -1,0 +1,9 @@
+title: "Workloads"
+provider: "Kubernetes"
+url: "https://kubernetes.io/docs/concepts/workloads/"
+cost: free
+format: docs
+level: intermediate
+skills: [kubernetes-gitops]
+summary: "The official guide to Pods, Deployments, StatefulSets, Jobs and the other workload objects. Read the Deployment pages first."
+verifiedOn: 2026-11-03
