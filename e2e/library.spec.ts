@@ -5,7 +5,7 @@ test('library groups pages by section and filters client-side', async ({ page })
   const headings = await page.locator('[data-section] h2').allInnerTexts();
   expect(headings.slice(0, 3)).toEqual(['The Way', 'Developer path', 'Master Developer']);
 
-  const filter = page.getByLabel('Search the library');
+  const filter = page.locator('#library-filter');
   await filter.fill('licence');
   await expect(page.getByRole('link', { name: 'Open source licences in plain English' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Week 1: See the whole product' })).toBeHidden();
