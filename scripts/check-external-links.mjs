@@ -46,6 +46,8 @@ const BOT_BLOCKERS = new Set([
   'help.figma.com',
   'www.w3.org',
   'www.peoplecert.org',
+  // Akamai blocks CI runners with HTTP 403 while the page opens fine in a browser (checked 2026-11-03).
+  'www.census.gov',
 ]);
 const BLOCKED_STATUSES = new Set([401, 403, 429, 999]);
 const IGNORED_HOSTS = new Set(['developerdojo.org', 'www.developerdojo.org', 'localhost', 'example.com', 'www.example.com']);
@@ -113,18 +115,35 @@ async function waitForHost(host) {
   if (slot > now) await sleep(slot - now);
 }
 
+/**
+ * One request that follows redirects by hand and keeps cookies for the hop chain. Some hosts (for
+ * example milvus.io) answer a first visit with a cookie plus a redirect back to the same URL; a client
+ * that ignores cookies loops forever, a browser does not.
+ */
 async function request(url, method) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  const cookies = new Map();
+  let current = url;
   try {
-    const response = await fetch(url, {
-      method,
-      redirect: 'follow',
-      signal: controller.signal,
-      headers: { 'user-agent': USER_AGENT, accept: 'text/html,application/xhtml+xml,*/*;q=0.8', 'accept-language': 'en-US,en;q=0.9' },
-    });
-    await response.body?.cancel();
-    return { status: response.status, finalUrl: response.url };
+    for (let hop = 0; hop <= 8; hop += 1) {
+      const headers = { 'user-agent': USER_AGENT, accept: 'text/html,application/xhtml+xml,*/*;q=0.8', 'accept-language': 'en-US,en;q=0.9' };
+      if (cookies.size > 0) headers.cookie = [...cookies].map(([name, value]) => `${name}=${value}`).join('; ');
+      const response = await fetch(current, { method, redirect: 'manual', signal: controller.signal, headers });
+      await response.body?.cancel();
+      for (const line of response.headers.getSetCookie()) {
+        const [pair] = line.split(';');
+        const at = pair.indexOf('=');
+        if (at > 0) cookies.set(pair.slice(0, at).trim(), pair.slice(at + 1).trim());
+      }
+      const location = response.headers.get('location');
+      if (response.status >= 300 && response.status < 400 && location) {
+        current = new URL(location, current).toString();
+        continue;
+      }
+      return { status: response.status, finalUrl: current };
+    }
+    return { status: 310, finalUrl: current };
   } finally {
     clearTimeout(timer);
   }
