@@ -1,14 +1,93 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import { COVENANT_URL, CRC_CONTACT_URL } from '../lib/community';
 ---
 
-<BaseLayout title="Code of conduct" description="The Code of conduct page will set out the rules for everyone who learns, mentors or builds with us, how to report a problem, and what happens next.">
-  <PageHero compact title="Code of conduct" accent="" subtitle="How we treat each other in the Dojo." />
+<BaseLayout title="Code of conduct" description="The Developer Dojo code of conduct, in plain language, adapted from the Contributor Covenant 2.1. How we treat each other, what is not acceptable, and what happens when something goes wrong.">
+  <PageHero compact title="Code of conduct" accent="." subtitle="How we treat each other in the dojo. In plain words." />
+
   <section class="section">
-    <div class="container prose">
-      <p>The Code of conduct page will set out the rules for everyone who learns, mentors or builds with us, how to report a problem, and what happens next.</p>
-      <p><em>This page is a foundation stub. Its full content is being built.</em></p>
+    <div class="container prose coc">
+      <p class="lead">
+        Developer Dojo is free and open to everyone. This code of conduct applies to every place the dojo exists: this website, our repositories, challenge submissions, live sessions and the community space when it opens.
+      </p>
+
+      <h2 id="pledge">Our pledge</h2>
+      <p>
+        We want everyone to take part without being harassed, whatever their age, body size, disability, ethnicity, sex characteristics, gender identity or expression, level of experience, education, income, nationality, appearance, race, religion, or sexual identity and orientation, and whatever their first language.
+      </p>
+      <p>We promise to act and interact in ways that make our community open, welcoming, diverse, inclusive and healthy.</p>
+
+      <h2 id="standards">Our standards</h2>
+      <h3>What we do</h3>
+      <ul>
+        <li>Show kindness and patience, especially to people who are new or who are still learning English.</li>
+        <li>Respect different opinions, viewpoints and experiences.</li>
+        <li>Give feedback that is specific and useful, and accept it gracefully.</li>
+        <li>Take responsibility for our mistakes, apologise, and learn from them.</li>
+        <li>Think about the whole community, not only ourselves.</li>
+        <li>Say honestly when we have used AI to help with our work, as The Way asks.</li>
+      </ul>
+      <h3>What we do not accept</h3>
+      <ul>
+        <li>Sexual language or images, and unwanted attention or advances of any kind.</li>
+        <li>Trolling, insulting or put-down comments, and personal or political attacks.</li>
+        <li>Public or private harassment.</li>
+        <li>Sharing other people's private information, such as an address or email, without their clear permission.</li>
+        <li>Passing off someone else's work as your own.</li>
+        <li>Anything else that a reasonable person would think is not right in a learning community.</li>
+      </ul>
+
+      <h2 id="responsibilities">Enforcement responsibilities</h2>
+      <p>
+        The people who run Developer Dojo are responsible for making these standards clear and for acting fairly when they are broken. They may remove, edit or reject comments, commits, issues, submissions and other contributions that do not follow this code, and will explain why when it is appropriate.
+      </p>
+
+      <h2 id="scope">Scope</h2>
+      <p>
+        This code applies in every dojo space. It also applies when someone is officially representing the dojo in public, for example when using an official account or speaking at an event on its behalf.
+      </p>
+
+      <h2 id="reporting">Reporting a problem</h2>
+      <p>
+        If you see or experience behaviour that breaks this code, please tell us. Use the <a href={CRC_CONTACT_URL} rel="noopener noreferrer">Curiosity Research Corporation contact form</a> and start your subject with <strong>Conduct</strong>. See also our <a href="/contact">contact page</a>. A dedicated conduct email address is coming soon.
+      </p>
+      <p>All reports are reviewed promptly and fairly. We respect the privacy and safety of the person who reports.</p>
+
+      <h2 id="guidelines">Enforcement guidelines</h2>
+      <p>These are the steps we follow. We pick the one that fits the harm.</p>
+      <h3>1. Correction</h3>
+      <p><strong>What happened:</strong> inappropriate language or behaviour that was not welcoming. <strong>What we do:</strong> a private, written note that explains what was wrong and why. A public apology may be asked for.</p>
+      <h3>2. Warning</h3>
+      <p><strong>What happened:</strong> a single serious incident, or a pattern of smaller ones. <strong>What we do:</strong> a warning with consequences if it continues. No contact with the people involved for a set time, including in shared spaces and on social media. Breaking these terms can lead to a temporary or permanent ban.</p>
+      <h3>3. Temporary ban</h3>
+      <p><strong>What happened:</strong> serious breaking of community standards, including sustained inappropriate behaviour. <strong>What we do:</strong> a temporary ban from all public and private contact with the community for a set time. Breaking these terms can lead to a permanent ban.</p>
+      <h3>4. Permanent ban</h3>
+      <p><strong>What happened:</strong> a pattern of breaking community standards, including harassment of a person or attacks on groups of people. <strong>What we do:</strong> a permanent ban from all public contact with the community.</p>
+
+      <h2 id="attribution">Attribution</h2>
+      <p>
+        This code of conduct is adapted from the <a href={COVENANT_URL} rel="noopener noreferrer">Contributor Covenant, version 2.1</a>, which is available under the <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener noreferrer">Creative Commons Attribution 4.0 International licence (CC BY 4.0)</a>. We rewrote it in plainer language and added points about learners and AI use. Community Impact Guidelines were inspired by Mozilla's code of conduct enforcement ladder, as credited by the Contributor Covenant. For answers to common questions about codes of conduct, see the Contributor Covenant FAQ at <a href="https://www.contributor-covenant.org/faq" rel="noopener noreferrer">contributor-covenant.org/faq</a>.
+      </p>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .coc :global(a) {
+    color: var(--link);
+    font-weight: 600;
+  }
+  .coc h2 {
+    scroll-margin-top: calc(var(--header-h) + var(--space-4));
+  }
+  .lead {
+    font-size: var(--text-lg);
+  }
+  .coc ul {
+    padding-left: 1.2rem;
+    display: grid;
+    gap: var(--space-2);
+  }
+</style>

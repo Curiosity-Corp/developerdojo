@@ -1,14 +1,149 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import { CRC_ADDRESS, CRC_CONTACT_URL, CRC_PHONE_DISPLAY } from '../lib/community';
+
+const reasons = [
+  { icon: 'calendar-clock', title: 'Be told when live sessions open', subject: 'Developer Dojo: tell me about sessions' },
+  { icon: 'send', title: 'Submit a Build Sprint', subject: 'Build Sprint: <challenge name>' },
+  { icon: 'heart-handshake', title: 'Become a sponsor', subject: 'Sponsor Developer Dojo' },
+  { icon: 'graduation-cap', title: 'Offer to mentor or review', subject: 'Developer Dojo: mentor' },
+  { icon: 'shield-alert', title: 'Report a conduct problem', subject: 'Conduct' },
+  { icon: 'message-circle-question', title: 'Ask anything else', subject: 'Developer Dojo: question' },
+];
 ---
 
-<BaseLayout title="Contact" description="The Contact page will tell you how to reach the Developer Dojo team, ask to be told when live sessions open, and offer to mentor or sponsor.">
-  <PageHero compact title="Contact" accent="" subtitle="Questions, ideas, or want to help?" />
+<BaseLayout title="Contact" description="How to reach Curiosity Research Corporation, the nonprofit behind Developer Dojo: the CRC contact form, phone and postal address. Use it to ask about sessions, submit a challenge, sponsor, mentor or report a conduct problem.">
+  <PageHero compact title="Contact" accent="." highlight="Questions, ideas, or want to help?" subtitle="Developer Dojo is run by Curiosity Research Corporation. This is how to reach them." />
+
   <section class="section">
-    <div class="container prose">
-      <p>The Contact page will tell you how to reach the Developer Dojo team, ask to be told when live sessions open, and offer to mentor or sponsor.</p>
-      <p><em>This page is a foundation stub. Its full content is being built.</em></p>
+    <div class="container layout">
+      <div class="main">
+        <SectionHeader eyebrow="Reach CRC" title="Use the CRC contact form" intro="The form is on the Curiosity Research Corporation website, not on this site. Developer Dojo itself collects no personal data." />
+        <div class="cta-row">
+          <Button href={CRC_CONTACT_URL} icon="arrow-up-right">Open the CRC contact form</Button>
+        </div>
+        <h2>What to write in the subject line</h2>
+        <p>Start your message with one of these subjects so it reaches the right person.</p>
+        <ul class="reasons">
+          {reasons.map((reason) => (
+            <li>
+              <Icon name={reason.icon} size={22} />
+              <span><strong>{reason.title}.</strong> Subject: <code>{reason.subject}</code></span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <aside class="card" aria-label="CRC contact details">
+        <h2>Curiosity Research Corporation</h2>
+        <address>
+          {CRC_ADDRESS.map((line) => <span>{line}</span>)}
+        </address>
+        <p class="phone"><Icon name="phone" size={18} /> <span class="visually-hidden">Phone: </span>{CRC_PHONE_DISPLAY}</p>
+        <p class="small">These details are the ones CRC publishes on <a href="https://curiositycorp.org/get-involved/contact.html" rel="noopener noreferrer">its own contact page</a>.</p>
+        <hr />
+        <h3>A direct email address</h3>
+        <p class="small"><strong>Contact coming soon.</strong> A dedicated Developer Dojo email address is not published yet. We will add it here when it exists.</p>
+      </aside>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 22rem;
+    gap: var(--space-7);
+    align-items: start;
+  }
+  .main {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 62ch;
+  }
+  .main h2,
+  .main p {
+    margin: 0;
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  .reasons {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .reasons li {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-start;
+    padding: var(--space-3) var(--space-4);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .reasons li :global(svg) {
+    flex: none;
+    margin-top: 0.15rem;
+    color: var(--gold-text);
+  }
+  code {
+    font-size: 0.9em;
+    background: var(--paper-sunk);
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+    overflow-wrap: anywhere;
+  }
+  .card {
+    padding: var(--space-5);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+  }
+  .card h2 {
+    margin: 0 0 var(--space-3);
+    font-size: var(--text-xl);
+  }
+  .card h3 {
+    margin: 0 0 var(--space-2);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+  }
+  address {
+    display: grid;
+    font-style: normal;
+  }
+  .phone {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 700;
+  }
+  .small {
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+  }
+  .card a {
+    color: var(--link);
+    font-weight: 600;
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--line);
+    margin: var(--space-4) 0;
+  }
+  @media (max-width: 62rem) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

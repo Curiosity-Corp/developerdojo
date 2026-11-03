@@ -1,0 +1,151 @@
+---
+/**
+ * Month grid(s) for a list of events (build-time, no client code). One grid per month that has events.
+ * Props: events: DojoEvent[]. Each event is a link to #event-<id> on the same page (the list view).
+ * On narrow screens the event titles collapse to a marker; the full details are in the list view.
+ */
+import { buildCalendar, EVENT_TYPES } from '../lib/events';
+import type { DojoEvent } from '../lib/schemas';
+
+interface Props {
+  events: readonly DojoEvent[];
+}
+const { events } = Astro.props;
+const months = buildCalendar(events);
+const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+---
+
+{
+  months.map((month) => (
+    <section class="month" aria-labelledby={`cal-${month.year}-${month.month}`}>
+      <h3 id={`cal-${month.year}-${month.month}`}>{month.label}</h3>
+      <div class="scroller">
+        <table>
+          <thead>
+            <tr>
+              {WEEKDAYS.map((day) => (
+                <th scope="col">
+                  <abbr title={day}>{day.slice(0, 3)}</abbr>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {month.weeks.map((week) => (
+              <tr>
+                {week.map((cell) => (
+                  <td class:list={{ blank: cell.day === null, has: cell.events.length > 0 }}>
+                    {cell.day !== null && <span class="num">{cell.day}</span>}
+                    {cell.events.map((event) => (
+                      <a class:list={['chip', { cancelled: event.status === 'cancelled' }]} href={`#event-${event.id}`}>
+                        <span class="chip-title">{event.title}</span>
+                        <span class="visually-hidden">
+                          {event.type ? ` (${EVENT_TYPES[event.type].label})` : ''}
+                        </span>
+                      </a>
+                    ))}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  ))
+}
+
+<style>
+  .month + .month {
+    margin-top: var(--space-6);
+  }
+  h3 {
+    margin: 0 0 var(--space-3);
+    font-size: var(--text-xl);
+  }
+  .scroller {
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  th {
+    padding: var(--space-2);
+    font-size: var(--text-sm);
+    text-align: left;
+    background: var(--paper-sunk);
+    border-bottom: 1px solid var(--line);
+  }
+  abbr {
+    text-decoration: none;
+  }
+  td {
+    height: 5.5rem;
+    padding: var(--space-1) var(--space-2);
+    vertical-align: top;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  td:last-child {
+    border-right: 0;
+  }
+  tr:last-child td {
+    border-bottom: 0;
+  }
+  td.blank {
+    background: var(--paper-sunk);
+  }
+  .num {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--ink-muted);
+  }
+  td.has .num {
+    color: var(--ink);
+  }
+  .chip {
+    display: block;
+    margin-top: var(--space-1);
+    padding: 0.15rem 0.4rem;
+    border-radius: 6px;
+    background: var(--gold);
+    color: var(--gold-ink);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.25;
+    text-decoration: none;
+  }
+  .chip.cancelled {
+    background: var(--paper-sunk);
+    color: var(--ink-muted);
+    text-decoration: line-through;
+  }
+  @media (max-width: 40rem) {
+    td {
+      height: 3.25rem;
+      padding: var(--space-1);
+    }
+    .chip {
+      width: 0.6rem;
+      height: 0.6rem;
+      padding: 0;
+      border-radius: 50%;
+    }
+    .chip-title {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+  }
+</style>

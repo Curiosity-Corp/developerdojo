@@ -1,0 +1,91 @@
+---
+/**
+ * Numbered steps with a gold number badge.
+ * Props: items: { title, body, href?, linkLabel? }[]. `body` is trusted, author-written HTML
+ * (it may contain links); never pass user input.
+ * Renders an <ol>. Headings inside are <h3> by default (set headingLevel to change).
+ */
+interface Item {
+  title: string;
+  body: string;
+}
+interface Props {
+  items: readonly Item[];
+  headingLevel?: 'h3' | 'h4';
+}
+const { items, headingLevel: Heading = 'h3' } = Astro.props;
+---
+
+<ol class="steps">
+  {
+    items.map((item) => (
+      <li>
+        <Heading class="step-title">{item.title}</Heading>
+        <p class="step-body" set:html={item.body} />
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .steps {
+    counter-reset: step;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+  }
+  li {
+    counter-increment: step;
+    position: relative;
+    padding: var(--space-4) var(--space-4) var(--space-4) calc(var(--space-4) + 3.25rem);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  li::before {
+    content: counter(step);
+    position: absolute;
+    left: var(--space-4);
+    top: var(--space-4);
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: var(--gold);
+    color: var(--gold-ink);
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: var(--text-lg);
+  }
+  .step-title {
+    margin: 0 0 var(--space-1);
+    font-family: var(--font-sans);
+    font-size: var(--text-lg);
+    font-weight: 700;
+  }
+  .step-body {
+    margin: 0;
+    color: var(--ink-muted);
+  }
+  .step-body :global(a) {
+    color: var(--link);
+    font-weight: 600;
+  }
+  .step-body :global(code) {
+    font-size: 0.9em;
+    background: var(--paper-sunk);
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 30rem) {
+    li {
+      padding-left: var(--space-4);
+      padding-top: calc(var(--space-4) + 2.75rem);
+    }
+  }
+</style>

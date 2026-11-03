@@ -26,6 +26,8 @@ export const eventSchema = z.object({
   /** Short label shown after the time, e.g. PHT. Falls back to the zone's own short name. */
   timezoneLabel: z.string().min(1).optional(),
   format: z.string().min(1).optional(),
+  /** Kind of session; shown as a chip and used for the legend on /events. */
+  type: z.enum(['live-build', 'demo-day', 'workshop', 'office-hours']).optional(),
   status: z.enum(['scheduled', 'live', 'replay', 'cancelled']).default('scheduled'),
   registerUrl: z.url().optional(),
   replayUrl: z.url().optional(),

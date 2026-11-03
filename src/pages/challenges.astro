@@ -1,16 +1,207 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
 import ChallengeList from '../components/ChallengeList.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import Steps from '../components/Steps.astro';
+import Button from '../components/Button.astro';
+import { getChallenges } from '../lib/data';
+
+const challenges = getChallenges();
+const counts = {
+  ongoing: challenges.filter((c) => c.status === 'ongoing').length,
+  upcoming: challenges.filter((c) => c.status === 'upcoming').length,
+  closed: challenges.filter((c) => c.status === 'closed').length,
+};
+const TABS = [
+  { id: 'open', label: 'Open', status: 'ongoing', count: counts.ongoing, empty: 'No briefs are open right now. New briefs will be listed here first.' },
+  { id: 'upcoming', label: 'Upcoming', status: 'upcoming', count: counts.upcoming, empty: 'No upcoming briefs are announced yet. When one is planned, it will appear here before it opens.' },
+  { id: 'past', label: 'Past', status: 'closed', count: counts.closed, empty: 'No challenges have closed yet. Finished briefs and their results will be kept here.' },
+] as const;
+
+const what = [
+  { icon: 'user-round', title: 'You, or a small team', description: 'Work alone or with up to three people. Plus AI agents that do the building.', tone: 'olive' as const },
+  { icon: 'file-text', title: 'A real brief', description: 'A clear problem to solve, with rules and a list of what to hand in.', tone: 'gold' as const },
+  { icon: 'package-check', title: 'Judged on the Product Package', description: 'Not on how much code you typed. On how well you own the whole product.', tone: 'rust' as const },
+];
+
+const how = [
+  { title: 'Pick an open brief', body: 'Read the brief in full: the goal, who it is for, the rules, and what to hand in.' },
+  { title: 'Plan it yourself', body: 'Write the epics and the roadmap in your own words. People write epics; <a href="/library/people-write-epics">AI never does</a>.' },
+  { title: 'Steer the agents', body: 'Break the work into small issues. Let AI agents draft the changes. Read every change before you accept it.' },
+  { title: 'Package and submit', body: 'Put your <a href="/library/product-package-standard">Product Package</a> in a public repository and send us the link. Each brief explains exactly how.' },
+];
 ---
 
-<BaseLayout title="Challenges" description="The Challenges page will describe each open build challenge and how to take part. Two briefs are open now: Build a Real MVP and the AI Agent Workflow Challenge.">
-  <PageHero compact title="Challenges" accent="" subtitle="Apply what you learn, build in public, and earn recognition." />
+<BaseLayout title="Challenges" description="Build Sprints: the new kind of hackathon. One person or a small team plus AI agents, a real brief, judged on the Product Package. Two briefs are open now.">
+  <PageHero
+    compact
+    title="Challenges"
+    accent="."
+    eyebrow="Build Sprints"
+    highlight="The new kind of hackathon."
+    subtitle="Take a real brief, build it with AI agents, and show how well you own the whole product. No all-night coding. Free for everyone."
+    ctas={[{ label: 'See open briefs', href: '#briefs', icon: 'arrow-right' }]}
+  />
+
+  <section class="section" id="briefs">
+    <div class="container">
+      <SectionHeader eyebrow="Briefs" title="Find a challenge" intro="Each challenge is a real brief with its own page: the goal, the rules, how it is judged, and how to hand in your work." />
+      <div class="tabs" data-tabs>
+        <div class="tablist" role="tablist" aria-label="Challenge status">
+          {TABS.map((tab, index) => (
+            <button
+              type="button"
+              role="tab"
+              id={`tab-${tab.id}`}
+              aria-controls={`panel-${tab.id}`}
+              aria-selected={index === 0 ? 'true' : 'false'}
+              tabindex={index === 0 ? 0 : -1}
+            >
+              {tab.label}
+              <span class="count" aria-label={`${tab.count} challenges`}>{tab.count}</span>
+            </button>
+          ))}
+        </div>
+        {TABS.map((tab, index) => (
+          <div class="panel" role="tabpanel" id={`panel-${tab.id}`} aria-labelledby={`tab-${tab.id}`} tabindex="0" hidden={index !== 0}>
+            <h3 class="panel-title">{tab.label}</h3>
+            <ChallengeList challenges={challenges} status={tab.status} emptyText={tab.empty} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <SectionHeader eyebrow="What is a Build Sprint?" title="A hackathon for the way developers work now" intro="A developer no longer mostly types code. A developer owns a product and steers AI agents that build it. A Build Sprint practises exactly that." />
+      <FeatureGrid items={what} columns={3} />
+    </div>
+  </section>
+
   <section class="section">
-    <div class="container prose">
-      <p>The Challenges page will describe each open build challenge and how to take part. Two briefs are open now: Build a Real MVP and the AI Agent Workflow Challenge.</p>
-      <ChallengeList />
-      <p><em>This page is a foundation stub. Its full content is being built.</em></p>
+    <div class="container steps-wrap">
+      <SectionHeader eyebrow="How it works" title="Four steps from brief to submission" />
+      <Steps items={how} />
+      <p class="after">
+        Judging uses the six skills of the <a href="/library/product-package-rubric">Product Package rubric</a>. Rewards are being finalised; we will not promise any prize before it is real.
+      </p>
+      <div class="cta-row">
+        <Button href="/library/the-way-five-rules" variant="outline" icon="arrow-right">Read The Way: the five rules</Button>
+        <Button href="/membership" icon="arrow-right">Join free</Button>
+      </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .alt {
+    background: var(--paper-sunk);
+    border-block: 1px solid var(--line);
+  }
+  .tabs {
+    margin-top: var(--space-5);
+  }
+  .tablist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+  .tablist button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.55rem 1.1rem;
+    border: 1.5px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--paper-raised);
+    color: var(--ink);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .tablist button[aria-selected='true'] {
+    background: var(--band);
+    border-color: var(--band);
+    color: var(--band-text);
+  }
+  .count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.5rem;
+    padding: 0 0.4rem;
+    border-radius: 999px;
+    background: var(--gold);
+    color: var(--gold-ink);
+    font-size: var(--text-sm);
+  }
+  .panel-title {
+    margin: 0 0 var(--space-3);
+    font-size: var(--text-xl);
+  }
+  .steps-wrap {
+    display: grid;
+    gap: var(--space-5);
+  }
+  .after {
+    margin: 0;
+    max-width: 62ch;
+  }
+  .after a {
+    color: var(--link);
+    font-weight: 600;
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+</style>
+
+<script>
+  // Progressive enhancement: without JavaScript all three panels stay visible (see noscript rule).
+  const root = document.querySelector<HTMLElement>('[data-tabs]');
+  if (root) {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const select = (target: HTMLButtonElement, focus: boolean): void => {
+      for (const tab of tabs) {
+        const active = tab === target;
+        tab.setAttribute('aria-selected', String(active));
+        tab.tabIndex = active ? 0 : -1;
+        const panel = document.getElementById(tab.getAttribute('aria-controls') ?? '');
+        if (panel) panel.hidden = !active;
+      }
+      if (focus) target.focus();
+    };
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => select(tab, false));
+      tab.addEventListener('keydown', (event) => {
+        const last = tabs.length - 1;
+        let next = -1;
+        if (event.key === 'ArrowRight') next = index === last ? 0 : index + 1;
+        if (event.key === 'ArrowLeft') next = index === 0 ? last : index - 1;
+        if (event.key === 'Home') next = 0;
+        if (event.key === 'End') next = last;
+        const target = tabs[next];
+        if (target) {
+          event.preventDefault();
+          select(target, true);
+        }
+      });
+    });
+    root.classList.add('js');
+  }
+</script>
+<noscript>
+  <style>
+    [data-tabs] [role='tabpanel'] {
+      display: block !important;
+    }
+    [data-tabs] [role='tablist'] {
+      display: none;
+    }
+  </style>
+</noscript>

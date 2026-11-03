@@ -1,16 +1,140 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import DarkPanel from '../components/DarkPanel.astro';
+import Button from '../components/Button.astro';
+import { CRC_CONTACT_URL } from '../lib/community';
+import { findImage } from '../lib/images';
+
+const logo = findImage('reveltek-logo');
+
+const ways = [
+  { icon: 'heart-handshake', title: 'Sponsor the program', description: 'Help keep Developer Dojo free. This supports the Library, the live sessions and the review of members’ work.', tone: 'gold' as const },
+  { icon: 'trophy', title: 'Sponsor a challenge', description: 'Bring a real brief for a Build Sprint. Members build it with AI agents and you see real approaches.', tone: 'olive' as const },
+  { icon: 'graduation-cap', title: 'Give time as a mentor or reviewer', description: 'Experienced developers can review Product Packages and help members as Sensei.', tone: 'rust' as const },
+  { icon: 'wrench', title: 'Give tools or services', description: 'Free accounts, credits or hosting that help members build and ship. In-kind gifts are welcome.', tone: 'neutral' as const },
+];
 ---
 
-<BaseLayout title="Sponsors" description="Developer Dojo is sponsored by Reveltek. This page will recognise our sponsors and explain how an organisation can become one.">
-  <PageHero compact title="Sponsors" accent="" subtitle="Thank you to the people who make free training possible." />
+<BaseLayout title="Sponsors" description="Developer Dojo is sponsored by Reveltek. See how sponsorship keeps training free, and how your organisation can become a sponsor.">
+  <PageHero compact title="Sponsors" accent="." highlight="Thank you." subtitle="The people and companies who make free training possible." />
+
   <section class="section">
-    <div class="container prose">
-      <p>Developer Dojo is sponsored by Reveltek. This page will recognise our sponsors and explain how an organisation can become one.</p>
-      <h2 id="become-a-sponsor">Become a sponsor</h2>
-      <p>If your organisation wants to help free training reach more people, get in touch through the <a href="/contact">contact page</a>.</p>
-      <p><em>This page is a foundation stub. Its full content is being built.</em></p>
+    <div class="container">
+      <SectionHeader eyebrow="Program sponsor" title="Reveltek sponsors Developer Dojo" />
+      <div class="sponsor-card">
+        <div class="mark">
+          {logo ? <img src={logo} alt="Reveltek" height="48" /> : <span class="wordmark">REVELTEK</span>}
+        </div>
+        <p>
+          Reveltek sponsors the Developer Dojo program. Their support is what lets Curiosity Research Corporation offer the training, the Library and the challenges free to anyone.
+        </p>
+      </div>
+      <p class="note">Sponsors support the program. They do not buy scores, certificates or places in a challenge. Every member's work is judged the same way, by the same rubric.</p>
+    </div>
+  </section>
+
+  <section class="section alt" id="become-a-sponsor">
+    <div class="container">
+      <SectionHeader eyebrow="Become a sponsor" title="Help free training reach more people" intro="Developer Dojo is free for learners because organisations like yours help. There are four ways to take part." />
+      <div class="grid"><FeatureGrid items={ways} columns={4} /></div>
+      <div class="how">
+        <h3>How to start</h3>
+        <ol>
+          <li>Open the <a href={CRC_CONTACT_URL} rel="noopener noreferrer">Curiosity Research Corporation contact form</a> (it opens on the CRC website).</li>
+          <li>Use the subject <strong>Sponsor Developer Dojo</strong> and tell us who you are and which of the four ways interests you.</li>
+          <li>We reply to talk through what is possible. Nothing is agreed until it is written down and both sides say yes.</li>
+        </ol>
+        <p>
+          A note on tax: CRC's 501(c)(3) application is pending. We do not describe gifts as tax-deductible. See <a href="/about#status">About CRC</a>.
+        </p>
+        <Button href={CRC_CONTACT_URL} icon="arrow-up-right">Contact CRC about sponsoring</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <DarkPanel icon="users" title="Not an organisation?" text="You can still help. Join free, build something real, and tell a friend. You can also offer to mentor.">
+        <div class="panel-actions">
+          <Button href="/membership" icon="arrow-right">Join free</Button>
+          <Button href="/contact" variant="ghost">Offer to mentor</Button>
+        </div>
+      </DarkPanel>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .alt {
+    background: var(--paper-sunk);
+    border-block: 1px solid var(--line);
+  }
+  .sponsor-card {
+    display: grid;
+    grid-template-columns: minmax(10rem, 16rem) minmax(0, 1fr);
+    gap: var(--space-5);
+    align-items: center;
+    margin-top: var(--space-5);
+    padding: var(--space-5);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+  }
+  .mark {
+    display: grid;
+    place-items: center;
+    padding: var(--space-5);
+    background: var(--band);
+    border-radius: var(--radius);
+  }
+  .wordmark {
+    font-family: var(--font-serif);
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    font-size: var(--text-xl);
+    color: var(--band-text);
+  }
+  .sponsor-card p {
+    margin: 0;
+    font-size: var(--text-lg);
+  }
+  .note {
+    max-width: 62ch;
+    color: var(--ink-muted);
+  }
+  .grid {
+    margin-top: var(--space-5);
+  }
+  .how {
+    max-width: 62ch;
+    margin-top: var(--space-6);
+  }
+  .how h3 {
+    margin-top: 0;
+  }
+  .how a,
+  .note a {
+    color: var(--link);
+    font-weight: 600;
+  }
+  .how ol {
+    padding-left: 1.2rem;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .panel-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+  }
+  @media (max-width: 40rem) {
+    .sponsor-card {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

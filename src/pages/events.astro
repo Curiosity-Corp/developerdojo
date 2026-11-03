@@ -1,16 +1,400 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import EventList from '../components/EventList.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import EventCalendar from '../components/EventCalendar.astro';
+import Icon from '../components/Icon.astro';
+import Button from '../components/Button.astro';
+import { getEvents } from '../lib/data';
+import { describeWhen, EVENT_TYPES, EVENT_TYPE_ORDER } from '../lib/events';
+import { GITHUB_URL } from '../lib/nav';
+import type { DojoEvent } from '../lib/schemas';
+
+const events = getEvents();
+const now = Date.now();
+const upcoming = events.filter((e) => e.status !== 'cancelled' && Date.parse(e.end ?? e.start) >= now);
+const past = events.filter((e) => !upcoming.includes(e)).reverse();
+const hasEvents = events.length > 0;
+
+const STATUS_ACTION: Record<DojoEvent['status'], string> = {
+  scheduled: 'Register',
+  live: 'Join live',
+  replay: 'Watch replay',
+  cancelled: 'Cancelled',
+};
+function actionHref(event: DojoEvent): string | undefined {
+  return event.status === 'replay' ? event.replayUrl : event.registerUrl;
+}
+
+const types = EVENT_TYPE_ORDER.map((key) => ({
+  icon: EVENT_TYPES[key].icon,
+  title: EVENT_TYPES[key].label,
+  description: EVENT_TYPES[key].description,
+  tone: 'olive' as const,
+}));
+
+const hear = [
+  { icon: 'bookmark', title: 'Check this page', description: 'Every session is listed here, with its date, time and timezone, before it happens. We do not list a session until it is real.', tone: 'gold' as const },
+  { icon: 'mail', title: 'Ask to be told', description: 'Use the contact page to ask us to tell you when sessions open.', href: '/contact', tone: 'olive' as const },
+  { icon: 'github', title: 'Follow the project', description: 'Watch the Developer Dojo repository on GitHub to see changes to the site, including new sessions.', href: GITHUB_URL, tone: 'rust' as const },
+];
 ---
 
-<BaseLayout title="Events" description="The Events page will list upcoming live sessions with times and sign-up links. Nothing is scheduled yet; sessions are listed only once they are confirmed.">
-  <PageHero compact title="Events" accent="" subtitle="Live builds, workshops and community sessions." />
-  <section class="section">
-    <div class="container prose">
-      <p>The Events page will list upcoming live sessions with times and sign-up links. Nothing is scheduled yet; sessions are listed only once they are confirmed.</p>
-      <EventList />
-      <p><em>This page is a foundation stub. Its full content is being built.</em></p>
+<BaseLayout title="Events" description="Live Builds, Demo Days, Workshops and Office Hours at Developer Dojo. All free. Times are always shown with a timezone.">
+  <PageHero
+    compact
+    title="Events"
+    accent="."
+    highlight="Build together, live."
+    subtitle="Live Builds, Demo Days, Workshops and Office Hours. Free for everyone. Every time is shown with its timezone."
+  />
+
+  {
+    hasEvents ? (
+      <section class="section">
+        <div class="container">
+          <div class="bar">
+            <SectionHeader eyebrow="Schedule" title="Sessions" />
+            <div class="view-toggle" role="group" aria-label="Choose a view" data-view-toggle>
+              <button type="button" aria-pressed="true" data-view="list">
+                <Icon name="list" size={18} /> List
+              </button>
+              <button type="button" aria-pressed="false" data-view="calendar">
+                <Icon name="calendar-days" size={18} /> Calendar
+              </button>
+            </div>
+          </div>
+
+          <div data-panel="list">
+            <h3 class="group-title">Upcoming</h3>
+            {upcoming.length === 0 ? (
+              <p class="none" role="status">Nothing is scheduled right now. The next session will appear here as soon as it is real.</p>
+            ) : (
+              <ul class="events">
+                {upcoming.map((event) => {
+                  const when = describeWhen(event);
+                  const href = actionHref(event);
+                  return (
+                    <li class="event" id={`event-${event.id}`}>
+                      <div class="info">
+                        <p class="meta">
+                          {event.type && <span class="type">{EVENT_TYPES[event.type].label}</span>}
+                          {event.format && <span class="format">{event.format}</span>}
+                        </p>
+                        <h4 class="name">{event.title}</h4>
+                        <p class="desc">{event.description}</p>
+                      </div>
+                      <div class="when">
+                        <time datetime={event.start}>
+                          <strong>{when.dateLong}</strong>
+                          <span>{when.time}</span>
+                        </time>
+                        <span class="zone">Timezone: {when.zoneName}</span>
+                        <div class="actions">
+                          {href ? (
+                            <a class="action primary" href={href} rel="noopener noreferrer">
+                              {STATUS_ACTION[event.status]}
+                              <span class="visually-hidden">: {event.title}</span>
+                            </a>
+                          ) : (
+                            <span class="action static">{event.status === 'scheduled' ? 'Registration link coming' : STATUS_ACTION[event.status]}</span>
+                          )}
+                          <a class="action" href={`/events/${event.id}.ics`} download>
+                            <Icon name="calendar-plus" size={16} /> Add to calendar
+                            <span class="visually-hidden">: {event.title} (.ics file)</span>
+                          </a>
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+
+            {past.length > 0 && (
+              <>
+                <h3 class="group-title">Past</h3>
+                <ul class="events past">
+                  {past.map((event) => {
+                    const when = describeWhen(event);
+                    const href = actionHref(event);
+                    return (
+                      <li class="event" id={`event-${event.id}`}>
+                        <div class="info">
+                          <p class="meta">
+                            {event.type && <span class="type">{EVENT_TYPES[event.type].label}</span>}
+                            {event.status === 'cancelled' && <span class="type cancelled">Cancelled</span>}
+                          </p>
+                          <h4 class="name">{event.title}</h4>
+                          <p class="desc">{event.description}</p>
+                        </div>
+                        <div class="when">
+                          <time datetime={event.start}>
+                            <strong>{when.dateLong}</strong>
+                            <span>{when.time}</span>
+                          </time>
+                          {href && event.status === 'replay' && (
+                            <a class="action" href={href} rel="noopener noreferrer">Watch replay</a>
+                          )}
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </>
+            )}
+          </div>
+
+          <div data-panel="calendar" hidden>
+            <EventCalendar events={events} />
+            <p class="cal-note">Each day uses the event's own timezone. Open the List view for exact times and calendar files.</p>
+          </div>
+        </div>
+      </section>
+    ) : (
+      <section class="section">
+        <div class="container">
+          <div class="empty" role="status">
+            <Icon name="calendar-clock" size={44} class="empty-icon" />
+            <h2>Schedule announced soon</h2>
+            <p>
+              Developer Dojo is just starting. No live session is scheduled yet, and we will not show a date until it is real.
+              When sessions open they will appear on this page with the date, the time and the timezone.
+            </p>
+            <div class="empty-actions">
+              <Button href="/contact" icon="arrow-right">Ask to be told</Button>
+              <Button href="/challenges" variant="outline">Try a challenge meanwhile</Button>
+            </div>
+          </div>
+          <SectionHeader eyebrow="How to hear about it" title="Three ways to know first" />
+          <div class="hear"><FeatureGrid items={hear} columns={3} /></div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section alt">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Session types"
+        title="Four kinds of live session"
+        intro="Every session is free. This is what each one is, so you know what to expect when they are scheduled."
+      />
+      <FeatureGrid items={types} columns={4} />
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .alt {
+    background: var(--paper-sunk);
+    border-block: 1px solid var(--line);
+  }
+  .bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+  .view-toggle {
+    display: inline-flex;
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .view-toggle button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.5rem 1rem;
+    border: 0;
+    background: var(--paper-raised);
+    color: var(--ink);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .view-toggle button[aria-pressed='true'] {
+    background: var(--band);
+    color: var(--band-text);
+  }
+  .group-title {
+    margin: var(--space-5) 0 var(--space-3);
+    font-size: var(--text-xl);
+  }
+  .group-title:first-child {
+    margin-top: 0;
+  }
+  .none {
+    padding: var(--space-4);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius);
+    color: var(--ink-muted);
+  }
+  .events {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .event {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
+    gap: var(--space-5);
+    padding: var(--space-4);
+    scroll-margin-top: calc(var(--header-h) + var(--space-4));
+  }
+  .event + .event {
+    border-top: 1px solid var(--line);
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0 0 var(--space-1);
+  }
+  .type {
+    padding: 0.1rem 0.6rem;
+    border-radius: 999px;
+    background: var(--band);
+    color: var(--band-text);
+    font-size: var(--text-sm);
+    font-weight: 700;
+  }
+  .type.cancelled {
+    background: var(--rust);
+    color: #fff;
+  }
+  .format {
+    color: var(--ink-muted);
+    font-size: var(--text-sm);
+    align-self: center;
+  }
+  .name {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+  }
+  .desc {
+    margin: var(--space-1) 0 0;
+    color: var(--ink-muted);
+  }
+  time {
+    display: grid;
+    gap: 0.15rem;
+  }
+  .zone {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+  .action {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: 0.4rem 0.9rem;
+    border: 1.5px solid var(--line-strong);
+    border-radius: 8px;
+    background: var(--paper-raised);
+    color: var(--ink);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  a.action:hover {
+    border-color: var(--ink);
+  }
+  .action.primary {
+    background: var(--gold);
+    border-color: var(--gold-strong);
+    color: var(--gold-ink);
+  }
+  .action.static {
+    border-style: dashed;
+    color: var(--ink-muted);
+  }
+  .past .name {
+    font-size: var(--text-lg);
+  }
+  .cal-note {
+    margin-top: var(--space-4);
+    color: var(--ink-muted);
+    font-size: var(--text-sm);
+  }
+  .empty {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-3);
+    text-align: center;
+    padding: var(--space-7) var(--space-5);
+    margin-bottom: var(--space-7);
+    background: var(--paper-raised);
+    border: 2px dashed var(--line-strong);
+    border-radius: var(--radius-lg);
+  }
+  .empty :global(.empty-icon) {
+    color: var(--gold-text);
+  }
+  .empty h2 {
+    margin: 0;
+    font-size: var(--text-2xl);
+  }
+  .empty p {
+    margin: 0;
+    max-width: 52ch;
+    color: var(--ink-muted);
+  }
+  .empty-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+  .hear {
+    margin-top: var(--space-5);
+  }
+  @media (max-width: 48rem) {
+    .event {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-3);
+    }
+  }
+</style>
+
+<script>
+  // Progressive enhancement: the view toggle only switches which block is shown.
+  const toggle = document.querySelector<HTMLElement>('[data-view-toggle]');
+  if (toggle) {
+    const buttons = Array.from(toggle.querySelectorAll<HTMLButtonElement>('button[data-view]'));
+    for (const button of buttons) {
+      button.addEventListener('click', () => {
+        const view = button.dataset['view'];
+        for (const other of buttons) other.setAttribute('aria-pressed', String(other === button));
+        for (const panel of document.querySelectorAll<HTMLElement>('[data-panel]')) {
+          panel.hidden = panel.dataset['panel'] !== view;
+        }
+      });
+    }
+    // Links from the calendar to a list entry switch back to the list view.
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const link = target.closest<HTMLAnchorElement>('a[href^="#event-"]');
+      if (link) buttons.find((b) => b.dataset['view'] === 'list')?.click();
+    });
+  }
+</script>
