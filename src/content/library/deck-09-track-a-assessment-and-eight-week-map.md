@@ -13,7 +13,7 @@ outcomes:
 resources:
   - dora/dora
   - gov-uk/service-manual-agile-delivery
-  - atlassian/agile
+  - atlassian/what-is-agile
   - gitlab/university
   - anthropic/building-effective-agents
 prerequisites:
