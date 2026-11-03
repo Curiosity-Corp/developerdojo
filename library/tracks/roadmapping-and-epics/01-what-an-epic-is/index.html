@@ -1,0 +1,242 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>What an epic is, and what it is not · Developer Dojo</title><meta name="description" content="Learn the four levels of planning, why an epic is not just a big issue, and three size tests that tell an epic from a milestone or an issue."><link rel="canonical" href="https://developerdojo.org/library/tracks/roadmapping-and-epics/01-what-an-epic-is/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="color-scheme" content="light dark"><meta property="og:site_name" content="Developer Dojo"><meta property="og:title" content="What an epic is, and what it is not · Developer Dojo"><meta property="og:description" content="Learn the four levels of planning, why an epic is not just a big issue, and three size tests that tell an epic from a milestone or an issue."><meta property="og:type" content="website"><meta property="og:url" content="https://developerdojo.org/library/tracks/roadmapping-and-epics/01-what-an-epic-is/"><meta name="twitter:card" content="summary"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      // Runs before first paint: apply the saved theme and mark JS as available.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('dojo-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/PageHero.zOqh7M6S.css"><style>.pager[data-astro-cid-ecbjlo7c]{justify-content:space-between;gap:var(--space-3);margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--line);flex-wrap:wrap;display:flex}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]{font-weight:600}
+</style></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header" data-astro-cid-nen7h5rs><div class="bar" data-astro-cid-nen7h5rs><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><button type="button" class="menu-button" data-menu-button aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu" data-astro-cid-nen7h5rs><svg class="icon open-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"/></svg><svg class="icon close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><nav id="primary-nav" class="nav" aria-label="Primary" data-nav data-astro-cid-nen7h5rs><ul data-astro-cid-nen7h5rs><li data-astro-cid-nen7h5rs><a href="/train" data-astro-cid-nen7h5rs>Train</a></li><li data-astro-cid-nen7h5rs><a href="/sensei" data-astro-cid-nen7h5rs>Sensei</a></li><li data-astro-cid-nen7h5rs><a href="/library" aria-current="page" data-astro-cid-nen7h5rs>Library</a></li><li data-astro-cid-nen7h5rs><a href="/certificates" data-astro-cid-nen7h5rs>Certificates</a></li><li data-astro-cid-nen7h5rs><a href="/challenges" data-astro-cid-nen7h5rs>Challenges</a></li><li data-astro-cid-nen7h5rs><a href="/events" data-astro-cid-nen7h5rs>Events</a></li><li data-astro-cid-nen7h5rs><a href="/membership" data-astro-cid-nen7h5rs>Membership</a></li></ul><div class="actions" data-astro-cid-nen7h5rs><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" data-astro-cid-l6lhmie6><svg class="icon to-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="icon to-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g></svg></button><script type="module">var e=document.documentElement,t=document.querySelector(`[data-theme-toggle]`);function n(){let t=e.getAttribute(`data-theme`);return t===`dark`||t!==`light`&&window.matchMedia(`(prefers-color-scheme: dark)`).matches}function r(){if(!t)return;let e=n();t.setAttribute(`aria-label`,e?`Switch to light theme`:`Switch to dark theme`),t.setAttribute(`data-mode`,e?`dark`:`light`)}t?.addEventListener(`click`,()=>{let t=n()?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`dojo-theme`,t)}catch(e){console.warn(`Theme preference not saved:`,e)}r()}),r();</script><a class="start" href="/membership" data-astro-cid-nen7h5rs>Start free</a></div></nav></div></header><script type="module">var e=document.querySelector(`[data-menu-button]`),t=document.querySelector(`[data-nav]`),n=document.querySelector(`.site-header`);function r(t){e&&n&&(n.toggleAttribute(`data-open`,t),e.setAttribute(`aria-expanded`,String(t)),e.setAttribute(`aria-label`,t?`Close menu`:`Open menu`))}e?.addEventListener(`click`,()=>r(e.getAttribute(`aria-expanded`)!==`true`)),t?.addEventListener(`click`,e=>{e.target instanceof HTMLAnchorElement&&r(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e?.getAttribute(`aria-expanded`)===`true`&&(r(!1),e.focus())}),window.matchMedia(`(min-width: 62rem)`).addEventListener(`change`,e=>{e.matches&&r(!1)}),document.documentElement.classList.add(`js`);</script><main id="main"><section class="hero compact" data-astro-cid-75ysl5lo><div class="art" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/hero-dojo-mobile.avif" media="(max-width: 40rem)"><source type="image/webp" srcset="/images/hero-dojo-mobile.webp" media="(max-width: 40rem)"><source srcset="/images/hero-dojo-mobile.jpg" media="(max-width: 40rem)"><source type="image/avif" srcset="/images/hero-dojo.avif"><source type="image/webp" srcset="/images/hero-dojo.webp"><img class="art-img" src="/images/hero-dojo.jpg" alt width="2400" height="900" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="scrim" aria-hidden="true" data-astro-cid-75ysl5lo></div><div class="enso" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/enso.avif"><source type="image/webp" srcset="/images/enso.webp"><img src="/images/enso.png" alt width="800" height="800" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="container grid" data-astro-cid-75ysl5lo><div class="copy" data-astro-cid-75ysl5lo><p class="eyebrow" data-astro-cid-75ysl5lo>Roadmapping and epics</p><h1 data-astro-cid-75ysl5lo>What an epic is, and what it is not</h1><p class="subtitle" data-astro-cid-75ysl5lo>Learn the four levels of planning, why an epic is not just a big issue, and three size tests that tell an epic from a milestone or an issue.</p></div></div></section><article class="section" data-astro-cid-ecbjlo7c><div class="container prose" data-astro-cid-ecbjlo7c><p><strong>Supports:</strong> Developer, week 3 (Problems to epics). <strong>Time:</strong> about two hours.</p>
+<h2 id="1-why-this-matters">1. Why this matters</h2>
+<p>Plans fail at the seams between levels. A vision is too big to build. An issue is too small to steer by. Between them sits the unit that makes whole-product planning possible: the <strong>epic</strong>. If you cannot say what an epic is, you will either plan at the level of tasks (and drown in detail) or at the level of slogans (and build nothing).</p>
+<p>This matters even more when AI agents do the building. An agent is excellent at a small, clear, checkable task in one repo. It is poor at holding the whole product in its head. Somebody has to cover the gap between “make customers happy” and “add a field to this form”. In the Dojo, that somebody is you, and the tool for it is the epic.</p>
+<p>For a Product Development Manager (PDM), knowing the levels is also a time-management skill. You own the top two levels and you define the third. Agents own the fourth, with your review. If you find yourself writing issues by hand all day, you are working at the wrong level. If you find yourself only writing slogans, you are not giving the agents enough to build.</p>
+<h3 id="what-the-pdm-decides-here">What the PDM decides here</h3>
+<table>
+<thead>
+<tr>
+<th>You decide</th>
+<th>You may delegate to an agent</th>
+<th>You verify</th>
+<th>Other disciplines involved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Which outcomes become epics, how big each is, and where the edges lie</td>
+<td>Explaining terms; checking an item against the size tests when you ask; later, splitting your milestones into issues</td>
+<td>The classification matches the size tests; the epic crosses real parts of the product</td>
+<td>Product, engineering, design, operations and finance all appear in the “parts touched” line</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-key-ideas">2. Key ideas</h2>
+<h3 id="the-four-levels">The four levels</h3>
+<p>The Dojo plans work at four levels. Learn them well, because the whole program is about moving between them.</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Question it answers</th>
+<th>Typical size</th>
+<th>Who owns it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Vision / product</strong></td>
+<td>Why does this product exist, and for whom?</td>
+<td>Years</td>
+<td>The product lead and the sponsor</td>
+</tr>
+<tr>
+<td><strong>Epic</strong></td>
+<td>Which big customer or business outcome do we deliver, across all parts of the product?</td>
+<td>1 to 3 months, many parts</td>
+<td><strong>You</strong>, written by hand</td>
+</tr>
+<tr>
+<td><strong>Milestone</strong></td>
+<td>What slice of that epic ships next, with a date?</td>
+<td>1 to 4 weeks</td>
+<td>You define it. Agents may help detail it.</td>
+</tr>
+<tr>
+<td><strong>Issue</strong></td>
+<td>Which exact task builds it?</td>
+<td>Hours to days</td>
+<td>AI agents and developers, reviewed by you</td>
+</tr>
+</tbody>
+</table>
+<p>Read the table slowly. The word “ship” in the milestone row matters: a milestone ends with something that works for a person, even if small.</p>
+<h3 id="an-epic-is-not-a-bigger-issue">An epic is not a bigger issue</h3>
+<p>The most common mistake is to think an epic is an issue with a long title. It is not. An epic is a <strong>different kind of thing</strong>, because it crosses parts of the product. For TrailMug, the epic “Café owners can join, run returns and see what TrailMug brought them” touches the partner page, the returns service, the help centre, the partner terms and the monthly report. No single repo contains it.</p>
+<blockquote>
+<p>If an epic lives in only one repository, it is probably a milestone.</p>
+</blockquote>
+<p>This is the first and best size test.</p>
+<h3 id="three-size-tests">Three size tests</h3>
+<p>Apply these in order:</p>
+<ol>
+<li><strong>The parts test.</strong> List the parts of your product (repos, systems, policies, people) the work touches. One part: issue. One repo with several steps: milestone. Three or more parts: epic.</li>
+<li><strong>The outcome test.</strong> Can you state a result a person would notice, in a sentence, with a number? “Visitors can request a welcome cup and get a reply in five minutes.” If you can only state an activity (“improve the website”), it is not yet an epic.</li>
+<li><strong>The calendar test.</strong> Would it take one to three months to deliver, as a whole? A few days: issue. A few weeks in one place: milestone. A quarter or more: it is probably two epics, or a vision.</li>
+</ol>
+<p>When the tests disagree, trust the parts test most.</p>
+<h3 id="why-across-all-parts-matters">Why “across all parts” matters</h3>
+<p>A product is a web of parts. The pain a customer feels rarely lives in one part. A late welcome email might need a change in the sign-up app, the customer list, the email provider and the website copy. If you plan by repo, each team or agent fixes its own part, the interfaces drift, and the customer still gets a late email. If you plan by <strong>outcome</strong>, one epic owner keeps all the pieces pointed at the same result.</p>
+<h3 id="how-other-tools-use-the-word">How other tools use the word</h3>
+<p>Words differ between tools, and a good manager can translate. Atlassian describes an epic as a large body of work that can be broken down into smaller stories, and shows how initiatives, epics and stories nest. Microsoft’s Azure Boards uses epics, features and user stories as backlog levels. GitLab’s epics group related issues across projects. In all of these, an epic is a <strong>container</strong> for smaller work. The Dojo adds a firm rule about the <strong>size and nature</strong> of the container: it crosses parts of the product and expresses a customer or business outcome. When you read other material, keep asking: “Is their epic my epic, or is it a milestone?”</p>
+<h3 id="free-plan-versus-paid-plan">Free plan versus paid plan</h3>
+<p>GitLab’s built-in epics feature, and its roadmap view, belong to paid tiers at the time of writing. Check the current GitLab documentation before you rely on them. On a free account you create the <strong>same discipline</strong> with labelled issues, milestones and boards. The lesson on your roadmap in git shows how. The skill transfers: a human-owned, written, dated plan.</p>
+<h2 id="3-step-by-step">3. Step by step</h2>
+<h3 id="step-1-list-your-candidates">Step 1: List your candidates</h3>
+<p>Take the break list from your journeys (see the <a href="/library/tracks/personas-and-journeys/">personas and journeys track</a>) and your product map. Write every outcome you could imagine delivering, one line each. Aim for 12 to 20. Include small things on purpose, because the tests will sort them.</p>
+<h3 id="step-2-write-each-as-an-outcome-for-a-person">Step 2: Write each as an outcome for a person</h3>
+<p>Rewrite each line as a result for a person. “Partner portal” becomes “A café owner can join and see her results without calling us.” If you cannot name the person, you do not yet understand the item.</p>
+<h3 id="step-3-apply-the-parts-test">Step 3: Apply the parts test</h3>
+<p>For each outcome, list the parts of the product it touches, using the names from your product map. Count them.</p>
+<h3 id="step-4-apply-the-outcome-test">Step 4: Apply the outcome test</h3>
+<p>Can you attach a number or a clear visible change? If not, write “needs a measure” and keep it on the list for now.</p>
+<h3 id="step-5-apply-the-calendar-test">Step 5: Apply the calendar test</h3>
+<p>Estimate roughly: days, weeks or months. Be honest, and remember that waiting for other people (a decision, a partner, a legal check) is part of the calendar.</p>
+<h3 id="step-6-sort">Step 6: Sort</h3>
+<p>Put each item in one of three piles: <strong>epic</strong> (passes all three, or passes the parts test strongly), <strong>milestone</strong> (one repo, several steps, weeks), <strong>issue</strong> (small). Items that pass no test are probably not yet ideas. Park them on a “later or never” list with a reason.</p>
+<h3 id="step-7-look-at-the-epic-pile">Step 7: Look at the epic pile</h3>
+<p>You will usually have six to ten candidates. The Dojo asks for four to eight epics in your first roadmap. Merge related ones. If two items share a person and a goal, they are probably one epic. Cut anything that does not serve your main user or customer. Write down what you cut.</p>
+<h2 id="4-worked-example-trailmug">4. Worked example: TrailMug</h2>
+<p>TrailMug is fictional. Here are some candidates sorted by the tests.</p>
+<table>
+<thead>
+<tr>
+<th>Candidate outcome</th>
+<th>Parts touched</th>
+<th>Calendar</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A café owner can join, run returns and see what TrailMug brought her</td>
+<td>Partner page, terms, help centre, returns service, monthly report (5)</td>
+<td>2 to 3 months</td>
+<td><strong>Epic</strong></td>
+</tr>
+<tr>
+<td>A visitor can see the price, sign up and pay</td>
+<td>Site, app, payment, privacy notice (4)</td>
+<td>6 to 10 weeks</td>
+<td><strong>Epic</strong></td>
+</tr>
+<tr>
+<td>A new member gets a welcome email within 5 minutes</td>
+<td>App, workflow, customer list, email provider (4)</td>
+<td>4 to 6 weeks</td>
+<td><strong>Epic</strong> (or part of onboarding)</td>
+</tr>
+<tr>
+<td>Anyone can tell whether the service is up</td>
+<td>Status page, monitoring, alerting (3)</td>
+<td>3 to 4 weeks</td>
+<td><strong>Epic</strong> (small)</td>
+</tr>
+<tr>
+<td>Café finder map loads in under 2 seconds</td>
+<td>Returns service only (1)</td>
+<td>3 days</td>
+<td><strong>Issue</strong></td>
+</tr>
+<tr>
+<td>Rewrite the home page headline</td>
+<td>Site (1)</td>
+<td>1 day</td>
+<td><strong>Issue</strong></td>
+</tr>
+<tr>
+<td>Partner onboarding emails for cafés</td>
+<td>Workflow, email provider (2)</td>
+<td>2 weeks</td>
+<td><strong>Milestone</strong> inside the café epic</td>
+</tr>
+<tr>
+<td>Loyalty points</td>
+<td>Several</td>
+<td>Unknown</td>
+<td><strong>Later or never:</strong> not serving this yet; no evidence</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What the sorting showed:</strong> four epics came out strongly. The map speed and the headline are issues for the backlog. The partner emails became a milestone inside the café epic. Loyalty points went to “later or never”, with the reason “no evidence from interviews”. The founder wrote one more line: “I cut loyalty points because no interviewee asked for them.”</p>
+<p>Compare the first epic with how Atlassian might describe it: a big story broken into smaller ones. The Dojo’s version stresses that it <strong>crosses</strong> the partner page, the terms and the returns service. That crossing is what makes someone need to own the whole.</p>
+<h2 id="5-working-with-ai-agents-on-this">5. Working with AI agents on this</h2>
+<p>Understanding the levels is the one place where an agent works well as a <strong>tutor and a checker</strong>. It is a poor author.</p>
+<p><strong>Delegate:</strong></p>
+<ul>
+<li><strong>Explaining words.</strong> “Explain the difference between an epic, a milestone and an issue to a new product manager. Give three examples from a cup-subscription product.” Then write your own explanation.</li>
+<li><strong>A size-test check.</strong> Give the agent your list with parts and calendar estimates, and ask it to say which items look mis-sorted and why. You decide.</li>
+<li><strong>Comparing tools.</strong> “Explain how epics work in Jira, Azure Boards and GitLab. List differences. Give links to the official documentation.” Open the links.</li>
+<li><strong>Finding vague words.</strong> “Underline any outcome in this list that has no clear person or measure.”</li>
+</ul>
+<p><strong>Do yourself:</strong></p>
+<ul>
+<li>Write each candidate outcome.</li>
+<li>Choose the parts, the calendar estimate and the verdict.</li>
+<li>Decide what to cut.</li>
+</ul>
+<p><strong>A brief you can adapt:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>I am sorting product work into three levels:</span></span>
+<span class="line"><span>- Epic: crosses three or more parts of the product, expresses an outcome</span></span>
+<span class="line"><span>  for a person, takes 1 to 3 months.</span></span>
+<span class="line"><span>- Milestone: one repo or area, several steps, 1 to 4 weeks.</span></span>
+<span class="line"><span>- Issue: a task of hours to days.</span></span>
+<span class="line"><span>Below is my list. Each line has the outcome, the parts it touches and my</span></span>
+<span class="line"><span>time estimate. For each line, say whether you agree with my verdict and</span></span>
+<span class="line"><span>give one sentence of reasoning. Do not add or remove items. Do not</span></span>
+<span class="line"><span>rewrite my wording. If a line has no person or no measurable result, say so.</span></span></code></pre>
+<p><strong>How to check the output.</strong> The agent will usually agree with you. That is the danger. Pick two items where it agreed and argue the opposite case yourself. If you can, mark them again. Count parts yourself: agents often miscount, or include parts you do not have.</p>
+<p><strong>Disclose.</strong> In <code>roadmap/levels-sorting.md</code>: “AI use: explained terms and checked my sorting. The outcomes, parts and verdicts are mine.”</p>
+<p><strong>Where this sits on the ladder.</strong> The agent skill of a manager climbs four rungs: <strong>use</strong> one agent, <strong>delegate</strong> whole tasks with a brief, <strong>orchestrate</strong> several sessions, and <strong>govern</strong> them with written policy, hooks and gates. You are on the <strong>use</strong> rung here. An agent is a tutor and a checker. The levels you learn are what let you climb: you cannot orchestrate work you cannot size. The agent orchestration track (<code>/library/tracks/agent-orchestration/</code>) covers the two upper rungs.</p>
+<h2 id="6-common-mistakes">6. Common mistakes</h2>
+<ul>
+<li><strong>Treating an epic as a big issue.</strong> If it lives in one repo, it is a milestone.</li>
+<li><strong>Naming epics after features.</strong> “Landing pages” is a feature. “Visitors can request a welcome cup” is an outcome.</li>
+<li><strong>Writing epics as activities.</strong> “Improve onboarding” has no end. Add a person and a number.</li>
+<li><strong>Too many epics.</strong> More than eight in a first roadmap usually means some are milestones.</li>
+<li><strong>Too big.</strong> An epic that takes a year is a vision, and should be cut into two or three.</li>
+<li><strong>Planning by team or repo.</strong> Plan by outcome, then see which repos it needs.</li>
+<li><strong>Copying another tool’s meaning of epic.</strong> Check whether it matches the Dojo rule.</li>
+<li><strong>Letting an AI name and size your epics.</strong> You will not be able to defend them.</li>
+</ul>
+<h2 id="7-practice-sort-twenty-items">7. Practice: sort twenty items</h2>
+<p><strong>Deliverable:</strong> <code>roadmap/levels-sorting.md</code> in your git repo.</p>
+<ol>
+<li>A table of at least 15 candidate outcomes for your product, each written as a result for a person.</li>
+<li>For each: the parts it touches (named from your product map), the rough calendar, the result of each size test and your verdict: epic, milestone, issue or later/never.</li>
+<li>A short list of items you cut and why.</li>
+<li>A paragraph, in your own words, that explains the difference between an epic and a milestone to someone who has never heard the words.</li>
+<li>Your AI-use line.</li>
+</ol>
+<p>Use your own product. If you work with TrailMug, add at least five new candidates that are your own idea.</p>
+<p>Commit with a message such as <code>Sort candidate outcomes into epics, milestones and issues</code>.</p>
+<p><strong>Check:</strong> read your explanation to a friend. If she cannot say back the difference in her own words, rewrite it.</p>
+<p><strong>Stretch:</strong> compare the Atlassian and GitLab epic pages. Write five lines on where their meaning differs from the Dojo’s.</p>
+<h2 id="8-checklist">8. Checklist</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> I can name the four levels and who owns each.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Each candidate is written as an outcome for a person.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I counted the parts each one touches.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I applied the parts, outcome and calendar tests.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Epics cross parts of the product; single-repo work is a milestone or issue.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I wrote what I cut and why.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I wrote my own explanation of an epic.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I recorded my AI use.</li>
+</ul>
+<h2 id="9-further-learning">9. Further learning</h2>
+<p>Atlassian’s pages on epics and on epics, stories and initiatives show the common vocabulary. Microsoft’s guide to product and portfolio backlogs shows the same ideas in Azure Boards, and the GitLab pages on epics and milestones show how a Git-based tool models them. Atlassian’s roadmap guide gives the wider picture of what epics feed. In the next lesson you will write an epic yourself, line by line.</p>
+<nav class="pager" aria-label="More in this section" data-astro-cid-ecbjlo7c><a href="/library/tracks/roadmapping-and-epics/02-write-an-epic-yourself" data-astro-cid-ecbjlo7c>Next: Write an epic yourself</a></nav><p data-astro-cid-ecbjlo7c><a href="/library" data-astro-cid-ecbjlo7c>Back to the library</a></p></div></article></main><section class="sponsor-band" aria-label="Sponsored by Reveltek" data-astro-cid-ji2uitki><div class="backdrop" aria-hidden="true" data-astro-cid-ji2uitki><span class="only-light" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band.avif"><source type="image/webp" srcset="/images/mountains-band.webp"><img src="/images/mountains-band.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span><span class="only-dark" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band-dark.avif"><source type="image/webp" srcset="/images/mountains-band-dark.webp"><img src="/images/mountains-band-dark.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span></div><div class="container inner" data-astro-cid-ji2uitki><span class="lead" data-astro-cid-ji2uitki>Sponsored by</span><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span><a class="sponsor" href="/sponsors" data-astro-cid-ji2uitki><img class="only-light" src="/images/reveltek-logo.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki><img class="only-dark" src="/images/reveltek-logo-white.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki></a><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span></div></section><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="container inner" data-astro-cid-jo6i4kqk><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><nav aria-label="Footer" data-astro-cid-jo6i4kqk><ul data-astro-cid-jo6i4kqk><li data-astro-cid-jo6i4kqk><a href="/about" data-astro-cid-jo6i4kqk>About CRC</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors" data-astro-cid-jo6i4kqk>Sponsors (Reveltek)</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors#become-a-sponsor" data-astro-cid-jo6i4kqk>Become a sponsor</a></li><li data-astro-cid-jo6i4kqk><a href="/contact" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href="/code-of-conduct" data-astro-cid-jo6i4kqk>Code of conduct</a></li><li data-astro-cid-jo6i4kqk><a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>GitHub</a></li></ul></nav></div><p class="legal container" data-astro-cid-jo6i4kqk>© 2026 Curiosity Research Corporation. Developer Dojo is free for everyone and is sponsored by Reveltek.</p></footer></body></html><script type="module">for(let e of document.querySelectorAll(`.prose .task-list-item > input[type="checkbox"]`)){let t=e.parentElement?.textContent?.trim();t&&e.setAttribute(`aria-label`,t)}</script>

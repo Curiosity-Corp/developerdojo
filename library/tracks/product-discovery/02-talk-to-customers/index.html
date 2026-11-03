@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Talk to customers · Developer Dojo</title><meta name="description" content="Recruit the right people, run five short interviews that ask about the past, and capture evidence you can trust without leaking anyone's private details."><link rel="canonical" href="https://developerdojo.org/library/tracks/product-discovery/02-talk-to-customers/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="color-scheme" content="light dark"><meta property="og:site_name" content="Developer Dojo"><meta property="og:title" content="Talk to customers · Developer Dojo"><meta property="og:description" content="Recruit the right people, run five short interviews that ask about the past, and capture evidence you can trust without leaking anyone's private details."><meta property="og:type" content="website"><meta property="og:url" content="https://developerdojo.org/library/tracks/product-discovery/02-talk-to-customers/"><meta name="twitter:card" content="summary"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      // Runs before first paint: apply the saved theme and mark JS as available.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('dojo-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/PageHero.zOqh7M6S.css"><style>.pager[data-astro-cid-ecbjlo7c]{justify-content:space-between;gap:var(--space-3);margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--line);flex-wrap:wrap;display:flex}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]{font-weight:600}
+</style></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header" data-astro-cid-nen7h5rs><div class="bar" data-astro-cid-nen7h5rs><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><button type="button" class="menu-button" data-menu-button aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu" data-astro-cid-nen7h5rs><svg class="icon open-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"/></svg><svg class="icon close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><nav id="primary-nav" class="nav" aria-label="Primary" data-nav data-astro-cid-nen7h5rs><ul data-astro-cid-nen7h5rs><li data-astro-cid-nen7h5rs><a href="/train" data-astro-cid-nen7h5rs>Train</a></li><li data-astro-cid-nen7h5rs><a href="/sensei" data-astro-cid-nen7h5rs>Sensei</a></li><li data-astro-cid-nen7h5rs><a href="/library" aria-current="page" data-astro-cid-nen7h5rs>Library</a></li><li data-astro-cid-nen7h5rs><a href="/certificates" data-astro-cid-nen7h5rs>Certificates</a></li><li data-astro-cid-nen7h5rs><a href="/challenges" data-astro-cid-nen7h5rs>Challenges</a></li><li data-astro-cid-nen7h5rs><a href="/events" data-astro-cid-nen7h5rs>Events</a></li><li data-astro-cid-nen7h5rs><a href="/membership" data-astro-cid-nen7h5rs>Membership</a></li></ul><div class="actions" data-astro-cid-nen7h5rs><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" data-astro-cid-l6lhmie6><svg class="icon to-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="icon to-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g></svg></button><script type="module">var e=document.documentElement,t=document.querySelector(`[data-theme-toggle]`);function n(){let t=e.getAttribute(`data-theme`);return t===`dark`||t!==`light`&&window.matchMedia(`(prefers-color-scheme: dark)`).matches}function r(){if(!t)return;let e=n();t.setAttribute(`aria-label`,e?`Switch to light theme`:`Switch to dark theme`),t.setAttribute(`data-mode`,e?`dark`:`light`)}t?.addEventListener(`click`,()=>{let t=n()?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`dojo-theme`,t)}catch(e){console.warn(`Theme preference not saved:`,e)}r()}),r();</script><a class="start" href="/membership" data-astro-cid-nen7h5rs>Start free</a></div></nav></div></header><script type="module">var e=document.querySelector(`[data-menu-button]`),t=document.querySelector(`[data-nav]`),n=document.querySelector(`.site-header`);function r(t){e&&n&&(n.toggleAttribute(`data-open`,t),e.setAttribute(`aria-expanded`,String(t)),e.setAttribute(`aria-label`,t?`Close menu`:`Open menu`))}e?.addEventListener(`click`,()=>r(e.getAttribute(`aria-expanded`)!==`true`)),t?.addEventListener(`click`,e=>{e.target instanceof HTMLAnchorElement&&r(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e?.getAttribute(`aria-expanded`)===`true`&&(r(!1),e.focus())}),window.matchMedia(`(min-width: 62rem)`).addEventListener(`change`,e=>{e.matches&&r(!1)}),document.documentElement.classList.add(`js`);</script><main id="main"><section class="hero compact" data-astro-cid-75ysl5lo><div class="art" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/hero-dojo-mobile.avif" media="(max-width: 40rem)"><source type="image/webp" srcset="/images/hero-dojo-mobile.webp" media="(max-width: 40rem)"><source srcset="/images/hero-dojo-mobile.jpg" media="(max-width: 40rem)"><source type="image/avif" srcset="/images/hero-dojo.avif"><source type="image/webp" srcset="/images/hero-dojo.webp"><img class="art-img" src="/images/hero-dojo.jpg" alt width="2400" height="900" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="scrim" aria-hidden="true" data-astro-cid-75ysl5lo></div><div class="enso" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/enso.avif"><source type="image/webp" srcset="/images/enso.webp"><img src="/images/enso.png" alt width="800" height="800" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="container grid" data-astro-cid-75ysl5lo><div class="copy" data-astro-cid-75ysl5lo><p class="eyebrow" data-astro-cid-75ysl5lo>Product discovery</p><h1 data-astro-cid-75ysl5lo>Talk to customers</h1><p class="subtitle" data-astro-cid-75ysl5lo>Recruit the right people, run five short interviews that ask about the past, and capture evidence you can trust without leaking anyone&#39;s private details.</p></div></div></section><article class="section" data-astro-cid-ecbjlo7c><div class="container prose" data-astro-cid-ecbjlo7c><p><strong>Supports:</strong> Developer, week 1 (you book the interviews) and week 2 (you hold them and write personas). <strong>Time:</strong> about two hours to prepare, then five conversations of 30 minutes each.</p>
+<h2 id="1-why-this-matters">1. Why this matters</h2>
+<p>You cannot see your customer from your desk. You can guess, and an AI agent can guess very fluently, but a guess is not evidence. The only way to learn what people really do, worry about and pay for is to talk to them.</p>
+<p>For a Product Development Manager (PDM) this is not a soft skill. It is how you decide where millions of dollars of agent-built work should go. An agent will build a feature in an afternoon. Whether that feature matters depends on a fact that exists only in a customer’s head. If you skip the conversation, you are directing a very fast workforce with a blindfold on.</p>
+<p>There is a second reason. Interviews give you <strong>words</strong>. The phrases customers use are the phrases you put on your website, in your emails and in your epic titles. A manager who has heard twenty customers say “I hate carrying a dirty cup in my bag” writes better than any language model asked to “write copy for a reusable cup”.</p>
+<h3 id="what-the-pdm-decides-here">What the PDM decides here</h3>
+<table>
+<thead>
+<tr>
+<th>You decide</th>
+<th>You may delegate to an agent</th>
+<th>You verify</th>
+<th>Other disciplines involved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Who to talk to, what to ask, what the answers mean</td>
+<td>Drafting a first list of questions; tidying your own notes; scheduling emails you approve</td>
+<td>Notes match what was said; no private details leak; patterns are real, not one loud voice</td>
+<td>Design research, sales, support, privacy and legal</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-key-ideas">2. Key ideas</h2>
+<h3 id="ask-about-the-past-not-the-future">Ask about the past, not the future</h3>
+<p>People are poor at predicting their own behaviour. “Would you use an app that…?” gets a polite yes. “Tell me about the last time you bought coffee on your way to work” gets a story, and stories contain facts: where, when, what went wrong, what they did instead.</p>
+<table>
+<thead>
+<tr>
+<th>Weak question</th>
+<th>Why it fails</th>
+<th>Strong question</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“Would you pay for this?”</td>
+<td>Free to say yes</td>
+<td>“Have you ever paid for something to solve this? What was it?”</td>
+</tr>
+<tr>
+<td>“Do you like reusable cups?”</td>
+<td>Leading; invites a nice answer</td>
+<td>“What do you do with your cup when it is empty?”</td>
+</tr>
+<tr>
+<td>“How important is sustainability to you?”</td>
+<td>Abstract; everybody says “very”</td>
+<td>“Tell me about the last time you chose one product over another for environmental reasons.”</td>
+</tr>
+<tr>
+<td>“What features do you want?”</td>
+<td>People describe solutions they cannot design</td>
+<td>“What is the hardest part of doing this today?”</td>
+</tr>
+</tbody>
+</table>
+<h3 id="behaviour-beats-opinion">Behaviour beats opinion</h3>
+<p>What people <strong>do</strong> is stronger evidence than what they <strong>say</strong>. A person who tells you she cares about waste but throws away two cups a day is telling you two things. Both matter. Keep both in your notes and mark which is which.</p>
+<h3 id="five-is-a-start-not-a-proof">Five is a start, not a proof</h3>
+<p>For finding the biggest problems, small groups work well. Researchers at NN/g have long argued that small, repeated rounds beat one big study, because the first few people reveal most of the major problems and you can fix and try again. The Dojo asks for <strong>five interviews</strong> in week 1: fewer than that gives you stories, and more than about eight usually repeat themselves. Five does not give you statistics. It gives you patterns to check later.</p>
+<h3 id="the-right-people">The right people</h3>
+<p>Friends and family are the easiest to find and the least useful. They want to be kind. Aim for people who:</p>
+<ul>
+<li><strong>Have the problem now</strong>, not “would probably have it”.</li>
+<li><strong>Tried to solve it</strong> in some way (even with a workaround).</li>
+<li><strong>Do not know you well</strong>, or at least have no reason to flatter you.</li>
+</ul>
+<p>Include different kinds of people. If your product has a user and a customer who are not the same (a café owner who accepts cups and a commuter who uses them), interview <strong>both</strong>, and keep their notes separate.</p>
+<h3 id="privacy-and-respect">Privacy and respect</h3>
+<p>You are asking people for their time and their stories. Treat them well:</p>
+<ul>
+<li><strong>Ask permission</strong> before you take notes, and say what you will do with them.</li>
+<li><strong>Never record</strong> without a clear yes.</li>
+<li><strong>Keep names out of git.</strong> Use a code such as <code>C1</code>, <code>C2</code>, <code>P1</code>. Keep the key that links codes to people in a private place, not in the repo.</li>
+<li><strong>Leave out private details</strong> such as health, money or home address, unless they are essential and the person agreed.</li>
+<li><strong>Offer to delete</strong> their notes on request.</li>
+</ul>
+<p>These habits are the core of ethical research, and they protect you, too.</p>
+<h2 id="3-step-by-step">3. Step by step</h2>
+<h3 id="step-1-turn-your-unknowns-into-questions">Step 1: Turn your unknowns into questions</h3>
+<p>Open the assumption list from the last lesson. For each of your three riskiest assumptions, write the learning goal in plain words: “Learn whether commuters have already paid to solve the dirty-cup problem.” Interview questions serve these goals. If a question serves no goal, drop it.</p>
+<h3 id="step-2-find-five-people">Step 2: Find five people</h3>
+<p>Write the profile in one line: “Adult who buys coffee on the way to work at least four times a week.” Then find people through:</p>
+<ul>
+<li>Places they already are: a café queue, a local community group, an online forum where the topic is discussed (follow the group’s rules).</li>
+<li>People you know who can introduce you to people you do not know. “Who do you know who commutes every day?”</li>
+<li>Short, honest invitations: who you are, what you want to learn, how long it takes, what you will do with the notes.</li>
+</ul>
+<p>Book all five before you start. Some will cancel, so invite seven.</p>
+<p>The UK government service manual has plain, practical advice on finding and recruiting participants. It is worth ten minutes.</p>
+<h3 id="step-3-prepare-a-one-page-guide">Step 3: Prepare a one-page guide</h3>
+<p>Use this shape for a 30-minute talk:</p>
+<ol>
+<li><strong>Welcome (3 minutes).</strong> Say thanks, explain why, ask permission to take notes, and say there are no wrong answers.</li>
+<li><strong>Context (5 minutes).</strong> “Tell me about yourself and your day.” Easy questions first.</li>
+<li><strong>The last time (12 minutes).</strong> “Tell me about the last time you…” Follow the story with “What happened next?” and “How did that feel?”</li>
+<li><strong>Money and alternatives (5 minutes).</strong> “What do you use today? Have you paid for something to fix this?”</li>
+<li><strong>Close (5 minutes).</strong> “What should I have asked and did not? May I contact you again?”</li>
+</ol>
+<p>The Dojo <a href="/library/week-2-know-the-people">week 2 page</a> has a twelve-question script you can adapt.</p>
+<h3 id="step-4-hold-the-conversation">Step 4: Hold the conversation</h3>
+<ul>
+<li><strong>Listen about 80 percent of the time.</strong> Silence is a tool. After they finish, wait three seconds. They often add the real answer.</li>
+<li><strong>Probe, do not lead.</strong> Say “Tell me more about that” instead of “So you hated it?”</li>
+<li><strong>Ask for examples.</strong> “Can you remember a specific time?” turns a general claim into a fact.</li>
+<li><strong>Do not defend your idea.</strong> If someone says it sounds pointless, say “Thank you, tell me why.” You are there to learn, not to sell.</li>
+<li><strong>Pay attention to language.</strong> Write down the exact phrases people use, in quotation marks.</li>
+</ul>
+<p>If English is your second language, you can use a short card with your questions, speak slowly and ask people to repeat. Clear and simple beats fancy.</p>
+<h3 id="step-5-write-it-up-within-an-hour">Step 5: Write it up within an hour</h3>
+<p>While your memory is fresh, write a notes file for each interview. Use three headings:</p>
+<ul>
+<li><strong>Said:</strong> what the person said, with exact quotes in quotation marks.</li>
+<li><strong>Saw:</strong> what you observed (hesitation, a workaround on screen, a cup in the bag).</li>
+<li><strong>My guesses:</strong> what you think it means. Label every item as a guess.</li>
+</ul>
+<p>Mixing the three is the most common way notes become useless later.</p>
+<h3 id="step-6-compare-across-people">Step 6: Compare across people</h3>
+<p>After each interview, add a line to a simple table: person code, how they solve the problem today, what they paid for, what annoys them most. Patterns show up after the third or fourth row. The next lesson shows how to turn this table into a decision.</p>
+<h2 id="4-worked-example-trailmug">4. Worked example: TrailMug</h2>
+<p>The TrailMug founder (fictional) needs to test two assumptions: commuters will pay to avoid carrying a dirty cup, and cafés will accept returned cups.</p>
+<p><strong>Profile for commuters:</strong> “Buys coffee on the way to work at least four days a week and owns a reusable cup.” She finds three by asking a train-station café owner to introduce regulars, and two through a local cycling group.</p>
+<p><strong>Profile for café owners:</strong> “Owns or manages a café with at least 50 cups a day.” She finds three through a neighbourhood business group.</p>
+<p><strong>Questions that earned their place:</strong></p>
+<ul>
+<li>“Tell me about the last time you took your own cup. What happened to it afterwards?”</li>
+<li>“What did you do the last time you forgot it?”</li>
+<li>“Have you ever paid for a gadget or service to make this easier?”</li>
+<li>For cafés: “Walk me through what happens when a customer brings their own cup. What slows you down?”</li>
+</ul>
+<p><strong>What one note file looked like (illustrative):</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Interview C3, commuter, 2026-11-04, 28 minutes. Consent to notes: yes.</span></span>
+<span class="line"><span>SAID</span></span>
+<span class="line"><span>- "I stopped bringing the cup because it leaks in my bag."</span></span>
+<span class="line"><span>- "I paid 30 pounds for an insulated one and still left it at home."</span></span>
+<span class="line"><span>SAW</span></span>
+<span class="line"><span>- Hesitated before the word "pay"; looked at the ceiling.</span></span>
+<span class="line"><span>MY GUESSES (guess)</span></span>
+<span class="line"><span>- The pain is carrying, not buying. Subscription may fit better than a sale.</span></span></code></pre>
+<p><strong>What changed.</strong> After five commuter conversations, three had bought a reusable cup and stopped using it within a month. The reason was the same: a used cup is dirty and awkward. That strengthened the idea. But two of the three café owners said they would not accept cups from strangers because of hygiene rules, and one said the counter is too busy for swaps at lunch. That is a deadly assumption, and the founder found it in a week, for free. Her next step was a conversation with a local food-safety adviser, not a design sprint.</p>
+<h2 id="5-working-with-ai-agents-on-this">5. Working with AI agents on this</h2>
+<p><strong>Delegate:</strong></p>
+<ul>
+<li><strong>A first draft of the guide.</strong> “Here are my three learning goals. Draft 15 open questions about past behaviour. Do not include leading questions.” Then cut, reorder and rewrite them in your voice.</li>
+<li><strong>Cleaning your own notes.</strong> After you write notes by hand, an agent can fix spelling or put them in a consistent table. Give it only the notes you are allowed to share, without names.</li>
+<li><strong>Finding public sources</strong> on the people you will interview, such as the rules that apply to cafés in your city, with links for you to read.</li>
+<li><strong>Writing the invitation email</strong> for you to edit.</li>
+</ul>
+<p><strong>Do yourself:</strong></p>
+<ul>
+<li>Choose who to interview, and hold every interview.</li>
+<li>Take the notes in your own words.</li>
+<li>Decide what the answers mean.</li>
+</ul>
+<p><strong>Never</strong> ask an agent to “simulate five customers” and call the answers evidence. A model produces the most likely thing a customer might say, which is what you already believe plus polite averages. Some teams use simulated users to rehearse their questions. That is a rehearsal, not research. The Dojo rule: no invented personas, no invented quotes, no invented journey steps.</p>
+<p><strong>A brief you can adapt:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>I am preparing customer interviews for a product. My learning goals are:</span></span>
+<span class="line"><span>1) ... 2) ... 3) ...</span></span>
+<span class="line"><span>Draft 15 open questions that ask about past behaviour ("tell me about the</span></span>
+<span class="line"><span>last time..."). Do not ask about future intentions, and do not ask</span></span>
+<span class="line"><span>questions with yes or no answers. For each question, state which learning</span></span>
+<span class="line"><span>goal it serves. Flag any question that could be read as leading.</span></span></code></pre>
+<p><strong>How to check the output.</strong> Test every question: Can it be answered yes or no? Does it suggest the answer? Does it ask about the future? Rewrite or delete it. Then speak the list aloud. If a question sounds odd in your mouth, it will sound odd to the person.</p>
+<p><strong>Privacy check.</strong> Before you paste notes into any AI tool, remove names, employers and any detail that could identify someone. Check the tool’s data rules. If you are not sure, do not paste.</p>
+<p><strong>Disclose.</strong> In <code>discovery/interviews/README.md</code> write which parts, if any, an agent helped with.</p>
+<p><strong>Where this sits on the ladder.</strong> The agent skill of a manager climbs four rungs: <strong>use</strong> one agent, <strong>delegate</strong> whole tasks with a brief, <strong>orchestrate</strong> several sessions, and <strong>govern</strong> them with written policy, hooks and gates. This lesson sits on <strong>use</strong>, with a little <strong>delegate</strong>. Drafting a script or tidying notes is a small task with a clear brief. If you ever run several agents over many interview notes, you are orchestrating, and the rule that every claim links to a quote becomes a gate you check. The agent orchestration track (<code>/library/tracks/agent-orchestration/</code>) covers the two upper rungs.</p>
+<h2 id="6-common-mistakes">6. Common mistakes</h2>
+<ul>
+<li><strong>Pitching instead of listening.</strong> If you talk more than a fifth of the time, you are selling.</li>
+<li><strong>Asking “would you”.</strong> Replace it with “have you” and “tell me about the last time”.</li>
+<li><strong>Interviewing only friendly people.</strong> Include at least two who are not convinced.</li>
+<li><strong>Skipping the writing.</strong> After a day you will remember what confirmed your idea and forget what did not.</li>
+<li><strong>Putting names in git.</strong> Use codes, and keep the key private.</li>
+<li><strong>Treating five answers as a statistic.</strong> “Four out of five” is a pattern, not a percentage of the market.</li>
+<li><strong>Interviewing only the user.</strong> If another person pays or decides, talk to that person too.</li>
+<li><strong>Stopping at the first confirming answer.</strong> One enthusiastic person can mislead you. Look for the third and fourth.</li>
+</ul>
+<h2 id="7-practice-five-interviews-five-note-files">7. Practice: five interviews, five note files</h2>
+<p><strong>Deliverable:</strong> a folder <code>discovery/interviews/</code> in your git repo containing:</p>
+<ol>
+<li><code>guide.md</code>: your one-page interview guide, with the learning goals at the top.</li>
+<li><code>C1.md</code> to <code>C5.md</code> (or the codes you choose): one notes file per interview, each with the <strong>Said / Saw / My guesses</strong> headings and a consent line.</li>
+<li><code>summary-table.md</code>: one row per person with how they solve the problem today, what they have paid for and their top frustration.</li>
+<li><code>README.md</code>: who you spoke to (by code and profile, not by name), what an agent helped with, and what you would ask differently next time.</li>
+</ol>
+<p>If you cannot finish five interviews yet, commit what you have and write how many are booked. Honest partial work beats a complete set that was invented.</p>
+<p><strong>Self-test:</strong> reread each notes file and highlight every sentence that is your guess. If more than a third is highlighted, the notes lean too much on interpretation. Go back and add exact quotes.</p>
+<h2 id="8-checklist">8. Checklist</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> I wrote my learning goals before I wrote my questions.</li>
+<li class="task-list-item"><input type="checkbox" disabled> My participants really have the problem.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Every question asks about the past or about specific behaviour.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I asked permission, and recorded nothing without a yes.</li>
+<li class="task-list-item"><input type="checkbox" disabled> My notes separate Said, Saw and My guesses.</li>
+<li class="task-list-item"><input type="checkbox" disabled> No names or private details are in git.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I interviewed both the user and the customer where they differ.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I did not use an AI to invent people or answers, and I wrote down how I did use AI.</li>
+</ul>
+<h2 id="9-further-learning">9. Further learning</h2>
+<p>Start with the NN/g article “Interviewing Users” and the five-minute video on common interview mistakes. Then read the UK service manual page on finding participants before you send your invitations. If you want a model of a professional interview plan, the Atlassian Team Playbook play on customer interviews gives you steps and questions. In the next lesson you will draw the whole product, so that what you learned from people can be tied to the parts of the product that serve them.</p>
+<nav class="pager" aria-label="More in this section" data-astro-cid-ecbjlo7c><a href="/library/tracks/product-discovery/01-frame-the-problem-and-the-idea" data-astro-cid-ecbjlo7c>Previous: Frame the problem and the idea</a><a href="/library/tracks/product-discovery/03-map-the-whole-product" data-astro-cid-ecbjlo7c>Next: Map the whole product</a></nav><p data-astro-cid-ecbjlo7c><a href="/library" data-astro-cid-ecbjlo7c>Back to the library</a></p></div></article></main><section class="sponsor-band" aria-label="Sponsored by Reveltek" data-astro-cid-ji2uitki><div class="backdrop" aria-hidden="true" data-astro-cid-ji2uitki><span class="only-light" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band.avif"><source type="image/webp" srcset="/images/mountains-band.webp"><img src="/images/mountains-band.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span><span class="only-dark" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band-dark.avif"><source type="image/webp" srcset="/images/mountains-band-dark.webp"><img src="/images/mountains-band-dark.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span></div><div class="container inner" data-astro-cid-ji2uitki><span class="lead" data-astro-cid-ji2uitki>Sponsored by</span><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span><a class="sponsor" href="/sponsors" data-astro-cid-ji2uitki><img class="only-light" src="/images/reveltek-logo.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki><img class="only-dark" src="/images/reveltek-logo-white.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki></a><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span></div></section><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="container inner" data-astro-cid-jo6i4kqk><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><nav aria-label="Footer" data-astro-cid-jo6i4kqk><ul data-astro-cid-jo6i4kqk><li data-astro-cid-jo6i4kqk><a href="/about" data-astro-cid-jo6i4kqk>About CRC</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors" data-astro-cid-jo6i4kqk>Sponsors (Reveltek)</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors#become-a-sponsor" data-astro-cid-jo6i4kqk>Become a sponsor</a></li><li data-astro-cid-jo6i4kqk><a href="/contact" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href="/code-of-conduct" data-astro-cid-jo6i4kqk>Code of conduct</a></li><li data-astro-cid-jo6i4kqk><a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>GitHub</a></li></ul></nav></div><p class="legal container" data-astro-cid-jo6i4kqk>© 2026 Curiosity Research Corporation. Developer Dojo is free for everyone and is sponsored by Reveltek.</p></footer></body></html><script type="module">for(let e of document.querySelectorAll(`.prose .task-list-item > input[type="checkbox"]`)){let t=e.parentElement?.textContent?.trim();t&&e.setAttribute(`aria-label`,t)}</script>

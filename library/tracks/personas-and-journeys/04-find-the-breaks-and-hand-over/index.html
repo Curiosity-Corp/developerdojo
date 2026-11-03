@@ -1,0 +1,286 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Find the breaks and hand over to the roadmap · Developer Dojo</title><meta name="description" content="Read your journeys against your product map, find where people struggle or are not served, rank the breaks and write them as epic candidates for week 3."><link rel="canonical" href="https://developerdojo.org/library/tracks/personas-and-journeys/04-find-the-breaks-and-hand-over/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="color-scheme" content="light dark"><meta property="og:site_name" content="Developer Dojo"><meta property="og:title" content="Find the breaks and hand over to the roadmap · Developer Dojo"><meta property="og:description" content="Read your journeys against your product map, find where people struggle or are not served, rank the breaks and write them as epic candidates for week 3."><meta property="og:type" content="website"><meta property="og:url" content="https://developerdojo.org/library/tracks/personas-and-journeys/04-find-the-breaks-and-hand-over/"><meta name="twitter:card" content="summary"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      // Runs before first paint: apply the saved theme and mark JS as available.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('dojo-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/PageHero.zOqh7M6S.css"><style>.pager[data-astro-cid-ecbjlo7c]{justify-content:space-between;gap:var(--space-3);margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--line);flex-wrap:wrap;display:flex}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]{font-weight:600}
+</style></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header" data-astro-cid-nen7h5rs><div class="bar" data-astro-cid-nen7h5rs><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><button type="button" class="menu-button" data-menu-button aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu" data-astro-cid-nen7h5rs><svg class="icon open-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"/></svg><svg class="icon close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><nav id="primary-nav" class="nav" aria-label="Primary" data-nav data-astro-cid-nen7h5rs><ul data-astro-cid-nen7h5rs><li data-astro-cid-nen7h5rs><a href="/train" data-astro-cid-nen7h5rs>Train</a></li><li data-astro-cid-nen7h5rs><a href="/sensei" data-astro-cid-nen7h5rs>Sensei</a></li><li data-astro-cid-nen7h5rs><a href="/library" aria-current="page" data-astro-cid-nen7h5rs>Library</a></li><li data-astro-cid-nen7h5rs><a href="/certificates" data-astro-cid-nen7h5rs>Certificates</a></li><li data-astro-cid-nen7h5rs><a href="/challenges" data-astro-cid-nen7h5rs>Challenges</a></li><li data-astro-cid-nen7h5rs><a href="/events" data-astro-cid-nen7h5rs>Events</a></li><li data-astro-cid-nen7h5rs><a href="/membership" data-astro-cid-nen7h5rs>Membership</a></li></ul><div class="actions" data-astro-cid-nen7h5rs><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" data-astro-cid-l6lhmie6><svg class="icon to-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="icon to-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g></svg></button><script type="module">var e=document.documentElement,t=document.querySelector(`[data-theme-toggle]`);function n(){let t=e.getAttribute(`data-theme`);return t===`dark`||t!==`light`&&window.matchMedia(`(prefers-color-scheme: dark)`).matches}function r(){if(!t)return;let e=n();t.setAttribute(`aria-label`,e?`Switch to light theme`:`Switch to dark theme`),t.setAttribute(`data-mode`,e?`dark`:`light`)}t?.addEventListener(`click`,()=>{let t=n()?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`dojo-theme`,t)}catch(e){console.warn(`Theme preference not saved:`,e)}r()}),r();</script><a class="start" href="/membership" data-astro-cid-nen7h5rs>Start free</a></div></nav></div></header><script type="module">var e=document.querySelector(`[data-menu-button]`),t=document.querySelector(`[data-nav]`),n=document.querySelector(`.site-header`);function r(t){e&&n&&(n.toggleAttribute(`data-open`,t),e.setAttribute(`aria-expanded`,String(t)),e.setAttribute(`aria-label`,t?`Close menu`:`Open menu`))}e?.addEventListener(`click`,()=>r(e.getAttribute(`aria-expanded`)!==`true`)),t?.addEventListener(`click`,e=>{e.target instanceof HTMLAnchorElement&&r(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e?.getAttribute(`aria-expanded`)===`true`&&(r(!1),e.focus())}),window.matchMedia(`(min-width: 62rem)`).addEventListener(`change`,e=>{e.matches&&r(!1)}),document.documentElement.classList.add(`js`);</script><main id="main"><section class="hero compact" data-astro-cid-75ysl5lo><div class="art" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/hero-dojo-mobile.avif" media="(max-width: 40rem)"><source type="image/webp" srcset="/images/hero-dojo-mobile.webp" media="(max-width: 40rem)"><source srcset="/images/hero-dojo-mobile.jpg" media="(max-width: 40rem)"><source type="image/avif" srcset="/images/hero-dojo.avif"><source type="image/webp" srcset="/images/hero-dojo.webp"><img class="art-img" src="/images/hero-dojo.jpg" alt width="2400" height="900" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="scrim" aria-hidden="true" data-astro-cid-75ysl5lo></div><div class="enso" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/enso.avif"><source type="image/webp" srcset="/images/enso.webp"><img src="/images/enso.png" alt width="800" height="800" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="container grid" data-astro-cid-75ysl5lo><div class="copy" data-astro-cid-75ysl5lo><p class="eyebrow" data-astro-cid-75ysl5lo>Personas and journeys</p><h1 data-astro-cid-75ysl5lo>Find the breaks and hand over to the roadmap</h1><p class="subtitle" data-astro-cid-75ysl5lo>Read your journeys against your product map, find where people struggle or are not served, rank the breaks and write them as epic candidates for week 3.</p></div></div></section><article class="section" data-astro-cid-ecbjlo7c><div class="container prose" data-astro-cid-ecbjlo7c><p><strong>Supports:</strong> Developer, week 2 (the coach checkpoint question “where does the journey break today?”) and the start of week 3 (Problems to epics). <strong>Time:</strong> about two hours.</p>
+<h2 id="1-why-this-matters">1. Why this matters</h2>
+<p>You now hold personas, touch points and two journeys. They look useful, and they are, but only if they change what you do next. This lesson is the hand-over: you read the journeys with a critical eye, find the <strong>breaks</strong>, and decide which ones are big enough to become epics.</p>
+<p>A <strong>break</strong> is a step where the person struggles, gives up, or is not served at all. Breaks are where the product loses customers and where the next work should go. They are also the honest answer to the coach’s question: where does the journey break today?</p>
+<p>For a Product Development Manager (PDM), this is the moment where discovery becomes planning. Agents can build almost anything you ask. The risk is that you ask for the interesting things (a new feature, a smart chatbot) instead of the important things (a price page, a way to get help). Breaks keep you honest. If you can point at a step and say “Maya left here, and nothing serves this step,” the roadmap writes itself in outline, though you still write every epic yourself.</p>
+<h3 id="what-the-pdm-decides-here">What the PDM decides here</h3>
+<table>
+<thead>
+<tr>
+<th>You decide</th>
+<th>You may delegate to an agent</th>
+<th>You verify</th>
+<th>Other disciplines involved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Which breaks are real, which matter most, and which become epic candidates</td>
+<td>Cross-checking tables for gaps; sorting a list; asking questions about your reasoning</td>
+<td>Each break traces to evidence; the ranking is yours, with reasons</td>
+<td>Design (is it a screen problem?), engineering (what would it take?), support (how often does it hurt?), finance (what is it worth?)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-key-ideas">2. Key ideas</h2>
+<h3 id="types-of-break">Types of break</h3>
+<p>Not all breaks are the same. Naming the type tells you what kind of work will fix it.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>What it looks like</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Missing part</strong></td>
+<td>A step is served by nothing</td>
+<td>No help page when a cup goes missing</td>
+</tr>
+<tr>
+<td><strong>Broken step</strong></td>
+<td>The part exists but fails the person</td>
+<td>The café map is slow and times out</td>
+</tr>
+<tr>
+<td><strong>Wrong person</strong></td>
+<td>The product speaks to someone else</td>
+<td>The partner page only talks to drinkers</td>
+</tr>
+<tr>
+<td><strong>Invisible</strong></td>
+<td>The person cannot see or find it</td>
+<td>Price is not shown before sign-up</td>
+</tr>
+<tr>
+<td><strong>Risky</strong></td>
+<td>It may harm or break a rule</td>
+<td>No privacy notice, yet email addresses are collected</td>
+</tr>
+<tr>
+<td><strong>Unclear</strong></td>
+<td>You do not know yet</td>
+<td>Does Maya pay? Only hints so far</td>
+</tr>
+</tbody>
+</table>
+<p>Unclear is a legitimate type. It means “more discovery needed”, and it does not become an epic. It becomes an interview or a test.</p>
+<h3 id="rank-by-hurt-not-by-interest">Rank by hurt, not by interest</h3>
+<p>You cannot fix everything. Rank each break on three simple scales, 1 to 5:</p>
+<ul>
+<li><strong>Reach:</strong> how many of your main people hit this break?</li>
+<li><strong>Hurt:</strong> how badly does it damage trust, money or safety?</li>
+<li><strong>Evidence:</strong> how sure are you? (5 = seen repeatedly in behaviour; 1 = guess)</li>
+</ul>
+<p>Multiply the three. The result is a rough guide, not a law. Use it to start a conversation with yourself and your coach. Later, in the roadmapping track, you will learn more formal methods such as RICE, and NN/g and Atlassian describe several. At this stage a simple score is enough to see what stands out.</p>
+<h3 id="epic-candidate-milestone-or-issue">Epic candidate, milestone or issue?</h3>
+<p>A break becomes a candidate for an <strong>epic</strong> only if fixing it crosses several parts of the product. The Dojo’s rule of thumb:</p>
+<table>
+<thead>
+<tr>
+<th>If the fix lives in…</th>
+<th>It is probably a…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>One part of one repo (a button, a typo, a slow query)</td>
+<td><strong>Issue</strong></td>
+</tr>
+<tr>
+<td>One repo, several steps, a few weeks</td>
+<td><strong>Milestone</strong></td>
+</tr>
+<tr>
+<td>Several parts: site, app, a service, a rented system and a policy</td>
+<td><strong>Epic</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Example. “The café map is slow” lives in one service: an issue or small milestone. “Café owners cannot join, learn how to run returns or see their results” touches the partner page, the help centre, the terms, the returns service and the monthly report. That is an epic. See the <a href="/library/epic-standard">epic standard</a>.</p>
+<h3 id="problem-statements-not-solutions">Problem statements, not solutions</h3>
+<p>Describe each epic candidate as the <strong>outcome for a person</strong>, not as a thing to build. Weak: “Build a partner portal.” Better: “A café owner can join, run returns and see what TrailMug brought her, without calling us.” The first names a solution. The second names a result you can test, and leaves the how to a later stage.</p>
+<h3 id="stories-and-story-maps">Stories and story maps</h3>
+<p>A <strong>user story</strong> is a short statement of what a person wants and why. Atlassian’s guide to user stories shows the common template. A <strong>story map</strong> lays your journey’s steps across the top and the work under each step. It is one way to go from journey to backlog. For epic candidates, you do not need stories yet. But if you try a story map, you will see how the journey steps become the spine of the plan.</p>
+<h3 id="the-service-standard-test">The service standard test</h3>
+<p>The UK government’s service standard gives a useful final check on your list: have you solved a <strong>whole</strong> problem for the person, not just one step? Is the service simple? Can everyone use it? These questions catch breaks that sit outside your usual view.</p>
+<h2 id="3-step-by-step">3. Step by step</h2>
+<h3 id="step-1-mark-the-breaks-on-your-journeys">Step 1: Mark the breaks on your journeys</h3>
+<p>Open your two journey files. Go row by row. Mark every row where the pain column is serious, where the “served by” cell says NOTHING or NOT FOUND, or where the feeling is low. Number the marks B1, B2, B3, and so on.</p>
+<h3 id="step-2-write-each-break-as-a-sentence-about-a-person">Step 2: Write each break as a sentence about a person</h3>
+<p>Use the form: “At the <em>[stage]</em> step, <em>[person]</em> cannot or struggles to <em>[do what]</em>, because <em>[reason]</em>.” Add the evidence code. Example: “At the <strong>Problem</strong> step, Maya cannot report a missing cup, because there is no help page or contact form [observed in the map; K: C4 asked ‘who do I tell?’].”</p>
+<h3 id="step-3-classify-the-type">Step 3: Classify the type</h3>
+<p>Assign a type from the table above. If it is <strong>Unclear</strong>, move it to a “learn more” list and write the question.</p>
+<h3 id="step-4-score-and-sort">Step 4: Score and sort</h3>
+<p>Score reach, hurt and evidence from 1 to 5. Multiply. Sort. Then do a sanity check: read the top five aloud. Do they feel like the right top five? If not, work out why. Your scores may be off, or your gut may know something your scores do not. Adjust and write the reason.</p>
+<h3 id="step-5-group-breaks-into-epic-candidates">Step 5: Group breaks into epic candidates</h3>
+<p>Look for breaks that share a cause or a goal. “No help page”, “no partner terms” and “no setup guide” all block café owners from joining. Group them under one outcome sentence. Write the parts each candidate would touch.</p>
+<h3 id="step-6-apply-the-size-test">Step 6: Apply the size test</h3>
+<p>For each candidate, list the parts of the product it touches. One part: issue. One repo: milestone. Several parts: epic. If a candidate is only an issue, keep it on a backlog, not on the roadmap.</p>
+<h3 id="step-7-prepare-the-checkpoint">Step 7: Prepare the checkpoint</h3>
+<p>Prepare a short talk of about five minutes: one persona, one journey, the three biggest breaks and the evidence for each. End by saying what you still do not know. This is your coach checkpoint for week 2.</p>
+<h3 id="step-8-hand-over-to-week-3">Step 8: Hand over to week 3</h3>
+<p>Save the list as <code>people/breaks.md</code>. This is the <strong>only</strong> input you pass forward. In week 3 you will write each epic yourself, in your own words, in the template. Do not write the epics here. Resist the urge.</p>
+<h2 id="4-worked-example-trailmug">4. Worked example: TrailMug</h2>
+<p>TrailMug is fictional. Breaks come from the journeys in the previous lesson.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Break</th>
+<th>Type</th>
+<th>Reach</th>
+<th>Hurt</th>
+<th>Evidence</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B1</td>
+<td>Café owners cannot join: no partner page for owners, no terms, no setup guide</td>
+<td>Missing part, wrong person</td>
+<td>5</td>
+<td>5</td>
+<td>4</td>
+<td>100</td>
+</tr>
+<tr>
+<td>B2</td>
+<td>Maya cannot see the price before she signs up</td>
+<td>Invisible</td>
+<td>4</td>
+<td>4</td>
+<td>3</td>
+<td>48</td>
+</tr>
+<tr>
+<td>B3</td>
+<td>No way to pay (no payment code found)</td>
+<td>Missing part</td>
+<td>5</td>
+<td>5</td>
+<td>5</td>
+<td>125</td>
+</tr>
+<tr>
+<td>B4</td>
+<td>No privacy notice, yet emails are collected</td>
+<td>Risky</td>
+<td>5</td>
+<td>4</td>
+<td>5</td>
+<td>100</td>
+</tr>
+<tr>
+<td>B5</td>
+<td>A missing cup has no help path</td>
+<td>Missing part</td>
+<td>3</td>
+<td>4</td>
+<td>4</td>
+<td>48</td>
+</tr>
+<tr>
+<td>B6</td>
+<td>Café map is slow</td>
+<td>Broken step</td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+<td>12</td>
+</tr>
+<tr>
+<td>B7</td>
+<td>Does Maya pay at all?</td>
+<td>Unclear</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>learn more</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Grouping into candidates (the founder’s own words):</strong></p>
+<ul>
+<li><strong>“Café owners can join, run returns and see results”</strong> from B1 and part of B5. Touches: partner page, terms, help centre, returns service, monthly report. Several parts: epic candidate.</li>
+<li><strong>“People can see the price, sign up and pay”</strong> from B2, B3 and part of B4. Touches: site, app, payment, privacy notice. Epic candidate. Note that B7 (does Maya pay?) must be answered first, so it begins with a decision, not code.</li>
+<li><strong>“The service is lawful and honest”</strong> from B4. Touches: privacy notice, terms and cookie rules. May fold into the other two or stand alone.</li>
+<li><strong>B6, the slow map</strong>, lives in one service. It is an issue, not an epic.</li>
+</ul>
+<p>The founder also notes what she is <strong>not</strong> doing: no loyalty scheme, no event-caterer features.</p>
+<p><strong>Coach checkpoint (five minutes):</strong> “This is Maya. This is her journey. It breaks at three places: she cannot see a price, there is no way to pay, and if a cup goes missing she has nobody to ask. My evidence is five interviews; the price point is still a guess. The thing I am least sure about is whether she will pay at all, so I will test that before I commit to a payment system.”</p>
+<p>That is a strong checkpoint: specific, evidenced and honest about the unknown.</p>
+<h2 id="5-working-with-ai-agents-on-this">5. Working with AI agents on this</h2>
+<p>This lesson is the closest one to the boundary of the Dojo’s most important rule: <strong>people write epics and roadmaps. AI never does.</strong> Candidates and breaks are your raw material. Agents may support the work around them but must not draft the epics or decide their order.</p>
+<p><strong>Delegate:</strong></p>
+<ul>
+<li><strong>Gap-checking.</strong> “Here are my journey tables and my product map. List every step marked NOTHING or NOT FOUND and every map part that serves no step.” The agent finds things you overlooked.</li>
+<li><strong>Sorting and scoring checks.</strong> “Here is my table of breaks with scores. Recalculate the products and flag arithmetic mistakes. Do not change the scores.”</li>
+<li><strong>Questions.</strong> “Ask me five hard questions about this ranking, one at a time.” You answer in your own words.</li>
+<li><strong>A neutral rehearsal.</strong> Play the coach: “Ask me the questions a coach would ask after this five-minute talk.” You practise answering without notes.</li>
+</ul>
+<p><strong>Do yourself:</strong></p>
+<ul>
+<li>Choose which breaks are real and score them.</li>
+<li>Group breaks and write each candidate sentence.</li>
+<li>Decide what you are not doing.</li>
+</ul>
+<p><strong>A brief you can adapt:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>You are a demanding coach. Here is my list of journey breaks with</span></span>
+<span class="line"><span>evidence and scores. Do not rewrite anything and do not suggest epics.</span></span>
+<span class="line"><span>Ask me the five hardest questions you can about the ranking and the</span></span>
+<span class="line"><span>evidence, one at a time, and wait for my answer before asking the next.</span></span>
+<span class="line"><span>After my fifth answer, tell me which of my answers was vaguest.</span></span></code></pre>
+<p><strong>How to check the output.</strong> The value is in your answers, not in the agent’s text. After the session, write down which questions you could not answer. These are the gaps to close before the real checkpoint.</p>
+<p><strong>Never</strong> paste your breaks and ask “write my epics” or “order these by priority”. You would get a smooth roadmap you cannot defend, and the rule exists precisely because planning is where wrong ideas must be stopped. An agent agrees too easily.</p>
+<p><strong>Disclose.</strong> At the bottom of <code>breaks.md</code>: “AI use: gap check and a practice session of coach questions. All breaks, scores and groupings are mine.”</p>
+<p><strong>Where this sits on the ladder.</strong> The agent skill of a manager climbs four rungs: <strong>use</strong> one agent, <strong>delegate</strong> whole tasks with a brief, <strong>orchestrate</strong> several sessions, and <strong>govern</strong> them with written policy, hooks and gates. This lesson is where <strong>delegate</strong> meets <strong>orchestrate</strong>. The hand-over is the written input that later sessions work from. The more sessions that read it, the more it matters that it is exact, and the more you need a gate that checks each epic against it. The agent orchestration track (<code>/library/tracks/agent-orchestration/</code>) covers the two upper rungs.</p>
+<h2 id="6-common-mistakes">6. Common mistakes</h2>
+<ul>
+<li><strong>Ranking by what is fun.</strong> Rank by reach, hurt and evidence.</li>
+<li><strong>Writing solutions as breaks.</strong> “Build a portal” is not a break. “Café owners cannot see their results” is.</li>
+<li><strong>Treating unclear as a problem to solve.</strong> It is a question to answer. Test before you build.</li>
+<li><strong>Skipping the size test.</strong> Putting single-repo tasks on the roadmap fills it with noise.</li>
+<li><strong>Writing the epics now.</strong> Candidates are not epics. Write the epics in week 3, by hand.</li>
+<li><strong>Hiding the weak evidence.</strong> If the evidence for a break is a guess, say so.</li>
+<li><strong>Letting an AI order the list.</strong> The order is a human choice with written reasons.</li>
+<li><strong>Forgetting the unserved.</strong> The people on your we-will-not-serve list should not appear as breaks. If they do, revisit the list.</li>
+</ul>
+<h2 id="7-practice-the-break-list-and-the-checkpoint">7. Practice: the break list and the checkpoint</h2>
+<p><strong>Deliverable:</strong> two files in your git repo under <code>people/</code>.</p>
+<ol>
+<li><code>breaks.md</code>: at least eight breaks, each written as a sentence about a person with its type, evidence code, scores and ranking. Include a “learn more” list for the unclear ones, and the epic candidates with the parts each would touch. Mark each candidate epic, milestone or issue.</li>
+<li><code>checkpoint-notes.md</code>: your five-minute talk in bullet points: one persona, one journey, three biggest breaks with evidence and one thing you do not yet know.</li>
+</ol>
+<p>Do not write full epics. Stop at candidate sentences. Commit with a message like <code>Add journey breaks and checkpoint notes</code>.</p>
+<p><strong>Check:</strong> say your checkpoint talk aloud, without notes, to another person or to a mirror. Time it. If it is over six minutes, cut.</p>
+<p><strong>Stretch:</strong> run the coach-question brief with an agent and write down the three questions you answered worst. Add a section “Open questions” to <code>breaks.md</code>.</p>
+<h2 id="8-checklist">8. Checklist</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Each break is a sentence about a person, with a stage and evidence.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Each break has a type; unclear ones went to a learn-more list.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Reach, hurt and evidence are scored and I wrote down why the top five are the top five.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Each epic candidate lists the parts it touches and passed the size test.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I did not write the epics yet.</li>
+<li class="task-list-item"><input type="checkbox" disabled> My checkpoint talk is under five minutes and names an unknown.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I recorded AI use.</li>
+</ul>
+<h2 id="9-further-learning">9. Further learning</h2>
+<p>Atlassian’s story mapping guide and its user stories article show how a journey becomes a backlog. NN/g’s service blueprint article helps you spot front-stage and back-stage breaks. NN/g’s prioritisation methods article and the UK government’s service standard give you more formal ways to rank and sense-check. When you are ready, move to the <a href="/library/tracks/roadmapping-and-epics/">roadmapping and epics track</a>, where you will write your first epics by hand.</p>
+<nav class="pager" aria-label="More in this section" data-astro-cid-ecbjlo7c><a href="/library/tracks/personas-and-journeys/03-touch-points-and-journey-maps" data-astro-cid-ecbjlo7c>Previous: Touch points and journey maps</a></nav><p data-astro-cid-ecbjlo7c><a href="/library" data-astro-cid-ecbjlo7c>Back to the library</a></p></div></article></main><section class="sponsor-band" aria-label="Sponsored by Reveltek" data-astro-cid-ji2uitki><div class="backdrop" aria-hidden="true" data-astro-cid-ji2uitki><span class="only-light" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band.avif"><source type="image/webp" srcset="/images/mountains-band.webp"><img src="/images/mountains-band.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span><span class="only-dark" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band-dark.avif"><source type="image/webp" srcset="/images/mountains-band-dark.webp"><img src="/images/mountains-band-dark.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span></div><div class="container inner" data-astro-cid-ji2uitki><span class="lead" data-astro-cid-ji2uitki>Sponsored by</span><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span><a class="sponsor" href="/sponsors" data-astro-cid-ji2uitki><img class="only-light" src="/images/reveltek-logo.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki><img class="only-dark" src="/images/reveltek-logo-white.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki></a><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span></div></section><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="container inner" data-astro-cid-jo6i4kqk><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><nav aria-label="Footer" data-astro-cid-jo6i4kqk><ul data-astro-cid-jo6i4kqk><li data-astro-cid-jo6i4kqk><a href="/about" data-astro-cid-jo6i4kqk>About CRC</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors" data-astro-cid-jo6i4kqk>Sponsors (Reveltek)</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors#become-a-sponsor" data-astro-cid-jo6i4kqk>Become a sponsor</a></li><li data-astro-cid-jo6i4kqk><a href="/contact" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href="/code-of-conduct" data-astro-cid-jo6i4kqk>Code of conduct</a></li><li data-astro-cid-jo6i4kqk><a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>GitHub</a></li></ul></nav></div><p class="legal container" data-astro-cid-jo6i4kqk>© 2026 Curiosity Research Corporation. Developer Dojo is free for everyone and is sponsored by Reveltek.</p></footer></body></html><script type="module">for(let e of document.querySelectorAll(`.prose .task-list-item > input[type="checkbox"]`)){let t=e.parentElement?.textContent?.trim();t&&e.setAttribute(`aria-label`,t)}</script>

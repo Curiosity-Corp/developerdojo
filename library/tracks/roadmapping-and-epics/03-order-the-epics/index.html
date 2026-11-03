@@ -1,0 +1,297 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Order the epics and defend the order · Developer Dojo</title><meta name="description" content="Order your epics by value, risk and dependency, write one sentence of reasoning for each position, choose a prioritisation method on purpose and say what you chose not to do."><link rel="canonical" href="https://developerdojo.org/library/tracks/roadmapping-and-epics/03-order-the-epics/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="color-scheme" content="light dark"><meta property="og:site_name" content="Developer Dojo"><meta property="og:title" content="Order the epics and defend the order · Developer Dojo"><meta property="og:description" content="Order your epics by value, risk and dependency, write one sentence of reasoning for each position, choose a prioritisation method on purpose and say what you chose not to do."><meta property="og:type" content="website"><meta property="og:url" content="https://developerdojo.org/library/tracks/roadmapping-and-epics/03-order-the-epics/"><meta name="twitter:card" content="summary"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      // Runs before first paint: apply the saved theme and mark JS as available.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('dojo-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/PageHero.zOqh7M6S.css"><style>.pager[data-astro-cid-ecbjlo7c]{justify-content:space-between;gap:var(--space-3);margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--line);flex-wrap:wrap;display:flex}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]{font-weight:600}
+</style></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header" data-astro-cid-nen7h5rs><div class="bar" data-astro-cid-nen7h5rs><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><button type="button" class="menu-button" data-menu-button aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu" data-astro-cid-nen7h5rs><svg class="icon open-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"/></svg><svg class="icon close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><nav id="primary-nav" class="nav" aria-label="Primary" data-nav data-astro-cid-nen7h5rs><ul data-astro-cid-nen7h5rs><li data-astro-cid-nen7h5rs><a href="/train" data-astro-cid-nen7h5rs>Train</a></li><li data-astro-cid-nen7h5rs><a href="/sensei" data-astro-cid-nen7h5rs>Sensei</a></li><li data-astro-cid-nen7h5rs><a href="/library" aria-current="page" data-astro-cid-nen7h5rs>Library</a></li><li data-astro-cid-nen7h5rs><a href="/certificates" data-astro-cid-nen7h5rs>Certificates</a></li><li data-astro-cid-nen7h5rs><a href="/challenges" data-astro-cid-nen7h5rs>Challenges</a></li><li data-astro-cid-nen7h5rs><a href="/events" data-astro-cid-nen7h5rs>Events</a></li><li data-astro-cid-nen7h5rs><a href="/membership" data-astro-cid-nen7h5rs>Membership</a></li></ul><div class="actions" data-astro-cid-nen7h5rs><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" data-astro-cid-l6lhmie6><svg class="icon to-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="icon to-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g></svg></button><script type="module">var e=document.documentElement,t=document.querySelector(`[data-theme-toggle]`);function n(){let t=e.getAttribute(`data-theme`);return t===`dark`||t!==`light`&&window.matchMedia(`(prefers-color-scheme: dark)`).matches}function r(){if(!t)return;let e=n();t.setAttribute(`aria-label`,e?`Switch to light theme`:`Switch to dark theme`),t.setAttribute(`data-mode`,e?`dark`:`light`)}t?.addEventListener(`click`,()=>{let t=n()?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`dojo-theme`,t)}catch(e){console.warn(`Theme preference not saved:`,e)}r()}),r();</script><a class="start" href="/membership" data-astro-cid-nen7h5rs>Start free</a></div></nav></div></header><script type="module">var e=document.querySelector(`[data-menu-button]`),t=document.querySelector(`[data-nav]`),n=document.querySelector(`.site-header`);function r(t){e&&n&&(n.toggleAttribute(`data-open`,t),e.setAttribute(`aria-expanded`,String(t)),e.setAttribute(`aria-label`,t?`Close menu`:`Open menu`))}e?.addEventListener(`click`,()=>r(e.getAttribute(`aria-expanded`)!==`true`)),t?.addEventListener(`click`,e=>{e.target instanceof HTMLAnchorElement&&r(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e?.getAttribute(`aria-expanded`)===`true`&&(r(!1),e.focus())}),window.matchMedia(`(min-width: 62rem)`).addEventListener(`change`,e=>{e.matches&&r(!1)}),document.documentElement.classList.add(`js`);</script><main id="main"><section class="hero compact" data-astro-cid-75ysl5lo><div class="art" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/hero-dojo-mobile.avif" media="(max-width: 40rem)"><source type="image/webp" srcset="/images/hero-dojo-mobile.webp" media="(max-width: 40rem)"><source srcset="/images/hero-dojo-mobile.jpg" media="(max-width: 40rem)"><source type="image/avif" srcset="/images/hero-dojo.avif"><source type="image/webp" srcset="/images/hero-dojo.webp"><img class="art-img" src="/images/hero-dojo.jpg" alt width="2400" height="900" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="scrim" aria-hidden="true" data-astro-cid-75ysl5lo></div><div class="enso" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/enso.avif"><source type="image/webp" srcset="/images/enso.webp"><img src="/images/enso.png" alt width="800" height="800" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="container grid" data-astro-cid-75ysl5lo><div class="copy" data-astro-cid-75ysl5lo><p class="eyebrow" data-astro-cid-75ysl5lo>Roadmapping and epics</p><h1 data-astro-cid-75ysl5lo>Order the epics and defend the order</h1><p class="subtitle" data-astro-cid-75ysl5lo>Order your epics by value, risk and dependency, write one sentence of reasoning for each position, choose a prioritisation method on purpose and say what you chose not to do.</p></div></div></section><article class="section" data-astro-cid-ecbjlo7c><div class="container prose" data-astro-cid-ecbjlo7c><p><strong>Supports:</strong> Developer, week 3 (Problems to epics): “order the epics; write one sentence for why each comes before the next”. <strong>Time:</strong> about two and a half hours.</p>
+<h2 id="1-why-this-matters">1. Why this matters</h2>
+<p>You have four to eight epics. You cannot start them all at once. The order is the strategy. Two teams with the same epics in a different order can end up with very different products, because the first epic builds the base that the others stand on, and the first results change what you learn.</p>
+<p>Order is also where wrong ideas get stopped. A roadmap that lists good epics in a careless order wastes weeks. A roadmap that starts with the epic nobody pays for, or with one that depends on a decision nobody has made, wastes quarters.</p>
+<p>For a Product Development Manager (PDM) this is a core skill. Agents can build any epic in the list. They have no opinion about which should come first, and if you ask them, they will give you a smooth and confident answer based on generic patterns, not on your money, your customers or your risks. Order is the clearest case of the rule that <strong>people write epics and roadmaps; AI never does</strong>. The reasons for each position must be yours, because you will have to defend them to a panel, a sponsor or a sceptical partner.</p>
+<h3 id="what-the-pdm-decides-here">What the PDM decides here</h3>
+<table>
+<thead>
+<tr>
+<th>You decide</th>
+<th>You may delegate to an agent</th>
+<th>You verify</th>
+<th>Other disciplines involved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The method, the scores, the order and the reason for each position</td>
+<td>Arithmetic checks; drawing the dependency graph from your table; asking you tough questions</td>
+<td>Scores trace to evidence; every dependency is real; the order survives a challenge</td>
+<td>Finance (cost and cash), operations (capacity), sales and support (promises made), legal (deadlines), engineering (feasibility)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-key-ideas">2. Key ideas</h2>
+<h3 id="three-forces-value-risk-and-dependency">Three forces: value, risk and dependency</h3>
+<p>Every ordering decision balances three forces.</p>
+<table>
+<thead>
+<tr>
+<th>Force</th>
+<th>Question</th>
+<th>Pushes an epic…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Value</strong></td>
+<td>How much does it matter to customers and the business, and how soon?</td>
+<td>earlier</td>
+</tr>
+<tr>
+<td><strong>Risk</strong></td>
+<td>How uncertain is it, and what do we learn by doing it?</td>
+<td>earlier (to learn sooner) or later (to avoid wasting money)</td>
+</tr>
+<tr>
+<td><strong>Dependency</strong></td>
+<td>What cannot start until this is done?</td>
+<td>earlier, if many things depend on it</td>
+</tr>
+</tbody>
+</table>
+<p>A fourth force is <strong>cost and capacity</strong>: how much effort it takes and how much you have. Be aware of it, but do not let it drive the order alone. Cheap things are not always good things.</p>
+<h3 id="dependencies-decide-more-than-you-think">Dependencies decide more than you think</h3>
+<p>Some orders are not a matter of opinion. A welcome email needs a customer list. A customer list needs a sign-up form. A payment needs a privacy notice. Atlassian’s page on project dependencies lists common kinds, such as one task needing another to finish first. Draw them. Write each as “A needs B because…”. A dependency you forget will show up later as a blocked agent and a late delivery.</p>
+<p>Also look for <strong>decisions</strong> that are dependencies. “We cannot design the café payment until we decide how cafés are paid” is a dependency on a decision, with a person who must make it and a date.</p>
+<h3 id="prioritisation-methods">Prioritisation methods</h3>
+<p>There are many ways to score work. Atlassian’s guide to prioritisation frameworks covers several well-known ones, including RICE, MoSCoW, Kano and value versus effort. NN/g also describes several methods for UX roadmapping, and a short video explains why prioritisation matters: a product with everything in it is a worse product. A quick map:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>What it does</th>
+<th>Fits when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Value versus effort</strong></td>
+<td>Plots items on a two-by-two grid</td>
+<td>You want a quick view</td>
+</tr>
+<tr>
+<td><strong>RICE</strong></td>
+<td>Scores Reach, Impact, Confidence and Effort, then calculates a number</td>
+<td>You have data and many items</td>
+</tr>
+<tr>
+<td><strong>MoSCoW</strong></td>
+<td>Sorts into must, should, could and won’t</td>
+<td>You have a fixed deadline</td>
+</tr>
+<tr>
+<td><strong>Kano</strong></td>
+<td>Separates basics, performance and delighters</td>
+<td>You are choosing between features customers see</td>
+</tr>
+<tr>
+<td><strong>Dependency-first</strong></td>
+<td>Orders by what blocks what</td>
+<td>The plan has hard chains</td>
+</tr>
+</tbody>
+</table>
+<p>Choose a method <strong>on purpose</strong> and say why. Many first roadmaps are best served by a simple combination: order by dependency first, then by value and risk inside each wave.</p>
+<p>A warning: scores look objective, but they hide guesses. RICE multiplies numbers that you made up. If your “reach” is a guess and your “impact” is a guess, the product is a guess with decimals. Use the number to start a discussion, not to end one. Always ask: “Would I be surprised by this order? Why?”</p>
+<h3 id="learn-early-spend-later">Learn early, spend later</h3>
+<p>Risky epics deserve an early <strong>learning step</strong>, not an early full build. If a payment system is risky because you do not know if people will pay, the first work in that epic is the test, not the integration. The order of epics may stay the same while the first milestone of an epic is a cheap test.</p>
+<h3 id="now-next-later">Now, next, later</h3>
+<p>Roadmaps often group items by time horizon: <strong>now</strong> (being worked on), <strong>next</strong> (ready to start soon) and <strong>later</strong> (a direction, not a promise). This avoids false precision. Dates far away are guesses. Use real dates only for the near term and for hard external deadlines. Atlassian’s roadmap guide and the NN/g video on UX roadmaps describe this style of plan.</p>
+<h3 id="the-not-doing-list">The “not doing” list</h3>
+<p>An honest roadmap names what is left out. For each item you cut or postpone, write why. It protects you from surprise requests and shows reviewers that you made choices, not that you missed things.</p>
+<h2 id="3-step-by-step">3. Step by step</h2>
+<h3 id="step-1-gather-your-epics">Step 1: Gather your epics</h3>
+<p>Take your four to eight epics from the previous lessons. Put the titles in a table with columns for the persona served, the measure and the parts touched.</p>
+<h3 id="step-2-map-dependencies">Step 2: Map dependencies</h3>
+<p>For each pair of epics, ask: “Does A need something B delivers?” Write each as “A needs B because…”. Include dependencies on <strong>decisions</strong> and on <strong>other people</strong> (a legal review, a partner). Draw the result as arrows. Look for epics with many arrows pointing at them. They tend to come early.</p>
+<h3 id="step-3-score-value-and-risk">Step 3: Score value and risk</h3>
+<p>For each epic, give a 1 to 5 score for <strong>value</strong> (how much it matters to customers and the business) and <strong>risk</strong> (how uncertain it is). Write one line of evidence for each score: a quote, a number, a source. If there is no evidence, write “guess”.</p>
+<h3 id="step-4-pick-a-method-and-write-why">Step 4: Pick a method and write why</h3>
+<p>Choose one method from the table, or a combination. Write two sentences: which method and why it fits <strong>your</strong> product now.</p>
+<h3 id="step-5-propose-an-order">Step 5: Propose an order</h3>
+<p>Sort by the method and then adjust for dependencies. Do not let the maths override a hard dependency, and do not let a single big score override common sense.</p>
+<h3 id="step-6-write-one-sentence-per-position">Step 6: Write one sentence per position</h3>
+<p>For each epic, write one sentence beginning “This comes <strong>before</strong> the next because…”. The sentences should use value, risk or dependency. “Because it is easy” is a weak reason. “Because nobody pays until it exists” is a strong one.</p>
+<h3 id="step-7-write-the-not-doing-list">Step 7: Write the not-doing list</h3>
+<p>List what you chose not to do, and why. Include any epic you dropped.</p>
+<h3 id="step-8-test-the-order">Step 8: Test the order</h3>
+<p>Do a challenge round. Ask: “If I had to drop the last epic, would I still ship something useful?” “If the top epic fails, what changes?” “Which epic would I swap if my main customer changed her mind tomorrow?” Adjust if you find weak reasons.</p>
+<h3 id="step-9-draw-the-now-next-later-view">Step 9: Draw the now, next, later view</h3>
+<p>Put the epics into columns. Add real dates only for the near term. Save it in your repo.</p>
+<h2 id="4-worked-example-trailmug">4. Worked example: TrailMug</h2>
+<p>TrailMug is fictional. The founder has five epics.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Epic</th>
+<th>Value</th>
+<th>Risk</th>
+<th>Evidence</th>
+<th>Main dependency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Café owners can join, run returns and see results</td>
+<td>5</td>
+<td>4</td>
+<td>3 cafés said “I need to know what it involves”</td>
+<td>Decision on café payment</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Visitors can see the price, sign up and pay</td>
+<td>5</td>
+<td>5</td>
+<td>Unclear whether commuters pay; guess</td>
+<td>Privacy notice; test of willingness to pay</td>
+</tr>
+<tr>
+<td>C</td>
+<td>New members get a welcome email in 5 minutes</td>
+<td>3</td>
+<td>2</td>
+<td>2 of 5 said they felt lost after sign-up</td>
+<td>Customer list, sign-up</td>
+</tr>
+<tr>
+<td>D</td>
+<td>Anyone can tell if the service is up</td>
+<td>2</td>
+<td>1</td>
+<td>Nobody asked; founder fears silent outages</td>
+<td>None</td>
+</tr>
+<tr>
+<td>E</td>
+<td>The service is lawful and honest (privacy notice, terms)</td>
+<td>4</td>
+<td>2</td>
+<td>Rules require it before collecting emails</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Method:</strong> dependency first, then value and risk. The founder writes: “I chose dependency-first because two of my epics are blocked by a legal basis and a decision. I used value and risk only inside each wave.”</p>
+<p><strong>Dependencies:</strong> B needs E (no payment without privacy notice). A needs E (café data). C needs B (members must exist). D needs nothing.</p>
+<p><strong>Order and reasons:</strong></p>
+<ol>
+<li><strong>E, lawful and honest.</strong> It comes first because I cannot collect emails or payments without it, and it blocks A and B.</li>
+<li><strong>A, café partners.</strong> It comes second because without cafés there is nothing for members to use, and it has the highest risk to learn about.</li>
+<li><strong>B, price, sign-up and pay.</strong> It comes third because nobody pays until cafés exist, and I need the willingness-to-pay test before I build payment.</li>
+<li><strong>C, welcome email.</strong> It comes fourth because it only matters when members exist.</li>
+<li><strong>D, status page.</strong> It comes last because the product has too few users for an outage to hurt yet.</li>
+</ol>
+<p><strong>Not doing:</strong> loyalty points (no evidence); event caterers (outside our focus); a barista app (until swaps are proven).</p>
+<p><strong>Challenge round:</strong> “If I drop D, do I still ship something useful? Yes.” “If A fails, what changes? Most of the roadmap; so A’s first milestone is a two-café trial before building anything big.”</p>
+<p><strong>Now, next, later:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Now (this quarter)</th>
+<th>Next</th>
+<th>Later</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E (lawful and honest)</td>
+<td>B (price, sign-up and pay)</td>
+<td>D (status page)</td>
+</tr>
+<tr>
+<td>A (café partners): trial first</td>
+<td>C (welcome email)</td>
+<td>Loyalty ideas (parked)</td>
+</tr>
+</tbody>
+</table>
+<p>The founder has made the order visible, written a reason for each step, and said what would change it.</p>
+<h2 id="5-working-with-ai-agents-on-this">5. Working with AI agents on this</h2>
+<p>The Dojo rule applies strongly here: <strong>you never ask an AI to decide the order of your epics.</strong> Order is strategy, built on information the agent does not have.</p>
+<p><strong>Delegate:</strong></p>
+<ul>
+<li><strong>Arithmetic.</strong> “Recalculate these RICE scores from the numbers in my table. Flag any row where I made an arithmetic error. Do not change inputs.”</li>
+<li><strong>Dependency graph.</strong> “Turn my ‘A needs B because…’ lines into a Mermaid diagram. Do not add or remove arrows.”</li>
+<li><strong>A challenge session.</strong> “Play a sceptical investor. Ask me one hard question about my order at a time and wait for my answer.”</li>
+<li><strong>A hidden-dependency hunt.</strong> “From these epics, list any dependency that is not written down (for example, a legal review or a rented system that must exist first). Present each as a question, not as a fact.”</li>
+<li><strong>Method explanation.</strong> “Explain RICE and MoSCoW to me with an example, and link to sources.”</li>
+</ul>
+<p><strong>Do yourself:</strong></p>
+<ul>
+<li>Score value and risk, with evidence.</li>
+<li>Choose the method and the order.</li>
+<li>Write every “because” sentence.</li>
+<li>Decide what is not being done.</li>
+</ul>
+<p><strong>A brief you can adapt:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>I am ordering product epics. Below is my table with scores and evidence,</span></span>
+<span class="line"><span>my list of dependencies and my proposed order with reasons.</span></span>
+<span class="line"><span>Do not propose a different order and do not rewrite my reasons.</span></span>
+<span class="line"><span>1. Check my arithmetic.</span></span>
+<span class="line"><span>2. List hidden dependencies as questions.</span></span>
+<span class="line"><span>3. For each position, name the weakest part of my reasoning.</span></span>
+<span class="line"><span>4. Ask me the five hardest questions a sceptical sponsor would ask.</span></span>
+<span class="line"><span>Output four short lists.</span></span></code></pre>
+<p><strong>How to check the output.</strong> For each weak point the agent names, decide whether you agree. If you do, change your reasoning in your own words. If you do not, write one line why. Check any arithmetic it flags.</p>
+<p><strong>Warning about confident answers.</strong> If you ask an agent to rank epics, it tends to put whatever sounds most important or most commonly discussed first, based on common patterns online. It does not know that your café partner is your riskiest bet. Keep ownership of the order.</p>
+<p><strong>Disclose.</strong> At the end of <code>order.md</code>: “AI use: arithmetic check and a practice challenge session. The scores, method, order and reasons are mine.”</p>
+<p><strong>Where this sits on the ladder.</strong> The agent skill of a manager climbs four rungs: <strong>use</strong> one agent, <strong>delegate</strong> whole tasks with a brief, <strong>orchestrate</strong> several sessions, and <strong>govern</strong> them with written policy, hooks and gates. This lesson sits on <strong>use</strong>, on purpose. Order is strategy and stays with you. What you may orchestrate later is the work that follows from the order, not the order itself. The agent orchestration track (<code>/library/tracks/agent-orchestration/</code>) covers the two upper rungs.</p>
+<h2 id="6-common-mistakes">6. Common mistakes</h2>
+<ul>
+<li><strong>Ordering by excitement.</strong> Use value, risk and dependency.</li>
+<li><strong>Ignoring dependencies.</strong> A blocked agent costs more than a late epic.</li>
+<li><strong>False precision.</strong> Scores with decimals hide guesses. Mark guesses.</li>
+<li><strong>Weak reasons.</strong> “It is easy” is not a reason. “It blocks three others” is.</li>
+<li><strong>No learning step for risky epics.</strong> Start with a cheap test, not a full build.</li>
+<li><strong>A roadmap with exact dates two years out.</strong> Use now, next, later, with real dates only for the near term.</li>
+<li><strong>Omitting the not-doing list.</strong> The omissions are part of your strategy.</li>
+<li><strong>Letting an AI choose.</strong> You cannot defend an order you did not reason out.</li>
+</ul>
+<h2 id="7-practice-order-and-defend">7. Practice: order and defend</h2>
+<p><strong>Deliverable:</strong> <code>roadmap/order.md</code> in your git repo, containing:</p>
+<ol>
+<li>A table of your epics with persona, value (1 to 5), risk (1 to 5) and a line of evidence for each score, with guesses marked.</li>
+<li>A dependency list written as “A needs B because…”, including decisions and other people.</li>
+<li>The method you chose and two sentences on why.</li>
+<li>The final order with one “comes before the next because…” sentence per epic.</li>
+<li>A not-doing list with reasons.</li>
+<li>A now, next, later table.</li>
+<li>Your AI-use line.</li>
+</ol>
+<p>Commit with a message such as <code>Order epics with reasons and not-doing list</code>.</p>
+<p><strong>Check:</strong> defend the order aloud for three minutes, without notes, to a person. Ask her to challenge the weakest position. Record what you changed in a <code>Changes</code> section.</p>
+<p><strong>Stretch:</strong> pick a second method (for example RICE if you used dependency-first) and score the epics again. Write three lines on where it gave a different order and what you learned.</p>
+<h2 id="8-checklist">8. Checklist</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Every dependency is written as “A needs B because…”.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Decisions and other people are included as dependencies.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Scores have evidence or are marked as guesses.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I chose a method on purpose and wrote why.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Each epic has one reason for its position.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Risky epics start with a cheap learning step.</li>
+<li class="task-list-item"><input type="checkbox" disabled> The not-doing list exists, with reasons.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Real dates are used only for the near term.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I defended the order aloud without notes.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I recorded my AI use, and no AI chose the order.</li>
+</ul>
+<h2 id="9-further-learning">9. Further learning</h2>
+<p>Atlassian’s guide to prioritisation frameworks, NN/g’s article on prioritisation methods in UX roadmapping and the NN/g video on the same topic give you the vocabulary and the trade-offs. Atlassian’s pages on dependencies and product roadmaps show common formats. The NN/g video on UX roadmaps is a short introduction to the now, next, later idea. In the next lesson you put the roadmap in your git repo, using a free GitLab account.</p>
+<nav class="pager" aria-label="More in this section" data-astro-cid-ecbjlo7c><a href="/library/tracks/roadmapping-and-epics/02-write-an-epic-yourself" data-astro-cid-ecbjlo7c>Previous: Write an epic yourself</a><a href="/library/tracks/roadmapping-and-epics/04-your-roadmap-in-git" data-astro-cid-ecbjlo7c>Next: Your roadmap in git</a></nav><p data-astro-cid-ecbjlo7c><a href="/library" data-astro-cid-ecbjlo7c>Back to the library</a></p></div></article></main><section class="sponsor-band" aria-label="Sponsored by Reveltek" data-astro-cid-ji2uitki><div class="backdrop" aria-hidden="true" data-astro-cid-ji2uitki><span class="only-light" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band.avif"><source type="image/webp" srcset="/images/mountains-band.webp"><img src="/images/mountains-band.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span><span class="only-dark" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band-dark.avif"><source type="image/webp" srcset="/images/mountains-band-dark.webp"><img src="/images/mountains-band-dark.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span></div><div class="container inner" data-astro-cid-ji2uitki><span class="lead" data-astro-cid-ji2uitki>Sponsored by</span><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span><a class="sponsor" href="/sponsors" data-astro-cid-ji2uitki><img class="only-light" src="/images/reveltek-logo.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki><img class="only-dark" src="/images/reveltek-logo-white.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki></a><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span></div></section><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="container inner" data-astro-cid-jo6i4kqk><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><nav aria-label="Footer" data-astro-cid-jo6i4kqk><ul data-astro-cid-jo6i4kqk><li data-astro-cid-jo6i4kqk><a href="/about" data-astro-cid-jo6i4kqk>About CRC</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors" data-astro-cid-jo6i4kqk>Sponsors (Reveltek)</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors#become-a-sponsor" data-astro-cid-jo6i4kqk>Become a sponsor</a></li><li data-astro-cid-jo6i4kqk><a href="/contact" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href="/code-of-conduct" data-astro-cid-jo6i4kqk>Code of conduct</a></li><li data-astro-cid-jo6i4kqk><a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>GitHub</a></li></ul></nav></div><p class="legal container" data-astro-cid-jo6i4kqk>© 2026 Curiosity Research Corporation. Developer Dojo is free for everyone and is sponsored by Reveltek.</p></footer></body></html><script type="module">for(let e of document.querySelectorAll(`.prose .task-list-item > input[type="checkbox"]`)){let t=e.parentElement?.textContent?.trim();t&&e.setAttribute(`aria-label`,t)}</script>

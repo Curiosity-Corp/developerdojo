@@ -1,0 +1,249 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Write personas from evidence · Developer Dojo</title><meta name="description" content="Turn interview notes into two to four short, honest personas with every line marked known or guess, and keep a list of what you still need to learn."><link rel="canonical" href="https://developerdojo.org/library/tracks/personas-and-journeys/02-write-personas-from-evidence/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="color-scheme" content="light dark"><meta property="og:site_name" content="Developer Dojo"><meta property="og:title" content="Write personas from evidence · Developer Dojo"><meta property="og:description" content="Turn interview notes into two to four short, honest personas with every line marked known or guess, and keep a list of what you still need to learn."><meta property="og:type" content="website"><meta property="og:url" content="https://developerdojo.org/library/tracks/personas-and-journeys/02-write-personas-from-evidence/"><meta name="twitter:card" content="summary"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      // Runs before first paint: apply the saved theme and mark JS as available.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('dojo-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/PageHero.zOqh7M6S.css"><style>.pager[data-astro-cid-ecbjlo7c]{justify-content:space-between;gap:var(--space-3);margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--line);flex-wrap:wrap;display:flex}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]{font-weight:600}
+</style></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header" data-astro-cid-nen7h5rs><div class="bar" data-astro-cid-nen7h5rs><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><button type="button" class="menu-button" data-menu-button aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu" data-astro-cid-nen7h5rs><svg class="icon open-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"/></svg><svg class="icon close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><nav id="primary-nav" class="nav" aria-label="Primary" data-nav data-astro-cid-nen7h5rs><ul data-astro-cid-nen7h5rs><li data-astro-cid-nen7h5rs><a href="/train" data-astro-cid-nen7h5rs>Train</a></li><li data-astro-cid-nen7h5rs><a href="/sensei" data-astro-cid-nen7h5rs>Sensei</a></li><li data-astro-cid-nen7h5rs><a href="/library" aria-current="page" data-astro-cid-nen7h5rs>Library</a></li><li data-astro-cid-nen7h5rs><a href="/certificates" data-astro-cid-nen7h5rs>Certificates</a></li><li data-astro-cid-nen7h5rs><a href="/challenges" data-astro-cid-nen7h5rs>Challenges</a></li><li data-astro-cid-nen7h5rs><a href="/events" data-astro-cid-nen7h5rs>Events</a></li><li data-astro-cid-nen7h5rs><a href="/membership" data-astro-cid-nen7h5rs>Membership</a></li></ul><div class="actions" data-astro-cid-nen7h5rs><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" data-astro-cid-l6lhmie6><svg class="icon to-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="icon to-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g></svg></button><script type="module">var e=document.documentElement,t=document.querySelector(`[data-theme-toggle]`);function n(){let t=e.getAttribute(`data-theme`);return t===`dark`||t!==`light`&&window.matchMedia(`(prefers-color-scheme: dark)`).matches}function r(){if(!t)return;let e=n();t.setAttribute(`aria-label`,e?`Switch to light theme`:`Switch to dark theme`),t.setAttribute(`data-mode`,e?`dark`:`light`)}t?.addEventListener(`click`,()=>{let t=n()?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`dojo-theme`,t)}catch(e){console.warn(`Theme preference not saved:`,e)}r()}),r();</script><a class="start" href="/membership" data-astro-cid-nen7h5rs>Start free</a></div></nav></div></header><script type="module">var e=document.querySelector(`[data-menu-button]`),t=document.querySelector(`[data-nav]`),n=document.querySelector(`.site-header`);function r(t){e&&n&&(n.toggleAttribute(`data-open`,t),e.setAttribute(`aria-expanded`,String(t)),e.setAttribute(`aria-label`,t?`Close menu`:`Open menu`))}e?.addEventListener(`click`,()=>r(e.getAttribute(`aria-expanded`)!==`true`)),t?.addEventListener(`click`,e=>{e.target instanceof HTMLAnchorElement&&r(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e?.getAttribute(`aria-expanded`)===`true`&&(r(!1),e.focus())}),window.matchMedia(`(min-width: 62rem)`).addEventListener(`change`,e=>{e.matches&&r(!1)}),document.documentElement.classList.add(`js`);</script><main id="main"><section class="hero compact" data-astro-cid-75ysl5lo><div class="art" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/hero-dojo-mobile.avif" media="(max-width: 40rem)"><source type="image/webp" srcset="/images/hero-dojo-mobile.webp" media="(max-width: 40rem)"><source srcset="/images/hero-dojo-mobile.jpg" media="(max-width: 40rem)"><source type="image/avif" srcset="/images/hero-dojo.avif"><source type="image/webp" srcset="/images/hero-dojo.webp"><img class="art-img" src="/images/hero-dojo.jpg" alt width="2400" height="900" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="scrim" aria-hidden="true" data-astro-cid-75ysl5lo></div><div class="enso" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/enso.avif"><source type="image/webp" srcset="/images/enso.webp"><img src="/images/enso.png" alt width="800" height="800" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="container grid" data-astro-cid-75ysl5lo><div class="copy" data-astro-cid-75ysl5lo><p class="eyebrow" data-astro-cid-75ysl5lo>Personas and journeys</p><h1 data-astro-cid-75ysl5lo>Write personas from evidence</h1><p class="subtitle" data-astro-cid-75ysl5lo>Turn interview notes into two to four short, honest personas with every line marked known or guess, and keep a list of what you still need to learn.</p></div></div></section><article class="section" data-astro-cid-ecbjlo7c><div class="container prose" data-astro-cid-ecbjlo7c><p><strong>Supports:</strong> Developer, week 2 (Know the people): the persona sheets and the K/G rule. <strong>Time:</strong> about two and a half hours.</p>
+<h2 id="1-why-this-matters">1. Why this matters</h2>
+<p>A persona is a short description of a typical person who uses or buys your product. Its job is not to be pretty. Its job is to <strong>settle arguments</strong>. When two people on your team disagree about a feature, the persona lets them ask: “Would Maya want this?” When an AI agent has to choose between two designs, a persona in its instructions turns a coin flip into a reasoned choice.</p>
+<p>But a persona is only as good as the evidence behind it. A persona invented in a meeting is an opinion with a name and a stock photo. It feels helpful and quietly steers the product toward what the team already believes. NN/g puts the warning plainly: personas make users memorable, but they must be grounded in research, otherwise they mislead.</p>
+<p>For a Product Development Manager (PDM), this lesson trains an essential habit: <strong>never state as fact what you only believe.</strong> The Dojo uses a simple device for that. Every line in a persona is marked <strong>K</strong> (known, with a source) or <strong>G</strong> (guess). Marking guesses does not make you look unsure. It shows you know the difference, and it tells you what to learn next.</p>
+<h3 id="what-the-pdm-decides-here">What the PDM decides here</h3>
+<table>
+<thead>
+<tr>
+<th>You decide</th>
+<th>You may delegate to an agent</th>
+<th>You verify</th>
+<th>Other disciplines involved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Which patterns count as a persona, which lines are known and which are guesses</td>
+<td>Formatting a sheet; checking for stereotypes and vague words; finding public statistics, with links</td>
+<td>Every K line has a real source you can point to; no invented quotes</td>
+<td>Design research, marketing, support, accessibility specialists</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-key-ideas">2. Key ideas</h2>
+<h3 id="what-goes-in-a-persona">What goes in a persona</h3>
+<p>Keep it short. A useful persona answers six questions:</p>
+<ol>
+<li><strong>Who is she?</strong> Name (a placeholder), a few demographic facts that matter, and her situation.</li>
+<li><strong>What is she trying to do?</strong> The job, in her words.</li>
+<li><strong>What gets in the way?</strong> Her pains and workarounds.</li>
+<li><strong>How does she decide and pay?</strong> Who else is involved; what makes her say yes or stop.</li>
+<li><strong>How does she find and use things?</strong> Channels, devices, habits.</li>
+<li><strong>How do we know?</strong> Evidence: how many interviews, which data.</li>
+</ol>
+<p>The Dojo <a href="/library/template-personas">persona template</a> turns these into a sheet. Use it.</p>
+<h3 id="k-and-g-known-and-guess">K and G: known and guess</h3>
+<table>
+<thead>
+<tr>
+<th>Mark</th>
+<th>Meaning</th>
+<th>Needed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>K</strong></td>
+<td>Known. You can point to an interview, a data point or a document.</td>
+<td>A source tag, for example <code>[C1, C3, C4]</code></td>
+</tr>
+<tr>
+<td><strong>G</strong></td>
+<td>Guess. A reasonable belief you have not checked.</td>
+<td>A line in the “to learn” list</td>
+</tr>
+</tbody>
+</table>
+<p>Rule: <strong>a persona may contain guesses, but never hidden guesses.</strong> If a line has no mark, mark it G.</p>
+<h3 id="demographics-only-what-matters">Demographics: only what matters</h3>
+<p>Age, job and city are easy to write and often useless. Include a demographic fact only if it changes a decision. “28 years old” matters little. “Commutes by train for 40 minutes and buys two coffees a day” matters a lot. If a demographic detail could be a stereotype, such as gender, nationality or age assumptions, ask whether it came from evidence or from habit. Remove it if it is habit.</p>
+<h3 id="behaviour-and-context-beat-labels">Behaviour and context beat labels</h3>
+<p>Describe what the person <strong>does and faces</strong>, not what category she falls into. “Millennial tech lover” tells you nothing. “Checks the app while standing in the queue, one-handed, with a bag on her shoulder” tells you where the button should be.</p>
+<h3 id="archetypes-and-personas">Archetypes and personas</h3>
+<p>If you only have patterns, not enough detail for a full persona, you can write an <strong>archetype</strong>: a short label and a few traits for a group you have seen repeating. NN/g has a short video on the difference. An archetype is a good step on the way to a persona. A persona is richer and needs more evidence.</p>
+<h3 id="personas-live">Personas live</h3>
+<p>New evidence should change your personas. NN/g describes personas as living documents: design them so that updates are easy, and record the date and the reason for each change. A persona with a change log is a sign of a team that keeps learning.</p>
+<h3 id="accessibility-and-inclusion">Accessibility and inclusion</h3>
+<p>Real people include those who use screen readers, speak a second language, have low vision, use older phones or have slow connections. If your evidence shows such needs, put them in a persona. If your evidence shows none, that is not proof they do not exist. It may mean you did not talk to those people. Mark it as a gap.</p>
+<h2 id="3-step-by-step">3. Step by step</h2>
+<h3 id="step-1-prepare-the-evidence">Step 1: Prepare the evidence</h3>
+<p>Gather your interview notes, your roles table from the last lesson, and any data you have (support messages, analytics, survey answers). Keep names out. You will refer to people by their codes.</p>
+<h3 id="step-2-draw-an-empathy-map-for-each-interview">Step 2: Draw an empathy map for each interview</h3>
+<p>For each interview, draw four boxes: <strong>says, thinks, does, feels.</strong> Fill them from your notes. Mark any box item that is only your guess. NN/g’s article on empathy mapping gives a quick explanation. This takes ten minutes per interview and shows you the gaps between what people say and what they do.</p>
+<h3 id="step-3-look-for-patterns">Step 3: Look for patterns</h3>
+<p>Lay the empathy maps side by side. Look for repeats in goals, in pains and in behaviour. Two or more people with the same pattern is the start of a persona. A pattern only one person shows is an <strong>outlier</strong>: note it, but do not build a persona on it yet.</p>
+<h3 id="step-4-fill-the-persona-sheet">Step 4: Fill the persona sheet</h3>
+<p>Use the template. For each line write the content, then mark it K or G. For each K, add the source codes, for example <code>[C1, C3, C4]</code>. Do not add a K line from a single person unless you say so: <code>[C3 only]</code>.</p>
+<h3 id="step-5-write-the-one-page-persona">Step 5: Write the one-page persona</h3>
+<p>When the sheet is done, write six to eight lines in plain words. Keep the placeholder name. Use real quotes in quotation marks, with the code. End with “How we know” and “What we still need to learn”.</p>
+<h3 id="step-6-list-what-you-do-not-know">Step 6: List what you do not know</h3>
+<p>Write the top five unknowns for each persona. For each unknown, write how you will learn it (an interview question, a data pull, a test). These go into your next round of conversations.</p>
+<h3 id="step-7-review-and-date">Step 7: Review and date</h3>
+<p>Ask one person to read the persona and say: “Is there anything here that sounds like you made it up?” Fix or mark those lines G. Add the date and a line <code>Changes</code> at the bottom.</p>
+<h2 id="4-worked-example-trailmug">4. Worked example: TrailMug</h2>
+<p>TrailMug is fictional. The people, quotes and numbers are illustrative. They show the shape, not a finding.</p>
+<p><strong>Persona sheet extract: Maya, the commuter</strong></p>
+<table>
+<thead>
+<tr>
+<th>Line</th>
+<th>Content</th>
+<th>Mark</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Situation</td>
+<td>Commutes by train 40 minutes, buys coffee twice a day</td>
+<td>K</td>
+<td>C1, C3, C4</td>
+</tr>
+<tr>
+<td>Age</td>
+<td>Late twenties to mid thirties</td>
+<td>G</td>
+<td>Based on three of five; no data</td>
+</tr>
+<tr>
+<td>Job</td>
+<td>“Get my coffee without a fuss and without feeling guilty”</td>
+<td>K</td>
+<td>C3</td>
+</tr>
+<tr>
+<td>Pain</td>
+<td>Used cup is dirty and leaks in the bag</td>
+<td>K</td>
+<td>C1, C3, C4</td>
+</tr>
+<tr>
+<td>Workaround</td>
+<td>Leaves cup at home; buys a throw-away one</td>
+<td>K</td>
+<td>C1, C3, C4, C5</td>
+</tr>
+<tr>
+<td>Pays when</td>
+<td>First month is free and cancelling is easy</td>
+<td>G</td>
+<td>Hint from C4 only</td>
+</tr>
+<tr>
+<td>Finds things by</td>
+<td>Search and word of mouth</td>
+<td>G</td>
+<td>No evidence yet</td>
+</tr>
+<tr>
+<td>Uses</td>
+<td>Phone, one-handed, in the queue</td>
+<td>K</td>
+<td>Observed in C3</td>
+</tr>
+<tr>
+<td>Accessibility</td>
+<td>Unknown</td>
+<td>G</td>
+<td>No one in the sample mentioned any</td>
+</tr>
+</tbody>
+</table>
+<p><strong>One-page persona (Maya):</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Maya (placeholder name) commutes by train for about 40 minutes and buys</span></span>
+<span class="line"><span>coffee twice a day. [K: C1, C3, C4]</span></span>
+<span class="line"><span>She wants her coffee without a fuss and without feeling guilty. "I just</span></span>
+<span class="line"><span>want to get on with my day." [C3]</span></span>
+<span class="line"><span>What stops her: a used cup is dirty and leaks in the bag; she leaves it</span></span>
+<span class="line"><span>at home and takes a throw-away cup. [K: C1, C3, C4, C5]</span></span>
+<span class="line"><span>How we help: swap a used cup for a clean one at any partner cafe.</span></span>
+<span class="line"><span>She may pay when the first month is free and cancelling is easy. [G]</span></span>
+<span class="line"><span>Where she is: on her phone, one-handed, in the queue. [K: C3]</span></span>
+<span class="line"><span>How we know: five interviews in November (fictional); behaviour seen in one.</span></span>
+<span class="line"><span>Still to learn: does she pay? how does she find partner cafes? any</span></span>
+<span class="line"><span>accessibility needs? what does a clean cup need to look like for her to trust it?</span></span>
+<span class="line"><span>Changes: first version 2026-11-05.</span></span></code></pre>
+<p><strong>Persona 2: Leo, the café owner</strong> is written the same way, from the three café interviews. His lines include “K: worries about hygiene rules [P1, P2]”, “K: lunch queue is the pressure point [P1, P3]” and “G: would pay for a monthly report on new customers”.</p>
+<p><strong>Barista note (archetype):</strong> one short archetype for the person who scans the cup, because the evidence is two observations and one interview. It is labelled an archetype and flagged as a persona to write after more evidence.</p>
+<p>Look at what the example does. It has plenty of G marks. It names its unknowns. It does not claim an age range as fact. A teammate can use it today and knows exactly what to learn next.</p>
+<h2 id="5-working-with-ai-agents-on-this">5. Working with AI agents on this</h2>
+<p>Personas are the place where AI is most tempting and most dangerous. Models can write a smooth, detailed persona in ten seconds, with a name, a job, a hobby and a quote. All of it is made up. The Dojo rule is clear: <strong>no AI-invented personas, no invented quotes, no invented journey steps.</strong></p>
+<p><strong>Delegate:</strong></p>
+<ul>
+<li><strong>Formatting:</strong> “Put my notes into this template. Do not add content that is not in my notes. Leave blank cells empty.”</li>
+<li><strong>A stereotype check:</strong> “Read this persona. List any line that relies on a stereotype or assumption, and say why.”</li>
+<li><strong>A vagueness check:</strong> “List words that two people could read differently.”</li>
+<li><strong>Finding public statistics with sources</strong>, such as the number of commuters in a region, for you to verify and mark K only if you opened the source.</li>
+<li><strong>A usage test.</strong> Give the finished persona to an agent and ask it to judge two design options as that persona, then compare with what you know. This tests whether the persona is specific enough to be useful. It does not prove which option is better.</li>
+</ul>
+<p><strong>Do yourself:</strong></p>
+<ul>
+<li>Find the patterns and decide what is a persona.</li>
+<li>Mark K and G.</li>
+<li>Write the quotes from your notes, word for word.</li>
+<li>Decide what you still need to learn.</li>
+</ul>
+<p><strong>A brief you can adapt:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Here is a persona I wrote from interviews. Each line is marked K (known,</span></span>
+<span class="line"><span>with source codes) or G (guess).</span></span>
+<span class="line"><span>1. List every line that depends on a stereotype or an unstated assumption.</span></span>
+<span class="line"><span>2. List every K line whose source codes look too few to support it</span></span>
+<span class="line"><span>   (fewer than two people), without changing the mark.</span></span>
+<span class="line"><span>3. List words that two readers could interpret differently.</span></span>
+<span class="line"><span>Do not rewrite the persona. Do not add detail. If everything looks fine,</span></span>
+<span class="line"><span>say so.</span></span></code></pre>
+<p><strong>How to check the output.</strong> Compare each flagged line against the sheet. Remove any suggestion that adds new detail. When an agent says a K line has too few sources, check your notes. Maybe the mark should change to G.</p>
+<p><strong>Watch for flattery.</strong> Agents tend to praise what you give them. If a review comes back with no criticism at all, ask again with “What is the weakest line and why?”</p>
+<p><strong>Disclose.</strong> Add to the persona file: “AI use: formatting and stereotype check; I wrote the content and marks.”</p>
+<p><strong>Where this sits on the ladder.</strong> The agent skill of a manager climbs four rungs: <strong>use</strong> one agent, <strong>delegate</strong> whole tasks with a brief, <strong>orchestrate</strong> several sessions, and <strong>govern</strong> them with written policy, hooks and gates. This lesson sits on <strong>use</strong> and <strong>delegate</strong>. Checking a draft against your evidence is a task you hand over with a brief. A rule that a persona may not contain a fact without a source is policy, even when it is one line in your repo. The agent orchestration track (<code>/library/tracks/agent-orchestration/</code>) covers the two upper rungs.</p>
+<h2 id="6-common-mistakes">6. Common mistakes</h2>
+<ul>
+<li><strong>Inventing detail to make her feel real.</strong> A made-up hobby and a stock-photo name make a persona feel real and tell you nothing.</li>
+<li><strong>Hiding guesses.</strong> Every unmarked line is a risk. Mark it G.</li>
+<li><strong>Too many personas.</strong> Two to four is plenty. More will not be read.</li>
+<li><strong>Personas from one person.</strong> One story is a case, not a pattern.</li>
+<li><strong>Averages.</strong> A person who is “30 percent this and 70 percent that” does not exist. Describe a specific person instead.</li>
+<li><strong>Stereotype shortcuts.</strong> Do not guess gender, age or tech skill from a job title.</li>
+<li><strong>Writing it once and filing it.</strong> Date the persona and update it whenever you learn something.</li>
+<li><strong>Letting an agent write quotes.</strong> Quotes come from real mouths only.</li>
+</ul>
+<h2 id="7-practice-two-to-four-personas">7. Practice: two to four personas</h2>
+<p><strong>Deliverable:</strong> a folder <code>people/personas/</code> in your git repo with:</p>
+<ol>
+<li>One file per persona (<code>maya.md</code>, <code>leo.md</code>, and so on), each with: the filled sheet with K and G marks and source codes, the one-page persona, a “still to learn” list of five unknowns with a plan for each, and a Changes line with the date.</li>
+<li><code>people/personas/README.md</code>: how many interviews and data sources the personas came from, which gaps you know about (for example “no one using assistive technology”), and your AI-use line.</li>
+</ol>
+<p>If your evidence is thin, write fewer personas and mark more lines G, or write archetypes instead. A short honest set is better than a long invented one.</p>
+<p>Commit with a message such as <code>Add personas with K/G marks</code>.</p>
+<p><strong>Check:</strong> hand the personas to a friend with no context. Ask them to point to a line that sounds invented. Fix or re-mark it.</p>
+<p><strong>Stretch:</strong> run one more interview aimed at the biggest unknown. Update the persona, change the marks and record the date and reason in Changes.</p>
+<h2 id="8-checklist">8. Checklist</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Every line is marked K or G.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Every K line has source codes.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Quotes are word for word from my notes.</li>
+<li class="task-list-item"><input type="checkbox" disabled> No unexplained demographic detail.</li>
+<li class="task-list-item"><input type="checkbox" disabled> No stereotype guessed from a label.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I listed at least five unknowns for each persona, with a plan.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Accessibility and inclusion gaps are written down.</li>
+<li class="task-list-item"><input type="checkbox" disabled> The persona has a date and a Changes line.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I recorded my AI use, and no AI invented any person or quote.</li>
+</ul>
+<h2 id="9-further-learning">9. Further learning</h2>
+<p>Read NN/g’s article on personas and watch its two short videos on the basics of personas and on keeping them current. The archetypes video helps if your evidence is not yet rich enough for full personas. The Google UX Design Certificate video on storyboarding and wireframes shows empathy maps, personas and journey maps used together, and Figma’s design research guides add templates and methods. In the next lesson you will map the touch points and draw the journeys for your personas.</p>
+<nav class="pager" aria-label="More in this section" data-astro-cid-ecbjlo7c><a href="/library/tracks/personas-and-journeys/01-users-customers-and-jobs" data-astro-cid-ecbjlo7c>Previous: Users, customers and the jobs they hire you for</a><a href="/library/tracks/personas-and-journeys/03-touch-points-and-journey-maps" data-astro-cid-ecbjlo7c>Next: Touch points and journey maps</a></nav><p data-astro-cid-ecbjlo7c><a href="/library" data-astro-cid-ecbjlo7c>Back to the library</a></p></div></article></main><section class="sponsor-band" aria-label="Sponsored by Reveltek" data-astro-cid-ji2uitki><div class="backdrop" aria-hidden="true" data-astro-cid-ji2uitki><span class="only-light" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band.avif"><source type="image/webp" srcset="/images/mountains-band.webp"><img src="/images/mountains-band.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span><span class="only-dark" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band-dark.avif"><source type="image/webp" srcset="/images/mountains-band-dark.webp"><img src="/images/mountains-band-dark.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span></div><div class="container inner" data-astro-cid-ji2uitki><span class="lead" data-astro-cid-ji2uitki>Sponsored by</span><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span><a class="sponsor" href="/sponsors" data-astro-cid-ji2uitki><img class="only-light" src="/images/reveltek-logo.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki><img class="only-dark" src="/images/reveltek-logo-white.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki></a><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span></div></section><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="container inner" data-astro-cid-jo6i4kqk><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><nav aria-label="Footer" data-astro-cid-jo6i4kqk><ul data-astro-cid-jo6i4kqk><li data-astro-cid-jo6i4kqk><a href="/about" data-astro-cid-jo6i4kqk>About CRC</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors" data-astro-cid-jo6i4kqk>Sponsors (Reveltek)</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors#become-a-sponsor" data-astro-cid-jo6i4kqk>Become a sponsor</a></li><li data-astro-cid-jo6i4kqk><a href="/contact" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href="/code-of-conduct" data-astro-cid-jo6i4kqk>Code of conduct</a></li><li data-astro-cid-jo6i4kqk><a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>GitHub</a></li></ul></nav></div><p class="legal container" data-astro-cid-jo6i4kqk>© 2026 Curiosity Research Corporation. Developer Dojo is free for everyone and is sponsored by Reveltek.</p></footer></body></html><script type="module">for(let e of document.querySelectorAll(`.prose .task-list-item > input[type="checkbox"]`)){let t=e.parentElement?.textContent?.trim();t&&e.setAttribute(`aria-label`,t)}</script>

@@ -1,0 +1,233 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Your roadmap in git · Developer Dojo</title><meta name="description" content="Run the whole roadmap on a free GitLab account with issues, milestones, labels and boards, keep a plain-text copy in the repo and know what the paid epics feature would add."><link rel="canonical" href="https://developerdojo.org/library/tracks/roadmapping-and-epics/04-your-roadmap-in-git/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="color-scheme" content="light dark"><meta property="og:site_name" content="Developer Dojo"><meta property="og:title" content="Your roadmap in git · Developer Dojo"><meta property="og:description" content="Run the whole roadmap on a free GitLab account with issues, milestones, labels and boards, keep a plain-text copy in the repo and know what the paid epics feature would add."><meta property="og:type" content="website"><meta property="og:url" content="https://developerdojo.org/library/tracks/roadmapping-and-epics/04-your-roadmap-in-git/"><meta name="twitter:card" content="summary"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      // Runs before first paint: apply the saved theme and mark JS as available.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('dojo-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/PageHero.zOqh7M6S.css"><style>.pager[data-astro-cid-ecbjlo7c]{justify-content:space-between;gap:var(--space-3);margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--line);flex-wrap:wrap;display:flex}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]{font-weight:600}
+</style></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header" data-astro-cid-nen7h5rs><div class="bar" data-astro-cid-nen7h5rs><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><button type="button" class="menu-button" data-menu-button aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu" data-astro-cid-nen7h5rs><svg class="icon open-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"/></svg><svg class="icon close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><nav id="primary-nav" class="nav" aria-label="Primary" data-nav data-astro-cid-nen7h5rs><ul data-astro-cid-nen7h5rs><li data-astro-cid-nen7h5rs><a href="/train" data-astro-cid-nen7h5rs>Train</a></li><li data-astro-cid-nen7h5rs><a href="/sensei" data-astro-cid-nen7h5rs>Sensei</a></li><li data-astro-cid-nen7h5rs><a href="/library" aria-current="page" data-astro-cid-nen7h5rs>Library</a></li><li data-astro-cid-nen7h5rs><a href="/certificates" data-astro-cid-nen7h5rs>Certificates</a></li><li data-astro-cid-nen7h5rs><a href="/challenges" data-astro-cid-nen7h5rs>Challenges</a></li><li data-astro-cid-nen7h5rs><a href="/events" data-astro-cid-nen7h5rs>Events</a></li><li data-astro-cid-nen7h5rs><a href="/membership" data-astro-cid-nen7h5rs>Membership</a></li></ul><div class="actions" data-astro-cid-nen7h5rs><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" data-astro-cid-l6lhmie6><svg class="icon to-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="icon to-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g></svg></button><script type="module">var e=document.documentElement,t=document.querySelector(`[data-theme-toggle]`);function n(){let t=e.getAttribute(`data-theme`);return t===`dark`||t!==`light`&&window.matchMedia(`(prefers-color-scheme: dark)`).matches}function r(){if(!t)return;let e=n();t.setAttribute(`aria-label`,e?`Switch to light theme`:`Switch to dark theme`),t.setAttribute(`data-mode`,e?`dark`:`light`)}t?.addEventListener(`click`,()=>{let t=n()?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`dojo-theme`,t)}catch(e){console.warn(`Theme preference not saved:`,e)}r()}),r();</script><a class="start" href="/membership" data-astro-cid-nen7h5rs>Start free</a></div></nav></div></header><script type="module">var e=document.querySelector(`[data-menu-button]`),t=document.querySelector(`[data-nav]`),n=document.querySelector(`.site-header`);function r(t){e&&n&&(n.toggleAttribute(`data-open`,t),e.setAttribute(`aria-expanded`,String(t)),e.setAttribute(`aria-label`,t?`Close menu`:`Open menu`))}e?.addEventListener(`click`,()=>r(e.getAttribute(`aria-expanded`)!==`true`)),t?.addEventListener(`click`,e=>{e.target instanceof HTMLAnchorElement&&r(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e?.getAttribute(`aria-expanded`)===`true`&&(r(!1),e.focus())}),window.matchMedia(`(min-width: 62rem)`).addEventListener(`change`,e=>{e.matches&&r(!1)}),document.documentElement.classList.add(`js`);</script><main id="main"><section class="hero compact" data-astro-cid-75ysl5lo><div class="art" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/hero-dojo-mobile.avif" media="(max-width: 40rem)"><source type="image/webp" srcset="/images/hero-dojo-mobile.webp" media="(max-width: 40rem)"><source srcset="/images/hero-dojo-mobile.jpg" media="(max-width: 40rem)"><source type="image/avif" srcset="/images/hero-dojo.avif"><source type="image/webp" srcset="/images/hero-dojo.webp"><img class="art-img" src="/images/hero-dojo.jpg" alt width="2400" height="900" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="scrim" aria-hidden="true" data-astro-cid-75ysl5lo></div><div class="enso" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/enso.avif"><source type="image/webp" srcset="/images/enso.webp"><img src="/images/enso.png" alt width="800" height="800" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="container grid" data-astro-cid-75ysl5lo><div class="copy" data-astro-cid-75ysl5lo><p class="eyebrow" data-astro-cid-75ysl5lo>Roadmapping and epics</p><h1 data-astro-cid-75ysl5lo>Your roadmap in git</h1><p class="subtitle" data-astro-cid-75ysl5lo>Run the whole roadmap on a free GitLab account with issues, milestones, labels and boards, keep a plain-text copy in the repo and know what the paid epics feature would add.</p></div></div></section><article class="section" data-astro-cid-ecbjlo7c><div class="container prose" data-astro-cid-ecbjlo7c><p><strong>Supports:</strong> Developer, week 3 (Problems to epics): “put the roadmap in git”. <strong>Time:</strong> about three hours.</p>
+<h2 id="1-why-this-matters">1. Why this matters</h2>
+<p>A plan that lives in a slide deck dies in a month. A plan that lives next to the code is read, changed and checked every day. The Dojo asks for the roadmap in git for three reasons. It is <strong>versioned</strong>: you can see what changed and why. It is <strong>shared</strong>: access comes from project membership, not from one person’s account. And it is <strong>readable by agents</strong>: an agent working in a repo can read a file that says what the product is for and what comes next.</p>
+<p>A Product Development Manager (PDM) cares about one more thing: the plan must survive without you. If you are away for a week, a colleague or an agent should be able to open the repo and see what is being built, why, and what is next.</p>
+<p>You do not need a paid plan. GitLab’s epics and roadmap views belong to paid tiers at the time of writing, so check the current GitLab documentation before relying on them. Issues, milestones, labels and boards are the tools you use here. The discipline is the same, and it transfers to any tool.</p>
+<h3 id="what-the-pdm-decides-here">What the PDM decides here</h3>
+<table>
+<thead>
+<tr>
+<th>You decide</th>
+<th>You may delegate to an agent</th>
+<th>You verify</th>
+<th>Other disciplines involved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The labels, the names, what counts as an epic issue and when one is closed</td>
+<td>Creating the labels, milestones and issues from your files; drafting the issue template for you to edit</td>
+<td>The board matches your roadmap; nothing is open without an owner; the text file and GitLab agree</td>
+<td>Engineering (who works in which repo), operations (who can see the project), security (who has access)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-key-ideas">2. Key ideas</h2>
+<h3 id="four-tools-do-the-work-of-an-epic">Four tools do the work of an epic</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Use it for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Issue</strong></td>
+<td>One <strong>epic tracking issue</strong> per epic, holding the epic text. Also every task below it.</td>
+</tr>
+<tr>
+<td><strong>Label</strong></td>
+<td>Marks the kind (<code>epic</code>, <code>milestone-work</code>, <code>decision</code>) and the status (<code>now</code>, <code>next</code>, <code>later</code>).</td>
+</tr>
+<tr>
+<td><strong>Milestone</strong></td>
+<td>A dated slice of work, one to four weeks. Groups issues and shows progress.</td>
+</tr>
+<tr>
+<td><strong>Board</strong></td>
+<td>Shows issues in columns by label, such as now, next and later. This is your roadmap picture.</td>
+</tr>
+</tbody>
+</table>
+<p>GitLab’s documentation describes each of these. Issues track work, labels organise and filter it, milestones group issues with dates, and boards present issues in columns. The free plan gives you all four.</p>
+<h3 id="one-epic-tracking-issue-per-epic">One epic tracking issue per epic</h3>
+<p>Create an issue titled with the outcome, for example “Café owners can join, run returns and see results”. Paste the epic text from lesson 2 into its description. Give it the label <code>epic</code>. This issue does not get built. It is the <strong>home</strong> of the epic: the problem, the measure, scope, dependencies and links to the milestones that deliver it.</p>
+<p>Link the milestone issues to it by writing “Part of #12” in their descriptions. Plain text links are robust: they work on any plan, and they read well to humans and agents.</p>
+<h3 id="labels-carry-your-status">Labels carry your status</h3>
+<p>Keep the label set small. A good first set:</p>
+<ul>
+<li><strong>Kind:</strong> <code>epic</code>, <code>milestone-work</code>, <code>decision</code>, <code>risk</code></li>
+<li><strong>Horizon:</strong> <code>now</code>, <code>next</code>, <code>later</code></li>
+<li><strong>Area:</strong> one per part of your product (<code>web</code>, <code>returns</code>, <code>partners</code>, <code>legal</code>)</li>
+</ul>
+<p>Do not invent a label for every thought. Every label is something you must keep true.</p>
+<h3 id="milestones-are-your-delivery-dates">Milestones are your delivery dates</h3>
+<p>A milestone has a title, a start and due date and a description. Put the <strong>acceptance checks</strong> in the description: the tests a person can run to say “this slice works”. Issues attach to a milestone. GitLab shows how many are done. Milestones are where agents get their work, and lesson 5 shows how.</p>
+<h3 id="a-board-is-the-roadmap-you-can-see">A board is the roadmap you can see</h3>
+<p>Create a board with lists for <code>now</code>, <code>next</code> and <code>later</code> labels. Epic tracking issues sit in those columns. Make a second board for the current milestone, with columns such as to do, doing, review and done. GitLab’s issue boards documentation explains how to add lists by label and how to drag issues between them.</p>
+<h3 id="description-templates">Description templates</h3>
+<p>A <strong>description template</strong> is a file in the repo (under <code>.gitlab/issue_templates/</code>) that pre-fills the description of a new issue. Put the epic template there. Every new epic issue then starts with the same headings, and nobody forgets the “out of scope” line. GitLab’s documentation on description templates shows the folder and file format.</p>
+<h3 id="a-text-file-stays-the-master-copy">A text file stays the master copy</h3>
+<p>Add <code>roadmap/ROADMAP.md</code> to the repo, listing each epic, its order, its reason, its horizon and the issue number. When the file and GitLab disagree, you have a bug in your plan. An agent that has no GitLab access can still read the file. A reviewer can read the history of the file with <code>git log</code>.</p>
+<h3 id="what-the-paid-epics-and-roadmap-would-add">What the paid epics and roadmap would add</h3>
+<p>GitLab’s epics feature groups issues across projects with parent and child relationships, and its roadmap view shows epics on a timeline. These are useful if you run many projects. Read the documentation pages to understand what you gain. Do not change your method because of them: an epic written well works in either tool.</p>
+<h2 id="3-step-by-step">3. Step by step</h2>
+<h3 id="step-1-create-the-project-and-invite-people">Step 1: Create the project and invite people</h3>
+<p>Use one GitLab project for the product plan, or the main repo of your product. Add the people who need to see it as members with the lowest role that works. Never share the plan through a personal account.</p>
+<h3 id="step-2-create-the-labels">Step 2: Create the labels</h3>
+<p>Create the kind, horizon and area labels. Give each one a short description that says when to use it.</p>
+<h3 id="step-3-add-the-epic-template">Step 3: Add the epic template</h3>
+<p>Create <code>.gitlab/issue_templates/epic.md</code> with the headings from lesson 2. Commit it. When you create a new issue, choose the template.</p>
+<h3 id="step-4-create-one-tracking-issue-per-epic">Step 4: Create one tracking issue per epic</h3>
+<p>For each epic, create an issue from the template, paste your epic text, add the <code>epic</code> label and a horizon label.</p>
+<h3 id="step-5-create-the-milestones">Step 5: Create the milestones</h3>
+<p>For the first epic, create three to five milestones with start and due dates. Write acceptance checks in each. For other epics, create only the next milestone: far milestones are guesses.</p>
+<h3 id="step-6-build-the-board">Step 6: Build the board</h3>
+<p>Create a board with <code>now</code>, <code>next</code> and <code>later</code> lists. Check that each epic tracking issue appears in the right column.</p>
+<h3 id="step-7-write-roadmapmd">Step 7: Write ROADMAP.md</h3>
+<p>Write the file by hand. For each epic: title, horizon, the one-sentence reason for its position, the issue link and the next milestone with its date.</p>
+<h3 id="step-8-check-them-against-each-other">Step 8: Check them against each other</h3>
+<p>Open the board and the file side by side. Fix any difference. Decide which one wins in a conflict. We recommend the file, because it has history and review.</p>
+<h3 id="step-9-set-a-rhythm">Step 9: Set a rhythm</h3>
+<p>Pick a weekly time to look at the board, move cards, update the file and close finished milestones. A roadmap you do not touch weekly is already out of date.</p>
+<h2 id="4-worked-example-trailmug">4. Worked example: TrailMug</h2>
+<p>TrailMug is fictional. The founder keeps the plan in the <code>trailmug-product</code> repo.</p>
+<p><strong>Labels:</strong> <code>epic</code>, <code>milestone-work</code>, <code>decision</code>, <code>risk</code>; <code>now</code>, <code>next</code>, <code>later</code>; <code>web</code>, <code>returns</code>, <code>partners</code>, <code>legal</code>.</p>
+<p><strong>Tracking issues:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Title</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>#1</td>
+<td>The service is lawful and honest</td>
+<td><code>epic</code>, <code>now</code>, <code>legal</code></td>
+</tr>
+<tr>
+<td>#2</td>
+<td>Café owners can join, run returns and see results</td>
+<td><code>epic</code>, <code>now</code>, <code>partners</code></td>
+</tr>
+<tr>
+<td>#3</td>
+<td>Visitors can see the price, sign up and pay</td>
+<td><code>epic</code>, <code>next</code>, <code>web</code></td>
+</tr>
+<tr>
+<td>#4</td>
+<td>New members get a welcome email in 5 minutes</td>
+<td><code>epic</code>, <code>next</code>, <code>web</code></td>
+</tr>
+<tr>
+<td>#5</td>
+<td>Anyone can tell whether the service is up</td>
+<td><code>epic</code>, <code>later</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Milestones for epic #2:</strong> “Two-café trial” (two weeks), “Café sign-up page” (three weeks), “Returns scan and count” (three weeks), “Monthly café report” (two weeks). Each has acceptance checks, such as “A café owner can find the sign-up page from the home page and finish it in under ten minutes without help.”</p>
+<p><strong>ROADMAP.md excerpt:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="color:#79B8FF;font-weight:bold">## Now</span></span>
+<span class="line"><span style="color:#FFAB70">1.</span><span style="color:#E1E4E8;font-weight:bold"> **The service is lawful and honest**</span><span style="color:#E1E4E8"> (#1). First, because nothing that</span></span>
+<span class="line"><span style="color:#E1E4E8">   collects emails or money can start without it. Next milestone: privacy</span></span>
+<span class="line"><span style="color:#E1E4E8">   notice live, 2026-12-01.</span></span>
+<span class="line"><span style="color:#FFAB70">2.</span><span style="color:#E1E4E8;font-weight:bold"> **Café owners can join, run returns and see results**</span><span style="color:#E1E4E8"> (#2). Second,</span></span>
+<span class="line"><span style="color:#E1E4E8">   because members have nothing to use without cafés. Next milestone:</span></span>
+<span class="line"><span style="color:#E1E4E8">   two-café trial, 2026-12-15.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## Next</span></span>
+<span class="line"><span style="color:#FFAB70">3.</span><span style="color:#E1E4E8;font-weight:bold"> **Visitors can see the price, sign up and pay**</span><span style="color:#E1E4E8"> (#3). After cafés exist.</span></span>
+<span class="line"><span style="color:#FFAB70">4.</span><span style="color:#E1E4E8;font-weight:bold"> **New members get a welcome email in 5 minutes**</span><span style="color:#E1E4E8"> (#4). After members exist.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## Later</span></span>
+<span class="line"><span style="color:#FFAB70">5.</span><span style="color:#E1E4E8;font-weight:bold"> **Anyone can tell whether the service is up**</span><span style="color:#E1E4E8"> (#5). Too few users yet.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">## Not doing</span></span>
+<span class="line"><span style="color:#E1E4E8">Loyalty points: no evidence in interviews.</span></span></code></pre>
+<p>The board shows the same five cards. On Friday the founder moves a card, edits one line in the file and commits with the message “Move welcome email to next; trial dates set”.</p>
+<h2 id="5-working-with-ai-agents-on-this">5. Working with AI agents on this</h2>
+<p>Setting up the tools is <strong>mechanical</strong>, so it is a good job for an agent. The content stays yours.</p>
+<p><strong>Delegate:</strong></p>
+<ul>
+<li><strong>Setup from a file.</strong> Give an agent your label list, milestones and epic text and ask it to create them with the GitLab command line tool (<code>glab</code>) or the API, then list what it created.</li>
+<li><strong>Template drafting.</strong> “Draft an issue template with these headings. I will edit it.”</li>
+<li><strong>Consistency check.</strong> “Compare <code>roadmap/ROADMAP.md</code> with the open issues labelled <code>epic</code>. List any difference in title, horizon or milestone date. Do not change anything.”</li>
+<li><strong>Weekly report.</strong> “List milestones due in the next 14 days with the count of open issues in each.”</li>
+</ul>
+<p><strong>Do yourself:</strong></p>
+<ul>
+<li>Decide labels, names and horizons.</li>
+<li>Decide who has access and at what level.</li>
+<li>Write the roadmap file’s reasons and update them.</li>
+<li>Close epics. An agent never closes an epic.</li>
+</ul>
+<p><strong>A brief you can adapt:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Use the GitLab command line (glab) for the project &lt;group&gt;/&lt;project&gt;.</span></span>
+<span class="line"><span>1. Create these labels exactly: &lt;list with colours and descriptions&gt;.</span></span>
+<span class="line"><span>2. Create one issue per row of roadmap/ROADMAP.md, using the epic text in</span></span>
+<span class="line"><span>   roadmap/epics/&lt;n&gt;.md as the description and the labels in the table.</span></span>
+<span class="line"><span>3. Create the milestones in roadmap/milestones.md with their dates and</span></span>
+<span class="line"><span>   acceptance checks.</span></span>
+<span class="line"><span>Do not edit any text I wrote. Do not close or delete anything. When you</span></span>
+<span class="line"><span>finish, print a table of every issue and milestone you created with its</span></span>
+<span class="line"><span>number and link. If a command fails, stop and tell me.</span></span></code></pre>
+<p><strong>How to check the output.</strong> Open the board yourself. Open three issues at random and compare the description with your file, word for word. Check that dates match. Check that the agent used the access you intended and no more: do not give an agent a token that can delete the project. Use a token limited to what the task needs, and keep it out of the repo.</p>
+<p><strong>Disclose.</strong> In <code>roadmap/README.md</code>: “AI use: set-up automation and a consistency check. The epics, order, reasons and labels are mine.”</p>
+<p><strong>Where this sits on the ladder.</strong> The agent skill of a manager climbs four rungs: <strong>use</strong> one agent, <strong>delegate</strong> whole tasks with a brief, <strong>orchestrate</strong> several sessions, and <strong>govern</strong> them with written policy, hooks and gates. This lesson sits on <strong>delegate</strong>, and starts <strong>govern</strong>. Creating labels and issues from your files is a whole task you hand over. Labels, templates, protected branches and who may close an epic are the first rules and gates of a governed plan. The agent orchestration track (<code>/library/tracks/agent-orchestration/</code>) covers the two upper rungs.</p>
+<h2 id="6-common-mistakes">6. Common mistakes</h2>
+<ul>
+<li><strong>Treating the tracking issue as work.</strong> It is a home for the epic. Build from milestone issues.</li>
+<li><strong>Too many labels.</strong> Each one is a promise to keep it true.</li>
+<li><strong>Dates for every milestone in every epic.</strong> Date the next one. The rest are guesses.</li>
+<li><strong>A text file and a board that disagree.</strong> Pick a winner and check weekly.</li>
+<li><strong>Planning in a personal account.</strong> Use project membership, so others can edit.</li>
+<li><strong>Putting secrets in issues or files.</strong> Never paste tokens, passwords or customer data.</li>
+<li><strong>Relying on paid features without checking.</strong> Read the current plan documentation first.</li>
+<li><strong>Letting an agent close epics.</strong> Only a person judges whether the outcome was reached.</li>
+</ul>
+<h2 id="7-practice-put-the-roadmap-in-git">7. Practice: put the roadmap in git</h2>
+<p><strong>Deliverable:</strong> your roadmap live in GitLab and in the repo.</p>
+<ol>
+<li>Labels, one epic template, one tracking issue per epic and milestones for the first epic, created in a GitLab project.</li>
+<li>A board with now, next and later lists.</li>
+<li><code>roadmap/ROADMAP.md</code> with each epic, its horizon, the reason for its position, the issue link and the next milestone with its date.</li>
+<li>A short <code>roadmap/README.md</code> that says who updates what, when, and your AI-use line.</li>
+<li>A screenshot of the board saved as <code>roadmap/board.png</code> (no personal data in it).</li>
+</ol>
+<p>Commit with a message such as <code>Add roadmap file and epic template</code>.</p>
+<p><strong>Check:</strong> ask a colleague who has not seen the project to open the repo and tell you, in two minutes, what is being built first and why. If she cannot, improve the file.</p>
+<p><strong>Stretch:</strong> read the GitLab documentation on epics and the roadmap. Write ten lines on what you would gain from them, and what you would have to change in your method.</p>
+<h2 id="8-checklist">8. Checklist</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> The plan lives in a project people can join, not in a personal account.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Labels are few, described and used.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Each epic has one tracking issue from the template.</li>
+<li class="task-list-item"><input type="checkbox" disabled> The first epic has three to five dated milestones with acceptance checks.</li>
+<li class="task-list-item"><input type="checkbox" disabled> The board shows now, next and later.</li>
+<li class="task-list-item"><input type="checkbox" disabled> <code>ROADMAP.md</code> and the board agree.</li>
+<li class="task-list-item"><input type="checkbox" disabled> No secrets or personal data are in issues or files.</li>
+<li class="task-list-item"><input type="checkbox" disabled> A weekly time is set to update the plan.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I recorded my AI use.</li>
+</ul>
+<h2 id="9-further-learning">9. Further learning</h2>
+<p>GitLab’s documentation on issues, labels, milestones and issue boards is the best reference for each tool, and its page on description templates shows the file format. The GitLab Unfiltered video on issues, labels and boards walks through the screens. The pages on epics and the roadmap show what the paid tiers add. In the next lesson you cut the first epic into milestones that agents can build from.</p>
+<nav class="pager" aria-label="More in this section" data-astro-cid-ecbjlo7c><a href="/library/tracks/roadmapping-and-epics/03-order-the-epics" data-astro-cid-ecbjlo7c>Previous: Order the epics and defend the order</a><a href="/library/tracks/roadmapping-and-epics/05-agent-ready-milestones" data-astro-cid-ecbjlo7c>Next: Agent-ready milestones</a></nav><p data-astro-cid-ecbjlo7c><a href="/library" data-astro-cid-ecbjlo7c>Back to the library</a></p></div></article></main><section class="sponsor-band" aria-label="Sponsored by Reveltek" data-astro-cid-ji2uitki><div class="backdrop" aria-hidden="true" data-astro-cid-ji2uitki><span class="only-light" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band.avif"><source type="image/webp" srcset="/images/mountains-band.webp"><img src="/images/mountains-band.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span><span class="only-dark" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band-dark.avif"><source type="image/webp" srcset="/images/mountains-band-dark.webp"><img src="/images/mountains-band-dark.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span></div><div class="container inner" data-astro-cid-ji2uitki><span class="lead" data-astro-cid-ji2uitki>Sponsored by</span><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span><a class="sponsor" href="/sponsors" data-astro-cid-ji2uitki><img class="only-light" src="/images/reveltek-logo.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki><img class="only-dark" src="/images/reveltek-logo-white.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki></a><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span></div></section><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="container inner" data-astro-cid-jo6i4kqk><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><nav aria-label="Footer" data-astro-cid-jo6i4kqk><ul data-astro-cid-jo6i4kqk><li data-astro-cid-jo6i4kqk><a href="/about" data-astro-cid-jo6i4kqk>About CRC</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors" data-astro-cid-jo6i4kqk>Sponsors (Reveltek)</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors#become-a-sponsor" data-astro-cid-jo6i4kqk>Become a sponsor</a></li><li data-astro-cid-jo6i4kqk><a href="/contact" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href="/code-of-conduct" data-astro-cid-jo6i4kqk>Code of conduct</a></li><li data-astro-cid-jo6i4kqk><a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>GitHub</a></li></ul></nav></div><p class="legal container" data-astro-cid-jo6i4kqk>© 2026 Curiosity Research Corporation. Developer Dojo is free for everyone and is sponsored by Reveltek.</p></footer></body></html><script type="module">for(let e of document.querySelectorAll(`.prose .task-list-item > input[type="checkbox"]`)){let t=e.parentElement?.textContent?.trim();t&&e.setAttribute(`aria-label`,t)}</script>

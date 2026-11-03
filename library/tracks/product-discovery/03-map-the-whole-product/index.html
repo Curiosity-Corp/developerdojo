@@ -1,0 +1,304 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Map the whole product · Developer Dojo</title><meta name="description" content="Draw your product on one page: every part, every rented system, every partner and every competitor or workaround, with a clear mark for what exists today and what does not."><link rel="canonical" href="https://developerdojo.org/library/tracks/product-discovery/03-map-the-whole-product/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="color-scheme" content="light dark"><meta property="og:site_name" content="Developer Dojo"><meta property="og:title" content="Map the whole product · Developer Dojo"><meta property="og:description" content="Draw your product on one page: every part, every rented system, every partner and every competitor or workaround, with a clear mark for what exists today and what does not."><meta property="og:type" content="website"><meta property="og:url" content="https://developerdojo.org/library/tracks/product-discovery/03-map-the-whole-product/"><meta name="twitter:card" content="summary"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      // Runs before first paint: apply the saved theme and mark JS as available.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('dojo-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/PageHero.zOqh7M6S.css"><style>.pager[data-astro-cid-ecbjlo7c]{justify-content:space-between;gap:var(--space-3);margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--line);flex-wrap:wrap;display:flex}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]{font-weight:600}
+</style></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header" data-astro-cid-nen7h5rs><div class="bar" data-astro-cid-nen7h5rs><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><button type="button" class="menu-button" data-menu-button aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu" data-astro-cid-nen7h5rs><svg class="icon open-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"/></svg><svg class="icon close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><nav id="primary-nav" class="nav" aria-label="Primary" data-nav data-astro-cid-nen7h5rs><ul data-astro-cid-nen7h5rs><li data-astro-cid-nen7h5rs><a href="/train" data-astro-cid-nen7h5rs>Train</a></li><li data-astro-cid-nen7h5rs><a href="/sensei" data-astro-cid-nen7h5rs>Sensei</a></li><li data-astro-cid-nen7h5rs><a href="/library" aria-current="page" data-astro-cid-nen7h5rs>Library</a></li><li data-astro-cid-nen7h5rs><a href="/certificates" data-astro-cid-nen7h5rs>Certificates</a></li><li data-astro-cid-nen7h5rs><a href="/challenges" data-astro-cid-nen7h5rs>Challenges</a></li><li data-astro-cid-nen7h5rs><a href="/events" data-astro-cid-nen7h5rs>Events</a></li><li data-astro-cid-nen7h5rs><a href="/membership" data-astro-cid-nen7h5rs>Membership</a></li></ul><div class="actions" data-astro-cid-nen7h5rs><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" data-astro-cid-l6lhmie6><svg class="icon to-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="icon to-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g></svg></button><script type="module">var e=document.documentElement,t=document.querySelector(`[data-theme-toggle]`);function n(){let t=e.getAttribute(`data-theme`);return t===`dark`||t!==`light`&&window.matchMedia(`(prefers-color-scheme: dark)`).matches}function r(){if(!t)return;let e=n();t.setAttribute(`aria-label`,e?`Switch to light theme`:`Switch to dark theme`),t.setAttribute(`data-mode`,e?`dark`:`light`)}t?.addEventListener(`click`,()=>{let t=n()?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`dojo-theme`,t)}catch(e){console.warn(`Theme preference not saved:`,e)}r()}),r();</script><a class="start" href="/membership" data-astro-cid-nen7h5rs>Start free</a></div></nav></div></header><script type="module">var e=document.querySelector(`[data-menu-button]`),t=document.querySelector(`[data-nav]`),n=document.querySelector(`.site-header`);function r(t){e&&n&&(n.toggleAttribute(`data-open`,t),e.setAttribute(`aria-expanded`,String(t)),e.setAttribute(`aria-label`,t?`Close menu`:`Open menu`))}e?.addEventListener(`click`,()=>r(e.getAttribute(`aria-expanded`)!==`true`)),t?.addEventListener(`click`,e=>{e.target instanceof HTMLAnchorElement&&r(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e?.getAttribute(`aria-expanded`)===`true`&&(r(!1),e.focus())}),window.matchMedia(`(min-width: 62rem)`).addEventListener(`change`,e=>{e.matches&&r(!1)}),document.documentElement.classList.add(`js`);</script><main id="main"><section class="hero compact" data-astro-cid-75ysl5lo><div class="art" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/hero-dojo-mobile.avif" media="(max-width: 40rem)"><source type="image/webp" srcset="/images/hero-dojo-mobile.webp" media="(max-width: 40rem)"><source srcset="/images/hero-dojo-mobile.jpg" media="(max-width: 40rem)"><source type="image/avif" srcset="/images/hero-dojo.avif"><source type="image/webp" srcset="/images/hero-dojo.webp"><img class="art-img" src="/images/hero-dojo.jpg" alt width="2400" height="900" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="scrim" aria-hidden="true" data-astro-cid-75ysl5lo></div><div class="enso" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/enso.avif"><source type="image/webp" srcset="/images/enso.webp"><img src="/images/enso.png" alt width="800" height="800" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="container grid" data-astro-cid-75ysl5lo><div class="copy" data-astro-cid-75ysl5lo><p class="eyebrow" data-astro-cid-75ysl5lo>Product discovery</p><h1 data-astro-cid-75ysl5lo>Map the whole product</h1><p class="subtitle" data-astro-cid-75ysl5lo>Draw your product on one page: every part, every rented system, every partner and every competitor or workaround, with a clear mark for what exists today and what does not.</p></div></div></section><article class="section" data-astro-cid-ecbjlo7c><div class="container prose" data-astro-cid-ecbjlo7c><p><strong>Supports:</strong> Developer, week 1 (the Product Repository Map and the Integrations Register). <strong>Time:</strong> about two hours.</p>
+<h2 id="1-why-this-matters">1. Why this matters</h2>
+<p>A beginner thinks “one product, one repo”. A real product is a web of parts: a public website, an app, small services, workflows, systems you rent for payments and email, a customer list, a help centre, a status page, policies, and the infrastructure that runs it all. Each part may live in a different repository, belong to a different part of the business, and be touched by a different team or agent.</p>
+<p>An AI agent sees <strong>one repo at a time</strong>. It cannot see that the sign-up form in one repo promises something the payment service in another repo cannot deliver. Only a human holds the whole picture. That human is the Product Development Manager (PDM), and the picture is the map.</p>
+<p>The map is also your best defence against the most expensive kind of surprise: the thing that was “obviously part of the product” and that nobody planned. A missing privacy page, no way to refund a payment, no one watching if the site is down. Such gaps turn into epics later. Finding them on paper costs an afternoon. Finding them after launch costs customers.</p>
+<h3 id="what-the-pdm-decides-here">What the PDM decides here</h3>
+<table>
+<thead>
+<tr>
+<th>You decide</th>
+<th>You may delegate to an agent</th>
+<th>You verify</th>
+<th>Other disciplines involved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What counts as “the product”, where its edges are, and which gaps matter</td>
+<td>Inventorying repos and files that already exist; drafting a first table of integrations from code</td>
+<td>Every “exists” mark has evidence you opened yourself; every “planned” item has an owner</td>
+<td>Engineering, operations, finance (rented systems cost money), security and privacy (data flows), sales and support</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-key-ideas">2. Key ideas</h2>
+<h3 id="the-product-is-bigger-than-the-app">The product is bigger than the app</h3>
+<p>Think in layers. One way to remember them: a person <strong>reaches</strong> the product, <strong>uses</strong> it, and <strong>pays</strong> for it, while behind the scenes the team <strong>runs</strong> it, <strong>connects</strong> it to other systems and <strong>plans</strong> its future.</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Question it answers</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reach</td>
+<td>How do people find us?</td>
+<td>Website, landing pages, search, posters, social posts</td>
+</tr>
+<tr>
+<td>Use</td>
+<td>What do people use?</td>
+<td>App, tools, calculators, dashboards</td>
+</tr>
+<tr>
+<td>Pay</td>
+<td>How does money move?</td>
+<td>Pricing, checkout, invoices, refunds</td>
+</tr>
+<tr>
+<td>Run</td>
+<td>What does the work behind the scenes?</td>
+<td>Small services, workflows, scheduled jobs</td>
+</tr>
+<tr>
+<td>Connect</td>
+<td>Which systems do we rent?</td>
+<td>Email, payments, customer list (CRM), help desk, analytics</td>
+</tr>
+<tr>
+<td>Operate</td>
+<td>How do we keep it healthy and lawful?</td>
+<td>Status page, backups, help pages, policies, privacy</td>
+</tr>
+<tr>
+<td>Plan</td>
+<td>How do we decide what comes next?</td>
+<td>Briefs, journeys, decisions, roadmap, issues</td>
+</tr>
+</tbody>
+</table>
+<p>The UK government service standard asks teams to “solve a whole problem for users”, not just build one part of a service. That is the same idea from another country, and its list of points is a strong checklist for whole-product thinking.</p>
+<h3 id="front-stage-and-back-stage">Front stage and back stage</h3>
+<p>A <strong>service blueprint</strong> extends a journey map by adding what happens behind the scenes: the people, systems and steps that make each visible moment possible. NN/g’s definition page is a good short read. For discovery, you do not need a full blueprint. You need the habit it teaches: for everything the customer sees, ask “what must exist behind it?”.</p>
+<h3 id="exists-planned-not-found">Exists, planned, not found</h3>
+<p>Honesty is the heart of the map. Every item gets one of three marks:</p>
+<ul>
+<li><strong>Exists.</strong> You have opened it and seen it working. Note where.</li>
+<li><strong>Planned.</strong> Someone has decided to build it and a human owns it.</li>
+<li><strong>Not found.</strong> You looked and there is nothing. Often this is the most valuable finding.</li>
+</ul>
+<p>Never mark something as existing because you expect it to. The Dojo’s own worked example of a real product found that several things people assume (a payment gateway, a separate ops repo) were not there. Finding what is missing is part of the job.</p>
+<h3 id="rented-systems-are-part-of-your-product">Rented systems are part of your product</h3>
+<p>Every tool from another company that your product uses is an <strong>integration</strong>. Each one has an owner on your side, a purpose, a cost and a data flow. If your customer list lives in a rented tool, then that tool’s outage, its price changes and its privacy rules are yours to manage. Write them down in an <a href="/library/template-integrations-register">integrations register</a> with the part of the business each serves: sales, marketing, finance, support, operations or identity.</p>
+<h3 id="the-alternatives-map">The alternatives map</h3>
+<p>Your real competitor is rarely another startup. It is whatever the customer does today: a spreadsheet, a habit, a workaround, doing nothing. List these <strong>alternatives</strong> next to your direct competitors. For each, write what it does well and where it hurts. This tells you what you have to beat, and it keeps you from fighting an imaginary rival.</p>
+<h3 id="dependencies">Dependencies</h3>
+<p>Some parts cannot start before others. A welcome email needs a customer list. A customer list needs a sign-up form. When you draw arrows between parts you see the <strong>dependencies</strong>, and these decide the order of the roadmap later. Atlassian’s page on project dependencies explains the common kinds.</p>
+<h2 id="3-step-by-step">3. Step by step</h2>
+<h3 id="step-1-start-from-the-customers-story">Step 1: Start from the customer’s story</h3>
+<p>Open your interview notes. List every moment a person meets the product: finding it, learning about it, signing up, using it, paying, getting help, leaving. Each moment is a <strong>touch point</strong>. Write them on sticky notes or in a list.</p>
+<h3 id="step-2-ask-what-must-exist-behind-it">Step 2: Ask “what must exist behind it?”</h3>
+<p>For each touch point, write what must exist for it to work. A poster with a QR code needs a landing page. A landing page needs a form. A form needs a place to store the answers. A place to store answers needs rules about privacy. Keep going until the answers become things you can name.</p>
+<h3 id="step-3-group-into-layers">Step 3: Group into layers</h3>
+<p>Put each named thing under one of the seven layers above. If it does not fit, make a new layer, and say why. Empty layers are a warning: a product with nothing under Operate has no plan for when things go wrong.</p>
+<h3 id="step-4-name-each-part-as-a-repo-or-a-rented-system">Step 4: Name each part as a repo or a rented system</h3>
+<p>Give each part a short, lowercase name with a prefix that tells the kind: <code>-site</code>, <code>-app</code>, <code>-svc-</code>, <code>-flow-</code>, <code>-int-</code>, <code>-ops</code>, <code>-docs</code>. Follow the <a href="/library/repository-map-standard">repository map standard</a> so names stay tidy. Each part gets <strong>one named human owner</strong>. An AI agent is never an owner.</p>
+<h3 id="step-5-mark-exists-planned-or-not-found-with-evidence">Step 5: Mark exists, planned or not found, with evidence</h3>
+<p>Write the evidence next to each mark: a link, a file path or “searched all repos for payment code, nothing found on 2026-11-05”. If you have no evidence, the mark is “not found” or “unknown”.</p>
+<h3 id="step-6-draw-the-connections">Step 6: Draw the connections</h3>
+<p>Draw arrows for the data that flows. “Sign-up form sends email address to customer list.” “Payment service tells the app a member is paid.” Label each arrow with <strong>what</strong> moves, because these labels become the interfaces that agents need later. Never write secret values on the map. Names only.</p>
+<h3 id="step-7-map-the-alternatives">Step 7: Map the alternatives</h3>
+<p>On a second page, list three to six alternatives and workarounds. For each, record: who uses it, what it does well, what hurts, and what it costs the customer in money, time or worry.</p>
+<h3 id="step-8-count-and-review">Step 8: Count and review</h3>
+<p>Count the unique parts. A serious product usually has 12 to 25. If you counted three or four, look for touch points you missed. Then ask someone from another discipline (someone in sales, finance, support or operations if you have them) to find a part you forgot.</p>
+<h2 id="4-worked-example-trailmug">4. Worked example: TrailMug</h2>
+<p>TrailMug is fictional. The founder’s first guess was four parts: planning, website, app and payments. After walking the customer story, the map grew.</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Part (repo or system)</th>
+<th>Mark</th>
+<th>Evidence or owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plan</td>
+<td>trailmug-planning</td>
+<td>exists</td>
+<td>The notes and interviews folder, owner: founder</td>
+</tr>
+<tr>
+<td>Reach</td>
+<td>trailmug-site</td>
+<td>exists</td>
+<td>One page, live on the test domain</td>
+</tr>
+<tr>
+<td>Reach</td>
+<td>trailmug-lp-cafes</td>
+<td>planned</td>
+<td>Partner sign-up page, owner: founder</td>
+</tr>
+<tr>
+<td>Use</td>
+<td>trailmug-app</td>
+<td>exists</td>
+<td>Prototype with sign-in only</td>
+</tr>
+<tr>
+<td>Run</td>
+<td>trailmug-svc-returns</td>
+<td>planned</td>
+<td>Tracks which cup is where</td>
+</tr>
+<tr>
+<td>Run</td>
+<td>trailmug-flow-welcome</td>
+<td>planned</td>
+<td>Welcome email series</td>
+</tr>
+<tr>
+<td>Pay</td>
+<td>trailmug-pay</td>
+<td>not found</td>
+<td>Searched all repos on 2026-11-05, no payment code</td>
+</tr>
+<tr>
+<td>Connect</td>
+<td>Email provider (rented)</td>
+<td>planned</td>
+<td>Owner: founder; data: email address, name</td>
+</tr>
+<tr>
+<td>Connect</td>
+<td>Customer list (CRM, rented)</td>
+<td>not found</td>
+<td>No list exists; leads sit in a spreadsheet</td>
+</tr>
+<tr>
+<td>Operate</td>
+<td>trailmug-status</td>
+<td>not found</td>
+<td>Nobody can tell if the site is down</td>
+</tr>
+<tr>
+<td>Operate</td>
+<td>trailmug-ops (policies)</td>
+<td>not found</td>
+<td>No privacy notice or terms</td>
+</tr>
+<tr>
+<td>Operate</td>
+<td>trailmug-docs (help centre)</td>
+<td>not found</td>
+<td>Café owners have no setup guide</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What the map showed:</strong> a café partner cannot join because the partner page does not exist, and a member cannot pay because there is no payment. The interviews said payment trust matters, yet the product has no price page. These are not code tasks. They are gaps in the product, and each is a candidate epic in week 3.</p>
+<p><strong>The alternatives page (extract):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Alternative</th>
+<th>Who uses it</th>
+<th>Does well</th>
+<th>Hurts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Carry your own cup</td>
+<td>Eco-minded commuters</td>
+<td>Free, no new habit</td>
+<td>Dirty cup in bag, forgotten at home</td>
+</tr>
+<tr>
+<td>Café loyalty discount for own cup</td>
+<td>Some cafés</td>
+<td>Easy to understand</td>
+<td>Still need to carry the cup</td>
+</tr>
+<tr>
+<td>Throw-away cup</td>
+<td>Most people</td>
+<td>Zero effort</td>
+<td>Guilt, waste, sometimes a fee</td>
+</tr>
+</tbody>
+</table>
+<p>The founder noticed that the best alternative is not another subscription. It is “carry your own cup”, and its single weakness is the dirty cup in the bag. That is the place TrailMug must win.</p>
+<h2 id="5-working-with-ai-agents-on-this">5. Working with AI agents on this</h2>
+<p>This is a good task to delegate in part, because much of it is <strong>inventory</strong> of things that already exist and can be checked.</p>
+<p><strong>Delegate:</strong></p>
+<ul>
+<li><strong>A read-only inventory.</strong> “List every repo in this group with its README summary and last commit date.” Or “Search these repos for any code that calls a payment service and report file paths.”</li>
+<li><strong>A first draft of the integrations table</strong> from configuration files and dependency lists, which you then correct.</li>
+<li><strong>Public research on alternatives:</strong> names, prices and features, with source links.</li>
+<li><strong>Formatting</strong> your map into a clean table or a diagram in text form.</li>
+</ul>
+<p><strong>Do yourself:</strong></p>
+<ul>
+<li>Decide where the product’s edges are and which parts matter.</li>
+<li>Open each “exists” claim and confirm it.</li>
+<li>Draw the connections and name the owners.</li>
+<li>Judge which “not found” items are real gaps.</li>
+</ul>
+<p><strong>A brief you can adapt:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>You have read-only access to the repositories in the group named below.</span></span>
+<span class="line"><span>Task: produce an inventory. Do not change anything.</span></span>
+<span class="line"><span>For each repository return: name, one-line purpose taken from its README,</span></span>
+<span class="line"><span>last commit date, and the three most important files.</span></span>
+<span class="line"><span>Then search all repositories for: payment code, email-sending code,</span></span>
+<span class="line"><span>customer-list (CRM) calls, and any status or uptime page.</span></span>
+<span class="line"><span>For each search, report either the file path and line, or the exact</span></span>
+<span class="line"><span>sentence "Searched &lt;repos&gt;, nothing found." Do not guess. If you cannot</span></span>
+<span class="line"><span>tell, say "unknown".</span></span></code></pre>
+<p><strong>How to check the output.</strong> Open at least a third of the repos and files the agent names. Look for two failure modes. One is <strong>false positives</strong>: the agent found a file called <code>payment.md</code> that is only a note. The other is <strong>false negatives</strong>: it missed code stored under another name. Make the agent show the exact search it ran. Mark “exists” only on what you opened.</p>
+<p><strong>Never</strong> let an agent decide that something “should” exist and add it to the map as real. An agent that fills gaps with plausible things produces a map of a product that does not exist.</p>
+<p><strong>Security habit.</strong> Give agents the narrowest read access that does the job, and never paste secrets into a prompt. The map holds names of secrets, never values.</p>
+<p><strong>Disclose.</strong> In the map’s footer, record which sections an agent inventoried and which you verified by hand.</p>
+<p><strong>Where this sits on the ladder.</strong> The agent skill of a manager climbs four rungs: <strong>use</strong> one agent, <strong>delegate</strong> whole tasks with a brief, <strong>orchestrate</strong> several sessions, and <strong>govern</strong> them with written policy, hooks and gates. This lesson sits on the <strong>delegate</strong> rung. A mapping task with a written brief and a list you verify is a whole task handed over. Several agents mapping different areas at once is orchestration, and then the shared names must live in one file that all briefs point to. The agent orchestration track (<code>/library/tracks/agent-orchestration/</code>) covers the two upper rungs.</p>
+<h2 id="6-common-mistakes">6. Common mistakes</h2>
+<ul>
+<li><strong>Drawing only the app.</strong> Reach, pay, connect and operate are where most gaps hide.</li>
+<li><strong>Marking items as existing because they are expected.</strong> Use evidence.</li>
+<li><strong>Forgetting rented systems.</strong> Email, CRM and payment tools hold your customers’ data and carry your risk.</li>
+<li><strong>No owners.</strong> A part with no human owner will be built twice or not at all.</li>
+<li><strong>Ignoring alternatives.</strong> If you cannot name what customers do today, you do not know your competitor.</li>
+<li><strong>A map made alone.</strong> You cannot see your own blind spots. Ask someone from another discipline to read it.</li>
+<li><strong>Putting secrets on the map.</strong> Write names of secrets, never their values.</li>
+</ul>
+<h2 id="7-practice-the-one-page-map-and-alternatives-page">7. Practice: the one-page map and alternatives page</h2>
+<p><strong>Deliverable:</strong> three files in your git repo under <code>discovery/</code>.</p>
+<ol>
+<li><code>product-map.md</code>: the layered table with every part, its mark (exists, planned, not found), evidence and one human owner. Include a text diagram or a list of arrows with the data that flows.</li>
+<li><code>integrations-register.md</code>: every rented system, its purpose, its owner, the data that flows to it and the business area it serves. Start from the <a href="/library/template-integrations-register">integrations register template</a>.</li>
+<li><code>alternatives.md</code>: three to six alternatives, with who uses them, what works and what hurts.</li>
+</ol>
+<p>Commit with a message such as <code>Add whole-product map and alternatives</code>. In the file’s footer, add the AI-use line.</p>
+<p><strong>Check:</strong> count your parts. If you have fewer than ten, write a short paragraph on why your product is truly that small, or go back to step 1.</p>
+<p><strong>Stretch:</strong> brief an agent to inventory your real repos with the read-only brief above, and compare its report with your map. Write down every difference and who was right.</p>
+<h2 id="8-checklist">8. Checklist</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> My map shows reach, use, pay, run, connect, operate and plan.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Every part has a short name, a purpose and one human owner.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Every part is marked exists, planned or not found, with evidence.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Every rented system is in the integrations register.</li>
+<li class="task-list-item"><input type="checkbox" disabled> The arrows say what data moves, with no secret values.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I listed real alternatives and workarounds.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Someone from another discipline read the map and found a gap.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I wrote down what an AI did and what I checked by hand.</li>
+</ul>
+<h2 id="9-further-learning">9. Further learning</h2>
+<p>The NN/g service blueprint article shows how front-stage moments depend on back-stage work. The UK service standard is a free checklist for whole-product thinking. Atlassian explains dependencies, and Figma’s competitive analysis guide gives frameworks for the alternatives page. In the next lesson you will take the evidence from your interviews and this map, and turn it into a decision.</p>
+<nav class="pager" aria-label="More in this section" data-astro-cid-ecbjlo7c><a href="/library/tracks/product-discovery/02-talk-to-customers" data-astro-cid-ecbjlo7c>Previous: Talk to customers</a><a href="/library/tracks/product-discovery/04-make-sense-of-evidence-and-decide" data-astro-cid-ecbjlo7c>Next: Make sense of the evidence and decide</a></nav><p data-astro-cid-ecbjlo7c><a href="/library" data-astro-cid-ecbjlo7c>Back to the library</a></p></div></article></main><section class="sponsor-band" aria-label="Sponsored by Reveltek" data-astro-cid-ji2uitki><div class="backdrop" aria-hidden="true" data-astro-cid-ji2uitki><span class="only-light" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band.avif"><source type="image/webp" srcset="/images/mountains-band.webp"><img src="/images/mountains-band.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span><span class="only-dark" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band-dark.avif"><source type="image/webp" srcset="/images/mountains-band-dark.webp"><img src="/images/mountains-band-dark.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span></div><div class="container inner" data-astro-cid-ji2uitki><span class="lead" data-astro-cid-ji2uitki>Sponsored by</span><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span><a class="sponsor" href="/sponsors" data-astro-cid-ji2uitki><img class="only-light" src="/images/reveltek-logo.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki><img class="only-dark" src="/images/reveltek-logo-white.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki></a><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span></div></section><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="container inner" data-astro-cid-jo6i4kqk><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><nav aria-label="Footer" data-astro-cid-jo6i4kqk><ul data-astro-cid-jo6i4kqk><li data-astro-cid-jo6i4kqk><a href="/about" data-astro-cid-jo6i4kqk>About CRC</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors" data-astro-cid-jo6i4kqk>Sponsors (Reveltek)</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors#become-a-sponsor" data-astro-cid-jo6i4kqk>Become a sponsor</a></li><li data-astro-cid-jo6i4kqk><a href="/contact" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href="/code-of-conduct" data-astro-cid-jo6i4kqk>Code of conduct</a></li><li data-astro-cid-jo6i4kqk><a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>GitHub</a></li></ul></nav></div><p class="legal container" data-astro-cid-jo6i4kqk>© 2026 Curiosity Research Corporation. Developer Dojo is free for everyone and is sponsored by Reveltek.</p></footer></body></html><script type="module">for(let e of document.querySelectorAll(`.prose .task-list-item > input[type="checkbox"]`)){let t=e.parentElement?.textContent?.trim();t&&e.setAttribute(`aria-label`,t)}</script>

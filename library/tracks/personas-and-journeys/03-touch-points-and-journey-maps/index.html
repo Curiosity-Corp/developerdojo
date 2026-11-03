@@ -1,0 +1,382 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Touch points and journey maps · Developer Dojo</title><meta name="description" content="List every place a person meets your product, then draw a user journey and a customer journey that show what people do, think and feel at each step."><link rel="canonical" href="https://developerdojo.org/library/tracks/personas-and-journeys/03-touch-points-and-journey-maps/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="color-scheme" content="light dark"><meta property="og:site_name" content="Developer Dojo"><meta property="og:title" content="Touch points and journey maps · Developer Dojo"><meta property="og:description" content="List every place a person meets your product, then draw a user journey and a customer journey that show what people do, think and feel at each step."><meta property="og:type" content="website"><meta property="og:url" content="https://developerdojo.org/library/tracks/personas-and-journeys/03-touch-points-and-journey-maps/"><meta name="twitter:card" content="summary"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      // Runs before first paint: apply the saved theme and mark JS as available.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('dojo-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/PageHero.zOqh7M6S.css"><style>.pager[data-astro-cid-ecbjlo7c]{justify-content:space-between;gap:var(--space-3);margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--line);flex-wrap:wrap;display:flex}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]{font-weight:600}
+</style></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header" data-astro-cid-nen7h5rs><div class="bar" data-astro-cid-nen7h5rs><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><button type="button" class="menu-button" data-menu-button aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu" data-astro-cid-nen7h5rs><svg class="icon open-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"/></svg><svg class="icon close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><nav id="primary-nav" class="nav" aria-label="Primary" data-nav data-astro-cid-nen7h5rs><ul data-astro-cid-nen7h5rs><li data-astro-cid-nen7h5rs><a href="/train" data-astro-cid-nen7h5rs>Train</a></li><li data-astro-cid-nen7h5rs><a href="/sensei" data-astro-cid-nen7h5rs>Sensei</a></li><li data-astro-cid-nen7h5rs><a href="/library" aria-current="page" data-astro-cid-nen7h5rs>Library</a></li><li data-astro-cid-nen7h5rs><a href="/certificates" data-astro-cid-nen7h5rs>Certificates</a></li><li data-astro-cid-nen7h5rs><a href="/challenges" data-astro-cid-nen7h5rs>Challenges</a></li><li data-astro-cid-nen7h5rs><a href="/events" data-astro-cid-nen7h5rs>Events</a></li><li data-astro-cid-nen7h5rs><a href="/membership" data-astro-cid-nen7h5rs>Membership</a></li></ul><div class="actions" data-astro-cid-nen7h5rs><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" data-astro-cid-l6lhmie6><svg class="icon to-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="icon to-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g></svg></button><script type="module">var e=document.documentElement,t=document.querySelector(`[data-theme-toggle]`);function n(){let t=e.getAttribute(`data-theme`);return t===`dark`||t!==`light`&&window.matchMedia(`(prefers-color-scheme: dark)`).matches}function r(){if(!t)return;let e=n();t.setAttribute(`aria-label`,e?`Switch to light theme`:`Switch to dark theme`),t.setAttribute(`data-mode`,e?`dark`:`light`)}t?.addEventListener(`click`,()=>{let t=n()?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`dojo-theme`,t)}catch(e){console.warn(`Theme preference not saved:`,e)}r()}),r();</script><a class="start" href="/membership" data-astro-cid-nen7h5rs>Start free</a></div></nav></div></header><script type="module">var e=document.querySelector(`[data-menu-button]`),t=document.querySelector(`[data-nav]`),n=document.querySelector(`.site-header`);function r(t){e&&n&&(n.toggleAttribute(`data-open`,t),e.setAttribute(`aria-expanded`,String(t)),e.setAttribute(`aria-label`,t?`Close menu`:`Open menu`))}e?.addEventListener(`click`,()=>r(e.getAttribute(`aria-expanded`)!==`true`)),t?.addEventListener(`click`,e=>{e.target instanceof HTMLAnchorElement&&r(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e?.getAttribute(`aria-expanded`)===`true`&&(r(!1),e.focus())}),window.matchMedia(`(min-width: 62rem)`).addEventListener(`change`,e=>{e.matches&&r(!1)}),document.documentElement.classList.add(`js`);</script><main id="main"><section class="hero compact" data-astro-cid-75ysl5lo><div class="art" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/hero-dojo-mobile.avif" media="(max-width: 40rem)"><source type="image/webp" srcset="/images/hero-dojo-mobile.webp" media="(max-width: 40rem)"><source srcset="/images/hero-dojo-mobile.jpg" media="(max-width: 40rem)"><source type="image/avif" srcset="/images/hero-dojo.avif"><source type="image/webp" srcset="/images/hero-dojo.webp"><img class="art-img" src="/images/hero-dojo.jpg" alt width="2400" height="900" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="scrim" aria-hidden="true" data-astro-cid-75ysl5lo></div><div class="enso" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/enso.avif"><source type="image/webp" srcset="/images/enso.webp"><img src="/images/enso.png" alt width="800" height="800" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="container grid" data-astro-cid-75ysl5lo><div class="copy" data-astro-cid-75ysl5lo><p class="eyebrow" data-astro-cid-75ysl5lo>Personas and journeys</p><h1 data-astro-cid-75ysl5lo>Touch points and journey maps</h1><p class="subtitle" data-astro-cid-75ysl5lo>List every place a person meets your product, then draw a user journey and a customer journey that show what people do, think and feel at each step.</p></div></div></section><article class="section" data-astro-cid-ecbjlo7c><div class="container prose" data-astro-cid-ecbjlo7c><p><strong>Supports:</strong> Developer, week 2 (Know the people): the touch-point list and the user and customer journeys. <strong>Time:</strong> about two and a half hours.</p>
+<h2 id="1-why-this-matters">1. Why this matters</h2>
+<p>Your product is not a single screen or a single moment. It is a story that starts before a person has heard of you and continues after she has stopped using you. In the middle are dozens of small moments: a search result, a poster, an email, a sign-up form, a payment page, a help article, a receipt. Each one is a <strong>touch point</strong>, and each one either builds trust or breaks it.</p>
+<p>Most teams design the main screen carefully and forget everything around it. Then they wonder why people sign up and never come back. A journey map is the cure. It makes you walk the whole story in the order the person lives it, so that you can see the weak steps.</p>
+<p>For a Product Development Manager (PDM), journeys are also the bridge between <strong>people</strong> and <strong>parts of the product</strong>. Each step of a journey needs something to exist: a page, a service, a policy, a person. When you link steps to the parts of your product, you can see which parts are missing, and those missing parts become the epics in week 3. Agents work best on a small, clear part of a product. Journeys show you which parts exist and which still need briefing.</p>
+<h3 id="what-the-pdm-decides-here">What the PDM decides here</h3>
+<table>
+<thead>
+<tr>
+<th>You decide</th>
+<th>You may delegate to an agent</th>
+<th>You verify</th>
+<th>Other disciplines involved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Which steps matter, what people feel at each, and where the journey breaks</td>
+<td>Turning your tables into clean diagrams; checking your pages and emails against your journey; formatting</td>
+<td>Every step has a source (an interview, data or observation); every feeling is from evidence or marked G</td>
+<td>Design (screens), marketing (reach), sales (buying), support (help), operations (delivery), legal (terms)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-key-ideas">2. Key ideas</h2>
+<h3 id="touch-points">Touch points</h3>
+<p>A <strong>touch point</strong> is any moment when a person meets your product or your company. They come in many kinds:</p>
+<ul>
+<li><strong>Before:</strong> a search result, a poster, a friend’s recommendation, an advert.</li>
+<li><strong>During:</strong> the website, the sign-up, the app, an email, a message, a payment.</li>
+<li><strong>After:</strong> a receipt, a renewal notice, a help article, a cancellation page, a survey.</li>
+<li><strong>Always there:</strong> the privacy policy, the status page, the way people can contact you.</li>
+</ul>
+<p>Include <strong>non-digital</strong> touch points: a cup handed over a counter, a phone call, a printed card. And include <strong>negative</strong> touch points: an error message, a failed payment, a long wait.</p>
+<h3 id="a-journey-map">A journey map</h3>
+<p>A <strong>journey map</strong> is a picture of one person’s path through the story. Across the top, put the <strong>stages</strong>. Down the side, put the <strong>layers</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Question</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>What does the person do?</td>
+</tr>
+<tr>
+<td>Thinking</td>
+<td>What is she asking herself?</td>
+</tr>
+<tr>
+<td>Feeling</td>
+<td>How does she feel? (a word, or a simple high-low line)</td>
+</tr>
+<tr>
+<td>Pain</td>
+<td>What goes wrong or gets in the way?</td>
+</tr>
+<tr>
+<td>Opportunity</td>
+<td>What could we do better?</td>
+</tr>
+<tr>
+<td>Served by</td>
+<td>Which part of the product (repo, system, person) makes this step work?</td>
+</tr>
+</tbody>
+</table>
+<p>NN/g’s journey mapping introduction explains the parts of a map and why they help. Two points matter most: a journey map is built from <strong>research</strong>, not imagination, and it is made <strong>from one person’s point of view</strong>.</p>
+<h3 id="user-journey-and-customer-journey">User journey and customer journey</h3>
+<p>The Dojo asks for two maps because two people are involved:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>User journey</th>
+<th>Customer journey</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>About</strong></td>
+<td>The person who uses the product</td>
+<td>The person who pays</td>
+</tr>
+<tr>
+<td><strong>Typical stages</strong></td>
+<td>Find, learn, set up, use, get help, stop or stay</td>
+<td>Aware, consider, buy, onboard, renew, refer</td>
+</tr>
+<tr>
+<td><strong>Key question</strong></td>
+<td>Does it help me get my job done?</td>
+<td>Is it worth paying for, and is it safe to say yes?</td>
+</tr>
+</tbody>
+</table>
+<p>They are the same person in some products and different people in others. TrailMug has both: Maya is user and customer, while Leo the café owner has a separate customer journey.</p>
+<h3 id="journey-versus-flow">Journey versus flow</h3>
+<p>A <strong>user flow</strong> shows the <strong>screens and decisions</strong> inside your product to complete one task: “Open the app, tap Return, scan the cup, see the confirmation.” A <strong>journey</strong> is wider and about the <strong>person</strong>: what she does before, during and after, including offline moments, thoughts and feelings. NN/g has a clear short video on the difference. Draw the journey first. Draw flows later, for the steps where you need to design the screens.</p>
+<h3 id="where-the-journey-meets-the-repo-map">Where the journey meets the repo map</h3>
+<p>Every step needs something behind it. If you wrote “she reads an email within five minutes,” then there must be a workflow, an email provider, a template and a sender address. Writing the “Served by” row forces you to ask whether these exist. It turns a map about people into a plan for parts. The NN/g service blueprint article extends the same idea with a “back stage” lane.</p>
+<h2 id="3-step-by-step">3. Step by step</h2>
+<h3 id="step-1-list-the-touch-points">Step 1: List the touch points</h3>
+<p>Begin from your interview notes and your product map. Walk through the story of a person from “has not heard of us” to “has left or renewed”. Write every touch point you can find, in the order they happen. Aim for twenty or more. Then check that you have covered payments, help, status, policies and analytics. These five are the most often forgotten.</p>
+<h3 id="step-2-choose-the-journeys">Step 2: Choose the journeys</h3>
+<p>Pick one <strong>user journey</strong> for your main user and one <strong>customer journey</strong> for your main customer. If they are the same person, still draw two, because the questions differ (use, versus pay). Choose the stages. Six or seven stages is enough.</p>
+<h3 id="step-3-fill-each-stage-from-evidence">Step 3: Fill each stage from evidence</h3>
+<p>For each stage, write action, thinking, feeling and pain from your interviews. Use exact words where you can. Where you have no evidence, write the line and mark it <strong>G</strong>, as with personas. A journey map with all lines marked G is a to-do list for more interviews.</p>
+<h3 id="step-4-mark-the-emotion-line">Step 4: Mark the emotion line</h3>
+<p>Add a simple line for how she feels at each stage: high, medium or low. Look at the low points. These are where people leave.</p>
+<h3 id="step-5-link-each-step-to-a-part-of-the-product">Step 5: Link each step to a part of the product</h3>
+<p>In the “Served by” row, write the name of the repo, system or person that makes the step work, and mark it exists, planned or not found, as you did in the whole-product map. Where nothing serves a step, write “nothing” in capitals. This is the most useful word on the page.</p>
+<h3 id="step-6-add-opportunities-but-do-not-design-yet">Step 6: Add opportunities, but do not design yet</h3>
+<p>Write one opportunity per pain. Keep them short and about the <strong>outcome</strong>: “She can find the nearest café in two taps.” Do not draw screens yet, and do not pick tools.</p>
+<h3 id="step-7-walk-it-with-someone">Step 7: Walk it with someone</h3>
+<p>Read the map aloud to a person who knows the customers, or to the customer herself if you can. Ask: “Does this sound like your day? What is wrong?” Fix it. Add a date.</p>
+<h2 id="4-worked-example-trailmug">4. Worked example: TrailMug</h2>
+<p>TrailMug is fictional. The steps are illustrative, though they follow the Dojo’s template.</p>
+<p><strong>Touch points (extract):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Touch point</th>
+<th>Channel</th>
+<th>Served by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aware</td>
+<td>A poster with a QR code in a café</td>
+<td>Café</td>
+<td>trailmug-lp-cafes (planned)</td>
+</tr>
+<tr>
+<td>Aware</td>
+<td>Search for “reusable cup subscription”</td>
+<td>Web search</td>
+<td>trailmug-site (exists)</td>
+</tr>
+<tr>
+<td>Consider</td>
+<td>The price and how-it-works page</td>
+<td>Web</td>
+<td>trailmug-site (exists, no price yet)</td>
+</tr>
+<tr>
+<td>Buy</td>
+<td>Sign-up and payment</td>
+<td>App</td>
+<td>trailmug-app (exists), trailmug-pay (NOT FOUND)</td>
+</tr>
+<tr>
+<td>Onboard</td>
+<td>Welcome email within five minutes</td>
+<td>Email</td>
+<td>trailmug-flow-welcome (planned)</td>
+</tr>
+<tr>
+<td>Use</td>
+<td>Swapping a cup at the counter</td>
+<td>Café</td>
+<td>trailmug-svc-returns (planned)</td>
+</tr>
+<tr>
+<td>Help</td>
+<td>“My cup is missing”</td>
+<td>Help centre</td>
+<td>trailmug-docs (NOT FOUND)</td>
+</tr>
+<tr>
+<td>Always</td>
+<td>Privacy notice, terms</td>
+<td>Web</td>
+<td>trailmug-ops (NOT FOUND)</td>
+</tr>
+<tr>
+<td>Always</td>
+<td>“Is the service down?”</td>
+<td>Status page</td>
+<td>trailmug-status (NOT FOUND)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>User journey: Maya (extract)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Action</th>
+<th>Thinking</th>
+<th>Feeling</th>
+<th>Pain</th>
+<th>Served by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Find</td>
+<td>Sees a café poster</td>
+<td>“Could this work for me?”</td>
+<td>Curious</td>
+<td>Poster shows no price [K: C1]</td>
+<td>trailmug-lp-cafes (planned)</td>
+</tr>
+<tr>
+<td>Sign up</td>
+<td>Opens the app, enters email</td>
+<td>“How much is it?”</td>
+<td>Cautious</td>
+<td>Price is not shown before sign-up [G]</td>
+<td>trailmug-app (exists)</td>
+</tr>
+<tr>
+<td>First swap</td>
+<td>Brings a used cup to a café</td>
+<td>“Which café is closest?”</td>
+<td>Hopeful</td>
+<td>Café map is slow [G]</td>
+<td>trailmug-svc-returns (planned)</td>
+</tr>
+<tr>
+<td>Use daily</td>
+<td>Swaps at the counter</td>
+<td>“This is quick”</td>
+<td>Pleased, if fast</td>
+<td>Queue at lunchtime [K: P1, P3]</td>
+<td>trailmug-svc-returns (planned)</td>
+</tr>
+<tr>
+<td>Problem</td>
+<td>Cup is missing</td>
+<td>“Who do I tell?”</td>
+<td>Annoyed</td>
+<td>NOTHING: no help page or contact form</td>
+<td>trailmug-docs (NOT FOUND)</td>
+</tr>
+<tr>
+<td>Stop or stay</td>
+<td>Reviews the monthly fee</td>
+<td>“Is it worth it?”</td>
+<td>Unsure</td>
+<td>No usage summary [G]</td>
+<td>trailmug-analytics (planned)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Customer journey: Leo, the café owner (extract)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Goal</th>
+<th>Action</th>
+<th>Question</th>
+<th>Risk</th>
+<th>Served by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aware</td>
+<td>Attract customers</td>
+<td>Hears about TrailMug from another owner</td>
+<td>“Is this for cafés?”</td>
+<td>Page speaks only to drinkers [K: P1]</td>
+<td>trailmug-lp-cafes (planned)</td>
+</tr>
+<tr>
+<td>Consider</td>
+<td>Compare</td>
+<td>Asks for a call</td>
+<td>“How much work is it?”</td>
+<td>No setup guide [K: P2]</td>
+<td>trailmug-docs (NOT FOUND)</td>
+</tr>
+<tr>
+<td>Buy</td>
+<td>Join</td>
+<td>Signs partner terms</td>
+<td>“Are the terms fair?”</td>
+<td>Terms do not exist yet</td>
+<td>trailmug-ops (NOT FOUND)</td>
+</tr>
+<tr>
+<td>Onboard</td>
+<td>Start returns</td>
+<td>Receives a kit</td>
+<td>“How do I scan a cup?”</td>
+<td>Setup too slow [G]</td>
+<td>trailmug-docs (NOT FOUND)</td>
+</tr>
+<tr>
+<td>Renew</td>
+<td>Keep the deal</td>
+<td>Reads a monthly report</td>
+<td>“Did it bring customers?”</td>
+<td>No proof of value</td>
+<td>trailmug-analytics (planned)</td>
+</tr>
+</tbody>
+</table>
+<p>Look at the <strong>Served by</strong> column. Several steps say NOT FOUND or NOTHING. The two journeys already tell the founder what the product is missing: a price page, partner terms, a help centre, a status page and a way to show Leo his results. None of these are features of an app. They are parts of a whole product, and they are the raw material for week 3.</p>
+<h2 id="5-working-with-ai-agents-on-this">5. Working with AI agents on this</h2>
+<p>A journey map is a <strong>summary of research</strong>. Agents can help you present and test it. They cannot supply the content.</p>
+<p><strong>Delegate:</strong></p>
+<ul>
+<li><strong>Clean diagrams and tables.</strong> “Turn this table into a Mermaid journey diagram. Do not change any text.” Or a plain-text diagram you can paste in the repo.</li>
+<li><strong>Cross-checking.</strong> “Here are my touch-point list and my product map. List every touch point whose ‘Served by’ item is not in the map, and every map item that serves no touch point.”</li>
+<li><strong>A fresh-eyes walkthrough of a page.</strong> Give an agent the text of your landing page and ask it to read it as a first-time visitor and list every question it still has. This is a cheap heuristic check. Treat the output as hypotheses to test with a real person.</li>
+<li><strong>Drafting emails or help pages</strong> that fill a gap, for you to edit. You own the promises in them.</li>
+</ul>
+<p><strong>Do yourself:</strong></p>
+<ul>
+<li>Choose the stages and fill them from evidence.</li>
+<li>Judge how people feel, from what they said and did.</li>
+<li>Decide which breaks matter.</li>
+</ul>
+<p><strong>A brief you can adapt:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Below are two tables I wrote from customer interviews: a touch-point list</span></span>
+<span class="line"><span>and a product map (repos and systems, each marked exists, planned or not</span></span>
+<span class="line"><span>found).</span></span>
+<span class="line"><span>1. List touch points whose "served by" part is missing from the map.</span></span>
+<span class="line"><span>2. List parts in the map that serve no touch point.</span></span>
+<span class="line"><span>3. List steps where the journey says "nothing" or "not found".</span></span>
+<span class="line"><span>Do not invent touch points or parts. Output three short lists.</span></span></code></pre>
+<p><strong>How to check the output.</strong> Verify each claim against the tables. Add the real findings to your gap list. If the agent invents a touch point that is not in your data, delete it. If it suggests a plausible one, add it as a question for the next round of interviews, not as a fact.</p>
+<p><strong>Do not</strong> ask an agent to “write the customer journey for a reusable cup subscription”. You would get a clean, average journey that fits every similar product and none of your customers.</p>
+<p><strong>Disclose.</strong> In the map’s footer: “AI use: diagram formatting and cross-check; steps and feelings come from my interviews.”</p>
+<p><strong>Where this sits on the ladder.</strong> The agent skill of a manager climbs four rungs: <strong>use</strong> one agent, <strong>delegate</strong> whole tasks with a brief, <strong>orchestrate</strong> several sessions, and <strong>govern</strong> them with written policy, hooks and gates. This lesson sits on <strong>delegate</strong>. Drawing a map from your table is a whole task. If several agents work on different journeys at once, you are orchestrating, and they must share the same names for stages and touch points. The agent orchestration track (<code>/library/tracks/agent-orchestration/</code>) covers the two upper rungs.</p>
+<h2 id="6-common-mistakes">6. Common mistakes</h2>
+<ul>
+<li><strong>Drawing the happy path only.</strong> Include errors, waiting, failed payments and help.</li>
+<li><strong>Mixing user and customer.</strong> Two people, two maps.</li>
+<li><strong>Feelings with no source.</strong> Mark guessed feelings G.</li>
+<li><strong>A map made from imagination.</strong> Every row should come from a person, a number or an observation.</li>
+<li><strong>Forgetting offline steps.</strong> The counter, the phone call and the printed card are touch points too.</li>
+<li><strong>No “served by” row.</strong> Without it, the map is a picture that never turns into work.</li>
+<li><strong>Designing screens too early.</strong> Journeys come first. Flows and screens follow for the steps that need them.</li>
+<li><strong>Too many stages.</strong> Over about eight, nobody can remember the map.</li>
+</ul>
+<h2 id="7-practice-touch-points-and-two-journeys">7. Practice: touch points and two journeys</h2>
+<p><strong>Deliverable:</strong> three files in your git repo under <code>people/</code>.</p>
+<ol>
+<li><code>touch-points.md</code>: at least 20 touch points in story order, each with channel and a “served by” part marked exists, planned or not found. Show that you covered payments, help, status, policies and analytics.</li>
+<li><code>journey-user.md</code>: your main user’s journey with stages, action, thinking, feeling, pain, opportunity and served by. Every line marked with a source code or G.</li>
+<li><code>journey-customer.md</code>: your main customer’s journey with six stages (aware, consider, buy, onboard, renew, refer) and the same layers. If the user is the customer, still write it from the point of view of paying and deciding.</li>
+</ol>
+<p>Start from the <a href="/library/template-journeys">journeys template</a>. Commit with a message like <code>Add touch points and two journeys</code>. Add an AI-use line to each file.</p>
+<p><strong>Check:</strong> count the cells that say NOTHING or NOT FOUND. If there are none, you probably missed something. Ask someone to find a step you skipped.</p>
+<p><strong>Stretch:</strong> test the map with one real person. Read it to her and ask her to correct it. Record the corrections in a <code>Changes</code> section with the date.</p>
+<h2 id="8-checklist">8. Checklist</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> I listed at least 20 touch points, in story order.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I covered payments, help, status, policies and analytics.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I drew both a user journey and a customer journey.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Every step has action, thinking, feeling, pain and “served by”.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Every line cites a source or is marked G.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I marked where nothing serves a step.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Someone who knows the customers read the map.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I wrote down my AI use and none of the steps were invented by an AI.</li>
+</ul>
+<h2 id="9-further-learning">9. Further learning</h2>
+<p>NN/g’s “Journey Mapping 101” is the best free starting point, and its two short videos on the five components and the five steps of journey mapping make it quick to absorb. The NN/g video on user journeys versus user flows will keep you from mixing them. The NN/g service blueprint article shows how to add the behind-the-scenes lane, and Atlassian’s story mapping guide shows how the step from journey to backlog works. In the next lesson you find where your journeys break and rank the breaks as epic candidates.</p>
+<nav class="pager" aria-label="More in this section" data-astro-cid-ecbjlo7c><a href="/library/tracks/personas-and-journeys/02-write-personas-from-evidence" data-astro-cid-ecbjlo7c>Previous: Write personas from evidence</a><a href="/library/tracks/personas-and-journeys/04-find-the-breaks-and-hand-over" data-astro-cid-ecbjlo7c>Next: Find the breaks and hand over to the roadmap</a></nav><p data-astro-cid-ecbjlo7c><a href="/library" data-astro-cid-ecbjlo7c>Back to the library</a></p></div></article></main><section class="sponsor-band" aria-label="Sponsored by Reveltek" data-astro-cid-ji2uitki><div class="backdrop" aria-hidden="true" data-astro-cid-ji2uitki><span class="only-light" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band.avif"><source type="image/webp" srcset="/images/mountains-band.webp"><img src="/images/mountains-band.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span><span class="only-dark" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band-dark.avif"><source type="image/webp" srcset="/images/mountains-band-dark.webp"><img src="/images/mountains-band-dark.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span></div><div class="container inner" data-astro-cid-ji2uitki><span class="lead" data-astro-cid-ji2uitki>Sponsored by</span><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span><a class="sponsor" href="/sponsors" data-astro-cid-ji2uitki><img class="only-light" src="/images/reveltek-logo.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki><img class="only-dark" src="/images/reveltek-logo-white.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki></a><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span></div></section><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="container inner" data-astro-cid-jo6i4kqk><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><nav aria-label="Footer" data-astro-cid-jo6i4kqk><ul data-astro-cid-jo6i4kqk><li data-astro-cid-jo6i4kqk><a href="/about" data-astro-cid-jo6i4kqk>About CRC</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors" data-astro-cid-jo6i4kqk>Sponsors (Reveltek)</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors#become-a-sponsor" data-astro-cid-jo6i4kqk>Become a sponsor</a></li><li data-astro-cid-jo6i4kqk><a href="/contact" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href="/code-of-conduct" data-astro-cid-jo6i4kqk>Code of conduct</a></li><li data-astro-cid-jo6i4kqk><a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>GitHub</a></li></ul></nav></div><p class="legal container" data-astro-cid-jo6i4kqk>© 2026 Curiosity Research Corporation. Developer Dojo is free for everyone and is sponsored by Reveltek.</p></footer></body></html><script type="module">for(let e of document.querySelectorAll(`.prose .task-list-item > input[type="checkbox"]`)){let t=e.parentElement?.textContent?.trim();t&&e.setAttribute(`aria-label`,t)}</script>

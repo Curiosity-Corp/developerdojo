@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Make sense of the evidence and decide · Developer Dojo</title><meta name="description" content="Cluster what you learned, grade the strength of your evidence, test your riskiest assumption cheaply and write a decision record that says what you will build, what you will not and what would change your mind."><link rel="canonical" href="https://developerdojo.org/library/tracks/product-discovery/04-make-sense-of-evidence-and-decide/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="color-scheme" content="light dark"><meta property="og:site_name" content="Developer Dojo"><meta property="og:title" content="Make sense of the evidence and decide · Developer Dojo"><meta property="og:description" content="Cluster what you learned, grade the strength of your evidence, test your riskiest assumption cheaply and write a decision record that says what you will build, what you will not and what would change your mind."><meta property="og:type" content="website"><meta property="og:url" content="https://developerdojo.org/library/tracks/product-discovery/04-make-sense-of-evidence-and-decide/"><meta name="twitter:card" content="summary"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      // Runs before first paint: apply the saved theme and mark JS as available.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('dojo-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/PageHero.zOqh7M6S.css"><style>.pager[data-astro-cid-ecbjlo7c]{justify-content:space-between;gap:var(--space-3);margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--line);flex-wrap:wrap;display:flex}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]{font-weight:600}
+</style></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header" data-astro-cid-nen7h5rs><div class="bar" data-astro-cid-nen7h5rs><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><button type="button" class="menu-button" data-menu-button aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu" data-astro-cid-nen7h5rs><svg class="icon open-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"/></svg><svg class="icon close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><nav id="primary-nav" class="nav" aria-label="Primary" data-nav data-astro-cid-nen7h5rs><ul data-astro-cid-nen7h5rs><li data-astro-cid-nen7h5rs><a href="/train" data-astro-cid-nen7h5rs>Train</a></li><li data-astro-cid-nen7h5rs><a href="/sensei" data-astro-cid-nen7h5rs>Sensei</a></li><li data-astro-cid-nen7h5rs><a href="/library" aria-current="page" data-astro-cid-nen7h5rs>Library</a></li><li data-astro-cid-nen7h5rs><a href="/certificates" data-astro-cid-nen7h5rs>Certificates</a></li><li data-astro-cid-nen7h5rs><a href="/challenges" data-astro-cid-nen7h5rs>Challenges</a></li><li data-astro-cid-nen7h5rs><a href="/events" data-astro-cid-nen7h5rs>Events</a></li><li data-astro-cid-nen7h5rs><a href="/membership" data-astro-cid-nen7h5rs>Membership</a></li></ul><div class="actions" data-astro-cid-nen7h5rs><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" data-astro-cid-l6lhmie6><svg class="icon to-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="icon to-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g></svg></button><script type="module">var e=document.documentElement,t=document.querySelector(`[data-theme-toggle]`);function n(){let t=e.getAttribute(`data-theme`);return t===`dark`||t!==`light`&&window.matchMedia(`(prefers-color-scheme: dark)`).matches}function r(){if(!t)return;let e=n();t.setAttribute(`aria-label`,e?`Switch to light theme`:`Switch to dark theme`),t.setAttribute(`data-mode`,e?`dark`:`light`)}t?.addEventListener(`click`,()=>{let t=n()?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`dojo-theme`,t)}catch(e){console.warn(`Theme preference not saved:`,e)}r()}),r();</script><a class="start" href="/membership" data-astro-cid-nen7h5rs>Start free</a></div></nav></div></header><script type="module">var e=document.querySelector(`[data-menu-button]`),t=document.querySelector(`[data-nav]`),n=document.querySelector(`.site-header`);function r(t){e&&n&&(n.toggleAttribute(`data-open`,t),e.setAttribute(`aria-expanded`,String(t)),e.setAttribute(`aria-label`,t?`Close menu`:`Open menu`))}e?.addEventListener(`click`,()=>r(e.getAttribute(`aria-expanded`)!==`true`)),t?.addEventListener(`click`,e=>{e.target instanceof HTMLAnchorElement&&r(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e?.getAttribute(`aria-expanded`)===`true`&&(r(!1),e.focus())}),window.matchMedia(`(min-width: 62rem)`).addEventListener(`change`,e=>{e.matches&&r(!1)}),document.documentElement.classList.add(`js`);</script><main id="main"><section class="hero compact" data-astro-cid-75ysl5lo><div class="art" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/hero-dojo-mobile.avif" media="(max-width: 40rem)"><source type="image/webp" srcset="/images/hero-dojo-mobile.webp" media="(max-width: 40rem)"><source srcset="/images/hero-dojo-mobile.jpg" media="(max-width: 40rem)"><source type="image/avif" srcset="/images/hero-dojo.avif"><source type="image/webp" srcset="/images/hero-dojo.webp"><img class="art-img" src="/images/hero-dojo.jpg" alt width="2400" height="900" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="scrim" aria-hidden="true" data-astro-cid-75ysl5lo></div><div class="enso" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/enso.avif"><source type="image/webp" srcset="/images/enso.webp"><img src="/images/enso.png" alt width="800" height="800" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="container grid" data-astro-cid-75ysl5lo><div class="copy" data-astro-cid-75ysl5lo><p class="eyebrow" data-astro-cid-75ysl5lo>Product discovery</p><h1 data-astro-cid-75ysl5lo>Make sense of the evidence and decide</h1><p class="subtitle" data-astro-cid-75ysl5lo>Cluster what you learned, grade the strength of your evidence, test your riskiest assumption cheaply and write a decision record that says what you will build, what you will not and what would change your mind.</p></div></div></section><article class="section" data-astro-cid-ecbjlo7c><div class="container prose" data-astro-cid-ecbjlo7c><p><strong>Supports:</strong> Developer, weeks 1 and 2 (turning discovery into personas, journeys and the first epics) and the Master Developer roadmap. <strong>Time:</strong> about two hours, plus the time to run one small test.</p>
+<h2 id="1-why-this-matters">1. Why this matters</h2>
+<p>You now have a pile of material: a brief, a ranked list of assumptions, five sets of interview notes, a whole-product map and a list of alternatives. A pile is not a decision. Many teams stop here and “go with their gut”, which means whichever note they read last wins.</p>
+<p>This lesson is the step where discovery turns into action. You sort the evidence, judge how much you can trust it, run one cheap test where the risk is highest, and then <strong>decide in writing</strong>. The decision is the real product of discovery. Everything after it (epics, roadmap, issues, agent work) hangs from it.</p>
+<p>For a Product Development Manager (PDM), this is where judgment shows. Agents can cluster text in seconds. They cannot tell you whether three enthusiastic commuters are enough to bet a quarter on, or whether the café owner who said no was the one who was right. That call is yours, and so is the responsibility for it.</p>
+<h3 id="what-the-pdm-decides-here">What the PDM decides here</h3>
+<table>
+<thead>
+<tr>
+<th>You decide</th>
+<th>You may delegate to an agent</th>
+<th>You verify</th>
+<th>Other disciplines involved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What the evidence means, which risk to test, and whether to build, change, test more or stop</td>
+<td>Clustering your own notes, drafting a test page for your review, summarising long public documents</td>
+<td>Each insight cites real quotes; the test is honest; the decision matches the evidence, not your hopes</td>
+<td>Finance (does the number work?), operations (can we deliver?), legal and privacy (may we?), design (does the test look trustworthy?)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-key-ideas">2. Key ideas</h2>
+<h3 id="from-notes-to-themes-to-insights">From notes to themes to insights</h3>
+<p>Raw notes are specific: “C3 said the cup leaks in her bag.” A <strong>theme</strong> groups similar notes: “Carrying a used cup is unpleasant.” An <strong>insight</strong> says something you can act on and can be wrong about: “Commuters stop using reusable cups mainly because of what to do with the cup after the coffee, not because of the cost of buying one.” An insight always names the evidence behind it.</p>
+<p>A useful insight has three parts:</p>
+<ol>
+<li><strong>Who:</strong> the kind of person.</li>
+<li><strong>What:</strong> the behaviour or need you saw.</li>
+<li><strong>Why we believe it:</strong> the evidence, with person codes (C1, C3, C4).</li>
+</ol>
+<p>If you cannot point to quotes, it is a guess, not an insight.</p>
+<h3 id="empathy-maps-help-you-sort">Empathy maps help you sort</h3>
+<p>An <strong>empathy map</strong> is a simple four-box picture: what a person <strong>says</strong>, <strong>thinks</strong>, <strong>does</strong> and <strong>feels</strong>. NN/g describes it as an early step in design thinking. It is a quick way to organise one person’s notes and to notice when what they said does not match what they did. Draw one per interview, then compare.</p>
+<h3 id="not-all-evidence-is-equal">Not all evidence is equal</h3>
+<p>Grade each insight honestly:</p>
+<table>
+<thead>
+<tr>
+<th>Grade</th>
+<th>What it looks like</th>
+<th>How to act</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Strong</strong></td>
+<td>Many people, different sources, backed by behaviour (what they did, paid, or tried)</td>
+<td>Safe to build on</td>
+</tr>
+<tr>
+<td><strong>Medium</strong></td>
+<td>Several people agree, but mainly in words</td>
+<td>Worth a cheap test</td>
+</tr>
+<tr>
+<td><strong>Weak</strong></td>
+<td>One or two voices, or only your guess</td>
+<td>Treat as a question, not an answer</td>
+</tr>
+</tbody>
+</table>
+<p>Add a separate note for <strong>contrary evidence</strong>: everything that disagrees with your favourite idea. If you cannot list at least one, you were not looking.</p>
+<h3 id="cheap-tests">Cheap tests</h3>
+<p>Before you build, you can test the riskiest assumption with something smaller than the product. A few common patterns:</p>
+<ul>
+<li><strong>A landing page test.</strong> A simple page that describes the offer and asks people to leave an email address or join a waiting list. Be honest: say it is not available yet. Never take money for something that does not exist.</li>
+<li><strong>A concierge test.</strong> You deliver the service by hand to a few people. It does not scale, but it teaches you what customers truly value.</li>
+<li><strong>A paper or clickable prototype.</strong> You show drawings and watch someone try to use them. The UK government service manual describes how a team uses prototypes and moderated sessions in its alpha phase.</li>
+<li><strong>A cost check.</strong> You find out what the hard part really costs by asking a supplier or running a small trial.</li>
+<li><strong>A look at existing data.</strong> Sales figures, search volumes or support messages that already exist.</li>
+</ul>
+<p>A good test has four parts, written <strong>before</strong> you run it: the assumption, the test, what result would <strong>support</strong> the idea and what result would <strong>stop</strong> it. If you only decide what the result means afterwards, you will always read it your way.</p>
+<h3 id="the-smallest-useful-version">The smallest useful version</h3>
+<p>The <strong>minimum viable product</strong> (MVP) is the smallest thing that lets you learn from real customers. Atlassian’s guide to MVPs explains the idea well. “Minimum” does not mean low quality. It means you leave out everything that does not help answer your biggest question yet.</p>
+<h3 id="decide-in-writing">Decide in writing</h3>
+<p>A <strong>decision record</strong> is a short document with five lines:</p>
+<ol>
+<li><strong>Decision:</strong> what you will do.</li>
+<li><strong>Reason:</strong> the evidence behind it, with its grade.</li>
+<li><strong>Not doing:</strong> what you chose not to do, and why.</li>
+<li><strong>Risks you accept:</strong> and who accepted them.</li>
+<li><strong>Stop or change if:</strong> the result that would make you revisit this.</li>
+</ol>
+<p>The fifth line is the one most people skip. It protects you from clinging to an idea after it has stopped working.</p>
+<h2 id="3-step-by-step">3. Step by step</h2>
+<h3 id="step-1-put-every-note-in-one-place">Step 1: Put every note in one place</h3>
+<p>Create <code>discovery/synthesis.md</code>. Copy the strongest quotes from each interview into a table with the person code beside each one. This is for your own use in git, so keep codes only, no names.</p>
+<h3 id="step-2-cluster-into-themes">Step 2: Cluster into themes</h3>
+<p>Read the quotes and group those that are about the same thing. Give each group a name that is a short sentence, such as “Used cups are unpleasant to carry.” Five to eight themes is normal. Note how many people each theme comes from.</p>
+<h3 id="step-3-write-insights">Step 3: Write insights</h3>
+<p>For each of the three or four strongest themes, write an insight in the Who / What / Evidence form. Add a <strong>contrary evidence</strong> line. Then grade it: strong, medium or weak.</p>
+<h3 id="step-4-revisit-the-assumptions">Step 4: Revisit the assumptions</h3>
+<p>Open your ranked assumptions. For each, write what the evidence now says: <strong>supported</strong>, <strong>contradicted</strong>, <strong>unclear</strong>. Move the unclear and contradicted ones to the top. These are what you still need to learn.</p>
+<h3 id="step-5-pick-one-riskiest-assumption-and-design-a-cheap-test">Step 5: Pick one riskiest assumption and design a cheap test</h3>
+<p>Choose the assumption that is both unclear and most damaging if wrong. Write the test card:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Assumption: ...</span></span>
+<span class="line"><span>Test: ... (what we will do, with how many people, over how long)</span></span>
+<span class="line"><span>Support if: ...</span></span>
+<span class="line"><span>Stop or change if: ...</span></span>
+<span class="line"><span>Cost: ... (time and money)</span></span>
+<span class="line"><span>Ethics check: ... (what we tell people; no payment for things that do not exist)</span></span></code></pre>
+<h3 id="step-6-run-it-and-record-the-result">Step 6: Run it and record the result</h3>
+<p>Run the test. Write exactly what happened, even if it is disappointing, and compare with the “support if” and “stop if” lines you wrote before. Do not move the goalposts.</p>
+<h3 id="step-7-write-the-decision-record">Step 7: Write the decision record</h3>
+<p>Using the five lines above, write the decision. Choose one of four outcomes: <strong>build</strong> (with a first slice), <strong>change</strong> (the idea, the user or the price), <strong>test more</strong> (with a named next test) or <strong>stop</strong>. Stopping a bad idea after two weeks is a success, not a failure. The Dojo <a href="/library/fix-forward">fix forward</a> rule applies to products too: when evidence shows you were wrong, you steer forward with new facts instead of defending old plans.</p>
+<h3 id="step-8-link-the-decision-to-your-plan">Step 8: Link the decision to your plan</h3>
+<p>Say which parts of your product map the decision touches. The gaps and unknowns you list here will feed the epics you write in the <a href="/library/tracks/roadmapping-and-epics/">roadmapping and epics track</a>.</p>
+<h2 id="4-worked-example-trailmug">4. Worked example: TrailMug</h2>
+<p>TrailMug is fictional; the numbers are illustrative.</p>
+<p><strong>Synthesis (extract):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Theme</th>
+<th>Who said it</th>
+<th>Evidence type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Used cups are unpleasant to carry</td>
+<td>C1, C3, C4, C5</td>
+<td>Behaviour: three stopped using their cup within a month</td>
+</tr>
+<tr>
+<td>Commuters will not pay much extra</td>
+<td>C2, C4</td>
+<td>Words</td>
+</tr>
+<tr>
+<td>Café owners worry about hygiene rules</td>
+<td>P1, P2</td>
+<td>Words, and a rule one of them quoted</td>
+</tr>
+<tr>
+<td>Lunchtime counters are too busy for extra steps</td>
+<td>P1, P3</td>
+<td>Words and observation</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Insight 1 (strong):</strong> “Commuters who own a reusable cup stop using it mainly because of the dirty cup afterwards. Evidence: C1, C3, C4 stopped within a month and named the same reason. Contrary: C2 never stopped, because she works next door to her café.”</p>
+<p><strong>Insight 2 (medium):</strong> “Cafés will accept returned cups only if hygiene rules allow it and the swap is fast. Evidence: P1, P2, P3. Contrary: P3 said she would try it for a month.”</p>
+<p><strong>Assumption update:</strong> “Commuters will pay a monthly fee” is <strong>unclear</strong> (only words). “Cafés will accept returned cups” is <strong>contradicted</strong> in two of three cases.</p>
+<p><strong>The test card:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Assumption: Cafés will accept returned cups if the swap takes under 30 seconds</span></span>
+<span class="line"><span>  and hygiene rules are met.</span></span>
+<span class="line"><span>Test: A concierge test. The founder brings 20 clean cups to the one café</span></span>
+<span class="line"><span>  that said yes, for two weeks, and counts swaps and staff comments.</span></span>
+<span class="line"><span>Support if: at least 15 swaps and staff say the step is easy.</span></span>
+<span class="line"><span>Stop or change if: fewer than 8 swaps or staff say it slows the line.</span></span>
+<span class="line"><span>Cost: 20 cups, two weeks, no payment taken.</span></span>
+<span class="line"><span>Ethics check: the café owner agreed in writing; customers are told it is a trial.</span></span></code></pre>
+<p><strong>Result (illustrative):</strong> 11 swaps in two weeks, staff said peak hours were hard. That is below “support” and above “stop”.</p>
+<p><strong>Decision record:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Decision: Change the idea. Start with offices and a few quiet cafés near</span></span>
+<span class="line"><span>  them, not busy city-centre counters. First slice: partner page and a</span></span>
+<span class="line"><span>  simple returns process for two cafés.</span></span>
+<span class="line"><span>Reason: the dirty-cup insight is strong; the delivery assumption is partly</span></span>
+<span class="line"><span>  contradicted (grade: medium).</span></span>
+<span class="line"><span>Not doing: any payment system or app features until the two-café trial works.</span></span>
+<span class="line"><span>Risks accepted: the pool of cafés is smaller than hoped (accepted by founder).</span></span>
+<span class="line"><span>Stop or change if: under 40 swaps a week across both cafés after six weeks.</span></span></code></pre>
+<p>The founder has changed her plan on evidence, written it down and said exactly what would change it again.</p>
+<h2 id="5-working-with-ai-agents-on-this">5. Working with AI agents on this</h2>
+<p>Synthesis is a task where agents help a lot, as long as you stay in charge of the meaning.</p>
+<p><strong>Delegate:</strong></p>
+<ul>
+<li><strong>Clustering your own notes.</strong> “Here are my interview notes with person codes. Group quotes into themes. For each theme list the person codes and the quotes you used. Do not paraphrase quotes.”</li>
+<li><strong>Finding counter-evidence:</strong> “From these notes, list every statement that contradicts the claim below, with the person code.”</li>
+<li><strong>Drafting a test page</strong> for a landing page test, which you then edit and which must tell the truth about what the product is and is not.</li>
+<li><strong>Summarising long public documents</strong>, such as food-safety rules, so you can read the originals faster.</li>
+</ul>
+<p><strong>Do yourself:</strong></p>
+<ul>
+<li>Write the insights and grade them.</li>
+<li>Choose the riskiest assumption and write the stop line.</li>
+<li>Decide the outcome and write the decision record.</li>
+</ul>
+<p><strong>A brief you can adapt:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Below are my own interview notes. Each line starts with a person code.</span></span>
+<span class="line"><span>Task 1: group lines into 5 to 8 themes. For each theme, list the person</span></span>
+<span class="line"><span>codes and copy the supporting quotes word for word.</span></span>
+<span class="line"><span>Task 2: for the claim "&lt;my insight&gt;", list every line that contradicts</span></span>
+<span class="line"><span>or complicates it.</span></span>
+<span class="line"><span>Do not add facts or quotes. Do not draw conclusions. If a line fits two</span></span>
+<span class="line"><span>themes, show it in both. Output as two tables.</span></span></code></pre>
+<p><strong>How to check the output.</strong> Spot-check at least five quotes against the original notes. Look for invented or “smoothed” quotes: models sometimes rewrite a quote into something neater. Check the person codes. Count how many people are really in each theme. If the agent grouped things differently from how you would, ask yourself why, and decide who is right.</p>
+<p><strong>Where agents mislead.</strong> They tend to overweight whatever appears most often in the text, even when one rare comment is the important one. They also state themes with more confidence than five interviews allow. Keep your own grade.</p>
+<p><strong>Disclose.</strong> Add to <code>synthesis.md</code>: “Clustering was done with an AI agent from my notes; I checked quotes and wrote the insights and grades myself.”</p>
+<p><strong>Where this sits on the ladder.</strong> The agent skill of a manager climbs four rungs: <strong>use</strong> one agent, <strong>delegate</strong> whole tasks with a brief, <strong>orchestrate</strong> several sessions, and <strong>govern</strong> them with written policy, hooks and gates. This lesson sits on <strong>delegate</strong>, and shows the edge of it. Agents can sort and count evidence, but the decision stays yours. When several agents analyse different sources, you are orchestrating. A written rule such as “no finding without a quote” is the first piece of policy, and your check of it is a gate. The agent orchestration track (<code>/library/tracks/agent-orchestration/</code>) covers the two upper rungs.</p>
+<h2 id="6-common-mistakes">6. Common mistakes</h2>
+<ul>
+<li><strong>Looking only for confirmation.</strong> Always write the contrary-evidence line.</li>
+<li><strong>Counting enthusiasm as demand.</strong> Behaviour (paid, tried, switched) is stronger than praise.</li>
+<li><strong>A test with no stop line.</strong> If you did not decide what failure looks like, you will not see it.</li>
+<li><strong>Dishonest tests.</strong> Never advertise a product that does not exist as if it did, and never take money for it.</li>
+<li><strong>Treating five interviews as a market study.</strong> Say “pattern”, not “percentage”.</li>
+<li><strong>Burying the decision.</strong> Write one page and put it at the top of the folder.</li>
+<li><strong>Deciding by whoever speaks loudest.</strong> Weigh evidence, not volume.</li>
+<li><strong>Letting an agent write the insights.</strong> It will give you fluent generalities that you cannot defend.</li>
+</ul>
+<h2 id="7-practice-synthesis-one-test-and-a-decision-record">7. Practice: synthesis, one test and a decision record</h2>
+<p><strong>Deliverable:</strong> three files in <code>discovery/</code> in your git repo.</p>
+<ol>
+<li><code>synthesis.md</code>: themes with person codes and quotes, three to four insights in the Who / What / Evidence form, each with a grade and a contrary-evidence line.</li>
+<li><code>test-card.md</code>: one test card for your riskiest assumption, written <strong>before</strong> you run the test, and a “Result” section added afterwards.</li>
+<li><code>decision-record.md</code>: the five-line decision, with the outcome (build, change, test more or stop).</li>
+</ol>
+<p>If you cannot run the test yet, commit the card with the result marked “not run yet” and a date. Then run it and make a second commit.</p>
+<p><strong>Check:</strong> ask a friend to read your decision record and say what would make you change your mind. If they cannot tell, the stop line is too vague.</p>
+<h2 id="8-checklist">8. Checklist</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Every insight cites person codes and quotes.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Every insight has a grade and a contrary-evidence line.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I updated each assumption as supported, contradicted or unclear.</li>
+<li class="task-list-item"><input type="checkbox" disabled> My test card has a “support if” and a “stop if” line, written before the test.</li>
+<li class="task-list-item"><input type="checkbox" disabled> The test is honest and takes no money for things that do not exist.</li>
+<li class="task-list-item"><input type="checkbox" disabled> The decision record says what I will build, what I will not and what would change my mind.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I checked an agent’s clustering against my original notes.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I recorded my AI use.</li>
+</ul>
+<h2 id="9-further-learning">9. Further learning</h2>
+<p>The NN/g research cheat sheet helps you choose a method for your next question, and the NN/g empathy map article shows a simple way to organise notes. Atlassian’s guides on MVPs and prioritisation frameworks give vocabulary for the “build the smallest useful thing” decision. The UK service manual pages on the alpha phase and moderated usability testing show how a government team tests ideas before committing. GitLab’s public product principles are a real example of how one company writes down how it decides. Next, in the <a href="/library/tracks/personas-and-journeys/">personas and journeys track</a>, you turn your evidence into the people your product serves.</p>
+<nav class="pager" aria-label="More in this section" data-astro-cid-ecbjlo7c><a href="/library/tracks/product-discovery/03-map-the-whole-product" data-astro-cid-ecbjlo7c>Previous: Map the whole product</a></nav><p data-astro-cid-ecbjlo7c><a href="/library" data-astro-cid-ecbjlo7c>Back to the library</a></p></div></article></main><section class="sponsor-band" aria-label="Sponsored by Reveltek" data-astro-cid-ji2uitki><div class="backdrop" aria-hidden="true" data-astro-cid-ji2uitki><span class="only-light" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band.avif"><source type="image/webp" srcset="/images/mountains-band.webp"><img src="/images/mountains-band.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span><span class="only-dark" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band-dark.avif"><source type="image/webp" srcset="/images/mountains-band-dark.webp"><img src="/images/mountains-band-dark.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span></div><div class="container inner" data-astro-cid-ji2uitki><span class="lead" data-astro-cid-ji2uitki>Sponsored by</span><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span><a class="sponsor" href="/sponsors" data-astro-cid-ji2uitki><img class="only-light" src="/images/reveltek-logo.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki><img class="only-dark" src="/images/reveltek-logo-white.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki></a><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span></div></section><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="container inner" data-astro-cid-jo6i4kqk><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><nav aria-label="Footer" data-astro-cid-jo6i4kqk><ul data-astro-cid-jo6i4kqk><li data-astro-cid-jo6i4kqk><a href="/about" data-astro-cid-jo6i4kqk>About CRC</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors" data-astro-cid-jo6i4kqk>Sponsors (Reveltek)</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors#become-a-sponsor" data-astro-cid-jo6i4kqk>Become a sponsor</a></li><li data-astro-cid-jo6i4kqk><a href="/contact" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href="/code-of-conduct" data-astro-cid-jo6i4kqk>Code of conduct</a></li><li data-astro-cid-jo6i4kqk><a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>GitHub</a></li></ul></nav></div><p class="legal container" data-astro-cid-jo6i4kqk>© 2026 Curiosity Research Corporation. Developer Dojo is free for everyone and is sponsored by Reveltek.</p></footer></body></html><script type="module">for(let e of document.querySelectorAll(`.prose .task-list-item > input[type="checkbox"]`)){let t=e.parentElement?.textContent?.trim();t&&e.setAttribute(`aria-label`,t)}</script>
