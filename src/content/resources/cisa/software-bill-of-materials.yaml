@@ -1,0 +1,9 @@
+title: "Software Bill of Materials (SBOM)"
+provider: "CISA"
+url: "https://www.cisa.gov/sbom"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [security]
+summary: "The U.S. Cybersecurity and Infrastructure Security Agency's plain explanation of what an SBOM is and why governments and buyers ask for one. A good first read if you need to explain SBOMs to a non-technical stakeholder."
+verifiedOn: 2026-11-03

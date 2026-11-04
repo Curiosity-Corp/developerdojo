@@ -1,0 +1,9 @@
+title: "CycloneDX Bill of Materials Standard"
+provider: "CycloneDX"
+url: "https://cyclonedx.org/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security]
+summary: "Home of one of the two common formats for a software bill of materials (SBOM), the list of parts inside a product. Use it to see what an SBOM file looks like and which tools produce one."
+verifiedOn: 2026-11-03

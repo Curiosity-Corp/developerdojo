@@ -1,0 +1,9 @@
+title: "Concise Guide for Evaluating Open Source Software"
+provider: "OpenSSF"
+url: "https://best.openssf.org/Concise-Guide-for-Evaluating-Open-Source-Software"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [security, open-source]
+summary: "A short checklist for deciding whether an open source package is safe enough to depend on: maintenance, popularity, security signals and licence. Hand it to an agent as the review standard when it proposes a new dependency."
+verifiedOn: 2026-11-03

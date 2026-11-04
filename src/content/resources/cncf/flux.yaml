@@ -1,0 +1,9 @@
+title: "Flux documentation"
+provider: "Flux project"
+url: "https://fluxcd.io/flux/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [kubernetes-gitops]
+summary: "The documentation for Flux, another open source GitOps tool. Compare it with Argo CD so you choose by need and not by habit."
+verifiedOn: 2026-11-03
