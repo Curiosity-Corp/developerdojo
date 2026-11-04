@@ -72,3 +72,7 @@ Score 0 (no), 1 (partly), 2 (yes). Maximum 20.
 10. I talked to a user in the last two weeks.
 
 17 to 20: strong. 12 to 16: fix the lowest three. Below 12: stop adding work and repair the plan.
+
+## See also
+
+The [readiness map](/library/rubric-readiness-map) shows how these six skills line up with the six Dojo Readiness areas, and where there is no matching row.

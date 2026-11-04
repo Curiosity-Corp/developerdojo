@@ -196,4 +196,4 @@ Every week, also answer the three questions from the [rubric page](/library/rubr
 
 ## Where to go next
 
-Continue to the [Track B weekly checklist and capstone plan](/library/weekly-checklist-track-b-and-capstone) when Track A is done, or review the [rubric](/library/rubric-track-a-self-assessment).
+Continue to the [Track B weekly checklist and capstone plan](/library/weekly-checklist-track-b-and-capstone) when Track A is done, or review the [rubric](/library/rubric-track-a-self-assessment). The [readiness map](/library/rubric-readiness-map) shows how the rubric rows line up with the six Dojo Readiness areas.

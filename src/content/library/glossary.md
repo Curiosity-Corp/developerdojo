@@ -83,6 +83,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **DevOps.** Developers and operations people working as one team, with automatic delivery (CI/CD), so changes reach users quickly and safely.
 
+**Dojo Readiness.** Six areas coaches look at when they ask if a learner is ready: Practical Application, Reasoning, Technical Execution, Launch Readiness, Communication and Coachability. See the [readiness map](/library/rubric-readiness-map).
+
 **Drift.** Any difference between desired state and actual state.
 
 ## E
