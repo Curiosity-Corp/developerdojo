@@ -127,6 +127,9 @@ const { highlight, compact = false, descriptions = {}, linked = false } = Astro.
     display: grid;
     place-items: center;
     color: var(--ink-muted);
+    /* Decorative. When it is turned on its side (phone widths) its box lies over the middle of the cards,
+       so it must not catch taps meant for the card link. */
+    pointer-events: none;
   }
   @media (max-width: 61.99rem) {
     .arrow {

@@ -249,8 +249,35 @@ First Monday of the month, about one hour. Put it in your calendar.
   7. **Ship it** as one MR per provider or per handful of files, with `Refs` to the quarter's refresh issue.
      When everything has merged, run the job again. The list must now say *0 of N resources need a fresh
      check*.
-- **Half-yearly accessibility pass.** Test ten pages with keyboard only, a screen reader and a phone at 200 percent
-  zoom (backlog issue).
+- **Half-yearly accessibility pass.** The pipeline's automatic scan catches only part of the problems, so twice a
+  year a person tests ten pages three ways. The method, the tools and the results of each pass are kept in
+  [docs/accessibility-review.md](accessibility-review.md). Steps:
+  1. **Open an issue** titled "Accessibility pass, <month year>" with the labels `type::maintenance` and
+     `area::platform`, and set it to `status::in-progress` when you start. Read the last pass in `docs/accessibility-review.md` first so you know what to expect.
+  2. **Build and serve the site** from a fresh copy of `master`: `npm ci`, `npm run build`, then
+     `node scripts/serve-dist.mjs dist 4560`.
+  3. **Pick the ten pages:** home, `/train/`, one long lesson, one track page, `/library/resources/`, the library
+     search page, one template page, `/events/`, `/sensei/`, `/certificates/`. Swap in new pages if the site has
+     grown a new kind of page.
+  4. **Keyboard only.** Put the mouse away. On each page press Tab from the top and check four things: you can reach
+     every link and button, you can always see where focus is, the order makes sense, and nothing traps you.
+     Press the skip link first (Tab once, then Enter). Open the search dialog with `/` and close it with Escape.
+     Write down how many Tab presses a long page needs.
+  5. **Screen reader.** Use a real one: NVDA on Windows, VoiceOver on a Mac or iPhone, or Orca on Linux. On each page
+     go through the headings, the landmarks and the links list, then use the main control on the page (the filters,
+     the verify form, the search box). Note anything that is read wrong, read twice, not read, or read in a strange
+     order. Do not write "screen reader" in the results unless a real one was used and say which one.
+  6. **Phone at 200 percent zoom.** Use a real phone, or a 390 pixel wide window with the browser zoom at 200 percent
+     (that is about 195 CSS pixels). On each page check that you do not scroll sideways, that no text is cut off, and
+     that you can tap every button. Repeat at 320 pixels wide, which is the width the WCAG rule uses.
+  7. **File what you find.** One small issue per problem, labelled `type::bug`, `area::platform`, `status::ready`.
+     Say the page, the steps, what you expected, what happened and the device, browser and tool. Fix very small
+     problems in the same merge request instead.
+  8. **Write the results** in `docs/accessibility-review.md` with the date, the tool and version for each of the
+     three methods, and the list of issues. Put in only what you saw. If a method could not be done, say so and
+     leave an unchecked line for the next person.
+  9. **Merge and close.** The merge request says `Closes #` the pass issue, and the pipeline must be green. Put the
+     next pass in the calendar for six months later.
 - **Yearly:** re-read the honesty rules (section 1 and 11) against the whole site, and check that CRC's status
   wording is still correct.
 
