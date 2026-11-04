@@ -253,7 +253,8 @@ Re-run the check whenever the page text changes.
 Do this once in a **branch that is never merged**, to see that the guard rails work:
 
 1. Make a branch. Add one entry to `src/data/certificates.json` for a pretend learner, with the code `DD-TEST-0001`.
-2. Run the tests. Two must fail: the check that the registry starts empty, and the check that no `DD-TEST` entry is in the real registry.
+2. Run the tests (`npx vitest run`). Three must fail: the check that the registry starts empty, the check that no `DD-TEST` entry is in
+   the real registry, and the check that the ID follows the format of section 6.
 3. Remove a required field from the pretend entry (for example `holder`) and run the build or the tests: they must fail with a message that names the field.
 4. Delete the pretend entry, run the tests again (all green), and delete the branch.
 
