@@ -1,9 +1,0 @@
-title: "OpenGitOps"
-provider: "OpenGitOps"
-url: "https://opengitops.dev/"
-cost: "free"
-format: "docs"
-level: "intermediate"
-skills: [kubernetes-gitops, infrastructure-as-code, ci-cd]
-summary: "A short statement of the four GitOps principles: declarative, versioned, pulled automatically and continuously reconciled. It explains why nobody changes production by hand."
-verifiedOn: 2026-11-03
