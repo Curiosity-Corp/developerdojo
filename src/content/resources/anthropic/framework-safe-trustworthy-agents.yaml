@@ -1,0 +1,9 @@
+title: "Our framework for developing safe and trustworthy agents"
+provider: "Anthropic"
+url: "https://www.anthropic.com/news/our-framework-for-developing-safe-and-trustworthy-agents"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [ai-agents, security]
+summary: "Anthropic describes the principles behind agents that keep humans in control, stay transparent and resist misuse. It supports the idea that humans keep the irreversible decisions. Read it when you decide which decisions stay with a person."
+verifiedOn: 2026-11-03

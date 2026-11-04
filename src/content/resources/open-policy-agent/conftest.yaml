@@ -1,0 +1,9 @@
+title: "Conftest"
+provider: "Open Policy Agent"
+url: "https://www.conftest.dev/"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [security, ci-cd, infrastructure-as-code]
+summary: "Conftest runs Rego policies against configuration files such as YAML and JSON, and fails when a rule is broken. It is the simplest way to check policy-as-data in a pipeline. The labs use it."
+verifiedOn: 2026-11-03
