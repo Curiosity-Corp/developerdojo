@@ -56,8 +56,15 @@ These steps are the same for every kind of change.
    (use the issue's number). Click **Create merge request**.
 9. **Watch the pipeline.** On the MR page, find the **Pipeline** box. Wait until it shows a green tick
    (about 10 minutes). If it shows a red cross, see [When the pipeline is red](#when-the-pipeline-is-red).
-10. **Merge.** When the pipeline is green, press **Merge**. If the button says "waiting" or is grey, the
+10. **Merge.** When the pipeline is green, press **Merge**. On this project the button may say
+    **Add to merge train** or **Set to auto-merge**: that is the same thing. If the button is grey, the
     pipeline is still running; wait.
+
+    Why a "merge train": the MR pipeline tests your change **merged with the latest `master`**, not
+    your branch on its own. When several MRs are ready at once, GitLab lines them up and tests each one
+    on top of the ones before it, so it merges only if it still passes. Two changes that are fine alone
+    but clash together (for example, two files for the same resource URL) cannot both reach `master`.
+    If yours drops out of the train, read the red job, fix forward on your branch, and merge again.
 11. **See it live.** After the merge, a new pipeline runs on `master` and ends with a job called
     `publish_github_pages`. When that job has a green tick (about 10 to 15 minutes in total), open
     https://developerdojo.org and look at your page. If you still see the old text, do a hard refresh

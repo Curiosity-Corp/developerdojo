@@ -43,7 +43,12 @@ from there to the public in this order:
 2. **GitLab CI runs the pipeline** on the MR: `check`, `test`, `build`, `links`, `e2e` (see
    [CONTRIBUTING.md](../CONTRIBUTING.md#reading-the-pipeline)). Green means the site builds, the links inside
    it work and it passes the accessibility scan. The pipeline is the gate: nothing is merged on red.
-3. **You press Merge.** The MR goes into `master`. A new pipeline starts on `master`.
+3. **You press Merge** (the button may say **Add to merge train**). The project uses **merged results
+   pipelines** and a **merge train** (Settings > Merge requests, both on since 2026-11-04, #65): every
+   MR pipeline tests the MR merged with the current `master`, and MRs that are ready at the same time
+   are tested in a line, each on top of the ones before it. An MR merges only if that combined result is
+   green, so two MRs that pass alone but clash together cannot break `master`. "Skip the train" is
+   switched off. The MR then goes into `master` and a new pipeline starts on `master`.
 4. **The `master` pipeline builds the site again** and runs the same checks, then two deploy jobs run:
    `pages` (an internal preview) and `publish_github_pages`.
 5. **`publish_github_pages` copies the BUILT site only** (never the source files) to the `gh-pages` branch of
@@ -143,7 +148,10 @@ Issues with no status label show in the **Open** column: give them one. Closed i
 3. Do the work following [CONTRIBUTING.md](../CONTRIBUTING.md). Put `Closes #<number>` in the MR description.
    The MR template fills in the checklist.
 4. When the MR is open, drag the issue to `status::needs-review`.
-5. When the pipeline is green and a person has read the change, press **Merge**.
+5. When the pipeline is green and a person has read the change, press **Merge** (or **Add to merge
+   train**). If the MR drops out of the train, its combined result with `master` failed: read the red
+   job and fix forward on the branch. Never turn the merge train or merged results pipelines off to
+   get one MR through.
 6. After the `publish_github_pages` job is green, open the page on developerdojo.org. The `Closes` line
    closes the issue. If it did not, close it.
 7. File every idea that came up as a new issue (use a template) with `status::ready`.
