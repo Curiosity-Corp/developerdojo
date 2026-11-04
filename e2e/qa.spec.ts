@@ -49,7 +49,10 @@ test.describe('routes', () => {
       expect(response?.status()).toBe(200);
       await expect(page.locator('h1')).toHaveCount(1);
       expect((await page.title()).length).toBeGreaterThan(5);
-      await page.waitForLoadState('networkidle');
+      // A static site: once 'load' has fired, every stylesheet, font and eager image is in. 'networkidle'
+      // (discouraged by Playwright) never resolved on /library/resources/ on the CI runner even though
+      // every request had finished, so this check waits for things it can see instead (#66).
+      await page.waitForLoadState('load');
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
       );
@@ -60,7 +63,11 @@ test.describe('routes', () => {
         window.scrollTo(0, document.body.scrollHeight);
         await new Promise((r) => setTimeout(r, 150));
       });
-      await page.waitForLoadState('networkidle');
+      // Lazy images start loading after the scroll; wait until each rendered one has finished (loaded or
+      // broken). A lazy image inside a hidden element (the other theme's logo) never loads, so skip those.
+      await page.waitForFunction(() =>
+        [...document.images].filter((img) => img.getClientRects().length > 0).every((img) => img.complete),
+      );
       const broken = await page.evaluate(() =>
         [...document.images].filter((img) => img.complete && img.naturalWidth === 0).map((img) => img.currentSrc || img.src),
       );

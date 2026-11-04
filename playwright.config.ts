@@ -15,7 +15,9 @@ export default defineConfig({
   reporter: process.env['CI'] ? [['list'], ['html', { open: 'never' }]] : 'list',
   use: {
     baseURL: `http://127.0.0.1:${port}`,
-    trace: 'retain-on-failure',
+    // A trace snapshots the DOM at every step. On the resources catalogue (12k+ nodes) that
+    // turned a 1.5s check into a 60s timeout, so CI records a trace only on the retry (#66).
+    trace: process.env['CI'] ? 'on-first-retry' : 'retain-on-failure',
   },
   projects: [
     { name: 'desktop', use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } } },
