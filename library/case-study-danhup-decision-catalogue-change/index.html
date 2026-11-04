@@ -1,0 +1,432 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Case study: DanHup decision record, catalogue entry and change record · Developer Dojo</title><meta name="description" content="Templates 6, 7 and 8 shown for DanHup as clearly labelled illustrations: a draft decision record, a catalogue entry and a change record for the first epic, with commentary and no invented facts."><link rel="canonical" href="https://developerdojo.org/library/case-study-danhup-decision-catalogue-change/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="color-scheme" content="light dark"><meta property="og:site_name" content="Developer Dojo"><meta property="og:title" content="Case study: DanHup decision record, catalogue entry and change record · Developer Dojo"><meta property="og:description" content="Templates 6, 7 and 8 shown for DanHup as clearly labelled illustrations: a draft decision record, a catalogue entry and a change record for the first epic, with commentary and no invented facts."><meta property="og:type" content="website"><meta property="og:url" content="https://developerdojo.org/library/case-study-danhup-decision-catalogue-change/"><meta name="twitter:card" content="summary"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      // Runs before first paint: apply the saved theme and mark JS as available.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('dojo-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/PageHero.CB5u5E89.css"><style>.crumbs[data-astro-cid-vx4iavld] ol[data-astro-cid-vx4iavld]{gap:var(--space-1) var(--space-2);margin:0 0 var(--space-4);font-size:var(--text-sm);flex-wrap:wrap;padding:0;list-style:none;display:flex}.crumbs[data-astro-cid-vx4iavld] li[data-astro-cid-vx4iavld]+li[data-astro-cid-vx4iavld]:before{content:"/";margin-right:var(--space-2);color:var(--ink-muted)}.crumbs[data-astro-cid-vx4iavld] [data-astro-cid-vx4iavld][aria-current=page]{color:var(--ink-muted)}.toc[data-astro-cid-p33bl5ka] ol[data-astro-cid-p33bl5ka]{gap:var(--space-2);font-size:var(--text-sm);margin:0;padding:0;list-style:none;display:grid}.depth-3[data-astro-cid-p33bl5ka]{padding-left:var(--space-4)}.toc[data-astro-cid-p33bl5ka] a[data-astro-cid-p33bl5ka]{text-decoration:none}.toc[data-astro-cid-p33bl5ka] a[data-astro-cid-p33bl5ka]:hover{text-decoration:underline}.toc-inline[data-astro-cid-p33bl5ka]{margin-bottom:var(--space-5);padding:var(--space-3) var(--space-4);background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius)}.toc-inline[data-astro-cid-p33bl5ka] summary[data-astro-cid-p33bl5ka]{cursor:pointer;font-weight:700}.toc-inline[data-astro-cid-p33bl5ka] ol[data-astro-cid-p33bl5ka]{margin-top:var(--space-3)}@media (width>=70rem){.toc-inline[data-astro-cid-p33bl5ka]{display:none}.toc-side[data-astro-cid-p33bl5ka]{top:calc(var(--header-h) + var(--space-4));max-height:calc(100vh - var(--header-h) - var(--space-6));padding:var(--space-3) var(--space-4);border-left:3px solid var(--gold);position:sticky;overflow-y:auto}.toc-title[data-astro-cid-p33bl5ka]{margin:0 0 var(--space-3);font-weight:700}}.lesson[data-astro-cid-ecbjlo7c]{gap:var(--space-6);grid-template-columns:minmax(0,1fr);align-items:start;display:grid}.side[data-astro-cid-ecbjlo7c]{display:none}@media (width>=70rem){.side[data-astro-cid-ecbjlo7c]{align-self:stretch;display:block}.lesson[data-astro-cid-ecbjlo7c]{grid-template-columns:minmax(0,72ch) 16rem;justify-content:center}}.facts[data-astro-cid-ecbjlo7c]{gap:var(--space-2) var(--space-4);margin:0 0 var(--space-4);font-size:var(--text-sm);flex-wrap:wrap;padding:0;font-weight:600;list-style:none;display:flex}.facts[data-astro-cid-ecbjlo7c] li[data-astro-cid-ecbjlo7c]{align-items:center;gap:var(--space-2);display:inline-flex}.box[data-astro-cid-ecbjlo7c]{margin-bottom:var(--space-4);padding:var(--space-3) var(--space-5);background:var(--paper-raised);border:1px solid var(--line);border-left:5px solid var(--olive);border-radius:var(--radius)}.box[data-astro-cid-ecbjlo7c] h2[data-astro-cid-ecbjlo7c]{margin:0 0 var(--space-2);font-size:var(--text-lg)}.box[data-astro-cid-ecbjlo7c] ul[data-astro-cid-ecbjlo7c]{padding-left:var(--space-5);margin:0}.further[data-astro-cid-ecbjlo7c]{margin-top:var(--space-7)}.further-intro[data-astro-cid-ecbjlo7c]{color:var(--ink-muted)}.cards[data-astro-cid-ecbjlo7c]{gap:var(--space-4);margin:0;padding:0;list-style:none;display:grid}.pager[data-astro-cid-ecbjlo7c]{gap:var(--space-3);margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--line);grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));display:grid}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]{gap:var(--space-1);padding:var(--space-3) var(--space-4);background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius);font-weight:600;text-decoration:none;display:grid}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]:hover{border-color:var(--olive)}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c] span[data-astro-cid-ecbjlo7c]{font-size:var(--text-sm);letter-spacing:.04em;text-transform:uppercase;color:var(--ink-muted);font-weight:700}.back[data-astro-cid-ecbjlo7c]{margin-top:var(--space-5)}.pager[data-astro-cid-ecbjlo7c] .next[data-astro-cid-ecbjlo7c]{text-align:right}
+.section-header[data-astro-cid-pb4nux2a]{max-width:38rem}.align-center[data-astro-cid-pb4nux2a]{text-align:center;margin-inline:auto}.eyebrow[data-astro-cid-pb4nux2a]{align-items:center;gap:var(--space-3);margin:0 0 var(--space-2);letter-spacing:.14em;text-transform:uppercase;color:var(--rust-text);font-size:.78rem;font-weight:700;display:flex}.align-center[data-astro-cid-pb4nux2a] .eyebrow[data-astro-cid-pb4nux2a]{justify-content:center}.eyebrow-rule[data-astro-cid-pb4nux2a]{opacity:.55;background:currentColor;flex:0 4rem;height:1px}.title[data-astro-cid-pb4nux2a]{margin-bottom:var(--space-2)}.intro[data-astro-cid-pb4nux2a]{color:var(--ink-muted);margin:0}.tone-dark[data-astro-cid-pb4nux2a] .eyebrow[data-astro-cid-pb4nux2a]{color:var(--gold)}.tone-dark[data-astro-cid-pb4nux2a] .title[data-astro-cid-pb4nux2a]{color:var(--band-text)}.tone-dark[data-astro-cid-pb4nux2a] .intro[data-astro-cid-pb4nux2a]{color:var(--band-muted)}
+.resource[data-astro-cid-jtgbjsdm]{gap:var(--space-2);overflow-wrap:anywhere;min-width:0;padding:var(--space-4) var(--space-5);background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);align-content:start;display:grid}.provider[data-astro-cid-jtgbjsdm]{font-size:var(--text-sm);letter-spacing:.04em;text-transform:uppercase;color:var(--olive-text);margin:0;font-weight:700}h3[data-astro-cid-jtgbjsdm]{font-family:var(--font-serif);font-size:var(--text-xl);margin:0;line-height:1.25}h3[data-astro-cid-jtgbjsdm] a[data-astro-cid-jtgbjsdm]{gap:var(--space-2);align-items:baseline;display:inline-flex}h3[data-astro-cid-jtgbjsdm] svg{flex:none;align-self:center}.chips[data-astro-cid-jtgbjsdm]{gap:var(--space-2);flex-wrap:wrap;margin:0;padding:0;list-style:none;display:flex}.chip[data-astro-cid-jtgbjsdm]{font-size:var(--text-sm);background:var(--paper-sunk);border:1px solid var(--line);border-radius:999px;padding:.1rem .6rem;font-weight:600}.summary[data-astro-cid-jtgbjsdm],.meta[data-astro-cid-jtgbjsdm]{margin:0}.meta[data-astro-cid-jtgbjsdm]{font-size:var(--text-sm);color:var(--ink-muted)}
+</style></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header" data-astro-cid-nen7h5rs><div class="bar" data-astro-cid-nen7h5rs><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><button type="button" class="search-open button-phone" data-search-open aria-label="Search" aria-keyshortcuts="/ Control+K Meta+K" data-astro-cid-e66w4awt><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"/><circle cx="11" cy="11" r="8"/></g></svg></button><script type="module">var e=document.querySelector(`[data-search-dialog]`),t={current:null};function n(n){e&&!e.open&&(t.current=n,e.showModal(),e.querySelector(`input[type="search"]`)?.focus())}for(let e of document.querySelectorAll(`[data-search-open]`))e.addEventListener(`click`,()=>n(e));e?.querySelector(`[data-search-close]`)?.addEventListener(`click`,()=>e.close()),e?.addEventListener(`click`,t=>{t.target===e&&e.close()}),e?.addEventListener(`close`,()=>t.current?.focus()),e?.addEventListener(`click`,t=>{t.target instanceof HTMLAnchorElement&&e.close()}),document.addEventListener(`keydown`,e=>{let t=e.target,r=t instanceof HTMLInputElement||t instanceof HTMLTextAreaElement||t instanceof HTMLSelectElement||t instanceof HTMLElement&&t.isContentEditable,i=e.key===`/`&&!r&&!e.ctrlKey&&!e.metaKey&&!e.altKey,a=e.key.toLowerCase()===`k`&&(e.ctrlKey||e.metaKey);(i||a)&&(e.preventDefault(),n(document.activeElement instanceof HTMLElement?document.activeElement:null))});</script><button type="button" class="menu-button" data-menu-button aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu" data-astro-cid-nen7h5rs><svg class="icon open-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"/></svg><svg class="icon close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><nav id="primary-nav" class="nav" aria-label="Primary" data-nav data-astro-cid-nen7h5rs><ul data-astro-cid-nen7h5rs><li data-astro-cid-nen7h5rs><a href="/train" data-astro-cid-nen7h5rs>Train</a></li><li data-astro-cid-nen7h5rs><a href="/sensei" data-astro-cid-nen7h5rs>Sensei</a></li><li data-astro-cid-nen7h5rs><a href="/library" aria-current="page" data-astro-cid-nen7h5rs>Library</a></li><li data-astro-cid-nen7h5rs><a href="/certificates" data-astro-cid-nen7h5rs>Certificates</a></li><li data-astro-cid-nen7h5rs><a href="/challenges" data-astro-cid-nen7h5rs>Challenges</a></li><li data-astro-cid-nen7h5rs><a href="/events" data-astro-cid-nen7h5rs>Events</a></li><li data-astro-cid-nen7h5rs><a href="/membership" data-astro-cid-nen7h5rs>Membership</a></li></ul><div class="actions" data-astro-cid-nen7h5rs><button type="button" class="search-open button-desktop" data-search-open aria-label="Search" aria-keyshortcuts="/ Control+K Meta+K" data-astro-cid-e66w4awt><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"/><circle cx="11" cy="11" r="8"/></g></svg></button><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" data-astro-cid-l6lhmie6><svg class="icon to-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="icon to-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g></svg></button><script type="module">var e=document.documentElement,t=document.querySelector(`[data-theme-toggle]`);function n(){let t=e.getAttribute(`data-theme`);return t===`dark`||t!==`light`&&window.matchMedia(`(prefers-color-scheme: dark)`).matches}function r(){if(!t)return;let e=n();t.setAttribute(`aria-label`,e?`Switch to light theme`:`Switch to dark theme`),t.setAttribute(`data-mode`,e?`dark`:`light`)}t?.addEventListener(`click`,()=>{let t=n()?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`dojo-theme`,t)}catch(e){console.warn(`Theme preference not saved:`,e)}r()}),r();</script><a class="start" href="/membership" data-astro-cid-nen7h5rs>Start free</a></div></nav></div><dialog class="search-dialog" data-search-dialog aria-label="Search" data-astro-cid-e66w4awt><button type="button" class="close" data-search-close aria-label="Close search" data-astro-cid-e66w4awt><svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><div class="search-panel" data-search data-pagefind-ignore data-astro-cid-5gryy2vu><form role="search" aria-label="Search the whole site" data-search-form data-astro-cid-5gryy2vu><label for="site-search-input" data-astro-cid-5gryy2vu>Search the whole site</label><input id="site-search-input" type="search" placeholder="Try: epic, persona, roadmap, Kubernetes" autocomplete="off" spellcheck="false" aria-describedby="site-search-status" data-search-input data-astro-cid-5gryy2vu></form><p id="site-search-status" class="status" role="status" aria-live="polite" data-search-status data-astro-cid-5gryy2vu></p><div class="results" data-search-results data-astro-cid-5gryy2vu></div><noscript><p data-astro-cid-5gryy2vu>Search needs JavaScript. You can still browse the <a href="/library" data-astro-cid-5gryy2vu>library</a>.</p></noscript></div><script type="module">var e=[`lessons`,`tracks`,`resources`,`pages`],t={lessons:`Lessons and guides`,tracks:`Tracks`,resources:`Learning resources`,pages:`Other pages`};function n(e){let[t=``,n=``]=e.split(`#`),r=t.split(`/`).filter(e=>e.length>0);return r[0]===`library`?r[1]===`resources`?n?`resources`:`pages`:r[1]===`tracks`?r.length===1||r.length===2?`pages`:r.length===3?`tracks`:`lessons`:r.length>=2?`lessons`:`pages`:`pages`}var r;function i(){return r??=import(`/pagefind/pagefind.js`).then(async e=>(await e.init(),e)),r}var a=24;function o(r,i){r.replaceChildren();let a=new Map;for(let e of i){let t=n(e.url);a.set(t,[...a.get(t)??[],e])}for(let n of e){let e=a.get(n);if(!e)continue;let i=document.createElement(`section`),o=document.createElement(`h3`);o.textContent=t[n];let s=document.createElement(`ul`);for(let t of e){let e=document.createElement(`li`),n=document.createElement(`a`);if(n.href=t.url,n.textContent=t.meta.title??t.url,e.append(n),t.meta.group){let n=document.createElement(`span`);n.className=`where`,n.textContent=t.meta.group,e.append(n)}let r=document.createElement(`p`);r.innerHTML=t.excerpt,e.append(r),s.append(e)}i.append(o,s),r.append(i)}}for(let e of document.querySelectorAll(`[data-search]`)){let t=e.querySelector(`[data-search-input]`),n=e.querySelector(`[data-search-form]`),r=e.querySelector(`[data-search-status]`),s=e.querySelector(`[data-search-results]`);if(!t||!n||!r||!s)continue;let c=0,l=async()=>{let e=t.value.trim(),n=++c;if(e.length===0)r.textContent=``,s.replaceChildren();else try{let t=await(await i()).debouncedSearch(e,{},150);if(t===null||n!==c)return;let l=await Promise.all(t.results.slice(0,a).map(e=>e.data()));if(n!==c)return;o(s,l),r.textContent=t.results.length===0?`No results for "${e}". Try a shorter or different word.`:`${t.results.length} ${t.results.length===1?`result`:`results`} for "${e}"`}catch(e){console.warn(`Search is not available:`,e),r.textContent=`Search is not available here. It works on the published site.`}};n.addEventListener(`submit`,e=>{e.preventDefault(),l()}),t.addEventListener(`input`,()=>void l())}</script></dialog></header><script type="module">var e=document.querySelector(`[data-menu-button]`),t=document.querySelector(`[data-nav]`),n=document.querySelector(`.site-header`);function r(t){e&&n&&(n.toggleAttribute(`data-open`,t),e.setAttribute(`aria-expanded`,String(t)),e.setAttribute(`aria-label`,t?`Close menu`:`Open menu`))}e?.addEventListener(`click`,()=>r(e.getAttribute(`aria-expanded`)!==`true`)),t?.addEventListener(`click`,e=>{e.target instanceof HTMLAnchorElement&&r(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e?.getAttribute(`aria-expanded`)===`true`&&(r(!1),e.focus())}),window.matchMedia(`(min-width: 62rem)`).addEventListener(`change`,e=>{e.matches&&r(!1)}),document.documentElement.classList.add(`js`);</script><main id="main" data-pagefind-body><section class="hero compact" data-astro-cid-75ysl5lo><div class="art" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/hero-dojo-mobile.avif" media="(max-width: 40rem)"><source type="image/webp" srcset="/images/hero-dojo-mobile.webp" media="(max-width: 40rem)"><source srcset="/images/hero-dojo-mobile.jpg" media="(max-width: 40rem)"><source type="image/avif" srcset="/images/hero-dojo.avif"><source type="image/webp" srcset="/images/hero-dojo.webp"><img class="art-img" src="/images/hero-dojo.jpg" alt width="2400" height="900" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="scrim" aria-hidden="true" data-astro-cid-75ysl5lo></div><div class="enso" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/enso.avif"><source type="image/webp" srcset="/images/enso.webp"><img src="/images/enso.png" alt width="800" height="800" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="container grid" data-astro-cid-75ysl5lo><div class="copy" data-astro-cid-75ysl5lo><p class="eyebrow" data-astro-cid-75ysl5lo>Case study</p><h1 data-astro-cid-75ysl5lo>Case study: DanHup decision record, catalogue entry and change record</h1><p class="subtitle" data-astro-cid-75ysl5lo>Templates 6, 7 and 8 shown for DanHup as clearly labelled illustrations: a draft decision record, a catalogue entry and a change record for the first epic, with commentary and no invented facts.</p></div></div></section><article class="section" data-astro-cid-ecbjlo7c><div class="container lesson" data-astro-cid-ecbjlo7c><div class="main" data-astro-cid-ecbjlo7c><nav class="crumbs" aria-label="Breadcrumb" data-pagefind-ignore data-astro-cid-vx4iavld><ol data-astro-cid-vx4iavld><li data-astro-cid-vx4iavld><a href="/library" data-astro-cid-vx4iavld>Library</a></li><li data-astro-cid-vx4iavld><a href="/library#section-case-study" data-astro-cid-vx4iavld>Case study</a></li><li data-astro-cid-vx4iavld><span aria-current="page" data-astro-cid-vx4iavld>Case study: DanHup decision record, catalogue entry and change record</span></li></ol></nav><ul class="facts" aria-label="About this lesson" data-pagefind-ignore data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 20h.01M7 20v-4m5 4v-8m5 8V8m5-4v16"/></svg>Core</li><li data-astro-cid-ecbjlo7c><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></g></svg>75 min</li><li data-astro-cid-ecbjlo7c><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v16m8.001-2A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2a5 5 0 0 1 4-2z"/></svg>12 min read</li></ul><section class="box outcomes" aria-labelledby="outcomes-title" data-astro-cid-ecbjlo7c><h2 id="outcomes-title" data-astro-cid-ecbjlo7c>After this lesson you can</h2><ul data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c>See a decision record kept honest: status Proposed, with open fields left open.</li><li data-astro-cid-ecbjlo7c>See a catalogue entry for a part of the product, with simulated targets marked.</li><li data-astro-cid-ecbjlo7c>See a change record with a risk decision, a fix-forward recovery plan and a checking section.</li><li data-astro-cid-ecbjlo7c>Know which facts you must never invent when you fill these templates.</li></ul></section><section class="box" aria-labelledby="prereq-title" data-astro-cid-ecbjlo7c><h2 id="prereq-title" data-astro-cid-ecbjlo7c>Read these first</h2><ul data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c><a href="/library/case-study-danhup-epics-and-roadmap" data-astro-cid-ecbjlo7c>Case study: DanHup epics, roadmap and milestones</a></li><li data-astro-cid-ecbjlo7c><a href="/library/template-decision-record" data-astro-cid-ecbjlo7c>Template: Open source decision record (ADR)</a></li><li data-astro-cid-ecbjlo7c><a href="/library/template-catalogue-entry" data-astro-cid-ecbjlo7c>Template: Service catalogue entry</a></li><li data-astro-cid-ecbjlo7c><a href="/library/template-change-record" data-astro-cid-ecbjlo7c>Template: Change record</a></li></ul></section><nav class="toc toc-inline" aria-label="On this page" data-pagefind-ignore data-astro-cid-p33bl5ka><details data-astro-cid-p33bl5ka><summary data-astro-cid-p33bl5ka>On this page</summary><ol data-astro-cid-p33bl5ka><li class="depth-2" data-astro-cid-p33bl5ka><a href="#why-it-matters" data-astro-cid-p33bl5ka>Why it matters</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#key-ideas" data-astro-cid-p33bl5ka>Key ideas</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#step-1-template-6-a-draft-decision-record" data-astro-cid-p33bl5ka>Step 1: Template 6, a draft decision record</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#step-2-template-7-a-catalogue-entry" data-astro-cid-p33bl5ka>Step 2: Template 7, a catalogue entry</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#step-3-template-8-a-change-record" data-astro-cid-p33bl5ka>Step 3: Template 8, a change record</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#step-4-what-these-three-pages-share" data-astro-cid-p33bl5ka>Step 4: What these three pages share</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#working-with-ai-agents" data-astro-cid-p33bl5ka>Working with AI agents</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#common-mistakes" data-astro-cid-p33bl5ka>Common mistakes</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#practice" data-astro-cid-p33bl5ka>Practice</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#checklist" data-astro-cid-p33bl5ka>Checklist</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#the-2030-product-development-manager-lens" data-astro-cid-p33bl5ka>The 2030 Product Development Manager lens</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#further-learning" data-astro-cid-p33bl5ka>Further learning</a></li></ol></details></nav><div class="prose" data-astro-cid-ecbjlo7c><p>This is page 5, the last page of the DanHup case study. It shows templates 6 (<a href="/library/template-decision-record">decision record</a>), 7 (<a href="/library/template-catalogue-entry">catalogue entry</a>) and 8 (<a href="/library/template-change-record">change record</a>).</p>
+<p><strong>EXAMPLE ONLY, AND ALL OF IT IS ILLUSTRATION.</strong> The source evidence for DanHup contains no decision record, no catalogue entry and no change record. So the pages below are <strong>drafts written to show the format</strong>, built on the first epic from page 4. Nothing here says that DanHup made these decisions. Where a real fact would be needed, for example a licence, a version or a date, the page writes <strong>to be filled from the real file</strong> instead of inventing it.</p>
+<h2 id="why-it-matters">Why it matters</h2>
+<p>Templates 6, 7 and 8 are about trust. A decision record says why a choice was made. A catalogue entry says who owns a part and what it promises. A change record says what could go wrong and how the team would fix it forward. These three are the easiest to fake, and the most harmful when faked. A licence that was never read, an owner who does not exist, a “tested” box that nobody ticked: each one hides a risk. The honest version often looks less polished. That is the point.</p>
+<h2 id="key-ideas">Key ideas</h2>
+<ul>
+<li><strong>Status is part of the truth.</strong> A draft is “Proposed”, not “Accepted”.</li>
+<li><strong>Read the file, then write the licence.</strong> Never write it from memory or from an agent’s answer.</li>
+<li><strong>Simulated is a word.</strong> A target nobody measured is marked simulated.</li>
+<li><strong>A human makes the risk decision.</strong> The change record names a person, not an agent.</li>
+<li><strong>Recovery means fix forward.</strong> The plan says how to go on, not how to undo.</li>
+</ul>
+<h2 id="step-1-template-6-a-draft-decision-record">Step 1: Template 6, a draft decision record</h2>
+<p>The first epic needs a simple count of visitors who reach sign-up (milestone E1-M4). The question for the record: should the team use an open-source tool for it, build a small counter, or use none?</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Entry</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADR number and short title</td>
+<td>ADR-0001: How to count visitors who reach sign-up (illustration)</td>
+</tr>
+<tr>
+<td>Status</td>
+<td><strong>Proposed.</strong> Nobody has decided.</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>To be filled when decided</td>
+</tr>
+<tr>
+<td>Deciders (human names)</td>
+<td>The DanHup product manager and the engineering owner of the app (roles only; names stay in the private repository)</td>
+</tr>
+<tr>
+<td>Ladder rung</td>
+<td>Not yet chosen. Options: (b) use as it is, (b+) use with configuration, (c) build on, (d) fork, or REJECT</td>
+</tr>
+<tr>
+<td>Catalogue entity (slug)</td>
+<td>The site, once the entry in Step 2 exists</td>
+</tr>
+<tr>
+<td>GitLab issue and MR links</td>
+<td>To be added when the issue exists</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Entry</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Context</td>
+<td>Epic 1 needs one number: the share of visitors who reach sign-up. MUST: it counts without storing personal data. MUST: the planner can read it without code access. SHOULD: it can be switched off.</td>
+</tr>
+<tr>
+<td>2. Alternatives scanned</td>
+<td><strong>Not done yet.</strong> The scan must record a date, where it looked, and three to five candidates, each with the licence id read from its LICENSE file and a fit percentage. Candidates below are placeholders: Candidate A, Candidate B, Candidate C. A fourth option is “build a counter of about one page of code”.</td>
+</tr>
+<tr>
+<td>3. Licence</td>
+<td><strong>To be filled from the real files.</strong> For each candidate: licence id, the file read, the date, and the usage pattern (run as a separate service, unmodified or not). Do not write a licence from memory.</td>
+</tr>
+<tr>
+<td>4. Fit</td>
+<td>To be computed with the program’s formula once the MUST and SHOULD needs are scored</td>
+</tr>
+<tr>
+<td>5. Decision</td>
+<td>“We will …” is left empty until the status changes</td>
+</tr>
+<tr>
+<td>6. Tech-debt statement</td>
+<td>Needs an owner, the debt in words and numbers, triggers to reopen, and a review date within six months</td>
+</tr>
+<tr>
+<td>7. Exit plan</td>
+<td>Needs: how we leave, where the data goes, what replaces it, how long it takes</td>
+</tr>
+<tr>
+<td>8. Consequences</td>
+<td>Needs positive, negative and follow-up issues</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Commentary.</strong></p>
+<ol>
+<li>Section 2 and 3 say “not done yet”. That is a correct entry for a draft. A record that fills the licence line before anyone opened the file is worse than an empty line, because it looks like evidence.</li>
+<li>The status is Proposed. The epics page had one decision that blocks work: who may sign up. That is a business decision, not an open-source one, so it belongs in its own short record, not in this one. Keep one decision per record.</li>
+<li>The deciders are roles here. In your own private repository, write real names.</li>
+<li>If every candidate is dropped, the record still has value. Status REJECT with the reasons stops the next person from repeating the scan.</li>
+</ol>
+<h2 id="step-2-template-7-a-catalogue-entry">Step 2: Template 7, a catalogue entry</h2>
+<p>The catalogue entry below describes one part of DanHup that the repository map already shows: the public site. Every field comes from page 2, or says so.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Entry</th>
+<th>Where it comes from</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>danhup-site</td>
+<td>Chosen here, lowercase with hyphens</td>
+</tr>
+<tr>
+<td>name</td>
+<td>DanHup public site</td>
+<td>Page 2, repository map row 1</td>
+</tr>
+<tr>
+<td>kind</td>
+<td>service</td>
+<td>The site is a running part of the product</td>
+</tr>
+<tr>
+<td>owner</td>
+<td><strong>Not named.</strong> The map says the owner is not named. Write a role once someone accepts it.</td>
+<td>Page 2</td>
+</tr>
+<tr>
+<td>tier</td>
+<td>To be decided. Interim tag: tier-N</td>
+<td>Nobody has set it</td>
+</tr>
+<tr>
+<td>lifecycle</td>
+<td>active</td>
+<td>The landing page is live</td>
+</tr>
+<tr>
+<td>description</td>
+<td>Public landing page “Candidate Placement” with an email capture form.</td>
+<td>Page 2</td>
+</tr>
+<tr>
+<td>repos</td>
+<td>The site repository (group and name to be written from the real path)</td>
+<td>Page 2</td>
+</tr>
+<tr>
+<td>dependencies</td>
+<td>The email-capture service. Later, the app.</td>
+<td>Pages 2 and 3</td>
+</tr>
+<tr>
+<td>slt.availability</td>
+<td>simulated</td>
+<td>Not measured</td>
+</tr>
+<tr>
+<td>slt.latency_p95_ms</td>
+<td>simulated</td>
+<td>Not measured</td>
+</tr>
+<tr>
+<td>slt.support_response</td>
+<td>To be decided</td>
+<td>No support process was found</td>
+</tr>
+<tr>
+<td>support.contact</td>
+<td><strong>Nobody.</strong></td>
+<td>The integrations register says the email-capture service has no owner</td>
+</tr>
+<tr>
+<td>support.issue_tracker</td>
+<td>The site repository’s issue list</td>
+<td>Assumed from the repository</td>
+</tr>
+<tr>
+<td>runbook</td>
+<td>None found</td>
+<td>NOT FOUND</td>
+</tr>
+<tr>
+<td>data_classification</td>
+<td>Internal, because the form collects email addresses. To be confirmed.</td>
+<td>An email address is personal data</td>
+</tr>
+<tr>
+<td>adrs</td>
+<td>ADR-0001 (draft)</td>
+<td>Step 1</td>
+</tr>
+<tr>
+<td>licences</td>
+<td>Not yet</td>
+<td>Step 1</td>
+</tr>
+<tr>
+<td>links</td>
+<td>The site, the repository</td>
+<td>Page 2</td>
+</tr>
+<tr>
+<td>tags</td>
+<td>tier-N, data-internal, marketing</td>
+<td>Interim tags</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Commentary.</strong></p>
+<ol>
+<li>Look at the “Where it comes from” column. Every cell has a source, and cells with no source say so. That column is not in the template. Add it when you teach someone else, because it keeps you honest.</li>
+<li>Three cells say “Nobody” or “NOT FOUND”: owner, support contact and runbook. In a real catalogue these are your work list for the quarter.</li>
+<li>The data class is a guess with a reason. Say <strong>to be confirmed</strong> and name who confirms.</li>
+<li>The targets are marked <strong>simulated</strong>. A promise nobody can measure is not a service level.</li>
+</ol>
+<h2 id="step-3-template-8-a-change-record">Step 3: Template 8, a change record</h2>
+<p>This record describes milestone E1-M3 from page 4: the notify-me form sends a first reply and records the visitor. It is a draft written before the change, which is when a change record is most useful.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Entry</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Summary</td>
+<td>The notify-me form sends a short first reply and records the visitor in the email-capture service.</td>
+</tr>
+<tr>
+<td>Type and label</td>
+<td>normal, label change::normal</td>
+</tr>
+<tr>
+<td>Service(s) from the catalogue</td>
+<td>danhup-site</td>
+</tr>
+<tr>
+<td>Tracker issue</td>
+<td>To be added when the issue exists</td>
+</tr>
+<tr>
+<td>Change owner (human)</td>
+<td>The marketing owner of the site (role; no one is named yet, which is itself a finding)</td>
+</tr>
+<tr>
+<td>Risk decision made by (human)</td>
+<td>The DanHup product manager (role)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Risk question</th>
+<th>Entry</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Impact</td>
+<td>Visitors who give their email address; the people who read the replies</td>
+</tr>
+<tr>
+<td>Likelihood</td>
+<td>Medium, because the reply goes to real people and the wording may promise what the app does not do yet (epic 1 risk)</td>
+</tr>
+<tr>
+<td>Blast radius</td>
+<td>One service: the site, plus the email-capture service</td>
+</tr>
+<tr>
+<td>Data touched</td>
+<td>Email addresses, class internal, no migration</td>
+</tr>
+<tr>
+<td>Existing data shapes in production</td>
+<td>Addresses already captured by the form. How many is not known. Count them before the change.</td>
+</tr>
+<tr>
+<td>Dependencies affected</td>
+<td>The email-capture service</td>
+</tr>
+<tr>
+<td>Window</td>
+<td>Outside working hours of the main audience. The exact time is to be chosen.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Recovery question</th>
+<th>Entry</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>If this goes wrong we will</td>
+<td>Turn off the reply, correct the wording, and send a corrected message within a day. Do not delete the captured addresses. Owner: the marketing owner.</td>
+</tr>
+<tr>
+<td>Feature flag or switch to stop harm</td>
+<td>A single setting that disables the automatic reply. Name and place to be written when it exists.</td>
+</tr>
+<tr>
+<td>Gate we will add if it fails</td>
+<td>A check that the reply text matches the approved copy</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Checking question</th>
+<th>Entry</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tests run, pipeline link</td>
+<td>To be added after the pipeline runs</td>
+</tr>
+<tr>
+<td>Staging: same digest as production?</td>
+<td>Not applicable if the site is static. Say so, and record the commit id instead.</td>
+</tr>
+<tr>
+<td>Verified in the running service</td>
+<td>Fill the form with a test address and read the reply</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Commentary.</strong></p>
+<ol>
+<li>The risk decision names a <strong>role</strong>, not an agent. An agent may help draft the table. A person decides whether the risk is acceptable.</li>
+<li>The recovery plan never says “roll back”. It says turn the reply off, correct, and send a corrected message. That is the fix-forward habit in practice.</li>
+<li>“Existing data shapes in production: not known, count them first” is a good sign. The author saw what was missing.</li>
+<li>The last section is empty on purpose. A change record is finished after the check, not before.</li>
+</ol>
+<h2 id="step-4-what-these-three-pages-share">Step 4: What these three pages share</h2>
+<table>
+<thead>
+<tr>
+<th>Template</th>
+<th>The question it forces</th>
+<th>The fact you must never invent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6 Decision record</td>
+<td>Why this choice, and how do we leave it?</td>
+<td>The licence, the version, the fit numbers</td>
+</tr>
+<tr>
+<td>7 Catalogue entry</td>
+<td>Who owns this and what does it promise?</td>
+<td>The owner, the targets, the runbook</td>
+</tr>
+<tr>
+<td>8 Change record</td>
+<td>What could go wrong and who accepted that?</td>
+<td>The tests run, the digest, the verification</td>
+</tr>
+</tbody>
+</table>
+<h2 id="working-with-ai-agents">Working with AI agents</h2>
+<ul>
+<li><strong>May:</strong> read a LICENSE file you point it to and quote the first lines. Check that every path in your entry exists. Draft the tables of a change record from an issue you wrote.</li>
+<li><strong>May not:</strong> choose the licence from memory, name an owner, mark a test as passed, or make the risk decision.</li>
+<li><strong>Disclose:</strong> one line in the record, for example “An agent quoted the licence file. I read it too.”</li>
+<li><strong>A safe brief:</strong> “Open the LICENSE file of this repository at this tag. Quote its first ten lines and the file path. Do not summarise and do not add anything.”</li>
+</ul>
+<h2 id="common-mistakes">Common mistakes</h2>
+<ol>
+<li><strong>Accepting a draft too early.</strong> Keep the status honest.</li>
+<li><strong>Writing the licence from memory.</strong></li>
+<li><strong>Listing a team as the owner.</strong> Name one accountable role.</li>
+<li><strong>Presenting simulated targets as measured.</strong></li>
+<li><strong>A recovery plan that only says “roll back”.</strong></li>
+<li><strong>Filling the checking section before the check.</strong></li>
+</ol>
+<h2 id="practice">Practice</h2>
+<ol>
+<li>List three cells of the change record that you could not fill today in your own product, and say what you would do to fill each.</li>
+<li>Write the one-sentence status of your next decision record: Proposed, and why.</li>
+<li>Add the “Where it comes from” column to your own catalogue entry.</li>
+<li>Find one catalogue field in Step 2 that you would not trust and say what evidence would change your mind.</li>
+</ol>
+<h2 id="checklist">Checklist</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> My decision record has an honest status.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Every licence was read from a real file, with the date.</li>
+<li class="task-list-item"><input type="checkbox" disabled> My catalogue entry marks simulated targets as simulated.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Every owner is a role or a person, never a team of ten.</li>
+<li class="task-list-item"><input type="checkbox" disabled> My change record names a human who made the risk decision.</li>
+<li class="task-list-item"><input type="checkbox" disabled> My recovery plan goes forward.</li>
+</ul>
+<h2 id="the-2030-product-development-manager-lens">The 2030 Product Development Manager lens</h2>
+<ul>
+<li><strong>You decide:</strong> the status, the owner, the risk and whether a licence is acceptable.</li>
+<li><strong>You delegate to agents:</strong> quoting licence files, checking that paths in a catalogue entry exist, drafting a change record from an issue you wrote.</li>
+<li><strong>A sample brief:</strong> “For each path in this catalogue entry, say whether the file exists in the repository. Report missing ones. Do not create files.”</li>
+<li><strong>You verify by:</strong> opening the licence file yourself for every record you sign.</li>
+<li><strong>Disciplines involved:</strong> legal awareness, operations, engineering, security and product.</li>
+<li><strong>On the agent ladder:</strong> these three templates sit at <strong>delegate with checks</strong>. They are also where <strong>govern</strong> starts, because someone must own the rules.</li>
+</ul>
+<h2 id="further-learning">Further learning</h2>
+<p>Return to <a href="/library/case-study-danhup-the-product-on-one-page">page 1 of the case study</a> and compare it to your own work. Then read <a href="/library/week-4-defend-the-roadmap">Week 4</a> for how to defend a roadmap, and the <a href="/library/templates-overview">templates overview</a> for the blank versions.</p>
+</div><section class="further" aria-label="Further learning" data-pagefind-ignore data-astro-cid-ecbjlo7c><header class="section-header tone-paper align-start" data-astro-cid-pb4nux2a><p class="eyebrow" data-astro-cid-pb4nux2a><span data-astro-cid-pb4nux2a>Go deeper</span><span class="eyebrow-rule" aria-hidden="true" data-astro-cid-pb4nux2a></span></p><h2 class="title" data-astro-cid-pb4nux2a="true">Further learning</h2></header><p class="further-intro" data-astro-cid-ecbjlo7c>Free or low-cost material from other publishers. We opened every link; check the cost label before you start.</p><ul class="cards" data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="adr/architectural-decision-records" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>ADR community (adr.github.io)</p><h3 data-astro-cid-jtgbjsdm><a href="https://adr.github.io/" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>Architectural Decision Records (ADRs)<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Docs</li><li class="chip" data-astro-cid-jtgbjsdm>Intermediate</li></ul><p class="summary" data-astro-cid-jtgbjsdm>A community-maintained home for architectural decision records: short files that record a decision, the options considered and the reason. It explains the idea, lists templates and links to examples. Read it before you write your first decision record, so you can capture decisions in git in a form that a colleague, or an AI agent, can read later.</p></article></li><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="spdx/license-list" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>SPDX</p><h3 data-astro-cid-jtgbjsdm><a href="https://spdx.org/licenses/" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>SPDX License List<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Docs</li><li class="chip" data-astro-cid-jtgbjsdm>Beginner</li></ul><p class="summary" data-astro-cid-jtgbjsdm>The reference list of short licence identifiers such as MIT and Apache-2.0. These identifiers are what you write in a licence check record. Use it as a lookup, not as reading material.</p></article></li><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="google-sre/embracing-risk" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>Google</p><h3 data-astro-cid-jtgbjsdm><a href="https://sre.google/sre-book/embracing-risk/" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>Google SRE Book: Embracing risk<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Book</li><li class="chip" data-astro-cid-jtgbjsdm>Intermediate</li></ul><p class="summary" data-astro-cid-jtgbjsdm>A chapter that explains why perfect reliability is the wrong goal and how error budgets balance speed and safety. It is the base for the service level ideas in this program. Read it slowly; the ideas matter more than the maths.</p></article></li><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="backstage/software-catalog" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>Backstage</p><h3 data-astro-cid-jtgbjsdm><a href="https://backstage.io/docs/features/software-catalog/" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>Backstage Software Catalog<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Docs</li><li class="chip" data-astro-cid-jtgbjsdm>Intermediate</li></ul><p class="summary" data-astro-cid-jtgbjsdm>Explains how a catalogue of services can be kept as files in the same repositories as the code. This is the same idea as catalogue entries in git. Read the overview to see what an entry holds.</p></article></li><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="atlassian/service-catalog" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>Atlassian</p><h3 data-astro-cid-jtgbjsdm><a href="https://www.atlassian.com/itsm/service-request-management/service-catalog" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>Atlassian: IT service catalogs<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Article</li><li class="chip" data-astro-cid-jtgbjsdm>Intermediate</li></ul><p class="summary" data-astro-cid-jtgbjsdm>Explains what a service catalogue is and what an entry usually contains. It is written for classic IT teams, so compare it with a catalogue kept as files in git. Use it to understand why owners and support details matter.</p></article></li><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="gitlab/merge-requests" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>GitLab</p><h3 data-astro-cid-jtgbjsdm><a href="https://docs.gitlab.com/user/project/merge_requests/" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>Merge requests<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Docs</li><li class="chip" data-astro-cid-jtgbjsdm>Beginner</li></ul><p class="summary" data-astro-cid-jtgbjsdm>GitLab&#39;s reference for merge requests, the place where an agent&#39;s work is reviewed and merged. Read it so you can review agent output through the same door as any other change.</p></article></li></ul></section><nav class="pager" data-pagefind-ignore aria-label="More in Case study" data-astro-cid-ecbjlo7c><a class="prev" href="/library/case-study-danhup-epics-and-roadmap" data-astro-cid-ecbjlo7c><span data-astro-cid-ecbjlo7c>Previous</span>Case study: DanHup epics, roadmap and milestones</a><span data-astro-cid-ecbjlo7c></span></nav><p class="back" data-astro-cid-ecbjlo7c><a href="/library" data-astro-cid-ecbjlo7c>Back to the library</a></p></div><aside class="side" data-pagefind-ignore data-astro-cid-ecbjlo7c><nav class="toc toc-side" aria-label="Table of contents" data-astro-cid-p33bl5ka><p class="toc-title" aria-hidden="true" data-astro-cid-p33bl5ka>On this page</p><ol data-astro-cid-p33bl5ka><li class="depth-2" data-astro-cid-p33bl5ka><a href="#why-it-matters" data-astro-cid-p33bl5ka>Why it matters</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#key-ideas" data-astro-cid-p33bl5ka>Key ideas</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#step-1-template-6-a-draft-decision-record" data-astro-cid-p33bl5ka>Step 1: Template 6, a draft decision record</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#step-2-template-7-a-catalogue-entry" data-astro-cid-p33bl5ka>Step 2: Template 7, a catalogue entry</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#step-3-template-8-a-change-record" data-astro-cid-p33bl5ka>Step 3: Template 8, a change record</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#step-4-what-these-three-pages-share" data-astro-cid-p33bl5ka>Step 4: What these three pages share</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#working-with-ai-agents" data-astro-cid-p33bl5ka>Working with AI agents</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#common-mistakes" data-astro-cid-p33bl5ka>Common mistakes</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#practice" data-astro-cid-p33bl5ka>Practice</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#checklist" data-astro-cid-p33bl5ka>Checklist</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#the-2030-product-development-manager-lens" data-astro-cid-p33bl5ka>The 2030 Product Development Manager lens</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#further-learning" data-astro-cid-p33bl5ka>Further learning</a></li></ol></nav></aside></div></article></main><section class="sponsor-band" aria-label="Sponsored by Reveltek" data-astro-cid-ji2uitki><div class="backdrop" aria-hidden="true" data-astro-cid-ji2uitki><span class="only-light" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band.avif"><source type="image/webp" srcset="/images/mountains-band.webp"><img src="/images/mountains-band.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span><span class="only-dark" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band-dark.avif"><source type="image/webp" srcset="/images/mountains-band-dark.webp"><img src="/images/mountains-band-dark.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span></div><div class="container inner" data-astro-cid-ji2uitki><span class="lead" data-astro-cid-ji2uitki>Sponsored by</span><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span><a class="sponsor" href="/sponsors" data-astro-cid-ji2uitki><img class="only-light" src="/images/reveltek-logo.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki><img class="only-dark" src="/images/reveltek-logo-white.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki></a><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span></div></section><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="container inner" data-astro-cid-jo6i4kqk><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><nav aria-label="Footer" data-astro-cid-jo6i4kqk><ul data-astro-cid-jo6i4kqk><li data-astro-cid-jo6i4kqk><a href="/about" data-astro-cid-jo6i4kqk>About CRC</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors" data-astro-cid-jo6i4kqk>Sponsors (Reveltek)</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors#become-a-sponsor" data-astro-cid-jo6i4kqk>Become a sponsor</a></li><li data-astro-cid-jo6i4kqk><a href="/contact" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href="/code-of-conduct" data-astro-cid-jo6i4kqk>Code of conduct</a></li><li data-astro-cid-jo6i4kqk><a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>GitHub</a></li></ul></nav></div><p class="legal container" data-astro-cid-jo6i4kqk>© 2026 Curiosity Research Corporation. Developer Dojo is free for everyone and is sponsored by Reveltek.</p></footer></body></html><script type="module">for(let e of document.querySelectorAll(`.prose .task-list-item > input[type="checkbox"]`)){let t=e.parentElement?.textContent?.trim();t&&e.setAttribute(`aria-label`,t)}</script>
