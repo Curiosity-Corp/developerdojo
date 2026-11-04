@@ -184,4 +184,4 @@ The five checkpoints are one per day: (1) epic and roadmap by hand, OSS selectio
 
 ## Where to go next
 
-Read the [Track B weekly checklist and capstone plan](/library/weekly-checklist-track-b-and-capstone) and the [Master Developer assessment overview](/library/master-developer-assessment).
+Read the [Track B weekly checklist and capstone plan](/library/weekly-checklist-track-b-and-capstone) and the [Master Developer assessment overview](/library/master-developer-assessment). For how the six Dojo Readiness areas line up with the rubrics, see the [readiness map](/library/rubric-readiness-map).

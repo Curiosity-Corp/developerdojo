@@ -226,4 +226,4 @@ If any answer is no, write what happened and what you will do about it. Honesty 
 
 ## Where to go next
 
-Read the [weekly checklist for Track A](/library/weekly-checklist-track-a) for what to finish each week, and the [gates and critical behaviours](/library/rubric-track-b-gates) for the Track B half of the assessment.
+Read the [weekly checklist for Track A](/library/weekly-checklist-track-a) for what to finish each week, and the [gates and critical behaviours](/library/rubric-track-b-gates) for the Track B half of the assessment. To see how the six skills line up with the six Dojo Readiness areas, read the [readiness map](/library/rubric-readiness-map).

@@ -141,4 +141,4 @@ Examples of a zero:
 
 ## Where to go next
 
-Read the [capstone rubric and the ten mandatory items](/library/rubric-capstone), the [Track B weekly checklist](/library/weekly-checklist-track-b-and-capstone), and the [Master Developer assessment overview](/library/master-developer-assessment).
+Read the [capstone rubric and the ten mandatory items](/library/rubric-capstone), the [Track B weekly checklist](/library/weekly-checklist-track-b-and-capstone), the [Master Developer assessment overview](/library/master-developer-assessment), and the [readiness map](/library/rubric-readiness-map), which shows how the six Dojo Readiness areas line up with the rubrics.
