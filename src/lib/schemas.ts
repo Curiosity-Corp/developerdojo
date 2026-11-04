@@ -3,6 +3,8 @@ import { z } from 'zod';
 /** Fixed vocabularies (v2 content contract). Adding a value is a deliberate schema change. */
 export const LESSON_LEVELS = ['foundation', 'core', 'advanced'] as const;
 export const RESOURCE_LEVELS = ['beginner', 'intermediate', 'advanced'] as const;
+/** Interactive tools a page can carry. Every lesson's own checklist is tickable without this; `checklist` adds the progress panel. */
+export const LESSON_TOOLS = ['self-assessment-track-a', 'checklist'] as const;
 export const COSTS = ['free', 'free-audit', 'free-tier', 'paid'] as const;
 export const FORMATS = [
   'course',
@@ -71,6 +73,8 @@ export const librarySchema = z.object({
   /** Library slugs to read first. */
   prerequisites: z.array(z.string().min(1)).optional(),
   updated: z.coerce.date().optional(),
+  /** Interactive tool this page carries (saved on the learner's device, hidden without JavaScript). */
+  tool: z.enum(LESSON_TOOLS).optional(),
 });
 export type LibraryFrontmatter = z.infer<typeof librarySchema>;
 
