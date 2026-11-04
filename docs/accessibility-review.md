@@ -180,6 +180,19 @@ checked what element sits at the centre of the rank cards.
 | [#70](https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/work_items/70) | Orca reads the `/train/` path headings run together ("Developer6 weeks"). |
 | [#71](https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/work_items/71) | Static "nothing here yet" blocks carry `role="status"` and are announced as a status bar. |
 
+### Fixed after this pass
+
+The four issues above were fixed in later merge requests, on 4 November 2026. These were checked with the same emulated tools, not by a person.
+
+| Issue | Merge request | Result |
+| --- | --- | --- |
+| #69 | !73 | A "Skip past the list of resources" link before the list. |
+| #70 | !73 | A hidden comma between the path name and its chip, so it is read as "Developer, 6 weeks". |
+| #71 | !73 | `role="status"` removed from static empty states. |
+| #68 | !76 | At 195 px, 75 of 263 pages scrolled sideways before the fix and 0 after. At 320, 640 and 1280 px, 0 pages scroll sideways after the fix. The e2e checks now cover 14 pages at 195 and 320 px. |
+
+The person-led repeat of this pass is #72.
+
 ### Not looked at
 
 - Colour contrast of body text and the dark theme (the pipeline's automatic scan already checks contrast).
