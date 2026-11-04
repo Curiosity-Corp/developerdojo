@@ -78,6 +78,16 @@ const Wrapper = href ? 'a' : 'div';
   .body {
     display: block;
     min-width: 0;
+    overflow-wrap: break-word;
+  }
+  @media (max-width: 30rem) {
+    /* A phone at 200 percent zoom: the text goes under the icon instead of into a column a few letters wide. */
+    .icon-card {
+      flex-wrap: wrap;
+    }
+    .body {
+      flex: 1 1 9rem;
+    }
   }
   .card-title {
     margin: 0 0 var(--space-1);

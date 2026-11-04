@@ -178,6 +178,7 @@ const masterChecks = [
   }
   .paths {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-5);
     align-items: start;
   }
@@ -200,6 +201,7 @@ const masterChecks = [
   .path {
     --tone: var(--tone-olive);
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
     align-content: start;
     height: 100%;
@@ -216,8 +218,14 @@ const masterChecks = [
   }
   .path header {
     display: flex;
+    flex-wrap: wrap;
     gap: var(--space-3);
     align-items: center;
+  }
+  .path header > div {
+    flex: 1 1 8rem;
+    min-width: 0;
+    overflow-wrap: break-word;
   }
   .tile {
     display: grid;
@@ -256,6 +264,7 @@ const masterChecks = [
   }
   .checks {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-2);
     margin: 0;
     padding: 0;
@@ -282,6 +291,7 @@ const masterChecks = [
 
   .modules-grid {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-5);
     align-items: start;
   }
@@ -318,6 +328,7 @@ const masterChecks = [
   }
   .two-up {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-5);
   }
   @media (min-width: 62rem) {

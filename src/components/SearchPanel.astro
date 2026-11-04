@@ -141,17 +141,20 @@ const { id, label = 'Search the whole site' } = Astro.props;
 <style>
   .search-panel {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-2);
     color: var(--ink);
   }
   form {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-2);
   }
   label {
     font-weight: 700;
   }
   input {
+    min-width: 0;
     font: inherit;
     padding: var(--space-3) var(--space-4);
     border: 2px solid var(--line-strong);
@@ -170,6 +173,7 @@ const { id, label = 'Search the whole site' } = Astro.props;
   }
   .results {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
   }
   .results :global(h3) {
@@ -178,6 +182,7 @@ const { id, label = 'Search the whole site' } = Astro.props;
   }
   .results :global(ul) {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
     margin: 0;
     padding: 0;

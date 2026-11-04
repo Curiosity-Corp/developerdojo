@@ -57,6 +57,8 @@ const { eyebrow, title, intro, as: Tag = 'h2', tone = 'paper', align = 'start' }
   }
   .title {
     margin-bottom: var(--space-2);
+    /* A long word breaks only when it cannot fit the line (a phone at 200 percent zoom, #68). */
+    overflow-wrap: break-word;
   }
   .intro {
     margin: 0;
