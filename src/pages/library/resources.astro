@@ -71,6 +71,7 @@ const formatsInUse = FORMATS.filter((format) => sorted.some((resource) => resour
         ) : (
           <>
             <h2 class="visually-hidden">All resources</h2>
+            <p class="skip-list"><a href="#after-resources">Skip past the list of resources</a></p>
             <ul class="grid" id="resource-list" data-pagefind-ignore>
               {sorted.map((resource) => (
                 <li
@@ -88,6 +89,7 @@ const formatsInUse = FORMATS.filter((format) => sorted.some((resource) => resour
           </>
         )
       }
+      <span id="after-resources" tabindex="-1"></span>
       <p id="resource-empty" hidden>No resource matches those filters. Clear a filter to see more.</p>
     </div>
   </section>

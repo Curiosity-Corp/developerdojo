@@ -24,7 +24,7 @@ const kind = event.type ? EVENT_TYPES[event.type].label : 'Session';
 
   <section class="section">
     <div class="container layout">
-      {cancelled && <p class="notice" role="status"><Icon name="circle-alert" size={20} /> This session is cancelled.</p>}
+      {cancelled && <p class="notice"><Icon name="circle-alert" size={20} /> This session is cancelled.</p>}
 
       <section id="when" class="when">
         <SectionHeader eyebrow="When" title="Date, time and timezone" />

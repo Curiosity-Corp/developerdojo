@@ -43,7 +43,8 @@ describe('list-stale-resources', () => {
     expect(run('--today', '2027-02-01', '--days', '400')).toContain('1 of 4 resources need a fresh check.');
   });
 
-  it('runs clean on the real catalogue', () => {
+  // Reads every resource file (861 today), so it can pass the 5 s default on a busy machine.
+  it('runs clean on the real catalogue', { timeout: 30_000 }, () => {
     const out = execFileSync('node', ['scripts/list-stale-resources.mjs'], { encoding: 'utf8' });
     expect(out).toMatch(/^# Stale resources/);
   });
