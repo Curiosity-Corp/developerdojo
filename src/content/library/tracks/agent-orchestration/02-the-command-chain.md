@@ -15,8 +15,8 @@ outcomes:
 resources:
   - "wikipedia/span-of-control"
   - "wikipedia/mission-command"
-  - "openai/agents-sdk-orchestration"
-  - "anthropic/claude-code-subagents"
+  - "openai/agents-orchestration"
+  - "anthropic/claude-code-sub-agents"
   - "anthropic/claude-code-agent-teams"
   - "anthropic/claude-code-agent-view"
   - "open-policy-agent/conftest"

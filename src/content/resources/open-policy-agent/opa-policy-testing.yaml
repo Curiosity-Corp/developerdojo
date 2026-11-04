@@ -1,9 +1,0 @@
-title: "Policy Testing"
-provider: "Open Policy Agent"
-url: "https://www.openpolicyagent.org/docs/policy-testing"
-cost: "free"
-format: "docs"
-level: "intermediate"
-skills: [security, ci-cd]
-summary: "How to write unit tests for policies and run them with opa test. A policy that is not tested is only a hope, so use this when you test the policy files in the labs."
-verifiedOn: 2026-11-03

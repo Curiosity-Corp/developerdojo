@@ -1,9 +1,0 @@
-title: "Policy Language"
-provider: "Open Policy Agent"
-url: "https://www.openpolicyagent.org/docs/policy-language"
-cost: "free"
-format: "docs"
-level: "intermediate"
-skills: [security, ci-cd]
-summary: "The reference for Rego, the language Open Policy Agent uses to write rules over structured data. Read it to understand the rules in the labs and to write your own."
-verifiedOn: 2026-11-03

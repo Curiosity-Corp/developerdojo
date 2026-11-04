@@ -13,8 +13,8 @@ outcomes:
   - "Record why a rule exists with a decision record"
   - "Explain the difference between a policy, a guard and a gate"
 resources:
-  - "open-policy-agent/opa-policy-language"
-  - "open-policy-agent/opa-policy-testing"
+  - "opa/opa-policy-language"
+  - "opa/opa-policy-testing"
   - "open-policy-agent/conftest"
   - "adr/architectural-decision-records"
   - "anthropic/claude-code-settings"
