@@ -74,7 +74,7 @@ The seven scales say *what* you work on. A second question is *who does the work
 | **Orchestrate** | Run many agent sessions at once, in a command chain. | One session per interface, with a lead that collects results. |
 | **Govern** | Set written rules, hooks and gates, so many sessions stay inside limits without you reading every line. | Protected branches, a merge train, a pipeline that must be green. |
 
-A **command chain** is a simple idea with four named roles. A **Session** is one agent doing one task. A **Commander** runs one product's command centre and its sessions. A **Chief of Command** runs several Commanders. An **Admiral** oversees the whole operation inside written policy and hands out *outcomes*, not instructions. People hold the accountable roles at the top; policy and gates keep the lower ones in bounds. This is the operating layer that sits under every scale on the map. The advanced agent orchestration track teaches its shape and thinking, and this track tells you where to apply it.
+A **command chain** is a simple idea with four named roles. A **Session** is one agent doing one task. A **Commander** runs one product's command centre and its sessions. A **Chief of Command** runs several Commanders. An **Admiral** oversees the whole operation inside written policy and hands out *outcomes*, not instructions. People hold the accountable roles at the top; policy and gates keep the lower ones in bounds. This is the operating layer that sits under every scale on the map. The advanced [agent orchestration track](/library/tracks/agent-orchestration/) teaches its shape and thinking, and this track tells you where to apply it.
 
 Two helpers sit next to the map:
 

@@ -16,7 +16,7 @@ outcomes:
 
 Developer Dojo trains the **2030 Product Development Manager** (PDM): a person who blends strategy, product, design, brand, finance, operations, security and engineering, and who treats AI agents as the workforce for routine work. The agents write code, tests, draft documents and research notes. The PDM decides what to build and why, frames the problem, owns the epics and the roadmap, directs the agents, verifies what they return, manages the risk and ships to real people.
 
-Your skill with agents is a ladder: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** many sessions in a command chain (Session, Commander, Chief of Command, Admiral), and **govern** them with written policy, hooks and gates. This track places each framework on that ladder, and the advanced agent orchestration track goes deep on the top two rungs.
+Your skill with agents is a ladder: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** many sessions in a command chain (Session, Commander, Chief of Command, Admiral), and **govern** them with written policy, hooks and gates. This track places each framework on that ladder, and the advanced [agent orchestration track](/library/tracks/agent-orchestration/) goes deep on the top two rungs.
 
 To work across so many disciplines you need a **shared language**: a small set of pictures and questions that a founder, a designer, a marketer, a finance colleague, an operations lead and a developer can all use. This track teaches that language. It is the interdisciplinary core of the Dojo.
 
@@ -76,7 +76,7 @@ The frameworks come from World Enterprise Group, a business incubator. They use 
 
 **ANDROID Ops, Launch Sequence, Mission Control and the capstone (lessons 20 onward)**
 
-These lessons start with Why a new operating model and continue with the seven ANDROID Ops focus areas, DROID Ops, Launch Sequence, Mission Control and an interdisciplinary capstone that takes TrailMug from idea to running product, with pages that show how designers, marketers, finance and operations people use the same frameworks. The technology lessons live in the separate [PHANTOMS stack track](/library/tracks/phantoms-stack/).
+These lessons start with [Why a new operating model](/library/tracks/frameworks/20-why-a-new-operating-model/) and continue with the seven ANDROID Ops focus areas, DROID Ops, [Launch Sequence](/library/tracks/frameworks/25-launch-sequence-six-stages/), Mission Control and an [interdisciplinary capstone](/library/tracks/frameworks/30-capstone-overview-and-dream-discovery/) that takes TrailMug from idea to running product, with pages that show how designers, marketers, finance and operations people use the same frameworks. The technology lessons live in the separate [PHANTOMS stack track](/library/tracks/phantoms-stack/).
 
 ## How it maps to the Developer programme
 

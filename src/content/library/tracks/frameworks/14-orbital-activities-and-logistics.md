@@ -207,7 +207,7 @@ markdown with the four lists. Questions go under OPEN QUESTIONS.
 
 The agent lists, you decide. Notice that the brief forbids re-writing milestones and changing epics. That is the rule at work.
 
-When you run several agents on this (one reading budget, one reading transport, one writing the pre-mortem), you are **orchestrating**. Give each session only the files it needs, collect the results in one file and review them yourself. A written **policy** (for instance, "agents may propose changes to Activities in a branch but only the PDM merges them") is what keeps a larger set of sessions safe. See the agent orchestration track.
+When you run several agents on this (one reading budget, one reading transport, one writing the pre-mortem), you are **orchestrating**. Give each session only the files it needs, collect the results in one file and review them yourself. A written **policy** (for instance, "agents may propose changes to Activities in a branch but only the PDM merges them") is what keeps a larger set of sessions safe. See the [agent orchestration track](/library/tracks/agent-orchestration/).
 
 ## 6. Common mistakes and how to avoid them
 

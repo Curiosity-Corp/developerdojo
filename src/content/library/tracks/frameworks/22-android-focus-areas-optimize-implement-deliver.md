@@ -77,7 +77,7 @@ ask me.
 
 **Evidence in git.** `docs/measures.md` (name, definition, source, owner, target, review date), the scripts, and a `docs/reviews/` folder with dated notes of what was learned and what changed.
 
-**Skill tracks.** Observability and service management, [Agile delivery](/library/tracks/agile-delivery/), and [Working with AI agents](/library/tracks/working-with-ai-agents/) for evaluating agent work.
+**Skill tracks.** [Observability and service management](/library/tracks/observability-and-service-management/), [Agile delivery](/library/tracks/agile-delivery/), and [Working with AI agents](/library/tracks/working-with-ai-agents/) for evaluating agent work.
 
 ### 2.2 Implement: build, test and integrate
 
@@ -128,7 +128,7 @@ Rules:
 
 **Evidence in git.** Merge requests with descriptions, test files, UAT notes in the issue, and pipeline results. The [change record template](/library/template-change-record) turns a merge request into the formal record.
 
-**Skill tracks.** [CI/CD](/library/tracks/ci-cd/), [Git and GitLab](/library/tracks/git-and-gitlab/), Security fundamentals, Infrastructure as code, and the [PHANTOMS stack](/library/tracks/phantoms-stack/) for a ready starting point that agents can scaffold.
+**Skill tracks.** [CI/CD](/library/tracks/ci-cd/), [Git and GitLab](/library/tracks/git-and-gitlab/), [Security fundamentals](/library/tracks/security-fundamentals/), [Infrastructure as code](/library/tracks/infrastructure-as-code/), and the [PHANTOMS stack](/library/tracks/phantoms-stack/) for a ready starting point that agents can scaffold.
 
 ### 2.3 Deliver: release, support and learn
 
@@ -165,9 +165,9 @@ three changes with the highest risk and why. Output two sections.
 
 **Check it.** Compare each line of the customer notes with its merge request. Any line you cannot match is deleted.
 
-**Evidence in git.** Release records (tag, notes, who approved), a rollback note, feedback summaries, and a closed-loop issue for each bug. Lessons 25 to 28 of this track show how a full pipeline turns these into automatic gates: see Launch Sequence.
+**Evidence in git.** Release records (tag, notes, who approved), a rollback note, feedback summaries, and a closed-loop issue for each bug. Lessons 25 to 28 of this track show how a full pipeline turns these into automatic gates: see [Launch Sequence](/library/tracks/frameworks/25-launch-sequence-six-stages/).
 
-**Skill tracks.** [CI/CD](/library/tracks/ci-cd/), Kubernetes and GitOps, [Cloud platforms](/library/tracks/cloud-platforms/) and Observability and service management.
+**Skill tracks.** [CI/CD](/library/tracks/ci-cd/), [Kubernetes and GitOps](/library/tracks/kubernetes-and-gitops/), [Cloud platforms](/library/tracks/cloud-platforms/) and Observability and service management.
 
 ## 3. Step by step: one change through areas 5 to 7
 
@@ -185,7 +185,7 @@ three changes with the highest risk and why. Output two sections.
 Maya's epic from lesson 21 says: "Return a cup in under ten seconds at the counter."
 
 - **Optimize.** She writes the measure in `docs/measures.md`: median time from scan to green screen, target under ten seconds in the café trial, and a reliability target of 99 percent of scans recorded. These numbers are fictional.
-- **Implement.** She writes four acceptance criteria. She splits the work into three issues: the API that records a return, the counter page, and the log of failed scans. She gives each to an agent with a brief like the one above. She reviews three merge requests. In the second, the agent added a new library to read QR codes. Her rule says stop and ask, so she checks the library's licence and its OpenSSF Scorecard (see lesson 26), and accepts it.
+- **Implement.** She writes four acceptance criteria. She splits the work into three issues: the API that records a return, the counter page, and the log of failed scans. She gives each to an agent with a brief like the one above. She reviews three merge requests. In the second, the agent added a new library to read QR codes. Her rule says stop and ask, so she checks the library's licence and its OpenSSF Scorecard (see [lesson 26](/library/tracks/frameworks/26-supply-chain-and-artifact-security/)), and accepts it.
 - **Deliver.** She releases to Leo's café only. She has a one-line rollback: switch the counter page back to the manual form. The next day Leo reports that scans fail on cups with scratched codes. She files an issue, directs an agent to add a manual entry fallback, reviews it and releases again.
 - **Learn.** Her review note says: median time was above target on busy days; the cause was typing the café code. She adds a research question for the next cycle.
 
@@ -201,7 +201,7 @@ If your agents work in parallel, assign them non-overlapping files. When two tou
 
 Always [disclose AI use](/library/disclose-ai-use) in the merge request and in the release record.
 
-**From delegating to orchestrating.** Optimize, Implement and Deliver are where many sessions can run in parallel. That is orchestration, and it needs a policy that says what a session may change, hooks that stop known mistakes, and gates for tests and release. The Agent orchestration track covers these.
+**From delegating to orchestrating.** Optimize, Implement and Deliver are where many sessions can run in parallel. That is orchestration, and it needs a policy that says what a session may change, hooks that stop known mistakes, and gates for tests and release. The [Agent orchestration](/library/tracks/agent-orchestration/) track covers these.
 
 ## 6. Common mistakes and how to avoid them
 

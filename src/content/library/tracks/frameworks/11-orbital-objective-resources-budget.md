@@ -176,7 +176,7 @@ Rules:
 4. Return markdown only. Put every question for me under OPEN QUESTIONS.
 ```
 
-When this work becomes **orchestration** (several agents running at once, say one on prices, one on the table and one on a risk review), give each its own branch and folder, and let a gate decide what merges: the budget file needs your review before it is accepted. The agent orchestration track explains how.
+When this work becomes **orchestration** (several agents running at once, say one on prices, one on the table and one on a risk review), give each its own branch and folder, and let a gate decide what merges: the budget file needs your review before it is accepted. The [agent orchestration track](/library/tracks/agent-orchestration/) explains how.
 
 A reminder from The Way: **people write epics and roadmaps; AI never does.** ORBITAL sits above them. The objective you write here is what the epic later serves.
 

@@ -88,7 +88,7 @@ Two notes. First, the legal and financial parts need a qualified professional in
 
 **Question:** How does work move from idea to a delivered, improving product?
 
-ANDROID Ops is our operating model, with seven focus areas: Advance, Network, Design, Research, Optimize, Implement, Deliver. It joins agile working, DevOps (the practice of building and running software together) and MLOps (the same for machine-learning systems). It has its own set of lessons, starting with Why a new operating model. **Output:** a working increment of the product and the records of how it was made.
+ANDROID Ops is our operating model, with seven focus areas: Advance, Network, Design, Research, Optimize, Implement, Deliver. It joins agile working, DevOps (the practice of building and running software together) and MLOps (the same for machine-learning systems). It has its own set of lessons, starting with [Why a new operating model](/library/tracks/frameworks/20-why-a-new-operating-model/). **Output:** a working increment of the product and the records of how it was made.
 
 ### Stage 5: LAUNCH Sequence (release)
 

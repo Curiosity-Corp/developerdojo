@@ -158,7 +158,7 @@ OPEN QUESTIONS.
 
 Agents are good at **mechanical analysis** and at imagining how a number could mislead. They are poor judges of what your customers value. They also like to make a report look complete. Insist on UNKNOWN.
 
-When several agents are involved (for example one for queries, one for the dashboard and one for a data-quality check), you are **orchestrating**. Keep the measurement definitions in one file that all sessions read, and add a **gate**: a check in the pipeline that runs the saved queries on test data and fails if an output changes. The agent orchestration track explains gates and policy in more depth.
+When several agents are involved (for example one for queries, one for the dashboard and one for a data-quality check), you are **orchestrating**. Keep the measurement definitions in one file that all sessions read, and add a **gate**: a check in the pipeline that runs the saved queries on test data and fails if an output changes. The [agent orchestration track](/library/tracks/agent-orchestration/) explains gates and policy in more depth.
 
 Disclose AI use in the header of the measurement plan.
 

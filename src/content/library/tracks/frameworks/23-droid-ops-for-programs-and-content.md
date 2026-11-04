@@ -47,7 +47,7 @@ In the framework text a "DROID" is a small, focused unit of work with one purpos
 | Release | Full pipeline with security and governance gates | Publish, announce, support |
 | Typical length | Continuous | Days to weeks, then repeated |
 
-They connect in two ways. First, a product release **needs** DROID work around it: a guide, a training session, a support script. Second, when a DROID finishes a build and wants it to go live, it hands over to the launch process. The handover is a written, structured request with a clear definition of done. You will see that idea again in lesson 25.
+They connect in two ways. First, a product release **needs** DROID work around it: a guide, a training session, a support script. Second, when a DROID finishes a build and wants it to go live, it hands over to the launch process. The handover is a written, structured request with a clear definition of done. You will see that idea again in [lesson 25](/library/tracks/frameworks/25-launch-sequence-six-stages/).
 
 ### 2.3 The five steps
 
@@ -181,7 +181,7 @@ Mark anything you assumed about the screen with [CHECK].
 
 **Other disciplines.** Support and operations know where people get stuck. Marketing knows the words customers use. A designer improves the layout. A PDM brings them in at Research and Optimize, not at the end.
 
-**From delegating to orchestrating.** Agents can draft programme and content material in parallel, for example one session per module. Keep one Commander (a person) who sets the policy, reviews each draft against the DROID Ops steps and decides what is published. See Agent orchestration.
+**From delegating to orchestrating.** Agents can draft programme and content material in parallel, for example one session per module. Keep one Commander (a person) who sets the policy, reviews each draft against the DROID Ops steps and decides what is published. See [Agent orchestration](/library/tracks/agent-orchestration/).
 
 ## 6. Common mistakes and how to avoid them
 

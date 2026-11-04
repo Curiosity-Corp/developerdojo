@@ -204,7 +204,7 @@ would remove it. Do not edit any files. If you are unsure, say UNSURE.
 
 **Other disciplines.** Security helps decide the policy. Legal or a licence-aware colleague reviews licences. Finance cares if a vulnerability notice has a cost (for example, a customer contract). Operations runs the drill.
 
-**From delegating to orchestrating.** Sessions add code and dependencies quickly, so the supply chain checks in this lesson matter more with agents, not less. Make them gates, and keep sessions away from signing keys and release credentials. See Agent orchestration for how gates work across a fleet.
+**From delegating to orchestrating.** Sessions add code and dependencies quickly, so the supply chain checks in this lesson matter more with agents, not less. Make them gates, and keep sessions away from signing keys and release credentials. See [Agent orchestration](/library/tracks/agent-orchestration/) for how gates work across a fleet.
 
 ## 6. Common mistakes and how to avoid them
 
