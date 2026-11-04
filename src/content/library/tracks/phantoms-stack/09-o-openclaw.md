@@ -25,6 +25,8 @@ updated: 2026-11-03
 
 This is lesson 9 of the PHANTOMS track. It supports the Master Developer module on AI-agent orchestration, at its most demanding: agents that run as part of your product, not only agents that build it. O is optional. The skill this lesson teaches is as much *when to say no* as how to say yes.
 
+> **Review note, 3 November 2026: the O slot is under review.** The people who maintain the PHANTOMS stack are checking whether OpenClaw fits the role this lesson gives it. Three facts drive the review. First, OpenClaw describes itself as a personal assistant that runs on your own devices and meets you in chat apps, not as a library that your product's backend embeds. Second, it is a Node application, while the rest of PHANTOMS uses Bun only, so it would be a separately deployed service with its own runtime. Third, it changes fast and publishes many [security advisories](https://github.com/openclaw/openclaw/security/advisories), so a pinned version needs a fresh read of them before every update. The lesson below stays useful: the boundary you draw (a narrow, authenticated interface, a deny-by-default tool list, human approval for risky actions) is the same for any agent runtime. When the review ends, this lesson will be rewritten to match the decision.
+
 ## 1. Why this matters
 
 Three different things get called "an agent". Keep them apart.
