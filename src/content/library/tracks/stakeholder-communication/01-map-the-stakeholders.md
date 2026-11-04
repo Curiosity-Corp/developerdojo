@@ -166,7 +166,7 @@ as questions for me. Do not add them to the table.
 
 **Privacy.** Notes from conversations may contain personal details. Share only what the agent needs, and follow your own rules for personal data. Never paste secrets or private contact details into a prompt.
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **use** and **delegate**. The table also becomes a policy input later: it says who may be contacted and what an agent may never send without a person reading it. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **use** and **delegate**. The table also becomes a policy input later: it says who may be contacted and what an agent may never send without a person reading it. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the upper rungs.
 
 **Disclose.** In the table: "AI use: first draft from my notes. Every cell was checked against its source."
 

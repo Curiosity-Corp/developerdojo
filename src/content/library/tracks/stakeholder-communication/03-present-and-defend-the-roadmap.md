@@ -185,7 +185,7 @@ questions and list the three where I was weakest.
 
 **Warning.** An agent playing a sponsor is polite and well read, but it does not know your sponsor's history, her money or her mood. Use it for practice, not for prediction.
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **use**: you talk to one agent, and you judge every answer. The roadmap itself, once presented, becomes the standard that governs later work, because every brief points to it. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **use**: you talk to one agent, and you judge every answer. The roadmap itself, once presented, becomes the standard that governs later work, because every brief points to it. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the upper rungs.
 
 **Disclose.** In `roadmap/review-notes.md`: "AI use: practice questions and a consistency check. The roadmap, the reasons and the answers are mine."
 

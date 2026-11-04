@@ -191,7 +191,7 @@ ambiguous.
 
 **A trap.** Agents produce screens that look finished and persuasive. People then judge the polish, not the idea. Keep early tests grey, or tell testers explicitly that the screen is a rough idea.
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **delegate**. A mockup, its checks and the brand sheet form a complete brief. If several agents build screens at once, you are orchestrating, and shared elements such as buttons and labels must come from one source. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **delegate**. A mockup, its checks and the brand sheet form a complete brief. If several agents build screens at once, you are orchestrating, and shared elements such as buttons and labels must come from one source. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the upper rungs.
 
 **Disclose.** In `design/mockups/index.md`: "AI use: wireframe options and brand application. The screens, claims, unknowns and checks are mine."
 

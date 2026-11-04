@@ -184,7 +184,7 @@ After my fifth answer, tell me which of my answers was vaguest.
 
 **Disclose.** At the bottom of `breaks.md`: "AI use: gap check and a practice session of coach questions. All breaks, scores and groupings are mine."
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson is where **delegate** meets **orchestrate**. The hand-over is the written input that later sessions work from. The more sessions that read it, the more it matters that it is exact, and the more you need a gate that checks each epic against it. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the two upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson is where **delegate** meets **orchestrate**. The hand-over is the written input that later sessions work from. The more sessions that read it, the more it matters that it is exact, and the more you need a gate that checks each epic against it. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the two upper rungs.
 
 ## 6. Common mistakes
 

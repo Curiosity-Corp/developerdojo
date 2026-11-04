@@ -211,7 +211,7 @@ Say clearly at the end what automated checks cannot tell us.
 
 **Never** let an agent role-play the usability participant and call it a test. An agent is not a person using your site, and its answer is a fluent guess.
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson spans **delegate** and **govern**. Automated checks in the pipeline are a gate that runs on every change. The human tests are the gate no tool replaces, and the decision log records what was found and fixed. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson spans **delegate** and **govern**. Automated checks in the pipeline are a gate that runs on every change. The human tests are the gate no tool replaces, and the decision log records what was found and fixed. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the upper rungs.
 
 **Disclose.** In `site/accessibility.md`: "AI use: automated check reports and fixes I approved. The keyboard, screen reader and usability tests were run by me."
 

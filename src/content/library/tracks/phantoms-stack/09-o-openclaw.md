@@ -139,7 +139,7 @@ She also drafts what the policy would say, so the trigger has a plan behind it: 
 
 **How to check the output.** Open each cited page and confirm the quote. Read the denied list for what is missing. Run the test scenarios by hand in the isolated setup, if one exists, and record the results. Treat every UNVERIFIED as a task.
 
-**Where this sits on the agent ladder.** Writing a permission policy is the *governing* rung: you set rules that hold even when you are not watching. Policy as data, hooks and gates for whole fleets of agents are taught in the Agent orchestration track.
+**Where this sits on the agent ladder.** Writing a permission policy is the *governing* rung: you set rules that hold even when you are not watching. Policy as data, hooks and gates for whole fleets of agents are taught in the [Agent orchestration track](/library/tracks/agent-orchestration/).
 
 **Disclose.** Say in the merge request that an agent drafted the policy and tests, and that you decided every permission. See [disclose AI use](/library/disclose-ai-use).
 

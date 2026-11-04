@@ -184,7 +184,7 @@ that goes beyond my facts.
 
 **Never delegate** the decision to apologise, to admit a failure or to promise a date. These are commitments, and they belong to a person.
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson is mostly about **govern**. The AI statement is a public policy, the risk list is a standing control and the rule "a person reads and sends every external message" is a gate you can enforce with tooling. When many agents work for you, these written rules are what keep them safe. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson is mostly about **govern**. The AI statement is a public policy, the risk list is a standing control and the rule "a person reads and sends every external message" is a gate you can enforce with tooling. When many agents work for you, these written rules are what keep them safe. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the upper rungs.
 
 **Disclose.** At the foot of messages where an agent helped draft: "Drafted with AI help; facts checked by me." Keep the public AI statement current.
 

@@ -69,7 +69,7 @@ Three platform settings do most of the work. Each can be set on the free GitLab 
 | **Required approval** | At least one other person approves. For production folders, a named owner. Some approval features differ by plan; check yours. |
 | **Protected environment** | Only certain people or roles can run jobs that deploy to production. |
 
-These are the places where **gates and hooks bound agent work**. An agent can open a merge request. It cannot merge, approve its own work, or reach the write credentials, because the platform refuses. When you want to give agents more reach, you widen what the gate allows, deliberately, and write it down. The Agent orchestration track (`/library/tracks/agent-orchestration`) treats this as policy as data. For now, remember the order: **set the gate first, then give the agent a task.**
+These are the places where **gates and hooks bound agent work**. An agent can open a merge request. It cannot merge, approve its own work, or reach the write credentials, because the platform refuses. When you want to give agents more reach, you widen what the gate allows, deliberately, and write it down. The [Agent orchestration track](/library/tracks/agent-orchestration/) treats this as policy as data. For now, remember the order: **set the gate first, then give the agent a task.**
 
 ### Drift detection
 
@@ -183,4 +183,4 @@ change, every public exposure and every cost driver. Say clearly "approve", or
 
 ## 9. Further learning
 
-GitLab's infrastructure as code guide shows a worked pipeline. OpenGitOps gives the principles behind plan, review, apply and drift. The merge request page covers approvals. Return to the CI/CD track, lessons 3 and 4, for the general gate and credential ideas, and follow the Agent orchestration track when you want to widen what agents may do under policy.
+GitLab's infrastructure as code guide shows a worked pipeline. OpenGitOps gives the principles behind plan, review, apply and drift. The merge request page covers approvals. Return to the CI/CD track, lessons 3 and 4, for the general gate and credential ideas, and follow the [Agent orchestration track](/library/tracks/agent-orchestration/) when you want to widen what agents may do under policy.

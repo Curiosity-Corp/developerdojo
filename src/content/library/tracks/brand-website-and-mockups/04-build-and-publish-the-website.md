@@ -187,7 +187,7 @@ Report facts only; do not edit files.
 
 **Never** let an agent invent testimonials, customer logos, statistics or awards. If it appears, delete it and tighten the brief.
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **delegate** and reaches **govern**. The checks for third-party requests, page weight and links can run in the pipeline on every change, so the rules hold when nobody is looking. A protected main branch and a required merge request mean nothing is published without a person's approval. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **delegate** and reaches **govern**. The checks for third-party requests, page weight and links can run in the pipeline on every change, so the rules hold when nobody is looking. A protected main branch and a required merge request mean nothing is published without a person's approval. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the upper rungs.
 
 **Disclose.** On the site, in the footer or the about text, say plainly that AI tools helped build the site, and that a person wrote and checked the content. Record the same in `site/README.md`.
 

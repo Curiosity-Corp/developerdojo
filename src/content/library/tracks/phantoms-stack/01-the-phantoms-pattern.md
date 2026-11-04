@@ -162,7 +162,7 @@ She writes a decision record that lists the five pieces she uses, the three she 
 
 **How to check the output.** Open every page the agent cites. Check that each claim is on the page. Look for what it left out: licence, backup and exit are the usual gaps. If a number has no source, remove it.
 
-**Where this sits on the agent ladder.** One comparison for one agent is *delegating*. When several sessions each own a part of the build, you are *orchestrating*, and written policy, hooks and pipeline gates must keep them safe. Lesson 12 practises this, and the Agent orchestration track teaches it in depth.
+**Where this sits on the agent ladder.** One comparison for one agent is *delegating*. When several sessions each own a part of the build, you are *orchestrating*, and written policy, hooks and pipeline gates must keep them safe. Lesson 12 practises this, and the [Agent orchestration track](/library/tracks/agent-orchestration/) teaches it in depth.
 
 **Disclose.** Note in the merge request that an agent produced the comparison and that you checked each source. See [disclose AI use](/library/disclose-ai-use).
 

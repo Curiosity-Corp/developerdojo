@@ -173,7 +173,7 @@ them. Do not recommend who to prioritise.
 
 **Disclose.** At the bottom of the file: "AI use: role extraction from my notes on [date]. I chose the main people and wrote the jobs and the list."
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. You are on the **use** rung here. Ask, read, and decide for yourself. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the two upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. You are on the **use** rung here. Ask, read, and decide for yourself. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the two upper rungs.
 
 ## 6. Common mistakes
 

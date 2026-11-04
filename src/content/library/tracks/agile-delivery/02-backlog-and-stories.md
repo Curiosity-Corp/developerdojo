@@ -194,7 +194,7 @@ Do not set the order and do not estimate.
 
 **Agents drafting checks for their own work.** If an agent writes both the story and the code, it can write checks that its code already passes. You write the checks, or you review them before the build starts.
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **delegate**. A story with checks is the unit of delegation. When many agents pull stories from one backlog, you are orchestrating, and the definition of ready becomes a gate: no story enters the cycle, and no agent starts, until the checklist is met. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **delegate**. A story with checks is the unit of delegation. When many agents pull stories from one backlog, you are orchestrating, and the definition of ready becomes a gate: no story enters the cycle, and no agent starts, until the checklist is met. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the upper rungs.
 
 **Disclose.** In the backlog file: "AI use: first drafts of stories and a vagueness check. The order, checks and scope are mine."
 

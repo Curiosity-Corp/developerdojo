@@ -158,7 +158,7 @@ Plan six focused hours a day. A mentor signs a checkpoint at the end of each day
 - **The brief you would write:** "Read my capstone repository and this day's checklist. For each item say present or missing, and cite the file. Do not edit anything."
 - **You verify by:** opening the cited files and running the validation commands yourself.
 - **Disciplines involved:** all of them, in one product: strategy, product, security, legal, finance, operations, service management and engineering.
-- **On the agent ladder:** the capstone asks for **orchestrate** (several agent sessions on different pieces) and **govern** (written rules, gates and a mentor as the final gate). The advanced agent-orchestration track in this program goes deeper.
+- **On the agent ladder:** the capstone asks for **orchestrate** (several agent sessions on different pieces) and **govern** (written rules, gates and a mentor as the final gate). The [advanced agent-orchestration track](/library/tracks/agent-orchestration/) in this program goes deeper.
 
 ## Common mistakes
 
