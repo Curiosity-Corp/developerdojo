@@ -1,0 +1,9 @@
+title: "Merge request pipelines"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/pipelines/merge_request_pipelines/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ci-cd, git-gitlab]
+summary: "How a pipeline can run for a merge request before anything merges. This is how \"proof before merge\" works."
+verifiedOn: 2026-11-03

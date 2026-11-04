@@ -1,0 +1,9 @@
+title: "CI/CD pipelines"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/pipelines/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [ci-cd, git-gitlab]
+summary: "How pipelines, stages and jobs fit together in GitLab. The base reference for turning a checklist into automatic gates."
+verifiedOn: 2026-11-03

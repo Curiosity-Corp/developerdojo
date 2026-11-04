@@ -80,8 +80,8 @@ discipline to give a good brief and to spot a bad answer. You do not need to han
 2. **Master Developer.** Platform, production launch and agent orchestration across the whole product.
    See [Master Developer: the second rank](/library/master-developer-overview).
 3. **Learning tracks.** Focused series on one skill at a time, each with the best free courses and videos from
-   other publishers. Browse the [learning tracks](/library/tracks) and the
-   [resources](/library/resources).
+   other publishers. Browse the learning tracks and the
+   resources.
 4. **The Way.** The five rules we work by, starting with [people write epics](/library/people-write-epics),
    [git is the source of truth](/library/git-is-the-source-of-truth) and [disclose AI use](/library/disclose-ai-use).
 5. **Sensei.** The people who coach others and review work. See [Sensei](/sensei).
@@ -95,4 +95,4 @@ accredited school. We promise a clear path, honest feedback on real work, and ma
 
 - New to all of this: read [Developer path: six weeks](/library/developer-path-overview) and start Week 1.
 - Already building with AI: read [The Way](/library/the-way-five-rules), then pick a track that covers your weakest discipline.
-- Not sure: open the [learning tracks](/library/tracks) and choose the one you would least like to read. That is usually the one you need.
+- Not sure: open the learning tracks and choose the one you would least like to read. That is usually the one you need.
