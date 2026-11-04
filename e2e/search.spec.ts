@@ -31,9 +31,25 @@ test('results are grouped and the index covers the words we promise', async ({ p
     await expect(dialog.getByRole('status')).toContainText(new RegExp(`\\d+ results? for "${word}"`));
     await expect(dialog.getByRole('heading', { level: 3 }).first()).toBeVisible();
   }
-  // Pagefind also matches by a word's leading letters, and a lesson with a lone "Z" made the old
-  // query "zzzzqqqq" find a page. Start with letters that no indexed word begins with.
-  await box.fill('qqqqzzzz');
+  // Pick a query the index itself says is absent. Pagefind matches by a word's leading letters
+  // and fuzzily, so any fixed or random string can start matching as content grows.
+  const absent = await page.evaluate(async () => {
+    interface PagefindModule {
+      init(): Promise<void>;
+      search(query: string): Promise<{ results: unknown[] }>;
+    }
+    const url = '/pagefind/pagefind.js';
+    const pagefind = (await import(/* @vite-ignore */ url)) as PagefindModule;
+    await pagefind.init();
+    for (let attempt = 0; attempt < 50; attempt += 1) {
+      const candidate = Array.from({ length: 9 }, () => 'bcdfghjklmnpqrstvwxz'[Math.floor(Math.random() * 20)]).join('') + '7';
+      const found = await pagefind.search(candidate);
+      if (found.results.length === 0) return candidate;
+    }
+    return null;
+  });
+  expect(absent, 'found a query with no results in the index').not.toBeNull();
+  await box.fill(absent as string);
   await expect(dialog.getByRole('status')).toContainText('No results');
 });
 
