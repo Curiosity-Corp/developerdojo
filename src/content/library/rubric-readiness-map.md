@@ -112,6 +112,8 @@ The rubrics do not score this as a skill. They build it into the way you use the
 
 **Why only partial.** There is a process, but no skill row with four levels. Your coach can see coachability, but the sheet does not give it a number.
 
+**Decision, 4 November 2026: the process is enough.** We will not add a scored row. Coachability shows in what you do after feedback: the gap with your coach closes, and your weekly scores rise. A separate number would score the same evidence twice.
+
 **Example (TrailMug).** Her coach scores Skill C one level lower than she did. She does not argue. She asks what the coach saw, adds the missing owner to one touch point, and her next weekly score matches.
 
 ## The 2030 Product Development Manager lens
