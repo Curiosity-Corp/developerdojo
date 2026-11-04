@@ -64,6 +64,26 @@ test('a learning resource is found and its link lands on its card', async ({ pag
   await expect(page.locator('#r-anthropic-prompt-engineering-interactive-tutorial')).toBeVisible();
 });
 
+test('"orbital" finds the ORBITAL framework lessons', async ({ page, isMobile }) => {
+  await page.goto('/');
+  const dialog = await openSearch(page, isMobile);
+  await dialog.getByRole('searchbox').fill('orbital');
+  await expect(dialog.getByRole('status')).toContainText(/\d+ results? for "orbital"/);
+  const lesson = dialog.getByRole('link', { name: /ORBITAL: objective, resources and budget/ }).first();
+  await expect(lesson).toBeVisible();
+  await lesson.click();
+  await expect(page).toHaveURL(/\/library\/tracks\/frameworks\/11-orbital-objective-resources-budget/);
+});
+
+test('"kubernetes" finds Kubernetes learning resources', async ({ page, isMobile }) => {
+  await page.goto('/');
+  const dialog = await openSearch(page, isMobile);
+  await dialog.getByRole('searchbox').fill('kubernetes');
+  await expect(dialog.getByRole('status')).toContainText(/\d+ results? for "kubernetes"/);
+  await expect(dialog.getByRole('heading', { name: 'Learning resources' })).toBeVisible();
+  await expect(dialog.getByRole('link', { name: /Kubernetes/ }).first()).toBeVisible();
+});
+
 test('"/" opens the search, Escape closes it and focus goes back', async ({ page, isMobile }) => {
   test.skip(isMobile, 'keyboard shortcut is for desktop');
   await page.goto('/library');
