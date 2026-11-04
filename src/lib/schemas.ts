@@ -165,15 +165,19 @@ export const challengesSchema = z.array(challengeSchema).superRefine((items, ctx
 /**
  * Certificate registry entry. The registry starts empty: an entry is added only when a real
  * certificate has been issued. `holder` is a public display name the holder agreed to publish.
+ * Strict on purpose: no other field (an email, a score) may be added. See docs/certificates.md.
  */
-export const certificateSchema = z.object({
+export const certificateSchema = z.strictObject({
   /** Public verification code printed on the certificate. */
   code: z.string().regex(/^[A-Z0-9-]{6,32}$/),
   holder: z.string().min(1),
   level: z.enum(['developer', 'master-developer', 'sensei']),
   issuedOn: z.iso.date(),
-  /** Link to the holder's Product Package or public work, if they chose to share it. */
-  evidenceUrl: z.url().optional(),
+  /** Link to the holder's Product Package or public work, if they chose to share it. https only. */
+  evidenceUrl: z
+    .url()
+    .refine((value) => value.startsWith('https://'), { message: 'evidenceUrl must start with https://' })
+    .optional(),
 });
 export type Certificate = z.infer<typeof certificateSchema>;
 export const certificatesSchema = z.array(certificateSchema).superRefine((items, ctx) => {
