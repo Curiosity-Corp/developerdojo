@@ -52,10 +52,12 @@ describe('library content scrub', () => {
   for (const file of files) {
     if (file === 'laptop-k8s-training-guide.md') continue; // contributed guide, outside this gate
     const body = readFileSync(join(dir, file), 'utf8');
+    // A link to a case-study page is allowed anywhere: the URL carries the example's name, the prose may not.
+    const scanned = body.replace(/\]\(\/library\/case-study-danhup-[a-z0-9-]+\/?(?:#[^)]*)?\)/g, '](/library/case-study)');
     it(`${file} has no internal references`, () => {
       for (const pattern of BANNED) {
         if (isAllowed(file, pattern)) continue;
-        expect(pattern.test(body), `${file} matches ${pattern}`).toBe(false);
+        expect(pattern.test(scanned), `${file} matches ${pattern}`).toBe(false);
       }
     });
     it(`${file} only links to library pages that exist`, () => {

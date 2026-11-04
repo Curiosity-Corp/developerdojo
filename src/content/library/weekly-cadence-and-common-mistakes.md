@@ -3,6 +3,21 @@ title: "Weekly cadence and common mistakes"
 description: "A simple weekly rhythm for an epic manager, and the mistakes to avoid."
 section: "Developer path"
 order: 9
+level: foundation
+duration: "30 min"
+outcomes:
+  - "Run a three-to-four-hour weekly cadence."
+  - "Run the 20-minute weekly sweep."
+  - "Spot the twelve common mistakes."
+  - "Recognise an AI-written epic."
+resources:
+  - atlassian/agile-standups
+  - atlassian/agile-retrospectives
+  - atlassian/backlog-refinement
+  - atlassian/definition-of-done
+  - gitlab/issue-boards
+prerequisites:
+  - week-3-problems-to-epics
 ---
 
 ## The weekly cadence
@@ -65,3 +80,26 @@ Read the top epic again from the start. Is the user still right? Do the numbers 
 - Same week, every week: read, unblock, review, talk to a user, update, write.
 - Most mistakes come from no user, no number, no order or no owner.
 - Score yourself honestly each month.
+
+## How the cadence meets your Sensei
+
+Your weekly checkpoint with your Sensei is the Friday review made spoken. Bring the weekly note and the score sheet. A good checkpoint answers three questions: what changed, what is blocked, and what do you not yet understand. See [how your Sensei works with you](/library/program-how-sensei-work) and [how you are assessed](/library/program-assessment-and-pass-level).
+
+## Show it in git
+
+The cadence leaves marks in git: a weekly note on Friday, a changed roadmap when the truth changed, a comment on the top epic, and issues attached to epics. If the history is empty from Monday to Thursday, the cadence did not happen. See [your files and git](/library/program-your-work-in-git).
+
+## Working with AI agents
+
+- **May:** find stale epics and orphan issues in a list you export, draft a comment from facts you give it, check dates.
+- **May not:** decide to close an epic, change a due date, or write the weekly note for you.
+- **A safe brief:** "List every issue in this export with no epic. Give the title and link. Do not close anything."
+
+## The 2030 Product Development Manager lens
+
+- **You decide:** what to continue, pause or close.
+- **You delegate to agents:** the weekly sweep lists and date checks.
+- **A sample brief:** "List epics with no change in 14 days. Report title, owner and last change date only."
+- **You verify by:** opening two flagged epics and checking them yourself.
+- **Disciplines involved:** product, operations, delivery and communication.
+- **On the agent ladder:** the cadence is **use** and **delegate** every week, and **govern** on Friday.

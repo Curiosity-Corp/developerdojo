@@ -3,6 +3,22 @@ title: "Week 6: Catalogue, demo and final package"
 description: "Write your Product Catalogue, record a demo, and present your Product Package."
 section: "Developer path"
 order: 6
+level: core
+duration: "8 to 10 hours"
+outcomes:
+  - "Write a product catalogue that separates fact from plan."
+  - "Give a demo that shows the product working."
+  - "Collect evidence of complete epic management."
+  - "Present your Product Package."
+resources:
+  - atlassian/service-catalog
+  - backstage/software-catalog
+  - c4model/c4
+  - google-sre/service-level-objectives
+  - gitlab/merge-requests
+prerequisites:
+  - week-5-brand-website-mockups
+  - product-catalogue-standard
 ---
 
 **Outcome:** you present a complete Product Package and show evidence that you managed your epics.
@@ -56,3 +72,29 @@ Use the [Product Package standard](/library/product-package-standard). Present f
 ## After the presentation
 
 Your coach or panel scores you. If you reach level 3 on every skill, you have passed the Developer path. Next: the Master Developer rank.
+
+## How the program supports this week
+
+### How your Sensei works this week
+
+At the final presentation you present your Product Package. Expect: "Show me where this row is verified" and "What would you do first if this failed?" Bring the catalogue, the demo and the evidence of epic management. Read [how your Sensei works with you](/library/program-how-sensei-work) to prepare.
+
+### Show your work in git
+
+`catalogue/` (the four layers, see [the catalogue framework](/library/catalogue-framework-overview)), `demo/` script and recording notes, and the full history of your epics. Cross-link everything and add the metadata header to each page. See [your files and git](/library/program-your-work-in-git).
+
+### AI use this week
+
+**May:** check links and cross-layer consistency, draft the demo script from a plan you wrote. **May not:** mark a row FOUND without evidence or write your epics. Add a short "How I used AI" section to the package.
+
+### Skill tracks that match
+
+[Planning in GitLab](/library/tracks/git-and-gitlab/03-planning-in-gitlab), [History, worktrees and fixing forward](/library/tracks/git-and-gitlab/04-history-worktrees-and-fixing-forward) and [Reviewing and verifying AI output](/library/tracks/working-with-ai-agents/07-reviewing-and-verifying-ai-output). See also the [catalogue framework](/library/catalogue-framework-overview) and the [full TrailMug catalogue](/library/catalogue-trailmug-full-example).
+
+### The 2030 Product Development Manager lens
+
+You decide what the package claims and what evidence backs it. You delegate cross-checks and link checks. A sample brief: "Compare the catalogue and the roadmap. List any service named in one and missing in the other. Do not edit." You verify by opening three cited items. On the agent ladder this week is **delegate** and **govern**.
+
+### Reading for this week
+
+Next: the Master Developer level and its [platform learning track](/library/learning-path-platform-track).

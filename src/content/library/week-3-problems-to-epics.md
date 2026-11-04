@@ -3,6 +3,23 @@ title: "Week 3: From problems to epics"
 description: "Turn the gaps in your journeys into a roadmap of 4 to 8 epics that you write yourself."
 section: "Developer path"
 order: 3
+level: core
+duration: "8 to 10 hours"
+outcomes:
+  - "List the gaps in your journeys and repository map."
+  - "Write four to eight epics yourself in the template."
+  - "Order the epics with one sentence of reason each."
+  - "Put the plan in git with dates and labels."
+resources:
+  - gitlab/epics
+  - gitlab/manage-epics
+  - atlassian/epics-stories-initiatives
+  - atlassian/prioritization-frameworks
+  - svpg/alternative-to-roadmaps
+  - gitlab/university
+prerequisites:
+  - week-2-know-the-people
+  - people-write-epics
 ---
 
 **Outcome:** you have a first roadmap of 4 to 8 epics, written by you, with dates, in git.
@@ -63,3 +80,29 @@ Epic review. Your coach asks hard questions. You answer **without notes**.
 - [ ] Order and reasons are written.
 - [ ] Dates are real.
 - [ ] I wrote every epic sentence myself.
+
+## How the program supports this week
+
+### How your Sensei works this week
+
+This is the epic review. Your Sensei asks hard questions and you answer without notes: "Why is this an epic and not a milestone?", "What is out of scope?", "Why this order?" If you cannot explain an epic aloud, it is not yet your epic. Read [how your Sensei works with you](/library/program-how-sensei-work) to prepare.
+
+### Show your work in git
+
+`epics/01-...md` to `epics/08-...md`, one file per epic, and `roadmap.md` with a one-sentence reason for each position. Create the epics in your planning space with start and due dates and labels. The history is the proof that you wrote them. See [your files and git](/library/program-your-work-in-git).
+
+### AI use this week
+
+**May:** ask you questions about an epic you wrote, check spelling after you finish. **May not:** write, rewrite, improve or reorder the epics. This is the week where the rule matters most. See [People write epics](/library/people-write-epics).
+
+### Skill tracks that match
+
+[What an epic is](/library/tracks/roadmapping-and-epics/01-what-an-epic-is), [Write an epic yourself](/library/tracks/roadmapping-and-epics/02-write-an-epic-yourself) and [Order the epics](/library/tracks/roadmapping-and-epics/03-order-the-epics). For a worked example see the [epics and roadmap case study](/library/case-study-danhup-epics-and-roadmap).
+
+### The 2030 Product Development Manager lens
+
+You decide the epics, their order and the measures. You delegate nothing about the epics themselves. You may delegate a check that every epic names at least two parts of the product. You verify by reading each epic aloud. On the agent ladder epics are **human only**.
+
+### Reading for this week
+
+Week 3 of Track A in [the learning path week by week](/library/learning-path-week-by-week): 8 items, about 78.5 hours, most of them optional long courses.
