@@ -218,10 +218,24 @@ First Monday of the month, about one hour. Put it in your calendar.
 
 ## 8. Quarterly and half-yearly jobs
 
-- **Quarterly resource refresh.** Open every resource whose `verifiedOn` is older than 90 days: confirm the link,
-  title, cost, level and summary; look at the publisher's learning page for a newer official course on the same
-  topic; retire what is outdated. Also open the *unverified* sites from section 6 by hand. (There is a backlog
-  issue to add a script that lists stale resources.)
+- **Quarterly resource refresh** (first Monday of January, April, July and October, about two hours). Any
+  resource that has gone 90 days since someone last opened it gets checked by a person.
+  1. **Get the list.** Open **Build > Pipelines**, open the newest pipeline on `master` and press play on the
+     manual job `stale_resources`. When it finishes, open the job's artifact `stale-resources.md`. It lists
+     every resource whose `verifiedOn` is older than 90 days, grouped by provider, as a checklist. (On a
+     computer with the repository: `npm run stale-resources`.)
+  2. **Open each link** on the list in a browser. Do not trust a search snippet or an AI summary for this.
+  3. **Fix what changed** in the resource file: `title`, `cost` (a free course that now charges is
+     `paid` or is retired), `level`, `format` and `summary`. Then set `verifiedOn` to today's date.
+  4. **Retire what is gone.** If the page is dead or replaced, delete the file. Then search the repository
+     for its URL and its file name and fix every lesson that pointed to it.
+  5. **Look for something better.** For each provider on the list, open its own learning or docs page.
+     If a newer official course covers the same topic, add it the usual way (CONTRIBUTING.md, *Add a free
+     resource*) and retire the old one.
+  6. **Open the unverified sites by hand.** These are the sites listed in section 6 that refuse scripts.
+  7. **Ship it** as one MR per provider or per handful of files, with `Refs` to the quarter's refresh issue.
+     When everything has merged, run the job again. The list must now say *0 of N resources need a fresh
+     check*.
 - **Half-yearly accessibility pass.** Test ten pages with keyboard only, a screen reader and a phone at 200 percent
   zoom (backlog issue).
 - **Yearly:** re-read the honesty rules (section 1 and 11) against the whole site, and check that CRC's status
