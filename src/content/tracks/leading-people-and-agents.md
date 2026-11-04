@@ -14,6 +14,19 @@ outcomes:
   - "Run a mixed team: write briefs for agents, review their work against written checks and keep the accountability with a person"
 ---
 
+## In short
+
+This track is for you if others will help you deliver a roadmap. Some of them may be people. Some may be AI agents. You will write a one-page direction and a short set of working agreements. You will say who decides what. You will give feedback by describing what happened. You will learn to receive feedback without defending yourself. You will write briefs for agents and review their work against written checks.
+
+You can hand work to an agent. You cannot give away responsibility. One named person answers for the result. On the agent ladder, you start with use and delegate. A team of people and agents reaches orchestrate and govern.
+
+### Key words
+
+- **Working agreements:** A short written set of rules for how a team works together.
+- **Brief:** A written task for an AI agent, with its goal, limits and checks.
+- **AI agent:** An AI coding assistant that reads your project and builds tasks. It does the task in front of it. It does not own the plan.
+- **Agent ladder:** Four rungs of skill with AI agents: use, delegate, orchestrate and govern. Each rung needs different skills.
+
 A Product Development Manager (PDM) rarely works alone. Sooner or later you lead a few people: a designer, someone in support, a part-time engineer, a mentor who gives you an hour a week. You also lead AI agents, which write drafts, code, tests and summaries all day. Both groups need the same things from you: a clear direction, clear expectations, honest feedback and someone who answers for the result.
 
 This track is about those four things. It is not about being a charismatic boss. It is about writing and speaking clearly enough that other workers, human or not, can do good work without you standing over them.

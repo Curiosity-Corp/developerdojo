@@ -13,6 +13,21 @@ outcomes:
   - "Find where the journey breaks and turn each break into an epic candidate"
 ---
 
+## In short
+
+This track is for anyone who owns a product and has talked to customers. You will turn interview notes into two to four personas. You will mark every line as known or a guess. You will list each touch point, where a person meets your product. Then you will draw a user journey and a customer journey. You will find where the journey breaks. Each break can become an epic candidate for your roadmap. You decide who you serve, and who you do not.
+
+Agents can tidy your notes. They must not invent people, quotes or journey steps. You keep personas, journeys and breaks as files in git.
+
+### Key words
+
+- **Persona:** A short profile of a typical person, built from real interviews.
+- **Touch point:** Any place where a person meets your product.
+- **Journey (user or customer):** The steps a person takes to reach a goal, with thoughts and feelings.
+- **User:** The person who uses the product.
+- **Customer:** The person who pays. Often not the user.
+- **Epic:** A whole-product outcome across several repos. Weeks to months. Written by a human.
+
 A persona is a promise to your team: "This is who we are building for." A journey is a second promise: "This is what their day looks like when they meet us." Together they make sure that the people who build your product, whether people or AI agents, build it for a real human and not for an average that does not exist.
 
 ## Who this track is for

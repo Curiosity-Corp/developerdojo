@@ -14,6 +14,20 @@ outcomes:
   - "Cut an epic into agent-ready milestones with acceptance checks a person can test"
 ---
 
+## In short
+
+This track is for you if you have done discovery and need a plan. People write epics and roadmaps. AI never does. You will write each epic yourself. It has a problem, a person, an outcome and a measure. You will order the epics and write one reason for each place. You will keep the plan in git, on a free GitLab account. Then you will split the first epic into three to five milestones.
+
+Agents can build from those milestones. You check their work against acceptance criteria that you wrote first. You decide the scope, and you can defend it. A reviewer may ask you to explain every epic out loud.
+
+### Key words
+
+- **Epic:** A whole-product outcome across several repos. Weeks to months. Written by a human.
+- **Roadmap:** Epics laid out in order over time.
+- **Milestone:** A time-boxed slice of work with a goal and a date.
+- **Issue:** One task. One agent can finish it in one merge request.
+- **Acceptance criteria:** Checks that prove an issue or epic is done. A person must be able to test each one.
+
 This is the heart of the Dojo. A roadmap is the plan for the whole product, and the epic is the unit of that plan. If you learn only one craft in the program, learn this one. Everything agents build starts from what you write here.
 
 ## Who this track is for

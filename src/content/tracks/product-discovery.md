@@ -13,6 +13,20 @@ outcomes:
   - "Turn raw evidence into a decision you can defend: build, change, test further or stop"
 ---
 
+## In short
+
+This track is for people who want to own a product. You do not need to code. Discovery means learning what to build before you build it. You will frame an idea: a problem, a person, a measure and a date. You will run five customer interviews and keep notes you can trust. You will draw the whole product on one page. Then you decide what to do next: build, change, test further or stop. You keep your decision in a short record in git. Never ask an AI to invent customers or quotes.
+
+AI agents can build almost anything you ask for. Your skill is to know what to ask for, and why.
+
+### Key words
+
+- **Discovery:** Learning what to build, and who it is for, before you build it.
+- **Customer:** The person who pays. Often not the user.
+- **User:** The person who uses the product.
+- **Assumption:** Something you believe is true but have not yet checked.
+- **Decision record:** A short file for one decision: the options, the choice and the reasons. It also names the day to look again.
+
 Most products fail for a boring reason: someone built the wrong thing very well. Discovery is the work you do to avoid that. It is the first and most valuable skill of a Product Development Manager, because when AI agents can build almost anything you ask for, the scarce skill is knowing **what to ask for and why**.
 
 ## Who this track is for

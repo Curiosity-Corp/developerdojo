@@ -11,7 +11,13 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **Acceptance criteria.** Checks that prove an issue or epic is done. A person must be able to test each one.
 
+**Accessibility.** Making a product work for everyone, including people who use screen readers or keyboards.
+
 **ADR (architecture decision record).** A short file that records a decision, the options, the reason and how to leave. Also called a decision record.
+
+**Agent ladder.** Four rungs of skill with AI agents: use, delegate, orchestrate and govern. Each rung needs different skills.
+
+**AGENTS.md.** A file in a repository that tells an AI agent how to work there.
 
 **Agile.** A way of building a product in small steps. You release a little, learn from real use, then change the plan. See [Choose your rhythm](/library/tracks/agile-delivery/01-choose-your-rhythm).
 
@@ -27,17 +33,27 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **AI agent.** An AI coding assistant that reads your project and builds tasks. It does the task in front of it. It does not own the plan.
 
+**AI disclosure.** A plain line that says where AI helped with a piece of work. It goes in the README or the merge request.
+
+**Assumption.** Something you believe is true but have not yet checked.
+
 ## B
 
 **B2B2C.** Business to business to consumer. A business pays. Its consumers use the product.
 
 **Backlog.** An ordered list of work waiting to be done: wanted features and fixes. The top items come next. See [The backlog](/library/tracks/agile-delivery/02-backlog-and-stories).
 
+**Blameless review.** A review after an incident that asks what failed, not who failed. It ends in a gate, a test, a check or a rule.
+
 **Bottleneck.** The step in a process where work piles up and slows everything after it.
 
 **Branch.** A separate line of changes in git.
 
 **Brand.** What people think of when they hear your product name.
+
+**Brand sheet.** A one-page sheet with the name, promise, tone of voice, colours and font.
+
+**Brief.** A written task for an AI agent, with its goal, limits and checks.
 
 **Burndown chart.** A chart of the work still left against time. In a healthy sprint the line falls to zero by the end.
 
@@ -61,6 +77,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **CI/CD.** Continuous integration and delivery. Automatic steps that test, build and deliver changes.
 
+**Cloud platform.** A provider that rents you computers and services over the internet. Examples are AWS, Azure and Google Cloud.
+
 **Commit.** One saved step in git, with a message.
 
 **Configuration item.** Anything that must be managed to deliver a service: a repo, an app, a database.
@@ -77,11 +95,19 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **Decision log.** A dated list of decisions with the question, answer, reason and name.
 
+**Decision record.** A short file for one decision: the options, the choice and the reasons. It also names the day to look again.
+
+**Definition of done.** A written list of checks that work must pass before it counts as done.
+
 **Demo.** A short walk-through that shows the product working.
 
 **Desired state.** What git says should exist.
 
 **DevOps.** Developers and operations people working as one team, with automatic delivery (CI/CD), so changes reach users quickly and safely.
+
+**Diff.** A view of what changed between two versions of a file.
+
+**Discovery.** Learning what to build, and who it is for, before you build it.
 
 **Dojo Readiness.** Six areas coaches look at when they ask if a learner is ready: Practical Application, Reasoning, Technical Execution, Launch Readiness, Communication and Coachability. See the [readiness map](/library/rubric-readiness-map).
 
@@ -96,6 +122,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 **Error budget.** The amount of failure a service-level target allows.
 
 **Estimation.** Guessing how big a piece of work is, in points or hours, before you start. It is a guess, not a promise. See [Plan the cycle](/library/tracks/agile-delivery/03-plan-the-cycle-and-define-done).
+
+**Eval (evaluation).** A set of tests and scores that measure how well an AI workflow works.
 
 **Extreme Programming (XP).** An agile method with strict engineering habits: write tests first, work in pairs and release often.
 
@@ -141,15 +169,23 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **KPI (key performance indicator).** A number that shows progress toward a goal.
 
+**Kubernetes.** Software that runs other software and keeps it running as you described. It restarts what crashes.
+
 ## L
 
 **Label.** A tag on an issue, such as `status-blocked`.
 
 **Lean.** A way of working that aims to give customers more value with less waste.
 
+**Least privilege.** Give a person or an agent only the access the job needs.
+
 **Licence.** The legal paper that says what you may do with code.
 
+**Lock-in.** Being so tied to one provider that leaving is hard or costly.
+
 ## M
+
+**Manifest.** A file that says what should run on a Kubernetes cluster.
 
 **Merge request (MR).** A proposal to add a change to the main branch. Also called a pull request.
 
@@ -163,11 +199,15 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 ## O
 
+**Observability.** Being able to see from the outside what a running system is doing.
+
 **Open source.** Software whose code you may read, change and run under a public licence.
 
 **ORBITAL.** The catalogue layer for objective, resources, budget, indicators, transport, activities and logistics.
 
 **Orphan issue.** An issue with no epic.
+
+**OWASP Top 10.** A public list of the most common kinds of weakness in software.
 
 ## P
 
@@ -177,19 +217,33 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **Persona.** A short profile of a typical person, built from real interviews.
 
+**PHANTOMS.** A pattern of jobs and default tools that agents can build a product on. Each letter of the name is one job.
+
 **Pipeline.** The automatic steps that test and deliver a change.
+
+**Plan (infrastructure as code).** A preview of what the tool will add, change or destroy. You read it before you approve.
+
+**Point of view.** One claim that someone could disagree with and that your own work supports.
+
+**Problem statement.** A short text that says who has a problem and why it matters. It also says how you will know it is solved.
 
 **Product Owner.** The person who decides what the team builds next and keeps the backlog in order. They answer for the product's value.
 
 **Product Package.** The final assessment of the Developer path. Eight parts.
 
+**Prompt injection.** An instruction hidden in text that an AI agent reads and then follows.
+
 ## Q
+
+**Quality gate.** A check that a change must pass before it can move on.
 
 **Quality triangle.** A model with three corners: time, cost and quality. Change one corner and the others are affected.
 
 ## R
 
 **Refinement (grooming).** Regularly reading, clarifying and sizing backlog items, so they are ready before a sprint starts.
+
+**Region.** A place in the world where a cloud provider runs its computers. Where your data lives is a business and legal choice.
 
 **Repository (repo).** A folder of files with a full change history.
 
@@ -213,7 +267,11 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **Service level (SLI, SLO, SLA).** An indicator you measure, an objective you aim for, and an agreement you promise.
 
+**Shared responsibility model.** The split between what the cloud provider secures and what you must secure.
+
 **SPDX id.** A standard short name for a licence, such as `MIT` or `Apache-2.0`.
+
+**Spec (specification).** A one-page description of what to build, with acceptance criteria a person can test.
 
 **Sprint.** The Scrum word for an iteration: a fixed block of time, with a goal, in which the team finishes chosen work.
 
@@ -225,7 +283,11 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **Stakeholder.** A person or group affected by the product or able to affect it.
 
+**State (infrastructure as code).** The tool's memory of what it has built. Protect it, and keep one shared copy.
+
 **Story points.** Numbers a team uses to compare the size of pieces of work by effort, complexity and risk. They are not hours.
+
+**Supply chain.** Everything that goes into your software: other people's code, tools and build steps.
 
 ## T
 
@@ -250,6 +312,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 **Waterfall.** A traditional method where work goes in a fixed order: plan, build, test, release. Often used as the opposite of agile.
 
 **Webhook.** A message one system sends to another when something happens.
+
+**Working agreements.** A short written set of rules for how a team works together.
 
 ## Y
 
