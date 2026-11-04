@@ -51,10 +51,18 @@ function glossary(): Map<string, string> {
 
 const glossaryEntries = glossary();
 
-const tracks = readdirSync(trackDir)
-  .filter((f) => f.endsWith('.md'))
-  .sort()
-  .map((f) => ({ slug: f.replace(/\.md$/, ''), text: body(join(trackDir, f)) }));
+const libraryDir = join(root, 'src', 'content', 'library');
+
+/** Program pages outside the tracks folder that also carry the box (issue #75). */
+const PROGRAM_PAGES = ['the-way-five-rules'];
+
+const tracks = [
+  ...readdirSync(trackDir)
+    .filter((f) => f.endsWith('.md'))
+    .sort()
+    .map((f) => ({ slug: f.replace(/\.md$/, ''), text: body(join(trackDir, f)) })),
+  ...PROGRAM_PAGES.map((slug) => ({ slug, text: body(join(libraryDir, `${slug}.md`)) })),
+];
 
 interface Summary {
   prose: string;
@@ -87,6 +95,11 @@ const withSummary = tracks.filter((track) => /^## In short\s*$/m.test(track.text
 describe('In short boxes on track overviews', () => {
   it('exist on at least one track, so these checks are not empty', () => {
     expect(withSummary.length).toBeGreaterThan(0);
+  });
+
+  it('exist on every listed program page', () => {
+    const missing = PROGRAM_PAGES.filter((slug) => !withSummary.some((track) => track.slug === slug));
+    expect(missing).toEqual([]);
   });
 
   for (const track of withSummary) {
