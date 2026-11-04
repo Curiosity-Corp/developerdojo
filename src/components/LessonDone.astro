@@ -1,0 +1,90 @@
+---
+/**
+ * "I finished this lesson" toggle at the end of a track lesson. Saved on this device only
+ * (src/lib/lesson-progress.ts). Hidden without JavaScript.
+ * Props: lessonId (library entry id), trackLessonIds (ids of every lesson in the track, in order),
+ * trackTitle.
+ */
+interface Props {
+  lessonId: string;
+  trackLessonIds: string[];
+  trackTitle: string;
+}
+const { lessonId, trackLessonIds, trackTitle } = Astro.props;
+---
+
+<section
+  class="tool js-only"
+  aria-labelledby="done-title"
+  data-lesson-done
+  data-lesson-id={lessonId}
+  data-track-ids={JSON.stringify(trackLessonIds)}
+  data-pagefind-ignore
+>
+  <h2 id="done-title">Finished this lesson?</h2>
+  <p class="tool-hint">
+    This is only for you. It is saved in this browser, on this device, and nothing is sent anywhere. It is not a grade and not a certificate.
+  </p>
+  <div class="tool-actions">
+    <button type="button" class="tool-btn" aria-pressed="false" data-done-button>I finished this lesson</button>
+  </div>
+  <p class="tool-status" role="status" data-done-status data-track-title={trackTitle}></p>
+</section>
+
+<script>
+  import {
+    LESSON_PROGRESS_NAME,
+    LESSON_PROGRESS_VERSION,
+    countLessonsDone,
+    emptyLessonProgress,
+    parseLessonProgress,
+    toggleLesson,
+    type LessonProgress,
+  } from '../lib/lesson-progress';
+  import { createStore, storageKey } from '../lib/storage';
+
+  const root = document.querySelector<HTMLElement>('[data-lesson-done]');
+  if (root) init(root);
+
+  function init(root: HTMLElement): void {
+    const lessonId = root.dataset['lessonId'] ?? '';
+    let trackIds: string[] = [];
+    try {
+      const parsed: unknown = JSON.parse(root.dataset['trackIds'] ?? '[]');
+      if (Array.isArray(parsed)) trackIds = parsed.filter((id): id is string => typeof id === 'string');
+    } catch {
+      trackIds = [];
+    }
+    const button = root.querySelector<HTMLButtonElement>('[data-done-button]')!;
+    const status = root.querySelector<HTMLElement>('[data-done-status]')!;
+    const trackTitle = status.dataset['trackTitle'] ?? 'this track';
+    const badge = document.querySelector<HTMLElement>('[data-done-badge]');
+
+    const store = createStore();
+    const read = (): LessonProgress =>
+      store.load(LESSON_PROGRESS_NAME, { version: LESSON_PROGRESS_VERSION, validate: parseLessonProgress }) ?? emptyLessonProgress();
+    let progress = read();
+    let note = store.persistent ? '' : ' Your browser blocks saving, so this lasts only until you close this page.';
+
+    function render(): void {
+      const done = Boolean(progress.done[lessonId]);
+      button.setAttribute('aria-pressed', String(done));
+      if (badge) badge.hidden = !done;
+      const count = countLessonsDone(progress, trackIds);
+      status.textContent = `${count} of ${trackIds.length} lessons done in ${trackTitle}.${note}`;
+    }
+
+    button.addEventListener('click', () => {
+      progress = toggleLesson(read(), lessonId, new Date());
+      const ok = store.save(LESSON_PROGRESS_NAME, LESSON_PROGRESS_VERSION, progress);
+      note = ok ? '' : ' Not saved: your browser blocked it.';
+      render();
+    });
+    window.addEventListener('storage', (event) => {
+      if (event.key !== storageKey(LESSON_PROGRESS_NAME)) return;
+      progress = read();
+      render();
+    });
+    render();
+  }
+</script>

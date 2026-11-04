@@ -1,0 +1,202 @@
+---
+/**
+ * Makes the Markdown checklists in a lesson tickable, and remembers the ticks on this device.
+ * Without JavaScript the boxes stay as plain, unticked boxes and the page reads as before.
+ *
+ * Every lesson gets tickable boxes and an "n of m ticked" line above each list. Pages that set
+ * `tool: checklist` in their frontmatter (the weekly checklists) also get a progress panel with a
+ * bar, a Markdown copy of the ticked list, and a clear button.
+ *
+ * Props: panel (show the progress panel). The script reads data-page-id and data-page-title
+ * from the `.prose` element of the lesson page.
+ */
+import ExportBox from './ExportBox.astro';
+
+interface Props {
+  panel?: boolean;
+}
+const { panel = false } = Astro.props;
+---
+
+{
+  panel && (
+    <section class="tool js-only" aria-labelledby="ck-title" data-checklist-panel data-pagefind-ignore>
+      <h2 id="ck-title">Your progress on this checklist</h2>
+      <p class="tool-note">
+        <strong>This is your own tick list.</strong> It is not a grade and not a certificate. Ticks are saved{" "}
+        <strong>only in this browser, on this device</strong>. Nothing is sent anywhere and there is no account.
+        Tick a box only when the work is really done.
+      </p>
+      <p class="tool-note" data-save-note hidden></p>
+      <p role="status" class="tool-label" data-ck-summary></p>
+      <progress max="1" value="0" aria-label="Items ticked on this page" data-ck-bar></progress>
+      <details class="ck-export">
+        <summary>Copy my checklist as Markdown</summary>
+        <ExportBox id="ck-export" label="Checklist as Markdown" copyLabel="Copy checklist" rows={14} />
+      </details>
+      <div class="tool-actions">
+        <button type="button" class="tool-btn tool-btn--quiet" data-ck-clear>Clear my ticks on this page</button>
+      </div>
+      <p class="tool-status" role="status" data-ck-saved></p>
+    </section>
+  )
+}
+
+<style>
+  .ck-export {
+    margin-block: var(--space-3);
+  }
+  .ck-export summary {
+    font-weight: 700;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  import {
+    CHECKLIST_VERSION,
+    checklistName,
+    countTicked,
+    itemKey,
+    parseChecklist,
+    renderChecklistMarkdown,
+    setTicked,
+    type ChecklistGroup,
+    type ChecklistState,
+  } from '../lib/checklist';
+  import { armedButton, todayLocal, wireExportBox } from '../lib/export-box';
+  import { createStore, storageKey } from '../lib/storage';
+
+  const prose = document.querySelector<HTMLElement>('.prose[data-page-id]');
+  if (prose) init(prose);
+
+  function normalise(text: string | null | undefined): string {
+    return (text ?? '').replace(/\s+/g, ' ').trim();
+  }
+
+  /** The item's own text, without any list nested inside it. */
+  function itemText(li: HTMLElement): string {
+    const clone = li.cloneNode(true) as HTMLElement;
+    for (const nested of clone.querySelectorAll('ul, ol')) nested.remove();
+    return normalise(clone.textContent);
+  }
+
+  interface Item {
+    li: HTMLElement;
+    input: HTMLInputElement;
+    key: string;
+    text: string;
+    short: string;
+    heading: string;
+    list: HTMLElement;
+  }
+
+  function init(prose: HTMLElement): void {
+    const pageId = prose.dataset['pageId'] ?? '';
+    const pageTitle = prose.dataset['pageTitle'] ?? 'Checklist';
+    const name = checklistName(pageId);
+
+    const items: Item[] = [];
+    let h2 = '';
+    let h3 = '';
+    for (const node of prose.querySelectorAll<HTMLElement>('h2, h3, li.task-list-item')) {
+      if (node.tagName === 'H2') {
+        h2 = normalise(node.textContent);
+        h3 = '';
+      } else if (node.tagName === 'H3') {
+        h3 = normalise(node.textContent);
+      } else {
+        const input = node.querySelector<HTMLInputElement>(':scope > input[type="checkbox"], :scope > p > input[type="checkbox"]');
+        const list = node.parentElement;
+        if (!input || !list) continue;
+        const text = itemText(node);
+        const lead = normalise(node.querySelector(':scope > strong')?.textContent);
+        items.push({ li: node, input, key: itemKey(`${h2}|${h3}`, text), text, short: lead || text, heading: h2 || pageTitle, list });
+      }
+    }
+    if (items.length === 0) return;
+
+    const store = createStore();
+    let state: ChecklistState = store.load(name, { version: CHECKLIST_VERSION, validate: parseChecklist }) ?? { ticked: [] };
+
+    // One "n of m ticked" line above each list.
+    const counters = new Map<HTMLElement, HTMLElement>();
+    for (const item of items) {
+      if (counters.has(item.list)) continue;
+      const line = document.createElement('p');
+      line.className = 'tick-count';
+      item.list.before(line);
+      counters.set(item.list, line);
+    }
+
+    const panel = document.querySelector<HTMLElement>('[data-checklist-panel]');
+    const summary = panel?.querySelector<HTMLElement>('[data-ck-summary]');
+    const bar = panel?.querySelector<HTMLProgressElement>('[data-ck-bar]');
+    const saved = panel?.querySelector<HTMLElement>('[data-ck-saved]');
+    const saveNote = panel?.querySelector<HTMLElement>('[data-save-note]');
+    const exportBox = panel ? wireExportBox(panel) : undefined;
+
+    if (saveNote && !store.persistent) {
+      saveNote.hidden = false;
+      saveNote.textContent =
+        'Your browser is blocking saving on this device, so your ticks stay only until you close or reload this page. Copy the Markdown to keep them.';
+    }
+
+    function groups(): ChecklistGroup[] {
+      const byHeading = new Map<string, ChecklistGroup>();
+      for (const item of items) {
+        const group = byHeading.get(item.heading) ?? { heading: item.heading, items: [] };
+        group.items.push({ key: item.key, text: item.short });
+        byHeading.set(item.heading, group);
+      }
+      return [...byHeading.values()];
+    }
+
+    function render(): void {
+      const ticked = new Set(state.ticked);
+      for (const item of items) item.input.checked = ticked.has(item.key);
+      for (const [list, line] of counters) {
+        const keys = items.filter((item) => item.list === list).map((item) => item.key);
+        const note = store.persistent ? '' : ' (not saved: your browser blocks storage)';
+        line.textContent = `${countTicked(state, keys)} of ${keys.length} ticked${note}`;
+      }
+      const all = items.map((item) => item.key);
+      const done = countTicked(state, all);
+      if (summary) summary.textContent = `${done} of ${all.length} items ticked.`;
+      if (bar) {
+        bar.max = all.length;
+        bar.value = done;
+      }
+      exportBox?.setText(renderChecklistMarkdown(pageTitle, groups(), state, todayLocal()));
+    }
+
+    for (const item of items) {
+      item.input.disabled = false;
+      item.input.setAttribute('aria-label', item.text);
+      item.input.addEventListener('change', () => {
+        state = setTicked(state, item.key, item.input.checked);
+        const ok = store.save(name, CHECKLIST_VERSION, state);
+        if (saved) saved.textContent = ok ? 'Saved on this device.' : 'Not saved: your browser blocked it.';
+        render();
+      });
+    }
+
+    const clear = panel?.querySelector<HTMLButtonElement>('[data-ck-clear]');
+    if (clear) {
+      armedButton(clear, 'Click again to clear all ticks', () => {
+        state = { ticked: [] };
+        store.remove(name);
+        if (saved) saved.textContent = 'Cleared. Every box on this page is unticked.';
+        render();
+      });
+    }
+
+    window.addEventListener('storage', (event) => {
+      if (event.key !== storageKey(name)) return;
+      state = store.load(name, { version: CHECKLIST_VERSION, validate: parseChecklist }) ?? { ticked: [] };
+      render();
+    });
+
+    render();
+  }
+</script>

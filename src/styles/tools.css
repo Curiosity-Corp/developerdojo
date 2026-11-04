@@ -1,0 +1,207 @@
+/*
+ * Shared styles for the interactive learning tools (self-assessment, checklists, lesson progress,
+ * knowledge checks, fillable templates). Tokens only, so light and dark both work.
+ *
+ * Progressive enhancement: everything marked .js-only is hidden until the inline script in
+ * BaseLayout adds the class "js" to <html>. With JavaScript off the plain page is all there is.
+ */
+
+.js-only {
+  display: none;
+}
+html.js .js-only {
+  display: block;
+}
+html.js span.js-only,
+html.js .js-only[data-inline] {
+  display: inline;
+}
+html.js .js-only[hidden] {
+  display: none;
+}
+.tool [hidden],
+.done-badge[hidden],
+.tool-note[hidden] {
+  display: none !important;
+}
+
+.tool {
+  margin-block: var(--space-6);
+  padding: var(--space-4) var(--space-5);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--gold-strong);
+  border-radius: var(--radius);
+}
+.tool > h2,
+.tool > h3 {
+  margin-top: 0;
+}
+.tool-note {
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--ink);
+  background: var(--paper-sunk);
+  border-radius: var(--radius);
+}
+.tool-status {
+  min-height: 1.5em;
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+.tool-field {
+  display: grid;
+  gap: var(--space-1);
+  margin-block: var(--space-3);
+}
+.tool-field > label,
+.tool-label {
+  font-weight: 700;
+}
+.tool-hint {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+.tool input[type='text'],
+.tool select,
+.tool textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 0.5rem 0.65rem;
+  font: inherit;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1.5px solid var(--line-strong);
+  border-radius: 8px;
+}
+.tool textarea {
+  display: block;
+  min-height: 3.5rem;
+  resize: vertical;
+}
+.tool textarea[readonly] {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--text-sm);
+  white-space: pre;
+  overflow-x: auto;
+  background: var(--paper-sunk);
+}
+.tool select {
+  width: auto;
+  min-width: 12rem;
+  max-width: 100%;
+}
+.tool fieldset {
+  min-width: 0;
+  margin: var(--space-4) 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.tool legend {
+  padding-inline: var(--space-2);
+  font-weight: 700;
+}
+.tool-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  margin-block: var(--space-3);
+}
+.tool-btn {
+  padding: 0.55rem 1rem;
+  font: inherit;
+  font-weight: 700;
+  color: var(--gold-ink);
+  background: var(--gold);
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.tool-btn:hover {
+  background: var(--gold-strong);
+}
+.tool-btn--quiet {
+  color: var(--ink);
+  background: transparent;
+  border-color: var(--line-strong);
+}
+.tool-btn--quiet:hover {
+  background: var(--paper-sunk);
+  border-color: var(--ink-muted);
+}
+.tool-btn[aria-pressed='true'] {
+  color: var(--paper);
+  background: var(--olive-text);
+}
+.tool progress {
+  width: 100%;
+  height: 0.75rem;
+  accent-color: var(--olive-text);
+}
+
+/* Radio and checkbox rows: a large target, text that wraps on a phone. */
+.choice {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-2) var(--space-3);
+  align-items: start;
+  padding: var(--space-2) 0;
+  cursor: pointer;
+}
+.choice input {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0.15rem 0 0;
+  accent-color: var(--olive-text);
+}
+
+.prose .task-list-item input[type='checkbox'] {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-right: var(--space-2);
+  vertical-align: -0.15rem;
+  accent-color: var(--olive-text);
+}
+.tick-count {
+  margin: var(--space-3) 0 var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--ink-muted);
+}
+
+.done-badge {
+  display: inline-block;
+  margin-left: var(--space-2);
+  padding: 0.05rem 0.5rem;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--paper);
+  background: var(--olive-text);
+  border-radius: 999px;
+}
+
+/* Small phones: give the text every pixel we can spare. */
+@media (max-width: 30rem) {
+  .tool {
+    padding: var(--space-3);
+  }
+  .tool fieldset {
+    padding: var(--space-2) var(--space-3);
+  }
+  .tool select {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+@media print {
+  .tool,
+  .tick-count,
+  .done-badge {
+    display: none !important;
+  }
+}

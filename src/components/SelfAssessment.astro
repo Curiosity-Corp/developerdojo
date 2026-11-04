@@ -1,0 +1,263 @@
+---
+/**
+ * Interactive Track A self-assessment. Rendered after the rubric page text and shown only when
+ * JavaScript runs (the page already has the full rubric and a blank score sheet as plain text).
+ * Choices are saved in this browser (localStorage, see src/lib/storage.ts); nothing is sent anywhere.
+ * The level sentences come from src/lib/self-assessment.ts, which a test keeps in step with the page.
+ */
+import ExportBox from './ExportBox.astro';
+import { HONESTY_QUESTIONS, LEVEL_NAMES, MAX_EVIDENCE, MAX_NOTE, SKILLS, WEEKS } from '../lib/self-assessment';
+---
+
+<section class="tool js-only" id="score-tool" aria-labelledby="score-tool-title" data-self-assessment data-pagefind-ignore>
+  <h2 id="score-tool-title">Score yourself here</h2>
+  <p class="tool-note">
+    <strong>This is a self-assessment.</strong> It is not a grade and not a certificate. Your answers are saved{" "}
+    <strong>only in this browser, on this device</strong>. Nothing is sent anywhere and there is no account.
+    Use the Markdown box at the end to keep a copy in your own repository.
+  </p>
+  <p class="tool-note" data-save-note hidden></p>
+
+  <div class="tool-field">
+    <label for="sa-week">Week you are scoring</label>
+    <select id="sa-week" data-week>
+      {WEEKS.map((week) => <option value={week}>Week {week}</option>)}
+    </select>
+    <p class="tool-hint">Pick the level where every word is true for your work. If you cannot show evidence, score one level lower.</p>
+  </div>
+
+  {
+    SKILLS.map((skill) => (
+      <fieldset data-skill={skill.id}>
+        <legend>{skill.id}. {skill.name}</legend>
+        {skill.levels.map((text, index) => (
+          <label class="choice">
+            <input type="radio" name={`sa-level-${skill.id}`} value={index + 1} data-level />
+            <span>
+              <strong>
+                {index + 1} {LEVEL_NAMES[index]}.
+              </strong>{' '}
+              {text}
+            </span>
+          </label>
+        ))}
+        <label class="choice">
+          <input type="radio" name={`sa-level-${skill.id}`} value="" checked data-level />
+          <span>Not scored yet</span>
+        </label>
+        <div class="tool-field">
+          <label for={`sa-evidence-${skill.id}`}>Evidence for skill {skill.id}: one example from your own work</label>
+          <textarea id={`sa-evidence-${skill.id}`} rows="2" maxlength={MAX_EVIDENCE} data-evidence aria-describedby={`sa-evidence-hint-${skill.id}`}></textarea>
+          <p class="tool-hint" id={`sa-evidence-hint-${skill.id}`}>A link to a file or merge request in your repository, or one plain sentence.</p>
+        </div>
+        <div class="tool-field">
+          <label for={`sa-coach-${skill.id}`}>Coach score for skill {skill.id} (optional, from your checkpoint)</label>
+          <select id={`sa-coach-${skill.id}`} data-coach>
+            <option value="">No coach score yet</option>
+            {LEVEL_NAMES.map((name, index) => <option value={index + 1}>{index + 1} {name}</option>)}
+          </select>
+          <p class="tool-hint" data-gap></p>
+        </div>
+      </fieldset>
+    ))
+  }
+
+  <fieldset data-honesty>
+    <legend>No-AI-epics honesty check for this week</legend>
+    {
+      HONESTY_QUESTIONS.map((question, index) => (
+        <div class="honesty-row" role="radiogroup" aria-labelledby={`sa-honesty-q${index}`}>
+          <p class="tool-label" id={`sa-honesty-q${index}`}>{question}</p>
+          <label class="choice"><input type="radio" name={`sa-honesty-${index}`} value="yes" data-honesty /><span>Yes</span></label>
+          <label class="choice"><input type="radio" name={`sa-honesty-${index}`} value="no" data-honesty /><span>No</span></label>
+        </div>
+      ))
+    }
+    <div class="tool-field">
+      <label for="sa-honesty-note">If any answer is no: what happened, and what will you do about it?</label>
+      <textarea id="sa-honesty-note" rows="2" maxlength={MAX_NOTE} data-honesty-note></textarea>
+    </div>
+  </fieldset>
+
+  <h3>Where you are this week</h3>
+  <p role="status" data-summary></p>
+
+  <h3>Your score sheet</h3>
+  <ExportBox id="sa-export" label="Score sheet as Markdown" copyLabel="Copy score sheet" rows={16}>
+    <button type="button" class="tool-btn tool-btn--quiet" data-clear>Clear my score sheet</button>
+  </ExportBox>
+  <p class="tool-status" role="status" data-saved></p>
+</section>
+
+<style>
+  .honesty-row {
+    margin-block: var(--space-3);
+  }
+  .honesty-row .tool-label {
+    margin: 0;
+  }
+  .honesty-row {
+    display: grid;
+    gap: 0 var(--space-5);
+  }
+  @media (min-width: 40rem) {
+    .honesty-row {
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+    }
+  }
+</style>
+
+<script>
+  import {
+    ASSESSMENT_NAME,
+    ASSESSMENT_VERSION,
+    HONESTY_QUESTIONS,
+    SKILLS,
+    WEEKS,
+    emptyAssessment,
+    gapSentence,
+    latestLevel,
+    parseAssessment,
+    renderScoreSheet,
+    scoreOf,
+    setCoach,
+    setEvidence,
+    setHonesty,
+    setLevel,
+    summarise,
+    type Answer,
+    type Assessment,
+    type Honesty,
+  } from '../lib/self-assessment';
+  import { armedButton, todayLocal, wireExportBox } from '../lib/export-box';
+  import { createStore, storageKey } from '../lib/storage';
+
+  const root = document.querySelector<HTMLElement>('[data-self-assessment]');
+  if (root) init(root);
+
+  function init(root: HTMLElement): void {
+    const store = createStore();
+    let state: Assessment =
+      store.load(ASSESSMENT_NAME, { version: ASSESSMENT_VERSION, validate: parseAssessment }) ?? emptyAssessment();
+
+    const weekSelect = root.querySelector<HTMLSelectElement>('[data-week]')!;
+    const summary = root.querySelector<HTMLElement>('[data-summary]')!;
+    const saved = root.querySelector<HTMLElement>('[data-saved]')!;
+    const saveNote = root.querySelector<HTMLElement>('[data-save-note]')!;
+    const exportBox = wireExportBox(root);
+
+    // Start on the latest week that already has answers, so a returning learner lands where they stopped.
+    const latestWeek = [...WEEKS].reverse().find((week) => Object.keys(state.weeks[String(week)] ?? {}).length > 0);
+    weekSelect.value = String(latestWeek ?? 1);
+
+    const week = (): number => Number(weekSelect.value);
+    const skillBlock = (id: string): HTMLElement => root.querySelector<HTMLElement>(`[data-skill="${id}"]`)!;
+    const honestyBlock = root.querySelector<HTMLElement>('[data-honesty]')!;
+
+    function showSaveNote(): void {
+      saveNote.hidden = store.persistent;
+      saveNote.textContent = store.persistent
+        ? ''
+        : 'Your browser is blocking saving on this device, so your answers stay only until you close or reload this page. Copy the Markdown below to keep them.';
+    }
+
+    function persist(): void {
+      const ok = store.save(ASSESSMENT_NAME, ASSESSMENT_VERSION, state);
+      saved.textContent = ok ? 'Saved on this device.' : 'Not saved: your browser blocked it. Copy the Markdown to keep your answers.';
+    }
+
+    /** Fill every control from the saved state. Used on load, on a week change and on a change in another tab. */
+    function fillForm(): void {
+      for (const skill of SKILLS) {
+        const block = skillBlock(skill.id);
+        const score = scoreOf(state, week(), skill.id);
+        for (const radio of block.querySelectorAll<HTMLInputElement>('input[data-level]')) {
+          radio.checked = radio.value === String(score.level ?? '');
+        }
+        block.querySelector<HTMLTextAreaElement>('[data-evidence]')!.value = score.evidence;
+        block.querySelector<HTMLSelectElement>('[data-coach]')!.value = String(state.coach[skill.id] ?? '');
+      }
+      const honesty = state.honesty[String(week())];
+      HONESTY_QUESTIONS.forEach((_, index) => {
+        for (const radio of honestyBlock.querySelectorAll<HTMLInputElement>(`input[name="sa-honesty-${index}"]`)) {
+          radio.checked = radio.value === (honesty?.answers[index] ?? '');
+        }
+      });
+      honestyBlock.querySelector<HTMLTextAreaElement>('[data-honesty-note]')!.value = honesty?.note ?? '';
+      refresh();
+    }
+
+    /** Update everything that is computed from the state (not the typing fields). */
+    function refresh(): void {
+      for (const skill of SKILLS) {
+        skillBlock(skill.id).querySelector<HTMLElement>('[data-gap]')!.textContent = gapSentence(
+          latestLevel(state, skill.id),
+          state.coach[skill.id],
+        );
+      }
+      const result = summarise(state, week());
+      const parts = [`Scored ${result.scored} of ${SKILLS.length} skills for week ${week()}.`];
+      if (result.scored > 0) parts.push(`${result.atTarget} at level 3 or higher.`);
+      if (result.belowFloor.length > 0) parts.push(`Below level 2: ${result.belowFloor.join(', ')}. That means a coaching plan, not a failure.`);
+      if (result.missingEvidence.length > 0) parts.push(`No evidence yet for: ${result.missingEvidence.join(', ')}. With no evidence, score one level lower.`);
+      if (result.meetsTarget) parts.push('Every skill is at the target. Your coach checks the evidence.');
+      parts.push('The target is level 3 on all six skills by the end of week 4, and nothing below level 2.');
+      summary.textContent = parts.join(' ');
+      exportBox?.setText(renderScoreSheet(state, todayLocal()));
+    }
+
+    function readHonesty(): Honesty {
+      const answers = HONESTY_QUESTIONS.map((_, index): Answer => {
+        const checked = honestyBlock.querySelector<HTMLInputElement>(`input[name="sa-honesty-${index}"]:checked`);
+        return checked?.value === 'yes' || checked?.value === 'no' ? checked.value : '';
+      }) as Honesty['answers'];
+      return { answers, note: honestyBlock.querySelector<HTMLTextAreaElement>('[data-honesty-note]')!.value };
+    }
+
+    function change(next: Assessment): void {
+      state = next;
+      persist();
+      refresh();
+    }
+
+    weekSelect.addEventListener('change', fillForm);
+
+    for (const skill of SKILLS) {
+      const block = skillBlock(skill.id);
+      block.addEventListener('change', (event) => {
+        const target = event.target as HTMLElement;
+        if (target.matches('input[data-level]')) {
+          const value = (target as HTMLInputElement).value;
+          change(setLevel(state, week(), skill.id, value === '' ? undefined : Number(value)));
+        } else if (target.matches('[data-coach]')) {
+          const value = (target as HTMLSelectElement).value;
+          change(setCoach(state, skill.id, value === '' ? undefined : Number(value)));
+        }
+      });
+      block.querySelector('[data-evidence]')!.addEventListener('input', (event) => {
+        change(setEvidence(state, week(), skill.id, (event.target as HTMLTextAreaElement).value));
+      });
+    }
+    honestyBlock.addEventListener('input', () => change(setHonesty(state, week(), readHonesty())));
+    honestyBlock.addEventListener('change', () => change(setHonesty(state, week(), readHonesty())));
+
+    const clear = root.querySelector<HTMLButtonElement>('[data-clear]')!;
+    armedButton(clear, 'Click again to clear everything', () => {
+      state = emptyAssessment();
+      store.remove(ASSESSMENT_NAME);
+      saved.textContent = 'Cleared. Your score sheet is empty.';
+      fillForm();
+    });
+
+    // Another tab changed the saved sheet: show it here too.
+    window.addEventListener('storage', (event) => {
+      if (event.key !== storageKey(ASSESSMENT_NAME)) return;
+      state = store.load(ASSESSMENT_NAME, { version: ASSESSMENT_VERSION, validate: parseAssessment }) ?? emptyAssessment();
+      fillForm();
+    });
+
+    showSaveNote();
+    fillForm();
+  }
+</script>

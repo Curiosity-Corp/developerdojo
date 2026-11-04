@@ -1,0 +1,73 @@
+---
+/**
+ * "What is saved on this device": lists what the Dojo tools saved in this browser, lets the learner
+ * copy all of it as JSON, and delete all of it. Hidden without JavaScript (nothing is saved then).
+ */
+import ExportBox from './ExportBox.astro';
+---
+
+<section class="tool js-only device-data" aria-labelledby="device-data-title" data-device-data data-pagefind-ignore>
+  <h2 id="device-data-title">Saved on this device</h2>
+  <p class="tool-hint">
+    The self-assessment, checklists and lesson ticks are saved in this browser only. We never see them and there is no account. If you clear your browser data or use another device, they are gone: copy what matters first.
+  </p>
+  <p role="status" data-dd-list></p>
+  <details>
+    <summary>Copy everything as text (JSON)</summary>
+    <ExportBox id="dd-export" label="All saved data as JSON" copyLabel="Copy JSON" rows={10} />
+  </details>
+  <div class="tool-actions">
+    <button type="button" class="tool-btn tool-btn--quiet" data-dd-clear>Delete everything saved on this device</button>
+  </div>
+  <p class="tool-status" role="status" data-dd-status></p>
+</section>
+
+<style>
+  .device-data {
+    margin-block: var(--space-4) 0;
+  }
+  .device-data h2 {
+    font-size: var(--text-lg);
+  }
+  .device-data summary {
+    font-weight: 700;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  import { armedButton, wireExportBox } from '../lib/export-box';
+  import { createStore, describeKey, storageKey } from '../lib/storage';
+
+  const root = document.querySelector<HTMLElement>('[data-device-data]');
+  if (root) init(root);
+
+  function init(root: HTMLElement): void {
+    const store = createStore();
+    const list = root.querySelector<HTMLElement>('[data-dd-list]')!;
+    const status = root.querySelector<HTMLElement>('[data-dd-status]')!;
+    const exportBox = wireExportBox(root);
+
+    function render(): void {
+      const data = store.exportAll();
+      const keys = Object.keys(data);
+      list.textContent =
+        keys.length === 0
+          ? 'Nothing is saved on this device right now.'
+          : `Saved now: ${keys.map((key) => describeKey(key)).join('; ')}.`;
+      exportBox?.setText(keys.length === 0 ? '{}\n' : `${JSON.stringify(data, null, 2)}\n`);
+    }
+
+    const clear = root.querySelector<HTMLButtonElement>('[data-dd-clear]')!;
+    armedButton(clear, 'Click again to delete everything', () => {
+      store.clearAll();
+      // The module progress panel above reads its own key at load: reload so every panel shows the empty state.
+      window.location.reload();
+    });
+    window.addEventListener('storage', (event) => {
+      if (event.key && (event.key.startsWith(storageKey('')) || event.key === 'dojo-progress-v1')) render();
+    });
+    if (!store.persistent) status.textContent = 'Your browser blocks saving, so nothing is stored here.';
+    render();
+  }
+</script>

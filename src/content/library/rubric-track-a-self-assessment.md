@@ -4,6 +4,7 @@ description: "Six skills, four levels each, with what each level looks like, an 
 section: "Assessment"
 order: 1
 level: core
+tool: self-assessment-track-a
 duration: "60 min to read, then 20 min every Friday"
 outcomes:
   - "Score yourself honestly from 1 to 4 on the six Track A skills."
