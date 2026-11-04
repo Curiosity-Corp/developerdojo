@@ -1,0 +1,9 @@
+title: "Tutorials"
+provider: "Kubernetes"
+url: "https://kubernetes.io/docs/tutorials/"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [kubernetes-gitops]
+summary: "The official Kubernetes tutorials. Start here to run a sample application and see what a cluster does, so cluster diagrams stop being abstract."
+verifiedOn: 2026-11-03

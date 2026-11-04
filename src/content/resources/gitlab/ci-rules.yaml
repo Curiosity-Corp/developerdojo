@@ -1,0 +1,9 @@
+title: "Specify when jobs run with rules"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/jobs/job_rules/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ci-cd]
+summary: "Explains the rules keyword that decides when a job runs, for example only on merge requests or only on a schedule. Rules are how you build gates and scheduled jobs. Read it when a pipeline runs too much or too little."
+verifiedOn: 2026-11-03

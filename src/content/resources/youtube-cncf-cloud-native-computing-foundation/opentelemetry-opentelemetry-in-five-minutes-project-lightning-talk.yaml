@@ -1,0 +1,10 @@
+title: "OpenTelemetry: OpenTelemetry in Five Minutes | Project Lightning Talk"
+provider: "CNCF [Cloud Native Computing Foundation]"
+url: "https://www.youtube.com/watch?v=l8xiNOCIdLY"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 6 minutes"
+skills: [observability-reliability]
+summary: "A five-minute lightning talk on OpenTelemetry. A quick view of the standard for observability."
+verifiedOn: 2026-11-03

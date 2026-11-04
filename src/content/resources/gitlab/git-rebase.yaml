@@ -1,0 +1,9 @@
+title: "Rebase and resolve merge conflicts"
+provider: "GitLab"
+url: "https://docs.gitlab.com/topics/git/git_rebase/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [git-gitlab]
+summary: "Explains rebasing and resolving merge conflicts. Conflicts are normal when several agents touch one repository; this helps you judge a resolution."
+verifiedOn: 2026-11-03

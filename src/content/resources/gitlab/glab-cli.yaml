@@ -1,0 +1,9 @@
+title: "GitLab CLI (glab)"
+provider: "GitLab"
+url: "https://docs.gitlab.com/cli/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [git-gitlab, ai-agents]
+summary: "Documents glab, the GitLab command-line tool. Agents use command-line tools like this to open issues and merge requests, so reading it shows what an agent can do on your behalf."
+verifiedOn: 2026-11-03

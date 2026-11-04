@@ -1,0 +1,9 @@
+title: "Branch rules"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/repository/branches/branch_rules/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [git-gitlab, security]
+summary: "Shows the single place to see protection, approvals and required checks for each branch. It gives you one view of the rules that gate change."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Git Guides"
+provider: "GitHub"
+url: "https://github.com/git-guides"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [git-gitlab]
+summary: "Short guides on common Git tasks such as commit, branch, push and pull. They are the quickest way to refresh the commands you will see in agent logs."
+verifiedOn: 2026-11-03

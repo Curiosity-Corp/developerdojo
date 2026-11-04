@@ -1,0 +1,9 @@
+title: "kind – Quick Start"
+provider: "Kubernetes"
+url: "https://kind.sigs.k8s.io/docs/user/quick-start/"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [kubernetes-gitops, open-source]
+summary: "How to run a Kubernetes cluster in Docker on your own machine. A safe sandbox for letting an agent practise."
+verifiedOn: 2026-11-03

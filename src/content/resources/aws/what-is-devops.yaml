@@ -1,0 +1,9 @@
+title: "What is DevOps? - DevOps Models Explained - Amazon Web Services (AWS)"
+provider: "AWS"
+url: "https://aws.amazon.com/devops/what-is-devops/"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [ci-cd, observability-reliability]
+summary: "A plain overview of DevOps culture and practices. A concise introduction."
+verifiedOn: 2026-11-03

@@ -1,0 +1,10 @@
+title: "What is Kubernetes?"
+provider: "Google Cloud Tech"
+url: "https://www.youtube.com/watch?v=cC46cg5FFAM"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 5 minutes"
+skills: [kubernetes-gitops]
+summary: "Google Cloud's short explainer of Kubernetes. Gives you the picture in under five minutes."
+verifiedOn: 2026-11-03

@@ -1,0 +1,10 @@
+title: "Introduction to Linux (LFS101)"
+provider: "Linux Foundation"
+url: "https://training.linuxfoundation.org/training/introduction-to-linux/"
+cost: "free"
+format: "course"
+level: "beginner"
+duration: "about 60 hours"
+skills: [open-source, cloud-platforms]
+summary: "The Linux Foundation's free self-paced introduction to Linux, listed at no cost. Servers, containers and agent sandboxes all run Linux. Take part of it so the command line is not foreign."
+verifiedOn: 2026-11-03

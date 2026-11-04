@@ -1,0 +1,9 @@
+title: "Time tracking"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/project/time_tracking/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [agile-delivery]
+summary: "Explains estimates and time spent on issues. Useful for forecasting. Use estimates as conversation, not control."
+verifiedOn: 2026-11-03

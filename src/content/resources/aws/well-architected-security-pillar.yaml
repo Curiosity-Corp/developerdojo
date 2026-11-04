@@ -1,0 +1,9 @@
+title: "Security Pillar - AWS Well-Architected Framework - Security Pillar"
+provider: "AWS"
+url: "https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [security, cloud-platforms]
+summary: "The security pillar of AWS's framework: identity, detection, protection and response. A solid structure for cloud security review."
+verifiedOn: 2026-11-03

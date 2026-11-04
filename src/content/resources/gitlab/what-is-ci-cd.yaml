@@ -1,0 +1,9 @@
+title: "What is CI/CD?"
+provider: "GitLab"
+url: "https://about.gitlab.com/topics/ci-cd/"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [ci-cd]
+summary: "A plain explainer of continuous integration and continuous delivery. Read it first if the terms are new."
+verifiedOn: 2026-11-03

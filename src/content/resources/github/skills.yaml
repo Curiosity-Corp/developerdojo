@@ -1,0 +1,9 @@
+title: "GitHub Learn - Skills"
+provider: "GitHub"
+url: "https://skills.github.com/"
+cost: "free"
+format: "interactive"
+level: "beginner"
+skills: [git-gitlab, ci-cd]
+summary: "GitHub's free interactive courses where you learn by completing tasks in a real repository, including Git, pull requests and Actions. A good hands-on route to learn how change review works. The ideas transfer to GitLab."
+verifiedOn: 2026-11-03

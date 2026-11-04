@@ -1,0 +1,9 @@
+title: "Concepts"
+provider: "Kubernetes"
+url: "https://kubernetes.io/docs/concepts/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [kubernetes-gitops]
+summary: "The conceptual guide to Kubernetes objects and architecture. Read the overview pages to be able to follow an architecture review."
+verifiedOn: 2026-11-03

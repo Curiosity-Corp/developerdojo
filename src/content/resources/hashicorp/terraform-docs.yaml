@@ -1,0 +1,9 @@
+title: "Terraform Documentation"
+provider: "HashiCorp"
+url: "https://developer.hashicorp.com/terraform/docs"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [infrastructure-as-code]
+summary: "The main Terraform documentation. Use it to check what an infrastructure file really does."
+verifiedOn: 2026-11-03

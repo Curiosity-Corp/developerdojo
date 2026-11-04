@@ -1,0 +1,10 @@
+title: "Introduction to ArgoCD by Saiyam Pathak"
+provider: "CNCF [Cloud Native Computing Foundation]"
+url: "https://www.youtube.com/watch?v=u16LBmER-P4"
+cost: "free"
+format: "video"
+level: "intermediate"
+duration: "about 32 minutes"
+skills: [kubernetes-gitops]
+summary: "A CNCF talk introducing Argo CD. Walks through what a GitOps controller does."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Use Git"
+provider: "GitLab"
+url: "https://docs.gitlab.com/topics/git/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [git-gitlab]
+summary: "GitLab's guide to Git concepts and tasks. A solid reference to keep open when you need to understand what an agent did with branches and history."
+verifiedOn: 2026-11-03

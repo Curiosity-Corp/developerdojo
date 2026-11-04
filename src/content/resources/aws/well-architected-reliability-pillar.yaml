@@ -1,0 +1,9 @@
+title: "Reliability Pillar - AWS Well-Architected Framework - Reliability Pillar"
+provider: "AWS"
+url: "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [observability-reliability, cloud-platforms]
+summary: "The reliability pillar: failure management, change management and workload design. Helps you ask how a product recovers."
+verifiedOn: 2026-11-03

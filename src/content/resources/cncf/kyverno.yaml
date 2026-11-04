@@ -1,0 +1,9 @@
+title: "Introduction"
+provider: "CNCF"
+url: "https://kyverno.io/docs/introduction/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [security, kubernetes-gitops]
+summary: "The introduction to Kyverno, a policy engine for Kubernetes. A second view of policy as code beside Open Policy Agent."
+verifiedOn: 2026-11-03

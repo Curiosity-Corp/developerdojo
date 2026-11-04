@@ -1,0 +1,9 @@
+title: "AWS Educate - Cloud Skills for Education- AWS"
+provider: "AWS"
+url: "https://aws.amazon.com/education/awseducate/"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [cloud-platforms, career-portfolio]
+summary: "AWS's free programme for learning cloud skills. Check the page for current eligibility."
+verifiedOn: 2026-11-03

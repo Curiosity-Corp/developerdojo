@@ -1,0 +1,9 @@
+title: "GitHub Docs"
+provider: "GitHub"
+url: "https://docs.github.com/en"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [git-gitlab]
+summary: "The official GitHub documentation. Even if you use GitLab, much of the world's open source lives on GitHub, so you should know how to read these docs."
+verifiedOn: 2026-11-03

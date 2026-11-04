@@ -1,0 +1,9 @@
+title: "GitHub Foundations Part 1 of 2 - Training"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/training/paths/github-foundations/"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [git-gitlab]
+summary: "A free Microsoft Learn path on GitHub basics: repositories, issues, pull requests and collaboration. The concepts carry over to GitLab."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Getting Started - Argo CD - Declarative GitOps CD for Kubernetes"
+provider: "CNCF"
+url: "https://argo-cd.readthedocs.io/en/stable/getting_started/"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [kubernetes-gitops]
+summary: "The Argo CD getting-started guide. Walk through it once to see a git change appear in a cluster."
+verifiedOn: 2026-11-03

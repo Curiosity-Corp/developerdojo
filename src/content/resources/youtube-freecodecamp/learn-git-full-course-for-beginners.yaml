@@ -1,0 +1,10 @@
+title: "Learn Git – Full Course for Beginners"
+provider: "freeCodeCamp.org"
+url: "https://www.youtube.com/watch?v=zTjRZNkhiEU"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 3.5 hours"
+skills: [git-gitlab]
+summary: "freeCodeCamp's full beginner course on Git. A longer, structured option for understanding version control."
+verifiedOn: 2026-11-03

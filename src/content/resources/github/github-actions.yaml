@@ -1,0 +1,9 @@
+title: "GitHub Actions documentation - GitHub Docs"
+provider: "GitHub"
+url: "https://docs.github.com/en/actions"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ci-cd]
+summary: "The documentation for GitHub Actions workflows. Learning one CI system makes the others easy, and the concepts transfer to GitLab CI."
+verifiedOn: 2026-11-03

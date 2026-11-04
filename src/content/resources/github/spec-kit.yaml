@@ -1,0 +1,9 @@
+title: "github/spec-kit"
+provider: "GitHub"
+url: "https://github.com/github/spec-kit"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [ai-agents, prompt-engineering, open-source]
+summary: "An open-source toolkit for spec-driven development: you write the specification and agents build to it. It is a close match to the Dojo's idea that people specify and agents build. Read the README to see one way the workflow can run."
+verifiedOn: 2026-11-03

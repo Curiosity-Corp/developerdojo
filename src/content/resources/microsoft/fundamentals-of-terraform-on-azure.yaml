@@ -1,0 +1,9 @@
+title: "Fundamentals of Terraform on Azure - Training"
+provider: "Microsoft"
+url: "https://learn.microsoft.com/en-us/training/paths/terraform-fundamentals/"
+cost: "free"
+format: "course"
+level: "intermediate"
+skills: [infrastructure-as-code]
+summary: "A free Microsoft Learn path on using Terraform with Azure. A good guided hands-on."
+verifiedOn: 2026-11-03

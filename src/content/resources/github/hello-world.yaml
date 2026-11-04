@@ -1,0 +1,9 @@
+title: "Hello World"
+provider: "GitHub"
+url: "https://docs.github.com/en/get-started/start-your-journey/hello-world"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [git-gitlab]
+summary: "A ten-minute walk-through of repositories, branches, commits and pull requests. It is the shortest way to understand the change review cycle that all agent work flows through."
+verifiedOn: 2026-11-03

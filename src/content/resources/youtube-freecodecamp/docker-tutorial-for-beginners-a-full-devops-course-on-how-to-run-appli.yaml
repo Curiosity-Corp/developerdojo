@@ -1,0 +1,10 @@
+title: "Docker Tutorial for Beginners - A Full DevOps Course on How to Run Applications in Containers"
+provider: "freeCodeCamp.org"
+url: "https://www.youtube.com/watch?v=fqMOX6JJhGo"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 2 hours"
+skills: [ci-cd, cloud-platforms]
+summary: "freeCodeCamp's Docker tutorial for beginners. Containers are the unit that agents and pipelines ship."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "About rulesets - GitHub Docs"
+provider: "GitHub"
+url: "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [git-gitlab, security]
+summary: "Explains rulesets that apply branch and tag rules across a repository or organisation. A model for centrally governing many repositories."
+verifiedOn: 2026-11-03

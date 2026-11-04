@@ -1,0 +1,9 @@
+title: "Kustomize"
+provider: "Kubernetes"
+url: "https://kubectl.docs.kubernetes.io/guides/introduction/kustomize/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [kubernetes-gitops]
+summary: "An introduction to Kustomize, which customises Kubernetes configuration without templates. Common in GitOps repositories."
+verifiedOn: 2026-11-03

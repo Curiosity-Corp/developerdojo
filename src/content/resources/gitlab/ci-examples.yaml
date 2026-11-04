@@ -1,0 +1,9 @@
+title: "CI/CD examples"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/examples/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ci-cd]
+summary: "A collection of example pipelines for common languages and tasks. Use it to see what a normal pipeline looks like so you can spot an odd one."
+verifiedOn: 2026-11-03

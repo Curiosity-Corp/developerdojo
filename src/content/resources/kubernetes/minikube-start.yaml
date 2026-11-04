@@ -1,0 +1,9 @@
+title: "minikube start"
+provider: "Kubernetes"
+url: "https://minikube.sigs.k8s.io/docs/start/"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [kubernetes-gitops]
+summary: "The minikube getting-started guide for a local cluster. An easy sandbox for learning."
+verifiedOn: 2026-11-03

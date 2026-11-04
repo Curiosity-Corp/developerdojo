@@ -1,0 +1,10 @@
+title: "How Kubernetes works"
+provider: "Microsoft Azure"
+url: "https://www.youtube.com/watch?v=daVUONZqn88"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 6 minutes"
+skills: [kubernetes-gitops]
+summary: "A short Microsoft Azure explainer of how Kubernetes works. A second angle for the same concepts."
+verifiedOn: 2026-11-03

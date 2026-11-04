@@ -1,0 +1,9 @@
+title: "Scheduled pipelines"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/pipelines/schedules/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ci-cd]
+summary: "How to run pipelines automatically on a schedule. Scheduled pipelines power nightly builds and recurring checks such as link audits. Read it when you want a job to run weekly without anyone pushing code."
+verifiedOn: 2026-11-03

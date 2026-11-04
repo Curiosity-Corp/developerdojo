@@ -1,0 +1,9 @@
+title: "Welcome"
+provider: "CNCF"
+url: "https://docs.crossplane.io/latest/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [infrastructure-as-code, kubernetes-gitops]
+summary: "The Crossplane documentation: managing cloud infrastructure through Kubernetes-style APIs. It shows the platform-as-product idea."
+verifiedOn: 2026-11-03

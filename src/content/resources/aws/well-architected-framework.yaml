@@ -1,0 +1,9 @@
+title: "AWS Well-Architected Framework - AWS Well-Architected Framework"
+provider: "AWS"
+url: "https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [cloud-platforms, observability-reliability, security]
+summary: "AWS's framework of six pillars for reviewing cloud workloads: operational excellence, security, reliability, performance, cost and sustainability. A manager's checklist for architecture reviews even when you do not use AWS."
+verifiedOn: 2026-11-03

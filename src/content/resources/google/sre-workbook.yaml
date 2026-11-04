@@ -1,0 +1,9 @@
+title: "The Site Reliability Workbook"
+provider: "Google"
+url: "https://sre.google/workbook/table-of-contents/"
+cost: "free"
+format: "book"
+level: "advanced"
+skills: [observability-reliability]
+summary: "The companion workbook with practical examples of applying SRE ideas. Use it to turn the SRE concepts into practice."
+verifiedOn: 2026-11-03

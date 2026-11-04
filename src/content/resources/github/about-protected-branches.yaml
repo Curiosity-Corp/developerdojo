@@ -1,0 +1,9 @@
+title: "About protected branches - GitHub Docs"
+provider: "GitHub"
+url: "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [git-gitlab, security]
+summary: "GitHub's explanation of protected branch rules. Compare it with GitLab's protected branches to see the common idea of a gate on main."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Threat Modeling"
+provider: "OWASP"
+url: "https://owasp.org/www-community/Threat_Modeling"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [security, product-discovery]
+summary: "An introduction to threat modeling: thinking through what could go wrong before building. A thinking tool for product people."
+verifiedOn: 2026-11-03

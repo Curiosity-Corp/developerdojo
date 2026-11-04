@@ -217,6 +217,11 @@ const formatsInUse = FORMATS.filter((format) => sorted.some((resource) => resour
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 24rem), 1fr));
     gap: var(--space-4);
   }
+  /* Hundreds of cards: let the browser skip layout and paint for the ones off screen. */
+  .grid > li {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 15rem;
+  }
   .grid > li[hidden] {
     display: none;
   }

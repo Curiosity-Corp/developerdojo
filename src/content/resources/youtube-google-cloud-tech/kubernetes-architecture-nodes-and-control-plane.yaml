@@ -1,0 +1,10 @@
+title: "Kubernetes architecture: Nodes and control plane"
+provider: "Google Cloud Tech"
+url: "https://www.youtube.com/watch?v=VQUZF6k6g88"
+cost: "free"
+format: "video"
+level: "intermediate"
+duration: "about 4 minutes"
+skills: [kubernetes-gitops]
+summary: "A short Google Cloud video on Kubernetes nodes and the control plane. Helps you follow an architecture diagram."
+verifiedOn: 2026-11-03

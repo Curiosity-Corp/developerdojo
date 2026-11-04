@@ -1,0 +1,10 @@
+title: "Delivering GitOps with Argo CD"
+provider: "CNCF [Cloud Native Computing Foundation]"
+url: "https://www.youtube.com/watch?v=SELZh-wHpAw"
+cost: "free"
+format: "video"
+level: "beginner"
+duration: "about 5 minutes"
+skills: [kubernetes-gitops, ci-cd]
+summary: "A short CNCF video on delivering GitOps with Argo CD. Shows the idea of git as the source of truth for deployments."
+verifiedOn: 2026-11-03
