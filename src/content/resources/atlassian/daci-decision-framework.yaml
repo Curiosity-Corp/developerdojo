@@ -4,6 +4,6 @@ url: "https://www.atlassian.com/team-playbook/plays/daci"
 cost: "free"
 format: "tutorial"
 level: "beginner"
-skills: [stakeholder-communication, agile-delivery]
+skills: [stakeholder-communication, agile-delivery, roadmapping-epics]
 summary: "A workshop guide to the DACI roles: Driver, Approver, Contributors and Informed. Its main idea is that one named person approves each decision while others advise or are told. Use it to make clear who decides what, and read its claims about success rates as the publisher's own, not as proof."
 verifiedOn: 2026-11-03
