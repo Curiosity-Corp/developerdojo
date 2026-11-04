@@ -1,9 +1,0 @@
-title: "Monitoring"
-provider: "Anthropic"
-url: "https://code.claude.com/docs/en/monitoring-usage"
-cost: "free"
-format: "docs"
-level: "advanced"
-skills: [ai-agents, observability-reliability]
-summary: "How to export Claude Code usage and activity as telemetry for dashboards. It is the public way to measure what a fleet of sessions actually does, instead of what you hope it does."
-verifiedOn: 2026-11-03

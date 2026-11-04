@@ -1,9 +1,0 @@
-title: "Monitoring Distributed Systems"
-provider: "Google"
-url: "https://sre.google/sre-book/monitoring-distributed-systems/"
-cost: "free"
-format: "book"
-level: "intermediate"
-skills: [observability-reliability]
-summary: "A chapter on what to measure and how to alert on symptoms rather than noise. It helps you choose a few honest measures for your fleet scorecard."
-verifiedOn: 2026-11-03

@@ -1,9 +1,0 @@
-title: "Postmortem Culture: Learning from Failure"
-provider: "Google"
-url: "https://sre.google/sre-book/postmortem-culture/"
-cost: "free"
-format: "book"
-level: "intermediate"
-skills: [observability-reliability]
-summary: "A chapter on writing blameless postmortems that find the cause and add a fix. It matches the fix-forward habit: after each failure, name the gate that would have caught it. Use it for the retrospective."
-verifiedOn: 2026-11-03

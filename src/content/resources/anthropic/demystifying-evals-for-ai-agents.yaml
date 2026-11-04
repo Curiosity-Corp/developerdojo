@@ -1,9 +1,0 @@
-title: "Demystifying evals for AI agents"
-provider: "Anthropic"
-url: "https://www.anthropic.com/research/demystifying-evals-for-ai-agents"
-cost: "free"
-format: "article"
-level: "intermediate"
-skills: [ai-evaluation, ai-agents]
-summary: "A practical guide to testing agents with tasks, graders and repeated runs. It helps you turn 'it seems to work' into evidence. Read it when you design the acceptance checks you give your sessions and the measures on your scorecard."
-verifiedOn: 2026-11-03

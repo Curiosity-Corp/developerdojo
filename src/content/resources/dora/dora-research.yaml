@@ -1,9 +1,0 @@
-title: "DORA"
-provider: "DORA"
-url: "https://dora.dev/"
-cost: "free"
-format: "docs"
-level: "intermediate"
-skills: [observability-reliability, agile-delivery, ci-cd]
-summary: "The research programme behind the well-known software delivery measures. Use its measures as inspiration when you choose what the fleet scorecard counts."
-verifiedOn: 2026-11-03
