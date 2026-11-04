@@ -1,0 +1,9 @@
+title: "DACI: A Decision-Making Framework"
+provider: "Atlassian"
+url: "https://www.atlassian.com/team-playbook/plays/daci"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [stakeholder-communication, roadmapping-epics]
+summary: "Describes DACI, a way to name roles before a decision: a driver who runs the process, one approver who decides, contributors who advise and people who are informed afterwards. The one-approver rule is the useful part for a Product Development Manager: it forces you to say who decides. Treat any survey figures on the page as the publisher's claim, not as something the Dojo vouches for."
+verifiedOn: 2026-11-03

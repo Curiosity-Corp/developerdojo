@@ -1,0 +1,9 @@
+title: "Architecture decision records overview"
+provider: "Google Cloud"
+url: "https://docs.cloud.google.com/architecture/architecture-decision-records"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [communication-writing, stakeholder-communication]
+summary: "Google Cloud's explanation of when and how to write an architecture decision record: when you face a choice with no existing basis, when two or more options exist, and when a solution is not written down anywhere the team can find it. It lists a typical outline (context, requirements, options, decision and reasons). The examples are about cloud infrastructure, but the habit of keeping the record near the code is the same for product decisions."
+verifiedOn: 2026-11-03
