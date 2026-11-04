@@ -1,0 +1,9 @@
+title: "CI CD Security Cheat Sheet"
+provider: "OWASP"
+url: "https://cheatsheetseries.owasp.org/cheatsheets/CI_CD_Security_Cheat_Sheet.html"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security, ci-cd]
+summary: "A practical list of risks in build pipelines (who can change them, how secrets are handled, how runners are isolated) with fixes. Use it as a review list for any pipeline an agent writes."
+verifiedOn: 2026-11-03

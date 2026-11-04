@@ -1,0 +1,9 @@
+title: "Review apps"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/review_apps/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ci-cd]
+summary: "How GitLab can deploy a temporary copy of the product for each merge request so reviewers can click it. Great for design and marketing reviewers."
+verifiedOn: 2026-11-03
