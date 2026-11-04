@@ -1,0 +1,9 @@
+title: "Atlassian: Service request management and request fulfillment"
+provider: "Atlassian"
+url: "https://www.atlassian.com/itsm/service-request-management"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [itsm-service-management]
+summary: "Explains what a service request is, how it differs from an incident, a problem and a change, and how request fulfillment works with the service desk. Useful when you design how people ask for access, equipment or information."
+verifiedOn: 2026-11-04

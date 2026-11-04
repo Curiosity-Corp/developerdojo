@@ -1,0 +1,9 @@
+title: "Atlassian: What is a configuration management database (CMDB)?"
+provider: "Atlassian"
+url: "https://www.atlassian.com/itsm/it-asset-management/cmdb"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [itsm-service-management]
+summary: "Introduces configuration items, their relationships and how a CMDB helps with impact analysis for incidents and changes. It also explains how configuration management differs from IT asset management."
+verifiedOn: 2026-11-04

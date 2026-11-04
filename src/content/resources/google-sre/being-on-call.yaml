@@ -1,0 +1,9 @@
+title: "Google SRE Book: Being on-call"
+provider: "Google"
+url: "https://sre.google/sre-book/being-on-call/"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [itsm-service-management, observability-reliability]
+summary: "A chapter on how to run on-call rotations so that services stay reliable and people stay well, covering workload balance, safety and operational overload. Read it before you agree an on-call arrangement for your team."
+verifiedOn: 2026-11-04
