@@ -70,7 +70,7 @@ const hear = [
           <div data-panel="list">
             <h3 class="group-title">Upcoming</h3>
             {upcoming.length === 0 ? (
-              <p class="none" role="status">Nothing is scheduled right now. The next session will appear here as soon as it is real.</p>
+              <p class="none">Nothing is scheduled right now. The next session will appear here as soon as it is real.</p>
             ) : (
               <ul class="events">
                 {upcoming.map((event) => {
@@ -168,7 +168,7 @@ const hear = [
     ) : (
       <section class="section">
         <div class="container">
-          <div class="empty" role="status">
+          <div class="empty">
             <Icon name="calendar-clock" size={44} class="empty-icon" />
             <h2>Schedule announced soon</h2>
             <p>
