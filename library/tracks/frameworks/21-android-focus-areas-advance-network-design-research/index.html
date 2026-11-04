@@ -1,0 +1,319 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>ANDROID focus areas 1 to 4: Advance, Network, Design, Research · Developer Dojo</title><meta name="description" content="The first four ANDROID Ops focus areas in depth: what each one is for, the activities inside it, who does what, what the Product Development Manager does, and what agents can take."><link rel="canonical" href="https://developerdojo.org/library/tracks/frameworks/21-android-focus-areas-advance-network-design-research/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="color-scheme" content="light dark"><meta property="og:site_name" content="Developer Dojo"><meta property="og:title" content="ANDROID focus areas 1 to 4: Advance, Network, Design, Research · Developer Dojo"><meta property="og:description" content="The first four ANDROID Ops focus areas in depth: what each one is for, the activities inside it, who does what, what the Product Development Manager does, and what agents can take."><meta property="og:type" content="website"><meta property="og:url" content="https://developerdojo.org/library/tracks/frameworks/21-android-focus-areas-advance-network-design-research/"><meta name="twitter:card" content="summary"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      // Runs before first paint: apply the saved theme and mark JS as available.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('dojo-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/PageHero.CB5u5E89.css"><style>.crumbs[data-astro-cid-vx4iavld] ol[data-astro-cid-vx4iavld]{gap:var(--space-1) var(--space-2);margin:0 0 var(--space-4);font-size:var(--text-sm);flex-wrap:wrap;padding:0;list-style:none;display:flex}.crumbs[data-astro-cid-vx4iavld] li[data-astro-cid-vx4iavld]+li[data-astro-cid-vx4iavld]:before{content:"/";margin-right:var(--space-2);color:var(--ink-muted)}.crumbs[data-astro-cid-vx4iavld] [data-astro-cid-vx4iavld][aria-current=page]{color:var(--ink-muted)}.toc[data-astro-cid-p33bl5ka] ol[data-astro-cid-p33bl5ka]{gap:var(--space-2);font-size:var(--text-sm);margin:0;padding:0;list-style:none;display:grid}.depth-3[data-astro-cid-p33bl5ka]{padding-left:var(--space-4)}.toc[data-astro-cid-p33bl5ka] a[data-astro-cid-p33bl5ka]{text-decoration:none}.toc[data-astro-cid-p33bl5ka] a[data-astro-cid-p33bl5ka]:hover{text-decoration:underline}.toc-inline[data-astro-cid-p33bl5ka]{margin-bottom:var(--space-5);padding:var(--space-3) var(--space-4);background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius)}.toc-inline[data-astro-cid-p33bl5ka] summary[data-astro-cid-p33bl5ka]{cursor:pointer;font-weight:700}.toc-inline[data-astro-cid-p33bl5ka] ol[data-astro-cid-p33bl5ka]{margin-top:var(--space-3)}@media (width>=70rem){.toc-inline[data-astro-cid-p33bl5ka]{display:none}.toc-side[data-astro-cid-p33bl5ka]{top:calc(var(--header-h) + var(--space-4));max-height:calc(100vh - var(--header-h) - var(--space-6));padding:var(--space-3) var(--space-4);border-left:3px solid var(--gold);position:sticky;overflow-y:auto}.toc-title[data-astro-cid-p33bl5ka]{margin:0 0 var(--space-3);font-weight:700}}.lesson[data-astro-cid-ecbjlo7c]{gap:var(--space-6);grid-template-columns:minmax(0,1fr);align-items:start;display:grid}.side[data-astro-cid-ecbjlo7c]{display:none}@media (width>=70rem){.side[data-astro-cid-ecbjlo7c]{align-self:stretch;display:block}.lesson[data-astro-cid-ecbjlo7c]{grid-template-columns:minmax(0,72ch) 16rem;justify-content:center}}.facts[data-astro-cid-ecbjlo7c]{gap:var(--space-2) var(--space-4);margin:0 0 var(--space-4);font-size:var(--text-sm);flex-wrap:wrap;padding:0;font-weight:600;list-style:none;display:flex}.facts[data-astro-cid-ecbjlo7c] li[data-astro-cid-ecbjlo7c]{align-items:center;gap:var(--space-2);display:inline-flex}.box[data-astro-cid-ecbjlo7c]{margin-bottom:var(--space-4);padding:var(--space-3) var(--space-5);background:var(--paper-raised);border:1px solid var(--line);border-left:5px solid var(--olive);border-radius:var(--radius)}.box[data-astro-cid-ecbjlo7c] h2[data-astro-cid-ecbjlo7c]{margin:0 0 var(--space-2);font-size:var(--text-lg)}.box[data-astro-cid-ecbjlo7c] ul[data-astro-cid-ecbjlo7c]{padding-left:var(--space-5);margin:0}.further[data-astro-cid-ecbjlo7c]{margin-top:var(--space-7)}.further-intro[data-astro-cid-ecbjlo7c]{color:var(--ink-muted)}.cards[data-astro-cid-ecbjlo7c]{gap:var(--space-4);margin:0;padding:0;list-style:none;display:grid}.pager[data-astro-cid-ecbjlo7c]{gap:var(--space-3);margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--line);grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));display:grid}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]{gap:var(--space-1);padding:var(--space-3) var(--space-4);background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius);font-weight:600;text-decoration:none;display:grid}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c]:hover{border-color:var(--olive)}.pager[data-astro-cid-ecbjlo7c] a[data-astro-cid-ecbjlo7c] span[data-astro-cid-ecbjlo7c]{font-size:var(--text-sm);letter-spacing:.04em;text-transform:uppercase;color:var(--ink-muted);font-weight:700}.back[data-astro-cid-ecbjlo7c]{margin-top:var(--space-5)}.pager[data-astro-cid-ecbjlo7c] .next[data-astro-cid-ecbjlo7c]{text-align:right}
+.section-header[data-astro-cid-pb4nux2a]{max-width:38rem}.align-center[data-astro-cid-pb4nux2a]{text-align:center;margin-inline:auto}.eyebrow[data-astro-cid-pb4nux2a]{align-items:center;gap:var(--space-3);margin:0 0 var(--space-2);letter-spacing:.14em;text-transform:uppercase;color:var(--rust-text);font-size:.78rem;font-weight:700;display:flex}.align-center[data-astro-cid-pb4nux2a] .eyebrow[data-astro-cid-pb4nux2a]{justify-content:center}.eyebrow-rule[data-astro-cid-pb4nux2a]{opacity:.55;background:currentColor;flex:0 4rem;height:1px}.title[data-astro-cid-pb4nux2a]{margin-bottom:var(--space-2)}.intro[data-astro-cid-pb4nux2a]{color:var(--ink-muted);margin:0}.tone-dark[data-astro-cid-pb4nux2a] .eyebrow[data-astro-cid-pb4nux2a]{color:var(--gold)}.tone-dark[data-astro-cid-pb4nux2a] .title[data-astro-cid-pb4nux2a]{color:var(--band-text)}.tone-dark[data-astro-cid-pb4nux2a] .intro[data-astro-cid-pb4nux2a]{color:var(--band-muted)}
+.resource[data-astro-cid-jtgbjsdm]{gap:var(--space-2);overflow-wrap:anywhere;min-width:0;padding:var(--space-4) var(--space-5);background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);align-content:start;display:grid}.provider[data-astro-cid-jtgbjsdm]{font-size:var(--text-sm);letter-spacing:.04em;text-transform:uppercase;color:var(--olive-text);margin:0;font-weight:700}h3[data-astro-cid-jtgbjsdm]{font-family:var(--font-serif);font-size:var(--text-xl);margin:0;line-height:1.25}h3[data-astro-cid-jtgbjsdm] a[data-astro-cid-jtgbjsdm]{gap:var(--space-2);align-items:baseline;display:inline-flex}h3[data-astro-cid-jtgbjsdm] svg{flex:none;align-self:center}.chips[data-astro-cid-jtgbjsdm]{gap:var(--space-2);flex-wrap:wrap;margin:0;padding:0;list-style:none;display:flex}.chip[data-astro-cid-jtgbjsdm]{font-size:var(--text-sm);background:var(--paper-sunk);border:1px solid var(--line);border-radius:999px;padding:.1rem .6rem;font-weight:600}.summary[data-astro-cid-jtgbjsdm],.meta[data-astro-cid-jtgbjsdm]{margin:0}.meta[data-astro-cid-jtgbjsdm]{font-size:var(--text-sm);color:var(--ink-muted)}
+</style></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header" data-astro-cid-nen7h5rs><div class="bar" data-astro-cid-nen7h5rs><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><button type="button" class="search-open button-phone" data-search-open aria-label="Search" aria-keyshortcuts="/ Control+K Meta+K" data-astro-cid-e66w4awt><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"/><circle cx="11" cy="11" r="8"/></g></svg></button><script type="module">var e=document.querySelector(`[data-search-dialog]`),t={current:null};function n(n){e&&!e.open&&(t.current=n,e.showModal(),e.querySelector(`input[type="search"]`)?.focus())}for(let e of document.querySelectorAll(`[data-search-open]`))e.addEventListener(`click`,()=>n(e));e?.querySelector(`[data-search-close]`)?.addEventListener(`click`,()=>e.close()),e?.addEventListener(`click`,t=>{t.target===e&&e.close()}),e?.addEventListener(`close`,()=>t.current?.focus()),e?.addEventListener(`click`,t=>{t.target instanceof HTMLAnchorElement&&e.close()}),document.addEventListener(`keydown`,e=>{let t=e.target,r=t instanceof HTMLInputElement||t instanceof HTMLTextAreaElement||t instanceof HTMLSelectElement||t instanceof HTMLElement&&t.isContentEditable,i=e.key===`/`&&!r&&!e.ctrlKey&&!e.metaKey&&!e.altKey,a=e.key.toLowerCase()===`k`&&(e.ctrlKey||e.metaKey);(i||a)&&(e.preventDefault(),n(document.activeElement instanceof HTMLElement?document.activeElement:null))});</script><button type="button" class="menu-button" data-menu-button aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu" data-astro-cid-nen7h5rs><svg class="icon open-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"/></svg><svg class="icon close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><nav id="primary-nav" class="nav" aria-label="Primary" data-nav data-astro-cid-nen7h5rs><ul data-astro-cid-nen7h5rs><li data-astro-cid-nen7h5rs><a href="/train" data-astro-cid-nen7h5rs>Train</a></li><li data-astro-cid-nen7h5rs><a href="/sensei" data-astro-cid-nen7h5rs>Sensei</a></li><li data-astro-cid-nen7h5rs><a href="/library" aria-current="page" data-astro-cid-nen7h5rs>Library</a></li><li data-astro-cid-nen7h5rs><a href="/certificates" data-astro-cid-nen7h5rs>Certificates</a></li><li data-astro-cid-nen7h5rs><a href="/challenges" data-astro-cid-nen7h5rs>Challenges</a></li><li data-astro-cid-nen7h5rs><a href="/events" data-astro-cid-nen7h5rs>Events</a></li><li data-astro-cid-nen7h5rs><a href="/membership" data-astro-cid-nen7h5rs>Membership</a></li></ul><div class="actions" data-astro-cid-nen7h5rs><button type="button" class="search-open button-desktop" data-search-open aria-label="Search" aria-keyshortcuts="/ Control+K Meta+K" data-astro-cid-e66w4awt><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"/><circle cx="11" cy="11" r="8"/></g></svg></button><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" data-astro-cid-l6lhmie6><svg class="icon to-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="icon to-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g></svg></button><script type="module">var e=document.documentElement,t=document.querySelector(`[data-theme-toggle]`);function n(){let t=e.getAttribute(`data-theme`);return t===`dark`||t!==`light`&&window.matchMedia(`(prefers-color-scheme: dark)`).matches}function r(){if(!t)return;let e=n();t.setAttribute(`aria-label`,e?`Switch to light theme`:`Switch to dark theme`),t.setAttribute(`data-mode`,e?`dark`:`light`)}t?.addEventListener(`click`,()=>{let t=n()?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`dojo-theme`,t)}catch(e){console.warn(`Theme preference not saved:`,e)}r()}),r();</script><a class="start" href="/membership" data-astro-cid-nen7h5rs>Start free</a></div></nav></div><dialog class="search-dialog" data-search-dialog aria-label="Search" data-astro-cid-e66w4awt><button type="button" class="close" data-search-close aria-label="Close search" data-astro-cid-e66w4awt><svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><div class="search-panel" data-search data-pagefind-ignore data-astro-cid-5gryy2vu><form role="search" aria-label="Search the whole site" data-search-form data-astro-cid-5gryy2vu><label for="site-search-input" data-astro-cid-5gryy2vu>Search the whole site</label><input id="site-search-input" type="search" placeholder="Try: epic, persona, roadmap, Kubernetes" autocomplete="off" spellcheck="false" aria-describedby="site-search-status" data-search-input data-astro-cid-5gryy2vu></form><p id="site-search-status" class="status" role="status" aria-live="polite" data-search-status data-astro-cid-5gryy2vu></p><div class="results" data-search-results data-astro-cid-5gryy2vu></div><noscript><p data-astro-cid-5gryy2vu>Search needs JavaScript. You can still browse the <a href="/library" data-astro-cid-5gryy2vu>library</a>.</p></noscript></div><script type="module">var e=[`lessons`,`tracks`,`resources`,`pages`],t={lessons:`Lessons and guides`,tracks:`Tracks`,resources:`Learning resources`,pages:`Other pages`};function n(e){let[t=``,n=``]=e.split(`#`),r=t.split(`/`).filter(e=>e.length>0);return r[0]===`library`?r[1]===`resources`?n?`resources`:`pages`:r[1]===`tracks`?r.length===1||r.length===2?`pages`:r.length===3?`tracks`:`lessons`:r.length>=2?`lessons`:`pages`:`pages`}var r;function i(){return r??=import(`/pagefind/pagefind.js`).then(async e=>(await e.init(),e)),r}var a=24;function o(r,i){r.replaceChildren();let a=new Map;for(let e of i){let t=n(e.url);a.set(t,[...a.get(t)??[],e])}for(let n of e){let e=a.get(n);if(!e)continue;let i=document.createElement(`section`),o=document.createElement(`h3`);o.textContent=t[n];let s=document.createElement(`ul`);for(let t of e){let e=document.createElement(`li`),n=document.createElement(`a`);if(n.href=t.url,n.textContent=t.meta.title??t.url,e.append(n),t.meta.group){let n=document.createElement(`span`);n.className=`where`,n.textContent=t.meta.group,e.append(n)}let r=document.createElement(`p`);r.innerHTML=t.excerpt,e.append(r),s.append(e)}i.append(o,s),r.append(i)}}for(let e of document.querySelectorAll(`[data-search]`)){let t=e.querySelector(`[data-search-input]`),n=e.querySelector(`[data-search-form]`),r=e.querySelector(`[data-search-status]`),s=e.querySelector(`[data-search-results]`);if(!t||!n||!r||!s)continue;let c=0,l=async()=>{let e=t.value.trim(),n=++c;if(e.length===0)r.textContent=``,s.replaceChildren();else try{let t=await(await i()).debouncedSearch(e,{},150);if(t===null||n!==c)return;let l=await Promise.all(t.results.slice(0,a).map(e=>e.data()));if(n!==c)return;o(s,l),r.textContent=t.results.length===0?`No results for "${e}". Try a shorter or different word.`:`${t.results.length} ${t.results.length===1?`result`:`results`} for "${e}"`}catch(e){console.warn(`Search is not available:`,e),r.textContent=`Search is not available here. It works on the published site.`}};n.addEventListener(`submit`,e=>{e.preventDefault(),l()}),t.addEventListener(`input`,()=>void l())}</script></dialog></header><script type="module">var e=document.querySelector(`[data-menu-button]`),t=document.querySelector(`[data-nav]`),n=document.querySelector(`.site-header`);function r(t){e&&n&&(n.toggleAttribute(`data-open`,t),e.setAttribute(`aria-expanded`,String(t)),e.setAttribute(`aria-label`,t?`Close menu`:`Open menu`))}e?.addEventListener(`click`,()=>r(e.getAttribute(`aria-expanded`)!==`true`)),t?.addEventListener(`click`,e=>{e.target instanceof HTMLAnchorElement&&r(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e?.getAttribute(`aria-expanded`)===`true`&&(r(!1),e.focus())}),window.matchMedia(`(min-width: 62rem)`).addEventListener(`change`,e=>{e.matches&&r(!1)}),document.documentElement.classList.add(`js`);</script><main id="main" data-pagefind-body><section class="hero compact" data-astro-cid-75ysl5lo><div class="art" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/hero-dojo-mobile.avif" media="(max-width: 40rem)"><source type="image/webp" srcset="/images/hero-dojo-mobile.webp" media="(max-width: 40rem)"><source srcset="/images/hero-dojo-mobile.jpg" media="(max-width: 40rem)"><source type="image/avif" srcset="/images/hero-dojo.avif"><source type="image/webp" srcset="/images/hero-dojo.webp"><img class="art-img" src="/images/hero-dojo.jpg" alt width="2400" height="900" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="scrim" aria-hidden="true" data-astro-cid-75ysl5lo></div><div class="enso" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/enso.avif"><source type="image/webp" srcset="/images/enso.webp"><img src="/images/enso.png" alt width="800" height="800" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="container grid" data-astro-cid-75ysl5lo><div class="copy" data-astro-cid-75ysl5lo><p class="eyebrow" data-astro-cid-75ysl5lo>Track · Frameworks</p><h1 data-astro-cid-75ysl5lo>ANDROID focus areas 1 to 4: Advance, Network, Design, Research</h1><p class="subtitle" data-astro-cid-75ysl5lo>The first four ANDROID Ops focus areas in depth: what each one is for, the activities inside it, who does what, what the Product Development Manager does, and what agents can take.</p></div></div></section><article class="section" data-astro-cid-ecbjlo7c><div class="container lesson" data-astro-cid-ecbjlo7c><div class="main" data-astro-cid-ecbjlo7c><nav class="crumbs" aria-label="Breadcrumb" data-pagefind-ignore data-astro-cid-vx4iavld><ol data-astro-cid-vx4iavld><li data-astro-cid-vx4iavld><a href="/library" data-astro-cid-vx4iavld>Library</a></li><li data-astro-cid-vx4iavld><a href="/library/tracks" data-astro-cid-vx4iavld>Tracks</a></li><li data-astro-cid-vx4iavld><a href="/library/tracks/frameworks" data-astro-cid-vx4iavld>Frameworks</a></li><li data-astro-cid-vx4iavld><span aria-current="page" data-astro-cid-vx4iavld>ANDROID focus areas 1 to 4: Advance, Network, Design, Research</span></li></ol></nav><ul class="facts" aria-label="About this lesson" data-pagefind-ignore data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 20h.01M7 20v-4m5 4v-8m5 8V8m5-4v16"/></svg>Core</li><li data-astro-cid-ecbjlo7c><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></g></svg>60 min</li><li data-astro-cid-ecbjlo7c><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v16m8.001-2A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2a5 5 0 0 1 4-2z"/></svg>13 min read</li><li data-astro-cid-ecbjlo7c><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M8 2v3m8-3v3"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01M16 17h.01"/></g></svg>Updated <time datetime="2026-11-03" data-astro-cid-ecbjlo7c>3 November 2026</time></li></ul><section class="box outcomes" aria-labelledby="outcomes-title" data-astro-cid-ecbjlo7c><h2 id="outcomes-title" data-astro-cid-ecbjlo7c>After this lesson you can</h2><ul data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c>Describe the objective, activities and evidence for Advance, Network, Design and Research</li><li data-astro-cid-ecbjlo7c>Say which part of each area you decide yourself and which part you can hand to an agent</li><li data-astro-cid-ecbjlo7c>Find the skill track that teaches each area in depth</li></ul></section><section class="box" aria-labelledby="prereq-title" data-astro-cid-ecbjlo7c><h2 id="prereq-title" data-astro-cid-ecbjlo7c>Read these first</h2><ul data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c><a href="/library/tracks/frameworks/20-why-a-new-operating-model" data-astro-cid-ecbjlo7c>Why a new operating model</a></li></ul></section><nav class="toc toc-inline" aria-label="On this page" data-pagefind-ignore data-astro-cid-p33bl5ka><details data-astro-cid-p33bl5ka><summary data-astro-cid-p33bl5ka>On this page</summary><ol data-astro-cid-p33bl5ka><li class="depth-2" data-astro-cid-p33bl5ka><a href="#1-why-this-matters" data-astro-cid-p33bl5ka>1. Why this matters</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#2-key-ideas-explained" data-astro-cid-p33bl5ka>2. Key ideas, explained</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#21-advance-look-ahead-and-take-routine-work-off-people" data-astro-cid-p33bl5ka>2.1 Advance: look ahead and take routine work off people</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#22-network-connect-people-information-and-systems" data-astro-cid-p33bl5ka>2.2 Network: connect people, information and systems</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#23-design-shape-the-experience-the-process-and-the-brand" data-astro-cid-p33bl5ka>2.3 Design: shape the experience, the process and the brand</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#24-research-find-out-what-is-true" data-astro-cid-p33bl5ka>2.4 Research: find out what is true</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#3-step-by-step-using-areas-1-to-4-on-a-new-feature" data-astro-cid-p33bl5ka>3. Step by step: using areas 1 to 4 on a new feature</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#4-worked-example-the-trailmug-cup-return-scan" data-astro-cid-p33bl5ka>4. Worked example: the TrailMug cup return scan</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#5-working-with-ai-agents-on-this" data-astro-cid-p33bl5ka>5. Working with AI agents on this</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#6-common-mistakes-and-how-to-avoid-them" data-astro-cid-p33bl5ka>6. Common mistakes and how to avoid them</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#7-practice" data-astro-cid-p33bl5ka>7. Practice</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#8-checklist" data-astro-cid-p33bl5ka>8. Checklist</a></li></ol></details></nav><div class="prose" data-astro-cid-ecbjlo7c><p><strong>Dojo programme link:</strong> Research and Design are Developer weeks 1, 2 and 5. Advance is week 3 and week 4 (the roadmap and defending it). Network runs through all six weeks and is the heart of the Master Developer module on stakeholders and integrations.</p>
+<h2 id="1-why-this-matters">1. Why this matters</h2>
+<p>In <a href="/library/tracks/frameworks/20-why-a-new-operating-model/">lesson 20</a> you met the seven ANDROID Ops focus areas. This lesson and the next one take each area apart. For every area you will see the same five things:</p>
+<ol>
+<li><strong>The objective</strong>, the reason the area exists.</li>
+<li><strong>The activities</strong> inside it, taken from the framework text and written in plain words.</li>
+<li><strong>Who does what</strong> across roles.</li>
+<li><strong>The PDM’s part</strong>, the decisions that stay with the Product Development Manager.</li>
+<li><strong>The agent’s part</strong>, with a brief you can adapt, and how to check the result.</li>
+</ol>
+<p>Each area also lists <strong>evidence in git</strong>: files you can show to a mentor, an auditor or a customer. If the evidence does not exist, the work did not happen.</p>
+<p>A reminder about <strong>agents</strong>. In these lessons an “agent” is an AI system that you direct to carry out a task and that returns work for you to check. Agents are fast at drafting. They are not accountable. You are.</p>
+<h2 id="2-key-ideas-explained">2. Key ideas, explained</h2>
+<h3 id="21-advance-look-ahead-and-take-routine-work-off-people">2.1 Advance: look ahead and take routine work off people</h3>
+<p><strong>Objective.</strong> Act as a futurist. Keep the roadmap current, test new ideas, and watch what is coming. The framework also uses “advancement” for a practical job: find routine tasks that software can do, and automate them so people spend time on creative and strategic work.</p>
+<p><strong>Activities.</strong></p>
+<ul>
+<li><em>Roadmap work.</em> Keep the list of epics (large pieces of work) current. Remove dead items. Add what the market shows.</li>
+<li><em>Idea generation.</em> Short workshops that produce options, not decisions.</li>
+<li><em>Trend watching.</em> Read what is changing in the industry, in your customers’ world, and in AI tools.</li>
+<li><em>Strategic planning.</em> A longer view of where the product should be in a year.</li>
+<li><em>Automation of routine tasks.</em> In four steps from the framework text: identify tasks that are candidates, choose suitable tools, design the automated workflow, and test it until it is reliable.</li>
+</ul>
+<p><strong>Who does what.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Part in Advance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Founder or sponsor</td>
+<td>Sets the direction and the limits (money, time, values)</td>
+</tr>
+<tr>
+<td>Product</td>
+<td>Owns the roadmap and the ranking of epics</td>
+</tr>
+<tr>
+<td>Design and research</td>
+<td>Bring evidence of what customers need next</td>
+</tr>
+<tr>
+<td>Marketing</td>
+<td>Brings what the market is saying</td>
+</tr>
+<tr>
+<td>Finance</td>
+<td>Says what the plan costs and what it must earn</td>
+</tr>
+<tr>
+<td>Engineering</td>
+<td>Says what is possible and what is risky</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The PDM’s part.</strong> You write the epics and the roadmap. <a href="/library/people-write-epics">People write epics</a>. You decide what moves up, what waits and what is dropped. You decide which routine work is worth automating.</p>
+<p><strong>The agent’s part.</strong> Agents can collect trends, summarise competitor releases, produce a first list of “tasks we repeat every week”, and draft automation scripts. They must not write the epics or choose the order.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Read the issues in this project closed in the last 60 days and the</span></span>
+<span class="line"><span>merge requests behind them. List tasks that humans repeated three or more</span></span>
+<span class="line"><span>times (for example: renaming files, writing release notes, copying data</span></span>
+<span class="line"><span>between systems). For each, give: the task, how often it happened, the</span></span>
+<span class="line"><span>issues that show it, and one risk of automating it. Do not recommend</span></span>
+<span class="line"><span>roadmap items. Output a table.</span></span></code></pre>
+<p><strong>Check it.</strong> Open two of the cited issues per row. If the repetition is not visible there, discard the row. Then you decide which to automate.</p>
+<p><strong>Evidence in git.</strong> <code>roadmap/epics.md</code> with dates (see the <a href="/library/roadmap-standard">Roadmap standard</a> and the <a href="/library/epic-standard">Epic standard</a>), a <code>docs/automation-candidates.md</code> file, and issues labelled for Advance.</p>
+<p><strong>Skill tracks.</strong> <a href="/library/tracks/roadmapping-and-epics/">Roadmapping and epics</a> and <a href="/library/tracks/working-with-ai-agents/">Working with AI agents</a>.</p>
+<h3 id="22-network-connect-people-information-and-systems">2.2 Network: connect people, information and systems</h3>
+<p><strong>Objective.</strong> Improve collaboration and communication across teams and departments, and make sure the right people can find the right information. In the framework text the word “network” covers both human networks and the technical network that carries data, so the area has a second job: connectivity and secure data exchange.</p>
+<p><strong>Activities.</strong></p>
+<ul>
+<li><em>Collaboration tools.</em> Choose where conversations, decisions and files live, and keep that list short.</li>
+<li><em>Knowledge sharing.</em> Write down decisions and runbooks so knowledge does not live in one head.</li>
+<li><em>Stakeholder engagement.</em> Talk to the people affected by the product on a schedule, and keep notes.</li>
+<li><em>Resource mapping.</em> Draw maps, blueprints and architectures that show who and what depends on what.</li>
+<li><em>Technical networking</em> (from the framework steps): review the current network, plan the design for secure sharing, put governance on data exchange, and monitor performance. A product team usually does this as part of the architecture and platform work.</li>
+</ul>
+<p><strong>Who does what.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Part in Network</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operations</td>
+<td>Tools, access, runbooks, who is on call</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>Rules for what data may move where</td>
+</tr>
+<tr>
+<td>Marketing and partnerships</td>
+<td>Relationships with customers, cafés, press</td>
+</tr>
+<tr>
+<td>Product</td>
+<td>Stakeholder map, communication plan</td>
+</tr>
+<tr>
+<td>Engineering</td>
+<td>Integrations between systems, architecture maps</td>
+</tr>
+<tr>
+<td>Finance</td>
+<td>Contracts and payment connections</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The PDM’s part.</strong> You own the <strong>stakeholder map</strong> and the <strong>map of systems</strong>. You decide who must be told, when, and in what form. You decide which integrations are worth their risk. The <a href="/library/repository-map-standard">Repository map standard</a> and the <a href="/library/template-integrations-register">Integrations register template</a> are the files that show this in git.</p>
+<p><strong>The agent’s part.</strong> Agents can keep documents tidy, turn meeting notes into a decision list, draft status updates for review, and draw a first dependency map from the code and the configuration. Never let an agent send a message to a stakeholder without your review. Never give an agent more access than the task needs.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Scan this repository and its CI configuration. Produce a table of every</span></span>
+<span class="line"><span>external system it talks to (APIs, payment, email, analytics). For each:</span></span>
+<span class="line"><span>the file where it appears, what data goes there, and whether a secret is</span></span>
+<span class="line"><span>involved (name only, never print the value). Mark anything you are not</span></span>
+<span class="line"><span>sure about as UNSURE. Do not change any files.</span></span></code></pre>
+<p><strong>Check it.</strong> Pick one row and find it yourself. Ask an engineer to confirm the UNSURE rows. Confirm that no secret value appears in the output.</p>
+<p><strong>Evidence in git.</strong> <code>docs/stakeholders.md</code>, <code>docs/integrations.md</code>, <code>docs/architecture-map.md</code>, and a <code>docs/decisions/</code> folder of short decision records (<a href="/library/template-decision-record">template</a>).</p>
+<p><strong>Skill tracks.</strong> <a href="/library/tracks/stakeholder-communication/">Stakeholder communication</a>, <a href="/library/tracks/git-and-gitlab/">Git and GitLab</a>, and <a href="/library/tracks/cloud-platforms/">Cloud platforms</a>.</p>
+<h3 id="23-design-shape-the-experience-the-process-and-the-brand">2.3 Design: shape the experience, the process and the brand</h3>
+<p><strong>Objective.</strong> Create systems, processes and experiences that fit the goals of the organisation, the needs of customers, and sustainability. In the framework text, design includes process design, user experience, branding, and building sustainability into the work.</p>
+<p>The training-programme version of the area (used in the DROID loop) gives a clear sequence, and it works for products too: define the goals, identify the audience and their needs, develop the content and structure, create the visual design and interface, then test and refine.</p>
+<p><strong>Activities.</strong></p>
+<ul>
+<li><em>Process design.</em> Draw how work flows, and remove steps that do not help the customer.</li>
+<li><em>User experience.</em> Screens, words, flows that people can use without help.</li>
+<li><em>Brand.</em> Name, voice, look, and the promises the brand makes.</li>
+<li><em>Sustainability.</em> Consider the environmental and social cost of the thing you design. For a reusable cup service this is the product’s point; for others it may be hosting choices or data stored.</li>
+</ul>
+<p><strong>Who does what.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Part in Design</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Designer</td>
+<td>Flows, screens, visual system, usability tests</td>
+</tr>
+<tr>
+<td>Marketing</td>
+<td>Brand voice, naming, landing pages</td>
+</tr>
+<tr>
+<td>Product</td>
+<td>Goals, constraints, acceptance of designs</td>
+</tr>
+<tr>
+<td>Engineering</td>
+<td>What the design costs to build and run, accessibility</td>
+</tr>
+<tr>
+<td>Operations</td>
+<td>The real-world process the design must fit</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The PDM’s part.</strong> You set the design goals and judge whether the result meets them. You do not need to draw well. You do need to test a design with real people and to reject a beautiful design that fails the test. You also decide what “accessible enough” means, and you hold the line on it.</p>
+<p><strong>The agent’s part.</strong> Agents can generate screen variants, write interface text options, produce a first style guide from existing pages, and build a clickable prototype. They can check contrast and flag missing labels. They cannot tell you whether people like it.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Using the personas and journeys in docs/personas.md and docs/journeys.md,</span></span>
+<span class="line"><span>produce three alternative wireframes (as simple HTML) for the "return a</span></span>
+<span class="line"><span>cup" screen. Each must work one-handed on a 390 px wide phone. Add a</span></span>
+<span class="line"><span>short note on which journey step each design helps. Do not invent user</span></span>
+<span class="line"><span>quotes or statistics.</span></span></code></pre>
+<p><strong>Check it.</strong> Show the three designs to three people from the audience. Ask them to complete the task. Count the time and the mistakes. Keep notes.</p>
+<p><strong>Evidence in git.</strong> <code>design/</code> with wireframes, a style guide, usability test notes, and the accessibility check results. Link to the <a href="/library/week-5-brand-website-mockups">brand, website and mock-ups week</a>.</p>
+<p><strong>Skill tracks.</strong> <a href="/library/tracks/brand-website-and-mockups/">Brand, website and mock-ups</a> and <a href="/library/tracks/personas-and-journeys/">Personas and journeys</a>.</p>
+<h3 id="24-research-find-out-what-is-true">2.4 Research: find out what is true</h3>
+<p><strong>Objective.</strong> Do enough research and analysis to know where improvement is possible, what is changing, and what practices work. Research is where claims meet evidence.</p>
+<p><strong>Activities.</strong></p>
+<ul>
+<li><em>Needs analysis.</em> Find the gap between what people need and what exists.</li>
+<li><em>Market research.</em> Understand customers’ preferences and behaviour.</li>
+<li><em>Competitive analysis.</em> Who else solves this, how, and where are they weak.</li>
+<li><em>Data analysis.</em> Use the numbers you have: usage, support requests, sales.</li>
+<li><em>Innovation research.</em> Look at new technology and methods.</li>
+<li><em>Objectives and measures.</em> From the training version of this area: write the learning or success objectives, and the way you will judge them, before you build.</li>
+<li><em>Evaluate effectiveness.</em> Check, after the work, whether it did what you said it would.</li>
+</ul>
+<p><strong>Who does what.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Part in Research</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Researcher or product</td>
+<td>Interviews, surveys, observation</td>
+</tr>
+<tr>
+<td>Data and finance</td>
+<td>Numbers, cost and revenue models</td>
+</tr>
+<tr>
+<td>Marketing</td>
+<td>Market and competitor reviews</td>
+</tr>
+<tr>
+<td>Engineering</td>
+<td>Technical feasibility, proofs of concept</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>Threat and risk review</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The PDM’s part.</strong> You decide the question. A research question such as “Will cafés accept a ten-second return scan?” is much better than “Do people like TrailMug?” You decide how much evidence is enough for this decision. You listen to people yourself, because a summary loses tone and surprise.</p>
+<p><strong>The agent’s part.</strong> Agents are excellent at desk research: find sources, summarise them, extract claims, and cluster interview notes. They are also good at drafting survey questions. They sometimes invent sources or statistics. Treat every number as unverified until you have opened the source.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Research question: how do independent cafés in a mid-sized city handle</span></span>
+<span class="line"><span>reusable cups today? Find up to eight public sources. For each source,</span></span>
+<span class="line"><span>give the URL, the date, a one-sentence claim you can quote exactly, and</span></span>
+<span class="line"><span>a confidence rating (high, medium, low) with the reason. If you cannot</span></span>
+<span class="line"><span>find a source for a point, say NO SOURCE. Do not write numbers that are</span></span>
+<span class="line"><span>not in a source.</span></span></code></pre>
+<p><strong>Check it.</strong> Open every URL. Search for the quoted sentence on the page. Delete any claim that fails. Keep a note of what you removed; it teaches you how that agent fails.</p>
+<p><strong>Evidence in git.</strong> <code>research/</code> folder with interview notes (with consent, no real names in public repos), source list, a summary with the decision it informs, and a <code>research/questions.md</code> file listing open questions.</p>
+<p><strong>Skill tracks.</strong> <a href="/library/tracks/product-discovery/">Product discovery</a> and <a href="/library/tracks/personas-and-journeys/">Personas and journeys</a>.</p>
+<h2 id="3-step-by-step-using-areas-1-to-4-on-a-new-feature">3. Step by step: using areas 1 to 4 on a new feature</h2>
+<ol>
+<li><strong>Research first, but small.</strong> Write the question and the decision it supports. Spend a few hours, not weeks.</li>
+<li><strong>Network at the same time.</strong> List who is affected and tell two of them what you are exploring.</li>
+<li><strong>Design a rough version.</strong> A paper or HTML sketch is enough.</li>
+<li><strong>Advance the roadmap.</strong> Create or update the epic, with the evidence linked. A person writes it.</li>
+<li><strong>Check the loop.</strong> Does the research support the epic? If not, change the epic.</li>
+<li><strong>Record the decision.</strong> A short decision record in git.</li>
+</ol>
+<h2 id="4-worked-example-the-trailmug-cup-return-scan">4. Worked example: the TrailMug cup return scan</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>What happened</th>
+<th>Evidence file</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Research</td>
+<td>Maya observed two café counters on a quiet and a busy day. A return took about the length of a short chat when staff had to find a name. She wrote down the question: “Can a scan cut the return to under ten seconds?”</td>
+<td><code>research/cup-return-observation.md</code></td>
+</tr>
+<tr>
+<td>Network</td>
+<td>She listed Leo (café owner), a barista, the payments contact and the support person. She told Leo and the barista that a prototype would arrive next week.</td>
+<td><code>docs/stakeholders.md</code></td>
+</tr>
+<tr>
+<td>Design</td>
+<td>She asked an agent for three one-handed layouts, picked one, and tested it on paper with the barista.</td>
+<td><code>design/return-scan/</code></td>
+</tr>
+<tr>
+<td>Advance</td>
+<td>She wrote epic 4, “Return a cup in under ten seconds at the counter”, with a date, a measure and the three research notes as links. She dropped a “loyalty points” epic because nobody mentioned it.</td>
+<td><code>roadmap/epics.md</code></td>
+</tr>
+</tbody>
+</table>
+<p>All numbers in this example are fictional and stand in for your own.</p>
+<h2 id="5-working-with-ai-agents-on-this">5. Working with AI agents on this</h2>
+<p>A rule you can keep for all four areas: <strong>agents gather and draft, people decide and sign</strong>. The agent’s output is a draft in a branch. The merge request is your review. Use the merge request description to record what you changed and what you rejected. See <a href="/library/disclose-ai-use">Disclose AI use</a>.</p>
+<p>Run <strong>two agents in parallel</strong> when the tasks do not depend on each other, for example one for desk research and one for a dependency map. Give each its own branch. You review both before anything merges.</p>
+<p><strong>From delegating to orchestrating.</strong> A hand-off issue is the brief for one session. When several sessions work the same focus area at once, split the issues by file, keep the stop rule in every brief, and let the pipeline gates, not the agents, decide what may merge. See Agent orchestration for the command chain and policy as data.</p>
+<h2 id="6-common-mistakes-and-how-to-avoid-them">6. Common mistakes and how to avoid them</h2>
+<ul>
+<li><strong>Research without a decision.</strong> Reports nobody reads. Write the decision the research serves first.</li>
+<li><strong>Network as chat.</strong> Messages are not records. Write decisions in git.</li>
+<li><strong>Design by taste.</strong> Opinions of the loudest voice. Test with three people from the audience.</li>
+<li><strong>Advance as wishlist.</strong> A roadmap with twenty epics and no evidence. Keep four to eight and link evidence.</li>
+<li><strong>Trusting agent sources.</strong> Open the links.</li>
+<li><strong>Asking an agent to write the roadmap.</strong> It will write a fluent one. It will not own it. You must.</li>
+</ul>
+<h2 id="7-practice">7. Practice</h2>
+<p><strong>Deliverable in git:</strong> one branch, <code>focus-areas-1-to-4</code>, with:</p>
+<ol>
+<li><code>research/question.md</code> (the question, the decision it serves, three sources you opened yourself).</li>
+<li><code>docs/stakeholders.md</code> (at least five people or groups, what they need, when you will talk to them).</li>
+<li><code>design/sketch.md</code> or a small HTML sketch of one screen.</li>
+<li>A one-epic update in <code>roadmap/epics.md</code> that you wrote yourself, linking the three files.</li>
+<li>A section “Agent use” in the merge request listing each brief you gave, what you checked, and what you removed.</li>
+</ol>
+<h2 id="8-checklist">8. Checklist</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Each of the four areas has at least one file in git.</li>
+<li class="task-list-item"><input type="checkbox" disabled> Every claim has a source I opened.</li>
+<li class="task-list-item"><input type="checkbox" disabled> The epic is written by a person and links evidence.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I tested the design with real people, or I recorded that I did not yet.</li>
+<li class="task-list-item"><input type="checkbox" disabled> No secret, personal data or internal host name appears in any file.</li>
+<li class="task-list-item"><input type="checkbox" disabled> I recorded which parts an agent drafted.</li>
+</ul>
+<p><strong>Next:</strong> <a href="/library/tracks/frameworks/22-android-focus-areas-optimize-implement-deliver/">lesson 22</a> covers Optimize, Implement and Deliver.</p>
+</div><section class="further" aria-label="Further learning" data-pagefind-ignore data-astro-cid-ecbjlo7c><header class="section-header tone-paper align-start" data-astro-cid-pb4nux2a><p class="eyebrow" data-astro-cid-pb4nux2a><span data-astro-cid-pb4nux2a>Go deeper</span><span class="eyebrow-rule" aria-hidden="true" data-astro-cid-pb4nux2a></span></p><h2 class="title" data-astro-cid-pb4nux2a="true">Further learning</h2></header><p class="further-intro" data-astro-cid-ecbjlo7c>Free or low-cost material from other publishers. We opened every link; check the cost label before you start.</p><ul class="cards" data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="atlassian/epics" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>Atlassian</p><h3 data-astro-cid-jtgbjsdm><a href="https://www.atlassian.com/agile/project-management/epics" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>Epics<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Article</li><li class="chip" data-astro-cid-jtgbjsdm>Beginner</li></ul><p class="summary" data-astro-cid-jtgbjsdm>Atlassian&#39;s explanation of epics: large bodies of work broken into smaller stories. Note that Atlassian&#39;s meaning of epic is looser than the Dojo&#39;s, which crosses several parts of a product. Compare the two and be ready to say how they differ.</p></article></li><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="gitlab/epics" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>GitLab</p><h3 data-astro-cid-jtgbjsdm><a href="https://docs.gitlab.com/user/group/epics/" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>Epics<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Docs</li><li class="chip" data-astro-cid-jtgbjsdm>Intermediate</li></ul><p class="summary" data-astro-cid-jtgbjsdm>GitLab&#39;s documentation for epics, which group related issues across projects. Check the page for which GitLab tier includes the feature before you rely on it. On the free plan, use labelled issues instead.</p></article></li><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="gitlab/issue-boards" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>GitLab</p><h3 data-astro-cid-jtgbjsdm><a href="https://docs.gitlab.com/user/project/issue_board/" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>Issue boards<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Docs</li><li class="chip" data-astro-cid-jtgbjsdm>Beginner</li></ul><p class="summary" data-astro-cid-jtgbjsdm>Shows how to turn labels and milestones into a Kanban-style board in GitLab. Use it to make your work visible in one view.</p></article></li><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="atlassian/what-is-agile" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>Atlassian</p><h3 data-astro-cid-jtgbjsdm><a href="https://www.atlassian.com/agile" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>What is Agile?<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Article</li><li class="chip" data-astro-cid-jtgbjsdm>Beginner</li></ul><p class="summary" data-astro-cid-jtgbjsdm>Atlassian&#39;s plain-language home for its Agile Coach material. It explains the Agile idea, how it differs from older plan-everything-first methods, and links to short guides on Scrum, Kanban and backlogs. Start here if the word Agile still feels like jargon.</p></article></li><li data-astro-cid-ecbjlo7c><article class="resource" data-resource-id="google/sre-book" data-astro-cid-jtgbjsdm><p class="provider" data-astro-cid-jtgbjsdm>Google</p><h3 data-astro-cid-jtgbjsdm><a href="https://sre.google/sre-book/table-of-contents/" rel="noopener noreferrer" target="_blank" data-astro-cid-jtgbjsdm>Site Reliability Engineering (Table of Contents)<span class="visually-hidden" data-astro-cid-jtgbjsdm> (opens the publisher's site in a new tab)</span><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></h3><ul class="chips" aria-label="About this resource" data-astro-cid-jtgbjsdm><li class="chip cost-free" data-astro-cid-jtgbjsdm>Free</li><li class="chip" data-astro-cid-jtgbjsdm>Book</li><li class="chip" data-astro-cid-jtgbjsdm>Intermediate</li></ul><p class="summary" data-astro-cid-jtgbjsdm>The free online edition of Google&#39;s book on running reliable systems. You do not read it end to end: pick the chapters on service level objectives, monitoring, incidents and postmortems.</p></article></li></ul></section><nav class="pager" data-pagefind-ignore aria-label="More in Frameworks, lesson 18 of 21" data-astro-cid-ecbjlo7c><a class="prev" href="/library/tracks/frameworks/20-why-a-new-operating-model" data-astro-cid-ecbjlo7c><span data-astro-cid-ecbjlo7c>Previous</span>Why a new operating model</a><a class="next" href="/library/tracks/frameworks/22-android-focus-areas-optimize-implement-deliver" data-astro-cid-ecbjlo7c><span data-astro-cid-ecbjlo7c>Next</span>ANDROID focus areas 5 to 7: Optimize, Implement, Deliver</a></nav><p class="back" data-astro-cid-ecbjlo7c><a href="/library/tracks/frameworks" data-astro-cid-ecbjlo7c>Back to the track: Frameworks</a></p></div><aside class="side" data-pagefind-ignore data-astro-cid-ecbjlo7c><nav class="toc toc-side" aria-label="Table of contents" data-astro-cid-p33bl5ka><p class="toc-title" aria-hidden="true" data-astro-cid-p33bl5ka>On this page</p><ol data-astro-cid-p33bl5ka><li class="depth-2" data-astro-cid-p33bl5ka><a href="#1-why-this-matters" data-astro-cid-p33bl5ka>1. Why this matters</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#2-key-ideas-explained" data-astro-cid-p33bl5ka>2. Key ideas, explained</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#21-advance-look-ahead-and-take-routine-work-off-people" data-astro-cid-p33bl5ka>2.1 Advance: look ahead and take routine work off people</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#22-network-connect-people-information-and-systems" data-astro-cid-p33bl5ka>2.2 Network: connect people, information and systems</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#23-design-shape-the-experience-the-process-and-the-brand" data-astro-cid-p33bl5ka>2.3 Design: shape the experience, the process and the brand</a></li><li class="depth-3" data-astro-cid-p33bl5ka><a href="#24-research-find-out-what-is-true" data-astro-cid-p33bl5ka>2.4 Research: find out what is true</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#3-step-by-step-using-areas-1-to-4-on-a-new-feature" data-astro-cid-p33bl5ka>3. Step by step: using areas 1 to 4 on a new feature</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#4-worked-example-the-trailmug-cup-return-scan" data-astro-cid-p33bl5ka>4. Worked example: the TrailMug cup return scan</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#5-working-with-ai-agents-on-this" data-astro-cid-p33bl5ka>5. Working with AI agents on this</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#6-common-mistakes-and-how-to-avoid-them" data-astro-cid-p33bl5ka>6. Common mistakes and how to avoid them</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#7-practice" data-astro-cid-p33bl5ka>7. Practice</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#8-checklist" data-astro-cid-p33bl5ka>8. Checklist</a></li></ol></nav></aside></div></article></main><section class="sponsor-band" aria-label="Sponsored by Reveltek" data-astro-cid-ji2uitki><div class="backdrop" aria-hidden="true" data-astro-cid-ji2uitki><span class="only-light" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band.avif"><source type="image/webp" srcset="/images/mountains-band.webp"><img src="/images/mountains-band.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span><span class="only-dark" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band-dark.avif"><source type="image/webp" srcset="/images/mountains-band-dark.webp"><img src="/images/mountains-band-dark.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span></div><div class="container inner" data-astro-cid-ji2uitki><span class="lead" data-astro-cid-ji2uitki>Sponsored by</span><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span><a class="sponsor" href="/sponsors" data-astro-cid-ji2uitki><img class="only-light" src="/images/reveltek-logo.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki><img class="only-dark" src="/images/reveltek-logo-white.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki></a><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span></div></section><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="container inner" data-astro-cid-jo6i4kqk><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><nav aria-label="Footer" data-astro-cid-jo6i4kqk><ul data-astro-cid-jo6i4kqk><li data-astro-cid-jo6i4kqk><a href="/about" data-astro-cid-jo6i4kqk>About CRC</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors" data-astro-cid-jo6i4kqk>Sponsors (Reveltek)</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors#become-a-sponsor" data-astro-cid-jo6i4kqk>Become a sponsor</a></li><li data-astro-cid-jo6i4kqk><a href="/contact" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href="/code-of-conduct" data-astro-cid-jo6i4kqk>Code of conduct</a></li><li data-astro-cid-jo6i4kqk><a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>GitHub</a></li></ul></nav></div><p class="legal container" data-astro-cid-jo6i4kqk>© 2026 Curiosity Research Corporation. Developer Dojo is free for everyone and is sponsored by Reveltek.</p></footer></body></html><script type="module">for(let e of document.querySelectorAll(`.prose .task-list-item > input[type="checkbox"]`)){let t=e.parentElement?.textContent?.trim();t&&e.setAttribute(`aria-label`,t)}</script>
