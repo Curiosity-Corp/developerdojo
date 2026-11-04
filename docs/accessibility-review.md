@@ -6,6 +6,34 @@ covers what a scan cannot see. The routine for repeating it is in [handbook sect
 
 Each pass is added to this file with its date. Do not edit an old pass. Add a new one above it.
 
+## Pass 2: 2026-11-04, keyboard in the Firefox engine (agent pre-pass)
+
+**Who and what.** An AI agent (Claude Code) working for Suzanne Conejos ran this pass for #72. **No person sat at a
+keyboard, so this does not tick the person's line in Pass 1.** It narrows what the person needs to look for.
+
+**What was tested.** The same ten pages as Pass 1, on a local build of `master` at commit `4801092`, not the live site.
+
+| Method | Tool used | Real or substituted |
+| --- | --- | --- |
+| Keyboard only, Firefox | Playwright 1.64.1 with its Firefox 157 build (desktop, 1280 by 800), real key presses | Real keyboard events in the Firefox engine. Playwright's build, not Firefox as you download it, and with its default settings. |
+| Keyboard only, Safari | Playwright's WebKit build | **Not run.** WebKit would not start on this Linux machine without extra system libraries. Nothing is claimed for Safari. |
+
+**Method.** For each page: list every visible control, press Tab from the top and record each stop and whether a focus
+ring was drawn, until focus came back to a control already reached. On the resource hub, stop after 150 presses, as
+its long tab order is known (#69). Then, on each page, press Tab and Enter on the skip link, press Tab once more, and
+check that focus is now inside the main content.
+
+**Results.**
+
+- Every visible control on the nine pages other than the resource hub was reached with Tab. None was missed.
+- A focus ring was drawn on every stop (899 stops over the ten pages).
+- "Skip to content" is the first stop on every page. After using it, the next Tab lands inside the main content on all
+  ten pages, in Firefox and, for comparison, in Chromium 156.
+- Problems found: none.
+
+**Still for a person.** The keyboard pass in Safari and in Firefox as people use it, the screen reader pass and the
+real phone pass. The three lines in Pass 1 stay unticked.
+
 ## Pass 1: 2026-11-04
 
 **Date.** The results are dated 2026-11-04, which is the UTC date. The machine's own clock (US Eastern time) read
