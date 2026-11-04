@@ -1,0 +1,9 @@
+title: "REST API"
+provider: "Crossref"
+url: "https://www.crossref.org/documentation/retrieve-metadata/rest-api/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [data-analytics, ai-evaluation]
+summary: "Crossref's documentation for its open API, which returns metadata about published works as JSON. No sign-up is needed. You can look up a work by its DOI and compare the title, authors and year with what an agent claimed. It is the fastest way to catch an invented citation. A DOI that Crossref does not know may still exist elsewhere, so treat a miss as a reason to look further, not as proof."
+verifiedOn: 2026-11-03

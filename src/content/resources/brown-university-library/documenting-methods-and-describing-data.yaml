@@ -1,0 +1,9 @@
+title: "Documenting Methods and Describing Data"
+provider: "Brown University Library"
+url: "https://libguides.brown.edu/DataManagement/documenting"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [data-analytics, communication-writing]
+summary: "A page in a university data management tutorial. It recommends a research notebook that records design decisions and methods, and README files that explain how files were made. The same habits apply to an evidence log in git: write down what you did so someone else can repeat it."
+verifiedOn: 2026-11-03
