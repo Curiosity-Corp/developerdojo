@@ -1,9 +1,9 @@
 title: "DevOps capabilities"
 provider: "Google Cloud"
-url: "https://cloud.google.com/architecture/devops"
+url: "https://docs.cloud.google.com/architecture/devops"
 cost: "free"
 format: "docs"
 level: "intermediate"
 skills: [ci-cd, agile-delivery]
 summary: "Descriptions of the capabilities that predict delivery performance, from the DORA research. A menu for improving how a team ships."
-verifiedOn: 2026-11-03
+verifiedOn: 2026-11-04

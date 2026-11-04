@@ -1,9 +1,9 @@
 title: "Function calling with the Gemini API - Gemini API"
 provider: "Google"
-url: "https://ai.google.dev/gemini-api/docs/function-calling"
+url: "https://aistudio.google.com/docs/function-calling"
 cost: "free"
 format: "docs"
 level: "intermediate"
 skills: [ai-agents]
 summary: "How Gemini models call functions and tools. Reading the same concept from a third vendor confirms the pattern is shared across the industry."
-verifiedOn: 2026-11-03
+verifiedOn: 2026-11-04

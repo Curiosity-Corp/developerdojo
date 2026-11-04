@@ -1,9 +1,9 @@
 title: "OWASP DevSecOps Guideline"
 provider: "OWASP"
-url: "https://owasp.org/www-project-devsecops-guideline/"
+url: "https://owasp.org/projects/devsecops-guideline"
 cost: "free"
 format: "docs"
 level: "advanced"
 skills: [security, ci-cd]
 summary: "Guidance on putting security checks into the pipeline. A checklist for what to automate."
-verifiedOn: 2026-11-03
+verifiedOn: 2026-11-04

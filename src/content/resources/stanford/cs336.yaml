@@ -1,9 +1,9 @@
 title: "Stanford CS336"
 provider: "Stanford"
-url: "https://stanford-cs336.github.io/spring2025/"
+url: "https://cs336.stanford.edu/spring2025/"
 cost: "free"
 format: "course"
 level: "advanced"
 skills: [ai-agents]
 summary: "Stanford's course on building language models from scratch. Optional deep literacy on what is inside the models your agents use."
-verifiedOn: 2026-11-03
+verifiedOn: 2026-11-04

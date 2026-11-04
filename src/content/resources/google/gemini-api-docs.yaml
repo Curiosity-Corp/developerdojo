@@ -1,9 +1,9 @@
 title: "Docs - Gemini API"
 provider: "Google"
-url: "https://ai.google.dev/gemini-api/docs"
+url: "https://aistudio.google.com/docs"
 cost: "free"
 format: "docs"
 level: "beginner"
 skills: [prompt-engineering, ai-agents]
 summary: "The documentation for Google's Gemini API. It gives you a third vendor's view of the same ideas: prompts, tools and structured output. Skim it to keep your concepts provider-neutral."
-verifiedOn: 2026-11-03
+verifiedOn: 2026-11-04

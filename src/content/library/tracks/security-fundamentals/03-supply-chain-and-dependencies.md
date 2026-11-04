@@ -80,7 +80,7 @@ A **lock file** records the exact version of every dependency, direct and indire
 
 ### Scanning for known flaws
 
-Dependency scanners compare your list of dependencies with public databases of known flaws and report matches. The OWASP [Dependency-Check](https://owasp.org/www-project-dependency-check/) project is a free open source example, and GitLab offers [dependency scanning](https://docs.gitlab.com/user/application_security/dependency_scanning/) as part of its security features; check which parts your plan includes. Treat results this way.
+Dependency scanners compare your list of dependencies with public databases of known flaws and report matches. The OWASP [Dependency-Check](https://owasp.org/projects/dependency-check) project is a free open source example, and GitLab offers [dependency scanning](https://docs.gitlab.com/user/application_security/dependency_scanning/) as part of its security features; check which parts your plan includes. Treat results this way.
 
 1. **Is the vulnerable part actually used** by our code? Many are not reachable.
 2. **How severe** is it, and is anyone exploiting it?

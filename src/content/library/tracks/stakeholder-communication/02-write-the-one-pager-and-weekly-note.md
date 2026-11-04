@@ -15,7 +15,7 @@ resources:
   - "atlassian/project-poster"
   - "atlassian/product-brief"
   - "gitlab/handbook-communication"
-  - "gitlab/handbook-operating-principles"
+  - "gitlab/operating-principles"
   - "github/open-source-guides-best-practices"
 prerequisites:
   - "week-4-defend-the-roadmap"

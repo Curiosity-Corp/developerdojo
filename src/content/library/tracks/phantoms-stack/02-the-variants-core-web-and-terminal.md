@@ -79,7 +79,7 @@ PHANTOMS+ is the **web variant**: the same pattern, built for a product whose in
 
 We keep the PHANTOMS+ starter repository internal, so this lesson describes it and does not link it. What matters for you is the lesson it teaches: **a design system is a decision with a cost.** It improves consistency and accessibility, and it adds dependencies, upgrade work and a styling vocabulary that every agent must follow. The guide's own warning applies: "do not mix multiple styling systems without a reason." Write the styling rule in `AGENTS.md`.
 
-If you work from a public repository and want PHANTOMS+ behaviour, start from the core and add the design pieces yourself, one at a time, with decision records. The official docs for [Tailwind CSS](https://tailwindcss.com/docs/installation) and [shadcn/ui](https://ui.shadcn.com/docs) are free.
+If you work from a public repository and want PHANTOMS+ behaviour, start from the core and add the design pieces yourself, one at a time, with decision records. The official docs for [Tailwind CSS](https://tailwindcss.com/docs/installation/using-vite) and [shadcn/ui](https://ui.shadcn.com/docs) are free.
 
 ### PHANTOMS TUI
 
