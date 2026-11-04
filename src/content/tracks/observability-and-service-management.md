@@ -13,6 +13,20 @@ outcomes:
   - "Write a blameless review that ends in a gate, and record changes and services so that anyone can find the owner and the rules"
 ---
 
+## In short
+
+This track is for people who are responsible for something that real people use. Software needs care after it ships. Observability means you can see what a running system is doing. You will learn what logs, metrics and traces show. You will turn a customer promise into a service level objective. You will read the error budget and decide what it means for your roadmap.
+
+You will run the first hour of an incident with clear roles. You will write a blameless review. It ends in a gate, a test or a rule. You will keep a record of each service, its owner and its changes. Agents can gather evidence for you. They must not act alone. A person decides.
+
+### Key words
+
+- **Observability:** Being able to see from the outside what a running system is doing.
+- **Service level (SLI, SLO, SLA):** An indicator you measure, an objective you aim for, and an agreement you promise.
+- **Error budget:** The amount of failure a service-level target allows.
+- **Incident:** An unplanned break or drop in quality of a service.
+- **Blameless review:** A review after an incident that asks what failed, not who failed. It ends in a gate, a test, a check or a rule.
+
 Software is not finished when it ships. It runs, it breaks, people depend on it, and someone has to notice, respond, learn and change it again. **Observability** is the ability to see from the outside what a running system is doing. **Service management** is the set of habits that decide who owns a service, what is promised, how requests and changes are handled, and what happens when things go wrong.
 
 For a product manager directing AI agents this is where the rest of the engineering tracks come together. Agents can ship changes quickly. Whether that is a good thing depends on whether you can see the effect, whether you have promised a level of service you can keep, and whether a bad change can be found and fixed forward fast.
