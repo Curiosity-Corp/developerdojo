@@ -13,7 +13,7 @@ outcomes:
 resources:
   - "opengitops/principles"
   - "argo-cd/docs"
-  - "cncf/flux"
+  - "flux-project/flux-documentation"
   - "gitlab/environments"
   - "gitlab/docs-protected-environments"
   - "atlassian/change-management"
@@ -203,7 +203,7 @@ the website.
 
 **Other disciplines.** Operations owns the live checks and on-call. Marketing and support own the GTM pack. Finance confirms prices and billing. Security reviews the policy gates. Legal or a compliance partner reviews claims about standards and data.
 
-**From delegating to orchestrating.** Preparing change records, checklists and release notes can be run as sessions inside policy, but approval, release and what you tell customers stay with people. Protected environments and required approvals are the gates that enforce this. See [Agent orchestration](/library/tracks/agent-orchestration/).
+**From delegating to orchestrating.** Preparing change records, checklists and release notes can be run as sessions inside policy, but approval, release and what you tell customers stay with people. Protected environments and required approvals are the gates that enforce this. See Agent orchestration.
 
 ## 6. Common mistakes and how to avoid them
 

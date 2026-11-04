@@ -215,7 +215,7 @@ Do not change any file. Output two lists.
 
 **Other disciplines.** Security helps choose the gates. Operations owns the live checks. Marketing and support own the GTM pack. A designer checks the live product against the design.
 
-**From delegating to orchestrating.** A gate that checks every merge request is policy made enforceable. When many sessions produce changes, the six stages are the walls that keep them safe whether or not anyone is watching. The fleet side (operating these gates for agent-built software) is in the [Agent orchestration](/library/tracks/agent-orchestration/) track.
+**From delegating to orchestrating.** A gate that checks every merge request is policy made enforceable. When many sessions produce changes, the six stages are the walls that keep them safe whether or not anyone is watching. The fleet side (operating these gates for agent-built software) is in the Agent orchestration track.
 
 ## 6. Common mistakes and how to avoid them
 

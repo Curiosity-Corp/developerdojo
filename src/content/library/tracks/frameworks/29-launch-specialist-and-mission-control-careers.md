@@ -147,7 +147,7 @@ guessing as GUESS. Do not write recommendations yet.
 
 **Privacy.** Client information belongs to the client. Do not put real names, photos or private details in public repositories without permission. Keep client files in a private repository, and share only what the client agrees to.
 
-**From delegating to orchestrating.** The three roles here map onto a command chain. A Command Engineer or Deployment Team member may direct several sessions that read, test and draft, while a person declares ready, approves production and answers customers. The [Agent orchestration](/library/tracks/agent-orchestration/) track teaches this structure.
+**From delegating to orchestrating.** The three roles here map onto a command chain. A Command Engineer or Deployment Team member may direct several sessions that read, test and draft, while a person declares ready, approves production and answers customers. The Agent orchestration track teaches this structure.
 
 ## 6. Common mistakes and how to avoid them
 
@@ -183,4 +183,4 @@ If the client is real, share only what they agree to. If you use a fictional cli
 - [ ] No private data is in a public repository.
 - [ ] I described my own role honestly in the README.
 
-**Next:** the capstone starts with [DREAM discovery](/library/tracks/frameworks/30-capstone-overview-and-dream-discovery/) and takes TrailMug through all of it.
+**Next:** the capstone starts with DREAM discovery and takes TrailMug through all of it.
