@@ -14,6 +14,19 @@ outcomes:
   - "Publish one honest write-up in your own repository with the AI use disclosed and a correction note ready"
 ---
 
+## In short
+
+This track is for you if you have built part of a Product Package. You now have real work to write about. You will state a point of view as one claim. Someone must be able to disagree with it. You will check every number against its original source. You will write a short post from your own work, in plain words.
+
+Agents can draft from facts that you give them. You verify every sentence. You publish one honest write-up with the AI use disclosed. On the agent ladder, you move from use to delegate. You also prepare a correction note, in case you are wrong. Say only what you can show.
+
+### Key words
+
+- **Point of view:** One claim that someone could disagree with and that your own work supports.
+- **AI disclosure:** A plain line that says where AI helped with a piece of work. It goes in the README or the merge request.
+- **Brief:** A written task for an AI agent, with its goal, limits and checks.
+- **Product Package:** The final assessment of the Developer path. Eight parts.
+
 A product owner who keeps quiet is easy to doubt. Customers, sponsors and employers cannot see how you think, so they guess. A short, clear piece of writing that says what you believe, shows the work behind it and admits what you do not know is one of the cheapest ways to earn trust. This track trains that habit and the honesty that makes it worth having.
 
 ## Who this track is for

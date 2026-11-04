@@ -14,6 +14,20 @@ outcomes:
   - "Test the site with one person who has not seen it, and act on what you see"
 ---
 
+## In short
+
+This track is for people who have a product idea and a roadmap. You also need some evidence about your customers. You do not need to be a designer. You will choose a name and write one promise you can keep. You will write a one-page brand sheet. You will draw mockups, each tied to an epic. You will publish a small website from git that works on a phone. Then you will test it with one person who has not seen it.
+
+Agents can draft pages quickly. You decide what you can honestly promise. You check every claim, and you run the accessibility checks yourself.
+
+### Key words
+
+- **Brand:** What people think of when they hear your product name.
+- **Brand sheet:** A one-page sheet with the name, promise, tone of voice, colours and font.
+- **Mockup:** A drawing of a screen before it is built.
+- **Accessibility:** Making a product work for everyone, including people who use screen readers or keyboards.
+- **Epic:** A whole-product outcome across several repos. Weeks to months. Written by a human.
+
 A product has a face. People meet it in a name, a few sentences, a colour and a page long before they meet a feature. If the face is confusing, the product is confusing, however good the code behind it.
 
 This track covers the front of the product: the brand, the website and the mockups of what comes next.

@@ -13,6 +13,21 @@ outcomes:
   - "Brief an agent to prepare options and a comparison, then judge its work and make the decision yourself"
 ---
 
+## In short
+
+This track is for people who must make many smaller choices inside each epic. You do not need to code. You will write a problem statement with an owner and a deadline. You will list the people who decide, advise or are affected. You will compare options, including doing nothing, against criteria you wrote first. You will record the trade-off you accept.
+
+Agents can find options and build a table for you. You keep a log of what you used and what you threw away. The agent never decides. You decide, and you write down why. On the agent ladder, you move from use to delegate. Orchestration starts when several agents each argue one option.
+
+### Key words
+
+- **Problem statement:** A short text that says who has a problem and why it matters. It also says how you will know it is solved.
+- **Stakeholder:** A person or group affected by the product or able to affect it.
+- **Decision record:** A short file for one decision: the options, the choice and the reasons. It also names the day to look again.
+- **Decision log:** A dated list of decisions with the question, answer, reason and name.
+- **AI agent:** An AI coding assistant that reads your project and builds tasks. It does the task in front of it. It does not own the plan.
+- **Agent ladder:** Four rungs of skill with AI agents: use, delegate, orchestrate and govern. Each rung needs different skills.
+
 A 2030 Product Development Manager is paid to decide. Agents can write code, draft research and build a comparison table in minutes. They cannot be accountable for the choice. When a product has to pick a payment model, a first market, a partner or a tool, one person must say "we do this, and not that", and write down why. This track trains that skill.
 
 ## Who this track is for

@@ -14,6 +14,20 @@ outcomes:
   - "Run reviews and retrospectives that produce decisions, including for work done by agents"
 ---
 
+## In short
+
+This track is for you if you have a roadmap. Now you must manage the work. You may be a developer or a founder. You will choose a rhythm on purpose: Scrum, Kanban or a mix. You will keep an ordered backlog and write stories that an agent can build. You will plan a cycle and write a definition of done. You will hold a review and a retrospective that lead to decisions.
+
+Agents build fast, so review time becomes the limit. Protect it. You keep a list of changes that your reviews caused. On the agent ladder, your definition of done is the first written policy.
+
+### Key words
+
+- **Agile:** A way of building a product in small steps. You release a little, learn from real use, then change the plan. See [Choose your rhythm](/library/tracks/agile-delivery/01-choose-your-rhythm).
+- **Scrum:** An agile framework with fixed-length sprints, set roles and set meetings. The team builds the product in small steps. See [Choose your rhythm](/library/tracks/agile-delivery/01-choose-your-rhythm).
+- **Backlog:** An ordered list of work waiting to be done: wanted features and fixes. The top items come next. See [The backlog](/library/tracks/agile-delivery/02-backlog-and-stories).
+- **Definition of done:** A written list of checks that work must pass before it counts as done.
+- **Acceptance criteria:** Checks that prove an issue or epic is done. A person must be able to test each one.
+
 Agile delivery is how a plan becomes working software without the plan going stale. You have a roadmap. Now you need a rhythm that turns one milestone into something a person can use, week after week, and tells you early when you are off course.
 
 This track is short on theory and long on practice. It uses the free guidance from Atlassian, the Scrum Guide and the UK government's service manual, and it keeps one question in front of you: **what does the manager decide, and what does the manager check?**

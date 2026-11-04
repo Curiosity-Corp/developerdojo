@@ -14,6 +14,20 @@ outcomes:
   - "Tell people honestly where AI agents were used and where people decided"
 ---
 
+## In short
+
+This track is for you if you must explain a roadmap to other people. They may have money, power or opinions. You will map who is affected, what they want and what they fear. You will write a one-page brief and a short regular note. You will present and defend your roadmap in ten minutes. You will learn to say no, report risk and give bad news in writing.
+
+Agents can draft messages. You decide what is sent, and you answer for it. You also say plainly where agents helped and where people decided. On the agent ladder, the governing rule is simple. No outside message goes out until a person has read it.
+
+### Key words
+
+- **Stakeholder:** A person or group affected by the product or able to affect it.
+- **Roadmap:** Epics laid out in order over time.
+- **Decision log:** A dated list of decisions with the question, answer, reason and name.
+- **AI disclosure:** A plain line that says where AI helped with a piece of work. It goes in the README or the merge request.
+- **Agent ladder:** Four rungs of skill with AI agents: use, delegate, orchestrate and govern. Each rung needs different skills.
+
 A product is never built for one person. Customers, partners, sponsors, advisers, colleagues and the people and agents who build all affect it, and all are affected by it. Most products that fail with good code fail in the gaps between these people: a partner who was never told, a sponsor who was surprised, a rule nobody checked.
 
 This track teaches the part of product management that looks soft and is not. You will write things down clearly, show your reasoning and make it easy for the right person to say yes, no or "not like that" early, when the answer is cheap.
