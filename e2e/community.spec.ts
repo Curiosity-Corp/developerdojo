@@ -68,6 +68,22 @@ test.describe('events', () => {
     await expect(page.getByRole('button', { name: 'Calendar' })).toHaveCount(0);
     await noOverflow(page);
   });
+
+  test('every Details link on the events page opens a real detail page (none while the list is empty)', async ({ page, request }) => {
+    await page.goto('/events');
+    const hrefs = await page
+      .locator('main a[href^="/events/"]:not([href$=".ics"])')
+      .evaluateAll((links) => [...new Set(links.map((a) => a.getAttribute('href') ?? ''))]);
+    for (const href of hrefs) {
+      const response = await request.get(href);
+      expect(response.status(), href).toBe(200);
+      expect(await response.text(), href).toContain('How to join');
+    }
+    // With no events there are no detail pages in the sitemap either.
+    const sitemap = await (await request.get('/sitemap-0.xml')).text();
+    const detailPages = [...sitemap.matchAll(/<loc>[^<]*\/events\/[^<]+<\/loc>/g)].length;
+    expect(detailPages).toBe(hrefs.length);
+  });
 });
 
 test.describe('membership', () => {
