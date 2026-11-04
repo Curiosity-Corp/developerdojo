@@ -40,6 +40,9 @@ test.describe('routes', () => {
   for (const route of ROUTES) {
     test(`${route} loads with one h1, a title, no console errors, no horizontal scroll`, async ({ page, isMobile }) => {
       test.skip(isMobile && !DEEP_SCAN.includes(route), 'lesson pages: the phone pass runs on the sample');
+      // /library/resources lists every catalogued resource (12k+ DOM nodes). On a busy CI runner the
+      // load waits there passed 60s, as the axe scan below already did, so it gets the same slow budget (#66).
+      if (route === '/library/resources/') test.slow();
       const errors: string[] = [];
       page.on('pageerror', (e) => errors.push(e.message));
       page.on('console', (m) => {
