@@ -246,8 +246,30 @@ body::before {
   .facts,
   .further,
   .pager,
-  .back {
+  .back,
+  .lesson .box {
     display: none !important;
+  }
+  html {
+    font-size: 10px;
+  }
+  @page {
+    margin: 1cm;
+  }
+  .prose h2 {
+    margin-block: 0.6rem 0.2rem;
+    font-size: 1.05rem;
+  }
+  .prose p,
+  .prose ul,
+  .prose table {
+    margin-block: 0.3rem;
+  }
+  .prose li {
+    margin-block: 0;
+  }
+  .prose {
+    line-height: 1.3 !important;
   }
   .hero {
     background: none !important;
@@ -265,6 +287,18 @@ body::before {
   .hero .eyebrow {
     color: #000 !important;
   }
+  .hero h1 {
+    font-size: 1.6rem !important;
+    margin: 0 !important;
+  }
+  .hero {
+    padding-block: 0 0.3rem !important;
+  }
+  .article,
+  article.section,
+  .lesson {
+    padding-block: 0 !important;
+  }
   body {
     background: #fff;
     color: #000;
@@ -275,6 +309,10 @@ body::before {
   th,
   td {
     border: 1px solid #000;
-    padding: 0.5rem 0.6rem;
+    padding: 0.2rem 0.4rem;
+    line-height: 1.25;
+  }
+  tr {
+    break-inside: avoid;
   }
 }

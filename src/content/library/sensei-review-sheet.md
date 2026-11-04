@@ -10,13 +10,12 @@ prerequisites:
 updated: 2026-11-03
 ---
 
-Print this page (use your browser's print command; the menus and footer are left out) and write on it during the review. It is private. Keep it with your own notes and share it only with the learner. How the review works is on [page 2](/library/sensei-run-a-30-minute-review).
+Print this page with your browser's print command (the menus are left out) and write on it during the review. It is private: share it only with the learner. How a review works: [page 2](/library/sensei-run-a-30-minute-review).
 
 | Item | Notes |
 | --- | --- |
 | Learner (initials) | |
-| Week and items reviewed | |
-| Date, time zone | |
+| Week, items, date and time zone | |
 | I have access and the learner's own scores (yes / no) | |
 
 ## 1. Plan (30 minutes)
@@ -73,9 +72,7 @@ Target: level 3 on all six, none below level 2. No evidence found means I write 
 
 ## 7. Before I close
 
-- [ ] I made no promise about jobs, pay, certificates or rewards.
+- [ ] I made no promise about jobs, pay, certificates or rewards. My review is one input; the Dojo team decides about certificates.
 - [ ] No secret or private detail appeared. If one did, I told the Maintainer at once.
 - [ ] Nothing here needs the Maintainer. If it does: what, and how urgent.
 - [ ] I will send the written summary today.
-
-My review is one input. The Dojo team decides about certificates.
