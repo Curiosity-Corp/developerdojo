@@ -1,0 +1,9 @@
+title: "Protected environments"
+provider: "GitLab"
+url: "https://docs.gitlab.com/ci/environments/protected_environments/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ci-cd, security]
+summary: "How to limit who can deploy to an environment. Use it to build the production approval step."
+verifiedOn: 2026-11-03

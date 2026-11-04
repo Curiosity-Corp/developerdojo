@@ -1,0 +1,9 @@
+title: "SLSA security levels"
+provider: "OpenSSF"
+url: "https://slsa.dev/spec/v1.0/levels"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security, ci-cd]
+summary: "The page that defines SLSA Build Level 1 to 3 and what each level asks of a build system. Use it as a ladder: pick the level that fits your product today and write the next level into your roadmap."
+verifiedOn: 2026-11-03

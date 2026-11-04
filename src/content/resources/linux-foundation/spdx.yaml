@@ -1,0 +1,9 @@
+title: "SPDX"
+provider: "Linux Foundation"
+url: "https://spdx.dev/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security, open-source]
+summary: "Home of SPDX, the other common SBOM format, which also covers licences. Read it with the CycloneDX page so you can say which format your customer or auditor asks for."
+verifiedOn: 2026-11-03

@@ -1,0 +1,9 @@
+title: "Launch Coordination Checklist (SRE book appendix)"
+provider: "Google"
+url: "https://sre.google/sre-book/launch-checklist/"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [observability-reliability, roadmapping-epics]
+summary: "Google's original checklist of questions asked before a launch: architecture, capacity, failure modes, security, rollout. Copy the shape of it to build your own go/no-go list."
+verifiedOn: 2026-11-03
