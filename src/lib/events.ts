@@ -1,4 +1,4 @@
-import type { DojoEvent } from './schemas';
+import type { DojoEvent, DojoEventDetail } from './schemas';
 
 export type EventType = NonNullable<DojoEvent['type']>;
 
@@ -27,6 +27,14 @@ export const EVENT_TYPES: Record<EventType, { label: string; icon: string; descr
 };
 
 export const EVENT_TYPE_ORDER: readonly EventType[] = ['live-build', 'demo-day', 'workshop', 'office-hours'];
+
+/** An event that has a detail page: its `detail` part is present. No detail means no page. */
+export type DetailedEvent = DojoEvent & { detail: DojoEventDetail };
+
+/** The events that get a page at /events/<id>/. An empty list of events gives an empty list. */
+export function eventsWithDetail(events: readonly DojoEvent[]): DetailedEvent[] {
+  return events.filter((event): event is DetailedEvent => event.detail !== undefined);
+}
 
 function zoneLabel(date: Date, zone: string, override?: string): string {
   if (override) return override;

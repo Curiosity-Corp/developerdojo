@@ -7,7 +7,7 @@ import EventCalendar from '../components/EventCalendar.astro';
 import Icon from '../components/Icon.astro';
 import Button from '../components/Button.astro';
 import { getEvents } from '../lib/data';
-import { describeWhen, EVENT_TYPES, EVENT_TYPE_ORDER } from '../lib/events';
+import { describeWhen, eventsWithDetail, EVENT_TYPES, EVENT_TYPE_ORDER } from '../lib/events';
 import { GITHUB_URL } from '../lib/nav';
 import type { DojoEvent } from '../lib/schemas';
 
@@ -16,6 +16,7 @@ const now = Date.now();
 const upcoming = events.filter((e) => e.status !== 'cancelled' && Date.parse(e.end ?? e.start) >= now);
 const past = events.filter((e) => !upcoming.includes(e)).reverse();
 const hasEvents = events.length > 0;
+const detailIds = new Set(eventsWithDetail(events).map((e) => e.id));
 
 const STATUS_ACTION: Record<DojoEvent['status'], string> = {
   scheduled: 'Register',
@@ -104,6 +105,12 @@ const hear = [
                             <Icon name="calendar-plus" size={16} /> Add to calendar
                             <span class="visually-hidden">: {event.title} (.ics file)</span>
                           </a>
+                          {detailIds.has(event.id) && (
+                            <a class="action" href={`/events/${event.id}`}>
+                              Details
+                              <span class="visually-hidden">: {event.title}</span>
+                            </a>
+                          )}
                         </div>
                       </div>
                     </li>
@@ -136,6 +143,12 @@ const hear = [
                           </time>
                           {href && event.status === 'replay' && (
                             <a class="action" href={href} rel="noopener noreferrer">Watch replay</a>
+                          )}
+                          {detailIds.has(event.id) && (
+                            <a class="action" href={`/events/${event.id}`}>
+                              Details
+                              <span class="visually-hidden">: {event.title}</span>
+                            </a>
                           )}
                         </div>
                       </li>

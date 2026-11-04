@@ -19,6 +19,7 @@ Contents: [1 What the site is](#1-what-the-site-is) · [2 How it is built and pu
 · [7 Monthly review](#7-the-monthly-review) · [8 Quarterly and half-yearly jobs](#8-quarterly-and-half-yearly-jobs)
 · [9 A red pipeline](#9-what-to-do-when-a-pipeline-is-red) · [10 Hand a content issue to an AI agent](#10-hand-a-content-issue-to-an-ai-agent-safely)
 · [11 What never to publish](#11-what-never-to-publish) · [12 Who to ask](#12-who-to-ask-and-when)
+· [13 Add, change or remove an event](#13-add-change-or-remove-an-event)
 
 ## 1. What the site is
 
@@ -207,7 +208,7 @@ First Monday of the month, about one hour. Put it in your calendar.
    exist). Take ten files with the oldest dates. For each: open the link, check the title, cost and level are
    still true, then set `verifiedOn` to today. Retire anything dead.
 4. **Events and challenges.** Open `/events/` and `/challenges/` on the live site. Past events must not show as
-   upcoming. Never add an event without a confirmed date from CRC.
+   upcoming. Never add an event without a confirmed date from CRC (steps in [section 13](#13-add-change-or-remove-an-event)).
 5. **Read three pages** from different tracks as a visitor, on a phone. Anything confusing: a `Content fix`
    issue.
 6. **Update [ROADMAP.md](../ROADMAP.md).** Move finished items to Done, set the status of each epic, add
@@ -340,3 +341,122 @@ taken back.
 
 Anything confusing in this handbook or in [CONTRIBUTING.md](../CONTRIBUTING.md) is a bug in the guide, not in
 you. Open a `Content fix` issue, or fix the guide in your next MR.
+
+## 13. Add, change or remove an event
+
+Events live in one file: `src/data/events.json`. It is a list, and **it is empty on purpose**: the Events page
+says "Schedule announced soon" until a real session exists. The site builds the list, the calendar view, a
+calendar file (`.ics`) for each session and, if you ask for one, a detail page. You never write HTML.
+
+**The rule:** add an event only when CRC has confirmed the date, the time and the timezone, in writing. Never add
+a placeholder, a "maybe" date, a practice event or a copy of the example below. If any part is unknown, leave the
+event out. The checks in the pipeline cannot tell a real event from an invented one, so this is your job.
+
+### The fields
+
+An event is one `{ ... }` block in the list. Every name is written exactly as shown, in lower case and
+camel case, in double quotes. A misspelled name makes the pipeline fail on purpose.
+
+| Field | Required | What to write |
+| --- | --- | --- |
+| `id` | Yes | A short name for the web address: lowercase words joined by hyphens. It becomes `/events/<id>/` and `<id>.ics`. Never change it after publishing, because links use it. Each `id` is used once. |
+| `title` | Yes | The name people see, in plain words. |
+| `description` | Yes | One or two sentences: what happens and who it is for. |
+| `start` | Yes | Date and time with the offset from UTC, as `2027-02-07T15:00:00+08:00` (year-month-day, `T`, hours:minutes:seconds, offset). The offset must be right for that day. |
+| `timezone` | Yes | The timezone name used to show the time, for example `Asia/Manila` or `UTC`. It must be a real name from the [IANA list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). A time is never shown without its timezone. |
+| `end` | No | Same format as `start`, and later than `start`. Leave it out if you do not know it (the calendar file then uses one hour, and the page shows only the start). |
+| `timezoneLabel` | No | A short label shown after the time, for example `PHT`. Leave it out to use the timezone's own short name. |
+| `format` | No | One short phrase such as `Online` or `Video call`. Only what is true. |
+| `type` | No | One of `live-build`, `demo-day`, `workshop`, `office-hours`. |
+| `status` | No | `scheduled` (the default), `live`, `replay` or `cancelled`. |
+| `registerUrl` | No | The link to register or join. Must start with `https://`. Open it first. Without it the page says "Registration link coming". |
+| `replayUrl` | No | The link to the recording, when `status` is `replay`. Must start with `https://`. |
+| `detail` | No | Asks for a detail page at `/events/<id>/`. See the next table. Leave it out and the event has no detail page. |
+
+### The detail part (optional)
+
+If you add `detail`, **all five parts are required**, so a page never goes live half empty. If you do not know all
+five yet, leave `detail` out and add it in a later change.
+
+| Part | What to write |
+| --- | --- |
+| `bring` | A list of what people should bring or have ready. If nothing is needed, write `"Nothing special."` |
+| `agenda` | A list, one line per part of the session, in order. |
+| `howToJoin` | A list of steps, one per line, in plain words. |
+| `accessibility` | One text: what is available (for example captions) and what is not yet. Say plainly if something is not available. Do not promise what CRC has not confirmed. |
+| `language` | One text: the language of the session and any help in other languages. Only what CRC has confirmed. |
+
+Write for someone reading in their second language: short sentences, no jargon.
+
+### A format-only example
+
+This shows the format only. **It is not an event. Do not copy it into the data file as it is.** The title, the
+dates and the texts below are made up to show the shape, so none of them may ever appear on the site.
+
+```json
+{
+  "id": "format-only-example",
+  "title": "Replace with the real title",
+  "description": "Replace with what really happens and who it is for.",
+  "start": "2099-01-01T10:00:00+00:00",
+  "end": "2099-01-01T11:00:00+00:00",
+  "timezone": "UTC",
+  "timezoneLabel": "UTC",
+  "format": "Replace or remove",
+  "type": "workshop",
+  "status": "scheduled",
+  "registerUrl": "https://example.org/replace-with-the-real-link",
+  "detail": {
+    "bring": ["Replace with what people should bring."],
+    "agenda": ["Replace with the first part", "Replace with the second part"],
+    "howToJoin": ["Replace with the first step", "Replace with the second step"],
+    "accessibility": "Replace with the confirmed accessibility notes.",
+    "language": "Replace with the confirmed language notes."
+  }
+}
+```
+
+In the file, events go inside the list `[ ... ]` and are separated by commas, with no comma after the last one.
+The first event goes between the two square brackets that are in the empty file now.
+
+### Add an event
+
+1. Get CRC's written confirmation of the date, time, timezone and, if you will add a detail page, the five
+   detail parts. Without it, stop here.
+2. Open the project in GitLab, make a branch, and open `src/data/events.json` in the Web IDE.
+3. Add one block in the format above, with only fields you know. Check the commas and the double quotes.
+4. If you use `registerUrl` or `replayUrl`, open the link in a private window and confirm it works.
+5. Open a merge request. Say in the description where the confirmation came from (for example "CRC email of
+   the date"), without pasting private details.
+6. Wait for the pipeline. If a job is red, the log names the event and the field (for example
+   `events.0.timezone`). Fix it in the same branch (section 9).
+7. Look at the build before you merge: open the `build` job's output or the preview, open `/events/` and, if
+   you added `detail`, `/events/<id>/`. Check the date, the time and the timezone against CRC's confirmation.
+8. Merge. After the `master` pipeline, open the live `/events/` page and check it again.
+
+### Change an event
+
+1. Open `src/data/events.json` on a branch and find the event by its `id`.
+2. Change only what changed. Do not change the `id`.
+3. Moved to another date or time: change `start` (and `end`), and say "moved" in the merge request. If people may
+   have saved the old time, tell CRC so they can inform registered people.
+4. Cancelled: set `"status": "cancelled"` and keep the event. The page shows it as cancelled and gives no
+   calendar file, so nobody is left waiting for a session that is not happening.
+5. Held and recorded: set `"status": "replay"` and add `replayUrl`, only after you opened the recording.
+6. Merge request, pipeline and live check as in "Add an event".
+
+### Remove an event
+
+Remove an event only if it should never have been listed (for example a wrong entry). Delete its whole block,
+and the comma next to it, then check the live page. A session that was held or cancelled is **not** removed:
+past sessions stay in the Past list, and cancelled ones are marked cancelled.
+
+When the last event is removed, the list is `[]` and the Events page goes back to "Schedule announced soon"
+by itself. No other file changes.
+
+### What the pipeline checks
+
+The `test` job fails when an event is missing `id`, `title`, `description`, `start` or `timezone`, when a field
+name is misspelled, when a date or timezone is not valid, when `end` is not after `start`, when two events share
+an `id`, when a link does not start with `https://`, or when a `detail` part is missing or empty. It cannot check
+that an event is real. That is why step 1 of "Add an event" comes first.

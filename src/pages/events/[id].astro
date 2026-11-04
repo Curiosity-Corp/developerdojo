@@ -1,0 +1,132 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import Icon from '../../components/Icon.astro';
+import { getEvents } from '../../lib/data';
+import { describeWhen, eventsWithDetail, EVENT_TYPES, type DetailedEvent } from '../../lib/events';
+
+/** One page per event that has a `detail` part in src/data/events.json. No such event means no page is built. */
+export const getStaticPaths = (() =>
+  eventsWithDetail(getEvents()).map((event) => ({ params: { id: event.id }, props: { event } }))) satisfies GetStaticPaths;
+
+const { event } = Astro.props as { event: DetailedEvent };
+const when = describeWhen(event);
+const cancelled = event.status === 'cancelled';
+const joinHref = event.status === 'replay' ? event.replayUrl : event.registerUrl;
+const joinLabel = event.status === 'replay' ? 'Watch replay' : event.status === 'live' ? 'Join live' : 'Register';
+const kind = event.type ? EVENT_TYPES[event.type].label : 'Session';
+---
+
+<BaseLayout title={event.title} description={`${event.description} ${when.dateLong}, ${when.time}.`}>
+  <PageHero compact title={event.title} accent="." eyebrow={`${kind}${event.format ? ` · ${event.format}` : ''}`} subtitle={event.description} ctas={[{ label: 'All events', href: '/events', variant: 'ghost' }]} />
+
+  <section class="section">
+    <div class="container layout">
+      {cancelled && <p class="notice" role="status"><Icon name="circle-alert" size={20} /> This session is cancelled.</p>}
+
+      <section id="when" class="when">
+        <SectionHeader eyebrow="When" title="Date, time and timezone" />
+        <p>
+          <time datetime={event.start}><strong>{when.dateLong}</strong>, {when.time}</time>
+        </p>
+        <p class="zone">Timezone: {when.zoneName}</p>
+        {!cancelled && (
+          <p class="actions">
+            {joinHref && <a class="action primary" href={joinHref} rel="noopener noreferrer">{joinLabel}<span class="visually-hidden">: {event.title}</span></a>}
+            <a class="action" href={`/events/${event.id}.ics`} download>
+              <Icon name="calendar-plus" size={16} /> Add to calendar<span class="visually-hidden">: {event.title} (.ics file)</span>
+            </a>
+          </p>
+        )}
+      </section>
+
+      <section id="bring">
+        <SectionHeader eyebrow="Before you come" title="What to bring" />
+        <ul>{event.detail.bring.map((line) => <li>{line}</li>)}</ul>
+      </section>
+
+      <section id="agenda">
+        <SectionHeader eyebrow="The plan" title="Agenda" />
+        <ol>{event.detail.agenda.map((line) => <li>{line}</li>)}</ol>
+      </section>
+
+      <section id="how-to-join">
+        <SectionHeader eyebrow="On the day" title="How to join" />
+        <ol>{event.detail.howToJoin.map((line) => <li>{line}</li>)}</ol>
+      </section>
+
+      <section id="accessibility">
+        <SectionHeader eyebrow="For everyone" title="Accessibility" />
+        <p>{event.detail.accessibility}</p>
+      </section>
+
+      <section id="language">
+        <SectionHeader eyebrow="For everyone" title="Language" />
+        <p>{event.detail.language}</p>
+      </section>
+
+      <p class="back"><a href="/events">Back to all events</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .layout {
+    display: grid;
+    gap: var(--space-6);
+    max-width: 48rem;
+  }
+  .layout section {
+    scroll-margin-top: calc(var(--header-h) + var(--space-4));
+  }
+  ul,
+  ol {
+    margin: 0;
+    padding-left: var(--space-5);
+    display: grid;
+    gap: var(--space-2);
+  }
+  .zone {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: var(--text-sm);
+  }
+  .notice {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+    padding: var(--space-3) var(--space-4);
+    border: 2px solid var(--rust);
+    border-radius: var(--radius);
+    font-weight: 700;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .action {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: 0.4rem 0.9rem;
+    border: 1.5px solid var(--line-strong);
+    border-radius: 8px;
+    background: var(--paper-raised);
+    color: var(--ink);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  a.action:hover {
+    border-color: var(--ink);
+  }
+  .action.primary {
+    background: var(--gold);
+    border-color: var(--gold-strong);
+    color: var(--gold-ink);
+  }
+</style>

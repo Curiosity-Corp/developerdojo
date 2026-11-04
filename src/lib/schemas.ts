@@ -109,26 +109,72 @@ export const resourceSchema = z.object({
 export type ResourceFrontmatter = z.infer<typeof resourceSchema>;
 
 const isoDateTime = z.iso.datetime({ offset: true });
+const httpsUrl = z.url({ protocol: /^https$/, hostname: z.regexes.domain });
 
-/** One live session or workshop. src/data/events.json is an array of these (empty until announced). */
-export const eventSchema = z.object({
-  id: z.string().regex(/^[a-z0-9-]+$/),
-  title: z.string().min(1),
-  description: z.string().min(1),
-  /** ISO 8601 with offset, e.g. 2027-02-07T15:00:00+08:00 */
-  start: isoDateTime,
-  end: isoDateTime.optional(),
-  /** IANA zone used to display the time, e.g. Asia/Manila */
-  timezone: z.string().min(1).default('UTC'),
-  /** Short label shown after the time, e.g. PHT. Falls back to the zone's own short name. */
-  timezoneLabel: z.string().min(1).optional(),
-  format: z.string().min(1).optional(),
-  /** Kind of session; shown as a chip and used for the legend on /events. */
-  type: z.enum(['live-build', 'demo-day', 'workshop', 'office-hours']).optional(),
-  status: z.enum(['scheduled', 'live', 'replay', 'cancelled']).default('scheduled'),
-  registerUrl: z.url().optional(),
-  replayUrl: z.url().optional(),
-});
+/** True when the runtime knows this IANA zone name (for example Asia/Manila). */
+function isTimeZone(value: string): boolean {
+  try {
+    new Intl.DateTimeFormat('en-US', { timeZone: value });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** A line of plain text that is not empty or only spaces. */
+const plainLine = z.string().trim().min(1);
+
+/**
+ * Optional detail page for one event, shown at /events/<id>/. Add it only when every part is known and real.
+ * When `detail` is present all five parts are required, so a page never goes live half empty.
+ */
+export const eventDetailSchema = z
+  .object({
+    /** What to bring or have ready. Write "Nothing special" if that is true. */
+    bring: z.array(plainLine).min(1),
+    /** The plan for the session, one line per part, in order. */
+    agenda: z.array(plainLine).min(1),
+    /** Steps to join, in plain words, one step per line. */
+    howToJoin: z.array(plainLine).min(1),
+    /** Accessibility notes, for example captions, step-free access, or what is not yet available. */
+    accessibility: plainLine,
+    /** Language notes: the language of the session and any help in other languages. */
+    language: plainLine,
+  })
+  .strict();
+export type DojoEventDetail = z.infer<typeof eventDetailSchema>;
+
+/**
+ * One live session or workshop. src/data/events.json is an array of these (empty until announced).
+ * Strict: an unknown field name (a typo) fails instead of being ignored.
+ * Required: id, title, description, start, timezone. The rest are optional (see docs/handbook.md).
+ */
+export const eventSchema = z
+  .object({
+    id: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'use lowercase words joined by hyphens'),
+    title: plainLine,
+    description: plainLine,
+    /** ISO 8601 with offset, e.g. 2027-02-07T15:00:00+08:00 */
+    start: isoDateTime,
+    end: isoDateTime.optional(),
+    /** IANA zone used to display the time, e.g. Asia/Manila. Required: a time is never shown without its zone. */
+    timezone: z.string().min(1).refine(isTimeZone, 'use an IANA zone name such as Asia/Manila or UTC'),
+    /** Short label shown after the time, e.g. PHT. Falls back to the zone's own short name. */
+    timezoneLabel: z.string().min(1).optional(),
+    format: z.string().min(1).optional(),
+    /** Kind of session; shown as a chip and used for the legend on /events. */
+    type: z.enum(['live-build', 'demo-day', 'workshop', 'office-hours']).optional(),
+    status: z.enum(['scheduled', 'live', 'replay', 'cancelled']).default('scheduled'),
+    registerUrl: httpsUrl.optional(),
+    replayUrl: httpsUrl.optional(),
+    /** Optional detail page. No `detail` means no page for this event. */
+    detail: eventDetailSchema.optional(),
+  })
+  .strict()
+  .refine((event) => !event.end || Date.parse(event.end) > Date.parse(event.start), {
+    message: 'end must be after start',
+    path: ['end'],
+  });
 export type DojoEvent = z.infer<typeof eventSchema>;
 export const eventsSchema = z.array(eventSchema).superRefine((events, ctx) => {
   const seen = new Set<string>();
