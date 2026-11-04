@@ -4,6 +4,7 @@ description: "Every Track A item for weeks 1 to 4, each explained, with what to 
 section: "Assessment"
 order: 4
 level: foundation
+tool: checklist
 duration: "10 to 12 hours per week"
 outcomes:
   - "Know exactly what to finish in each of the four Track A weeks."

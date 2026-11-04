@@ -1,0 +1,69 @@
+---
+/**
+ * "n of m lessons done" bar on a track overview, plus a "Done" badge beside each finished lesson
+ * (elements with data-done-for="<lesson id>" in the lesson list). Reads the lessons the learner
+ * marked done on this device. Hidden without JavaScript.
+ * Props: lessonIds (every lesson id of the track, in order).
+ */
+interface Props {
+  lessonIds: string[];
+}
+const { lessonIds } = Astro.props;
+---
+
+{
+  lessonIds.length > 0 && (
+    <div class="tool js-only" data-track-progress data-lesson-ids={JSON.stringify(lessonIds)} data-pagefind-ignore>
+      <p class="tool-label" role="status" data-tp-text></p>
+      <progress max={lessonIds.length} value="0" aria-label="Lessons done in this track" data-tp-bar></progress>
+      <p class="tool-hint">
+        You mark a lesson done at the end of the lesson. This is saved only in this browser, on this device. It is not a grade and not a certificate.
+      </p>
+    </div>
+  )
+}
+
+<script>
+  import {
+    LESSON_PROGRESS_NAME,
+    LESSON_PROGRESS_VERSION,
+    countLessonsDone,
+    emptyLessonProgress,
+    parseLessonProgress,
+    type LessonProgress,
+  } from '../lib/lesson-progress';
+  import { createStore, storageKey } from '../lib/storage';
+
+  const root = document.querySelector<HTMLElement>('[data-track-progress]');
+  if (root) init(root);
+
+  function init(root: HTMLElement): void {
+    let ids: string[] = [];
+    try {
+      const parsed: unknown = JSON.parse(root.dataset['lessonIds'] ?? '[]');
+      if (Array.isArray(parsed)) ids = parsed.filter((id): id is string => typeof id === 'string');
+    } catch {
+      ids = [];
+    }
+    const text = root.querySelector<HTMLElement>('[data-tp-text]')!;
+    const bar = root.querySelector<HTMLProgressElement>('[data-tp-bar]')!;
+    const store = createStore();
+    const read = (): LessonProgress =>
+      store.load(LESSON_PROGRESS_NAME, { version: LESSON_PROGRESS_VERSION, validate: parseLessonProgress }) ?? emptyLessonProgress();
+
+    function render(): void {
+      const progress = read();
+      const done = countLessonsDone(progress, ids);
+      text.textContent = `${done} of ${ids.length} lessons done.`;
+      bar.max = ids.length;
+      bar.value = done;
+      for (const badge of document.querySelectorAll<HTMLElement>('[data-done-for]')) {
+        badge.hidden = !progress.done[badge.dataset['doneFor'] ?? ''];
+      }
+    }
+    window.addEventListener('storage', (event) => {
+      if (event.key === storageKey(LESSON_PROGRESS_NAME)) render();
+    });
+    render();
+  }
+</script>

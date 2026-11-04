@@ -3,6 +3,7 @@ import { render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
 import SectionHeader from '../../../components/SectionHeader.astro';
+import TrackProgress from '../../../components/TrackProgress.astro';
 import { loadContent, lessonsOfTrack } from '../../../lib/content';
 import { GROUP_LABELS, LESSON_LEVEL_LABELS, SKILL_LABELS } from '../../../lib/labels';
 
@@ -53,6 +54,7 @@ const data = track.data;
   <section class="section section--tight lessons">
     <div class="container">
       <SectionHeader eyebrow="Lessons" title="Lessons in order" />
+      <TrackProgress lessonIds={lessons.map((lesson) => lesson.id)} />
       {
         lessons.length === 0 ? (
           <p>The lessons for this track are being written. Check back soon.</p>
@@ -61,6 +63,7 @@ const data = track.data;
             {lessons.map((lesson) => (
               <li>
                 <a href={`/library/${lesson.id}`}>{lesson.title}</a>
+                <span class="done-badge" data-done-for={lesson.id} hidden>Done</span>
                 {lesson.level && <span class="duration">{LESSON_LEVEL_LABELS[lesson.level]}</span>}
                 {lesson.duration && <span class="duration">{lesson.duration}</span>}
                 <p>{lesson.description}</p>

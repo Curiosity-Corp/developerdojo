@@ -25,11 +25,27 @@ resources:                 # optional, resource ids, shown as "Further learning"
 prerequisites:             # optional, library page ids (the file path without .md)
   - "week-1-see-the-whole-product"
 updated: 2026-11-03        # optional
+tool: "checklist"          # optional: self-assessment-track-a | checklist (see "Interactive tools" below)
 ```
 
 Track lessons live in `src/content/library/tracks/<track-slug>/<NN>-<lesson-slug>.md`.
 The URL is `/library/tracks/<track-slug>/<NN>-<lesson-slug>/`. `section` is the track title and
 `track` is the track slug. A lesson in a track folder with the wrong `track` fails the build.
+
+## Interactive tools
+
+The tools run in the browser only. They save on the learner's own device (`localStorage`, keys start with
+`dojo:`), send nothing anywhere, and every page reads correctly with JavaScript off. The shared helper is
+`src/lib/storage.ts` (versioned values, export, clear, and a memory fallback when storage is blocked).
+
+| Tool | Where it shows | What the author does |
+| --- | --- | --- |
+| Tickable checklists | Every lesson that has a Markdown task list (`- [ ] item`) | Nothing. Ticks are saved per item. Keep an item's text stable: the saved tick is tied to the heading and the text |
+| Checklist progress panel | Pages with `tool: checklist` | Add the line to the frontmatter (the two weekly checklists have it) |
+| Track A self-assessment | The page with `tool: self-assessment-track-a` | The level sentences live in `src/lib/self-assessment.ts` as well as on the page. `npm test` fails if they differ, so change both |
+| Lesson done toggle | Every lesson in a track | Nothing. The track overview shows "n of m lessons done" |
+
+Every tool says in the page that it is self-assessment, not a grade or a certificate, and that nothing leaves the device.
 
 ## Tracks
 

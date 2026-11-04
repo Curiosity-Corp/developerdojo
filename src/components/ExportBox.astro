@@ -1,0 +1,27 @@
+---
+/**
+ * Markup for the "copy as Markdown" box shared by the tools: a visible read-only textarea, a copy
+ * button and a status line. The wiring is in src/lib/export-box.ts (wireExportBox).
+ * Props: id (unique prefix), label (what the text is), copyLabel (button text), rows.
+ */
+interface Props {
+  id: string;
+  label: string;
+  copyLabel?: string;
+  rows?: number;
+}
+const { id, label, copyLabel = 'Copy Markdown', rows = 12 } = Astro.props;
+---
+
+<div class="export-box" data-export-box>
+  <label class="tool-label" for={`${id}-text`}>{label}</label>
+  <p class="tool-hint" id={`${id}-hint`}>
+    Copy this text into a file in your own repository. If copying does not work in your browser, select the text in the box and copy it yourself.
+  </p>
+  <textarea id={`${id}-text`} readonly rows={rows} wrap="off" aria-describedby={`${id}-hint`} data-export-text></textarea>
+  <div class="tool-actions">
+    <button type="button" class="tool-btn" data-export-copy>{copyLabel}</button>
+    <slot />
+  </div>
+  <p class="tool-status" role="status" data-export-status></p>
+</div>

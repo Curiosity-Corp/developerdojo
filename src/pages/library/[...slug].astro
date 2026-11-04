@@ -7,6 +7,9 @@ import TableOfContents from '../../components/TableOfContents.astro';
 import ResourceCard from '../../components/ResourceCard.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import Icon from '../../components/Icon.astro';
+import ChecklistTool from '../../components/ChecklistTool.astro';
+import SelfAssessment from '../../components/SelfAssessment.astro';
+import LessonDone from '../../components/LessonDone.astro';
 import { groupBySection } from '../../lib/library';
 import { loadContent, lessonsOfTrack } from '../../lib/content';
 import { neighbours, readingMinutes, sectionAnchor } from '../../lib/lesson';
@@ -45,6 +48,7 @@ export async function getStaticPaths() {
         prerequisites,
         further,
         track: track ? { id: track.id, title: track.data.title } : undefined,
+        trackLessonIds: track ? ordered.map((item) => item.id) : [],
         minutes: readingMinutes(entry.body ?? ''),
         position: ordered.length > 1 ? { index: ordered.findIndex((item) => item.id === entry.id) + 1, total: ordered.length } : undefined,
       },
@@ -52,7 +56,7 @@ export async function getStaticPaths() {
   });
 }
 
-const { entry, previous, next, prerequisites, further, track, minutes, position } = Astro.props;
+const { entry, previous, next, prerequisites, further, track, trackLessonIds, minutes, position } = Astro.props;
 const { Content, headings } = await render(entry);
 const data = entry.data;
 
@@ -82,6 +86,7 @@ const groupLabel = track ? `${track.title}, lesson ${position?.index ?? 1} of ${
           {data.level && <li><Icon name="signal" size={16} />{LESSON_LEVEL_LABELS[data.level]}</li>}
           {data.duration && <li><Icon name="clock" size={16} />{data.duration}</li>}
           <li><Icon name="book-open" size={16} />{minutes} min read</li>
+          {track && <li data-done-badge hidden><Icon name="circle-check" size={16} />You marked this lesson done</li>}
           {data.updated && <li><Icon name="calendar-days" size={16} />Updated <time datetime={data.updated.toISOString().slice(0, 10)}>{formatDate(data.updated)}</time></li>}
         </ul>
 
@@ -107,11 +112,25 @@ const groupLabel = track ? `${track.title}, lesson ${position?.index ?? 1} of ${
           )
         }
 
+        {
+          data.tool === 'self-assessment-track-a' && (
+            <p class="tool-note js-only" data-pagefind-ignore>
+              There is an interactive score sheet at the end of this page. <a href="#score-tool">Go to the score sheet</a>.
+            </p>
+          )
+        }
+
         <TableOfContents headings={headings} variant="inline" />
 
-        <div class="prose">
+        <ChecklistTool panel={data.tool === 'checklist'} />
+
+        <div class="prose" data-page-id={entry.id} data-page-title={data.title}>
           <Content />
         </div>
+
+        {data.tool === 'self-assessment-track-a' && <SelfAssessment />}
+
+        {track && <LessonDone lessonId={entry.id} trackLessonIds={trackLessonIds} trackTitle={track.title} />}
 
         {
           further.length > 0 && (
@@ -237,11 +256,3 @@ const groupLabel = track ? `${track.title}, lesson ${position?.index ?? 1} of ${
     text-align: right;
   }
 </style>
-
-<script>
-  // Markdown checklists render bare checkboxes. Give each one its item text as an accessible name.
-  for (const input of document.querySelectorAll<HTMLInputElement>('.prose .task-list-item > input[type="checkbox"]')) {
-    const text = input.parentElement?.textContent?.trim();
-    if (text) input.setAttribute('aria-label', text);
-  }
-</script>

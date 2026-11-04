@@ -4,6 +4,7 @@ description: "Every Track B and capstone item, week by week, with hours, gate da
 section: "Assessment"
 order: 5
 level: advanced
+tool: checklist
 duration: "10 to 13 hours per week, then 30 hours for the capstone"
 outcomes:
   - "Plan the four Track B weeks, the gate dates and the five capstone days."
