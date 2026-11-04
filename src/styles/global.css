@@ -233,3 +233,48 @@ body::before {
     padding-right: 11rem;
   }
 }
+
+/* Printing: keep the page content (for example the Sensei review sheet) and drop the site chrome. */
+@media print {
+  .skip-link,
+  .site-header,
+  .site-footer,
+  .sponsor-band,
+  .crumbs,
+  .toc,
+  .side,
+  .facts,
+  .further,
+  .pager,
+  .back {
+    display: none !important;
+  }
+  .hero {
+    background: none !important;
+    min-height: 0 !important;
+    padding-block: 0 1rem !important;
+  }
+  .hero .art,
+  .hero .scrim,
+  .hero .enso,
+  .hero .ctas,
+  .hero .subtitle {
+    display: none !important;
+  }
+  .hero h1,
+  .hero .eyebrow {
+    color: #000 !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
+  table {
+    border-collapse: collapse;
+  }
+  th,
+  td {
+    border: 1px solid #000;
+    padding: 0.5rem 0.6rem;
+  }
+}
