@@ -1,0 +1,9 @@
+title: "PagerDuty Incident Response Documentation: Being on-call"
+provider: "PagerDuty"
+url: "https://response.pagerduty.com/oncall/being_oncall/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [itsm-service-management, observability-reliability]
+summary: "A practical page on what an on-call person is expected to do, with advice on backup schedules, escalation timeouts and handing over to the next person. Good for writing your own on-call expectations."
+verifiedOn: 2026-11-04

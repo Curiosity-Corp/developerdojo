@@ -1,0 +1,9 @@
+title: "Google Cloud Blog: SRE fundamentals 2021: SLIs vs SLAs vs SLOs"
+provider: "Google Cloud"
+url: "https://cloud.google.com/blog/products/devops-sre/sre-fundamentals-sli-vs-slo-vs-sla"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [itsm-service-management, observability-reliability]
+summary: "A short, plain explanation by Google reliability engineers of the difference between a service level indicator, objective and agreement. Read it before you write or negotiate a service level with a customer or a team."
+verifiedOn: 2026-11-04
