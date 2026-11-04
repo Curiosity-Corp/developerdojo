@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Shiftwren example, week 1: the whole product · Developer Dojo</title><meta name="description" content="Week 1 filled in for a fictional volunteer-shift service: the product brief, the repository map and the integrations register."><link rel="canonical" href="https://developerdojo.org/library/shiftwren-week-1-the-whole-product/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="color-scheme" content="light dark"><meta property="og:site_name" content="Developer Dojo"><meta property="og:title" content="Shiftwren example, week 1: the whole product · Developer Dojo"><meta property="og:description" content="Week 1 filled in for a fictional volunteer-shift service: the product brief, the repository map and the integrations register."><meta property="og:type" content="website"><meta property="og:url" content="https://developerdojo.org/library/shiftwren-week-1-the-whole-product/"><meta name="twitter:card" content="summary"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      // Runs before first paint: apply the saved theme and mark JS as available.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var saved = localStorage.getItem('dojo-theme');
+          if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+        } catch (e) {
+          /* storage blocked: fall back to the system preference */
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/PageHero.Dxhoi4xv.css"><link rel="stylesheet" href="/_astro/_..C3Jt_Gwh.css"><style>.section-header[data-astro-cid-pb4nux2a]{max-width:38rem}.align-center[data-astro-cid-pb4nux2a]{text-align:center;margin-inline:auto}.eyebrow[data-astro-cid-pb4nux2a]{align-items:center;gap:var(--space-3);margin:0 0 var(--space-2);letter-spacing:.14em;text-transform:uppercase;color:var(--rust-text);font-size:.78rem;font-weight:700;display:flex}.align-center[data-astro-cid-pb4nux2a] .eyebrow[data-astro-cid-pb4nux2a]{justify-content:center}.eyebrow-rule[data-astro-cid-pb4nux2a]{opacity:.55;background:currentColor;flex:0 4rem;height:1px}.title[data-astro-cid-pb4nux2a]{margin-bottom:var(--space-2);overflow-wrap:break-word}.intro[data-astro-cid-pb4nux2a]{color:var(--ink-muted);margin:0}.tone-dark[data-astro-cid-pb4nux2a] .eyebrow[data-astro-cid-pb4nux2a]{color:var(--gold)}.tone-dark[data-astro-cid-pb4nux2a] .title[data-astro-cid-pb4nux2a]{color:var(--band-text)}.tone-dark[data-astro-cid-pb4nux2a] .intro[data-astro-cid-pb4nux2a]{color:var(--band-muted)}
+.resource[data-astro-cid-jtgbjsdm]{gap:var(--space-2);overflow-wrap:anywhere;min-width:0;padding:var(--space-4) var(--space-5);background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);align-content:start;display:grid}.provider[data-astro-cid-jtgbjsdm]{font-size:var(--text-sm);letter-spacing:.04em;text-transform:uppercase;color:var(--olive-text);margin:0;font-weight:700}h3[data-astro-cid-jtgbjsdm]{font-family:var(--font-serif);font-size:var(--text-xl);margin:0;line-height:1.25}h3[data-astro-cid-jtgbjsdm] a[data-astro-cid-jtgbjsdm]{gap:var(--space-2);align-items:baseline;display:inline-flex}h3[data-astro-cid-jtgbjsdm] svg{flex:none;align-self:center}.chips[data-astro-cid-jtgbjsdm]{gap:var(--space-2);flex-wrap:wrap;margin:0;padding:0;list-style:none;display:flex}.chip[data-astro-cid-jtgbjsdm]{font-size:var(--text-sm);background:var(--paper-sunk);border:1px solid var(--line);border-radius:999px;padding:.1rem .6rem;font-weight:600}.summary[data-astro-cid-jtgbjsdm],.meta[data-astro-cid-jtgbjsdm]{margin:0}.meta[data-astro-cid-jtgbjsdm]{font-size:var(--text-sm);color:var(--ink-muted)}
+</style></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header" data-astro-cid-nen7h5rs><div class="bar" data-astro-cid-nen7h5rs><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><button type="button" class="search-open button-phone" data-search-open aria-label="Search" aria-keyshortcuts="/ Control+K Meta+K" data-astro-cid-e66w4awt><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"/><circle cx="11" cy="11" r="8"/></g></svg></button><script type="module">var e=document.querySelector(`[data-search-dialog]`),t={current:null};function n(n){e&&!e.open&&(t.current=n,e.showModal(),e.querySelector(`input[type="search"]`)?.focus())}for(let e of document.querySelectorAll(`[data-search-open]`))e.addEventListener(`click`,()=>n(e));e?.querySelector(`[data-search-close]`)?.addEventListener(`click`,()=>e.close()),e?.addEventListener(`click`,t=>{t.target===e&&e.close()}),e?.addEventListener(`close`,()=>t.current?.focus()),e?.addEventListener(`click`,t=>{t.target instanceof HTMLAnchorElement&&e.close()}),document.addEventListener(`keydown`,e=>{let t=e.target,r=t instanceof HTMLInputElement||t instanceof HTMLTextAreaElement||t instanceof HTMLSelectElement||t instanceof HTMLElement&&t.isContentEditable,i=e.key===`/`&&!r&&!e.ctrlKey&&!e.metaKey&&!e.altKey,a=e.key.toLowerCase()===`k`&&(e.ctrlKey||e.metaKey);(i||a)&&(e.preventDefault(),n(document.activeElement instanceof HTMLElement?document.activeElement:null))});</script><button type="button" class="menu-button" data-menu-button aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu" data-astro-cid-nen7h5rs><svg class="icon open-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h16M4 12h16M4 19h16"/></svg><svg class="icon close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><nav id="primary-nav" class="nav" aria-label="Primary" data-nav data-astro-cid-nen7h5rs><ul data-astro-cid-nen7h5rs><li data-astro-cid-nen7h5rs><a href="/train" data-astro-cid-nen7h5rs>Train</a></li><li data-astro-cid-nen7h5rs><a href="/sensei" data-astro-cid-nen7h5rs>Sensei</a></li><li data-astro-cid-nen7h5rs><a href="/library" aria-current="page" data-astro-cid-nen7h5rs>Library</a></li><li data-astro-cid-nen7h5rs><a href="/certificates" data-astro-cid-nen7h5rs>Certificates</a></li><li data-astro-cid-nen7h5rs><a href="/challenges" data-astro-cid-nen7h5rs>Challenges</a></li><li data-astro-cid-nen7h5rs><a href="/events" data-astro-cid-nen7h5rs>Events</a></li><li data-astro-cid-nen7h5rs><a href="/membership" data-astro-cid-nen7h5rs>Membership</a></li></ul><div class="actions" data-astro-cid-nen7h5rs><button type="button" class="search-open button-desktop" data-search-open aria-label="Search" aria-keyshortcuts="/ Control+K Meta+K" data-astro-cid-e66w4awt><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"/><circle cx="11" cy="11" r="8"/></g></svg></button><button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" data-astro-cid-l6lhmie6><svg class="icon to-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="icon to-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></g></svg></button><script type="module">var e=document.documentElement,t=document.querySelector(`[data-theme-toggle]`);function n(){let t=e.getAttribute(`data-theme`);return t===`dark`||t!==`light`&&window.matchMedia(`(prefers-color-scheme: dark)`).matches}function r(){if(!t)return;let e=n();t.setAttribute(`aria-label`,e?`Switch to light theme`:`Switch to dark theme`),t.setAttribute(`data-mode`,e?`dark`:`light`)}t?.addEventListener(`click`,()=>{let t=n()?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`dojo-theme`,t)}catch(e){console.warn(`Theme preference not saved:`,e)}r()}),r();</script><a class="start" href="/membership" data-astro-cid-nen7h5rs>Start free</a></div></nav></div><dialog class="search-dialog" data-search-dialog aria-label="Search" data-astro-cid-e66w4awt><button type="button" class="close" data-search-close aria-label="Close search" data-astro-cid-e66w4awt><svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg></button><div class="search-panel" data-search data-pagefind-ignore data-astro-cid-5gryy2vu><form role="search" aria-label="Search the whole site" data-search-form data-astro-cid-5gryy2vu><label for="site-search-input" data-astro-cid-5gryy2vu>Search the whole site</label><input id="site-search-input" type="search" placeholder="Try: epic, persona, roadmap, Kubernetes" autocomplete="off" spellcheck="false" aria-describedby="site-search-status" data-search-input data-astro-cid-5gryy2vu></form><p id="site-search-status" class="status" role="status" aria-live="polite" data-search-status data-astro-cid-5gryy2vu></p><div class="results" data-search-results data-astro-cid-5gryy2vu></div><noscript><p data-astro-cid-5gryy2vu>Search needs JavaScript. You can still browse the <a href="/library" data-astro-cid-5gryy2vu>library</a>.</p></noscript></div><script type="module">var e=[`lessons`,`tracks`,`resources`,`pages`],t={lessons:`Lessons and guides`,tracks:`Tracks`,resources:`Learning resources`,pages:`Other pages`};function n(e){let[t=``,n=``]=e.split(`#`),r=t.split(`/`).filter(e=>e.length>0);return r[0]===`library`?r[1]===`resources`?n?`resources`:`pages`:r[1]===`tracks`?r.length===1||r.length===2?`pages`:r.length===3?`tracks`:`lessons`:r.length>=2?`lessons`:`pages`:`pages`}var r;function i(){return r??=import(`/pagefind/pagefind.js`).then(async e=>(await e.init(),e)),r}var a=24;function o(r,i){r.replaceChildren();let a=new Map;for(let e of i){let t=n(e.url);a.set(t,[...a.get(t)??[],e])}for(let n of e){let e=a.get(n);if(!e)continue;let i=document.createElement(`section`),o=document.createElement(`h3`);o.textContent=t[n];let s=document.createElement(`ul`);for(let t of e){let e=document.createElement(`li`),n=document.createElement(`a`);if(n.href=t.url,n.textContent=t.meta.title??t.url,e.append(n),t.meta.group){let n=document.createElement(`span`);n.className=`where`,n.textContent=t.meta.group,e.append(n)}let r=document.createElement(`p`);r.innerHTML=t.excerpt,e.append(r),s.append(e)}i.append(o,s),r.append(i)}}for(let e of document.querySelectorAll(`[data-search]`)){let t=e.querySelector(`[data-search-input]`),n=e.querySelector(`[data-search-form]`),r=e.querySelector(`[data-search-status]`),s=e.querySelector(`[data-search-results]`);if(!t||!n||!r||!s)continue;let c=0,l=async()=>{let e=t.value.trim(),n=++c;if(e.length===0)r.textContent=``,s.replaceChildren();else try{let t=await(await i()).debouncedSearch(e,{},150);if(t===null||n!==c)return;let l=await Promise.all(t.results.slice(0,a).map(e=>e.data()));if(n!==c)return;o(s,l),r.textContent=t.results.length===0?`No results for "${e}". Try a shorter or different word.`:`${t.results.length} ${t.results.length===1?`result`:`results`} for "${e}"`}catch(e){console.warn(`Search is not available:`,e),r.textContent=`Search is not available here. It works on the published site.`}};n.addEventListener(`submit`,e=>{e.preventDefault(),l()}),t.addEventListener(`input`,()=>void l())}</script></dialog></header><script type="module">var e=document.querySelector(`[data-menu-button]`),t=document.querySelector(`[data-nav]`),n=document.querySelector(`.site-header`);function r(t){e&&n&&(n.toggleAttribute(`data-open`,t),e.setAttribute(`aria-expanded`,String(t)),e.setAttribute(`aria-label`,t?`Close menu`:`Open menu`))}e?.addEventListener(`click`,()=>r(e.getAttribute(`aria-expanded`)!==`true`)),t?.addEventListener(`click`,e=>{e.target instanceof HTMLAnchorElement&&r(!1)}),document.addEventListener(`keydown`,t=>{t.key===`Escape`&&e?.getAttribute(`aria-expanded`)===`true`&&(r(!1),e.focus())}),window.matchMedia(`(min-width: 62rem)`).addEventListener(`change`,e=>{e.matches&&r(!1)}),document.documentElement.classList.add(`js`);</script><main id="main" data-pagefind-body><section class="hero compact" data-astro-cid-75ysl5lo><div class="art" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/hero-dojo-mobile.avif" media="(max-width: 40rem)"><source type="image/webp" srcset="/images/hero-dojo-mobile.webp" media="(max-width: 40rem)"><source srcset="/images/hero-dojo-mobile.jpg" media="(max-width: 40rem)"><source type="image/avif" srcset="/images/hero-dojo.avif"><source type="image/webp" srcset="/images/hero-dojo.webp"><img class="art-img" src="/images/hero-dojo.jpg" alt width="2400" height="900" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="scrim" aria-hidden="true" data-astro-cid-75ysl5lo></div><div class="enso" aria-hidden="true" data-astro-cid-75ysl5lo><picture><source type="image/avif" srcset="/images/enso.avif"><source type="image/webp" srcset="/images/enso.webp"><img src="/images/enso.png" alt width="800" height="800" loading="eager" decoding="async" aria-hidden="true"></picture></div><div class="container grid" data-astro-cid-75ysl5lo><div class="copy" data-astro-cid-75ysl5lo><p class="eyebrow" data-astro-cid-75ysl5lo>Shiftwren example</p><h1 data-astro-cid-75ysl5lo>Shiftwren example, week 1: the whole product</h1><p class="subtitle" data-astro-cid-75ysl5lo>Week 1 filled in for a fictional volunteer-shift service: the product brief, the repository map and the integrations register.</p></div></div></section><article class="section" data-astro-cid-ecbjlo7c><div class="container lesson" data-astro-cid-ecbjlo7c><div class="main" data-astro-cid-ecbjlo7c><nav class="crumbs" aria-label="Breadcrumb" data-pagefind-ignore data-astro-cid-vx4iavld><ol data-astro-cid-vx4iavld><li data-astro-cid-vx4iavld><a href="/library" data-astro-cid-vx4iavld>Library</a></li><li data-astro-cid-vx4iavld><a href="/library#section-shiftwren-example" data-astro-cid-vx4iavld>Shiftwren example</a></li><li data-astro-cid-vx4iavld><span aria-current="page" data-astro-cid-vx4iavld>Shiftwren example, week 1: the whole product</span></li></ol></nav><ul class="facts" aria-label="About this lesson" data-pagefind-ignore data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 20h.01M7 20v-4m5 4v-8m5 8V8m5-4v16"/></svg>Foundation</li><li data-astro-cid-ecbjlo7c><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></g></svg>45 min to read, then fill your own blank</li><li data-astro-cid-ecbjlo7c><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v16m8.001-2A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2a5 5 0 0 1 4-2z"/></svg>5 min read</li></ul><section class="box outcomes" aria-labelledby="outcomes-title" data-astro-cid-ecbjlo7c><h2 id="outcomes-title" data-astro-cid-ecbjlo7c>After this lesson you can</h2><ul data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c>See a product brief, a repository map and an integrations register filled in for a service, not a physical product.</li><li data-astro-cid-ecbjlo7c>See how findings (NOT FOUND, NOBODY) appear in a Week 1 map.</li><li data-astro-cid-ecbjlo7c>Fill the three Week 1 blank templates for your own product from your own evidence.</li></ul></section><section class="box" aria-labelledby="prereq-title" data-astro-cid-ecbjlo7c><h2 id="prereq-title" data-astro-cid-ecbjlo7c>Read these first</h2><ul data-astro-cid-ecbjlo7c><li data-astro-cid-ecbjlo7c><a href="/library/shiftwren-example" data-astro-cid-ecbjlo7c>Shiftwren: a second worked example</a></li><li data-astro-cid-ecbjlo7c><a href="/library/week-1-see-the-whole-product" data-astro-cid-ecbjlo7c>Week 1: See the whole product</a></li></ul></section><nav class="toc toc-inline" aria-label="On this page" data-pagefind-ignore data-astro-cid-p33bl5ka><details data-astro-cid-p33bl5ka><summary data-astro-cid-p33bl5ka>On this page</summary><ol data-astro-cid-p33bl5ka><li class="depth-2" data-astro-cid-p33bl5ka><a href="#step-1-the-product-brief-noors-work" data-astro-cid-p33bl5ka>Step 1: The product brief (Noor’s work)</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#step-2-the-repository-map" data-astro-cid-p33bl5ka>Step 2: The repository map</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#step-3-the-integrations-register" data-astro-cid-p33bl5ka>Step 3: The integrations register</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#fill-your-own-blank-from-this-page" data-astro-cid-p33bl5ka>Fill your own blank from this page</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#working-with-ai-agents" data-astro-cid-p33bl5ka>Working with AI agents</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#the-2030-product-development-manager-lens" data-astro-cid-p33bl5ka>The 2030 Product Development Manager lens</a></li></ol></details></nav><script type="module" src="/_astro/ChecklistTool.astro_astro_type_script_index_0_lang.DNWiVeX1.js"></script><div class="prose" data-page-id="shiftwren-week-1-the-whole-product" data-page-title="Shiftwren example, week 1: the whole product" data-astro-cid-ecbjlo7c><p><strong>Fictional example.</strong> Shiftwren, its people, numbers and dates are made up for teaching. No real company, person or customer is described. Numbers marked “example” are round and invented. Your product needs your own evidence. Do not copy this page.</p>
+<p><strong>Example only.</strong> An AI agent drafted this page from the Week 1 brief to show the shape of the work. In the story, the fictional learner <strong>Noor</strong> wrote everything below herself. You write your own.</p>
+<p>Compare the same week elsewhere: <a href="/library/week-1-see-the-whole-product">Week 1</a>, the <a href="/library/template-product-brief">TrailMug brief</a>, the <a href="/library/template-repository-map">TrailMug repository map</a> and the real-product <a href="/library/case-study-danhup-map-and-integrations">map and integrations case study</a>.</p>
+<h2 id="step-1-the-product-brief-noors-work">Step 1: The product brief (Noor’s work)</h2>
+<p>Template: <a href="/library/template-product-brief">Product brief</a>.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>PRODUCT BRIEF</span></span>
+<span class="line"><span>Product name: Shiftwren</span></span>
+<span class="line"><span>Tagline: Fill every volunteer shift without the group-chat chase.</span></span>
+<span class="line"><span>Owner (epic manager): Noor (fictional learner)</span></span>
+<span class="line"><span>Sponsor or mentor: a placeholder mentor</span></span>
+<span class="line"><span>Date / version: example, week 1, version 1</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>1. WHY THIS PRODUCT EXISTS</span></span>
+<span class="line"><span>   Problem: Volunteer-run food pantries need people for every weekly</span></span>
+<span class="line"><span>   shift. When someone cancels, the coordinator chases replacements in</span></span>
+<span class="line"><span>   a group chat, often late at night.</span></span>
+<span class="line"><span>   Today: group chats, shared spreadsheets, phone calls.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>2. WHO IT IS FOR</span></span>
+<span class="line"><span>   Main user: the volunteer. Main customer: the pantry (the</span></span>
+<span class="line"><span>   coordinator chooses the tool, the treasurer approves the cost).</span></span>
+<span class="line"><span>   Same person? No.</span></span>
+<span class="line"><span>   Other users: coordinators, who also use the app daily.</span></span>
+<span class="line"><span>   We will NOT serve: paid staff rotas, large charities with</span></span>
+<span class="line"><span>   their own scheduling software.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>3. WHAT SUCCESS LOOKS LIKE</span></span>
+<span class="line"><span>   Goal: pantries fill their weekly shifts with less chasing.</span></span>
+<span class="line"><span>   Measures (example numbers, all invented):</span></span>
+<span class="line"><span>     1. 10 pantries using it every week, 6 months after the pilot starts.</span></span>
+<span class="line"><span>     2. 7 in 10 cancelled shifts refilled within 24 hours.</span></span>
+<span class="line"><span>     3. Coordinator time on cover under 15 minutes a week.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>4. WHAT WE OFFER</span></span>
+<span class="line"><span>   Promise: Shiftwren asks the next person for you.</span></span>
+<span class="line"><span>   Three features: post shifts; confirm with one tap; ask the</span></span>
+<span class="line"><span>   next person on the back-up list.</span></span>
+<span class="line"><span>   How we make money: free pilot. Price after the pilot: not decided.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>5. LIMITS</span></span>
+<span class="line"><span>   Small budget. Phone numbers are personal data, so privacy rules</span></span>
+<span class="line"><span>   apply from day one. Text messages cost money per message.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>6. RISKS AND UNKNOWNS</span></span>
+<span class="line"><span>   Will volunteers answer texts? Who pays? Will coordinators trust</span></span>
+<span class="line"><span>   it? What does a text cost at scale? What do we owe a volunteer</span></span>
+<span class="line"><span>   who asks us to delete their data?</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>7. SIGN-OFF</span></span>
+<span class="line"><span>   Written by (human): Noor. Approved by: placeholder mentor.</span></span></code></pre>
+<h2 id="step-2-the-repository-map">Step 2: The repository map</h2>
+<p>Template: <a href="/library/template-repository-map">Repository map</a>. A <strong>repository</strong> is one folder of work under version control. See the <a href="/library/glossary">glossary</a>. Noor opened each place and wrote what she saw. All names use the reserved <code>.example</code> domain.</p>
+<table>
+<thead>
+<tr>
+<th>Name and domain</th>
+<th>Type</th>
+<th>Purpose</th>
+<th>Ties into</th>
+<th>Owner</th>
+<th>Access</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>shiftwren-planning, git group <code>shiftwren</code></td>
+<td>Planning</td>
+<td>Epics, roadmap, briefs</td>
+<td>All rows, through epics</td>
+<td>Noor</td>
+<td>write</td>
+<td>FOUND</td>
+</tr>
+<tr>
+<td>shiftwren-site, shiftwren.example</td>
+<td>Marketing site</td>
+<td>Public page, pilot request form</td>
+<td>app sign-in link; shiftwren-crm</td>
+<td>Noor</td>
+<td>write</td>
+<td>FOUND. One page, draft text</td>
+</tr>
+<tr>
+<td>shiftwren-app, app.shiftwren.example</td>
+<td>App</td>
+<td>Coordinators post shifts, volunteers confirm</td>
+<td>svc-cover; flow-messages; int-email</td>
+<td>Priya</td>
+<td>write</td>
+<td>FOUND. Prototype. Holds phone numbers: personal data</td>
+</tr>
+<tr>
+<td>shiftwren-svc-cover, api.shiftwren.example/cover</td>
+<td>Service</td>
+<td>Chooses the next volunteer to ask</td>
+<td>app; flow-messages</td>
+<td>Priya</td>
+<td>write</td>
+<td>PLANNED</td>
+</tr>
+<tr>
+<td>shiftwren-flow-messages, workflow tool</td>
+<td>Workflow</td>
+<td>Sends reminders and “ask next” messages</td>
+<td>svc-cover; int-sms; int-email</td>
+<td>Priya</td>
+<td>write</td>
+<td>PLANNED</td>
+</tr>
+<tr>
+<td>shiftwren-int-sms, provider dashboard</td>
+<td>Integration</td>
+<td>Sends text messages</td>
+<td>flow-messages</td>
+<td>Noor</td>
+<td>write</td>
+<td>FOUND. Test account only</td>
+</tr>
+<tr>
+<td>shiftwren-int-email, provider dashboard</td>
+<td>Integration</td>
+<td>Sends email</td>
+<td>flow-messages; app</td>
+<td>Noor</td>
+<td>write</td>
+<td>FOUND</td>
+</tr>
+<tr>
+<td>shiftwren-crm, list in a CRM tool</td>
+<td>CRM</td>
+<td>Pantry leads</td>
+<td>site form</td>
+<td>Noor</td>
+<td>write</td>
+<td>FOUND. Free tier</td>
+</tr>
+<tr>
+<td>shiftwren-pay, not available</td>
+<td>Payments</td>
+<td>Would take the monthly fee</td>
+<td>app</td>
+<td>NOBODY</td>
+<td>none</td>
+<td>NOT FOUND. No price decided</td>
+</tr>
+<tr>
+<td>shiftwren-ops, repository in the group</td>
+<td>Ops</td>
+<td>Privacy notice, terms, runbooks</td>
+<td>All</td>
+<td>NOBODY</td>
+<td>write</td>
+<td>Draft privacy notice only. No way yet to delete a volunteer’s data</td>
+</tr>
+<tr>
+<td>shiftwren-status, not available</td>
+<td>Ops</td>
+<td>Public status page</td>
+<td>app</td>
+<td>NOBODY</td>
+<td>none</td>
+<td>NOT FOUND</td>
+</tr>
+<tr>
+<td>shiftwren-infra, repository in the group</td>
+<td>Ops</td>
+<td>Hosting and deploy settings</td>
+<td>site; app; svc-cover</td>
+<td>Priya</td>
+<td>write</td>
+<td>FOUND. Basic</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why 12 rows.</strong> The week asks for about a dozen, or a reason why not. Noor first guessed four (site, app, payments, planning). Walking the journeys added the rest.</p>
+<p>The one-page picture (template step 6):</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Volunteer / Coordinator --&gt; app --&gt; svc-cover --&gt; flow-messages --&gt; SMS or email</span></span>
+<span class="line"><span>site --&gt; crm                infra hosts site, app and svc-cover</span></span></code></pre>
+<h2 id="step-3-the-integrations-register">Step 3: The integrations register</h2>
+<p>Template: <a href="/library/template-integrations-register">Integrations register</a>. One column per tool. No secrets: methods and names only. Vendors are not named in this example.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>SMS provider</th>
+<th>Email sender</th>
+<th>CRM tool</th>
+<th>Git host and pages host</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vendor</td>
+<td>A message provider</td>
+<td>An email provider</td>
+<td>A CRM provider</td>
+<td>GitLab</td>
+</tr>
+<tr>
+<td>What it does for us</td>
+<td>Sends texts</td>
+<td>Sends reminders and sign-in links</td>
+<td>Stores pilot leads</td>
+<td>Stores work, builds and publishes the site</td>
+</tr>
+<tr>
+<td>Function served</td>
+<td>Operations</td>
+<td>Operations</td>
+<td>Sales</td>
+<td>Product and data</td>
+</tr>
+<tr>
+<td>Parts connected</td>
+<td>flow-messages</td>
+<td>flow-messages; app</td>
+<td>site; crm</td>
+<td>All repositories</td>
+</tr>
+<tr>
+<td>Data in and out</td>
+<td>Phone number and text out; delivery status in</td>
+<td>Email address and text out</td>
+<td>Lead name and email in</td>
+<td>Source files</td>
+</tr>
+<tr>
+<td>Owner</td>
+<td>Noor</td>
+<td>Noor</td>
+<td>Noor</td>
+<td>Noor</td>
+</tr>
+<tr>
+<td>Cost or contract</td>
+<td>Test credit. Price per message not decided (example)</td>
+<td>Free tier</td>
+<td>Free tier</td>
+<td>Free tier</td>
+</tr>
+<tr>
+<td>How we log in</td>
+<td>Password manager, two-step sign-in</td>
+<td>Same</td>
+<td>Same</td>
+<td>Same</td>
+</tr>
+<tr>
+<td>What breaks if it stops</td>
+<td>No cover requests reach people</td>
+<td>No sign-in links</td>
+<td>New leads are lost</td>
+<td>Cannot publish or deploy</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>FOUND (test)</td>
+<td>FOUND</td>
+<td>FOUND</td>
+<td>FOUND</td>
+</tr>
+</tbody>
+</table>
+<p>Function map: Sales 1. Operations 2. Product and data 1. Marketing, Finance, Support, Identity and security, Legal and compliance, HR and people: 0 each. <strong>Check:</strong> Support has no tool and Legal has none, but volunteers’ phone numbers are personal data. Both become gaps for Week 2.</p>
+<p>Noor also booked five interviews (fictional): two coordinators, a retired volunteer, a student volunteer and a pantry treasurer.</p>
+<h2 id="fill-your-own-blank-from-this-page">Fill your own blank from this page</h2>
+<ul>
+<li>Product brief: copy the shape of Step 1, with your own facts.</li>
+<li>Repository map: every column is filled in Step 2, including NOT FOUND and NOBODY rows.</li>
+<li>Integrations register: every field and the function map are in Step 3.</li>
+</ul>
+<h2 id="working-with-ai-agents">Working with AI agents</h2>
+<ul>
+<li><strong>May:</strong> list repositories and the first README line of each; check your spelling. You check the answers.</li>
+<li><strong>May not:</strong> decide what ties into what, name owners or fill your map.</li>
+<li><strong>Disclose:</strong> one line in your weekly note.</li>
+</ul>
+<h2 id="the-2030-product-development-manager-lens">The 2030 Product Development Manager lens</h2>
+<ul>
+<li><strong>You decide:</strong> what counts as a part of the product, who owns it, and which missing parts are findings.</li>
+<li><strong>You delegate:</strong> listing repositories and README lines. Brief: “List every repository in the group with its first README line. Say ‘no README’ where there is none. Do not guess owners.”</li>
+<li><strong>You verify by:</strong> opening two repositories and one dashboard yourself.</li>
+<li><strong>Disciplines involved:</strong> product, engineering, operations, finance, privacy and sales.</li>
+<li><strong>On the agent ladder:</strong> <strong>use</strong>.</li>
+</ul>
+<p>Next: <a href="/library/shiftwren-week-2-the-people">Shiftwren week 2, the people</a>.</p>
+</div><nav class="pager" data-pagefind-ignore aria-label="More in Shiftwren example" data-astro-cid-ecbjlo7c><a class="prev" href="/library/shiftwren-example" data-astro-cid-ecbjlo7c><span data-astro-cid-ecbjlo7c>Previous</span>Shiftwren: a second worked example</a><a class="next" href="/library/shiftwren-week-2-the-people" data-astro-cid-ecbjlo7c><span data-astro-cid-ecbjlo7c>Next</span>Shiftwren example, week 2: the people</a></nav><p class="back" data-astro-cid-ecbjlo7c><a href="/library" data-astro-cid-ecbjlo7c>Back to the library</a></p></div><aside class="side" data-pagefind-ignore data-astro-cid-ecbjlo7c><nav class="toc toc-side" aria-label="Table of contents" data-astro-cid-p33bl5ka><p class="toc-title" aria-hidden="true" data-astro-cid-p33bl5ka>On this page</p><ol data-astro-cid-p33bl5ka><li class="depth-2" data-astro-cid-p33bl5ka><a href="#step-1-the-product-brief-noors-work" data-astro-cid-p33bl5ka>Step 1: The product brief (Noor’s work)</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#step-2-the-repository-map" data-astro-cid-p33bl5ka>Step 2: The repository map</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#step-3-the-integrations-register" data-astro-cid-p33bl5ka>Step 3: The integrations register</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#fill-your-own-blank-from-this-page" data-astro-cid-p33bl5ka>Fill your own blank from this page</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#working-with-ai-agents" data-astro-cid-p33bl5ka>Working with AI agents</a></li><li class="depth-2" data-astro-cid-p33bl5ka><a href="#the-2030-product-development-manager-lens" data-astro-cid-p33bl5ka>The 2030 Product Development Manager lens</a></li></ol></nav></aside></div></article></main><section class="sponsor-band" aria-label="Sponsored by Reveltek" data-astro-cid-ji2uitki><div class="backdrop" aria-hidden="true" data-astro-cid-ji2uitki><span class="only-light" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band.avif"><source type="image/webp" srcset="/images/mountains-band.webp"><img src="/images/mountains-band.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span><span class="only-dark" data-astro-cid-ji2uitki><picture><source type="image/avif" srcset="/images/mountains-band-dark.avif"><source type="image/webp" srcset="/images/mountains-band-dark.webp"><img src="/images/mountains-band-dark.png" alt width="2400" height="220" loading="lazy" decoding="async" aria-hidden="true"></picture></span></div><div class="container inner" data-astro-cid-ji2uitki><span class="lead" data-astro-cid-ji2uitki>Sponsored by</span><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span><a class="sponsor" href="/sponsors" data-astro-cid-ji2uitki><img class="only-light" src="/images/reveltek-logo.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki><img class="only-dark" src="/images/reveltek-logo-white.svg" alt="Reveltek" width="134" height="79" data-astro-cid-ji2uitki></a><span class="rule" aria-hidden="true" data-astro-cid-ji2uitki></span></div></section><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="container inner" data-astro-cid-jo6i4kqk><a class="logo" href="/" aria-label="Developer Dojo, home" data-astro-cid-f7espo7c><img src="/images/logo-dark.svg" alt="" width="365" height="40" data-astro-cid-f7espo7c></a><nav aria-label="Footer" data-astro-cid-jo6i4kqk><ul data-astro-cid-jo6i4kqk><li data-astro-cid-jo6i4kqk><a href="/about" data-astro-cid-jo6i4kqk>About CRC</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors" data-astro-cid-jo6i4kqk>Sponsors (Reveltek)</a></li><li data-astro-cid-jo6i4kqk><a href="/sponsors#become-a-sponsor" data-astro-cid-jo6i4kqk>Become a sponsor</a></li><li data-astro-cid-jo6i4kqk><a href="/contact" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href="/code-of-conduct" data-astro-cid-jo6i4kqk>Code of conduct</a></li><li data-astro-cid-jo6i4kqk><a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>GitHub</a></li></ul></nav></div><p class="legal container" data-astro-cid-jo6i4kqk>© 2026 Curiosity Research Corporation. Developer Dojo is free for everyone and is sponsored by Reveltek.</p></footer></body></html>
