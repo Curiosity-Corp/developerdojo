@@ -13,6 +13,20 @@ outcomes:
   - "Ask the right security questions about a pipeline, its secrets and its supply chain"
 ---
 
+## In short
+
+This track is for product people and developers who ship software with agents. You should know merge requests. You need no pipeline language. CI/CD means a machine builds the software for every change. It runs the tests and checks the rules. You will read a pipeline file and say what each stage proves. You will also say what it does not prove.
+
+You will brief an agent to add a check. Then you confirm that the pipeline fails when it should. You will ask where secrets live and what each job can reach. The pipeline judges the work, however sure the agent sounds. The examples use GitLab. The ideas are the same in other tools.
+
+### Key words
+
+- **CI/CD:** Continuous integration and delivery. Automatic steps that test, build and deliver changes.
+- **Pipeline:** The automatic steps that test and deliver a change.
+- **Merge request (MR):** A proposal to add a change to the main branch. Also called a pull request.
+- **Quality gate:** A check that a change must pass before it can move on.
+- **Secret:** A password, key or token. Never kept in git. Only its name is.
+
 **CI/CD** stands for continuous integration and continuous delivery. Every time someone proposes a change, a machine builds the software, runs the tests and checks the rules. If the checks pass, the change can ship. If they fail, it cannot. For a person who directs AI agents, the pipeline is the most important machine in the building. It is the impartial judge that does not care how confident the agent sounded.
 
 This track does not make you a pipeline author who types YAML all day. Agents will write most of it. It gives you **enough depth to direct and judge**: to read a pipeline file, to see what it proves and what it does not, and to ask the questions that find weak spots.

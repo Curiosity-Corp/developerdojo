@@ -13,6 +13,21 @@ outcomes:
   - "Set the permissions, gates and review rules that keep agent work safe, and verify them by trying to break them"
 ---
 
+## In short
+
+This track is for product managers, founders and developers who ship software. Agents may write the code. You will not become a security engineer. You will learn the common attacks and the questions that find them. You will keep secrets out of git. You will know what to do when one leaks. You will judge a dependency before you add it.
+
+You will set limits that keep agent work safe. Then you will test that the limits hold. Agents can be tricked by text they read. A rule in a document is a hope. A rule in a pipeline or a permission is a fact. This track teaches the limits for one agent. The advanced track covers many agents.
+
+### Key words
+
+- **Secret:** A password, key or token. Never kept in git. Only its name is.
+- **Supply chain:** Everything that goes into your software: other people's code, tools and build steps.
+- **SBOM (software bill of materials):** A list of the parts inside software and their licences.
+- **Least privilege:** Give a person or an agent only the access the job needs.
+- **OWASP Top 10:** A public list of the most common kinds of weakness in software.
+- **Prompt injection:** An instruction hidden in text that an AI agent reads and then follows.
+
 **Security** is the work of making sure software does what you intend and nothing else, even when someone is trying to make it misbehave. It is not a department you hand things to at the end. It is a set of habits that runs through every decision, and for a product manager directing AI agents it comes down to a handful of questions asked at the right moments.
 
 This track gives you **enough depth to direct and judge**. You will not become a security engineer. You will learn what the common attacks are, where secrets and dependencies go wrong, what a sensible build looks like, and how to bound what agents may touch.

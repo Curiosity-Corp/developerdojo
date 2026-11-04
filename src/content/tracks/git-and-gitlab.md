@@ -13,6 +13,21 @@ outcomes:
   - "Isolate several agents with branches and worktrees, and fix forward when something breaks"
 ---
 
+## In short
+
+This track is for product people and developers in a team that uses git. You need no earlier experience. Git records every change. You can then compare, reject or fix what an agent did. You will learn to read a diff. You will say if it is small and safe. You will run a merge request from issue to merge, with review. You will plan work on the free GitLab plan.
+
+You will give each agent its own branch and working copy. When something breaks, you fix forward. You make a new change. You do not erase history. On the agent ladder, protected branches and approvals are the gates for many agents.
+
+### Key words
+
+- **Git:** A tool that records every change to files.
+- **Commit:** One saved step in git, with a message.
+- **Branch:** A separate line of changes in git.
+- **Merge request (MR):** A proposal to add a change to the main branch. Also called a pull request.
+- **Diff:** A view of what changed between two versions of a file.
+- **Fix forward:** Fix problems with a new change. Do not revert shipped work.
+
 Git is the source of truth for everything you build at Developer Dojo. Plans, code, specs, prompts, evaluations and disclosures all live in it. If you direct AI agents, git is also your safety net: it records every change an agent makes, and lets you compare, reject or fix it.
 
 This track does not try to turn you into a person who types git commands all day. The agents will type most of them. The goal is **enough depth to direct and judge agents**. You will be able to read a diff, understand a branch, run a proper review, plan work in GitLab, and keep control when several agents work at once.

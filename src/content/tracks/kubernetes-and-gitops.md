@@ -13,6 +13,21 @@ outcomes:
   - "Direct an agent to change a cluster only through a merge request, and verify the result"
 ---
 
+## In short
+
+This track is for product managers, founders and developers. You will ask agents to change software on Kubernetes. You need no Kubernetes experience. Kubernetes runs your software and keeps it running as you described. GitOps adds one habit. Git says what should run, and a tool makes the cluster match it. Nobody types commands into production.
+
+You will read a manifest. You will spot missing limits, missing health checks and secrets in plain text. You will direct an agent to change a cluster only through a merge request. Then you check the real state yourself. You will also ask the right security and cost questions. The ideas work with any GitOps tool.
+
+### Key words
+
+- **Kubernetes:** Software that runs other software and keeps it running as you described. It restarts what crashes.
+- **Manifest:** A file that says what should run on a Kubernetes cluster.
+- **GitOps:** A controller makes a system match what is in git, continuously.
+- **Desired state:** What git says should exist.
+- **Drift:** Any difference between desired state and actual state.
+- **Merge request (MR):** A proposal to add a change to the main branch. Also called a pull request.
+
 **Kubernetes** is software that runs other software. You tell it what you want, for example "three copies of the sign-up service, each with this much memory", and it works to make that true and keep it true, restarting what crashes and spreading copies across machines. It is the most widely used way to run containers at scale, and every large cloud sells it as a managed service.
 
 **GitOps** is the habit that makes Kubernetes safe to share with agents: the git repository describes what should run, and an automatic process makes the cluster match it. Nobody types commands into production. They propose a change in git, and a person reviews it.

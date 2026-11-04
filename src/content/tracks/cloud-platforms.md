@@ -13,6 +13,20 @@ outcomes:
   - "Choose a region and a provider for a product with reasons you can defend"
 ---
 
+## In short
+
+This track is for product managers, founders and developers. You will ask agents to build in the cloud. You need no cloud experience. Most products run on a cloud platform: AWS, Azure or Google Cloud. You will learn the building blocks, and the names each provider uses. You will learn what the provider secures and what you must secure.
+
+You will ask about access, cost and reliability before an agent builds anything. You will choose a region and a provider, and give your reasons. An agent should never hold a powerful key that lasts a long time. Prices change often, so this track quotes none. It does not take a side between providers.
+
+### Key words
+
+- **Cloud platform:** A provider that rents you computers and services over the internet. Examples are AWS, Azure and Google Cloud.
+- **Region:** A place in the world where a cloud provider runs its computers. Where your data lives is a business and legal choice.
+- **Shared responsibility model:** The split between what the cloud provider secures and what you must secure.
+- **Least privilege:** Give a person or an agent only the access the job needs.
+- **Lock-in:** Being so tied to one provider that leaving is hard or costly.
+
 Almost every product you will direct runs on someone else's computers. Those computers belong to a **cloud platform**, and three companies run most of them: Amazon Web Services (AWS), Microsoft Azure and Google Cloud. They sell hundreds of services under hundreds of names. An agent can use any of them in seconds, which is exactly why you need a map.
 
 This track gives you the map. It does not train you to be a cloud engineer. It gives you **enough depth to direct and judge**: to read a proposed design, notice that the database is open to the whole internet, ask what it will cost at ten times the traffic, and know which question to put to which colleague.

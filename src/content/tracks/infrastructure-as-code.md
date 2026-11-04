@@ -13,6 +13,20 @@ outcomes:
   - "Direct an agent to write infrastructure code through a merge request, and verify the plan before anything is applied"
 ---
 
+## In short
+
+This track is for product managers, founders and developers. You will ask agents to change cloud resources. You do not need to write code. Infrastructure as code means you describe servers, networks and permissions in files in git. A tool reads the files and makes the change. You will read a plan before anything changes. You will find what will be added, changed or destroyed.
+
+You will learn why the tool's state must be protected. You will direct an agent to write the files in a merge request. You will also check for drift. You will set what agents may do, and ask about cost and security. Nothing real changes until a person has read the plan and approved it.
+
+### Key words
+
+- **IaC (infrastructure as code):** Cloud setup written as files in git.
+- **Plan (infrastructure as code):** A preview of what the tool will add, change or destroy. You read it before you approve.
+- **State (infrastructure as code):** The tool's memory of what it has built. Protect it, and keep one shared copy.
+- **Drift:** Any difference between desired state and actual state.
+- **Merge request (MR):** A proposal to add a change to the main branch. Also called a pull request.
+
 **Infrastructure as code** (IaC) means that the servers, networks, databases and permissions your product runs on are described in text files, kept in git, and created by a tool reading those files. Instead of clicking through a cloud console, you write what you want. The tool compares it with what exists, shows you the difference, and, once you approve, makes the change.
 
 For someone directing AI agents this is the safest way to let them near infrastructure. An agent can write a file, and a person can read the file and the plan before anything real changes. The alternative, an agent clicking or typing live commands, leaves no record and no review.
