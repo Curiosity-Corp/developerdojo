@@ -87,7 +87,7 @@ export const MASTER_MODULES: readonly TrainModule[] = [
     title: 'AI-agent orchestration',
     description: 'Steer several agents across the product lifecycle.',
     icon: 'bot',
-    href: '/library/master-developer-overview#the-five-ideas',
+    href: '/library/master-developer-overview#the-six-ideas',
   },
   {
     id: 'master-launch',

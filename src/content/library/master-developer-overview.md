@@ -7,7 +7,7 @@ level: advanced
 duration: "30 min"
 outcomes:
   - "Say what changes between a Developer and a Master Developer."
-  - "Name the five ideas of the platform level."
+  - "Name the six ideas of the platform level."
   - "Know the four gates, the capstone and the badge."
   - "Know what you leave with."
 resources:
