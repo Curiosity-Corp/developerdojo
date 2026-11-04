@@ -1,9 +1,9 @@
 title: "Web Security Testing Guide"
 provider: "OWASP"
-url: "https://owasp.org/www-project-web-security-testing-guide/"
+url: "https://owasp.org/projects/web-security-testing-guide"
 cost: "free"
 format: "book"
 level: "advanced"
 skills: [security]
 summary: "The OWASP guide to testing web application security. Shows what a security test covers."
-verifiedOn: 2026-11-03
+verifiedOn: 2026-11-04

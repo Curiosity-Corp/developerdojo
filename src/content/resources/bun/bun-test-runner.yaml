@@ -1,10 +1,10 @@
 title: "Test runner"
 provider: "Bun"
-url: "https://bun.sh/docs/cli/test"
+url: "https://bun.sh/docs/test"
 cost: "free"
 format: "docs"
 level: "beginner"
 duration: "about 20 minutes"
 skills: [ci-cd]
 summary: "How Bun's built-in test runner works, how to run and filter tests, and how to read results. Useful when you need to judge whether the tests an agent added really prove anything."
-verifiedOn: 2026-11-03
+verifiedOn: 2026-11-04

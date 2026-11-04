@@ -67,7 +67,7 @@ The **attack surface** is every place an outsider can reach: pages, interfaces o
 
 ### The OWASP Top 10
 
-The Open Worldwide Application Security Project publishes the [OWASP Top 10](https://owasp.org/www-project-top-ten/), a regularly updated, consensus list of the most critical risks for web applications. Its exact ranking and wording change between editions, so read the current edition, but the families are stable. Here they are as questions you can ask.
+The Open Worldwide Application Security Project publishes the [OWASP Top 10](https://owasp.org/projects/top-ten), a regularly updated, consensus list of the most critical risks for web applications. Its exact ranking and wording change between editions, so read the current edition, but the families are stable. Here they are as questions you can ask.
 
 | Family | Plain meaning | The question to ask |
 |---|---|---|
@@ -106,7 +106,7 @@ Each can be verified. Each can be given to an agent as a requirement and to a re
 
 ### Safe places to practise
 
-Two free, deliberately vulnerable applications let you see weaknesses for real: [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/) and [WebGoat](https://owasp.org/www-project-webgoat/). Run them only in a place you own or an isolated lab, never on a shared network or against a system that is not yours. The [Cheat Sheet Series](https://cheatsheetseries.owasp.org/) gives short, practical guidance on each topic, and the [Application Security Verification Standard](https://owasp.org/www-project-application-security-verification-standard/) is a longer list of requirements you can borrow criteria from. The Linux Foundation's free course [Developing Secure Software](https://training.linuxfoundation.org/training/developing-secure-software-lfd121/) is a good deeper introduction, and CISA's [Secure by Design](https://www.cisa.gov/securebydesign) explains why vendors should make safe defaults the norm.
+Two free, deliberately vulnerable applications let you see weaknesses for real: [OWASP Juice Shop](https://owasp.org/projects/juice-shop) and [WebGoat](https://owasp.org/projects/webgoat). Run them only in a place you own or an isolated lab, never on a shared network or against a system that is not yours. The [Cheat Sheet Series](https://cheatsheetseries.owasp.org/) gives short, practical guidance on each topic, and the [Application Security Verification Standard](https://asvs.owasp.org/) is a longer list of requirements you can borrow criteria from. The Linux Foundation's free course [Developing Secure Software](https://training.linuxfoundation.org/training/developing-secure-software-lfd121/) is a good deeper introduction, and CISA's [Secure by Design](https://www.cisa.gov/securebydesign) explains why vendors should make safe defaults the norm.
 
 ## 3. Step by step: add security to a spec
 

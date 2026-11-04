@@ -1,9 +1,9 @@
 title: "OWASP API Security Top 10"
 provider: "OWASP"
-url: "https://owasp.org/API-Security/editions/2023/en/0x00-header/"
+url: "https://api-security.owasp.org/editions/2023/en/0x00-header/"
 cost: "free"
 format: "docs"
 level: "intermediate"
 skills: [security]
 summary: "The top ten risks specific to APIs. Most modern products are APIs behind interfaces."
-verifiedOn: 2026-11-03
+verifiedOn: 2026-11-04

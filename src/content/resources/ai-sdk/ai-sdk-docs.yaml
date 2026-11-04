@@ -1,9 +1,9 @@
 title: "AI SDK by Vercel"
 provider: "Vercel"
-url: "https://ai-sdk.dev/docs"
+url: "https://ai-sdk.dev/docs/introduction"
 cost: "free"
 format: "docs"
 level: "intermediate"
 skills: [ai-agents]
 summary: "The documentation of the AI SDK, a TypeScript toolkit for calling language models through one interface. It is the library inside the PHANTOMS AI adapter."
-verifiedOn: 2026-11-03
+verifiedOn: 2026-11-04

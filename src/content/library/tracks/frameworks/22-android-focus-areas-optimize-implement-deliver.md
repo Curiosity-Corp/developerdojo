@@ -56,7 +56,7 @@ So the question for these three areas is not "how do I build faster?" It is "how
 **Which numbers.** Start with three kinds:
 
 1. **Customer outcome**: is the person getting what they came for? For TrailMug, time to return a cup.
-2. **Delivery health**: how well the team ships. The research programme DORA names [software delivery measures](https://dora.dev/guides/dora-metrics-four-keys/): change lead time (commit to production), deployment frequency, failed deployment recovery time, change fail rate, and deployment rework rate. Use them for learning, not to rank people.
+2. **Delivery health**: how well the team ships. The research programme DORA names [software delivery measures](https://dora.dev/guides/dora-metrics/): change lead time (commit to production), deployment frequency, failed deployment recovery time, change fail rate, and deployment rework rate. Use them for learning, not to rank people.
 3. **Reliability**: is the product up and fast enough? The Google SRE book chapter on [service level objectives](https://sre.google/sre-book/service-level-objectives/) explains how to set a target such as "99.5 percent of cup scans succeed in a month".
 
 **If your product uses AI.** Add a fourth: **quality of the AI part**. You need a fixed set of test cases with known good answers, a score, and a rule such as "no release if the score drops". This is the MLOps habit. Microsoft's [MLOps overview](https://learn.microsoft.com/en-us/azure/machine-learning/concept-model-management-and-deployment) explains it.
