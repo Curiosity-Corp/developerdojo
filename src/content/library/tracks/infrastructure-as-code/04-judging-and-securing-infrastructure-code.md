@@ -93,7 +93,7 @@ Run them on every merge request (lesson 3). Triage the results as a person decid
 
 ### Policy as code on the plan
 
-A scanner uses a general list. A **policy check** uses your rules, written once and run on every plan. Examples: "fail if any resource tagged production would be destroyed", "fail if any resource lacks an owner tag", "fail if any storage is public", "fail if monthly cost estimate exceeds the ceiling". Policies are code, reviewed in merge requests, owned by a named person. They are how a decision made once by a PDM is enforced a thousand times without asking again. The Agent orchestration track (`/library/tracks/agent-orchestration`) develops this idea as policy as data.
+A scanner uses a general list. A **policy check** uses your rules, written once and run on every plan. Examples: "fail if any resource tagged production would be destroyed", "fail if any resource lacks an owner tag", "fail if any storage is public", "fail if monthly cost estimate exceeds the ceiling". Policies are code, reviewed in merge requests, owned by a named person. They are how a decision made once by a PDM is enforced a thousand times without asking again. The [Agent orchestration track](/library/tracks/agent-orchestration/) develops this idea as policy as data.
 
 ### Reviewing an agent's infrastructure change
 

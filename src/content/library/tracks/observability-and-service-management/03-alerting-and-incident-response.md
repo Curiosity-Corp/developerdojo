@@ -119,7 +119,7 @@ An agent can save minutes in the first hour. The risks are higher than in normal
 | Suggest hypotheses | They are guesses; the lead decides what to test. |
 | **Make changes to production** | **Only if the commander explicitly allows a named action, within pre-set limits, with logging.** Default: no. |
 
-Set the rule **before** the incident: agents gather and draft; people decide and act. If you later allow a narrow set of actions, such as restarting a named service, put that in the platform's permissions and a hook, not in a prompt (Security fundamentals lesson 4). The Agent orchestration track (`/library/tracks/agent-orchestration`) covers this at fleet scale.
+Set the rule **before** the incident: agents gather and draft; people decide and act. If you later allow a narrow set of actions, such as restarting a named service, put that in the platform's permissions and a hook, not in a prompt (Security fundamentals lesson 4). The [Agent orchestration track](/library/tracks/agent-orchestration/) covers this at fleet scale.
 
 ### Runbooks
 

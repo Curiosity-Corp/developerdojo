@@ -207,4 +207,4 @@ by" blank. List anything you could not verify.
 
 ## 9. Further learning
 
-Read the Atlassian guides to service management and change, and the SRE book's chapter on release engineering and the others you have not read. Look at your platform's service desk feature. You have now seen the whole spine: see, promise, respond, learn, change. To coordinate many agents across all five with decision rights written as data, continue to the Agent orchestration track (`/library/tracks/agent-orchestration`).
+Read the Atlassian guides to service management and change, and the SRE book's chapter on release engineering and the others you have not read. Look at your platform's service desk feature. You have now seen the whole spine: see, promise, respond, learn, change. To coordinate many agents across all five with decision rights written as data, continue to the [Agent orchestration track](/library/tracks/agent-orchestration/).

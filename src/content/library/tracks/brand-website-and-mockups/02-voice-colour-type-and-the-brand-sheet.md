@@ -198,7 +198,7 @@ that I should check as a possible overclaim.
 
 **A trap.** Agents mimic the tone of the examples you give them. If your "do" examples are weak, every page will be weak. Spend time on three excellent examples.
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **delegate** and begins **govern**. The brand sheet is written policy that every agent reads. A check in the pipeline that fails on a banned word or a low contrast ratio is a gate that keeps the policy true without you watching. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **delegate** and begins **govern**. The brand sheet is written policy that every agent reads. A check in the pipeline that fails on a banned word or a low contrast ratio is a gate that keeps the policy true without you watching. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the upper rungs.
 
 **Disclose.** In the brand sheet footer: "AI use: contrast arithmetic and draft copy. The tone, colours, font, banned list and claims are mine."
 

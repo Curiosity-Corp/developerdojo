@@ -188,7 +188,7 @@ tell, say "unknown".
 
 **Disclose.** In the map's footer, record which sections an agent inventoried and which you verified by hand.
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on the **delegate** rung. A mapping task with a written brief and a list you verify is a whole task handed over. Several agents mapping different areas at once is orchestration, and then the shared names must live in one file that all briefs point to. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the two upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on the **delegate** rung. A mapping task with a written brief and a list you verify is a whole task handed over. Several agents mapping different areas at once is orchestration, and then the shared names must live in one file that all briefs point to. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the two upper rungs.
 
 ## 6. Common mistakes
 

@@ -198,7 +198,7 @@ merge request that touches files outside the paths listed in its brief.
 
 **Several agents in parallel.** Limit them to what you can review. Give each a separate set of paths. Write shared names in one file. If two agents touch the same file, one should wait.
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson spans **delegate** and **orchestrate**. Running two or three agents in a cycle is orchestration. The definition of done is policy, the pipeline tests are an automatic gate and your reading of the merge request is the human gate. The agent orchestration track (`/library/tracks/agent-orchestration/`) shows how that grows to a fleet.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson spans **delegate** and **orchestrate**. Running two or three agents in a cycle is orchestration. The definition of done is policy, the pipeline tests are an automatic gate and your reading of the merge request is the human gate. The [agent orchestration track](/library/tracks/agent-orchestration/) shows how that grows to a fleet.
 
 **Disclose.** In each merge request and in the cycle note: which parts the agents built and which checks you ran.
 

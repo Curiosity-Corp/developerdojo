@@ -195,7 +195,7 @@ say so.
 
 **Disclose.** Add to the persona file: "AI use: formatting and stereotype check; I wrote the content and marks."
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **use** and **delegate**. Checking a draft against your evidence is a task you hand over with a brief. A rule that a persona may not contain a fact without a source is policy, even when it is one line in your repo. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the two upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **use** and **delegate**. Checking a draft against your evidence is a task you hand over with a brief. A rule that a persona may not contain a fact without a source is policy, even when it is one line in your repo. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the two upper rungs.
 
 ## 6. Common mistakes
 

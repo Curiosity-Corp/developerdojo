@@ -247,7 +247,7 @@ Answer as five numbered lists.
 
 **Disclose.** At the bottom of each epic file: "AI use: spelling check and reviewer questions on [date]. I wrote and decided every line."
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **use**. You write the epic. An agent may question it. The epic template is the first piece of written policy: it says what every epic must contain before any agent reads it. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the two upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **use**. You write the epic. An agent may question it. The epic template is the first piece of written policy: it says what every epic must contain before any agent reads it. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the two upper rungs.
 
 ## 6. Common mistakes
 

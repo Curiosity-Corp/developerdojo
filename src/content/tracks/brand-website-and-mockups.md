@@ -67,7 +67,7 @@ The manager is part strategist, part editor and part quality gate. They decide w
 
 Many disciplines meet here. **Marketing and sales** want a clear message. **Design** owns how it looks and feels. **Legal and privacy** care about names, claims and notices. **Engineering** cares about performance and maintainability. **Support** cares about what customers will ask. **Operations** cares about hosting and keeping it running. **Finance** cares about domain and tool costs.
 
-Each lesson places its work on the agent ladder: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the upper rungs. For brand work, the brand sheet is policy, and a pipeline check for contrast, links and page weight is a gate.
+Each lesson places its work on the agent ladder: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the upper rungs. For brand work, the brand sheet is policy, and a pipeline check for contrast, links and page weight is a gate.
 
 ## How it maps to the Dojo
 

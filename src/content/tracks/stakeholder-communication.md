@@ -65,7 +65,7 @@ The manager decides who needs to know what, when, and in what form. The manager 
 
 Many disciplines meet in a stakeholder table. **Finance** wants cost and runway. **Legal and privacy** want obligations met before launch. **Sales and support** want to know what to promise and what to say when things break. **Engineering** wants clear work. **Operations** wants to know what it will have to run. **Design** wants to know what people will see. A strong manager can speak to each in the words that discipline uses.
 
-Each lesson places its work on the agent ladder: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the upper rungs. In communication, the governing rules are the ones that say what an agent may send on your behalf. The answer for external messages is: nothing, without a person reading it first.
+Each lesson places its work on the agent ladder: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the upper rungs. In communication, the governing rules are the ones that say what an agent may send on your behalf. The answer for external messages is: nothing, without a person reading it first.
 
 ## How it maps to the Dojo
 

@@ -203,7 +203,7 @@ FACTS:
 
 **A rule for sending.** Agents prepare. A person sends. Never let an agent send external messages without a person reading them first. If you build tooling around this, make the person's approval a hard gate.
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **delegate**, and it is where **govern** first becomes concrete. "Agents draft; people send" is a written rule. If you later automate notes, a gate that blocks sending until a named person approves is how you keep the rule true. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **delegate**, and it is where **govern** first becomes concrete. "Agents draft; people send" is a written rule. If you later automate notes, a gate that blocks sending until a named person approves is how you keep the rule true. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the upper rungs.
 
 **Disclose.** At the foot of each note: "Drafted with AI help; facts checked by me." Keep it plain.
 

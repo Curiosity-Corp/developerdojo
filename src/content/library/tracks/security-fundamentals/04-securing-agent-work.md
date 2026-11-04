@@ -88,7 +88,7 @@ A limit written in a prompt ("do not touch production") is a request. A limit en
 | Cannot run a dangerous command | A **hook** that inspects each action before it runs and refuses some | Runs in the agent's tool, outside the model's control. |
 | Cannot reach the whole network | Network rules for the agent's environment | Block internal addresses and unknown destinations. |
 
-A **gate** stops something from proceeding until a condition is met. A **hook** is a small program that runs automatically at a point, such as before an action, and can allow or refuse it. The important property of both is that they are not up to the agent. How these are designed as policy written as data, applied across many agents and decisions, is the subject of the Agent orchestration track (`/library/tracks/agent-orchestration`). For one agent, the table above is the foundation.
+A **gate** stops something from proceeding until a condition is met. A **hook** is a small program that runs automatically at a point, such as before an action, and can allow or refuse it. The important property of both is that they are not up to the agent. How these are designed as policy written as data, applied across many agents and decisions, is the subject of the [Agent orchestration track](/library/tracks/agent-orchestration/). For one agent, the table above is the foundation.
 
 ### Testing the limits
 
@@ -224,4 +224,4 @@ determine.
 
 ## 9. Further learning
 
-Read the OWASP list for language model applications and the NIST framework to see the wider picture. Then apply the limits table to one real task. When you are ready to coordinate many agents under policy, with decision rights written as data and gates and hooks across a fleet, continue to the Agent orchestration track (`/library/tracks/agent-orchestration`). To learn how to see what a running product is doing, continue to Observability and service management (`/library/tracks/observability-and-service-management`).
+Read the OWASP list for language model applications and the NIST framework to see the wider picture. Then apply the limits table to one real task. When you are ready to coordinate many agents under policy, with decision rights written as data and gates and hooks across a fleet, continue to the [Agent orchestration track](/library/tracks/agent-orchestration/). To learn how to see what a running product is doing, continue to Observability and service management (`/library/tracks/observability-and-service-management`).

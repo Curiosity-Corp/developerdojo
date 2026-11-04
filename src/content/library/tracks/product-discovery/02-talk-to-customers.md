@@ -201,7 +201,7 @@ goal it serves. Flag any question that could be read as leading.
 
 **Disclose.** In `discovery/interviews/README.md` write which parts, if any, an agent helped with.
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **use**, with a little **delegate**. Drafting a script or tidying notes is a small task with a clear brief. If you ever run several agents over many interview notes, you are orchestrating, and the rule that every claim links to a quote becomes a gate you check. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the two upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **use**, with a little **delegate**. Drafting a script or tidying notes is a small task with a clear brief. If you ever run several agents over many interview notes, you are orchestrating, and the rule that every claim links to a quote becomes a gate you check. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the two upper rungs.
 
 ## 6. Common mistakes
 

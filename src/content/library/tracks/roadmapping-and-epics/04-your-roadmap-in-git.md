@@ -207,7 +207,7 @@ number and link. If a command fails, stop and tell me.
 
 **Disclose.** In `roadmap/README.md`: "AI use: set-up automation and a consistency check. The epics, order, reasons and labels are mine."
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **delegate**, and starts **govern**. Creating labels and issues from your files is a whole task you hand over. Labels, templates, protected branches and who may close an epic are the first rules and gates of a governed plan. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the two upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **delegate**, and starts **govern**. Creating labels and issues from your files is a whole task you hand over. Labels, templates, protected branches and who may close an epic are the first rules and gates of a governed plan. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the two upper rungs.
 
 ## 6. Common mistakes
 

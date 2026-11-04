@@ -33,7 +33,7 @@ Reading about a stack is not the same as running it. Someone who has never clone
 
 The point is not the code. Agents write the code. The point is the **quality of your decisions and your verification**. Your spec, briefs, policy and review notes, in git, are the deliverable.
 
-It also puts you on the next rung of a ladder. **Use** one agent. **Delegate** a whole task with a brief. **Orchestrate** several sessions at once, each with its own job. **Govern** them with written policy, hooks and gates, so that safety does not depend on your attention. In this capstone you orchestrate three agent sessions and govern them. The Agent orchestration track goes further.
+It also puts you on the next rung of a ladder. **Use** one agent. **Delegate** a whole task with a brief. **Orchestrate** several sessions at once, each with its own job. **Govern** them with written policy, hooks and gates, so that safety does not depend on your attention. In this capstone you orchestrate three agent sessions and govern them. The [Agent orchestration track](/library/tracks/agent-orchestration/) goes further.
 
 The 2030 Product Development Manager owns the outcome even when every line was typed by an agent. If the order tracker loses an order, "the agent wrote it" is not an answer. This capstone trains the habits that make it a rare event.
 
@@ -210,7 +210,7 @@ You are using them throughout. Keep these habits.
 
 > You are a skeptical reviewer. Read AGENTS.md, docs/spec/order-tracker.md and docs/security.md. Review the diff of branch <name> against main. Do not edit anything. List: (1) every acceptance criterion in the spec and whether the diff and tests prove it, with file and line; (2) any route or function that skips validation or authorization; (3) any dependency, secret, public variable or log line that violates AGENTS.md; (4) any test that would still pass if the feature were broken. Mark anything undetermined as UNKNOWN.
 
-Treat its findings as leads and open each one yourself. The Agent orchestration track teaches the next rung: many Commanders under a higher-level policy.
+Treat its findings as leads and open each one yourself. The [Agent orchestration track](/library/tracks/agent-orchestration/) teaches the next rung: many Commanders under a higher-level policy.
 
 **Disclose.** Every merge request states which agent did what, which parts you wrote, and what you checked by hand. See [disclose AI use](/library/disclose-ai-use). If a defect reaches your demo, [fix forward](/library/fix-forward): make a new change that repairs it, and note it in the report.
 

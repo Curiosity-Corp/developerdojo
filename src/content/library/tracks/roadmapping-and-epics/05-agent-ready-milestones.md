@@ -223,7 +223,7 @@ Output four short lists.
 
 **Disclose.** The merge request description and `roadmap/decisions.md` state which parts the agent built and which checks you ran.
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson covers the climb from **delegate** to **orchestrate**. One brief to one agent is delegation. Several briefs at once, with separate paths and shared names, is orchestration. The standing definition of done, the limits in each brief and your review are the policy and the gate that keep it safe: nothing merges until a person has run the checks. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the two upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson covers the climb from **delegate** to **orchestrate**. One brief to one agent is delegation. Several briefs at once, with separate paths and shared names, is orchestration. The standing definition of done, the limits in each brief and your review are the policy and the gate that keep it safe: nothing merges until a person has run the checks. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the two upper rungs.
 
 ## 6. Common mistakes
 

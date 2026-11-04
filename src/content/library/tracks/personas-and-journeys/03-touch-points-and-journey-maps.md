@@ -194,7 +194,7 @@ Do not invent touch points or parts. Output three short lists.
 
 **Disclose.** In the map's footer: "AI use: diagram formatting and cross-check; steps and feelings come from my interviews."
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **delegate**. Drawing a map from your table is a whole task. If several agents work on different journeys at once, you are orchestrating, and they must share the same names for stages and touch points. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the two upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **delegate**. Drawing a map from your table is a whole task. If several agents work on different journeys at once, you are orchestrating, and they must share the same names for stages and touch points. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the two upper rungs.
 
 ## 6. Common mistakes
 

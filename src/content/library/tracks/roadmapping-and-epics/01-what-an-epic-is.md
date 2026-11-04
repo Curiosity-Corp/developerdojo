@@ -170,7 +170,7 @@ rewrite my wording. If a line has no person or no measurable result, say so.
 
 **Disclose.** In `roadmap/levels-sorting.md`: "AI use: explained terms and checked my sorting. The outcomes, parts and verdicts are mine."
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. You are on the **use** rung here. An agent is a tutor and a checker. The levels you learn are what let you climb: you cannot orchestrate work you cannot size. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the two upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. You are on the **use** rung here. An agent is a tutor and a checker. The levels you learn are what let you climb: you cannot orchestrate work you cannot size. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the two upper rungs.
 
 ## 6. Common mistakes
 

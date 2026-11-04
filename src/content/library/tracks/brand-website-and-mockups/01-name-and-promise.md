@@ -183,7 +183,7 @@ you are unsure about as UNSURE.
 
 **Warning about legal claims.** Agents cannot tell you a name is safe to use. Do not accept "this name is available" from one. A trade-mark adviser's answer is the one that counts.
 
-**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **use**. You ask, check and decide, one step at a time. The decision record and the list of banned claims become inputs to later policy, because every page and message must keep the promise. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the upper rungs.
+**Where this sits on the ladder.** The agent skill of a manager climbs four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. This lesson sits on **use**. You ask, check and decide, one step at a time. The decision record and the list of banned claims become inputs to later policy, because every page and message must keep the promise. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the upper rungs.
 
 **Disclose.** In `brand/name-decision.md`: "AI use: brainstorming and a first language check. The tests, the checks, the choice and the promise are mine."
 

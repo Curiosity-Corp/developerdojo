@@ -63,7 +63,7 @@ Each lesson has the same shape as the rest of the Dojo's tracks: why it matters,
 
 The manager decides the rhythm, the order of the backlog, what counts as done and what the team will not do this cycle. The manager delegates the drafting of stories, the building and the first checks to agents, with a written brief, and verifies by running the acceptance checks on the real product. Several disciplines are involved in every cycle. **Engineering** judges feasibility and review. **Design** judges what the person sees. **Operations** judges whether it can run. **Finance** asks what the cycle costs, including agent usage. **Support and sales** need to know what is changing.
 
-Each lesson also places its work on the agent ladder: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. The agent orchestration track (`/library/tracks/agent-orchestration/`) covers the upper rungs. In agile delivery, the definition of done, the limits in a brief and the review step are the first policy and gate.
+Each lesson also places its work on the agent ladder: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** several sessions, and **govern** them with written policy, hooks and gates. The [agent orchestration track](/library/tracks/agent-orchestration/) covers the upper rungs. In agile delivery, the definition of done, the limits in a brief and the review step are the first policy and gate.
 
 ## How it maps to the Dojo
 
