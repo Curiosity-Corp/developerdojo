@@ -124,20 +124,20 @@ const steps = [
           title="How Sensei earn"
           intro="Share your time, help builders, and turn your impact into points."
         />
-        <table class="points">
+        <table class="points" role="table">
           <caption class="visually-hidden">Points a Sensei earns</caption>
-          <thead>
-            <tr><th scope="col">What you do</th><th scope="col">Points</th></tr>
+          <thead role="rowgroup">
+            <tr role="row"><th scope="col" role="columnheader">What you do</th><th scope="col" role="columnheader">Points</th></tr>
           </thead>
-          <tbody>
+          <tbody role="rowgroup">
             {
               earnRows.map((row) => (
-                <tr>
-                  <th scope="row">
+                <tr role="row">
+                  <th scope="row" role="rowheader">
                     <Icon name={row.icon} size={20} />
                     <span>{row.label}</span>
                   </th>
-                  <td>
+                  <td role="cell">
                     <strong>{row.value}</strong> <span class="unit">{row.unit}</span>
                   </td>
                 </tr>
@@ -265,6 +265,7 @@ const steps = [
 <style>
   .path-grid {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-5);
   }
   @media (min-width: 62rem) {
@@ -275,6 +276,7 @@ const steps = [
   }
   .earn-grid {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-6);
   }
   @media (min-width: 62rem) {
@@ -320,6 +322,23 @@ const steps = [
   .points td {
     text-align: end;
   }
+  @media (max-width: 30rem) {
+    /* A phone at 200 percent zoom: the points go under the label instead of beside it. The roles on the
+       table keep it a table for screen readers. */
+    .points th,
+    .points td {
+      display: block;
+      text-align: start;
+    }
+    .points th {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+    .points td {
+      padding-top: 0;
+      padding-inline-start: calc(20px + var(--space-3) + var(--space-2));
+    }
+  }
   .points td strong {
     font-size: var(--text-lg);
     color: var(--ink);
@@ -333,6 +352,7 @@ const steps = [
     margin: var(--space-4) 0 0;
     padding: 0;
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
   }
   .tier {
@@ -367,6 +387,15 @@ const steps = [
     }
     .threshold {
       grid-column: 1 / -1;
+      justify-self: start;
+    }
+  }
+  @media (max-width: 30rem) {
+    /* A phone at 200 percent zoom: the badge sits above its text, not beside a column 13 px wide. */
+    .tier {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .badge {
       justify-self: start;
     }
   }

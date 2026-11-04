@@ -108,8 +108,10 @@ const data = track.data;
   }
   .lesson-list {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
     padding-left: var(--space-5);
+    overflow-wrap: break-word;
   }
   .lesson-list a {
     font-family: var(--font-serif);

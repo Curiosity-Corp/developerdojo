@@ -99,6 +99,13 @@ const { highlight, compact = false, descriptions = {}, linked = false } = Astro.
     background: color-mix(in srgb, var(--tone) 12%, var(--paper-raised));
     border-color: var(--tone);
   }
+  @media (max-width: 30rem) {
+    /* A phone at 200 percent zoom: the name goes under the icon, not into a column too narrow for the word. */
+    .card {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: 'tile' 'name' 'desc';
+    }
+  }
   .tile {
     grid-area: tile;
     display: block;

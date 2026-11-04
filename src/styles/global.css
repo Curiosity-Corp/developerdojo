@@ -108,6 +108,8 @@ svg {
 
 .prose {
   max-width: 72ch;
+  /* A long word or link breaks only when it cannot fit the line, so it never widens the page (#68). */
+  overflow-wrap: break-word;
 }
 .prose h2 {
   margin-top: var(--space-6);
@@ -120,6 +122,16 @@ svg {
   border-collapse: collapse;
   /* Never a scroll container (those need keyboard focus): wrap long words and code instead. */
   overflow-wrap: anywhere;
+}
+@media (max-width: 40rem) {
+  /* On a phone (also at 200 percent zoom, about 195 px wide) a table that cannot shrink to the screen gets a
+     box of its own that scrolls sideways, so the page itself never does (#68). Only at this width: on a wide
+     screen the table keeps its normal table layout. */
+  .prose table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
 }
 .prose td code,
 .prose th code {

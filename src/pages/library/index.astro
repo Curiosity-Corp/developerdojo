@@ -129,6 +129,7 @@ const total = sections.reduce((sum, section) => sum + section.entries.length, 0)
   }
   .search {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-2);
     max-width: 40rem;
     margin-bottom: var(--space-5);

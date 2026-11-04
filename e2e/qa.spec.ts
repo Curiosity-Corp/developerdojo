@@ -82,6 +82,57 @@ test.describe('routes', () => {
   });
 });
 
+// Reflow (WCAG 1.4.10): a phone at 200 percent zoom is about 195 CSS pixels wide, and 320 is the width the
+// standard names. No page may scroll sideways at either (#68). These are the pages that once did, plus
+// lessons whose tables must scroll inside their own box instead of widening the page.
+const REFLOW_ROUTES = [
+  '/',
+  '/train/',
+  '/sensei/',
+  '/certificates/',
+  '/events/',
+  '/library/',
+  '/library/tracks/',
+  '/library/tracks/git-and-gitlab/',
+  '/library/template-personas/',
+  '/library/resources/',
+  '/library/tracks/frameworks/24-running-android-ops-in-gitlab/',
+  '/library/case-study-danhup-epics-and-roadmap/',
+  '/library/catalogue-trailmug-full-example/',
+  '/challenges/build-a-real-mvp/',
+];
+
+test.describe('reflow: no sideways scroll on a narrow phone', () => {
+  for (const width of [195, 320]) {
+    for (const route of REFLOW_ROUTES) {
+      test(`${route} fits ${width} px wide`, async ({ page, isMobile }) => {
+        test.skip(isMobile, 'the viewport is set here; the desktop project runs it once');
+        await page.setViewportSize({ width, height: 800 });
+        await page.goto(route);
+        await page.waitForLoadState('load');
+        const overflow = await page.evaluate(
+          () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        );
+        expect(overflow, `horizontal overflow in px at ${width} px`).toBeLessThanOrEqual(0);
+      });
+    }
+  }
+
+  test('a wide table in a lesson scrolls inside its own box, not the page', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'the viewport is set here; the desktop project runs it once');
+    await page.setViewportSize({ width: 195, height: 800 });
+    await page.goto('/library/catalogue-trailmug-full-example/');
+    const tables = await page.locator('.prose table').evaluateAll((els) =>
+      els.map((el) => ({ overflowX: getComputedStyle(el).overflowX, scrolls: el.scrollWidth > el.clientWidth })),
+    );
+    expect(tables.length).toBeGreaterThan(0);
+    for (const t of tables) expect(t.overflowX).toBe('auto');
+    expect(tables.some((t) => t.scrolls)).toBe(true);
+    // The table is still a table to assistive technology.
+    expect(await page.getByRole('table').count()).toBeGreaterThan(0);
+  });
+});
+
 test.describe('navigation', () => {
   test('header and footer links go where the brief says and all resolve', async ({ page, request }) => {
     await page.goto('/');
