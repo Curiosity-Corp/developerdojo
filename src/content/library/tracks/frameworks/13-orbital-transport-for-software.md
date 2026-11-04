@@ -50,7 +50,7 @@ Four things move in a product. Name them separately, because each has its own ri
 | **Energy and compute** | Electricity for servers and washers, cloud hours | Cost, carbon, outage |
 | **Code and settings** | A release from a developer to production | Bugs, downtime, security |
 
-The last row is special. **A release is transport.** Moving a new version into a live system is a journey with a start, an end, a mode and a risk. The Launch Sequence lessons return to this.
+The last row is special. **A release is transport.** Moving a new version into a live system is a journey with a start, an end, a mode and a risk. The [Launch Sequence lessons](/library/tracks/frameworks/25-launch-sequence-six-stages/) return to this.
 
 ### The transport map
 
@@ -165,7 +165,7 @@ the contract does not cover under DECISIONS FOR REVIEW.
 
 The agent builds. You check that it kept to the contract and did not widen it.
 
-This is also where **orchestration** begins in practice: one session builds the endpoint, a second builds the café page against the same contract and a third writes the contract tests. They only stay compatible if the contract is the shared source of truth, and a **gate** (a pipeline step that fails when code and contract disagree) enforces it. The agent orchestration track shows how to set that up.
+This is also where **orchestration** begins in practice: one session builds the endpoint, a second builds the café page against the same contract and a third writes the contract tests. They only stay compatible if the contract is the shared source of truth, and a **gate** (a pipeline step that fails when code and contract disagree) enforces it. The [agent orchestration track](/library/tracks/agent-orchestration/) shows how to set that up.
 
 Remember: **people write epics and roadmaps; AI never does.** An agent may draft a contract from your rules. It does not decide which flows the product needs.
 

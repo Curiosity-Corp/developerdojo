@@ -49,7 +49,7 @@ Agents can help with step 2 and parts of step 3. Steps 1 and 4 are never delegat
 
 ### Where you are on the ladder
 
-The four verbs describe one task. Your skill across many tasks grows in four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** many sessions in a command chain, and **govern** them with written policy, hooks and gates. Lessons in this track mostly practise *delegate*. When you run several sessions at once, you are orchestrating, and you need a rule or a gate (a protected branch, a required review, a green pipeline) that keeps each session inside its limits. The agent orchestration track covers those two rungs.
+The four verbs describe one task. Your skill across many tasks grows in four rungs: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** many sessions in a command chain, and **govern** them with written policy, hooks and gates. Lessons in this track mostly practise *delegate*. When you run several sessions at once, you are orchestrating, and you need a rule or a gate (a protected branch, a required review, a green pipeline) that keeps each session inside its limits. The [agent orchestration track](/library/tracks/agent-orchestration/) covers those two rungs.
 
 ### The droid card
 

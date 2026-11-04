@@ -36,7 +36,7 @@ A Product Development Manager talks to many disciplines in one day. A finance co
 | "Where does this project sit, where is it going, how does it connect, what will it reach?" | STAR | [STAR](/library/tracks/frameworks/08-star-describe-a-project/) |
 | "Should we change focus for a few hours?" | SHIFT | [SHIFT](/library/tracks/frameworks/10-shift-the-focus-shift/) |
 | "What is the plan, the budget and the measure of success?" | ORBITAL | [ORBITAL: Objective, Resources, Budget](/library/tracks/frameworks/11-orbital-objective-resources-budget/) |
-| "How does work flow from idea to delivery?" | ANDROID Ops | Why a new operating model |
+| "How does work flow from idea to delivery?" | ANDROID Ops | [Why a new operating model](/library/tracks/frameworks/20-why-a-new-operating-model/) |
 | "Which technology do we start with?" | PHANTOMS | [PHANTOMS track](/library/tracks/phantoms-stack/) |
 | "Where are we on the journey?" | SuperNova path | [The SuperNova path](/library/tracks/frameworks/02-the-supernova-path/) |
 
@@ -141,7 +141,7 @@ Variants today: **PHANTOMS core** (the learning starter), **PHANTOMS+ web** (add
 | **Hook** | A check that runs automatically at a set moment, for example before a change is saved. |
 | **Gate** | A condition that must be true before work moves on, such as a green pipeline or a required review. |
 
-Read more in the agent orchestration track.
+Read more in the [agent orchestration track](/library/tracks/agent-orchestration/).
 
 ### Other short words you will meet
 

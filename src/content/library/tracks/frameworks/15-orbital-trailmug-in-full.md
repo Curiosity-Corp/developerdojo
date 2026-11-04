@@ -197,7 +197,7 @@ If a check passes, say "PASS" and quote the two lines you compared.
 
 The last line matters. An agent that says "looks fine" has told you nothing. An agent that quotes the two lines it compared has shown its work, and you can check it.
 
-A plan this size is a good first exercise for **orchestration**. You could run one session per check, each reading the same file and writing a findings file in its own folder, and a final session that merges the lists for you to review. The shared file is the single source of truth. Gates and policy decide who may change it. The agent orchestration track covers that setup.
+A plan this size is a good first exercise for **orchestration**. You could run one session per check, each reading the same file and writing a findings file in its own folder, and a final session that merges the lists for you to review. The shared file is the single source of truth. Gates and policy decide who may change it. The [agent orchestration track](/library/tracks/agent-orchestration/) covers that setup.
 
 ## 6. Common mistakes and how to avoid them
 

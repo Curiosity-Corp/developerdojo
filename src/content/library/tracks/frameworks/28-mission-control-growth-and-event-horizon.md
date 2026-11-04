@@ -212,7 +212,7 @@ action. Update the timeline every ten minutes until I say stop.
 
 **Other disciplines.** Operations and support know what customers feel. Finance owns the cost view and the funding budget. Marketing watches traction signs. A designer looks at where users struggle. Security reviews risk items.
 
-**From delegating to orchestrating.** Gathering metrics, summarising incidents and drafting status notes can run as parallel sessions. Fleet-level views (briefings, scorecards and a decision queue that brings only the choices that need a person) are covered in Agent orchestration.
+**From delegating to orchestrating.** Gathering metrics, summarising incidents and drafting status notes can run as parallel sessions. Fleet-level views (briefings, scorecards and a decision queue that brings only the choices that need a person) are covered in [Agent orchestration](/library/tracks/agent-orchestration/).
 
 ## 6. Common mistakes and how to avoid them
 

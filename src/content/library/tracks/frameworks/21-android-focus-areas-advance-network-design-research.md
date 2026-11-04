@@ -232,7 +232,7 @@ A rule you can keep for all four areas: **agents gather and draft, people decide
 
 Run **two agents in parallel** when the tasks do not depend on each other, for example one for desk research and one for a dependency map. Give each its own branch. You review both before anything merges.
 
-**From delegating to orchestrating.** A hand-off issue is the brief for one session. When several sessions work the same focus area at once, split the issues by file, keep the stop rule in every brief, and let the pipeline gates, not the agents, decide what may merge. See Agent orchestration for the command chain and policy as data.
+**From delegating to orchestrating.** A hand-off issue is the brief for one session. When several sessions work the same focus area at once, split the issues by file, keep the stop rule in every brief, and let the pipeline gates, not the agents, decide what may merge. See [Agent orchestration](/library/tracks/agent-orchestration/) for the command chain and policy as data.
 
 ## 6. Common mistakes and how to avoid them
 

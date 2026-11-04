@@ -217,7 +217,7 @@ change the plan, the milestones or the epic.
 
 You review the drafts, then create the issues yourself (or let the agent do that in a second step, when you have read every file).
 
-This is a natural place to move from **delegating** to **orchestrating**. Once there are ten issues marked `agent-ok`, you may run several sessions at once, each on its own branch. What keeps this safe is **policy and gates**: the written rule of what an agent may do (the `agent-ok` label and the "Do not" lines), a protected main branch, required review and a pipeline that must be green before a merge. The agent orchestration track is about exactly this. The best practices from the agent vendors are a useful companion; one is in the resources.
+This is a natural place to move from **delegating** to **orchestrating**. Once there are ten issues marked `agent-ok`, you may run several sessions at once, each on its own branch. What keeps this safe is **policy and gates**: the written rule of what an agent may do (the `agent-ok` label and the "Do not" lines), a protected main branch, required review and a pipeline that must be green before a merge. The [agent orchestration track](/library/tracks/agent-orchestration/) is about exactly this. The best practices from the agent vendors are a useful companion; one is in the resources.
 
 ## 6. Common mistakes and how to avoid them
 
