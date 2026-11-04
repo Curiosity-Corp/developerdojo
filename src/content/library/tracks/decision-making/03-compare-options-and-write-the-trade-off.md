@@ -16,7 +16,7 @@ resources:
   - "adr/architectural-decision-records"
   - "cognitect/documenting-architecture-decisions"
   - "google-cloud/architecture-decision-records"
-  - "atlassian/daci"
+  - "atlassian/daci-decision-framework"
   - "atlassian/prioritization-frameworks"
   - "farnam-street/second-order-thinking"
   - "donella-meadows-project/leverage-points"
