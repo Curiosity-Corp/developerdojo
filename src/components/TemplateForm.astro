@@ -335,5 +335,7 @@ const json = JSON.stringify(model).replace(/</g, '\\u003c');
         if (status) status.textContent = 'The form is clear and the saved draft is deleted.';
       });
     }
+    // Every control is wired now. Tests wait for this before they type or click.
+    root.dataset['ready'] = 'true';
   }
 </script>

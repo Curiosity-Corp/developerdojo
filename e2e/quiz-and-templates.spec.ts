@@ -30,6 +30,12 @@ async function noHorizontalScroll(page: Page): Promise<void> {
 
 const markdown = (page: Page) => page.getByLabel('Your filled-in template as Markdown');
 
+/** Open a template page and wait until the form script has wired every control. */
+async function openForm(page: Page, path: string): Promise<void> {
+  await page.goto(path);
+  await expect(page.locator('#fill-in[data-ready="true"]')).toBeAttached();
+}
+
 test.describe('knowledge check', () => {
   test('is closed at first, opens, and checks each answer with the reason', async ({ page }) => {
     await page.goto(TALK);
@@ -144,7 +150,7 @@ test.describe('fillable templates', () => {
   }
 
   test('fill the change record, reload, and the draft and the Markdown are still there', async ({ page }) => {
-    await page.goto(CHANGE);
+    await openForm(page, CHANGE);
     await page.getByLabel('Change owner (human)', { exact: true }).fill('The operations lead');
     await page.getByLabel(/^Risk decision made by/).fill('The product owner | not an agent');
     await page.getByRole('group', { name: 'Summary: row 1' }).getByLabel('Summary').fill('Add a refund status.\nShow it in the app.');
@@ -170,7 +176,7 @@ test.describe('fillable templates', () => {
   test('the Markdown copy reaches the clipboard', async ({ page, context, isMobile }) => {
     test.skip(isMobile, 'same on every screen size, so it runs once');
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
-    await page.goto(CHANGE);
+    await openForm(page, CHANGE);
     await page.getByLabel('Change owner (human)', { exact: true }).fill('Leo');
     await page.getByRole('button', { name: 'Copy Markdown' }).click();
     await expect(page.locator('#fill-in [data-export-status]')).toContainText(/Copied|did not allow copying/);
@@ -180,7 +186,7 @@ test.describe('fillable templates', () => {
   });
 
   test('clearing needs a second click and deletes the draft', async ({ page }) => {
-    await page.goto(CHANGE);
+    await openForm(page, CHANGE);
     await page.getByLabel('Change owner (human)', { exact: true }).fill('Leo');
     await page.getByLabel('Tracker issue closed').check();
     await page.getByRole('button', { name: 'Clear this form' }).click();
@@ -193,7 +199,7 @@ test.describe('fillable templates', () => {
   });
 
   test('free rows: add a row, fill it, reload, and only the rows with text are written', async ({ page }) => {
-    await page.goto(PERSONAS);
+    await openForm(page, PERSONAS);
     const log = (n: number) => page.getByRole('group', { name: `Evidence log: row ${n}` });
     await expect(log(3)).toBeVisible();
     await expect(log(4)).toHaveCount(0);
@@ -244,7 +250,7 @@ test.describe('fillable templates', () => {
 
   test('can be filled with the keyboard only', async ({ page, isMobile }) => {
     test.skip(isMobile, 'the keyboard path is the desktop one');
-    await page.goto(CHANGE);
+    await openForm(page, CHANGE);
     const owner = page.getByLabel('Change owner (human)', { exact: true });
     await owner.focus();
     await page.keyboard.type('Leo');
@@ -272,7 +278,7 @@ test.describe('fillable templates', () => {
         },
       });
     });
-    await page.goto(CHANGE);
+    await openForm(page, CHANGE);
     await expect(page.locator('#fill-in [data-save-note]')).toContainText('blocks saving');
     await page.getByLabel('Change owner (human)', { exact: true }).fill('Leo');
     await expect(page.locator('#fill-in [data-tf-status]')).toContainText('Not saved');
@@ -284,14 +290,14 @@ test.describe('fillable templates', () => {
     await page.addInitScript(() =>
       window.localStorage.setItem('dojo:draft:template-change-record', '{"v":1,"savedAt":"x","data":{"values":{"t1-0-0-1":42,"nope":"x"},"rows":"many","ticks":7}}'),
     );
-    await page.goto(CHANGE);
+    await openForm(page, CHANGE);
     await expect(page.getByLabel('Change owner (human)', { exact: true })).toHaveValue('');
     await expect(markdown(page)).toHaveValue(/^# Change Record/);
   });
 
   test('the Train page lists a saved draft and can delete it', async ({ page, isMobile }) => {
     test.skip(isMobile, 'same on every screen size, so it runs once');
-    await page.goto(CHANGE);
+    await openForm(page, CHANGE);
     await page.getByLabel('Change owner (human)', { exact: true }).fill('Leo');
     await page.goto('/train');
     const panel = page.locator('[data-device-data]');
