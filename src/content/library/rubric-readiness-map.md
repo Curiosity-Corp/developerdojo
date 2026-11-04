@@ -27,7 +27,7 @@ Each area has one of three fits:
 
 - **Direct.** A skill row describes the same ability.
 - **Partial.** Some rows touch the area, but not all of it.
-- **None.** No row in either rubric covers the area. The page says so, and a follow-up issue exists.
+- **None.** No row in either rubric covers the area. The page says so and names where the area is scored instead.
 
 ## The map
 
@@ -36,7 +36,7 @@ Each area has one of three fits:
 | **Practical Application** | You do the work with your hands and show what you made. | Skills A, C and D at level 3: a map, journeys and an epic you can show. The evidence rule in "How to use it". | Skills A, C and D at level 3. The package checklist. Self-review question 3. | Partial |
 | **Reasoning** | You name the problem, ask good questions, compare options and write down your choice. | Skills B, D and E, levels 3 and 4. | Skills B, D and E, levels 3 and 4. Self-review questions 1, 8 and 10. | Direct |
 | **Technical Execution** | You finish technical tasks, write them down and leave work others can review. | Skills A and F at level 3. | Skills A and F at level 3. Self-review questions 4, 5 and 6. | Direct |
-| **Launch Readiness** | You show the release, test, deploy and support evidence a launch needs. | No row. | No row. | None |
+| **Launch Readiness** | You show the release, test, deploy and support evidence a launch needs. | No row, by design. Scored in the Track B gates and the capstone. | No row, by design. | None |
 | **Communication** | You explain what you did, why it matters and what changed, and you say what help you need. | Skills D, E and F at level 4. The honesty check, question 3. | Skills D, E and F at level 4. The honesty check. Self-review question 9. | Partial |
 | **Coachability** | You listen to feedback and make your work better over time. | The coach score column. "Below the target" means a coaching plan. Skill E at level 4. | The coach score column and the weekly columns. "Reading the result". | Partial |
 
@@ -81,9 +81,17 @@ Two other rubric pages do cover nearby ground:
 - the [Track B gates](/library/rubric-track-b-gates), especially the gate on GitOps and drift and the gate on change and incident;
 - the [capstone rubric](/library/rubric-capstone), in the skills on infrastructure as code and on ITIL change and incident.
 
-Those pages are for a different stage, and they are not part of the two rubrics on this map. A follow-up issue asks whether Track A needs its own launch row. Until it is decided, do not claim that a score on Skills A to F shows launch readiness.
+Those pages are for a later stage, and they are not part of the two rubrics on this map.
 
-**Example (TrailMug).** Her roadmap says the returns map ships in April. Nothing in Skills A to F asks her to show a test plan, a release step or a support note. She can write those today, and her coach can look at them, but no row will score them yet.
+**Decision, 4 November 2026: Track A gets no launch row.** Three reasons:
+
+1. Track A is the planning half of the program (Developer weeks 1 to 4). You have not yet been taught to release, change or run anything, so a launch row would score work the program has not asked for.
+2. The launch evidence is already scored where it is taught: Track B gates 3 and 4, and capstone skills 3 and 5. A second row in Track A would score the same thing twice, at the wrong time.
+3. The six Track A skills are written exactly as the program defines them. This site does not add rows the program did not write.
+
+So do not claim that a score on Skills A to F shows launch readiness. Show it in Track B and the capstone.
+
+**Example (TrailMug).** Her roadmap says the returns map ships in April. Nothing in Skills A to F asks her to show a test plan, a release step or a support note. She can write those today, and her coach can look at them, but they are scored later, in the Track B gates and the capstone.
 
 ### Communication
 
@@ -111,12 +119,12 @@ The rubrics do not score this as a skill. They build it into the way you use the
 - **You decide:** which of the six areas you will show first, and what counts as evidence for each one.
 - **You delegate to agents:** collecting your evidence, such as "list the files I changed this week". An agent may also check your sheet for blanks.
 - **You verify by:** opening each file the agent names. You choose the score yourself, and you say what the evidence shows.
-- **On the agent ladder** (use, delegate, orchestrate, govern): Practical Application and Reasoning sit at **use**. Technical Execution reaches **delegate**. Launch Readiness is where **orchestrate** and **govern** start to matter, because several agents may work on a release and someone must own the rules. That is why the missing Track A row is worth filling. This reading is a guide for thinking. It is not part of the rubric.
+- **On the agent ladder** (use, delegate, orchestrate, govern): Practical Application and Reasoning sit at **use**. Technical Execution reaches **delegate**. Launch Readiness is where **orchestrate** and **govern** start to matter, because several agents may work on a release and someone must own the rules. That is why it is scored in Track B and the capstone, where those rungs are taught. This reading is a guide for thinking. It is not part of the rubric.
 
 ## Common mistakes
 
 1. **Treating this page as a new score.** It is a map. Use the rubric pages to score.
-2. **Claiming a match that is not there.** Say "no row yet" for Launch Readiness.
+2. **Claiming a match that is not there.** For Launch Readiness, say "scored in Track B and the capstone", not a Track A skill.
 3. **Forgetting evidence.** Every area needs something you made, not a promise.
 4. **Waiting for the coach to name the gap.** Check the map yourself before the checkpoint.
 5. **Believing this is official.** It is a learning aid on this site.
@@ -125,14 +133,14 @@ The rubrics do not score this as a skill. They build it into the way you use the
 
 1. Pick the area where you feel least ready. Open the rows named for it and read the level 3 text.
 2. Write one sentence of evidence from your own work for each area that has a match.
-3. For Launch Readiness, write one thing you could show a coach today, even though no row scores it.
+3. For Launch Readiness, write one thing you could show a coach today. Then find the Track B gate that will score it.
 4. Bring the map to your next checkpoint and ask your coach which area they would look at first.
 
 ## Checklist
 
 - [ ] I can name the six areas without looking.
 - [ ] I know which rows show each area.
-- [ ] I know Launch Readiness has no matching row yet.
+- [ ] I know Launch Readiness is scored in the Track B gates and the capstone, not in Track A.
 - [ ] I know this page does not give a score, an accreditation or a certificate.
 
 ## Where to go next
