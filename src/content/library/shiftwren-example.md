@@ -62,7 +62,7 @@ Each Shiftwren page fills every field of its blank template, so you can see what
 
 ## Working with AI agents
 
-An AI agent drafted these seven pages from the Week 1 to 6 pages, the templates and the style guide. A person at Developer Dojo reviewed them before they were published. In the story, Noor writes the epics and the roadmap, and an agent does only routine work: summarising notes, breaking an approved milestone into issues, checking contrast and cross-checking names. Each such use is disclosed on its page.
+An AI agent drafted these seven pages from the Week 1 to 6 pages, the templates and the style guide. They are examples of the shape of the work, not model answers. In the story, Noor writes the epics and the roadmap, and an agent does only routine work: summarising notes, breaking an approved milestone into issues, checking contrast and cross-checking names. Each such use is disclosed on its page.
 
 You **may** use an agent for the same routine work, with a written brief. You **may not** use one to write your epics, roadmap, personas or quotes. Say how you used AI. See [disclose AI use](/library/disclose-ai-use).
 

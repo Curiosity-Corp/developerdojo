@@ -16,7 +16,7 @@ prerequisites:
 
 **Fictional example.** Shiftwren, its people, tests and results are made up. Numbers marked "example" are invented. The colour contrast numbers are real arithmetic for the two colours shown. Do not copy this page.
 
-**How this page was made.** An AI agent drafted it and a person at Developer Dojo reviewed it. In the story, the fictional learner **Noor** chose the name, the promise and the design. An agent only checked contrast and spelling and offered headline options.
+**Example only.** An AI agent drafted this page to show the shape of the work. In the story, the fictional learner **Noor** chose the name, the promise and the design. An agent only checked contrast and spelling and offered headline options.
 
 Compare: [Week 5](/library/week-5-brand-website-mockups), the TrailMug lessons [Name and promise](/library/tracks/brand-website-and-mockups/01-name-and-promise) and [Mockups that link to epics](/library/tracks/brand-website-and-mockups/03-mockups-that-link-to-epics), and the real-product [first case-study page](/library/case-study-danhup-the-product-on-one-page), which finds a landing page still full of template text. Week 5 has no blank workbook. The brand sheet below is the shape to follow.
 

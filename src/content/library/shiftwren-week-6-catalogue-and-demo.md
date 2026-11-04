@@ -17,7 +17,7 @@ prerequisites:
 
 **Fictional example.** Shiftwren, its people, numbers and dates are made up. Targets marked "simulated" were never measured. Do not copy this page.
 
-**How this page was made.** An AI agent drafted it and a person at Developer Dojo reviewed it. In the story, the fictional learner **Noor** wrote every value herself. An agent only cross-checked names between the catalogue and the roadmap.
+**Example only.** An AI agent drafted this page to show the shape of the work. In the story, the fictional learner **Noor** wrote every value herself. An agent only cross-checked names between the catalogue and the roadmap.
 
 Compare: [Week 6](/library/week-6-catalogue-demo-package), the [full TrailMug catalogue](/library/catalogue-trailmug-full-example), the [TrailMug catalogue entry template page](/library/template-catalogue-entry) and the real-product [decision, catalogue and change case study](/library/case-study-danhup-decision-catalogue-change).
 

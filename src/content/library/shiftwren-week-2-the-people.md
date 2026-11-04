@@ -15,7 +15,7 @@ prerequisites:
 
 **Fictional example.** Shiftwren, its people, interviews, numbers and dates are made up. **Every quote is invented.** Your quotes must come from real people, with a source. Do not copy this page.
 
-**How this page was made.** An AI agent drafted it and a person at Developer Dojo reviewed it. In the story, the fictional learner **Noor** wrote everything herself.
+**Example only.** An AI agent drafted this page to show the shape of the work. In the story, the fictional learner **Noor** wrote everything herself.
 
 Compare: [Week 2](/library/week-2-know-the-people), the [TrailMug personas](/library/template-personas), the [TrailMug journeys](/library/template-journeys) and the real-product [people and journeys case study](/library/case-study-danhup-people-and-journeys).
 
