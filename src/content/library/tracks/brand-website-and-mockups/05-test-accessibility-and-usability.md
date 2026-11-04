@@ -13,6 +13,7 @@ outcomes:
   - "Turn findings into prioritised fixes and fix forward"
 resources:
   - "w3c/intro-web-accessibility"
+  - "w3c/accessibility-principles"
   - "w3c/wcag-quickref"
   - "web-dev/learn-accessibility"
   - "nngroup/usability-101"
