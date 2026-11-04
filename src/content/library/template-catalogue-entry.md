@@ -3,6 +3,7 @@ title: "Template: Service catalogue entry"
 description: "The Master Developer catalogue-entry workbook, field by field: entry, entities, relationships and search answers, with a filled TrailMug returns-service entry."
 section: "Templates"
 order: 8
+fillable: "template-7-service-catalogue-entry"
 level: advanced
 duration: "2 hours for the first entry"
 outcomes:

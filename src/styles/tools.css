@@ -9,6 +9,10 @@
 .js-only {
   display: none;
 }
+/* A later rule such as .tool-actions { display: flex } must not show a js-only part without JavaScript. */
+html:not(.js) .js-only {
+  display: none !important;
+}
 html.js .js-only {
   display: block;
 }
@@ -182,6 +186,64 @@ html.js .js-only[hidden] {
   color: var(--paper);
   background: var(--olive-text);
   border-radius: 999px;
+}
+
+/* Knowledge check: a <details> that works without JavaScript. */
+.quiz > summary,
+.quiz-answer > summary {
+  min-height: 2.75rem;
+  padding-block: var(--space-2);
+  font-weight: 700;
+  cursor: pointer;
+}
+.quiz > summary {
+  font-size: var(--text-lg);
+}
+.quiz-list {
+  margin: var(--space-3) 0;
+  padding-left: var(--space-5);
+}
+.quiz-q {
+  margin-block: var(--space-4);
+}
+.quiz-q fieldset {
+  margin: 0;
+}
+.quiz-answer {
+  margin-top: var(--space-2);
+  padding-inline: var(--space-3);
+  background: var(--paper-sunk);
+  border-radius: var(--radius);
+}
+.quiz-answer p {
+  margin-block: var(--space-2);
+}
+.tool-status[data-result='right'] {
+  font-weight: 700;
+  color: var(--olive-text);
+}
+.tool-status[data-result='wrong'] {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* Fillable templates. */
+.tf-section {
+  margin-top: var(--space-5);
+}
+.tf-section > h3 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-lg);
+}
+.tf-block {
+  min-width: 0;
+}
+.tf-row {
+  background: var(--paper);
+}
+.tool-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Small phones: give the text every pixel we can spare. */

@@ -1,0 +1,339 @@
+---
+/**
+ * Form version of a template, shown under the template page only when JavaScript runs. It is built
+ * from the same Markdown file as the blank download (see src/lib/template-form.ts), keeps a draft in
+ * this browser (src/lib/storage.ts, name "draft:<page id>") and writes the answers out as Markdown in
+ * a visible textarea with a copy button. Nothing is sent anywhere.
+ * Props: pageId (library entry id), model (from readTemplateModel).
+ */
+import ExportBox from './ExportBox.astro';
+import TemplateRow from './TemplateRow.astro';
+import {
+  MAX_FIELD_LENGTH,
+  answerId,
+  blockKey,
+  cellId,
+  tickId,
+  type TableBlock,
+  type TemplateModel,
+} from '../lib/template-form';
+
+interface Props {
+  pageId: string;
+  model: TemplateModel;
+}
+const { pageId, model } = Astro.props;
+
+/** Hint under a labelled row: the other columns of the blank template (help text, examples). */
+function hintFor(block: TableBlock, row: string[]): string {
+  const parts: string[] = [];
+  block.headers.forEach((header, col) => {
+    const cell = row[col] ?? '';
+    if (col === 0 || cell === '') return;
+    parts.push(block.inputCols.includes(col) ? `Example or options: ${cell}` : `${header}: ${cell}`);
+  });
+  return parts.join('. ');
+}
+
+const json = JSON.stringify(model).replace(/</g, '\\u003c');
+---
+
+<section
+  class="tool tf js-only"
+  id="fill-in"
+  aria-labelledby="tf-title"
+  data-template-form
+  data-draft-name={`draft:${pageId}`}
+  data-pagefind-ignore
+>
+  <h2 id="tf-title">Fill it in here</h2>
+  <p class="tool-note">
+    This is a form version of the template. <strong>What you type is saved as a draft only in this browser, on this device.</strong>{" "}
+    Nothing is sent anywhere and there is no account. It is not a grade and not a certificate.
+    Write the answers yourself, in your own words. Do not type passwords, keys or real customer data.
+    When you are ready, copy the Markdown at the end into a file in your own repository.
+  </p>
+  <p class="tool-note" data-save-note hidden></p>
+  <script type="application/json" is:inline data-template-model set:html={json} />
+
+  {
+    model.sections.map((section, s) => (
+      <section class="tf-section" aria-labelledby={`tf-h-${s}`}>
+        <h3 id={`tf-h-${s}`}>{section.heading}</h3>
+        {section.blocks.map((block, b) => {
+          if (block.kind === 'note') return <p class="tool-hint">{block.lead}</p>;
+          if (block.kind === 'table') {
+            return (
+              <div class="tf-block">
+                {block.lead && <p class="tool-hint">{block.lead}</p>}
+                {block.labelled
+                  ? block.rows.map((row, r) => {
+                      const hint = hintFor(block, row);
+                      const hintId = `tf-hint-${s}-${b}-${r}`;
+                      if (block.inputCols.length === 1) {
+                        const col = block.inputCols[0] ?? 1;
+                        const id = cellId(s, b, r, col);
+                        return (
+                          <div class="tool-field">
+                            <label for={`tf-${id}`}>{row[0]}</label>
+                            {hint && <p class="tool-hint" id={hintId}>{hint}</p>}
+                            <textarea id={`tf-${id}`} rows="2" maxlength={MAX_FIELD_LENGTH} data-field={id} data-default="" aria-describedby={hint ? hintId : undefined} />
+                          </div>
+                        );
+                      }
+                      return (
+                        <fieldset class="tf-row">
+                          <legend>{row[0]}</legend>
+                          {hint && <p class="tool-hint">{hint}</p>}
+                          {block.inputCols.map((col) => {
+                            const id = cellId(s, b, r, col);
+                            return (
+                              <div class="tool-field">
+                                <label for={`tf-${id}`}>{block.headers[col]}</label>
+                                <textarea id={`tf-${id}`} rows="2" maxlength={MAX_FIELD_LENGTH} data-field={id} data-default="" />
+                              </div>
+                            );
+                          })}
+                        </fieldset>
+                      );
+                    })
+                  : (
+                    <div data-tf-block={blockKey(s, b)} data-start-rows={block.startRows}>
+                      <div data-tf-rows>
+                        {Array.from({ length: block.startRows }, (_, r) => (
+                          <TemplateRow s={s} b={b} r={r} n={r + 1} block={block} heading={section.heading} defaults={block.rows[r]} />
+                        ))}
+                      </div>
+                      <template data-tf-row-template>
+                        <TemplateRow s={s} b={b} r="__R__" n="__N__" block={block} heading={section.heading} />
+                      </template>
+                      <div class="tool-actions">
+                        <button type="button" class="tool-btn tool-btn--quiet" data-tf-add>Add a row</button>
+                        <button type="button" class="tool-btn tool-btn--quiet" data-tf-remove>Remove the last row</button>
+                      </div>
+                      <p class="tool-hint">You can remove the last row when it is empty.</p>
+                    </div>
+                  )}
+              </div>
+            );
+          }
+          if (block.kind === 'checklist' || block.asChecks) {
+            return (
+              <fieldset class="tf-block">
+                <legend>{block.lead || 'Tick each one when it is true'}</legend>
+                {block.items.map((item, i) => (
+                  <label class="choice">
+                    <input type="checkbox" data-tick={tickId(s, b, i)} />
+                    <span>{item}</span>
+                  </label>
+                ))}
+              </fieldset>
+            );
+          }
+          return (
+            <div class="tf-block">
+              {block.lead && <p class="tool-hint">{block.lead}</p>}
+              {block.items.map((item, i) => {
+                const id = answerId(s, b, i);
+                return (
+                  <div class="tool-field">
+                    <label for={`tf-${id}`}>{i + 1}. {item}</label>
+                    <textarea id={`tf-${id}`} rows="3" maxlength={MAX_FIELD_LENGTH} data-field={id} data-default="" />
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+      </section>
+    ))
+  }
+
+  <div class="tool-actions">
+    <button type="button" class="tool-btn tool-btn--quiet" data-tf-clear>Clear this form</button>
+  </div>
+  <p class="tool-status" role="status" data-tf-status></p>
+
+  <ExportBox id="tf-export" label="Your filled-in template as Markdown" rows={16} />
+</section>
+
+<script>
+  import { armedButton, todayLocal, wireExportBox } from '../lib/export-box';
+  import { createStore } from '../lib/storage';
+  import {
+    DRAFT_VERSION,
+    MAX_ROWS,
+    emptyDraft,
+    hasContent,
+    parseDraft,
+    renderTemplateMarkdown,
+    type TemplateDraft,
+    type TemplateModel,
+  } from '../lib/template-form';
+
+  const root = document.querySelector<HTMLElement>('[data-template-form]');
+  if (root) init(root);
+
+  function init(root: HTMLElement): void {
+    let model: TemplateModel;
+    try {
+      model = JSON.parse(root.querySelector('[data-template-model]')?.textContent ?? '') as TemplateModel;
+    } catch {
+      return;
+    }
+    const name = root.dataset['draftName'] ?? 'draft:unknown';
+    const store = createStore();
+    const exportBox = wireExportBox(root);
+    const status = root.querySelector<HTMLElement>('[data-tf-status]');
+    const saveNote = root.querySelector<HTMLElement>('[data-save-note]');
+    const blocks = [...root.querySelectorAll<HTMLElement>('[data-tf-block]')];
+
+    if (!store.persistent && saveNote) {
+      saveNote.hidden = false;
+      saveNote.textContent =
+        'Your browser blocks saving. The form still works, but your draft lasts only until you close this page. Copy the Markdown before you leave.';
+    }
+
+    const fieldsIn = (scope: ParentNode): HTMLTextAreaElement[] => [...scope.querySelectorAll<HTMLTextAreaElement>('[data-field]')];
+
+    function rowsOf(block: HTMLElement): HTMLElement[] {
+      return [...block.querySelectorAll<HTMLElement>('[data-tf-row]')];
+    }
+
+    function addRow(block: HTMLElement): void {
+      const rows = block.querySelector<HTMLElement>('[data-tf-rows]');
+      const template = block.querySelector<HTMLTemplateElement>('[data-tf-row-template]');
+      if (!rows || !template) return;
+      const index = rowsOf(block).length;
+      if (index >= MAX_ROWS) return;
+      rows.insertAdjacentHTML('beforeend', template.innerHTML.replaceAll('__R__', String(index)).replaceAll('__N__', String(index + 1)));
+    }
+
+    function setRowCount(block: HTMLElement, count: number): void {
+      const wanted = Math.min(MAX_ROWS, Math.max(1, count));
+      while (rowsOf(block).length < wanted) addRow(block);
+      while (rowsOf(block).length > wanted) rowsOf(block).at(-1)?.remove();
+    }
+
+    function rowIsEmpty(row: HTMLElement): boolean {
+      return fieldsIn(row).every((field) => field.value.trim() === '' && (field.dataset['default'] ?? '') === '');
+    }
+
+    function updateRowButtons(): void {
+      for (const block of blocks) {
+        const rows = rowsOf(block);
+        const remove = block.querySelector<HTMLButtonElement>('[data-tf-remove]');
+        const add = block.querySelector<HTMLButtonElement>('[data-tf-add]');
+        const last = rows.at(-1);
+        if (remove) remove.disabled = rows.length <= 1 || !last || !rowIsEmpty(last);
+        if (add) add.disabled = rows.length >= MAX_ROWS;
+      }
+    }
+
+    /** Read the draft out of the page. Only what differs from the blank template is kept. */
+    function collect(): TemplateDraft {
+      const draft = emptyDraft();
+      for (const field of fieldsIn(root)) {
+        const id = field.dataset['field'];
+        if (id && field.value !== (field.dataset['default'] ?? '')) draft.values[id] = field.value;
+      }
+      for (const block of blocks) {
+        const key = block.dataset['tfBlock'];
+        const start = Number(block.dataset['startRows'] ?? '1');
+        const count = rowsOf(block).length;
+        if (key && count !== start) draft.rows[key] = count;
+      }
+      for (const box of root.querySelectorAll<HTMLInputElement>('[data-tick]')) {
+        const id = box.dataset['tick'];
+        if (id && box.checked) draft.ticks[id] = true;
+      }
+      return draft;
+    }
+
+    function apply(draft: TemplateDraft): void {
+      for (const block of blocks) {
+        const key = block.dataset['tfBlock'] ?? '';
+        setRowCount(block, draft.rows[key] ?? Number(block.dataset['startRows'] ?? '1'));
+      }
+      for (const field of fieldsIn(root)) {
+        const id = field.dataset['field'] ?? '';
+        field.value = draft.values[id] ?? field.dataset['default'] ?? '';
+      }
+      for (const box of root.querySelectorAll<HTMLInputElement>('[data-tick]')) {
+        box.checked = Boolean(draft.ticks[box.dataset['tick'] ?? '']);
+      }
+    }
+
+    let timer: number | undefined;
+    function renderMarkdown(): void {
+      exportBox?.setText(renderTemplateMarkdown(model, collect(), todayLocal()));
+    }
+    function scheduleRender(): void {
+      if (timer !== undefined) window.clearTimeout(timer);
+      timer = window.setTimeout(renderMarkdown, 150);
+    }
+
+    function save(): void {
+      const draft = collect();
+      let message: string;
+      if (hasContent(draft) || Object.keys(draft.rows).length > 0) {
+        const ok = store.save(name, DRAFT_VERSION, draft);
+        message = ok ? `Draft saved on this device at ${new Date().toTimeString().slice(0, 5)}.` : 'Not saved: your browser blocked it. Copy the Markdown before you leave.';
+      } else {
+        store.remove(name);
+        message = '';
+      }
+      if (status) status.textContent = message;
+    }
+
+    function onEdit(): void {
+      updateRowButtons();
+      save();
+      scheduleRender();
+    }
+
+    const saved = store.load(name, { version: DRAFT_VERSION, validate: parseDraft });
+    if (saved) {
+      apply(saved);
+      if (status && (hasContent(saved) || Object.keys(saved.rows).length > 0)) status.textContent = 'Your saved draft was put back.';
+    }
+    renderMarkdown();
+    updateRowButtons();
+
+    root.addEventListener('input', (event) => {
+      if (event.target instanceof HTMLTextAreaElement) onEdit();
+    });
+    root.addEventListener('change', (event) => {
+      if (event.target instanceof HTMLInputElement && event.target.matches('[data-tick]')) onEdit();
+    });
+    root.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+      const block = target.closest<HTMLElement>('[data-tf-block]');
+      if (!block) return;
+      if (target.matches('[data-tf-add]')) {
+        addRow(block);
+        rowsOf(block).at(-1)?.querySelector<HTMLTextAreaElement>('textarea')?.focus();
+        onEdit();
+      } else if (target.matches('[data-tf-remove]')) {
+        const last = rowsOf(block).at(-1);
+        if (last && rowsOf(block).length > 1 && rowIsEmpty(last)) {
+          last.remove();
+          block.querySelector<HTMLButtonElement>('[data-tf-add]')?.focus();
+          onEdit();
+        }
+      }
+    });
+
+    const clear = root.querySelector<HTMLButtonElement>('[data-tf-clear]');
+    if (clear) {
+      armedButton(clear, 'Click again to clear everything', () => {
+        apply(emptyDraft());
+        store.remove(name);
+        updateRowButtons();
+        renderMarkdown();
+        if (status) status.textContent = 'The form is clear and the saved draft is deleted.';
+      });
+    }
+  }
+</script>

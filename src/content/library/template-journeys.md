@@ -3,6 +3,7 @@ title: "Template: Touch points and journey maps"
 description: "The four-sheet workbook for Week 2, field by field: touch points, user journey, customer journey and gap list, with a filled TrailMug example."
 section: "Templates"
 order: 3
+fillable: "template-2-touch-points-and-journey-maps"
 level: core
 duration: "2 to 3 hours for the first full pass"
 outcomes:

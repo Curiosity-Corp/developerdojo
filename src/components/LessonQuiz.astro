@@ -1,0 +1,109 @@
+---
+/**
+ * Knowledge check at the end of a lesson, from the lesson's `quiz` frontmatter.
+ * It is a <details> element, so it opens and closes without JavaScript. Every question has its own
+ * "Show the answer" panel, which also works without JavaScript. With JavaScript, choosing an answer
+ * checks it at once and keeps a running count. Nothing is saved and nothing leaves the device.
+ */
+import type { QuizQuestion } from '../lib/schemas';
+
+interface Props {
+  quiz: QuizQuestion[];
+}
+const { quiz } = Astro.props;
+---
+
+<details class="tool quiz" id="check" data-quiz data-pagefind-ignore>
+  <summary>Check what you learned ({quiz.length} questions)</summary>
+  <p class="tool-note">
+    <strong>This is a self-check.</strong> It is not a grade and not a certificate. Nothing is saved and nothing leaves your device.
+    Choose an answer, then open "Show the answer". The answers come from the text of this lesson.
+  </p>
+  <ol class="quiz-list">
+    {
+      quiz.map((item, index) => (
+        <li class="quiz-q" data-quiz-q data-answer={item.options.indexOf(item.answer)} data-answer-text={item.answer} data-why={item.why}>
+          <fieldset>
+            <legend>{item.question}</legend>
+            {item.options.map((option, optionIndex) => (
+              <label class="choice">
+                <input type="radio" name={`quiz-${index + 1}`} value={optionIndex} data-quiz-option />
+                <span>{option}</span>
+              </label>
+            ))}
+          </fieldset>
+          <p class="tool-status js-only" role="status" data-quiz-status />
+          <details class="quiz-answer" data-quiz-reveal>
+            <summary>Show the answer</summary>
+            <p>
+              <strong>Answer:</strong> {item.answer}
+            </p>
+            <p>
+              <strong>Why:</strong> {item.why}
+            </p>
+          </details>
+        </li>
+      ))
+    }
+  </ol>
+  <p class="tool-status js-only" role="status" data-quiz-score></p>
+  <div class="tool-actions js-only">
+    <button type="button" class="tool-btn tool-btn--quiet" data-quiz-reset>Clear my answers</button>
+  </div>
+</details>
+
+<script>
+  import { scoreText, verdictText } from '../lib/quiz';
+
+  const root = document.querySelector<HTMLElement>('[data-quiz]');
+  if (root) init(root);
+
+  function init(root: HTMLElement): void {
+    const questions = [...root.querySelectorAll<HTMLElement>('[data-quiz-q]')];
+    const score = root.querySelector<HTMLElement>('[data-quiz-score]');
+
+    function refresh(): void {
+      let answered = 0;
+      let correct = 0;
+      for (const question of questions) {
+        const picked = question.querySelector<HTMLInputElement>('[data-quiz-option]:checked');
+        if (!picked) continue;
+        answered += 1;
+        if (picked.value === question.dataset['answer']) correct += 1;
+      }
+      if (score) score.textContent = scoreText(correct, answered, questions.length);
+    }
+
+    for (const question of questions) {
+      const status = question.querySelector<HTMLElement>('[data-quiz-status]');
+      const reveal = question.querySelector<HTMLDetailsElement>('[data-quiz-reveal]');
+      const answerText = question.dataset['answerText'] ?? '';
+      const whyText = question.dataset['why'] ?? '';
+      question.addEventListener('change', (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLInputElement) || !target.matches('[data-quiz-option]')) return;
+        const right = target.value === question.dataset['answer'];
+        if (status) {
+          status.textContent = verdictText(right, answerText, whyText);
+          status.dataset['result'] = right ? 'right' : 'wrong';
+        }
+        if (reveal) reveal.open = true;
+        refresh();
+      });
+    }
+
+    root.querySelector<HTMLButtonElement>('[data-quiz-reset]')?.addEventListener('click', () => {
+      for (const question of questions) {
+        for (const option of question.querySelectorAll<HTMLInputElement>('[data-quiz-option]')) option.checked = false;
+        const status = question.querySelector<HTMLElement>('[data-quiz-status]');
+        if (status) {
+          status.textContent = '';
+          delete status.dataset['result'];
+        }
+        const reveal = question.querySelector<HTMLDetailsElement>('[data-quiz-reveal]');
+        if (reveal) reveal.open = false;
+      }
+      refresh();
+    });
+  }
+</script>
