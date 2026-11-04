@@ -94,6 +94,24 @@ external_links:
     paths:
       - link-check-report.md
 
+# Manual, master only: the quarterly resource refresh list (#58). A Maintainer presses play on this job in
+# the latest master pipeline; stale-resources.md (resources whose verifiedOn is older than 90 days, by
+# provider) is the artifact. It reads files only, needs no npm install and never fails the pipeline.
+stale_resources:
+  stage: e2e
+  needs: []
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE != "schedule"'
+      when: manual
+      allow_failure: true
+  script:
+    - node scripts/list-stale-resources.mjs --report stale-resources.md
+  artifacts:
+    when: always
+    expire_in: 90 days
+    paths:
+      - stale-resources.md
+
 # Blocking: Playwright e2e over the built site: every route, nav/footer links, image wiring, no
 # horizontal scroll at 390, and the axe-core WCAG 2.1 AA scan (zero serious/critical) in light and dark.
 e2e:

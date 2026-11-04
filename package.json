@@ -16,7 +16,8 @@
     "preview": "node scripts/serve-dist.mjs dist 4321",
     "test:e2e": "playwright test",
     "check:links": "node scripts/check-links.mjs dist",
-    "check:external-links": "node scripts/check-external-links.mjs"
+    "check:external-links": "node scripts/check-external-links.mjs",
+    "stale-resources": "node scripts/list-stale-resources.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
