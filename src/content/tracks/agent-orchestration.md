@@ -16,6 +16,20 @@ outcomes:
   - "Build the pipeline gates from commit to customer for software that agents write"
 ---
 
+## In short
+
+This track is for people who already delegate whole tasks to an agent. It teaches the top two rungs of the ladder: orchestrate and govern. You run many agent sessions as a command chain. A Session does one task. A Commander owns one area and runs its sessions. A Chief of Command coordinates several Commanders. The Admiral is the top seat and works with the person. The person keeps every decision that cannot be undone.
+
+Then you bound the chain with written policy. Hooks block unsafe actions before they run. Gates stop work that has not passed its checks. We teach the shape and the reasons, not our own setup. You build a small version yourself with public tools.
+
+### Key words
+
+- **Agent ladder:** Four rungs of skill with AI agents: use, delegate, orchestrate and govern. Each rung needs different skills.
+- **AI agent:** An AI coding assistant that reads your project and builds tasks.
+- **Brief:** A written task for an AI agent, with its goal, limits and checks.
+- **Quality gate:** A check that a change must pass before it can move on.
+- **Pipeline:** The automatic steps that test and deliver a change.
+
 One person can no longer type all the work. One AI agent cannot hold a whole product in its head. The people who lead product development in 2030 will run many agent sessions at once, the way a ship's captain runs a fleet: they set the outcomes, write the rules, put gates on what can ship, and keep the decisions that cannot be undone.
 
 This track teaches that job. It is the top of the ladder of agent skill, and it is the Master Developer module on **AI-agent orchestration**.

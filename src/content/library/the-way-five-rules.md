@@ -5,6 +5,21 @@ section: "The Way"
 order: 1
 ---
 
+## In short
+
+The Way is how we work at Developer Dojo. It has five rules. People write epics and roadmaps, and AI never does. Git is the source of truth. Look for open source before you build. Fix forward: fix a problem with a new change. Say when and how you used AI. The rules split the work clearly. You decide what to build and why. AI agents help you build it.
+
+Each rule answers one question. Who decides? Where does the decision live? How do we choose tools? What do we do when we are wrong? How do we stay honest? On the agent ladder, these rules hold at every rung.
+
+### Key words
+
+- **Epic:** A whole-product outcome across several repos. Weeks to months. Written by a human.
+- **Roadmap:** Epics laid out in order over time.
+- **Git:** A tool that records every change to files.
+- **Open source:** Software whose code you may read, change and run under a public licence.
+- **Fix forward:** Fix problems with a new change. Do not revert shipped work.
+- **AI disclosure:** A plain line that says where AI helped with a piece of work.
+
 The Way is how we work at Developer Dojo. It is short on purpose. There are five rules. You can learn them in ten minutes. You will use them for the rest of your career.
 
 ## Why we have rules

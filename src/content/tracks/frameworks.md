@@ -14,6 +14,20 @@ outcomes:
   - "Split work at every scale into what you decide, what an agent drafts and how you verify it"
 ---
 
+## In short
+
+This track gives a whole product team one shared language. A founder, a designer, a finance colleague and a developer can all use it. The frameworks work at different scales. UBF maps the industry you are in. STAR describes one project. ORBITAL plans one product: what you want, spend, measure and do. ANDROID Ops shows how work flows from idea to delivery. PHANTOMS gives agents a known stack to build on. Launch Sequence lists the proof you need before real users. Mission Control keeps the live product healthy. The frameworks come from a business incubator. They are not industry standards, so test them against facts.
+
+You turn an ORBITAL plan into epics, a roadmap and issues. Agents draft the routine parts. You decide, verify and keep every decision in git. This track places each framework on the agent ladder: use, delegate, orchestrate, govern.
+
+### Key words
+
+- **ORBITAL:** The catalogue layer for objective, resources, budget, indicators, transport, activities and logistics.
+- **PHANTOMS:** A pattern of jobs and default tools that agents can build a product on.
+- **Epic:** A whole-product outcome across several repos. Weeks to months. Written by a human.
+- **Roadmap:** Epics laid out in order over time.
+- **Agent ladder:** Four rungs of skill with AI agents: use, delegate, orchestrate and govern. Each rung needs different skills.
+
 Developer Dojo trains the **2030 Product Development Manager** (PDM): a person who blends strategy, product, design, brand, finance, operations, security and engineering, and who treats AI agents as the workforce for routine work. The agents write code, tests, draft documents and research notes. The PDM decides what to build and why, frames the problem, owns the epics and the roadmap, directs the agents, verifies what they return, manages the risk and ships to real people.
 
 Your skill with agents is a ladder: **use** one agent, **delegate** whole tasks with a brief, **orchestrate** many sessions in a command chain (Session, Commander, Chief of Command, Admiral), and **govern** them with written policy, hooks and gates. This track places each framework on that ladder, and the advanced [agent orchestration track](/library/tracks/agent-orchestration/) goes deep on the top two rungs.

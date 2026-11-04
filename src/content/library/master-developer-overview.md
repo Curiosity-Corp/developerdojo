@@ -22,6 +22,20 @@ prerequisites:
   - program-two-levels-and-capstone
 ---
 
+## In short
+
+A Developer owns one product. A Master Developer owns the ground that products stand on. You learn the platform that every product shares. You choose open source tools with evidence and check their licences. You run systems from git, and you close drift with a change. You handle changes, incidents and service levels in git. Then a five-day capstone takes one product and one component to production. Gates, an exam, a project and an oral review lead to the badge.
+
+AI agents build manifests, scripts and drafts after you decide. You still write your epics yourself. On the agent ladder, this rank adds orchestrate: several agents across repos.
+
+### Key words
+
+- **GitOps:** A controller makes a system match what is in git, continuously.
+- **Drift:** Any difference between desired state and actual state.
+- **Change record:** The record of a change: reason, risk, review, checks. In git, the merge request.
+- **Incident:** An unplanned break or drop in quality of a service.
+- **Service level (SLI, SLO, SLA):** An indicator you measure, an objective you aim for, and an agreement you promise.
+
 A **Developer** owns one product end to end. A **Master Developer** owns the ground that products stand on, and can launch a product into production with AI agents doing much of the building.
 
 ## What changes
