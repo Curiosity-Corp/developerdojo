@@ -3,7 +3,7 @@
 How to run developerdojo.org from day to day. Written for the person who looks after the site, who is not
 expected to be a developer. Every recurring job has numbered steps.
 
-Four other documents work together with this one:
+Five other documents work together with this one:
 
 | Document | Use it for |
 | --- | --- |
@@ -11,6 +11,7 @@ Four other documents work together with this one:
 | [docs/style-guide.md](style-guide.md) | How to write: plain words, honesty rules, how to check a link |
 | [docs/content-model.md](content-model.md) | The exact fields of lessons, tracks and resources |
 | [ROADMAP.md](../ROADMAP.md) | What is done, what is next, how to propose new work |
+| [docs/source-map.md](source-map.md) | Where the Curiosity learning material really lives, what is reusable and what must never be published |
 
 Contents: [1 What the site is](#1-what-the-site-is) · [2 How it is built and published](#2-how-the-site-is-built-and-published)
 · [3 Where the source material lives](#3-where-the-source-material-lives) · [4 The positioning](#4-the-positioning-what-every-page-must-serve)
@@ -82,7 +83,7 @@ Do not copy text from these places without checking the rules in section 11.
 | The Master Developer program: program guide, teaching deck with speaker notes, rubric and weekly checklist, learning path, worked example (DanHup), catalogue guide, eight blank workbooks | The program SharePoint folder: **NinjaHive > Shared Documents > General > Developer Dojo - Master Developer Program** | Two one-page overviews there are marked "internal draft": do not publish them as they are |
 | Frameworks: UBF, STAR, SHIFT, ORBITAL, ANDROID Ops, DROID Ops, Launch Sequence, Mission Control | GitLab / GitHub project **WorldEnterpriseGroup/dot-github**, branch `gh-pages`: `Frameworks/`, `Frameworks/Short/`, `Frameworks/More Info/`, `supernova.md`, `research/` | The texts are business-strategy writing. We rewrite them in plain words for developers. Two files are never public (section 11) |
 | PHANTOMS, the family of starting stacks | **Curiosity-Corp/phantoms** (public mirror on GitHub) | PHANTOMS is a family, not one fixed stack; teach the pattern. Internal variants are described, not linked |
-| Curiosity learning guides and coaching material | **Curiosity-Corp** group; index in Curiosity-Corp/overview `REPOSITORY-INDEX.md` | On 2026-11-03 several guide repositories held only a title. See the backlog issue "Source map" before planning work from them |
+| Curiosity learning guides and coaching material | **Curiosity-Corp** group; index in Curiosity-Corp/overview `REPOSITORY-INDEX.md` | On 2026-11-03 several guide repositories held only a title. Read the [source map](source-map.md) before planning work from them |
 | This site's own content | This repository: `src/content/library`, `src/content/tracks`, `src/content/resources`, `src/data` | Folder map in [CONTRIBUTING.md](../CONTRIBUTING.md#where-things-live) |
 
 ## 4. The positioning: what every page must serve
