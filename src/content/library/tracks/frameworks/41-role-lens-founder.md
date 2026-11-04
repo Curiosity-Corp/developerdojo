@@ -11,7 +11,7 @@ outcomes:
   - "Decide what a founder keeps and what agent sessions may prepare"
   - "Write a founder decision log in git that others, human and agent, can read"
 resources:
-  - "yc/startup-library"
+  - "y-combinator/library"
   - "mit-ocw/new-enterprises"
   - "sba/plan-your-business"
   - "atlassian/product-launch"

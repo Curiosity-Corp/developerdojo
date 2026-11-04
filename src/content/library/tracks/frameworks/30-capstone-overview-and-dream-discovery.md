@@ -11,7 +11,7 @@ outcomes:
   - "Run a DREAM discovery (Discover, Relate, Empower, Advise, Motivate) and turn it into a written, evidenced brief"
   - "Explain how a mixed group of developers and non-developers can work through the capstone together"
 resources:
-  - "yc/startup-library"
+  - "y-combinator/library"
   - "sba/plan-your-business"
   - "mit-ocw/new-enterprises"
   - "atlassian/raci-chart"

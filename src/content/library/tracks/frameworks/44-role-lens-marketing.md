@@ -12,7 +12,7 @@ outcomes:
   - "Use agent sessions for drafts and measurement with a human approving every public message"
 resources:
   - "atlassian/product-launch"
-  - "yc/startup-library"
+  - "y-combinator/library"
   - "mit-ocw/new-enterprises"
   - "sba/plan-your-business"
   - "w3c/intro-web-accessibility"

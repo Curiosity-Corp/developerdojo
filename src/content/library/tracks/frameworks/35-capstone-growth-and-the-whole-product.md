@@ -12,7 +12,7 @@ outcomes:
   - "Show, across the eleven capstone steps, what each discipline and each agent session did and where you decided"
 resources:
   - "atlassian/product-launch"
-  - "yc/startup-library"
+  - "y-combinator/library"
   - "mit-ocw/new-enterprises"
   - "finops/what-is-finops"
   - "dora/dora-research-program"
