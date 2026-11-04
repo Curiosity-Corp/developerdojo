@@ -40,12 +40,21 @@ const BANNED: RegExp[] = [
   /planner access/i,
 ];
 
+/**
+ * Narrow allowlist: the worked-example case study is about a real product and may name it.
+ * Every other pattern still applies to these files, and every other file is fully gated.
+ */
+const ALLOWED: Array<{ file: RegExp; pattern: RegExp }> = [{ file: /^case-study-danhup-[a-z0-9-]+\.md$/, pattern: /\bdanhup\b/i }];
+const isAllowed = (file: string, pattern: RegExp): boolean =>
+  ALLOWED.some((rule) => rule.file.test(file) && rule.pattern.source === pattern.source);
+
 describe('library content scrub', () => {
   for (const file of files) {
     if (file === 'laptop-k8s-training-guide.md') continue; // contributed guide, outside this gate
     const body = readFileSync(join(dir, file), 'utf8');
     it(`${file} has no internal references`, () => {
       for (const pattern of BANNED) {
+        if (isAllowed(file, pattern)) continue;
         expect(pattern.test(body), `${file} matches ${pattern}`).toBe(false);
       }
     });
