@@ -12,6 +12,7 @@ Five other documents work together with this one:
 | [docs/content-model.md](content-model.md) | The exact fields of lessons, tracks and resources |
 | [ROADMAP.md](../ROADMAP.md) | What is done, what is next, how to propose new work |
 | [docs/source-map.md](source-map.md) | Where the Curiosity learning material really lives, what is reusable and what must never be published |
+| [docs/certificates.md](certificates.md) | How a certificate is approved, added to the public list, corrected and removed. The list starts empty |
 
 Contents: [1 What the site is](#1-what-the-site-is) · [2 How it is built and published](#2-how-the-site-is-built-and-published)
 · [3 Where the source material lives](#3-where-the-source-material-lives) · [4 The positioning](#4-the-positioning-what-every-page-must-serve)
@@ -224,6 +225,9 @@ First Monday of the month, about one hour. Put it in your calendar.
 7. **Fill the queue.** The board should always have at least five issues in `status::ready`. If it has fewer,
    pick ideas from the Backlog epic or write new issues from the templates.
 8. **Look at the AI log.** Every merged MR from the month says whether AI helped. If one does not say, ask.
+9. **Certificates are in date.** Open `src/data/certificates.json`. For each entry, check `issuedOn` is less than a year ago.
+   If not, follow "Revoke or renew" in [docs/certificates.md](certificates.md#10-revoke-or-renew-an-entry). The list is empty until
+   the first real certificate is approved.
 
 ## 8. Quarterly and half-yearly jobs
 
@@ -343,6 +347,7 @@ Not on the site, not in an issue that could be copied to the site, not in a less
 - The verbatim internal policy files, tool configurations or settings of our own agent operation. The
   orchestration lessons teach the **shape and philosophy**, not the internals.
 - Money: no dollar amounts or cash promises for Sensei rewards; no promise of jobs, pay or certificates.
+  The wording rules for certificates are in [docs/certificates.md](certificates.md#2-wording-rules).
 - Claims about CRC: never "approved", "tax-exempt" or "accredited" (the 501(c)(3) application is pending).
 - Made-up things: events, dates, viewer counts, testimonials, statistics, courses, course durations, prices.
   If you cannot open it, do not write it.
