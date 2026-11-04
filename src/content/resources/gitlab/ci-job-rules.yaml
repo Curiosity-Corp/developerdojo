@@ -1,9 +1,0 @@
-title: "Specify when jobs run with rules"
-provider: "GitLab"
-url: "https://docs.gitlab.com/ci/jobs/job_rules/"
-cost: "free"
-format: "docs"
-level: "intermediate"
-skills: [ci-cd]
-summary: "Explains rules, which decide when a CI job runs, for example only on merge requests or only on the default branch. Use it to make each gate run at the right time."
-verifiedOn: 2026-11-03

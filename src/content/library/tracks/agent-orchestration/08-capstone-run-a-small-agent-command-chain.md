@@ -16,8 +16,8 @@ resources:
   - "gitlab/merge-requests"
   - "anthropic/claude-code-gitlab-ci-cd"
   - "anthropic/claude-code-github-actions"
-  - "anthropic/claude-agent-sdk-overview"
-  - "openai/agents-sdk"
+  - "anthropic/agent-sdk-overview"
+  - "openai/agents-sdk-python"
   - "open-policy-agent/conftest"
   - "google-sre/postmortem-culture"
 prerequisites:

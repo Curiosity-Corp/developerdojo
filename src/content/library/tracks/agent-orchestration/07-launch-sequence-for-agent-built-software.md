@@ -14,12 +14,12 @@ outcomes:
   - "Keep evidence of every gate, and roll out a pipeline change across products safely"
 resources:
   - "gitlab/ci-includes"
-  - "gitlab/ci-job-rules"
+  - "gitlab/ci-rules"
   - "gitlab/sast"
   - "gitlab/secret-detection"
   - "gitlab/merged-results-pipelines"
   - "gitlab/merge-trains"
-  - "opengitops/opengitops"
+  - "opengitops/principles"
   - "openssf/slsa"
 prerequisites:
   - "tracks/agent-orchestration/04-hooks-guards-and-gates"
