@@ -1,0 +1,9 @@
+title: "Static application security testing (SAST)"
+provider: "GitLab"
+url: "https://docs.gitlab.com/user/application_security/sast/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security, ci-cd]
+summary: "How to add static security scanning to a pipeline with one include line. The basic scanners and downloadable reports are in the free tier. Read it to turn on your source-security gate."
+verifiedOn: 2026-11-03
