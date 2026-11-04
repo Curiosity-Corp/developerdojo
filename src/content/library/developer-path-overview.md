@@ -20,6 +20,21 @@ prerequisites:
   - program-why-and-who
 ---
 
+## In short
+
+The Developer path is the first rank of the dojo. In six weeks you take one product from idea to a package. Week 1, you draw the whole product on one page. Week 2, you meet the people who buy and use it. Week 3, you turn their problems into epics. Week 4, you defend your roadmap to others. Week 5, you give the product a brand and a website. Week 6, you show a catalogue, a demo and your Product Package.
+
+You write the epics yourself. AI agents may break your milestones into issues and build them. You say how you used AI. If you fall short, you get a coaching plan, not a failure. On the agent ladder, this path teaches use and delegate.
+
+### Key words
+
+- **Persona:** A short profile of a typical person, built from real interviews.
+- **Journey (user or customer):** The steps a person takes to reach a goal, with thoughts and feelings.
+- **Epic:** A whole-product outcome across several repos. Weeks to months. Written by a human.
+- **Roadmap:** Epics laid out in order over time.
+- **Product Package:** The final assessment of the Developer path. Eight parts.
+- **Agent ladder:** Four rungs of skill with AI agents: use, delegate, orchestrate and govern. Each rung needs different skills.
+
 The Developer path is the first rank of the dojo. In six weeks you take **one product** from idea to a package you can present. You do not just write code. You talk to customers, plan the whole product, and steer AI agents that do the building.
 
 ## What you need

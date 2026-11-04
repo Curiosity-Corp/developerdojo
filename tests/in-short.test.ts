@@ -54,7 +54,7 @@ const glossaryEntries = glossary();
 const libraryDir = join(root, 'src', 'content', 'library');
 
 /** Program pages outside the tracks folder that also carry the box (issue #75). */
-const PROGRAM_PAGES = ['the-way-five-rules'];
+const PROGRAM_PAGES = ['developer-path-overview', 'master-developer-overview', 'the-way-five-rules'];
 
 const tracks = [
   ...readdirSync(trackDir)
