@@ -101,4 +101,16 @@ const { sponsor = 'Reveltek', href = '/sponsors' } = Astro.props;
       display: none;
     }
   }
+  /* A phone at 200% zoom is about 195px wide. The logo plate is 195px wide by itself, so let it shrink. */
+  @media (max-width: 18.5rem) {
+    .sponsor {
+      max-width: 100%;
+    }
+    .sponsor img,
+    .sponsor img.only-light {
+      height: auto;
+      max-width: 100%;
+      padding-inline: 0.8rem;
+    }
+  }
 </style>

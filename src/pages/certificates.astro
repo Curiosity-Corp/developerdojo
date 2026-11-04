@@ -157,7 +157,7 @@ const assessment = [
           title="Verify a certificate"
           intro="Type the certificate ID printed on the certificate, or the holder's name. We check it against the public list of certificates on this page."
         />
-        <form id="verify-form" class="verify-form" role="search" hidden novalidate>
+        <form id="verify-form" class="verify-form" role="search" aria-label="Verify a certificate" hidden novalidate>
           <label for="verify-query">Certificate ID or name</label>
           <div class="row">
             <input id="verify-query" name="q" type="text" autocomplete="off" spellcheck="false" placeholder="For example DD-2027-0001" />

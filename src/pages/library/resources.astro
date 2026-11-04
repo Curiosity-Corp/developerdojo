@@ -69,20 +69,23 @@ const formatsInUse = FORMATS.filter((format) => sorted.some((resource) => resour
         sorted.length === 0 ? (
           <p>Resources are being added. Check back soon.</p>
         ) : (
-          <ul class="grid" id="resource-list" data-pagefind-ignore>
-            {sorted.map((resource) => (
-              <li
-                id={`r-${resource.id.replace(/[^a-z0-9]+/g, '-')}`}
-                data-resource
-                data-skills={resource.data.skills.join(' ')}
-                data-provider={resource.data.provider}
-                data-cost={resource.data.cost}
-                data-format={resource.data.format}
-              >
-                <ResourceCard resource={resource} />
-              </li>
-            ))}
-          </ul>
+          <>
+            <h2 class="visually-hidden">All resources</h2>
+            <ul class="grid" id="resource-list" data-pagefind-ignore>
+              {sorted.map((resource) => (
+                <li
+                  id={`r-${resource.id.replace(/[^a-z0-9]+/g, '-')}`}
+                  data-resource
+                  data-skills={resource.data.skills.join(' ')}
+                  data-provider={resource.data.provider}
+                  data-cost={resource.data.cost}
+                  data-format={resource.data.format}
+                >
+                  <ResourceCard resource={resource} />
+                </li>
+              ))}
+            </ul>
+          </>
         )
       }
       <p id="resource-empty" hidden>No resource matches those filters. Clear a filter to see more.</p>
@@ -192,7 +195,7 @@ const formatsInUse = FORMATS.filter((format) => sorted.some((resource) => resour
   }
   .filters select:focus-visible,
   .reset:focus-visible {
-    outline: 3px solid var(--gold);
+    outline: 3px solid var(--focus);
     outline-offset: 2px;
   }
   .reset {

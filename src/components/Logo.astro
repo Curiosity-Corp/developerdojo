@@ -41,4 +41,16 @@ const { href = '/', surface = 'band' } = Astro.props;
       height: 24px;
     }
   }
+  /* Under about 18.5rem (a 390px phone at 200% zoom) the full wordmark cannot share the bar with the search and
+     menu buttons, and the page would scroll sideways. Show only the gold brackets; the link keeps its name. */
+  @media (max-width: 18.5rem) {
+    .logo {
+      width: 1.75rem;
+      overflow: hidden;
+    }
+    .logo img {
+      flex: none;
+      max-width: none;
+    }
+  }
 </style>
