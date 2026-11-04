@@ -39,7 +39,7 @@ The Developer path is the first rank of the dojo. In six weeks you take **one pr
 
 ## What you need
 
-- A product idea you care about. It can be small. You may use a real idea, or the fictional TrailMug used in these pages.
+- A product idea you care about. It can be small. You may use a real idea, or a fictional one such as TrailMug or [Shiftwren](/library/shiftwren-example).
 - About 8 to 10 hours a week.
 - A free account on a git host such as gitlab.com or github.com.
 - A coach or mentor if you can find one, or a study partner.
@@ -67,6 +67,14 @@ Every week has one goal and one output you can show your Sensei. The full table,
 | 4 | Defend the roadmap | Reviewed roadmap, dated milestones, a ten-minute presentation |
 | 5 | Give the product a face | Brand sheet, published page, mockups linked to epics |
 | 6 | Show it is real | Catalogue, demo and Product Package |
+
+## Worked examples
+
+Three examples show the same method. Compare your work with them, and never copy them.
+
+- **TrailMug**, a fictional reusable-cup scheme. It appears on the [template pages](/library/templates-overview) and in the [full catalogue](/library/catalogue-trailmug-full-example).
+- **A real-product case study** in five pages. Start with [the product on one page](/library/case-study-danhup-the-product-on-one-page).
+- **Shiftwren**, a fictional software service for volunteer-run food pantries, with one page for each of the six weeks. Start with the [Shiftwren example](/library/shiftwren-example). It suits you if you build a service, a business tool or a community project.
 
 ## The program guide
 
