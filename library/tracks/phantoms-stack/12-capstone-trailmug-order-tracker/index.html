@@ -16,7 +16,7 @@
 <h2 id="1-why-this-matters">1. Why this matters</h2>
 <p>Reading about a stack is not the same as running it. Someone who has never cloned, started, broken and fixed a real repository will believe an agent’s report too easily. The capstone makes you do the whole loop once: <strong>decide, specify, brief, build, verify, report</strong>.</p>
 <p>The point is not the code. Agents write the code. The point is the <strong>quality of your decisions and your verification</strong>. Your spec, briefs, policy and review notes, in git, are the deliverable.</p>
-<p>It also puts you on the next rung of a ladder. <strong>Use</strong> one agent. <strong>Delegate</strong> a whole task with a brief. <strong>Orchestrate</strong> several sessions at once, each with its own job. <strong>Govern</strong> them with written policy, hooks and gates, so that safety does not depend on your attention. In this capstone you orchestrate three agent sessions and govern them. The Agent orchestration track goes further.</p>
+<p>It also puts you on the next rung of a ladder. <strong>Use</strong> one agent. <strong>Delegate</strong> a whole task with a brief. <strong>Orchestrate</strong> several sessions at once, each with its own job. <strong>Govern</strong> them with written policy, hooks and gates, so that safety does not depend on your attention. In this capstone you orchestrate three agent sessions and govern them. The <a href="/library/tracks/agent-orchestration/">Agent orchestration track</a> goes further.</p>
 <p>The 2030 Product Development Manager owns the outcome even when every line was typed by an agent. If the order tracker loses an order, “the agent wrote it” is not an answer. This capstone trains the habits that make it a rare event.</p>
 <table>
 <thead>
@@ -177,7 +177,7 @@
 <blockquote>
 <p>You are a skeptical reviewer. Read AGENTS.md, docs/spec/order-tracker.md and docs/security.md. Review the diff of branch <name> against main. Do not edit anything. List: (1) every acceptance criterion in the spec and whether the diff and tests prove it, with file and line; (2) any route or function that skips validation or authorization; (3) any dependency, secret, public variable or log line that violates AGENTS.md; (4) any test that would still pass if the feature were broken. Mark anything undetermined as UNKNOWN.</p>
 </blockquote>
-<p>Treat its findings as leads and open each one yourself. The Agent orchestration track teaches the next rung: many Commanders under a higher-level policy.</p>
+<p>Treat its findings as leads and open each one yourself. The <a href="/library/tracks/agent-orchestration/">Agent orchestration track</a> teaches the next rung: many Commanders under a higher-level policy.</p>
 <p><strong>Disclose.</strong> Every merge request states which agent did what, which parts you wrote, and what you checked by hand. See <a href="/library/disclose-ai-use">disclose AI use</a>. If a defect reaches your demo, <a href="/library/fix-forward">fix forward</a>: make a new change that repairs it, and note it in the report.</p>
 <h2 id="6-where-the-starter-is-behind">6. Where the starter is behind</h2>
 <p>This starter is a learning core, reviewed on 2026-10-01. A product built today would want more, and the capstone is the right place to record it. Dojo opinion, to be tested by you, not promises by the starter:</p>

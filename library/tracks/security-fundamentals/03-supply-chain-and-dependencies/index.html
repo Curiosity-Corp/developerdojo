@@ -127,7 +127,7 @@
 <h3 id="pinning-and-lock-files">Pinning and lock files</h3>
 <p>A <strong>lock file</strong> records the exact version of every dependency, direct and indirect, and usually a hash (a fingerprint) of each. With it, the same build gets the same code, and a surprise change is visible in a merge request. Without it, a build may quietly pick up a new version that was published an hour ago. Always commit the lock file, and review changes to it as you would review code. Pin base images by their fingerprint, not just a moving label like <code>latest</code>.</p>
 <h3 id="scanning-for-known-flaws">Scanning for known flaws</h3>
-<p>Dependency scanners compare your list of dependencies with public databases of known flaws and report matches. The OWASP <a href="https://owasp.org/www-project-dependency-check/">Dependency-Check</a> project is a free open source example, and GitLab offers <a href="https://docs.gitlab.com/user/application_security/dependency_scanning/">dependency scanning</a> as part of its security features; check which parts your plan includes. Treat results this way.</p>
+<p>Dependency scanners compare your list of dependencies with public databases of known flaws and report matches. The OWASP <a href="https://owasp.org/projects/dependency-check">Dependency-Check</a> project is a free open source example, and GitLab offers <a href="https://docs.gitlab.com/user/application_security/dependency_scanning/">dependency scanning</a> as part of its security features; check which parts your plan includes. Treat results this way.</p>
 <ol>
 <li><strong>Is the vulnerable part actually used</strong> by our code? Many are not reachable.</li>
 <li><strong>How severe</strong> is it, and is anyone exploiting it?</li>
