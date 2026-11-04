@@ -125,6 +125,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **Eval (evaluation).** A set of tests and scores that measure how well an AI workflow works.
 
+**Evidence log.** A file in git listing each claim, its source and how you checked it.
+
 **Extreme Programming (XP).** An agile method with strict engineering habits: write tests first, work in pairs and release often.
 
 ## F
@@ -224,6 +226,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 **Plan (infrastructure as code).** A preview of what the tool will add, change or destroy. You read it before you approve.
 
 **Point of view.** One claim that someone could disagree with and that your own work supports.
+
+**Primary source.** A first-hand record, such as a law, a data table or your own test.
 
 **Problem statement.** A short text that says who has a problem and why it matters. It also says how you will know it is solved.
 

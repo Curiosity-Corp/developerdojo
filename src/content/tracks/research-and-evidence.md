@@ -13,6 +13,20 @@ outcomes:
   - "Keep an evidence log in git that a stranger can read and check"
 ---
 
+## In short
+
+This track is for anyone who must know what is true before they build. You do not need a degree or special software. You will turn a loose topic into a research question. You will say what answer is good enough, and when to stop. You will find sources and judge each one with a short checklist. A first-hand record is stronger than someone's opinion about it. You will keep an evidence log in git that a stranger can check.
+
+An AI agent can search and summarise fast. It can also invent titles, authors, numbers and quotes. So an agent's research is a draft until a person checks it. Open every link and read the real page. On the agent ladder, you delegate the reading. You never delegate the claim.
+
+### Key words
+
+- **Evidence log:** A file in git listing each claim, its source and how you checked it.
+- **Primary source:** A first-hand record, such as a law, a data table or your own test.
+- **Assumption:** Something you believe is true but have not yet checked.
+- **AI agent:** An AI coding assistant that reads your project and builds tasks. It does the task in front of it. It does not own the plan.
+- **Agent ladder:** Four rungs of skill with AI agents: use, delegate, orchestrate and govern. Each rung needs different skills.
+
 Interviews tell you what a few people say and do. Many product questions are bigger than that. How large is the market? What do other cities already do? Is the claim on your website true? To answer these you read what others have written. That is research, and it has a trap that is new in 2030: an AI agent will write a smooth, confident summary with sources that sound real. Some of those sources do not exist.
 
 This track teaches the habit that protects you: **find out what is true before you build, and show your work.**
