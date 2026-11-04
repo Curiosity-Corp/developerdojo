@@ -155,6 +155,8 @@ Corrected epics after the Week 3 review, `milestones/` with 3 to 5 dated milesto
 
 [Your roadmap in git](/library/tracks/roadmapping-and-epics/04-your-roadmap-in-git), [Agent-ready milestones](/library/tracks/roadmapping-and-epics/05-agent-ready-milestones), [Map the stakeholders](/library/tracks/stakeholder-communication/01-map-the-stakeholders), [Present and defend the roadmap](/library/tracks/stakeholder-communication/03-present-and-defend-the-roadmap) and [Orchestrating multiple agents](/library/tracks/working-with-ai-agents/06-orchestrating-multiple-agents).
 
+A second worked example, for a software service rather than a physical product, is [Shiftwren week 4: defend the roadmap](/library/shiftwren-week-4-defend-the-roadmap).
+
 ### The 2030 Product Development Manager lens
 
 You decide scope, order, risks and what you will not do. You delegate issues for approved milestones. A sample brief: "Break milestone 1.1 into issues of at most two days, each with a done-when line. List your questions. Do not change scope." You verify by reading every issue against the milestone. On the agent ladder this week is **delegate**, with **orchestrate** coming next.

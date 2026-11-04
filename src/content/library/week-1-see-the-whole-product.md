@@ -106,6 +106,8 @@ At the checkpoint you walk your Sensei through the one-page map in 10 minutes. E
 
 [Frame the problem and the idea](/library/tracks/product-discovery/01-frame-the-problem-and-the-idea), [Map the whole product](/library/tracks/product-discovery/03-map-the-whole-product) and [Git: the mental model](/library/tracks/git-and-gitlab/01-git-mental-model).
 
+A second worked example, for a software service rather than a physical product, is [Shiftwren week 1: the whole product](/library/shiftwren-week-1-the-whole-product).
+
 ### The 2030 Product Development Manager lens
 
 You decide what counts as a part of the product and who owns it. You delegate the listing of repositories and READMEs, with a brief such as "List every repository with its first README line. Do not guess owners." You verify by opening two repositories yourself. On the agent ladder this week is **use**.

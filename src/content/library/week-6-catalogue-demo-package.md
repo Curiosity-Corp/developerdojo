@@ -91,6 +91,8 @@ At the final presentation you present your Product Package. Expect: "Show me whe
 
 [Planning in GitLab](/library/tracks/git-and-gitlab/03-planning-in-gitlab), [History, worktrees and fixing forward](/library/tracks/git-and-gitlab/04-history-worktrees-and-fixing-forward) and [Reviewing and verifying AI output](/library/tracks/working-with-ai-agents/07-reviewing-and-verifying-ai-output). See also the [catalogue framework](/library/catalogue-framework-overview) and the [full TrailMug catalogue](/library/catalogue-trailmug-full-example).
 
+A second worked example, for a software service rather than a physical product, is [Shiftwren week 6: catalogue and demo](/library/shiftwren-week-6-catalogue-and-demo).
+
 ### The 2030 Product Development Manager lens
 
 You decide what the package claims and what evidence backs it. You delegate cross-checks and link checks. A sample brief: "Compare the catalogue and the roadmap. List any service named in one and missing in the other. Do not edit." You verify by opening three cited items. On the agent ladder this week is **delegate** and **govern**.

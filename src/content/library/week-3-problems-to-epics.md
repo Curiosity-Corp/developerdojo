@@ -99,6 +99,8 @@ This is the epic review. Your Sensei asks hard questions and you answer without 
 
 [What an epic is](/library/tracks/roadmapping-and-epics/01-what-an-epic-is), [Write an epic yourself](/library/tracks/roadmapping-and-epics/02-write-an-epic-yourself) and [Order the epics](/library/tracks/roadmapping-and-epics/03-order-the-epics). For a worked example see the [epics and roadmap case study](/library/case-study-danhup-epics-and-roadmap).
 
+A second worked example, for a software service rather than a physical product, is [Shiftwren week 3: from problems to epics](/library/shiftwren-week-3-problems-to-epics).
+
 ### The 2030 Product Development Manager lens
 
 You decide the epics, their order and the measures. You delegate nothing about the epics themselves. You may delegate a check that every epic names at least two parts of the product. You verify by reading each epic aloud. On the agent ladder epics are **human only**.

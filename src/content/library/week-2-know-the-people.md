@@ -134,6 +134,8 @@ At the checkpoint you present one persona and one journey, and say where the jou
 
 [Talk to customers](/library/tracks/product-discovery/02-talk-to-customers), [Write personas from evidence](/library/tracks/personas-and-journeys/02-write-personas-from-evidence), [Touch points and journey maps](/library/tracks/personas-and-journeys/03-touch-points-and-journey-maps) and [Find the breaks and hand over](/library/tracks/personas-and-journeys/04-find-the-breaks-and-hand-over).
 
+A second worked example, for a software service rather than a physical product, is [Shiftwren week 2: the people](/library/shiftwren-week-2-the-people).
+
 ### The 2030 Product Development Manager lens
 
 You decide who you need to talk to and what the persona says. You delegate summaries of notes you collected, with a brief such as "Group these notes by theme and quote the line for each. Do not add themes." You verify by reading three original notes. On the agent ladder this week is **use**.

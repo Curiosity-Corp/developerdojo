@@ -30,4 +30,4 @@ Always make your own copy before you type. Never fill in the original.
 4. **Keep the file in git.** It is the source of truth.
 5. **Say how you used AI.** See [Disclose AI use](/library/disclose-ai-use).
 
-The examples use TrailMug, a fictional reusable-cup subscription.
+The examples use TrailMug, a fictional reusable-cup subscription. For a software service instead of a physical product, see the [Shiftwren example](/library/shiftwren-example): the templates used in Developer weeks 1 to 6 are filled in there too.

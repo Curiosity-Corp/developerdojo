@@ -103,6 +103,8 @@ At the checkpoint you show the published page and say what each mockup links to.
 
 [Name and promise](/library/tracks/brand-website-and-mockups/01-name-and-promise), [Voice, colour, type and the brand sheet](/library/tracks/brand-website-and-mockups/02-voice-colour-type-and-the-brand-sheet), [Mockups that link to epics](/library/tracks/brand-website-and-mockups/03-mockups-that-link-to-epics), [Build and publish the website](/library/tracks/brand-website-and-mockups/04-build-and-publish-the-website) and [Test accessibility and usability](/library/tracks/brand-website-and-mockups/05-test-accessibility-and-usability).
 
+A second worked example, for a software service rather than a physical product, is [Shiftwren week 5: brand, website and mockups](/library/shiftwren-week-5-brand-website-and-mockups).
+
 ### The 2030 Product Development Manager lens
 
 You decide the name, the promise and which design to adopt. You delegate checks of contrast, spelling and links. A sample brief: "List every colour pair on this page with its contrast ratio. Do not change colours." You verify by opening the page on a phone. On the agent ladder this week is **use** and **delegate**.
