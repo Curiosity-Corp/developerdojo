@@ -33,6 +33,16 @@ const contribute = [
   { icon: 'calendar-days', title: 'Run office hours', description: 'Hold focused question and answer times or one-to-one help for builders.', tone: 'gold' },
 ] as const;
 
+const handbook = [
+  { href: '/library/sensei-role-and-limits', title: '1. The role and its limits', text: 'What a Sensei does, and what a Sensei never does.' },
+  { href: '/library/sensei-run-a-30-minute-review', title: '2. Run a 30 minute review', text: 'A minute-by-minute plan using the Product Package rubric and the weekly checklist.' },
+  { href: '/library/sensei-feedback-sentences', title: '3. Feedback sentences that work', text: 'A simple shape for feedback, with examples to adapt.' },
+  { href: '/library/sensei-run-a-live-build-safely', title: '4. Run a live build safely', text: 'Say when AI is used, and keep secrets and private work off the screen.' },
+  { href: '/library/sensei-privacy-and-conduct', title: '5. Privacy and the code of conduct', text: 'Look after a learner’s work, notes and trust.' },
+  { href: '/library/sensei-when-to-ask-the-maintainer', title: '6. When to ask the Maintainer', text: 'What cannot wait, what can, and what to send.' },
+  { href: '/library/sensei-review-sheet', title: '7. Review sheet', text: 'One page to print and fill in during a review.' },
+] as const;
+
 const levelUp = [
   { icon: 'award', title: 'Earn certifications', description: 'Build trust and show your skill.', tone: 'olive' },
   { icon: 'layers', title: 'Complete product builds', description: 'Ship real products and show you can finish the job.', tone: 'gold' },
@@ -173,7 +183,26 @@ const steps = [
     </div>
   </section>
 
-  <section class="section section--tight">
+  <section class="section section--tight" id="handbook">
+    <div class="container">
+      <SectionHeader
+        title="The Sensei handbook"
+        intro="Seven short pages for a new Sensei. Read them in order, and you can run your first review with nothing else."
+      />
+      <ol class="handbook">
+        {
+          handbook.map((page) => (
+            <li>
+              <a href={page.href}>{page.title}</a>
+              <span>{page.text}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--tight alt">
     <div class="container">
       <SectionHeader
         title="How you level up"
@@ -364,6 +393,34 @@ const steps = [
   }
   .alt {
     background: var(--paper-sunk);
+  }
+  .handbook {
+    list-style: none;
+    margin: var(--space-5) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+  @media (min-width: 48rem) {
+    .handbook {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .handbook li {
+    display: grid;
+    gap: var(--space-1);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+  }
+  .handbook a {
+    font-weight: 700;
+    color: var(--link);
+  }
+  .handbook span {
+    color: var(--ink-muted);
+    font-size: var(--text-sm);
   }
   .measure :global(h2) {
     margin-bottom: var(--space-4);
