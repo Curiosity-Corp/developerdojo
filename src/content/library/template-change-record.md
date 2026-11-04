@@ -3,6 +3,7 @@ title: "Template: Change record"
 description: "The Master Developer change record, field by field: summary, risk, fix-forward recovery plan, checks, after-merge list and the emergency section, with a TrailMug example."
 section: "Templates"
 order: 9
+fillable: "template-8-change-record"
 level: advanced
 duration: "60 to 90 min for a first record"
 outcomes:

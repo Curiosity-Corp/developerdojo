@@ -21,6 +21,39 @@ resources:
   - "atlassian/git-tutorials"
   - "conventionalcommits/conventional-commits"
 updated: 2026-11-03
+quiz:
+  - question: "What do you write in the merge request description so that the issue closes by itself when the merge request is merged?"
+    options:
+      - "Closes #14"
+      - "See issue 14 later"
+      - "issue-14-phone-check"
+      - "Ready for review"
+    answer: "Closes #14"
+    why: "The link keeps the issue and the merge request joined. When the merge request is merged, the issue closes by itself."
+  - question: "Why do you open a merge request as a draft while work is in progress?"
+    options:
+      - "A draft cannot be merged, and it tells reviewers not to look yet."
+      - "A draft is approved automatically."
+      - "A draft skips the pipeline."
+      - "A draft hides the merge request from the author."
+    answer: "A draft cannot be merged, and it tells reviewers not to look yet."
+    why: "Mark it ready when the checks pass and you have read the diff yourself."
+  - question: "Which rule matters most when an agent is the author of a change?"
+    options:
+      - "The agent's own approval is enough."
+      - "The author of a change must not be its only approver."
+      - "Small changes need no approval."
+      - "Approval is only possible on a paid plan."
+    answer: "The author of a change must not be its only approver."
+    why: "When an agent is the author, the human approver is not a formality. They are the control."
+  - question: "What does a protected default branch do?"
+    options:
+      - "Nobody can push to it directly or force-push, so changes arrive only by merge request."
+      - "It stops commits on every branch."
+      - "It stops the pipeline from running."
+      - "It stops reviewers from commenting."
+    answer: "Nobody can push to it directly or force-push, so changes arrive only by merge request."
+    why: "Even a confused or tricked agent cannot write to the default branch."
 ---
 
 Lesson 2 of the Git and GitLab track. It supports Developer week 4 (agents in practice) and the Master Developer module on running agents through merge requests, where the merge request is also the change record. See [Service management in git](/library/itil-in-git).

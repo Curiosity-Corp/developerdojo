@@ -3,6 +3,7 @@ title: "Template: Personas and demographics"
 description: "The persona workbook, field by field: a demographics summary, up to three persona tables and an evidence log, with a filled TrailMug example."
 section: "Templates"
 order: 2
+fillable: "template-1-personas-and-demographics"
 level: core
 duration: "90 min to fill the first persona, then 30 min for each next one"
 outcomes:

@@ -3,6 +3,7 @@ title: "Template: Open source decision record (ADR)"
 description: "The Master Developer decision record, field by field: context, alternatives, licence, fit, decision, tech debt, exit plan, consequences and the licence-check record."
 section: "Templates"
 order: 7
+fillable: "template-6-oss-decision-record"
 level: advanced
 duration: "2 to 3 hours for a first record"
 outcomes:

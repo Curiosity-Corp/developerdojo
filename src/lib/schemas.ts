@@ -53,6 +53,28 @@ const slug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'use lowercase words
 /** "<publisher-slug>/<resource-slug>" */
 export const resourceId = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*\/[a-z0-9]+(?:-[a-z0-9]+)*$/, 'use <publisher>/<resource>, for example anthropic/prompt-engineering-interactive-tutorial');
 
+/** One multiple-choice question of a lesson's knowledge check. */
+export const quizQuestionSchema = z
+  .object({
+    /** The question, in plain words. */
+    question: z.string().trim().min(1),
+    /** Two to five answers, shown in this order. Each one is different. */
+    options: z.array(z.string().trim().min(1)).min(2).max(5),
+    /** The correct answer, copied exactly from `options`. */
+    answer: z.string().trim().min(1),
+    /** One line that says why, taken from the lesson's own text. */
+    why: z.string().trim().min(1),
+  })
+  .superRefine((value, ctx) => {
+    if (new Set(value.options).size !== value.options.length) {
+      ctx.addIssue({ code: 'custom', path: ['options'], message: 'two options are the same' });
+    }
+    if (!value.options.includes(value.answer)) {
+      ctx.addIssue({ code: 'custom', path: ['answer'], message: 'answer must be one of the options, spelled exactly the same' });
+    }
+  });
+export type QuizQuestion = z.infer<typeof quizQuestionSchema>;
+
 /** Library entry frontmatter (markdown files under src/content/library, at any depth). The first four fields are required; the rest are optional. */
 export const librarySchema = z.object({
   title: z.string().min(1),
@@ -75,6 +97,13 @@ export const librarySchema = z.object({
   updated: z.coerce.date().optional(),
   /** Interactive tool this page carries (saved on the learner's device, hidden without JavaScript). */
   tool: z.enum(LESSON_TOOLS).optional(),
+  /** Optional knowledge check shown at the end of the lesson: three to five multiple-choice questions. */
+  quiz: z.array(quizQuestionSchema).min(3).max(5).optional(),
+  /** Name of a template download in public/templates (without .md). The page then gets a form version of it. Checked at build time. */
+  fillable: z
+    .string()
+    .regex(/^template-\d+-[a-z0-9]+(?:-[a-z0-9]+)*$/, 'use the file name of a download in public/templates, without .md')
+    .optional(),
 });
 export type LibraryFrontmatter = z.infer<typeof librarySchema>;
 

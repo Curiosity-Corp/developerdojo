@@ -10,6 +10,9 @@ import Icon from '../../components/Icon.astro';
 import ChecklistTool from '../../components/ChecklistTool.astro';
 import SelfAssessment from '../../components/SelfAssessment.astro';
 import LessonDone from '../../components/LessonDone.astro';
+import LessonQuiz from '../../components/LessonQuiz.astro';
+import TemplateForm from '../../components/TemplateForm.astro';
+import { readTemplateModel } from '../../lib/template-source';
 import { groupBySection } from '../../lib/library';
 import { loadContent, lessonsOfTrack } from '../../lib/content';
 import { neighbours, readingMinutes, sectionAnchor } from '../../lib/lesson';
@@ -49,6 +52,8 @@ export async function getStaticPaths() {
         further,
         track: track ? { id: track.id, title: track.data.title } : undefined,
         trackLessonIds: track ? ordered.map((item) => item.id) : [],
+        // Fails the build when the named download is missing.
+        templateModel: entry.data.fillable ? readTemplateModel(entry.data.fillable) : undefined,
         minutes: readingMinutes(entry.body ?? ''),
         position: ordered.length > 1 ? { index: ordered.findIndex((item) => item.id === entry.id) + 1, total: ordered.length } : undefined,
       },
@@ -56,7 +61,7 @@ export async function getStaticPaths() {
   });
 }
 
-const { entry, previous, next, prerequisites, further, track, trackLessonIds, minutes, position } = Astro.props;
+const { entry, previous, next, prerequisites, further, track, trackLessonIds, templateModel, minutes, position } = Astro.props;
 const { Content, headings } = await render(entry);
 const data = entry.data;
 
@@ -120,6 +125,14 @@ const groupLabel = track ? `${track.title}, lesson ${position?.index ?? 1} of ${
           )
         }
 
+        {
+          templateModel && (
+            <p class="tool-note js-only" data-pagefind-ignore>
+              You can fill in this template on the page. <a href="#fill-in">Go to the form</a>.
+            </p>
+          )
+        }
+
         <TableOfContents headings={headings} variant="inline" />
 
         <ChecklistTool panel={data.tool === 'checklist'} />
@@ -129,6 +142,10 @@ const groupLabel = track ? `${track.title}, lesson ${position?.index ?? 1} of ${
         </div>
 
         {data.tool === 'self-assessment-track-a' && <SelfAssessment />}
+
+        {templateModel && <TemplateForm pageId={entry.id} model={templateModel} />}
+
+        {(data.quiz?.length ?? 0) > 0 && <LessonQuiz quiz={data.quiz ?? []} />}
 
         {track && <LessonDone lessonId={entry.id} trackLessonIds={trackLessonIds} trackTitle={track.title} />}
 

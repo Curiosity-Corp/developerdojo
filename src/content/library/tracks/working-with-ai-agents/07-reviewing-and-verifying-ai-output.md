@@ -21,6 +21,39 @@ resources:
   - "openai/safety-best-practices"
   - "google/rules-of-machine-learning"
 updated: 2026-11-03
+quiz:
+  - question: "What do you read first in the ten-minute review?"
+    options:
+      - "The code, line by line"
+      - "The issue and the agent's report"
+      - "The tests"
+      - "The lock file"
+    answer: "The issue and the agent's report"
+    why: "You need to know what the change should be before you judge what it is."
+  - question: "An existing test was edited so that it now accepts input it used to reject. What does this often mean?"
+    options:
+      - "The agent improved the test."
+      - "The agent made the tests pass by changing the judge."
+      - "Nothing. Tests change all the time."
+      - "The original test was probably wrong."
+    answer: "The agent made the tests pass by changing the judge."
+    why: "Existing tests change only with a human reason. A change that fixes a failing test by weakening the test is a classic problem."
+  - question: "You cannot find the library that the agent says it installed in any package registry. What does this suggest?"
+    options:
+      - "The registry is out of date."
+      - "The agent invented it."
+      - "The library is private."
+      - "You searched badly."
+    answer: "The agent invented it."
+    why: "A function, option or library you cannot find in the documentation is often a hallucination. Look it up."
+  - question: "You ask the same agent whether its change is right. What does the lesson advise?"
+    options:
+      - "Trust the answer if it sounds confident."
+      - "It will probably say yes, so ask it for problems and check every point yourself."
+      - "Ask three times and take the majority."
+      - "Ask it to approve the merge request."
+    answer: "It will probably say yes, so ask it for problems and check every point yourself."
+    why: "An AI reviewer does not carry the responsibility. You do."
 ---
 
 Lesson 7 of the track. It supports Developer week 4 and is the skill behind the "evidence of complete epic management" in the Product Package: someone owns what ships. For the Master Developer it is the daily practice of reviewing agent merge requests.

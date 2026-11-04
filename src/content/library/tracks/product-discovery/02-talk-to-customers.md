@@ -22,6 +22,39 @@ resources:
 prerequisites:
   - "week-1-see-the-whole-product"
 updated: 2026-11-03
+quiz:
+  - question: "Which question is best to ask in a customer interview?"
+    options:
+      - "Would you pay for this?"
+      - "Do you like reusable cups?"
+      - "Tell me about the last time you bought coffee on your way to work."
+      - "What features do you want?"
+    answer: "Tell me about the last time you bought coffee on your way to work."
+    why: "People are poor at predicting their own behaviour. A question about the past gets a story, and stories contain facts."
+  - question: "How many interviews does the Dojo ask for in week 1?"
+    options:
+      - "One"
+      - "Five"
+      - "Fifteen"
+      - "One hundred"
+    answer: "Five"
+    why: "Fewer than five gives you stories, and more than about eight usually repeat themselves. Five gives you patterns to check later, not statistics."
+  - question: "A teammate asks an agent to simulate five customers and calls the answers evidence. What does the lesson say?"
+    options:
+      - "That is fine if the model is a strong one."
+      - "That is a rehearsal, not research."
+      - "That is fine if you add one real quote."
+      - "That is a fast way to finish the five interviews."
+    answer: "That is a rehearsal, not research."
+    why: "A model produces the most likely thing a customer might say, which is what you already believe plus polite averages."
+  - question: "How should you name the people in your interview notes in git?"
+    options:
+      - "Use a code such as C1 and keep the key that links codes to people in a private place."
+      - "Use first names only."
+      - "Use full names so you can find people later."
+      - "Use their email addresses."
+    answer: "Use a code such as C1 and keep the key that links codes to people in a private place."
+    why: "Keep names out of git. The key that links codes to people must not be in the repository."
 ---
 
 **Supports:** Developer, week 1 (you book the interviews) and week 2 (you hold them and write personas). **Time:** about two hours to prepare, then five conversations of 30 minutes each.

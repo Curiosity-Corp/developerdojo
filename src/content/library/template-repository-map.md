@@ -3,6 +3,7 @@ title: "Template: Product repository map"
 description: "The Week 1 sheet that lists every repository, domain, service and tool of your product, field by field, with a TrailMug example and the how-to-fill rules."
 section: "Templates"
 order: 4
+fillable: "template-3-product-repository-map"
 level: foundation
 duration: "2 to 3 hours for a first pass"
 outcomes:

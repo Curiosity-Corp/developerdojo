@@ -3,6 +3,7 @@ title: "Template: Epic roadmap"
 description: "The Weeks 3 and 4 workbook, field by field: epics, roadmap grid, milestones and the seven-question quality check, with a full TrailMug epic."
 section: "Templates"
 order: 6
+fillable: "template-5-epic-roadmap"
 level: core
 duration: "3 to 4 hours for the first epic, 30 min for the quality check of each next one"
 outcomes:

@@ -1,0 +1,36 @@
+---
+/**
+ * One row of a free-rows table in a fillable template (an evidence log, a register). The same markup
+ * is used for the rows the server draws and for the <template> the script copies when the learner
+ * adds a row; for the copy, `r` and `n` are the placeholders __R__ and __N__.
+ */
+import { MAX_FIELD_LENGTH, cellId, type TableBlock } from '../lib/template-form';
+
+interface Props {
+  s: number;
+  b: number;
+  r: number | string;
+  n: number | string;
+  block: TableBlock;
+  heading: string;
+  /** What the blank template already has in this row. */
+  defaults?: string[];
+}
+const { s, b, r, n, block, heading, defaults = [] } = Astro.props;
+---
+
+<fieldset class="tf-row" data-tf-row>
+  <legend>{heading}: row {n}</legend>
+  {
+    block.headers.map((header, col) => {
+      const id = cellId(s, b, r, col);
+      const value = defaults[col] ?? '';
+      return (
+        <div class="tool-field">
+          <label for={`tf-${id}`}>{header}</label>
+          <textarea id={`tf-${id}`} rows="2" maxlength={MAX_FIELD_LENGTH} data-field={id} data-default={value}>{value}</textarea>
+        </div>
+      );
+    })
+  }
+</fieldset>

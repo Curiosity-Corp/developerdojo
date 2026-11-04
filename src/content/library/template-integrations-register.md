@@ -3,6 +3,7 @@ title: "Template: Third-party integrations register"
 description: "The Week 1 register of every outside tool your product depends on, field by field, with the function map and a filled TrailMug example."
 section: "Templates"
 order: 5
+fillable: "template-4-integrations-register"
 level: foundation
 duration: "90 min for a first pass"
 outcomes:
