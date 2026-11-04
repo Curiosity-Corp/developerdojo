@@ -15,6 +15,21 @@ outcomes:
   - "Direct agents to scaffold a small product, then review and verify the result with evidence"
 ---
 
+## In short
+
+This track is for product managers, founders and developers. You will steer agents that write code. PHANTOMS is a pattern, not one fixed stack. Each letter of the name is one job that most products need done. You will choose each piece by its job. You will leave out the pieces you do not need.
+
+You will write AGENTS.md. This file tells an agent how to work in your repository. You will write briefs that keep a build inside your rules. You will direct agents to build a small order tracker. Then you will read the result and check it. The starter is a learning tool, not a finished product. It has no real user login and no production backup. You learn what is missing.
+
+### Key words
+
+- **PHANTOMS:** A pattern of jobs and default tools that agents can build a product on. Each letter of the name is one job.
+- **AGENTS.md:** A file in a repository that tells an AI agent how to work there.
+- **AI agent:** An AI coding assistant that reads your project and builds tasks. It does the task in front of it. It does not own the plan.
+- **Brief:** A written task for an AI agent, with its goal, limits and checks.
+- **Repository (repo):** A folder of files with a full change history.
+- **Pipeline:** The automatic steps that test and deliver a change.
+
 PHANTOMS is not one fixed stack. It is a way to make the same decisions once, write them down, and then let AI agents build on top of them. Each letter names a job that almost every software product needs done: store the data, serve an API, call a model, show a web page, run the tasks, run agents, search by meaning, keep files. For each job there is a default tool today. In two years some defaults will be different. The pattern stays. The Dojo teaches the pattern, and uses today's defaults so you can touch real things.
 
 The free public starter at [github.com/Curiosity-Corp/phantoms](https://github.com/Curiosity-Corp/phantoms) is the learning core. It is a small repository you can clone, run and break. It also holds a file called `AGENTS.md` that tells an AI coding agent how to work inside it. That file is the heart of this track.

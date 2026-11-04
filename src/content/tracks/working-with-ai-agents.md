@@ -15,6 +15,21 @@ outcomes:
   - "Limit agent power, protect secrets, and disclose AI use honestly in every merge request"
 ---
 
+## In short
+
+This is the flagship track. It is for developers, product people and career changers. You want a method for directing AI agents. You do not need to know machine learning. You must be able to judge what the agent built. You will write a one-page spec with acceptance criteria. You will brief an agent and review what it returns. You will prove it meets the criteria.
+
+You will build a small eval to measure an AI workflow. The agent ladder has four rungs: use, delegate, orchestrate and govern. This track teaches use and delegate, and introduces the others. People write epics and roadmaps. AI never does. Each lesson ends with files you keep in git.
+
+### Key words
+
+- **AI agent:** An AI coding assistant that reads your project and builds tasks. It does the task in front of it. It does not own the plan.
+- **Agent ladder:** Four rungs of skill with AI agents: use, delegate, orchestrate and govern. Each rung needs different skills.
+- **Brief:** A written task for an AI agent, with its goal, limits and checks.
+- **Spec (specification):** A one-page description of what to build, with acceptance criteria a person can test.
+- **Acceptance criteria:** Checks that prove an issue or epic is done. A person must be able to test each one.
+- **Eval (evaluation):** A set of tests and scores that measure how well an AI workflow works.
+
 Developer Dojo trains the **2030 Product Development Manager**: a person who blends strategy, product, design, brand, finance, operations, security and engineering, and who treats AI agents as the workforce for lower-level work. Agents write the code, the tests, the draft documents and the research notes. The human decides what to build and why, writes the specification, owns the epics and the roadmap, directs the agents, verifies what they return, manages the risk and ships to real users.
 
 This track is where that job is taught. It is the flagship of the Library. The demand is high, and the tone is welcoming: every term is explained, and every lesson ends with something you can commit to git.
