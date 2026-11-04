@@ -1,0 +1,9 @@
+title: "Artificial Intelligence Playbook for the UK Government (HTML)"
+provider: "GOV.UK"
+url: "https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government/artificial-intelligence-playbook-for-the-uk-government-html"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents, ai-evaluation]
+summary: "A long public guide, published in February 2025 by the UK Government Digital Service, built around ten principles for using AI. Do not read all of it. Read the principles on knowing what AI cannot do and on keeping meaningful human control, and compare them with your own rules for AI-drafted writing."
+verifiedOn: 2026-11-03

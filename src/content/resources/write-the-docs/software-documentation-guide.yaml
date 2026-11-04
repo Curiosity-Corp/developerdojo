@@ -1,0 +1,9 @@
+title: "Software documentation guide"
+provider: "Write the Docs"
+url: "https://www.writethedocs.org/guide/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [communication-writing, open-source]
+summary: "A guide from a community of documentation writers on how to write software documentation. It covers what to include first, simple principles such as being skimmable and current, and keeping text in plain files next to the code. Use it when your write-up is a demo or a how-it-works page that sits in your repository."
+verifiedOn: 2026-11-03
