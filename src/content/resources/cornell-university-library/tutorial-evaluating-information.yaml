@@ -1,0 +1,9 @@
+title: "Tutorial: Evaluating Information"
+provider: "Cornell University Library"
+url: "https://guides.library.cornell.edu/evaluate"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [data-analytics, ai-evaluation]
+summary: "A library tutorial on judging what you find. It starts with general questions for any source, then covers scholarly literature types, primary and secondary articles, peer review, systematic reviews, grey literature and how to read science news. Use it to learn what kind of source an agent has handed you."
+verifiedOn: 2026-11-03

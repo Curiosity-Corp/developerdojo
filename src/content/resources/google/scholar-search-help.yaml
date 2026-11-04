@@ -1,0 +1,9 @@
+title: "Google Scholar Search Help"
+provider: "Google"
+url: "https://scholar.google.com/intl/en/scholar/help.html"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [data-analytics, ai-evaluation]
+summary: "The official help page for Google Scholar. It explains how to search for papers, find the full text through a library link, follow the Cited by link, set email alerts, save articles and export citations. It also states how complete the coverage is. Use it to find a paper that an agent named and check that it exists."
+verifiedOn: 2026-11-03
