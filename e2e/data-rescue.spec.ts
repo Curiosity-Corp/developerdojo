@@ -5,7 +5,7 @@ test('a learner can inspect and copy the practice dataset', async ({ page, reque
   await page.getByRole('link', { name: 'Start the data kata' }).click();
   await expect(page).toHaveURL(/\/katas\/data-rescue/);
   await expect(page.getByRole('heading', { name: 'Rescue messy data' })).toBeVisible();
-  await expect(page.getByText('complete sales total')).toBeVisible();
+  await expect(page.locator('.report').getByText('complete sales total')).toBeVisible();
   await expect(page.getByLabel('Your complete prompt')).toHaveValue(/S104,2026-04-02,Mint,,4\.00/);
   const csv = await request.get('/examples/seed-sales-messy.csv');
   expect(csv.status()).toBe(200);
