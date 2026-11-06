@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+---
+
+<BaseLayout
+  title="Katas: practice developing outcomes"
+  description="Discover the kata approach: shared agent stack foundations, specialized practice and independent verification."
+>
+  <PageHero
+    compact
+    eyebrow="Practice with purpose"
+    title="Learn through katas"
+    accent="."
+    subtitle="A kata is a repeatable development technique. Study an outcome, learn the stack that produced it, practice the technique and verify the result."
+    ctas={[
+      { label: 'Explore current training', href: '/library/tracks', icon: 'arrow-right' },
+      { label: 'See the journey', href: '#journey', variant: 'ghost', icon: 'play' },
+    ]}
+  />
+
+  <section class="section" aria-labelledby="foundation-title">
+    <div class="container content">
+      <div id="foundation-title">
+        <SectionHeader eyebrow="One foundation, many fields" title="Learn the stack. Apply it anywhere." />
+      </div>
+      <p>The orchestrator is the developer. Shared foundations include harnesses, models, instructions, context, memory, skills, integrations, delegation and verification. You choose and equip the system, then take responsibility for the outcome.</p>
+      <p>Specializations add the artifacts, tools, standards and review needed in each field. The same foundation can support software, UX, 3D and BIM, construction, science, manufacturing, education and more. The catalog is being developed; these fields are directions for future practice, not a claim that all are available today.</p>
+      <p>In safety-critical or regulated work, an agent-generated artifact needs independent validation and any required approval from qualified professionals. A Dojo belt does not grant a professional license.</p>
+    </div>
+  </section>
+
+  <section class="section journey" id="journey" aria-labelledby="journey-title">
+    <div class="container content">
+      <div id="journey-title">
+        <SectionHeader eyebrow="The practice" title="From outcome to independent mastery" intro="The kata experience is being built. This is the learning journey it is designed to support." />
+      </div>
+      <ol>
+        <li><strong>See an outcome and study the kata.</strong> Start with a real result, then work backward through its source, stack and evidence.</li>
+        <li><strong>Assemble the stack and equip the agents.</strong> Choose a harness, model, instructions, context, skills and permitted tools for the task.</li>
+        <li><strong>Execute and verify.</strong> Follow the recipe, check the outcome against clear criteria and investigate failures.</li>
+        <li><strong>Adapt.</strong> Change a constraint, tool or goal and learn which parts of the technique transfer.</li>
+        <li><strong>Demonstrate capability.</strong> Future domain belts will assess evidence of skill; Randori will challenge you to choose your own approach to an unfamiliar goal.</li>
+        <li><strong>Apply and teach.</strong> Missions put techniques to work; Senseis help others improve and refine the katas.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="first-title">
+    <div class="container content">
+      <div id="first-title">
+        <SectionHeader eyebrow="First foundation kata in development" title="Same goal, different stack" />
+      </div>
+      <p>The first planned kata will compare how a chosen outcome changes as a learner varies a harness, model, instruction or other stack component. It will use a real source exercise and recorded evidence, with controlled comparisons wherever practical. The exercise and its verified recipe are still being prepared.</p>
+      <p>While it is in development, explore the existing <a href="/library/tracks/working-with-ai-agents">Working with AI agents track</a> and <a href="/library/resources">free resource library</a>. The existing <a href="/train">Developer and Master Developer training</a> remains available.</p>
+      <p>Still discovering what interests you? <a href="https://ignitecuriosity.org/">Explore with Ignite Curiosity</a>, our sibling learning community. You can start at either site.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .content {
+    max-width: 60rem;
+  }
+  .content p {
+    max-width: 70ch;
+  }
+  .journey {
+    background: var(--paper-raised);
+  }
+  ol {
+    max-width: 70ch;
+    padding-left: 1.5rem;
+  }
+  li + li {
+    margin-top: var(--space-3);
+  }
+</style>

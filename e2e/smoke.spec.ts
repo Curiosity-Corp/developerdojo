@@ -3,6 +3,7 @@ import { expect, test } from '@playwright/test';
 // Every page a visitor can reach from the header or footer must return 200 and render one h1.
 const PAGES = [
   '/',
+  '/katas',
   '/train',
   '/sensei',
   '/library',
@@ -19,7 +20,7 @@ const PAGES = [
   '/library/laptop-k8s-training-guide',
 ];
 
-const NAV = ['Train', 'Sensei', 'Library', 'Certificates', 'Challenges', 'Events', 'Membership'];
+const NAV = ['Katas', 'Train', 'Sensei', 'Library', 'Certificates', 'Challenges', 'Events', 'Membership'];
 
 for (const path of PAGES) {
   test(`${path} returns 200 and renders an h1`, async ({ page }) => {
@@ -82,6 +83,15 @@ test('theme toggle switches and persists the theme', async ({ page, isMobile }) 
 
 test('no horizontal scroll on the home page', async ({ page }) => {
   await page.goto('/');
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
+});
+
+test('navigation fits and works at tablet width', async ({ page }) => {
+  await page.setViewportSize({ width: 992, height: 800 });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Open menu' }).click();
+  await expect(page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'Katas' })).toBeVisible();
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(0);
 });

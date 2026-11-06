@@ -21,7 +21,7 @@ const SAMPLE = new Set(
   LESSONS.filter((_, index) => index === 0 || index === LESSONS.length - 1 || index % 10 === 5),
 );
 const DEEP_SCAN = ROUTES.filter((route) => !LESSON_ROUTE.test(route) || SAMPLE.has(route));
-const NAV = ['/train', '/sensei', '/library', '/certificates', '/challenges', '/events', '/membership'];
+const NAV = ['/katas', '/train', '/sensei', '/library', '/certificates', '/challenges', '/events', '/membership'];
 const FOOTER = ['/about', '/sponsors', '/sponsors#become-a-sponsor', '/contact', '/code-of-conduct'];
 
 async function setTheme(page: Page, theme: 'light' | 'dark'): Promise<void> {
@@ -158,7 +158,7 @@ test.describe('navigation', () => {
     await expect(nav).toBeHidden();
     await page.getByRole('button', { name: 'Open menu' }).click();
     await expect(nav).toBeVisible();
-    for (const label of ['Train', 'Sensei', 'Library', 'Certificates', 'Challenges', 'Events', 'Membership']) {
+    for (const label of ['Katas', 'Train', 'Sensei', 'Library', 'Certificates', 'Challenges', 'Events', 'Membership']) {
       await expect(nav.getByRole('link', { name: label, exact: true })).toBeVisible();
     }
   });

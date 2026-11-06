@@ -16,9 +16,9 @@ async function hrefsResolve(page: Page, scope: string): Promise<void> {
 test.describe('home', () => {
   test('renders the hero, path, learn grid and empty states', async ({ page }) => {
     await page.goto('/');
-    await expect(page.locator('main h1')).toContainText('Developer: the new bar');
-    await expect(page.getByText('A 2030 Product Development Manager can...')).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Your path to leading the product.' })).toBeVisible();
+    await expect(page.locator('main h1')).toContainText('What will you develop');
+    await expect(page.getByText('A developer learns to...')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Grow as a developer.' })).toBeVisible();
     for (const rank of ['Developer', 'Master Developer', 'Sensei']) {
       await expect(page.locator('.rank-path').getByText(rank, { exact: true })).toBeVisible();
     }
@@ -41,6 +41,18 @@ test.describe('home', () => {
     await page.locator('main').getByRole('link', { name: 'Start free' }).first().click();
     await expect(page).toHaveURL(/\/membership/);
   });
+});
+
+test('katas explain the approach and keep training and progress accessible', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Explore katas' }).click();
+  await expect(page).toHaveURL(/\/katas/);
+  await expect(page.getByRole('heading', { name: 'Same goal, different stack' })).toBeVisible();
+  await expect(page.getByText('The exercise and its verified recipe are still being prepared.')).toBeVisible();
+  await hrefsResolve(page, 'main');
+  await page.getByRole('link', { name: 'Developer and Master Developer training' }).click();
+  await expect(page).toHaveURL(/\/train/);
+  await expect(page.getByRole('heading', { name: /Your progress/ })).toBeVisible();
 });
 
 test.describe('train', () => {

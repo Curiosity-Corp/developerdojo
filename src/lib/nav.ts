@@ -3,8 +3,9 @@ export interface NavItem {
   href: string;
 }
 
-/** Primary navigation, exact order from the brief. "Start free" is the header call to action. */
+/** Primary navigation. "Start free" is the header call to action. */
 export const NAV: readonly NavItem[] = [
+  { label: 'Katas', href: '/katas' },
   { label: 'Train', href: '/train' },
   { label: 'Sensei', href: '/sensei' },
   { label: 'Library', href: '/library' },

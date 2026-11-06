@@ -13,47 +13,47 @@ import Icon from '../components/Icon.astro';
 import Pagoda from '../components/Pagoda.astro';
 
 const learn = [
-  { icon: 'lightbulb', title: 'Strategy and product', description: 'Decide which problem is worth solving, for whom, and why.', tone: 'gold' },
-  { icon: 'users', title: 'Customers and design', description: 'Find real needs, shape the experience and the brand.', tone: 'olive' },
-  { icon: 'list-checks', title: 'Epics and roadmaps', description: 'Write them yourself. People decide; AI never does.', tone: 'gold' },
-  { icon: 'bot', title: 'Directing AI agents', description: 'Use, delegate, orchestrate and govern agents with clear briefs.', tone: 'olive' },
-  { icon: 'shield-check', title: 'Verify and manage risk', description: 'Read the diff, check the output, ask the security and cost questions.', tone: 'gold' },
-  { icon: 'rocket', title: 'Ship and operate', description: 'Launch to real users, measure, and improve.', tone: 'olive' },
+  { icon: 'lightbulb', title: 'Outcomes and evidence', description: 'Define the goal, constraints and proof of success.', tone: 'gold' },
+  { icon: 'users', title: 'Field expertise', description: 'Learn the tools, standards and reviews your field needs.', tone: 'olive' },
+  { icon: 'list-checks', title: 'Instructions and context', description: 'Give agents clear direction and the information they need.', tone: 'gold' },
+  { icon: 'bot', title: 'Agent stacks', description: 'Choose harnesses, models, skills and integrations for the work.', tone: 'olive' },
+  { icon: 'shield-check', title: 'Verify and manage risk', description: 'Check results, permissions, limitations and costs.', tone: 'gold' },
+  { icon: 'rocket', title: 'Practice and adapt', description: 'Repeat a technique, learn from the evidence and apply it to a new goal.', tone: 'olive' },
 ] as const;
 
 const bar = [
-  { icon: 'compass', title: 'You decide', description: 'What to build and why, who it is for, and what good enough means. No agent decides this for you.', tone: 'gold' },
-  { icon: 'bot', title: 'Agents do the lower-level work', description: 'Code, tests, drafts, data wrangling and routine tasks, from a brief you wrote.', tone: 'olive' },
-  { icon: 'badge-check', title: 'You verify and answer for it', description: 'You check what comes back and you own the result with real users.', tone: 'rust' },
+  { icon: 'compass', title: 'Choose an outcome', description: 'Define what you want to develop, for whom, and how you will judge it.', tone: 'gold' },
+  { icon: 'bot', title: 'Assemble your stack', description: 'Equip and orchestrate agents with the right context, tools and permissions.', tone: 'olive' },
+  { icon: 'badge-check', title: 'Verify and adapt', description: 'Examine the evidence, improve the result and take responsibility for it.', tone: 'rust' },
 ] as const;
 ---
 
 <BaseLayout
   rawTitle
   title="Developer Dojo: free training for the new kind of developer"
-  description="Developer Dojo is free training for the 2030 Product Development Manager: blend every discipline, direct AI agents to do the lower-level work, and ship real products."
+  description="Developer Dojo teaches the universal skills of developing outcomes with AI agents, from the shared stack to specialized fields."
 >
   <PageHero
-    title="Developer: the new bar"
-    accent="."
-    eyebrow="The 2030 Product Development Manager"
+    title="What will you develop"
+    accent="?"
+    eyebrow="Master the stack. Master the katas. Develop anything."
     highlight="Free training"
-    subtitle="for the top 0.1% of product people. You blend strategy, product, design, finance, operations and engineering, and you direct AI agents to do the lower-level work. You decide what to build and why, and you verify what comes back."
+    subtitle="for developers of outcomes across industries. Choose and equip your agent stack, orchestrate the work, and verify what you develop. The orchestrator is the developer."
     ctas={[
       { label: 'Start free', href: '/membership', icon: 'arrow-right' },
-      { label: 'See the role', href: '/library/the-2030-product-development-manager', variant: 'ghost', icon: 'play' },
+      { label: 'Explore katas', href: '/katas', variant: 'ghost', icon: 'play' },
     ]}
   >
     <NoteCard
       slot="side"
-      title="A 2030 Product Development Manager can..."
+      title="A developer learns to..."
       items={[
-        'Decide what to build and why',
-        'Write the spec and acceptance criteria',
-        'Own the epics and the roadmap',
-        'Direct and orchestrate AI agents',
-        'Verify what the agents produce',
-        'Ship to real users and learn',
+        'Define an outcome and its evidence',
+        'Choose a harness, models and tools',
+        'Equip and orchestrate agents',
+        'Verify results and manage risk',
+        'Adapt a technique to a new field',
+        'Learn and improve through practice',
       ]}
     />
   </PageHero>
@@ -62,11 +62,11 @@ const bar = [
     <div class="container">
       <SectionHeader
         eyebrow="Who we train"
-        title="The bar is high on purpose."
-        intro="Agents can now write the code. The scarce skill is deciding what is worth building and being sure it is right. That is the job we train for, and it is free."
+        title="Develop outcomes across fields."
+        intro="A developer can orchestrate software, designs, research, workflows and more. Shared foundations travel across fields; each field adds its own expertise and standards."
       />
       <div class="bar-grid"><FeatureGrid items={bar} columns={3} /></div>
-      <p class="bar-link"><a href="/library/the-2030-product-development-manager">Read what the role is <Icon name="arrow-right" size={16} /></a></p>
+      <p class="bar-link"><a href="/library/the-2030-product-development-manager">Explore the existing product development path <Icon name="arrow-right" size={16} /></a></p>
     </div>
   </section>
 
@@ -75,8 +75,8 @@ const bar = [
       <div id="path-title">
         <SectionHeader
           eyebrow="Training path"
-          title="Your path to leading the product."
-          intro="A clear, hands-on progression: own one product, then run a whole one with agents, then coach others to do the same."
+          title="Grow as a developer."
+          intro="Practice, adapt and teach. Our existing product training remains available as the Dojo grows into more fields."
         />
       </div>
       <RankPath linked />
@@ -119,7 +119,7 @@ const bar = [
         <SectionHeader
           eyebrow="The academy"
           title="What you'll learn."
-          intro="Enough depth in every discipline to direct agents and judge their work. We teach you to decide and verify, not to hand-type everything."
+          intro="Build shared development skills, then apply them with the expertise and review your chosen field requires."
         />
       </div>
       <div class="learn">

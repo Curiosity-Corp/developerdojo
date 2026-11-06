@@ -123,7 +123,7 @@ test('the header keeps its links and layout with search added', async ({ page, i
     expect(height).toBeLessThan(80);
   }
   const labels = await page.locator('header nav ul a').allInnerTexts();
-  expect(labels).toEqual(['Train', 'Sensei', 'Library', 'Certificates', 'Challenges', 'Events', 'Membership']);
+  expect(labels).toEqual(['Katas', 'Train', 'Sensei', 'Library', 'Certificates', 'Challenges', 'Events', 'Membership']);
 });
 
 for (const theme of ['light', 'dark'] as const) {
