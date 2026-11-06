@@ -55,4 +55,16 @@ for (const file of await resourceFiles(resourcesDir)) {
 const written = await index.writeFiles({ outputPath: join(dist, 'pagefind') });
 if (written.errors.length > 0) throw new Error(`Pagefind could not write the index: ${written.errors.join('; ')}`);
 await pagefind.close();
+// Pagefind has occasionally returned success while leaving an empty metadata file in CI.
+// Fail the build rather than publish a site whose search cannot initialise.
+const entryPath = join(dist, 'pagefind', 'pagefind-entry.json');
+let entry;
+try {
+  entry = JSON.parse(await readFile(entryPath, 'utf8'));
+} catch (error) {
+  throw new Error(`Pagefind wrote invalid search metadata at ${entryPath}`, { cause: error });
+}
+if (!entry.languages?.en?.hash || !(entry.languages.en.page_count > 0)) {
+  throw new Error(`Pagefind wrote incomplete English search metadata at ${entryPath}`);
+}
 console.log(`[search] indexed ${added.page_count} pages and ${resourceCount} resources into ${join(dist, 'pagefind')}`);
