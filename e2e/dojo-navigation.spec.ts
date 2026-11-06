@@ -13,7 +13,7 @@ test('the homepage introduces the Dojo spaces and leads with outcomes', async ({
     ['Explore belts', '/belts'],
     ['Explore Randori', '/randori'],
     ['Explore missions', '/missions'],
-  ]) {
+  ] as const) {
     await expect(page.getByRole('link', { name: label, exact: true })).toHaveAttribute('href', href);
   }
   await page.getByRole('link', { name: 'Explore outcomes', exact: true }).click();
