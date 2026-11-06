@@ -254,7 +254,9 @@ test.describe('accessibility (WCAG 2.1 AA, no serious or critical violations)', 
         test.skip(isMobile && !['/', '/train/', '/sensei/'].includes(route), 'covered by the desktop project');
         await page.goto(route);
         await setTheme(page, theme);
-        await page.waitForLoadState('networkidle');
+        // Match the route checks above: the static page is ready on load, while
+        // networkidle can hang on the large resources catalogue in CI (#66).
+        await page.waitForLoadState('load');
         const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
         const bad = results.violations
           .filter((v) => v.impact === 'serious' || v.impact === 'critical')
