@@ -110,10 +110,24 @@ test.describe('reflow: no sideways scroll on a narrow phone', () => {
         await page.setViewportSize({ width, height: 800 });
         await page.goto(route);
         await page.waitForLoadState('load');
-        const overflow = await page.evaluate(
-          () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
-        );
-        expect(overflow, `horizontal overflow in px at ${width} px`).toBeLessThanOrEqual(0);
+        const result = await page.evaluate(() => {
+          const viewport = document.documentElement.clientWidth;
+          const overflow = document.documentElement.scrollWidth - viewport;
+          const offenders = overflow > 0
+            ? Array.from(document.querySelectorAll('body *'))
+                .map((element) => ({
+                  tag: element.tagName.toLowerCase(),
+                  className: element.getAttribute('class'),
+                  right: Math.round(element.getBoundingClientRect().right),
+                  text: (element.textContent ?? '').trim().slice(0, 80),
+                }))
+                .filter((element) => element.right > viewport)
+                .sort((a, b) => b.right - a.right)
+                .slice(0, 10)
+            : [];
+          return { overflow, offenders };
+        });
+        expect(result.overflow, `horizontal overflow in px at ${width} px: ${JSON.stringify(result.offenders)}`).toBeLessThanOrEqual(0);
       });
     }
   }
