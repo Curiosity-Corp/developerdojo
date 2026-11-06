@@ -71,7 +71,7 @@ const bar = [
 
   <section class="section showcase" aria-labelledby="showcase-title">
     <div class="container">
-      <div id="showcase-title"><SectionHeader eyebrow="Start creating" title="Pick a result. Make it yours." intro="Two beginner katas you can start right now." /></div>
+      <div id="showcase-title"><SectionHeader eyebrow="Start creating" title="Pick a result. Make it yours." intro="Choose a beginner kata or a cloud workshop." /></div>
       <div class="showcase-grid">
         <article class="showcase-card prototype-card">
           <div class="showcase-copy">
@@ -97,8 +97,36 @@ const bar = [
             <span>YOUR IDEA</span><strong>→</strong><span>ONE CLEAR PLAN</span>
           </div>
         </article>
+        <article class="showcase-card brief-card">
+          <div class="showcase-copy">
+            <span class="showcase-tag">Beginner · about 10 minutes</span>
+            <h3>Rescue messy data</h3>
+            <p>Turn a small fictional spreadsheet into a report you can check.</p>
+            <a class="showcase-action" href="/katas/data-rescue">Start the data kata <Icon name="arrow-right" size={18} /></a>
+          </div>
+          <div class="brief-visual" aria-hidden="true"><span>MESSY DATA</span><strong>→</strong><span>CHECKED REPORT</span></div>
+        </article>
+        <article class="showcase-card brief-card">
+          <div class="showcase-copy">
+            <span class="showcase-tag">Official provider training</span>
+            <h3>Build in the cloud</h3>
+            <p>Choose Azure, AWS, Oracle or Google Cloud and learn with their own tutorials.</p>
+            <a class="showcase-action" href="/katas/cloud-workshops">Explore cloud workshops <Icon name="arrow-right" size={18} /></a>
+          </div>
+          <div class="brief-visual" aria-hidden="true"><span>LEARN</span><strong>→</strong><span>BUILD</span><strong>→</strong><span>CHECK</span></div>
+        </article>
+        <article class="showcase-card brief-card">
+          <div class="showcase-copy">
+            <span class="showcase-tag">Beginner · about 10 minutes</span>
+            <h3>Spot the AI mistakes</h3>
+            <p>Find three errors in a report and make it trustworthy.</p>
+            <a class="showcase-action" href="/katas/error-clinic">Start the error clinic <Icon name="arrow-right" size={18} /></a>
+          </div>
+          <div class="brief-visual" aria-hidden="true"><span>CHECK</span><strong>→</strong><span>REPAIR</span></div>
+        </article>
       </div>
       <p class="showcase-browse"><a href="/katas">Explore katas <Icon name="arrow-right" size={16} /></a></p>
+      <p>More ways to practice: <a href="/katas/decision-replay">Decision Replay</a> · <a href="/katas/constraint-roulette">Constraint Roulette</a> · <a href="/katas/budget-boss">Compare two stacks</a> · <a href="/katas/portfolio">Make a portfolio</a> · <a href="/katas/pocket-dojo">Practice offline</a></p>
       <QuickStack />
     </div>
   </section>

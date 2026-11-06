@@ -1,0 +1,10 @@
+/** A small, fictional dataset created for the data-rescue kata. */
+export const seedSalesCsv = `id,date,item,quantity,unit_price_usd
+S101,2026-04-01,Basil,2,3.00
+S102,2026-04-01,Mint,1,4.00
+S103,2026-04-02,Basil,3,3.00
+S102,2026-04-01,Mint,1,4.00
+S104,2026-04-02,Mint,,4.00
+S105,2026-04-03,Basil,2,unknown
+S106,2026-04-03,basil,1,3.00
+`;

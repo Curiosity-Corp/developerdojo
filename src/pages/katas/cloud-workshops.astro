@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+
+const workshops = [
+  {
+    id: 'azure', title: 'Azure', outcome: 'Connect a workflow to a function',
+    description: 'Learn the parts, then follow Microsoft’s guide to call Azure Functions from Logic Apps.',
+    training: 'https://learn.microsoft.com/en-us/training/azure/', lab: 'https://learn.microsoft.com/en-us/azure/logic-apps/call-azure-functions-from-workflows',
+    account: 'Microsoft Learn reading is free. Hands-on Azure resources require a subscription; Microsoft says its Learn sandboxes are no longer available. Check your plan and pricing before creating resources.',
+    pricing: 'https://learn.microsoft.com/en-us/training/support/faq?pivots=sandbox',
+    question: 'Which part runs custom code, and which coordinates the workflow?',
+    answer: 'Azure Functions runs the function code; the Logic Apps workflow coordinates steps and can call that function.',
+    exercise: 'Sketch the trigger, workflow, function and output. Explain what the workflow should do when the function fails.',
+  },
+  {
+    id: 'aws', title: 'AWS', outcome: 'Build an API backed by a function',
+    description: 'Use AWS training and its hands-on guide to connect API Gateway to Lambda.',
+    training: 'https://aws.amazon.com/training/', lab: 'https://docs.aws.amazon.com/apigateway/latest/developerguide/getting-started.html',
+    account: 'AWS offers free digital learning. The hands-on exercise needs an AWS account and can be possible within Free Tier limits; check eligibility and current charges for your account.',
+    pricing: 'https://aws.amazon.com/free/',
+    question: 'What happens when a request reaches the HTTP API?',
+    answer: 'API Gateway routes the request to the Lambda function, then returns its response.',
+    exercise: 'Draw the path from request to response. Describe one input your function should reject and how you would test it.',
+  },
+  {
+    id: 'oracle', title: 'Oracle Cloud', outcome: 'Create a Linux cloud server',
+    description: 'Start with Oracle’s training, then follow its tutorial for a Linux compute instance.',
+    training: 'https://www.oracle.com/education/', lab: 'https://docs.oracle.com/en/learn/first-oci-linux-instance/index.html',
+    account: 'An Oracle Cloud account is required. Always Free resources have limits, eligibility and region or capacity conditions; other selections can incur charges. Check the current terms before creating anything.',
+    pricing: 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier.htm',
+    question: 'What should you check before assuming a server is Always Free?',
+    answer: 'Check that the selected resources are Always Free eligible for your account and region, and remain within the current limits.',
+    exercise: 'List the instance, network and access controls your tutorial created. Explain how you will confirm their cost and remove what you no longer need.',
+  },
+  {
+    id: 'google', title: 'Google Cloud', outcome: 'Deploy an HTTP function',
+    description: 'Explore Google Cloud training, then follow the console quickstart for a Cloud Run function.',
+    training: 'https://cloud.google.com/learn/training', lab: 'https://docs.cloud.google.com/run/docs/quickstarts/functions/deploy-functions-console',
+    account: 'Training and labs have different access and pricing. The cloud quickstart requires a Google Cloud project and billing setup; check available credits and charges, including related resources.',
+    pricing: 'https://cloud.google.com/free/docs/free-cloud-features',
+    question: 'Why check the resources used by a function, not just the function itself?',
+    answer: 'Related resources can have their own charges and lifecycle; deleting or stopping one service might not remove everything.',
+    exercise: 'Describe what the function returns, test an expected input, and list the resources you need to review or clean up.',
+  },
+] as const;
+---
+<BaseLayout title="Cloud workshops" description="Learn with existing Azure, AWS, Oracle and Google Cloud training, then practice and check your understanding.">
+  <PageHero compact eyebrow="Learn from the source" title="Build in the cloud" subtitle="Choose a provider. Follow its official training. Come back for a Dojo challenge." />
+  <section class="section">
+    <div class="container">
+      <SectionHeader title="Choose your workshop" intro="These links lead to the providers’ own learning materials. You can explore the reading first and decide whether to use your own cloud account for hands-on work." />
+      <p class="notice">Free learning and free cloud usage are different. Offers, limits, account requirements and prices can change. Check them for your account, set appropriate alerts, and remove resources you no longer need. A budget alert alone does not stop spending.</p>
+      <div class="workshops">
+        {workshops.map((item) => (
+          <article id={item.id} class="workshop">
+            <p class="provider">{item.title}</p>
+            <h2>{item.outcome}</h2>
+            <p>{item.description}</p>
+            <p class="links"><a href={item.training}>Explore official training</a><a href={item.lab}>Open the official exercise</a></p>
+            <p><strong>Before you start:</strong> {item.account} <a href={item.pricing}>Check current terms</a>.</p>
+            <h3>Dojo follow-up</h3>
+            <p>{item.exercise}</p>
+            <details><summary>Quick check: {item.question}</summary><p>{item.answer}</p></details>
+          </article>
+        ))}
+      </div>
+      <p>Keep credentials and private customer data out of prompts and shared evidence. Record what you built, what you checked, any remaining costs, and what you cleaned up.</p>
+      <p><a href="/katas">Back to katas</a> · <a href="/library/tracks/cloud-platforms">Explore the existing cloud track</a></p>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .notice { max-width: 75ch; padding: var(--space-4); border-left: 4px solid var(--tone-gold); background: var(--paper-raised); }
+  .workshops { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: var(--space-4); margin: var(--space-5) 0; }
+  .workshop { min-width: 0; padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); overflow-wrap: break-word; }
+  .workshop h2 { font-size: var(--text-2xl); }
+  .workshop h3 { font-size: var(--text-xl); }
+  .provider { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .links { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  .links a { font-weight: 700; }
+  summary { cursor: pointer; font-weight: 700; }
+  details { padding: var(--space-3); border-radius: var(--radius); background: var(--paper-sunk); }
+</style>

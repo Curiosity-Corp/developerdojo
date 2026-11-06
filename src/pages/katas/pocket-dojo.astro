@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+---
+<BaseLayout title="Pocket Dojo" description="Save a small practice pack for offline use on this device.">
+  <PageHero compact eyebrow="Take practice with you" title="Pocket Dojo" subtitle="Save a small practice pack on this device. Work through three prompts even when you are offline." />
+  <section class="section"><div class="container content">
+    <h2>Save the pack</h2>
+    <p>While online, save the pack and then open it. It includes three short exercises, a note area and local progress. It does not include the whole site or a live AI assistant.</p>
+    <button type="button" id="save-pocket" hidden>Save offline pack</button>
+    <button type="button" id="remove-pocket" hidden>Remove offline pack</button>
+    <p id="pocket-status" role="status" aria-live="polite">The pack can also be opened online.</p>
+    <p><a href="/offline/pocket.html">Open Pocket Dojo</a></p>
+    <p>Progress and notes stay in this browser when storage is available. Clearing browser data can remove them. Export your notes from the pack if you want another copy. Removing the offline pack leaves its progress intact; clear progress inside the pack.</p>
+    <noscript><p>JavaScript is needed to save the pack for offline use. You can open it while online.</p></noscript>
+  </div></section>
+</BaseLayout>
+<script>
+  const save = document.getElementById('save-pocket');
+  const remove = document.getElementById('remove-pocket');
+  const status = document.getElementById('pocket-status');
+  if (save instanceof HTMLButtonElement && remove instanceof HTMLButtonElement && status && 'serviceWorker' in navigator && 'caches' in window && window.isSecureContext) {
+    save.hidden = false; remove.hidden = false;
+    save.addEventListener('click', async () => {
+      save.disabled = true; status.textContent = 'Saving the offline pack…';
+      try {
+        const registration = await navigator.serviceWorker.register('/offline/sw.js', { scope: '/offline/' });
+        const worker = registration.installing ?? registration.waiting ?? registration.active;
+        if (!worker) throw new Error('Worker unavailable');
+        if (worker.state !== 'activated') {
+          await new Promise<void>((resolve, reject) => {
+            const timer = window.setTimeout(() => reject(new Error('Timed out')), 30000);
+            const onState = () => {
+              if (worker.state === 'activated') { clearTimeout(timer); resolve(); }
+              if (worker.state === 'redundant') { clearTimeout(timer); reject(new Error('Worker stopped')); }
+            };
+            worker.addEventListener('statechange', onState);
+            onState();
+          });
+        }
+        const cache = await caches.open('dojo-pocket-v1');
+        if (!await cache.match('/offline/pocket.html')) throw new Error('Pack not cached');
+        status.textContent = 'Offline pack saved on this device. Open Pocket Dojo below.';
+      } catch { status.textContent = 'Could not save the pack. Check browser storage and connection, then try again.'; }
+      finally { save.disabled = false; }
+    });
+    remove.addEventListener('click', async () => {
+      try {
+        const registration = await navigator.serviceWorker.getRegistration('/offline/');
+        if (registration?.scope === new URL('/offline/', location.origin).href) await registration.unregister();
+        await caches.delete('dojo-pocket-v1');
+        status.textContent = 'Offline pack removed. Notes and progress remain in this browser.';
+      } catch { status.textContent = 'Could not remove the offline pack. Check browser settings and try again.'; }
+    });
+  } else if (status) {
+    status.textContent = 'This browser cannot save the offline pack here. You can open it while online.';
+  }
+</script>
+<style>
+  .content { max-width: 65rem; }
+  button { margin: var(--space-2) var(--space-2) var(--space-2) 0; padding: var(--space-3) var(--space-4); border: 0; border-radius: var(--radius); background: var(--band); color: var(--band-text); font: inherit; font-weight: 700; cursor: pointer; }
+  button[hidden] { display: none; }
+</style>

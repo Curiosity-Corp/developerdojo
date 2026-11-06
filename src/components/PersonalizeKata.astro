@@ -1,0 +1,62 @@
+<details class="personalize" id="personalize-kata">
+  <summary>Make this prompt about your idea</summary>
+  <p>These details stay in this page. The Dojo does not save or send them; you choose whether to copy and share the result.</p>
+  <label for="personal-goal">What do you want to make?</label>
+  <textarea id="personal-goal" rows="2" placeholder="For example: a reading club"></textarea>
+  <label for="personal-time">How much time do you have? <span>(optional)</span></label>
+  <input id="personal-time" type="text" placeholder="For example: 15 minutes" />
+  <label for="personal-tools">What tools can you use? <span>(optional)</span></label>
+  <input id="personal-tools" type="text" placeholder="For example: a phone and a chat app" />
+  <label for="personal-constraints">What else should it know? <span>(optional)</span></label>
+  <textarea id="personal-constraints" rows="2" placeholder="A limit, audience, or requirement"></textarea>
+  <button type="button" id="personal-create" hidden>Create my prompt</button>
+  <p id="personal-status" role="status" aria-live="polite"></p>
+  <div id="personal-result" hidden>
+    <label for="personal-prompt">Your editable prompt</label>
+    <textarea id="personal-prompt" rows="14"></textarea>
+    <button type="button" id="personal-copy">Copy my prompt</button>
+  </div>
+  <noscript><p>JavaScript is needed to assemble a personalized prompt here. You can still copy the original prompt and edit it in your assistant.</p></noscript>
+</details>
+<script>
+  const source = document.getElementById('kata-prompt');
+  const goal = document.getElementById('personal-goal');
+  const time = document.getElementById('personal-time');
+  const tools = document.getElementById('personal-tools');
+  const constraints = document.getElementById('personal-constraints');
+  const create = document.getElementById('personal-create');
+  const result = document.getElementById('personal-result');
+  const output = document.getElementById('personal-prompt');
+  const copy = document.getElementById('personal-copy');
+  const status = document.getElementById('personal-status');
+  if (source instanceof HTMLTextAreaElement && goal instanceof HTMLTextAreaElement && time instanceof HTMLInputElement && tools instanceof HTMLInputElement && constraints instanceof HTMLTextAreaElement && create instanceof HTMLButtonElement && result && output instanceof HTMLTextAreaElement && copy instanceof HTMLButtonElement && status) {
+    create.hidden = false;
+    create.addEventListener('click', () => {
+      if (!goal.value.trim()) { status.textContent = 'Add what you want to make first.'; goal.focus(); return; }
+      const context = [
+        `My goal: ${goal.value.trim()}`,
+        time.value.trim() && `Time available: ${time.value.trim()}`,
+        tools.value.trim() && `Tools available: ${tools.value.trim()}`,
+        constraints.value.trim() && `Other requirements: ${constraints.value.trim()}`,
+      ].filter(Boolean).join('\n');
+      output.value = `${source.value}\n\nAdapt the example above to my own goal below. Keep the requested structure and checks where they fit, and ask before assuming missing details.\n${context}`;
+      result.hidden = false;
+      status.textContent = 'Your prompt is ready to edit and copy.';
+    });
+    copy.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(output.value); status.textContent = 'Copied. Paste it into your assistant.'; }
+      catch { output.focus(); output.select(); status.textContent = 'Text selected. Use your device’s copy command.'; }
+    });
+  }
+</script>
+<style>
+  .personalize { margin-block: var(--space-5); padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-sunk); }
+  summary { cursor: pointer; font-weight: 800; }
+  p { max-width: 65ch; }
+  label { display: block; margin: var(--space-3) 0 var(--space-2); font-weight: 700; }
+  label span { font-weight: 400; }
+  input, textarea { box-sizing: border-box; display: block; width: 100%; min-width: 0; max-width: 70ch; padding: var(--space-3); color: var(--ink); background: var(--paper); border: 1px solid var(--line-strong); border-radius: var(--radius); font: inherit; }
+  textarea { resize: vertical; }
+  button { margin-top: var(--space-3); padding: var(--space-3) var(--space-4); border: 0; border-radius: var(--radius); background: var(--band); color: var(--band-text); font: inherit; font-weight: 700; cursor: pointer; }
+  button[hidden], [hidden] { display: none; }
+</style>
