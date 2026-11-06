@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { fields } from '../lib/fields';
+---
+<BaseLayout title="Development fields" description="Explore fields where shared development foundations can be applied, from UX and BIM to science and manufacturing.">
+  <PageHero compact eyebrow="Choose a field" title="Develop across industries" subtitle="The development stack is shared. Every field adds its own artifacts, specialist knowledge, standards and review." />
+  <section class="section">
+    <div class="container">
+      <SectionHeader title="One foundation, many fields" intro="These are areas to explore, not a claim that a kata or belt is available for each one. Where a related existing track is available, you can open it below." />
+      <ul class="fields">
+        {fields.map((field) => (
+          <li id={field.id}>
+            <h2>{field.name}</h2>
+            <p>{field.examples}</p>
+            {field.trackHref && <a href={field.trackHref}>Explore a related existing track</a>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <section class="section review">
+    <div class="container">
+      <SectionHeader title="Expert review matters" intro="In regulated or safety-critical work, a generated artifact needs independent validation and any approvals required from qualified professionals. Practice in the Dojo does not grant a license or authorize professional work." />
+      <p><a href="/stack-lab">Explore shared foundations</a> · <a href="/katas">Learn about katas</a></p>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: var(--space-4); padding: 0; margin: var(--space-5) 0 0; list-style: none; }
+  .fields li { border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); padding: var(--space-4); scroll-margin-top: calc(var(--header-h) + var(--space-4)); }
+  .fields h2 { font-size: var(--text-xl); margin: 0 0 var(--space-2); }
+  .fields p { margin: 0 0 var(--space-3); }
+  .fields a, .review a { font-weight: 700; }
+  .review { background: var(--paper-raised); }
+</style>

@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import StackWorksheet from '../components/StackWorksheet.astro';
+import { dojoSections } from '../lib/dojo-sections';
+
+export function getStaticPaths() {
+  return dojoSections.map((section) => ({ params: { dojoSection: section.slug }, props: { section } }));
+}
+const { section } = Astro.props;
+---
+<BaseLayout title={section.title} description={section.description}>
+  <PageHero compact eyebrow={section.eyebrow} title={section.title} subtitle={section.description} />
+  <section class="section">
+    <div class="container section-content">
+      <SectionHeader title={section.introTitle} intro={section.intro} />
+      <ol class="steps">
+        {section.steps.map((step) => (
+          <li>
+            <h2>{step.title}</h2>
+            <p>{step.description}</p>
+            {step.href && <a href={step.href}>{step.link}</a>}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+  {section.slug === 'stack-lab' && <StackWorksheet />}
+  <section class="section next">
+    <div class="container section-content">
+      <SectionHeader title={section.nextTitle} intro={section.next} />
+      <p><a href={section.nextHref}>{section.nextLabel} →</a></p>
+      <p><a href="/katas">Explore the kata journey</a></p>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .section-content { max-width: 72rem; }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: var(--space-4); list-style: none; margin: var(--space-5) 0 0; padding: 0; }
+  .steps li { background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-4); }
+  .steps h2 { font-size: var(--text-xl); margin: 0 0 var(--space-2); }
+  .steps p { margin: 0 0 var(--space-3); }
+  .steps a, .next a { font-weight: 700; }
+  .next { background: var(--paper-raised); }
+</style>

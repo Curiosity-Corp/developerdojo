@@ -21,7 +21,7 @@ const SAMPLE = new Set(
   LESSONS.filter((_, index) => index === 0 || index === LESSONS.length - 1 || index % 10 === 5),
 );
 const DEEP_SCAN = ROUTES.filter((route) => !LESSON_ROUTE.test(route) || SAMPLE.has(route));
-const NAV = ['/train', '/sensei', '/library', '/certificates', '/challenges', '/events', '/membership'];
+const NAV = ['/katas', '/train', '/sensei', '/library', '/certificates', '/challenges', '/events', '/membership'];
 const FOOTER = ['/about', '/sponsors', '/sponsors#become-a-sponsor', '/contact', '/code-of-conduct'];
 
 async function setTheme(page: Page, theme: 'light' | 'dark'): Promise<void> {
@@ -110,10 +110,24 @@ test.describe('reflow: no sideways scroll on a narrow phone', () => {
         await page.setViewportSize({ width, height: 800 });
         await page.goto(route);
         await page.waitForLoadState('load');
-        const overflow = await page.evaluate(
-          () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
-        );
-        expect(overflow, `horizontal overflow in px at ${width} px`).toBeLessThanOrEqual(0);
+        const result = await page.evaluate(() => {
+          const viewport = document.documentElement.clientWidth;
+          const overflow = document.documentElement.scrollWidth - viewport;
+          const offenders = overflow > 0
+            ? Array.from(document.querySelectorAll('body *'))
+                .map((element) => ({
+                  tag: element.tagName.toLowerCase(),
+                  className: element.getAttribute('class'),
+                  right: Math.round(element.getBoundingClientRect().right),
+                  text: (element.textContent ?? '').trim().slice(0, 80),
+                }))
+                .filter((element) => element.right > viewport)
+                .sort((a, b) => b.right - a.right)
+                .slice(0, 10)
+            : [];
+          return { overflow, offenders };
+        });
+        expect(result.overflow, `horizontal overflow in px at ${width} px: ${JSON.stringify(result.offenders)}`).toBeLessThanOrEqual(0);
       });
     }
   }
@@ -158,7 +172,7 @@ test.describe('navigation', () => {
     await expect(nav).toBeHidden();
     await page.getByRole('button', { name: 'Open menu' }).click();
     await expect(nav).toBeVisible();
-    for (const label of ['Train', 'Sensei', 'Library', 'Certificates', 'Challenges', 'Events', 'Membership']) {
+    for (const label of ['Katas', 'Train', 'Sensei', 'Library', 'Certificates', 'Challenges', 'Events', 'Membership']) {
       await expect(nav.getByRole('link', { name: label, exact: true })).toBeVisible();
     }
   });

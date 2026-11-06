@@ -66,6 +66,8 @@ test.describe('Certificates', () => {
       await expect(page.locator('#ranks').getByRole('heading', { name, exact: true })).toBeVisible();
     }
     await expect(page.getByRole('heading', { name: 'How assessment works' })).toBeVisible();
+    await expect(page.getByText('The belt system is still being developed', { exact: false })).toBeVisible();
+    await expect(page.getByText('Neither a Dojo certificate nor a future belt is a professional license', { exact: false })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Integrity and AI policy' })).toBeVisible();
     await expect(page.getByText('renewed every year')).toBeVisible();
     await expect(page.locator('#ranks').getByRole('link', { name: 'Product Package standard' })).toHaveAttribute(

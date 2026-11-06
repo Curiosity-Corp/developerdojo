@@ -8,52 +8,72 @@ import DarkPanel from '../components/DarkPanel.astro';
 import EventList from '../components/EventList.astro';
 import ChallengeList from '../components/ChallengeList.astro';
 import FeatureGrid from '../components/FeatureGrid.astro';
-import Button from '../components/Button.astro';
 import Icon from '../components/Icon.astro';
 import Pagoda from '../components/Pagoda.astro';
 
+const spaces = [
+  { number: '01', title: 'Gallery', description: 'Find the outcomes that give a kata its purpose.', href: '/gallery', action: 'Visit the Gallery' },
+  { number: '02', title: 'Katas', description: 'Study a repeatable technique, from outcome to evidence.', href: '/katas', action: 'Study the approach' },
+  { number: '03', title: 'Stack Lab', description: 'Learn the common layers behind an agent development system.', href: '/stack-lab', action: 'Explore the stack' },
+  { number: '04', title: 'Fields', description: 'See how shared foundations meet the needs of different fields.', href: '/fields', action: 'Explore fields' },
+  { number: '05', title: 'Armory', description: 'Understand the tools and skills agents can be equipped with.', href: '/armory', action: 'Visit the Armory' },
+  { number: '06', title: 'Arena', description: 'Learn how to compare models, harnesses and complete stacks.', href: '/arena', action: 'Visit the Arena' },
+  { number: '07', title: 'Belts', description: 'See how a field-specific capability can be demonstrated.', href: '/belts', action: 'Explore belts' },
+  { number: '08', title: 'Randori', description: 'Meet an unfamiliar challenge and decide how to solve it.', href: '/randori', action: 'Explore Randori' },
+  { number: '09', title: 'Missions', description: 'Take what you practice into real work with appropriate review.', href: '/missions', action: 'Explore missions' },
+] as const;
+
+const fields = [
+  { title: 'Digital products & UX', description: 'Journeys, prototypes, software and accessible experiences.' },
+  { title: '3D, BIM & construction', description: 'Editable models, coordination and the built environment.' },
+  { title: 'Robotics & manufacturing', description: 'Physical systems, simulation, design and production.' },
+  { title: 'Science & health', description: 'Research, models and evidence with qualified review.' },
+  { title: 'Energy & agriculture', description: 'Develop work for the natural and built world.' },
+  { title: 'Media & business', description: 'Creative work, communication and useful workflows.' },
+] as const;
+
 const learn = [
-  { icon: 'lightbulb', title: 'Strategy and product', description: 'Decide which problem is worth solving, for whom, and why.', tone: 'gold' },
-  { icon: 'users', title: 'Customers and design', description: 'Find real needs, shape the experience and the brand.', tone: 'olive' },
-  { icon: 'list-checks', title: 'Epics and roadmaps', description: 'Write them yourself. People decide; AI never does.', tone: 'gold' },
-  { icon: 'bot', title: 'Directing AI agents', description: 'Use, delegate, orchestrate and govern agents with clear briefs.', tone: 'olive' },
-  { icon: 'shield-check', title: 'Verify and manage risk', description: 'Read the diff, check the output, ask the security and cost questions.', tone: 'gold' },
-  { icon: 'rocket', title: 'Ship and operate', description: 'Launch to real users, measure, and improve.', tone: 'olive' },
+  { icon: 'lightbulb', title: 'Outcomes and evidence', description: 'Define the goal, constraints and proof of success.', tone: 'gold' },
+  { icon: 'users', title: 'Field expertise', description: 'Learn the tools, standards and reviews your field needs.', tone: 'olive' },
+  { icon: 'list-checks', title: 'Instructions and context', description: 'Give agents clear direction and the information they need.', tone: 'gold' },
+  { icon: 'bot', title: 'Agent stacks', description: 'Choose harnesses, models, skills and integrations for the work.', tone: 'olive' },
+  { icon: 'shield-check', title: 'Verify and manage risk', description: 'Check results, permissions, limitations and costs.', tone: 'gold' },
+  { icon: 'rocket', title: 'Practice and adapt', description: 'Repeat a technique, learn from the evidence and apply it to a new goal.', tone: 'olive' },
 ] as const;
 
 const bar = [
-  { icon: 'compass', title: 'You decide', description: 'What to build and why, who it is for, and what good enough means. No agent decides this for you.', tone: 'gold' },
-  { icon: 'bot', title: 'Agents do the lower-level work', description: 'Code, tests, drafts, data wrangling and routine tasks, from a brief you wrote.', tone: 'olive' },
-  { icon: 'badge-check', title: 'You verify and answer for it', description: 'You check what comes back and you own the result with real users.', tone: 'rust' },
+  { icon: 'compass', title: 'Choose an outcome', description: 'Define what you want to develop, for whom, and how you will judge it.', tone: 'gold' },
+  { icon: 'bot', title: 'Assemble your stack', description: 'Equip and orchestrate agents with the right context, tools and permissions.', tone: 'olive' },
+  { icon: 'badge-check', title: 'Verify and adapt', description: 'Examine the evidence, improve the result and take responsibility for it.', tone: 'rust' },
 ] as const;
 ---
 
 <BaseLayout
   rawTitle
   title="Developer Dojo: free training for the new kind of developer"
-  description="Developer Dojo is free training for the 2030 Product Development Manager: blend every discipline, direct AI agents to do the lower-level work, and ship real products."
+  description="Developer Dojo teaches the universal skills of developing outcomes with AI agents, from the shared stack to specialized fields."
 >
   <PageHero
-    title="Developer: the new bar"
-    accent="."
-    eyebrow="The 2030 Product Development Manager"
+    title="What will you develop"
+    accent="?"
+    eyebrow="Master the stack. Master the katas. Develop anything."
     highlight="Free training"
-    subtitle="for the top 0.1% of product people. You blend strategy, product, design, finance, operations and engineering, and you direct AI agents to do the lower-level work. You decide what to build and why, and you verify what comes back."
+    subtitle="for developers of outcomes across industries. Choose and equip your agent stack, orchestrate the work, and verify what you develop. The orchestrator is the developer."
     ctas={[
-      { label: 'Start free', href: '/membership', icon: 'arrow-right' },
-      { label: 'See the role', href: '/library/the-2030-product-development-manager', variant: 'ghost', icon: 'play' },
+      { label: 'Explore outcomes', href: '/gallery', icon: 'arrow-right' },
+      { label: 'Explore katas', href: '/katas', variant: 'ghost', icon: 'play' },
     ]}
   >
     <NoteCard
       slot="side"
-      title="A 2030 Product Development Manager can..."
+      title="A developer learns to..."
       items={[
-        'Decide what to build and why',
-        'Write the spec and acceptance criteria',
-        'Own the epics and the roadmap',
-        'Direct and orchestrate AI agents',
-        'Verify what the agents produce',
-        'Ship to real users and learn',
+        'Define an outcome and its evidence',
+        'Choose a harness, models and tools',
+        'Equip and orchestrate agents',
+        'Verify results and manage risk',
+        'Adapt a technique to a new field',
+        'Learn and improve through practice',
       ]}
     />
   </PageHero>
@@ -62,11 +82,52 @@ const bar = [
     <div class="container">
       <SectionHeader
         eyebrow="Who we train"
-        title="The bar is high on purpose."
-        intro="Agents can now write the code. The scarce skill is deciding what is worth building and being sure it is right. That is the job we train for, and it is free."
+        title="Develop outcomes across fields."
+        intro="A developer can orchestrate software, designs, research, workflows and more. Shared foundations travel across fields; each field adds its own expertise and standards."
       />
       <div class="bar-grid"><FeatureGrid items={bar} columns={3} /></div>
-      <p class="bar-link"><a href="/library/the-2030-product-development-manager">Read what the role is <Icon name="arrow-right" size={16} /></a></p>
+      <p class="bar-link"><a href="/membership">Start free <Icon name="arrow-right" size={16} /></a> <span aria-hidden="true"> · </span> <a href="/library/the-2030-product-development-manager">Explore the existing product development path <Icon name="arrow-right" size={16} /></a></p>
+    </div>
+  </section>
+
+  <section class="section explore" aria-labelledby="explore-title">
+    <div class="container">
+      <div id="explore-title">
+        <SectionHeader
+          eyebrow="Explore the Dojo"
+          title="From an outcome to the skills to develop it."
+          intro="Discover the spaces that make up the Dojo. Some are starting points while their complete collections and assessments are being developed."
+        />
+      </div>
+      <div class="space-grid">
+        {spaces.map((space) => (
+          <article class="space-card">
+            <span class="space-number" aria-hidden="true">{space.number}</span>
+            <h3>{space.title}</h3>
+            <p>{space.description}</p>
+            <a href={space.href}>{space.action} <Icon name="arrow-right" size={16} /></a>
+          </article>
+        ))}
+      </div>
+      <p class="sensei-link">Ready to share what you learn? <a href="/sensei">Meet the Sensei community <Icon name="arrow-right" size={16} /></a></p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="field-title">
+    <div class="container">
+      <div id="field-title">
+        <SectionHeader
+          eyebrow="One foundation, many fields"
+          title="Development crosses industries."
+          intro="Your foundation in harnesses, models, instructions, tools and verification can travel with you. Each field adds its own skills, standards and forms of review."
+        />
+      </div>
+      <ul class="field-grid">
+        {fields.map((field) => (
+          <li><strong>{field.title}</strong><span>{field.description}</span></li>
+        ))}
+      </ul>
+      <p class="field-note">These are examples of where the Dojo can grow; a full set of katas is not yet available for every field. <a href="/fields">Explore the fields <Icon name="arrow-right" size={16} /></a></p>
     </div>
   </section>
 
@@ -75,41 +136,12 @@ const bar = [
       <div id="path-title">
         <SectionHeader
           eyebrow="Training path"
-          title="Your path to leading the product."
-          intro="A clear, hands-on progression: own one product, then run a whole one with agents, then coach others to do the same."
+          title="Grow as a developer."
+          intro="Practice, adapt and teach. Our existing product training remains available as the Dojo grows into more fields."
         />
       </div>
       <RankPath linked />
       <Pagoda />
-    </div>
-  </section>
-
-  <section class="section tight">
-    <div class="container two-up">
-      <DarkPanel
-        split={false}
-        art="bamboo"
-        icon="monitor-play"
-        title="Watch builders live."
-        text="Members can watch developers build real products in real time, ask questions, and learn from their process, decisions, and tools (including AI agents)."
-      >
-        <h3 class="panel-sub">Upcoming live build sessions</h3>
-        <EventList limit={3} />
-      </DarkPanel>
-      <div class="earn">
-        <SectionHeader
-          eyebrow="Contribute and be recognised"
-          title="Share, mentor, and grow the community."
-          intro="Senseis and advanced members earn points for the time they spend screen-sharing, mentoring, and collaborating with juniors. Reward tiers are being finalised."
-        />
-        <ul class="earn-list">
-          <li><Icon name="clock" size={20} /> Hours shared</li>
-          <li><Icon name="star" size={20} /> Mentoring points</li>
-          <li><Icon name="award" size={20} /> Certification bonus</li>
-          <li><Icon name="coins" size={20} /> Reward tiers (coming)</li>
-        </ul>
-        <Button href="/sensei" variant="outline" icon="arrow-right">How Sensei works</Button>
-      </div>
     </div>
   </section>
 
@@ -119,7 +151,7 @@ const bar = [
         <SectionHeader
           eyebrow="The academy"
           title="What you'll learn."
-          intro="Enough depth in every discipline to direct agents and judge their work. We teach you to decide and verify, not to hand-type everything."
+          intro="Build shared development skills, then apply them with the expertise and review your chosen field requires."
         />
       </div>
       <div class="learn">
@@ -182,47 +214,65 @@ const bar = [
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     }
   }
-  .panel-sub {
-    margin: 0 0 var(--space-3);
-    font-family: var(--font-sans);
-    font-size: var(--text-base);
-    color: var(--band-text);
+  .explore {
+    background: var(--paper-sunk);
   }
-  .earn {
+  .space-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
-    align-content: center;
+    margin-top: var(--space-6);
   }
-  .earn-list {
+  .space-card {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-3);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  .earn-list li {
-    display: flex;
+    align-content: start;
     gap: var(--space-2);
-    align-items: center;
-    padding: var(--space-3);
-    background: var(--paper-raised);
+    padding: var(--space-5);
     border: 1px solid var(--line);
+    border-top: 4px solid var(--tone-olive);
     border-radius: var(--radius);
-    font-weight: 600;
+    background: var(--paper-raised);
+    box-shadow: var(--shadow);
   }
-  .earn-list :global(svg) {
-    color: var(--gold-text);
+  .space-card:nth-child(3n + 2) { border-top-color: var(--tone-gold); }
+  .space-card:nth-child(3n) { border-top-color: var(--tone-rust); }
+  .space-number {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
   }
-  @media (max-width: 30rem) {
-    /* A phone at 200 percent zoom: one tile per row, so a word is never squeezed into half a column. */
-    .earn-list {
-      grid-template-columns: minmax(0, 1fr);
-    }
+  .space-card h3 { margin: 0; font-size: var(--text-xl); }
+  .space-card p { margin: 0 0 var(--space-2); color: var(--ink-muted); }
+  .space-card a, .sensei-link a, .field-note a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 700;
   }
-  .earn :global(.btn) {
-    justify-self: start;
+  .sensei-link { margin: var(--space-5) 0 0; }
+  .field-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    list-style: none;
+    padding: 0;
+    margin: var(--space-6) 0 var(--space-4);
+  }
+  .field-grid li {
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    border-left: 3px solid var(--tone-gold);
+    background: var(--paper-raised);
+  }
+  .field-grid span { color: var(--ink-muted); }
+  .field-note { max-width: 70ch; }
+  @media (min-width: 40rem) {
+    .space-grid, .field-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 62rem) {
+    .space-grid, .field-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
   .learn {
     margin-top: var(--space-5);

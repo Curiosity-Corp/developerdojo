@@ -10,39 +10,39 @@ import { GITHUB_SIGNUP, GITLAB_SIGNUP } from '../lib/community';
 
 const gets = [
   { icon: 'book-open', title: 'The whole Library', description: 'The Way, the six-week Developer path, standards and copy-ready templates. All free to read and reuse.', href: '/library', tone: 'olive' as const },
-  { icon: 'route', title: 'The Developer path', description: 'Six weeks to own one product end to end, deciding, directing agents and verifying, from first customer talk to a final Product Package.', href: '/train', tone: 'olive' as const },
-  { icon: 'trophy', title: 'Build Sprints', description: 'Real briefs to build with AI agents, judged on your Product Package.', href: '/challenges', tone: 'gold' as const },
+  { icon: 'route', title: 'Training paths', description: 'Explore the existing product development paths and learn how the Dojo is building shared foundations for more fields.', href: '/train', tone: 'olive' as const },
+  { icon: 'trophy', title: 'Practice challenges', description: 'Explore the existing challenges and practice developing with AI agents.', href: '/challenges', tone: 'gold' as const },
   { icon: 'calendar-days', title: 'Live sessions', description: 'Live Builds, Demo Days, Workshops and Office Hours, listed here as soon as they are scheduled.', href: '/events', tone: 'gold' as const },
   { icon: 'award', title: 'A path to certificates', description: 'Finish the work and ask for a review. Certificates are listed in a public registry only when they are really issued.', href: '/certificates', tone: 'rust' as const },
   { icon: 'users', title: 'A community', description: 'A place to meet other members. The community space is opening soon.', tone: 'rust' as const },
 ];
 
 const steps = [
-  { title: 'Make a free GitLab.com or GitHub account', body: `Use the one you already have, or create one: <a href="${GITLAB_SIGNUP}" rel="noopener noreferrer">GitLab.com sign-up</a> or <a href="${GITHUB_SIGNUP}" rel="noopener noreferrer">GitHub sign-up</a>. Both are free. Git is the source of truth in the dojo, so this account is where your work will live.` },
-  { title: 'Copy the learner templates', body: 'Create a new repository of your own and copy in the starter files: the <a href="/library/templates-overview">templates</a> for your product brief, personas, journeys, epics and weekly notes. A one-click learner template repository is planned; until then, copying the files is all you need.' },
-  { title: 'Open your first issue', body: 'In your own repository, open an issue that says what product you want to own and who it is for. Use the <a href="/library/issues-milestones-labels">issues and labels guide</a>. One honest sentence is enough. That issue is your first piece of work.' },
+  { title: 'Explore the kata approach', body: 'Start with the <a href="/katas">kata journey</a> and see how shared foundations connect to specialized practice. No account is needed to read.' },
+  { title: 'Choose a starting point', body: 'Explore the <a href="/library/tracks/working-with-ai-agents">AI agents track</a>, the <a href="/library/resources">resource library</a> or the existing <a href="/train">product paths</a>.' },
+  { title: 'Keep your work', body: `For the existing product path, you can copy the <a href="/library/templates-overview">learner templates</a> into your own repository. If you need an account, <a href="${GITLAB_SIGNUP}" rel="noopener noreferrer">GitLab.com</a> and <a href="${GITHUB_SIGNUP}" rel="noopener noreferrer">GitHub</a> offer free accounts. Open a first issue to describe your work using the <a href="/library/issues-milestones-labels">guide</a>.` },
   { title: 'Join the community', body: 'The community space is opening soon. We will link it here the day it is real. Until then, follow the project on <a href="https://github.com/Curiosity-Corp/developerdojo" rel="noopener noreferrer">GitHub</a> and check the <a href="/events">Events</a> page.' },
 ];
 
 const faq = [
   { question: 'Is membership really free?', answer: 'Yes. There is no fee, no trial, no card to enter and no paid tier. Developer Dojo is run by Curiosity Research Corporation and sponsored by <a href="/sponsors">Reveltek</a>, so training stays free for anyone.' },
   { question: 'Do I need to give you my name or email?', answer: 'No. This website has no sign-up form and collects no personal data. Your account is with GitLab or GitHub, not with us. If you contact us or submit a challenge, you choose what to share.' },
-  { question: 'Do I need to know how to code?', answer: 'No. A developer today owns a whole product and steers AI agents that do much of the typing. You start with customers, plans and clear writing. Curiosity matters more than experience.' },
+  { question: 'Do I need to know how to code?', answer: 'No. A developer can orchestrate an agent stack to develop outcomes in many fields. Start with curiosity and a clear goal; build the knowledge and verification skills your field needs.' },
   { question: 'My English is not perfect. Is that a problem?', answer: 'No. We write in plain words on purpose, and we ask you to write in your own plain words too. Clear thinking matters more than perfect grammar.' },
-  { question: 'Is there a certificate?', answer: 'Certificates exist for the Developer, Master Developer and Sensei ranks. A certificate is added to the <a href="/certificates">public registry</a> only when one has really been issued. We do not claim accreditation.' },
-  { question: 'Can I use AI tools?', answer: 'Yes, and you are expected to learn them. The rules are simple: people write the epics and the roadmap, and you tell people when and how you used AI. See <a href="/library/the-way-five-rules">The Way</a>.' },
+  { question: 'Is there a certificate?', answer: 'The current product program describes certificates for Developer, Master Developer and Sensei. A certificate appears in the <a href="/certificates">public registry</a> only when it has been issued. Domain belts are being developed; neither is a professional license.' },
+  { question: 'Can I use AI tools?', answer: 'Yes. You learn to choose and equip agents and verify their work. The existing product curriculum asks people to write epics and roadmaps and disclose AI use; see <a href="/library/the-way-five-rules">The Way</a>. Program policy is being reviewed as the Dojo expands.' },
   { question: 'Where is the community?', answer: 'The community space is opening soon. We will not point you to a place that is not ready. This page will link it when it opens.' },
   { question: 'How should members behave?', answer: 'Be kind, be specific, and be patient with learners. Read the <a href="/code-of-conduct">code of conduct</a>.' },
 ];
 ---
 
-<BaseLayout title="Membership" description="Developer Dojo membership is free. See what members get and how to join in four steps: a free GitLab.com or GitHub account, the learner templates, your first issue, and the community.">
+<BaseLayout title="Membership" description="Developer Dojo is free to explore. Learn where to begin, find existing training, and choose how to keep your work.">
   <PageHero
     compact
     title="Membership is free"
     accent="."
     highlight="Join the dojo."
-    subtitle="No fee. No card. No form that collects your details. Start training to be a 2030 Product Development Manager with a free account you control."
+    subtitle="No fee. No card. No account needed to read. Start learning to orchestrate agents and develop outcomes in the field that interests you."
     ctas={[{ label: 'Join in four steps', href: '#how-to-join', icon: 'arrow-right' }, { label: 'See what you get', href: '#what-you-get', variant: 'ghost' }]}
   />
 
@@ -55,7 +55,7 @@ const faq = [
 
   <section class="section alt" id="how-to-join">
     <div class="container narrow">
-      <SectionHeader eyebrow="How to join" title="Four steps. About ten minutes." intro="You do not sign up with us. You set up your own place to work, and you are in." />
+      <SectionHeader eyebrow="How to join" title="Four ways to get started." intro="Explore at your own pace. The current product path offers templates and a place to keep your work." />
       <Steps items={steps} />
       <div class="cta-row">
         <Button href="/library/templates-overview" icon="arrow-right">Open the templates</Button>

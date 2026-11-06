@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Icon from '../components/Icon.astro';
+
+const pathways = [
+  { title: 'See an outcome', text: 'Start with real examples as the Gallery grows.', href: '/gallery', link: 'Explore the Gallery' },
+  { title: 'Learn the stack', text: 'Study the foundation shared by every field.', href: '/stack-lab', link: 'Enter the Stack Lab' },
+  { title: 'Choose a field', text: 'See what changes when a technique enters a new domain.', href: '/fields', link: 'Explore fields' },
+  { title: 'Equip your agents', text: 'Learn how harnesses, skills and integrations fit together.', href: '/armory', link: 'Visit the Armory' },
+  { title: 'Compare with evidence', text: 'Understand how to evaluate a complete stack.', href: '/arena', link: 'Visit the Arena' },
+  { title: 'Demonstrate capability', text: 'Discover the vision for domain-specific belts.', href: '/belts', link: 'Explore belts' },
+  { title: 'Try an unfamiliar challenge', text: 'Choose your own approach through Randori.', href: '/randori', link: 'Explore Randori' },
+  { title: 'Apply and share', text: 'Take practice into real work and learn from the outcome.', href: '/missions', link: 'Explore missions' },
+] as const;
+---
+
+<BaseLayout
+  title="Katas: practice developing outcomes"
+  description="Discover the kata approach: shared agent stack foundations, specialized practice and independent verification."
+>
+  <PageHero
+    compact
+    eyebrow="Practice with purpose"
+    title="Learn through katas"
+    accent="."
+    subtitle="A kata is a repeatable development technique. Study an outcome, learn the stack that produced it, practice the technique and verify the result."
+    ctas={[
+      { label: 'Explore current training', href: '/library/tracks', icon: 'arrow-right' },
+      { label: 'See the journey', href: '#journey', variant: 'ghost', icon: 'play' },
+    ]}
+  />
+
+  <section class="section" aria-labelledby="foundation-title">
+    <div class="container content">
+      <div id="foundation-title">
+        <SectionHeader eyebrow="One foundation, many fields" title="Learn the stack. Apply it anywhere." />
+      </div>
+      <p>The orchestrator is the developer. Shared foundations include harnesses, models, instructions, context, memory, skills, integrations, delegation and verification. You choose and equip the system, then take responsibility for the outcome.</p>
+      <p>Specializations add the artifacts, tools, standards and review needed in each field. The same foundation can support software, UX, 3D and BIM, construction, science, manufacturing, education and more. The catalog is being developed; these fields are directions for future practice, not a claim that all are available today.</p>
+      <p>In safety-critical or regulated work, an agent-generated artifact needs independent validation and any required approval from qualified professionals. A Dojo belt does not grant a professional license.</p>
+    </div>
+  </section>
+
+  <section class="section pathway-section" aria-labelledby="pathway-title">
+    <div class="container">
+      <div id="pathway-title">
+        <SectionHeader eyebrow="Your route through the Dojo" title="Choose where to begin" intro="Explore the spaces that support practice. Collections, demonstrations and assessments will grow as their evidence is verified." />
+      </div>
+      <div class="pathway-grid">
+        {pathways.map((pathway) => (
+          <article class="pathway-card">
+            <h3>{pathway.title}</h3>
+            <p>{pathway.text}</p>
+            <a href={pathway.href}>{pathway.link} <Icon name="arrow-right" size={16} /></a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section journey" id="journey" aria-labelledby="journey-title">
+    <div class="container content">
+      <div id="journey-title">
+        <SectionHeader eyebrow="The practice" title="From outcome to independent mastery" intro="The kata experience is being built. This is the learning journey it is designed to support." />
+      </div>
+      <ol>
+        <li><strong>See an outcome and study the kata.</strong> Start with a real result, then work backward through its source, stack and evidence.</li>
+        <li><strong>Assemble the stack and equip the agents.</strong> Choose a harness, model, instructions, context, skills and permitted tools for the task.</li>
+        <li><strong>Execute and verify.</strong> Follow the recipe, check the outcome against clear criteria and investigate failures.</li>
+        <li><strong>Adapt.</strong> Change a constraint, tool or goal and learn which parts of the technique transfer.</li>
+        <li><strong>Demonstrate capability.</strong> Future domain belts will assess evidence of skill; Randori will challenge you to choose your own approach to an unfamiliar goal.</li>
+        <li><strong>Apply and teach.</strong> Missions put techniques to work; Senseis help others improve and refine the katas.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="first-title">
+    <div class="container content">
+      <div id="first-title">
+        <SectionHeader eyebrow="First foundation kata in development" title="Same goal, different stack" />
+      </div>
+      <p>The first planned kata will compare how a chosen outcome changes as a learner varies a harness, model, instruction or other stack component. It will use a real source exercise and recorded evidence, with controlled comparisons wherever practical. The exercise and its verified recipe are still being prepared.</p>
+      <p>While it is in development, explore the existing <a href="/library/tracks/working-with-ai-agents">Working with AI agents track</a> and <a href="/library/resources">free resource library</a>. The existing <a href="/train">Developer and Master Developer training</a> remains available.</p>
+      <p>Still discovering what interests you? <a href="https://ignitecuriosity.org/">Explore with Ignite Curiosity</a>, our sibling learning community. You can start at either site.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .content {
+    max-width: 60rem;
+  }
+  .content p {
+    max-width: 70ch;
+  }
+  .pathway-section {
+    background: var(--paper-sunk);
+  }
+  .pathway-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+  }
+  .pathway-card {
+    display: grid;
+    align-content: start;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--tone-gold);
+    border-radius: var(--radius);
+    background: var(--paper-raised);
+  }
+  .pathway-card h3 { margin: 0; font-size: var(--text-xl); }
+  .pathway-card p { margin: 0 0 var(--space-2); color: var(--ink-muted); }
+  .pathway-card a { display: inline-flex; align-items: center; gap: var(--space-2); font-weight: 700; }
+  @media (min-width: 40rem) {
+    .pathway-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 80rem) {
+    .pathway-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  .journey {
+    background: var(--paper-raised);
+  }
+  ol {
+    max-width: 70ch;
+    padding-left: 1.5rem;
+  }
+  li + li {
+    margin-top: var(--space-3);
+  }
+</style>
