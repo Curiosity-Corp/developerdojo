@@ -44,6 +44,8 @@ test.describe('home', () => {
 });
 
 test('katas explain the approach and keep training and progress accessible', async ({ page }) => {
+  await page.goto('/train');
+  await page.locator('[data-module="developer-week-1"]').click();
   await page.goto('/');
   await page.getByRole('link', { name: 'Explore katas' }).click();
   await expect(page).toHaveURL(/\/katas/);
@@ -53,6 +55,7 @@ test('katas explain the approach and keep training and progress accessible', asy
   await page.getByRole('link', { name: 'Developer and Master Developer training' }).click();
   await expect(page).toHaveURL(/\/train/);
   await expect(page.getByRole('heading', { name: /Your progress/ })).toBeVisible();
+  await expect(page.locator('[data-module="developer-week-1"]')).toHaveAttribute('aria-pressed', 'true');
 });
 
 test.describe('train', () => {
