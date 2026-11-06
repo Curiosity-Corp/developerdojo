@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from './Icon.astro';
+import PersonalizeKata from './PersonalizeKata.astro';
 interface Props {
   title: string;
   description: string;
@@ -39,6 +40,7 @@ const { title, description, time, prompt, exampleHref, exampleLabel, exampleNote
         <label for="kata-prompt">Your complete prompt</label>
         <textarea id="kata-prompt" rows="14" readonly>{prompt}</textarea>
         <div class="copy-row"><button type="button" data-copy-prompt hidden>Copy prompt</button><span data-copy-status aria-live="polite">You can also select and copy the text.</span></div>
+        <PersonalizeKata />
         <slot name="preview" />
       </div>
     </section>

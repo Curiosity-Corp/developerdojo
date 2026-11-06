@@ -1,0 +1,43 @@
+---
+import QuickKata from '../../components/QuickKata.astro';
+
+const prompt = `You are my independent reviewer. Examine this fictional practice data and the draft report.
+
+Evidence: Week 1 had 120 visits and 12 sign-ups. Week 2 had 100 visits and 15 sign-ups. Define the sign-up rate as sign-ups divided by visits. There is no customer feedback in this dataset.
+
+Draft report: “Visits grew by 20%. The sign-up rate dropped from 10% to 5%. Customers love the new checkout because it is faster.”
+
+Find each unsupported or incorrect claim. Show the arithmetic for changes in visits and sign-up rates. Rewrite the report using only the evidence, explicitly noting what we do not know. Do not invent causes, customer opinions, or additional data.`;
+---
+<QuickKata
+  title="Spot the AI mistakes"
+  description="Catch three errors in a report and turn it into something trustworthy."
+  time="About 10 minutes"
+  prompt={prompt}
+  exampleNote="This is a fictional teaching example created for the kata. Neither the numbers nor the draft describe actual customers or results."
+>
+  <div slot="outcome" class="clinic">
+    <p class="label">The evidence · fictional practice data</p>
+    <div class="figures"><p><strong>Week 1</strong><br />120 visits · 12 sign-ups</p><p><strong>Week 2</strong><br />100 visits · 15 sign-ups</p></div>
+    <p class="label">The draft · find three problems</p>
+    <blockquote>“Visits grew by 20%. The sign-up rate dropped from 10% to 5%. Customers love the new checkout because it is faster.”</blockquote>
+    <details><summary>Reveal the checks</summary><ol><li>Visits fell by 20 out of 120, about 16.7%; they did not grow.</li><li>Sign-up rate rose from 12 ÷ 120 = 10% to 15 ÷ 100 = 15%.</li><li>The dataset contains no customer feedback or timing evidence, so the claim about customer opinions and speed is unsupported.</li></ol><p><strong>A corrected report:</strong> Visits fell from 120 to 100, while the sign-up rate rose from 10% to 15%. The data does not explain why, or show what customers think.</p><p>Give yourself one check for each of the three problems you found. Use the explanation to revisit anything you missed.</p></details>
+  </div>
+  <div slot="verify">
+    <ol>
+      <li>Check the arithmetic yourself: 20 ÷ 120 is about 16.7%, and 15 ÷ 100 is 15%.</li>
+      <li>Look for claims about why the numbers changed. The practice data does not establish a cause.</li>
+      <li>Ask the assistant to correct anything it cannot support and to separate facts from assumptions.</li>
+      <li>Remix with a small dataset you are allowed to share; keep private information out of the prompt.</li>
+    </ol>
+  </div>
+</QuickKata>
+<style>
+  .clinic { padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); }
+  .label { color: var(--ink-muted); font-size: var(--text-sm); font-weight: 700; }
+  .figures { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: var(--space-3); }
+  .figures p { padding: var(--space-3); margin: 0; background: var(--paper-sunk); border-radius: var(--radius); }
+  blockquote { margin: var(--space-3) 0; padding: var(--space-4); border-left: 4px solid var(--tone-rust); }
+  summary { cursor: pointer; font-weight: 700; }
+  li { margin-block: var(--space-2); }
+</style>

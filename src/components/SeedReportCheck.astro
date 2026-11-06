@@ -1,0 +1,44 @@
+<section class="report-check" aria-labelledby="report-check-title">
+  <h3 id="report-check-title">Check your three numbers</h3>
+  <p>This checks the numbers for the fictional seed dataset. You still need to inspect the rows and the explanation.</p>
+  <div class="fields">
+    <label for="check-complete">Complete unique sales</label>
+    <input id="check-complete" type="number" min="0" step="1" inputmode="numeric" />
+    <label for="check-exceptions">Rows needing review</label>
+    <input id="check-exceptions" type="number" min="0" step="1" inputmode="numeric" />
+    <label for="check-total">Complete sales total in dollars</label>
+    <input id="check-total" type="number" min="0" step="0.01" inputmode="decimal" />
+  </div>
+  <button id="check-report" type="button" hidden>Check my numbers</button>
+  <p id="check-report-status" role="status" aria-live="polite"></p>
+  <noscript><p>Use the worked result above to check your numbers. JavaScript enables the interactive check.</p></noscript>
+</section>
+<script>
+  const button = document.getElementById('check-report');
+  const complete = document.getElementById('check-complete');
+  const exceptions = document.getElementById('check-exceptions');
+  const total = document.getElementById('check-total');
+  const status = document.getElementById('check-report-status');
+  if (button instanceof HTMLButtonElement && complete instanceof HTMLInputElement && exceptions instanceof HTMLInputElement && total instanceof HTMLInputElement && status) {
+    button.hidden = false;
+    button.addEventListener('click', () => {
+      if ([complete, exceptions, total].some((field) => field.value.trim() === '')) {
+        status.textContent = 'Enter all three numbers first.';
+        return;
+      }
+      const correct = Number(complete.value) === 4 && Number(exceptions.value) === 2 && Number(total.value) === 22;
+      status.textContent = correct
+        ? 'These three numbers match. Now check the duplicate, exceptions and explanation.'
+        : 'At least one number does not match. Recheck the duplicate and incomplete rows, then try again.';
+    });
+  }
+</script>
+<style>
+  .report-check { padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-sunk); }
+  h3 { margin-top: 0; }
+  .fields { display: grid; max-width: 24rem; gap: var(--space-2); }
+  label { font-weight: 700; }
+  input { box-sizing: border-box; width: 100%; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; }
+  button { margin-top: var(--space-3); padding: var(--space-3) var(--space-4); border: 0; border-radius: var(--radius); background: var(--band); color: var(--band-text); font: inherit; font-weight: 700; cursor: pointer; }
+  button[hidden] { display: none; }
+</style>

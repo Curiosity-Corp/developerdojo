@@ -1,0 +1,51 @@
+---
+import QuickKata from '../../components/QuickKata.astro';
+import SeedReportCheck from '../../components/SeedReportCheck.astro';
+import { seedSalesCsv } from '../../data/seed-sales';
+
+const prompt = `You are my data-quality partner. Clean this fictional seed-sale dataset and write a short, honest report.
+
+Rules:
+- Treat exact duplicate rows as one sale. Treat item names without regard to capitalization.
+- Do not guess missing quantities or non-numeric prices. Put incomplete rows in an exceptions list.
+- Calculate quantities and revenue only for complete, unique rows. Show your arithmetic.
+- Report the number of rows received, exact duplicates removed, complete unique sales and exceptions.
+- Include a short table of the clean rows and a short plain-language summary.
+- This is synthetic practice data: do not describe the sales as real or invent missing values.
+
+Here is the CSV:\n\n${seedSalesCsv}`;
+---
+<QuickKata
+  title="Rescue messy data"
+  description="Turn a small, messy spreadsheet into a useful report you can check."
+  time="About 10 minutes"
+  prompt={prompt}
+  exampleHref="/examples/seed-sales-messy.csv"
+  exampleLabel="Download the practice CSV"
+  exampleNote="This is fictional practice data created for the kata. The figures below are calculated from the dataset, not real sales."
+>
+  <article slot="outcome" class="report">
+    <p class="tag">Example result · synthetic data</p>
+    <h3>A report you can trust</h3>
+    <div class="numbers"><p><strong>4</strong> complete sales</p><p><strong>2</strong> need review</p><p><strong>$22</strong> complete sales total</p></div>
+    <p>Seven rows came in. Remove one exact duplicate, then set aside the two rows with missing or invalid values. The four complete sales contain seven items: six Basil for $18 and one Mint for $4. Try the checks by hand or use the assistant prompt below.</p>
+  </article>
+  <div slot="verify">
+    <ol>
+      <li>Check that the repeated S102 row is counted once, and that S104 and S105 are listed as exceptions.</li>
+      <li>Check the complete rows: 2 × $3, 1 × $4, 3 × $3 and 1 × $3. The total is $22 across seven items.</li>
+      <li>Check that “Basil” and “basil” are grouped together and that missing values were not invented.</li>
+      <li>If a check fails, tell your assistant exactly which row is wrong and ask for a corrected report.</li>
+    </ol>
+    <SeedReportCheck />
+    <p><strong>Remix:</strong> use a small dataset you are allowed to share, and define how to handle duplicates and missing values before calculating.</p>
+  </div>
+</QuickKata>
+<style>
+  .report { padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); box-shadow: var(--shadow); }
+  .report h3 { margin-top: 0; }
+  .tag { color: var(--ink-muted); font-size: var(--text-sm); font-weight: 700; }
+  .numbers { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr)); gap: var(--space-3); }
+  .numbers p { padding: var(--space-3); background: var(--paper-sunk); border-radius: var(--radius); }
+  .numbers strong { display: block; font-size: var(--text-2xl); }
+</style>
