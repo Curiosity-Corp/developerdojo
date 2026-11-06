@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+---
+<BaseLayout title="Your own portfolio" description="Make a small portfolio page from your own work and publish it where you choose.">
+  <PageHero compact eyebrow="Own your evidence" title="Show what you made" subtitle="Turn an outcome, its checks and what you learned into a page you control." />
+  <section class="section">
+    <div class="container content">
+      <h2>Make your page</h2>
+      <p>Enter only material you are allowed to share. The Dojo does not save or send these fields. The generated file stays on your device until you choose to share or publish it.</p>
+      <label for="portfolio-title">Project title</label><input id="portfolio-title" type="text" />
+      <label for="portfolio-outcome">What did you make?</label><textarea id="portfolio-outcome" rows="3"></textarea>
+      <label for="portfolio-checks">How did you check it?</label><textarea id="portfolio-checks" rows="3"></textarea>
+      <label for="portfolio-learning">What did you learn?</label><textarea id="portfolio-learning" rows="3"></textarea>
+      <label for="portfolio-link">Public evidence link, if you have one (optional)</label><input id="portfolio-link" type="url" placeholder="https://…" />
+      <button id="portfolio-make" type="button" hidden>Prepare my page</button>
+      <p id="portfolio-status" role="status" aria-live="polite"></p>
+      <div id="portfolio-result" hidden>
+        <label for="portfolio-html">Your page HTML</label><textarea id="portfolio-html" rows="12" readonly></textarea>
+        <p><a id="portfolio-download" download="index.html">Download index.html</a></p>
+      </div>
+      <noscript><p>JavaScript is needed to generate a file here. You can still write a page yourself using the guide below.</p></noscript>
+      <h2>Publish when you are ready</h2>
+      <p>One option is your own GitHub repository and GitHub Pages. A GitHub account is required, and availability depends on the repository and plan. Follow the <a href="https://docs.github.com/en/pages/quickstart">official GitHub Pages quickstart</a>, add your <code>index.html</code>, and check the published result.</p>
+      <p>Publishing can make your work public. Review names, links, permissions, client details and licenses first. This page is a starting file, not an independently verified certificate.</p>
+      <p><a href="/katas">Explore more katas</a> · <a href="/missions">Learn about missions</a></p>
+    </div>
+  </section>
+</BaseLayout>
+<script>
+  const button = document.getElementById('portfolio-make');
+  const status = document.getElementById('portfolio-status');
+  const result = document.getElementById('portfolio-result');
+  const output = document.getElementById('portfolio-html');
+  const download = document.getElementById('portfolio-download');
+  const value = (id: string) => {
+    const field = document.getElementById(id);
+    return field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement ? field.value.trim() : '';
+  };
+  let currentUrl = '';
+  if (button instanceof HTMLButtonElement && status && result && output instanceof HTMLTextAreaElement && download instanceof HTMLAnchorElement) {
+    button.hidden = false;
+    button.addEventListener('click', () => {
+      const title = value('portfolio-title'); const outcome = value('portfolio-outcome');
+      const checks = value('portfolio-checks'); const learning = value('portfolio-learning'); const link = value('portfolio-link');
+      if (!title || !outcome || !checks || !learning) { status.textContent = 'Complete the title, outcome, checks and learning first.'; return; }
+      let evidence: URL | null = null;
+      if (link) {
+        try { evidence = new URL(link); } catch { status.textContent = 'Use a complete HTTPS evidence link.'; return; }
+        if (evidence.protocol !== 'https:' || evidence.username || evidence.password) { status.textContent = 'Use a complete HTTPS evidence link without credentials.'; return; }
+      }
+      const doc = document.implementation.createHTMLDocument(title);
+      doc.documentElement.lang = 'en';
+      const charset = doc.createElement('meta'); charset.charset = 'utf-8'; doc.head.prepend(charset);
+      const viewport = doc.createElement('meta'); viewport.name = 'viewport'; viewport.content = 'width=device-width,initial-scale=1'; doc.head.append(viewport);
+      const style = doc.createElement('style'); style.textContent = 'body{font:1rem/1.6 system-ui,sans-serif;max-width:46rem;margin:auto;padding:1.5rem;color:#1c2620}h1{line-height:1.1}p{white-space:pre-wrap}'; doc.head.append(style);
+      const main = doc.createElement('main'); const h1 = doc.createElement('h1'); h1.textContent = title; main.append(h1);
+      for (const [heading, text] of [['The outcome', outcome], ['How I checked it', checks], ['What I learned', learning]]) {
+        const h2 = doc.createElement('h2'); h2.textContent = heading ?? ''; const p = doc.createElement('p'); p.textContent = text ?? ''; main.append(h2, p);
+      }
+      if (evidence) { const p = doc.createElement('p'); const a = doc.createElement('a'); a.href = evidence.href; a.textContent = 'View evidence'; p.append(a); main.append(p); }
+      doc.body.append(main);
+      const html = `<!doctype html>\n${doc.documentElement.outerHTML}`;
+      output.value = html;
+      if (currentUrl) URL.revokeObjectURL(currentUrl);
+      currentUrl = URL.createObjectURL(new Blob([html], { type: 'text/html;charset=utf-8' }));
+      download.href = currentUrl; result.hidden = false; status.textContent = 'Your page is ready to review and download.';
+    });
+  }
+</script>
+<style>
+  .content { max-width: 65rem; }
+  label { display: block; margin: var(--space-3) 0 var(--space-2); font-weight: 700; }
+  input, textarea { box-sizing: border-box; display: block; width: 100%; max-width: 65ch; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper-raised); color: var(--ink); font: inherit; }
+  textarea { resize: vertical; }
+  button { margin-top: var(--space-4); padding: var(--space-3) var(--space-4); border: 0; border-radius: var(--radius); background: var(--band); color: var(--band-text); font: inherit; font-weight: 700; cursor: pointer; }
+  button[hidden], [hidden] { display: none; }
+</style>

@@ -61,7 +61,7 @@ export const dojoSections: DojoSection[] = [
       { title: 'Use a relevant rubric', description: 'Measure the outcome for its field as well as system qualities such as reliability, cost where measurable, and completion of checks.' },
       { title: 'Report limitations', description: 'Keep failures, repetitions and uncertainty visible. Do not treat a single result or another provider’s score as a universal ranking.', href: '/library/tracks/working-with-ai-agents/08-evals-and-testing-ai-work', link: 'Learn about evaluations' },
     ],
-    nextTitle: 'Benchmarks are being prepared', next: 'There are no Dojo benchmark results on this page yet. Future comparisons need dated methods, sources and artifacts before they can be published.', nextHref: '/stack-lab', nextLabel: 'Study the stack',
+    nextTitle: 'Compare your own results', next: 'There are no Dojo benchmark results on this page yet. Record your own dated measurements and compare them without claiming a universal winner.', nextHref: '/katas/budget-boss', nextLabel: 'Compare two stacks',
   },
   {
     slug: 'belts', eyebrow: 'Demonstrate capability', title: 'The Belts',
@@ -85,7 +85,7 @@ export const dojoSections: DojoSection[] = [
       { title: 'Build and adapt the stack', description: 'Choose suitable harnesses, models, instructions, skills and tools. Change course when evidence or constraints require it.' },
       { title: 'Verify and explain', description: 'Check the outcome, document limitations and show how you responded to failures or changes.' },
     ],
-    nextTitle: 'Practice today', next: 'Dedicated Randori assessments are being developed. The existing challenges offer product-focused briefs with their own rules.', nextHref: '/challenges', nextLabel: 'Explore existing challenges',
+    nextTitle: 'Practice today', next: 'Try an unfamiliar challenge with changing constraints. Dedicated Randori assessments are still being developed.', nextHref: '/katas/constraint-roulette', nextLabel: 'Try Constraint Roulette',
   },
   {
     slug: 'missions', eyebrow: 'Take practice into the world', title: 'The Missions',

@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+---
+<BaseLayout title="Constraint Roulette" description="Practice adapting an agent workflow to an unfamiliar challenge.">
+  <PageHero compact eyebrow="Randori · about 15 minutes" title="Change the rules" subtitle="Choose your own tools and approach. Your challenge is to deliver and verify a useful result under a new constraint." />
+  <section class="section">
+    <div class="container content">
+      <h2>Your mission</h2>
+      <p>Develop a short, usable plan for a neighborhood event. Explain the audience, the first three actions, one uncertainty and how you would check whether the plan works. Do not invent permission, attendance or results.</p>
+      <h2>Add a constraint</h2>
+      <p>Choose one below, or let the button pick. You decide the stack and the method.</p>
+      <ul id="constraint-list">
+        <li>Only a phone is available.</li>
+        <li>The audience needs a plain-language version.</li>
+        <li>The venue is unavailable and has not been replaced.</li>
+        <li>The tool you planned to use is unavailable.</li>
+      </ul>
+      <button type="button" id="constraint-pick" hidden>Pick a constraint</button>
+      <p id="constraint-selected" role="status" aria-live="polite"></p>
+      <noscript><p>Choose any constraint from the list above.</p></noscript>
+      <label for="constraint-brief">Brief to copy into your assistant</label>
+      <textarea id="constraint-brief" rows="5" readonly>Develop a short, usable plan for a neighborhood event. Explain the audience, the first three actions, one uncertainty and how to check whether the plan works. Do not invent permission, attendance or results. Choose one constraint from the list and include it here.</textarea>
+      <button type="button" id="constraint-copy" hidden>Copy brief</button>
+      <p id="constraint-copy-status" role="status" aria-live="polite"></p>
+      <h2>How to check yourself</h2>
+      <ol>
+        <li>Does the result satisfy the chosen constraint?</li>
+        <li>Are assumptions clearly separated from facts?</li>
+        <li>Can another person follow the next steps and check the result?</li>
+        <li>What would you change if your first tool or approach failed?</li>
+      </ol>
+      <p>This is practice, not an automatically graded belt. <a href="/katas/decision-replay">Try Decision Replay</a> or <a href="/katas">explore more katas</a>.</p>
+    </div>
+  </section>
+</BaseLayout>
+<script>
+  const button = document.getElementById('constraint-pick');
+  const output = document.getElementById('constraint-selected');
+  const brief = document.getElementById('constraint-brief');
+  const copy = document.getElementById('constraint-copy');
+  const copyStatus = document.getElementById('constraint-copy-status');
+  const options = [...document.querySelectorAll('#constraint-list li')].map((item) => item.textContent?.trim() ?? '').filter(Boolean);
+  if (button instanceof HTMLButtonElement && output && brief instanceof HTMLTextAreaElement && copy instanceof HTMLButtonElement && copyStatus && options.length > 0) {
+    button.hidden = false;
+    copy.hidden = false;
+    button.addEventListener('click', () => {
+      const choice = options[Math.floor(Math.random() * options.length)];
+      if (choice) {
+        output.textContent = `Your constraint: ${choice}`;
+        brief.value = `Develop a short, usable plan for a neighborhood event. Explain the audience, the first three actions, one uncertainty and how to check whether the plan works. Do not invent permission, attendance or results. Constraint: ${choice}`;
+      }
+    });
+    copy.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(brief.value); copyStatus.textContent = 'Copied. Paste it into your assistant.'; }
+      catch { brief.focus(); brief.select(); copyStatus.textContent = 'Text selected. Use your device’s copy command.'; }
+    });
+  }
+</script>
+<style>
+  .content { max-width: 64rem; }
+  button { padding: var(--space-3) var(--space-4); border: 0; border-radius: var(--radius); background: var(--band); color: var(--band-text); font: inherit; font-weight: 700; cursor: pointer; }
+  button[hidden] { display: none; }
+  label { display: block; margin-top: var(--space-4); font-weight: 700; }
+  textarea { box-sizing: border-box; width: 100%; min-width: 0; max-width: 65ch; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper-raised); color: var(--ink); font: inherit; }
+  li { margin-block: var(--space-2); }
+</style>

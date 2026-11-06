@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+---
+<BaseLayout title="Budget Boss" description="Compare your own dated measurements of cost, speed and checks for two agent stacks.">
+  <PageHero compact eyebrow="The Arena · practice" title="Compare two stacks" subtitle="Use your own measurements to see the tradeoffs. The Dojo does not provide or rank benchmark results here." />
+  <section class="section">
+    <div class="container content">
+      <h2>Run the same task twice</h2>
+      <p>Record the task, model and harness versions, instructions and test criteria outside this page. Keep the task and checks as consistent as possible. Use actual measurements or clearly labeled estimates, and include every cost you know about.</p>
+      <p>Enter results for each run below. Values stay in this page and are not saved or sent by the Dojo. Use the same currency and unit for both costs.</p>
+      <div class="compare">
+        {['A', 'B'].map((name) => <fieldset>
+          <legend>Stack {name}</legend>
+          <label for={`date-${name}`}>Date of stack {name} result</label><input type="date" id={`date-${name}`} />
+          <label for={`cost-${name}`}>Stack {name} cost per run</label><input type="number" id={`cost-${name}`} min="0" step="any" inputmode="decimal" />
+          <label for={`time-${name}`}>Stack {name} time in seconds</label><input type="number" id={`time-${name}`} min="0" step="any" inputmode="decimal" />
+          <label for={`passed-${name}`}>Stack {name} checks passed</label><input type="number" id={`passed-${name}`} min="0" step="1" inputmode="numeric" />
+          <label for={`total-${name}`}>Stack {name} checks attempted</label><input type="number" id={`total-${name}`} min="1" step="1" inputmode="numeric" />
+        </fieldset>)}
+      </div>
+      <button type="button" id="compare-stacks" hidden>Compare my results</button>
+      <p id="comparison" role="status" aria-live="polite"></p>
+      <noscript><p>JavaScript is needed to calculate the comparison here. You can still compare each run's recorded cost, time and passed checks by hand.</p></noscript>
+      <p>These figures reflect your inputs, not a Dojo benchmark. One run or one test set cannot establish a universal winner; repeat work and record uncertainty.</p>
+      <p><a href="/arena">Explore the Arena</a> · <a href="/stack-lab">Study the stack</a></p>
+    </div>
+  </section>
+</BaseLayout>
+<script>
+  const button = document.getElementById('compare-stacks');
+  const output = document.getElementById('comparison');
+  function read(id: string) {
+    const field = document.getElementById(id);
+    return field instanceof HTMLInputElement ? field.value.trim() : '';
+  }
+  function result(name: string) {
+    const date = read(`date-${name}`);
+    const raw = ['cost', 'time', 'passed', 'total'].map((field) => read(`${field}-${name}`));
+    if (!date || raw.some((value) => value === '')) return null;
+    const [cost, seconds, passed, total] = raw.map(Number);
+    if (cost === undefined || seconds === undefined || passed === undefined || total === undefined || ![cost, seconds, passed, total].every(Number.isFinite) || cost < 0 || seconds < 0 || !Number.isInteger(passed) || !Number.isInteger(total) || passed < 0 || total < 1 || passed > total) return null;
+    return `Stack ${name} (${date}): cost ${cost} per run, ${seconds} seconds, ${passed}/${total} checks passed (${Math.round((passed / total) * 1000) / 10}%).`;
+  }
+  if (button instanceof HTMLButtonElement && output) {
+    button.hidden = false;
+    button.addEventListener('click', () => {
+      const a = result('A'); const b = result('B');
+      output.textContent = a && b ? `${a} ${b} Compare the same task and checks; investigate differences.` : 'Enter a date and valid nonnegative values for both stacks. Checks passed cannot exceed checks attempted.';
+    });
+  }
+</script>
+<style>
+  .content { max-width: 70rem; }
+  .compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: var(--space-4); }
+  fieldset { min-width: 0; display: grid; gap: var(--space-2); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-4); background: var(--paper-raised); }
+  legend, label { font-weight: 700; }
+  input { box-sizing: border-box; width: 100%; min-width: 0; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; }
+  button { margin-top: var(--space-4); padding: var(--space-3) var(--space-4); border: 0; border-radius: var(--radius); background: var(--band); color: var(--band-text); font: inherit; font-weight: 700; cursor: pointer; }
+  button[hidden] { display: none; }
+</style>
