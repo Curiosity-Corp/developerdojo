@@ -17,14 +17,14 @@ export const dojoSections: DojoSection[] = [
   {
     slug: 'gallery', eyebrow: 'See the outcome', title: 'The Gallery',
     description: 'Explore the outcomes a developer can create and the evidence behind them.',
-    introTitle: 'Start with something real',
-    intro: 'A finished result should lead you to its source, the stack that produced it and the checks behind it. The Dojo is building a collection of examples with that evidence; a complete showcase and recipe have not yet been published.',
+    introTitle: 'Try a result, then make your own',
+    intro: 'Start with a working prototype or an example project brief. Both were created for these exercises with AI assistance. Follow the kata to create your own and check the result.',
     steps: [
-      { title: 'Look for the artifact', description: 'A useful showcase identifies what was created, who can use it, and whether the source can be inspected or edited.' },
-      { title: 'Trace the process', description: 'A kata should explain its inputs, harness, model, instructions, skills, tools and agent roles, along with meaningful limitations.' },
-      { title: 'Inspect the evidence', description: 'Tests, review and provenance help you judge the result. A polished image alone does not prove that an editable or approved artifact exists.' },
+      { title: 'A clickable mini app', description: 'Try the Pocket Garden example, then ask an assistant to create a prototype you can test and remix.', href: '/katas/first-prototype', link: 'Make a clickable prototype' },
+      { title: 'An idea becomes a plan', description: 'See a complete example brief and use a ready-to-copy prompt to develop your own idea.', href: '/katas/spark-ideas', link: 'Turn an idea into a plan' },
+      { title: 'Look behind the result', description: 'Check inputs, instructions, tools and evidence. These starter examples are not a complete benchmark or verified replay of the same stack.' },
     ],
-    nextTitle: 'Practice while the gallery grows', next: 'Explore the current learning tracks and the foundations behind the future showcases.', nextHref: '/library/tracks', nextLabel: 'Explore learning tracks',
+    nextTitle: 'Make something today', next: 'Choose a starter kata, try its example and make the result your own.', nextHref: '/katas', nextLabel: 'Explore katas',
   },
   {
     slug: 'stack-lab', eyebrow: 'Universal foundations', title: 'The Stack Lab',

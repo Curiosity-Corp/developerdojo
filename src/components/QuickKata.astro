@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from './Icon.astro';
+interface Props {
+  title: string;
+  description: string;
+  time: string;
+  prompt: string;
+  exampleHref?: string;
+  exampleLabel?: string;
+  exampleNote: string;
+}
+const { title, description, time, prompt, exampleHref, exampleLabel, exampleNote } = Astro.props;
+---
+<BaseLayout title={title} description={description}>
+  <div class="kata">
+    <header class="kata-hero">
+      <div class="container hero-inner">
+        <p class="eyebrow"><a href="/katas">Katas</a> <span aria-hidden="true">/</span> First steps <span> · {time}</span></p>
+        <h1>{title}<span aria-hidden="true">.</span></h1>
+        <p class="lead">{description}</p>
+        <div class="hero-actions"><a class="primary" href="#prompt">Start this kata <Icon name="arrow-right" size={18} /></a><a class="secondary" href="#outcome">See the result</a></div>
+      </div>
+    </header>
+    <section class="section outcome" id="outcome">
+      <div class="container narrow">
+        <p class="kicker">01 / See it first</p>
+        <h2>Here’s what you can make</h2>
+        <slot name="outcome" />
+        {exampleHref && <p><a class="example-link" href={exampleHref}>{exampleLabel} <Icon name="arrow-right" size={17} /></a></p>}
+        <p class="provenance">{exampleNote}</p>
+      </div>
+    </section>
+    <section class="section start" id="prompt">
+      <div class="container narrow">
+        <p class="kicker">02 / Your turn</p>
+        <h2>Copy the prompt. Make it yours.</h2>
+        <p>Open a new chat in ChatGPT or Claude, paste this prompt, and replace anything you want to change.</p>
+        <label for="kata-prompt">Your complete prompt</label>
+        <textarea id="kata-prompt" rows="14" readonly>{prompt}</textarea>
+        <div class="copy-row"><button type="button" data-copy-prompt hidden>Copy prompt</button><span data-copy-status aria-live="polite">You can also select and copy the text.</span></div>
+        <slot name="preview" />
+      </div>
+    </section>
+    <section class="section ingredients">
+      <div class="container narrow">
+        <p class="kicker">03 / Your ingredients</p>
+        <h2>A simple stack</h2>
+        <dl class="stack">
+          <div><dt>Harness</dt><dd>ChatGPT or Claude app, or either service in a browser.</dd></div>
+          <div><dt>Model</dt><dd>A model available in your chosen chat. Access and limits depend on your account.</dd></div>
+          <div><dt>Instructions</dt><dd>The complete prompt above. Change the topic and constraints to fit your goal.</dd></div>
+          <div><dt>Context</dt><dd>Your idea and any non-sensitive details you choose to share.</dd></div>
+          <div><dt>Skills, CLI, MCP, plugins or connectors</dt><dd>None needed for the basic chat version. Optional ways to equip your setup are below.</dd></div>
+          <div><dt>Agent and verification</dt><dd>One chat assistant drafts; you inspect the result against the checks below and ask it to fix problems.</dd></div>
+        </dl>
+      </div>
+    </section>
+    <section class="section options">
+      <div class="container narrow">
+        <p class="kicker">04 / Pick your setup</p>
+        <h2>Use the device you have</h2>
+        <p>Choose one path. You can do the chat exercise without installing a command line tool.</p>
+        <details><summary>Phone · ChatGPT app</summary><p>Open the ChatGPT app, start a new chat, and paste the prompt. Ask the assistant for the requested result. Some account-available plugins can be used on mobile; desktop-only plugins cannot. Plugins are optional here. <a href="https://learn.chatgpt.com/docs/plugins">ChatGPT plugin guide</a>.</p></details>
+        <details><summary>Phone · Claude app</summary><p>Open the Claude app, start a new chat, and paste the prompt. Ask for the requested result. Remote connectors are optional; local desktop extensions do not run on the phone. <a href="https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities">Claude connectors guide</a>.</p></details>
+        <details><summary>Windows</summary><p>Open ChatGPT or Claude in a browser and paste the prompt. Alternatively, install one CLI in PowerShell using an official command below. These commands download and execute installers; check the linked vendor instructions first. Sign in when prompted; eligibility and plans vary. Use a folder you are comfortable granting the tool access to.</p><p>Codex CLI (<a href="https://learn.chatgpt.com/docs/codex/cli">official setup</a>):</p><pre><code>powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"
+codex</code></pre><p>Claude Code (<a href="https://code.claude.com/docs/en/setup">official setup</a>; an eligible paid or other supported account is required):</p><pre><code>irm https://claude.ai/install.ps1 | iex
+claude</code></pre><p>Then paste the same prompt into the CLI. Review any access or changes it asks to make.</p></details>
+        <details><summary>macOS</summary><p>Open ChatGPT or Claude in a browser and paste the prompt. Alternatively, install one CLI in Terminal using an official command below. These commands download and execute installers; check the linked vendor instructions first. Sign in when prompted; eligibility and plans vary. Use a folder you are comfortable granting the tool access to.</p><p>Codex CLI (<a href="https://learn.chatgpt.com/docs/codex/cli">official setup</a>):</p><pre><code>curl -fsSL https://chatgpt.com/codex/install.sh | sh
+codex</code></pre><p>Claude Code (<a href="https://code.claude.com/docs/en/setup">official setup</a>; an eligible paid or other supported account is required):</p><pre><code>curl -fsSL https://claude.ai/install.sh | bash
+claude</code></pre><p>Then paste the same prompt into the CLI. Review any access or changes it asks to make.</p></details>
+        <details><summary>Linux</summary><p>Open ChatGPT or Claude in a browser and paste the prompt. Alternatively, install one CLI in a terminal using an official command below. These commands download and execute installers; check the linked vendor instructions first. Sign in when prompted; eligibility and plans vary. Use a folder you are comfortable granting the tool access to.</p><p>Codex CLI (<a href="https://learn.chatgpt.com/docs/codex/cli">official setup</a>):</p><pre><code>curl -fsSL https://chatgpt.com/codex/install.sh | sh
+codex</code></pre><p>Claude Code (<a href="https://code.claude.com/docs/en/setup">official setup</a>; an eligible paid or other supported account is required):</p><pre><code>curl -fsSL https://claude.ai/install.sh | bash
+claude</code></pre><p>Then paste the same prompt into the CLI. Review any access or changes it asks to make.</p></details>
+      </div>
+    </section>
+    <section class="section verify">
+      <div class="container narrow">
+        <p class="kicker">05 / Check and remix</p>
+        <h2>Make sure it works for you</h2>
+        <slot name="verify" />
+        <p><a href="/katas">Explore more katas <Icon name="arrow-right" size={16} /></a></p>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+<script>
+  const button = document.querySelector<HTMLButtonElement>('[data-copy-prompt]');
+  const input = document.querySelector<HTMLTextAreaElement>('#kata-prompt');
+  const status = document.querySelector<HTMLElement>('[data-copy-status]');
+  if (button && input && status) {
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(input.value);
+        status.textContent = 'Copied. Paste it into your chat.';
+      } catch {
+        input.focus();
+        input.select();
+        status.textContent = 'Text selected. Use your device’s copy command.';
+      }
+    });
+  }
+</script>
+<style>
+  .kata-hero{background:var(--band);color:var(--band-text);padding-block:var(--space-6) var(--space-7)}
+  .hero-inner,.narrow{max-width:68rem}.eyebrow,.kicker{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800}.eyebrow{color:var(--gold)}.eyebrow a{color:inherit}.kata-hero h1{font-size:clamp(2.4rem,8vw,5rem);line-height:1.05;margin:var(--space-4) 0;overflow-wrap:break-word}.kata-hero h1 span{color:var(--gold)}.lead{font-size:var(--text-xl);max-width:35em}.hero-actions{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-top:var(--space-5)}.hero-actions a,.copy-row button{display:inline-flex;align-items:center;gap:var(--space-2);padding:.75rem 1.1rem;border-radius:var(--radius);font-weight:800}.primary,.copy-row button{background:var(--gold);color:var(--gold-ink);border:1px solid var(--gold);text-decoration:none}.secondary{color:var(--band-text);border:1px solid currentColor}.kicker{color:var(--rust-text);margin-top:0}.narrow>p{max-width:70ch}.provenance{font-size:var(--text-sm);color:var(--ink-muted)}.example-link,.verify a{display:inline-flex;gap:var(--space-2);align-items:center;font-weight:800}.start,.options{background:var(--paper-raised)}label{display:block;font-weight:700;margin:var(--space-4) 0 var(--space-2)}textarea{display:block;width:100%;max-width:70ch;padding:var(--space-4);font:inherit;line-height:1.5;color:var(--ink);background:var(--paper);border:1px solid var(--line-strong);border-radius:var(--radius);resize:vertical}.copy-row{display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);margin-top:var(--space-3)}.copy-row button{font:inherit;font-weight:800;cursor:pointer}.copy-row button[hidden]{display:none}.copy-row span{font-size:var(--text-sm)}.stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:var(--space-3);margin-top:var(--space-5)}.stack div{padding:var(--space-4);background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius)}dt{font-weight:800}dd{margin:.4em 0 0;color:var(--ink-muted)}details{max-width:70ch;border-bottom:1px solid var(--line);padding:var(--space-3) 0}summary{font-weight:800;cursor:pointer}details p{margin-bottom:0}pre{max-width:100%;white-space:pre-wrap;overflow-wrap:anywhere;padding:var(--space-3);background:var(--paper-sunk);border-radius:var(--radius)}.verify :global(li){margin-bottom:var(--space-2)}
+</style>

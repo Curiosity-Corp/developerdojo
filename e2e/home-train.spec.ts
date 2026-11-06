@@ -17,7 +17,8 @@ test.describe('home', () => {
   test('renders the hero, path, learn grid and empty states', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('main h1')).toContainText('What will you develop');
-    await expect(page.getByText('A developer learns to...')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Pick a result. Make it yours.' })).toBeVisible();
+    await expect(page.getByTitle('Pocket Garden working prototype example')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Grow as a developer.' })).toBeVisible();
     for (const rank of ['Developer', 'Master Developer', 'Sensei']) {
       await expect(page.locator('.rank-path').getByText(rank, { exact: true })).toBeVisible();
@@ -141,13 +142,15 @@ test.describe('train', () => {
   });
 });
 
-test('hero note card stays readable in dark mode', async ({ page }) => {
+test('hero artwork and caption stay readable in dark mode', async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'dark' });
   await page.goto('/');
-  const colors = await page.locator('.note').first().evaluate((el) => {
-    const style = getComputedStyle(el);
-    return { bg: style.backgroundColor, fg: style.color };
+  const colors = await page.locator('.hero-art').evaluate((el) => {
+    const caption = el.querySelector('p');
+    return { bg: getComputedStyle(el).backgroundColor, fg: caption ? getComputedStyle(caption).color : '' };
   });
-  expect(colors.bg).toBe('rgb(251, 246, 232)');
-  expect(colors.fg).toBe('rgb(28, 38, 32)');
+  expect(colors.bg).toBe('rgb(11, 17, 15)');
+  expect(colors.fg).toBe('rgb(244, 236, 216)');
+  await expect(page.locator('.hero-art img')).toBeVisible();
+  expect(await page.locator('.hero-art img').evaluate((img) => img instanceof HTMLImageElement ? img.naturalWidth : 0)).toBeGreaterThan(0);
 });

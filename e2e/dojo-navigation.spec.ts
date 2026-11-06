@@ -16,9 +16,22 @@ test('the homepage introduces the Dojo spaces and leads with outcomes', async ({
   ] as const) {
     await expect(page.getByRole('link', { name: label, exact: true })).toHaveAttribute('href', href);
   }
-  await page.getByRole('link', { name: 'Explore outcomes', exact: true }).click();
-  await expect(page).toHaveURL(/\/gallery\/?$/);
+  await page.getByRole('link', { name: 'Build a prototype', exact: true }).click();
+  await expect(page).toHaveURL(/\/katas\/first-prototype\/?$/);
   await expect(page.locator('main h1')).toBeVisible();
+});
+
+test('beginners can open each quick kata directly from the homepage', async ({ page }) => {
+  for (const [label, path] of [
+    ['Build a prototype', '/katas/first-prototype'],
+    ['Turn an idea into a plan', '/katas/spark-ideas'],
+  ] as const) {
+    await page.goto('/');
+    const link = page.getByRole('link', { name: label, exact: true });
+    await expect(link).toHaveAttribute('href', path);
+    await link.click();
+    await expect(page).toHaveURL(new RegExp(`${path}/?$`));
+  }
 });
 
 test('the kata hub connects shared foundations and field-specific practice', async ({ page }) => {
