@@ -30,31 +30,40 @@ const masterChecks = [
 ---
 
 <BaseLayout
-  title="Train: lead the whole product"
-  description="Two free training paths for the 2030 Product Development Manager: Developer (six weeks, one product owned from idea to launch) and the advanced Master Developer path. Track your own progress in your browser."
+  title="Train: develop outcomes across fields"
+  description="Build shared agent development skills and explore the existing Developer and Master Developer product paths. Track your progress in your browser."
 >
   <PageHero
     compact
-    title="Train to lead the whole product"
+    title="Train to develop outcomes"
     accent="."
     highlight="Free training"
-    subtitle="for the 2030 Product Development Manager: strategy, product, design, roadmaps, stakeholders and risk, with AI agents doing the lower-level work under your direction."
+    subtitle="to choose and equip an agent stack, develop an outcome, and verify the result. The same foundations can support many fields; each field adds its own tools, standards and expertise."
     ctas={[
-      { label: 'Start free', href: '/membership', icon: 'arrow-right' },
+      { label: 'Explore katas', href: '/katas', icon: 'arrow-right' },
       { label: 'See the training path', href: '#developer-path', variant: 'ghost', icon: 'play' },
     ]}
   >
     <div slot="side" class="ladder"><RankPath compact linked /></div>
   </PageHero>
 
+  <section class="section tight" aria-labelledby="foundations-title">
+    <div class="container">
+      <div id="foundations-title"><SectionHeader eyebrow="One foundation, many fields" title="Learn the stack. Apply it to your field." /></div>
+      <p>A developer is an orchestrator: you define the outcome, choose harnesses and models, equip agents with context and tools, and verify the work. These foundations can transfer across software, design, construction, science and other fields.</p>
+      <p>Specialized practice adds the artifacts, standards and qualified review each field needs. The new kata curriculum is being developed; the existing product paths below are available now.</p>
+      <p class="track-links"><a class="path-link" href="/katas">Explore the kata approach <Icon name="arrow-right" size={16} /></a><a class="path-link" href="/library/tracks/working-with-ai-agents">Study the existing AI agents track <Icon name="arrow-right" size={16} /></a></p>
+    </div>
+  </section>
+
   <section class="section" aria-labelledby="paths-title">
     <div class="container paths">
       <div class="paths-intro">
         <div id="paths-title">
           <SectionHeader
-            eyebrow="Training paths"
-            title="Two paths to lead real, launched products."
-            intro="Own the product, learn to direct the agents that build it, and learn to run it in the real world, from first idea to production and beyond."
+            eyebrow="Existing product curriculum"
+            title="Explore the product development paths."
+            intro="These established Developer and Master Developer paths focus on owning and delivering a product. Your progress here stays on this device as the wider Dojo grows."
           />
           <p class="role-link"><a class="path-link" href="/library/the-2030-product-development-manager">What a 2030 Product Development Manager does <Icon name="arrow-right" size={16} /></a></p>
         </div>
@@ -96,7 +105,7 @@ const masterChecks = [
         <ModuleStrip
           id="developer-path"
           icon="code-xml"
-          title="Developer path: 6-week training"
+          title="Developer product path: 6-week training"
           note="Turn an idea into a launched product in 6 weeks."
           tone="olive"
           modules={DEVELOPER_MODULES}
@@ -105,7 +114,7 @@ const masterChecks = [
         <ModuleStrip
           id="master-modules"
           icon="mountain"
-          title="Master Developer: advanced modules"
+          title="Master Developer product path: advanced modules"
           note="Go deeper, run it in the real world, and keep improving."
           tone="rust"
           modules={MASTER_MODULES}
@@ -114,8 +123,8 @@ const masterChecks = [
       </div>
       <div class="side-col">
         <aside class="not-coding">
-          <h2>This is not just coding.</h2>
-          <p>You learn how products get planned, built, launched, and improved. People write the epics and the roadmap. AI agents help with the building, and you disclose when they do.</p>
+          <h2>Development crosses fields.</h2>
+          <p>The existing product curriculum teaches planning, delivery and operation. Its current rules ask people to write epics and roadmaps and disclose AI use; those rules remain available while program policy is reviewed.</p>
           <a href="/library/the-way-five-rules">Read The Way: our five rules</a>
         </aside>
         <ProgressPanel />

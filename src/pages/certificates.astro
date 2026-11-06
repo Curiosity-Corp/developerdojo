@@ -61,7 +61,7 @@ const assessment = [
   { icon: 'shield-check', title: 'Gates', description: 'Master Developer candidates pass four gates in order. Each has a written test and a practical task that someone watches.', tone: 'olive' },
   { icon: 'file-check', title: 'Product Package', description: 'Developer candidates hand in one folder in git that proves they own a whole product. Reviewers look at evidence, not at promises.', tone: 'gold' },
   { icon: 'message-square', title: 'Oral review', description: 'You explain your choices out loud, without notes. Questions test judgement: why do people write the epics, why do we fix forward.', tone: 'rust' },
-  { icon: 'scale', title: 'Integrity and AI policy', description: 'You work alone unless a task says otherwise. You disclose all AI use. People write epics and roadmaps. AI never does.', tone: 'olive' },
+  { icon: 'scale', title: 'Integrity and AI policy', description: 'In the existing product curriculum, people write epics and roadmaps and disclose AI use. Program policy is being reviewed as the Dojo expands.', tone: 'olive' },
 ] as const;
 ---
 
@@ -85,7 +85,7 @@ const assessment = [
       <SectionHeader
         eyebrow="Three ranks"
         title="Developer, Master Developer, Sensei"
-        intro="Each rank has its own certificate. Here is what you need to earn each one."
+        intro="The existing product program describes a certificate for each rank. These requirements remain in place as the wider Dojo evolves."
       />
       <ol class="ranks">
         {
@@ -122,12 +122,21 @@ const assessment = [
     </div>
   </section>
 
+  <section class="section" aria-labelledby="belts-title">
+    <div class="container valid">
+      <div id="belts-title"><SectionHeader eyebrow="Rank and specialization" title="A rank and a belt answer different questions" /></div>
+      <p>Developer, Master Developer and Sensei describe growth in development and mentorship. Future specialization belts are intended to show demonstrated ability in a field through evidence and independent review. The belt system is still being developed and no domain belts are issued here today.</p>
+      <p>Neither a Dojo certificate nor a future belt is a professional license, permit or authorization. Regulated and safety-critical work requires the applicable independent validation and qualified approval.</p>
+      <p><a href="/katas">Explore the kata approach</a></p>
+    </div>
+  </section>
+
   <section class="section alt" id="assessment">
     <div class="container">
       <SectionHeader
         eyebrow="Assessment"
         title="How assessment works"
-        intro="You are judged on evidence in git, not on memory alone. Everything is checked by people."
+        intro="The existing product program uses evidence in git and human review. The wider kata and belt assessment process is being developed."
       />
       <FeatureGrid items={assessment} columns={4} />
       <p class="after">

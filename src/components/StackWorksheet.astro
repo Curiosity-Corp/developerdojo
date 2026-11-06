@@ -1,0 +1,27 @@
+<section class="section worksheet" aria-labelledby="worksheet-title">
+  <div class="container inner">
+    <h2 id="worksheet-title">Try a controlled comparison</h2>
+    <p>Use this worksheet to plan two attempts at the same task. Change one component when practical, then compare the evidence. If other things change too, record them as limits on the comparison.</p>
+    <p>Your notes stay in this page while it is open. They are not submitted or saved by the Dojo; use your browser’s print or save option if you want a copy.</p>
+    <div class="fields">
+      <label for="stack-goal">Goal and acceptance criteria</label>
+      <textarea id="stack-goal" rows="3" placeholder="What outcome do you want, and how will you check it?"></textarea>
+      <label for="stack-baseline">First configuration</label>
+      <textarea id="stack-baseline" rows="3" placeholder="Record the harness, model and versions, instructions, context, tools and permissions."></textarea>
+      <label for="stack-change">Second configuration and what changed</label>
+      <textarea id="stack-change" rows="3" placeholder="Identify the one change and anything else you could not keep fixed."></textarea>
+      <label for="stack-evidence">Results and verification</label>
+      <textarea id="stack-evidence" rows="3" placeholder="Record outputs, dates, checks, time or cost if available, and failures."></textarea>
+      <label for="stack-conclusion">What did you learn?</label>
+      <textarea id="stack-conclusion" rows="3" placeholder="Describe the difference, uncertainty and what you would try next."></textarea>
+    </div>
+  </div>
+</section>
+<style>
+  .worksheet { background: var(--paper-sunk); }
+  .inner { max-width: 72rem; }
+  .inner p { max-width: 70ch; }
+  .fields { display: grid; max-width: 70ch; gap: var(--space-2); margin-top: var(--space-4); }
+  label { font-weight: 700; margin-top: var(--space-2); }
+  textarea { width: 100%; min-width: 0; padding: var(--space-3); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); color: var(--ink); font: inherit; }
+</style>

@@ -61,13 +61,13 @@ test('katas explain the approach and keep training and progress accessible', asy
 test.describe('train', () => {
   test('renders paths, real weeks, module strips and the progress panel', async ({ page }) => {
     await page.goto('/train');
-    await expect(page.locator('main h1')).toContainText('Train to lead the whole product');
+    await expect(page.locator('main h1')).toContainText('Train to develop outcomes');
     await expect(page.locator('#developer')).toContainText('6 weeks');
     await expect(page.locator('#master-developer')).toContainText('Advanced');
     await expect(page.locator('#developer-path .module')).toHaveCount(6);
     await expect(page.locator('#master-modules .module')).toHaveCount(4);
     await expect(page.locator('.module-title', { hasText: 'See the whole product' })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'This is not just coding.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Development crosses fields.' })).toBeVisible();
     await expect(page.getByRole('heading', { name: /Your progress/ })).toBeVisible();
     await expect(page.locator('[data-stat="modules"]')).toHaveText('0');
   });

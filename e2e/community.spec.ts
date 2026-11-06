@@ -87,14 +87,16 @@ test.describe('events', () => {
 });
 
 test.describe('membership', () => {
-  test('is free, explains the four steps and links the code of conduct', async ({ page }) => {
+  test('is free, explains how to start and links the code of conduct', async ({ page }) => {
     await page.goto('/membership');
     await expect(page.locator('h1')).toContainText('Membership is free');
+    await expect(page.getByText('No account needed to read.', { exact: false }).first()).toBeVisible();
     await expect(page.getByRole('heading', { name: 'What members get' }).or(page.getByText('What members get'))).toBeVisible();
     const steps = page.locator('#how-to-join ol > li');
     await expect(steps).toHaveCount(4);
-    await expect(steps.nth(0)).toContainText('GitLab.com or GitHub');
-    await expect(steps.nth(1)).toContainText('learner templates');
+    await expect(steps.nth(0)).toContainText('kata');
+    await expect(steps.nth(1)).toContainText('AI agents track');
+    await expect(steps.nth(2)).toContainText('learner templates');
     await expect(steps.nth(2)).toContainText('first issue');
     await expect(steps.nth(3)).toContainText('community');
     await expect(page.getByText('opening soon').first()).toBeVisible();
@@ -118,6 +120,7 @@ test.describe('footer pages', () => {
     await page.goto('/about');
     await expect(page.locator('h1')).toContainText('About CRC');
     await expect(page.getByText('education nonprofit').first()).toBeVisible();
+    await expect(page.getByText('The orchestrator is the developer.')).toBeVisible();
     await expect(page.getByText('That application is pending.')).toBeVisible();
     await expect(page.locator('main')).not.toContainText('foundation stub');
     await noOverflow(page);

@@ -2,6 +2,18 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHeader from '../components/SectionHeader.astro';
+import Icon from '../components/Icon.astro';
+
+const pathways = [
+  { title: 'See an outcome', text: 'Start with real examples as the Gallery grows.', href: '/gallery', link: 'Explore the Gallery' },
+  { title: 'Learn the stack', text: 'Study the foundation shared by every field.', href: '/stack-lab', link: 'Enter the Stack Lab' },
+  { title: 'Choose a field', text: 'See what changes when a technique enters a new domain.', href: '/fields', link: 'Explore fields' },
+  { title: 'Equip your agents', text: 'Learn how harnesses, skills and integrations fit together.', href: '/armory', link: 'Visit the Armory' },
+  { title: 'Compare with evidence', text: 'Understand how to evaluate a complete stack.', href: '/arena', link: 'Visit the Arena' },
+  { title: 'Demonstrate capability', text: 'Discover the vision for domain-specific belts.', href: '/belts', link: 'Explore belts' },
+  { title: 'Try an unfamiliar challenge', text: 'Choose your own approach through Randori.', href: '/randori', link: 'Explore Randori' },
+  { title: 'Apply and share', text: 'Take practice into real work and learn from the outcome.', href: '/missions', link: 'Explore missions' },
+] as const;
 ---
 
 <BaseLayout
@@ -28,6 +40,23 @@ import SectionHeader from '../components/SectionHeader.astro';
       <p>The orchestrator is the developer. Shared foundations include harnesses, models, instructions, context, memory, skills, integrations, delegation and verification. You choose and equip the system, then take responsibility for the outcome.</p>
       <p>Specializations add the artifacts, tools, standards and review needed in each field. The same foundation can support software, UX, 3D and BIM, construction, science, manufacturing, education and more. The catalog is being developed; these fields are directions for future practice, not a claim that all are available today.</p>
       <p>In safety-critical or regulated work, an agent-generated artifact needs independent validation and any required approval from qualified professionals. A Dojo belt does not grant a professional license.</p>
+    </div>
+  </section>
+
+  <section class="section pathway-section" aria-labelledby="pathway-title">
+    <div class="container">
+      <div id="pathway-title">
+        <SectionHeader eyebrow="Your route through the Dojo" title="Choose where to begin" intro="Explore the spaces that support practice. Collections, demonstrations and assessments will grow as their evidence is verified." />
+      </div>
+      <div class="pathway-grid">
+        {pathways.map((pathway) => (
+          <article class="pathway-card">
+            <h3>{pathway.title}</h3>
+            <p>{pathway.text}</p>
+            <a href={pathway.href}>{pathway.link} <Icon name="arrow-right" size={16} /></a>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -65,6 +94,34 @@ import SectionHeader from '../components/SectionHeader.astro';
   }
   .content p {
     max-width: 70ch;
+  }
+  .pathway-section {
+    background: var(--paper-sunk);
+  }
+  .pathway-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+  }
+  .pathway-card {
+    display: grid;
+    align-content: start;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--tone-gold);
+    border-radius: var(--radius);
+    background: var(--paper-raised);
+  }
+  .pathway-card h3 { margin: 0; font-size: var(--text-xl); }
+  .pathway-card p { margin: 0 0 var(--space-2); color: var(--ink-muted); }
+  .pathway-card a { display: inline-flex; align-items: center; gap: var(--space-2); font-weight: 700; }
+  @media (min-width: 40rem) {
+    .pathway-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 80rem) {
+    .pathway-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   }
   .journey {
     background: var(--paper-raised);
