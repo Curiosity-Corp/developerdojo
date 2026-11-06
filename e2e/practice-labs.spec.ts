@@ -60,6 +60,12 @@ test('a learner can save the pocket pack and resume it offline', async ({ page, 
     await page.reload();
     await expect(page.getByLabel('I framed an outcome')).toBeChecked();
     await expect(page.getByLabel('Notes to yourself')).toHaveValue('Practice note');
+    const download = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Download my notes' }).click();
+    expect((await download).suggestedFilename()).toBe('pocket-dojo-progress.json');
+    await page.getByRole('button', { name: 'Clear this pack’s progress' }).click();
+    await expect(page.getByLabel('I framed an outcome')).not.toBeChecked();
+    await expect(page.getByLabel('Notes to yourself')).toHaveValue('');
   } finally {
     await context.setOffline(false);
   }
