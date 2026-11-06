@@ -51,7 +51,7 @@ import PageHero from '../../components/PageHero.astro';
       }
       const doc = document.implementation.createHTMLDocument(title);
       doc.documentElement.lang = 'en';
-      const charset = doc.createElement('meta'); charset.charset = 'utf-8'; doc.head.prepend(charset);
+      const charset = doc.createElement('meta'); charset.setAttribute('charset', 'utf-8'); doc.head.prepend(charset);
       const viewport = doc.createElement('meta'); viewport.name = 'viewport'; viewport.content = 'width=device-width,initial-scale=1'; doc.head.append(viewport);
       const style = doc.createElement('style'); style.textContent = 'body{font:1rem/1.6 system-ui,sans-serif;max-width:46rem;margin:auto;padding:1.5rem;color:#1c2620}h1{line-height:1.1}p{white-space:pre-wrap}'; doc.head.append(style);
       const main = doc.createElement('main'); const h1 = doc.createElement('h1'); h1.textContent = title; main.append(h1);
