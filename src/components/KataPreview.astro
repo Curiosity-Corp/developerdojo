@@ -1,0 +1,41 @@
+<section class="try-preview" aria-labelledby="preview-heading">
+  <h2 id="preview-heading">Try your creation here</h2>
+  <p>Copy only the HTML inside the assistant’s code block, without the backtick fences or extra notes. Paste it here and tap Preview. The Dojo does not save or send the text you paste.</p>
+  <p class="note">Run code you trust and leave out sensitive information. The isolated preview restricts external assets, requests and forms; code or links can still navigate the frame to another site.</p>
+  <label for="kata-preview-code">Your HTML</label>
+  <textarea id="kata-preview-code" rows="8" spellcheck="false" placeholder="Paste your complete HTML here"></textarea>
+  <button type="button" id="kata-preview-run">Preview my creation</button>
+  <p id="kata-preview-status" role="status" aria-live="polite"></p>
+  <iframe id="kata-preview-frame" title="Your prototype preview" sandbox="allow-scripts" hidden></iframe>
+  <noscript><p>Turn on JavaScript to preview here. You can still copy the prompt and inspect the example.</p></noscript>
+</section>
+<script>
+  const input = document.getElementById('kata-preview-code');
+  const button = document.getElementById('kata-preview-run');
+  const status = document.getElementById('kata-preview-status');
+  const frame = document.getElementById('kata-preview-frame');
+  if (input instanceof HTMLTextAreaElement && button instanceof HTMLButtonElement && status && frame instanceof HTMLIFrameElement) {
+    button.addEventListener('click', () => {
+      const html = input.value.trim();
+      if (!html) {
+        status.textContent = 'Paste your HTML first.';
+        input.focus();
+        return;
+      }
+      const policy = `<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; frame-src 'none'; form-action 'none'; base-uri 'none'">`;
+      frame.srcdoc = `<!doctype html>${policy}${html}`;
+      frame.hidden = false;
+      status.textContent = 'Preview ready below.';
+    });
+  }
+</script>
+<style>
+  .try-preview { padding: var(--space-5); background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); }
+  h2 { margin-top: 0; }
+  .note { font-size: var(--text-sm); color: var(--ink-muted); }
+  label { display: block; font-weight: 700; margin-bottom: var(--space-2); }
+  textarea { box-sizing: border-box; display: block; width: 100%; min-width: 0; resize: vertical; padding: var(--space-3); background: var(--paper); color: var(--ink); border: 1px solid var(--line-strong); border-radius: var(--radius); font: inherit; }
+  button { margin-top: var(--space-3); padding: var(--space-3) var(--space-4); border: 0; border-radius: var(--radius); background: var(--band); color: var(--band-text); font: inherit; font-weight: 700; cursor: pointer; }
+  iframe { display: block; width: 100%; height: 30rem; border: 1px solid var(--line-strong); border-radius: var(--radius); background: white; }
+  iframe[hidden] { display: none; }
+</style>

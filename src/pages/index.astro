@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import NoteCard from '../components/NoteCard.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import RankPath from '../components/RankPath.astro';
 import DarkPanel from '../components/DarkPanel.astro';
@@ -10,6 +9,7 @@ import ChallengeList from '../components/ChallengeList.astro';
 import FeatureGrid from '../components/FeatureGrid.astro';
 import Icon from '../components/Icon.astro';
 import Pagoda from '../components/Pagoda.astro';
+import QuickStack from '../components/QuickStack.astro';
 
 const spaces = [
   { number: '01', title: 'Gallery', description: 'Find the outcomes that give a kata its purpose.', href: '/gallery', action: 'Visit the Gallery' },
@@ -57,26 +57,51 @@ const bar = [
     title="What will you develop"
     accent="?"
     eyebrow="Master the stack. Master the katas. Develop anything."
-    highlight="Free training"
-    subtitle="for developers of outcomes across industries. Choose and equip your agent stack, orchestrate the work, and verify what you develop. The orchestrator is the developer."
+    subtitle="Turn an idea into something real with AI, even from your phone. The orchestrator is the developer."
     ctas={[
-      { label: 'Explore outcomes', href: '/gallery', icon: 'arrow-right' },
-      { label: 'Explore katas', href: '/katas', variant: 'ghost', icon: 'play' },
+      { label: 'Build a prototype', href: '/katas/first-prototype', icon: 'arrow-right' },
+      { label: 'Turn an idea into a plan', href: '/katas/spark-ideas', variant: 'ghost', icon: 'play' },
     ]}
   >
-    <NoteCard
-      slot="side"
-      title="A developer learns to..."
-      items={[
-        'Define an outcome and its evidence',
-        'Choose a harness, models and tools',
-        'Equip and orchestrate agents',
-        'Verify results and manage risk',
-        'Adapt a technique to a new field',
-        'Learn and improve through practice',
-      ]}
-    />
+    <div slot="side" class="hero-art">
+      <img src="/images/kata-spark.webp" width="1672" height="941" alt="" />
+      <p>Imagine it. Make it. Make it better.</p>
+    </div>
   </PageHero>
+
+  <section class="section showcase" aria-labelledby="showcase-title">
+    <div class="container">
+      <div id="showcase-title"><SectionHeader eyebrow="Start creating" title="Pick a result. Make it yours." intro="Two beginner katas you can start right now." /></div>
+      <div class="showcase-grid">
+        <article class="showcase-card prototype-card">
+          <div class="showcase-copy">
+            <span class="showcase-tag">Beginner · about 15 minutes</span>
+            <h3>Make a clickable prototype</h3>
+            <p>Turn an idea into a small interactive experience. Try our working example, then build your own.</p>
+            <a class="showcase-action" href="/katas/first-prototype">Start this kata <Icon name="arrow-right" size={18} /></a>
+            <a class="showcase-secondary" href="/examples/pocket-garden.html">Open the working example</a>
+          </div>
+          <div class="example-window">
+            <p>Try the example</p>
+            <iframe src="/examples/pocket-garden.html" title="Pocket Garden working prototype example" loading="lazy" sandbox="allow-scripts"></iframe>
+          </div>
+        </article>
+        <article class="showcase-card brief-card">
+          <div class="showcase-copy">
+            <span class="showcase-tag">Beginner · about 10 minutes</span>
+            <h3>Turn an idea into a plan</h3>
+            <p>Give your idea a purpose, an audience, and a first step with a one-page brief.</p>
+            <a class="showcase-action" href="/katas/spark-ideas">Start the idea kata <Icon name="arrow-right" size={18} /></a>
+          </div>
+          <div class="brief-visual" aria-hidden="true">
+            <span>YOUR IDEA</span><strong>→</strong><span>ONE CLEAR PLAN</span>
+          </div>
+        </article>
+      </div>
+      <p class="showcase-browse"><a href="/katas">Explore katas <Icon name="arrow-right" size={16} /></a></p>
+      <QuickStack />
+    </div>
+  </section>
 
   <section class="section tight" aria-label="The bar">
     <div class="container">
@@ -183,6 +208,31 @@ const bar = [
 </BaseLayout>
 
 <style>
+  .hero-art { overflow: hidden; border-radius: var(--radius); border: 1px solid rgb(255 255 255 / .3); background: var(--band); box-shadow: var(--shadow); }
+  .hero-art img { display: block; width: 100%; height: 15rem; object-fit: cover; }
+  .hero-art p { margin: 0; padding: var(--space-3) var(--space-4); color: var(--band-text); font-weight: 700; }
+  .showcase { padding-block: var(--space-6); }
+  .showcase-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); margin-top: var(--space-5); }
+  .showcase-card { display: grid; grid-template-columns: minmax(0, 1fr); overflow: hidden; background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+  .showcase-copy { display: grid; align-content: start; justify-items: start; gap: var(--space-3); padding: var(--space-5); }
+  .showcase-copy h3 { margin: 0; font-size: var(--text-2xl); overflow-wrap: anywhere; }
+  .showcase-copy p { margin: 0; max-width: 42ch; }
+  .showcase-tag { color: var(--olive-text); font-size: var(--text-sm); font-weight: 700; }
+  .showcase-action { display: inline-flex; align-items: center; gap: var(--space-2); padding: .75rem 1rem; background: #294333; color: #fff; border-radius: var(--radius); font-weight: 700; text-decoration: none; }
+  .showcase-action:hover { text-decoration: underline; }
+  .showcase-secondary, .showcase-browse a { font-weight: 700; }
+  .showcase-browse { margin: var(--space-4) 0; }
+  .showcase-browse a { display: inline-flex; align-items: center; gap: var(--space-2); }
+  .example-window { padding: var(--space-4); background: var(--paper-sunk); }
+  .example-window p { margin: 0 0 var(--space-2); color: var(--ink-muted); font-size: var(--text-sm); font-weight: 700; }
+  .example-window iframe { display: block; width: 100%; height: 22rem; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+  .brief-visual { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-3); min-height: 8rem; padding: var(--space-4); background: var(--paper-sunk); color: var(--olive-text); font-weight: 700; text-align: center; }
+  .brief-visual strong { font-size: var(--text-2xl); }
+  @media (min-width: 62rem) {
+    .prototype-card { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+    .showcase-grid { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+    .brief-card { grid-template-rows: 1fr auto; }
+  }
   .bar-grid {
     margin-top: var(--space-5);
   }

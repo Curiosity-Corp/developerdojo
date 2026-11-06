@@ -1,0 +1,46 @@
+---
+import QuickKata from '../../components/QuickKata.astro';
+import KataPreview from '../../components/KataPreview.astro';
+
+const prompt = `You are my prototype developer. Make me a tiny, responsive web app called Pocket Garden.
+
+Create one complete HTML file with its CSS and JavaScript inside the file. Do not use external libraries, images, fonts, network requests, or a server.
+
+The page should have:
+- A friendly heading and short introduction.
+- Three plant cards: Basil and Sunflower like sun; Mint likes shade.
+- Three filters: All plants, Loves sun, and Likes shade. Each filter should show the right cards.
+- A button on each card that toggles between “Mark as planted” and “Planted”.
+- A layout that works on a phone and a keyboard. Give buttons clear labels, visible focus, and pressed states.
+- A note that choices reset when the page reloads.
+
+Return the entire HTML in one code block so I can copy it. Then give me four short checks to try. Do not claim that you tested it unless you actually did.`;
+---
+<QuickKata
+  title="Make a clickable prototype"
+  description="Turn a single prompt into a tiny app you can tap, test and remix."
+  time="About 15 minutes"
+  prompt={prompt}
+  exampleHref="/examples/pocket-garden.html"
+  exampleLabel="Open the working example"
+  exampleNote="This working reference was created for the kata with AI assistance. It is an example of the target outcome, not a claim that your assistant will reproduce it exactly."
+>
+  <div slot="outcome" class="example">
+    <p>Try this mini garden: filter the plants and mark one as planted.</p>
+    <iframe title="Working Pocket Garden example" src="/examples/pocket-garden.html" loading="lazy" sandbox="allow-scripts"></iframe>
+  </div>
+  <KataPreview slot="preview" />
+  <div slot="verify">
+    <ol>
+      <li>Copy only the HTML inside the assistant’s code block, without the surrounding backticks or the follow-up checks. Paste it into the preview above and tap <strong>Preview my creation</strong>.</li>
+      <li>Tap each filter. Check that sun shows Basil and Sunflower, and shade shows Mint.</li>
+      <li>Toggle a plant button twice. Check that it changes both ways; reload to check that choices reset.</li>
+      <li>Try the controls with a keyboard if you have one. If something fails, tell the assistant exactly what happened and ask for a complete corrected file.</li>
+    </ol>
+    <p><strong>Remix:</strong> change the theme to a book list, game collection or recipe planner. Keep the same checks and add one of your own.</p>
+    <p>The preview runs on your device and restricts external assets, requests and forms. Code or links can still navigate the preview, so review the code and keep sensitive data out. If your assistant offers its own preview, you can use that too.</p>
+  </div>
+</QuickKata>
+<style>
+  .example iframe { display:block; width:100%; height:30rem; border:1px solid var(--line-strong); border-radius:var(--radius); background:#fff; }
+</style>

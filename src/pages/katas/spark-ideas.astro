@@ -1,0 +1,51 @@
+---
+import QuickKata from '../../components/QuickKata.astro';
+
+const prompt = `You are my idea-to-plan partner. Help me develop an idea into a clear one-page project brief.
+
+My idea: a neighborhood seed swap where people can share extra seeds.
+Audience: neighbors who want to try growing something.
+Constraint: start with a simple, low-cost experiment, without assuming a venue or participants have already agreed.
+
+Write a short brief with:
+1. A one-sentence goal.
+2. Who it is for and the problem it could help with.
+3. Three practical first steps.
+4. One small test I can try this week and what I would look for.
+5. Two assumptions or risks I should check.
+
+Use plain language. Label assumptions clearly. Do not invent people, results, costs, or commitments. Ask me one useful question at the end.`;
+---
+<QuickKata
+  title="Turn an idea into a plan"
+  description="Make a clear one-page brief for something you want to bring into the world."
+  time="About 10 minutes"
+  prompt={prompt}
+  exampleNote="This fictional example brief was created for the kata with AI assistance. It illustrates the format; the seed swap and its results are not presented as real."
+>
+  <article slot="outcome" class="brief">
+    <span class="badge">Example brief</span>
+    <h3>Neighborhood seed swap</h3>
+    <p><strong>Goal:</strong> Help neighbors share spare seeds and try growing something new.</p>
+    <p><strong>For:</strong> People nearby who want to grow plants but may not need a whole packet of seeds.</p>
+    <p><strong>First steps:</strong> Ask a few neighbors if the idea is useful. Find out what seeds people could share. Explore a suitable way to exchange them.</p>
+    <p><strong>Small test:</strong> Describe the idea to a few people and note whether they would offer or take seeds.</p>
+    <p><strong>Check:</strong> We do not yet know if people have spare seeds, or where an exchange could happen.</p>
+    <p><strong>Question:</strong> Where would neighbors most easily hear about the idea?</p>
+  </article>
+  <div slot="verify">
+    <ol>
+      <li>Check that the goal, audience, three steps, one test and two assumptions are all present.</li>
+      <li>Look for invented facts or promises. Ask the assistant to label or remove anything it cannot support.</li>
+      <li>Replace the example idea with your own. Keep the same structure and add your real constraints.</li>
+      <li>Ask: “What is the smallest safe test I could try first, and what would I learn from it?”</li>
+    </ol>
+    <p><strong>Remix:</strong> try the same prompt for a school club, an app idea or a creative project.</p>
+  </div>
+</QuickKata>
+<style>
+  .brief { max-width:40rem; padding:var(--space-5); border:1px solid var(--line); border-left:6px solid var(--tone-olive); border-radius:var(--radius); background:var(--paper-raised); box-shadow:var(--shadow); }
+  .brief h3 { margin:var(--space-3) 0; font-size:var(--text-2xl); }
+  .brief p:last-child { margin-bottom:0; }
+  .badge { display:inline-block; padding:.25rem .7rem; border-radius:999px; background:var(--paper-sunk); font-weight:700; font-size:var(--text-sm); }
+</style>

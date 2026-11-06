@@ -25,12 +25,28 @@ const pathways = [
     eyebrow="Practice with purpose"
     title="Learn through katas"
     accent="."
-    subtitle="A kata is a repeatable development technique. Study an outcome, learn the stack that produced it, practice the technique and verify the result."
+    subtitle="Pick something you want to make. Follow a short recipe and try it with an AI assistant."
     ctas={[
-      { label: 'Explore current training', href: '/library/tracks', icon: 'arrow-right' },
-      { label: 'See the journey', href: '#journey', variant: 'ghost', icon: 'play' },
+      { label: 'Build a prototype', href: '/katas/first-prototype', icon: 'arrow-right' },
+      { label: 'Turn an idea into a plan', href: '/katas/spark-ideas', variant: 'ghost', icon: 'play' },
     ]}
   />
+
+  <section class="section first-katas" aria-labelledby="start-title">
+    <div class="container">
+      <div id="start-title"><SectionHeader eyebrow="Start now" title="Your first two katas" intro="Choose the result you want. Both are beginner friendly." /></div>
+      <div class="starter-grid">
+        <article class="starter-card">
+          <div class="starter-copy"><span>About 15 minutes</span><h3>Make a clickable prototype</h3><p>Build a small interactive experience and make it your own.</p><a href="/katas/first-prototype">Start the prototype kata <Icon name="arrow-right" size={16} /></a></div>
+          <div class="starter-demo"><iframe src="/examples/pocket-garden.html" title="Pocket Garden working prototype example" loading="lazy" sandbox="allow-scripts"></iframe></div>
+        </article>
+        <article class="starter-card idea-card">
+          <div class="starter-copy"><span>About 10 minutes</span><h3>Turn an idea into a plan</h3><p>Use an AI assistant to turn a spark into a clear one-page project brief.</p><a href="/katas/spark-ideas">Start the idea kata <Icon name="arrow-right" size={16} /></a></div>
+          <img src="/images/kata-spark.webp" width="1672" height="941" alt="" loading="lazy" />
+        </article>
+      </div>
+    </div>
+  </section>
 
   <section class="section" aria-labelledby="foundation-title">
     <div class="container content">
@@ -89,6 +105,19 @@ const pathways = [
 </BaseLayout>
 
 <style>
+  .first-katas { padding-block: var(--space-6); }
+  .starter-grid { display: grid; gap: var(--space-4); grid-template-columns: minmax(0, 1fr); margin-top: var(--space-5); }
+  .starter-card { display: grid; grid-template-columns: minmax(0, 1fr); overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); box-shadow: var(--shadow); }
+  .starter-copy { display: grid; justify-items: start; align-content: start; gap: var(--space-3); padding: var(--space-5); }
+  .starter-copy span { color: var(--olive-text); font-size: var(--text-sm); font-weight: 700; }
+  .starter-copy h3 { margin: 0; font-size: var(--text-2xl); overflow-wrap: anywhere; }
+  .starter-copy p { margin: 0; }
+  .starter-copy a { display: inline-flex; gap: var(--space-2); align-items: center; padding: .75rem 1rem; background: #294333; color: #fff; border-radius: var(--radius); font-weight: 700; text-decoration: none; }
+  .starter-copy a:hover { text-decoration: underline; }
+  .starter-demo { padding: var(--space-4); background: var(--paper-sunk); }
+  .starter-demo iframe { display: block; width: 100%; height: 21rem; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+  .idea-card img { display: block; width: 100%; height: 14rem; object-fit: cover; }
+  @media (min-width: 62rem) { .starter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .content {
     max-width: 60rem;
   }
