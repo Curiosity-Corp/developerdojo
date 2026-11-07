@@ -99,7 +99,7 @@ const workshops = [
   <PageHero compact eyebrow="Make something real" title="Build across industries" subtitle="Pick an outcome. Learn from the people who make the tools. Then adapt the technique with your own AI assistant." />
   <section class="section"><div class="container">
     <SectionHeader title="Choose your next outcome" intro="Each card links to official training and adds a small Dojo exercise. Start with the prompt, or dive into the provider’s material." />
-    <p class="notice"><strong>Bring your own stack.</strong> Use an assistant in a phone or browser app, or a CLI harness you already trust. Copy the prompt yourself; these exercises do not install a skill, connect an app or run a tool for you. Check compatibility, permissions and costs before adding any integration.</p>
+    <p class="notice"><strong>Bring your own stack.</strong> Use an assistant in a phone or browser app, or a CLI harness you already trust. Copy the prompt yourself; these exercises do not install a skill, connect an app or run a tool for you. Check compatibility, permissions and costs before adding any integration. <a href="/katas/spark-ideas#device-options">See phone, Windows, macOS and Linux setup options</a>.</p>
     <div class="workshops">
       {workshops.map((item) => (
         <article id={item.id} class="workshop">
@@ -107,7 +107,8 @@ const workshops = [
           <p><a class="start" href={item.source}>Start with {item.provider} ↗</a></p>
           <details><summary>Open the Dojo exercise</summary>
             <p><strong>Ingredients:</strong> your choice of assistant or CLI harness; the official lesson; and a place to save a draft. {item.needs}</p>
-            <h3>1. Give your agent the brief</h3><blockquote>{item.prompt}</blockquote>
+            <h3>1. Give your agent the brief</h3><blockquote data-workshop-prompt>{item.prompt}</blockquote>
+            <div class="copy-row"><button type="button" data-copy-workshop hidden>Copy prompt</button><span data-copy-status aria-live="polite">Or select and copy the text.</span></div>
             <h3>2. Learn and try</h3><p>{item.practice}</p>
             <h3>3. Verify</h3><p>{item.verify}</p>
             <details><summary>Quick check: {item.question}</summary><p>{item.answer}</p></details>
@@ -121,6 +122,30 @@ const workshops = [
     <p><a href="/katas">Explore more katas</a> · <a href="/katas/cloud-workshops">Cloud workshops</a> · <a href="/library/resources">Browse learning resources</a></p>
   </div></section>
 </BaseLayout>
+<script>
+  for (const card of document.querySelectorAll<HTMLElement>('.workshop')) {
+    const prompt = card.querySelector<HTMLElement>('[data-workshop-prompt]');
+    const button = card.querySelector<HTMLButtonElement>('[data-copy-workshop]');
+    const status = card.querySelector<HTMLElement>('[data-copy-status]');
+    if (!prompt || !button || !status) continue;
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(prompt.textContent ?? '');
+        status.textContent = 'Copied. Paste it into your assistant.';
+      } catch {
+        const selection = window.getSelection();
+        if (selection) {
+          const range = document.createRange();
+          range.selectNodeContents(prompt);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+        status.textContent = 'Use your device’s copy command to copy the prompt.';
+      }
+    });
+  }
+</script>
 <style>
   .notice { max-width: 78ch; padding: var(--space-4); border-left: 4px solid var(--tone-gold); background: var(--paper-raised); }
   .workshops { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--space-4); margin: var(--space-5) 0; }
@@ -133,5 +158,9 @@ const workshops = [
   details { padding: var(--space-3); border-radius: var(--radius); background: var(--paper-sunk); }
   details details { background: var(--paper-raised); }
   blockquote { margin: var(--space-3) 0; padding-left: var(--space-3); border-left: 3px solid var(--tone-gold); }
+  .copy-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+  .copy-row button { font: inherit; font-weight: 700; padding: .6rem .9rem; color: var(--gold-ink); background: var(--gold); border: 1px solid var(--gold); border-radius: var(--radius); cursor: pointer; }
+  .copy-row button[hidden] { display: none; }
+  .copy-row span { font-size: var(--text-sm); }
   .source { font-size: var(--text-sm); }
 </style>
