@@ -1,0 +1,9 @@
+title: "Creating Product Images at Scale with Firefly Services"
+provider: "Adobe"
+url: "https://developer.adobe.com/firefly-services/docs/guides/tutorials/create-product-images-with-ff"
+cost: "free"
+format: "tutorial"
+level: "advanced"
+skills: [creative-media, business-automation, ai-agents]
+summary: "Adobe describes a Python workflow that combines product images, prompts, sizes, and translations using Firefly Services and Dropbox. Map its inputs, outputs, and human review steps with any assistant, then check a small fictional campaign for missing or misleading translations. Running the example needs provider credentials and may incur service costs; inspect permissions and protect secrets."
+verifiedOn: 2026-11-07
