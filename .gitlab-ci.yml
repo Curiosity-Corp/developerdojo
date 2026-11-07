@@ -130,7 +130,7 @@ e2e:
 # Internal GitLab Pages preview of the built site.
 pages:
   stage: deploy
-  needs: [build, e2e, links]
+  needs: [check, test, build, e2e, links]
   interruptible: false
   script:
     - mv dist public
@@ -148,7 +148,7 @@ pages:
 # event lists evaluated at build time) always reaches GitHub Pages.
 publish_github_pages:
   stage: deploy
-  needs: [build, e2e, links]
+  needs: [check, test, build, e2e, links]
   interruptible: false
   resource_group: github-pages-release
   variables:
