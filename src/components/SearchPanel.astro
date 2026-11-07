@@ -19,20 +19,23 @@ const { id, label = 'Search the whole site' } = Astro.props;
     <input
       id={`${id}-input`}
       type="search"
-      placeholder="Try: epic, persona, roadmap, Kubernetes"
+      placeholder="Try: design, cloud, audio, agents"
       autocomplete="off"
       spellcheck="false"
+      maxlength="160"
       aria-describedby={`${id}-status`}
       data-search-input
     />
   </form>
   <p id={`${id}-status`} class="status" role="status" aria-live="polite" data-search-status></p>
+  <div class="suggestions" data-search-suggestions></div>
   <div class="results" data-search-results></div>
   <noscript><p>Search needs JavaScript. You can still browse the <a href="/library">library</a>.</p></noscript>
 </div>
 
 <script>
   import { SEARCH_GROUP_LABELS, SEARCH_GROUP_ORDER, classifyUrl, type SearchGroup } from '../lib/search-groups';
+  import { correctSearch, relatedSearches } from '../lib/search-guidance';
 
   interface PagefindResultData {
     url: string;
@@ -44,7 +47,18 @@ const { id, label = 'Search the whole site' } = Astro.props;
   }
   interface PagefindApi {
     init: () => Promise<void>;
+    search: (term: string) => Promise<PagefindSearch>;
     debouncedSearch: (term: string, options?: object, wait?: number) => Promise<PagefindSearch | null>;
+  }
+
+  let vocabulary: Promise<string[]> | undefined;
+  function loadVocabulary(): Promise<string[]> {
+    vocabulary ??= fetch('/search-vocabulary.json').then(async (response) => {
+      if (!response.ok) return [];
+      const value: unknown = await response.json();
+      return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : [];
+    }).catch(() => []);
+    return vocabulary;
   }
 
   let pagefind: Promise<PagefindApi> | undefined;
@@ -102,7 +116,8 @@ const { id, label = 'Search the whole site' } = Astro.props;
     const form = root.querySelector<HTMLFormElement>('[data-search-form]');
     const status = root.querySelector<HTMLElement>('[data-search-status]');
     const results = root.querySelector<HTMLElement>('[data-search-results]');
-    if (!input || !form || !status || !results) continue;
+    const suggestions = root.querySelector<HTMLElement>('[data-search-suggestions]');
+    if (!input || !form || !status || !results || !suggestions) continue;
 
     let latest = 0;
     const run = async (): Promise<void> => {
@@ -111,17 +126,55 @@ const { id, label = 'Search the whole site' } = Astro.props;
       if (term.length === 0) {
         status.textContent = '';
         results.replaceChildren();
+        suggestions.replaceChildren();
         return;
+      }
+      status.textContent = 'Searching…';
+      results.replaceChildren();
+      suggestions.replaceChildren();
+      const related = relatedSearches(term);
+      if (related.length) {
+        const label = document.createElement('p');
+        label.textContent = 'Explore related searches';
+        const list = document.createElement('div');
+        list.className = 'suggestion-list';
+        for (const relatedTerm of related) {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.textContent = relatedTerm;
+          button.addEventListener('click', () => {
+            input.value = relatedTerm;
+            input.focus();
+            void run();
+          });
+          list.append(button);
+        }
+        suggestions.append(label, list);
       }
       try {
         const api = await loadPagefind();
-        const search = await api.debouncedSearch(term, {}, 150);
+        let search = await api.debouncedSearch(term, {}, 150);
         if (search === null || ticket !== latest) return; // a newer keystroke replaced this search
+        let correction: string | null = null;
+        if (search.results.length === 0) {
+          const proposed = correctSearch(term, await loadVocabulary());
+          if (ticket !== latest) return;
+          if (proposed) {
+            const close = await api.search(proposed);
+            if (ticket !== latest) return;
+            if (close.results.length > 0) {
+              correction = proposed;
+              search = close;
+            }
+          }
+        }
         const data = await Promise.all(search.results.slice(0, MAX_RESULTS).map((result) => result.data()));
         if (ticket !== latest) return;
         renderResults(results, data);
         status.textContent =
-          search.results.length === 0
+          correction
+            ? `No results for "${term}". Showing ${search.results.length} close ${search.results.length === 1 ? 'match' : 'matches'} for "${correction}".`
+            : search.results.length === 0
             ? `No results for "${term}". Try a shorter or different word.`
             : `${search.results.length} ${search.results.length === 1 ? 'result' : 'results'} for "${term}"`;
       } catch (error) {
@@ -170,6 +223,22 @@ const { id, label = 'Search the whole site' } = Astro.props;
     margin: 0;
     min-height: 1.5em;
     color: var(--ink-muted);
+  }
+  .suggestions:empty { display: none; }
+  .suggestions p { margin: 0 0 var(--space-2); font-weight: 700; }
+  .suggestion-list { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .suggestion-list :global(button) {
+    font: inherit;
+    color: inherit;
+    background: var(--paper-raised);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    padding: var(--space-2) var(--space-3);
+    cursor: pointer;
+  }
+  .suggestion-list :global(button:focus-visible) {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
   }
   .results {
     display: grid;
