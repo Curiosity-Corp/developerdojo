@@ -11,6 +11,45 @@ async function openSearch(page: Page, isMobile: boolean) {
   return dialog;
 }
 
+test('search warms its index when the learner opens it', async ({ page, isMobile }) => {
+  const requested: string[] = [];
+  page.on('request', (request) => {
+    if (new URL(request.url()).pathname === '/pagefind/pagefind.js') requested.push(request.url());
+  });
+  await page.goto('/');
+  expect(requested).toHaveLength(0);
+  const request = page.waitForRequest((item) => new URL(item.url()).pathname === '/pagefind/pagefind.js');
+  const dialog = await openSearch(page, isMobile);
+  await request;
+  await expect(dialog.getByRole('searchbox')).toHaveValue('');
+});
+
+test('the first results remain usable while later results load', async ({ page, isMobile }) => {
+  let fragments = 0;
+  let release!: () => void;
+  const gate = new Promise<void>((resolve) => { release = resolve; });
+  await page.route('**/pagefind/fragment/*', async (route) => {
+    fragments += 1;
+    if (fragments > 6) await gate;
+    await route.continue();
+  });
+  try {
+    await page.goto('/');
+    const dialog = await openSearch(page, isMobile);
+    await dialog.getByRole('searchbox').fill('epic');
+    await expect(dialog.getByRole('status')).toContainText(/\d+ results? for "epic"/);
+    const first = dialog.locator('[data-search-results] a').first();
+    await expect(first).toBeVisible();
+    await expect.poll(() => fragments).toBeGreaterThan(6);
+    await first.focus();
+    release();
+    await expect.poll(async () => dialog.locator('[data-search-results] a').count()).toBeGreaterThan(6);
+    await expect(first).toBeFocused();
+  } finally {
+    release();
+  }
+});
+
 test('the header search finds a lesson and opens it', async ({ page, isMobile }) => {
   await page.goto('/train');
   const dialog = await openSearch(page, isMobile);
