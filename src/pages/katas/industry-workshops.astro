@@ -50,6 +50,17 @@ const workshops = [
     question: 'What stays useful if you switch speech tools?', answer: 'The script, transcript and review criteria can be reused even when the audio tool changes.',
   },
   {
+    id: 'finance', field: 'Finance · small business', provider: 'Intuit QuickBooks',
+    title: 'Explain a fictional invoice',
+    outcome: 'A checked invoice summary and a safe plan for experimenting with accounting data.',
+    source: 'https://github.com/intuit/intuit-cli-for-quickbooks', sourceTitle: 'Intuit QuickBooks CLI guide',
+    needs: 'The guide is public. Optional API practice requires an Intuit developer account, an app and a sandbox company; review app permissions and current terms before connecting anything.',
+    prompt: 'Summarize this fictional invoice: Design work $35, materials $15, delivery $10. Show the arithmetic, total and any information missing before payment. Do not create, send or modify an invoice.',
+    practice: 'First ask your assistant to review the fictional invoice. Explore Intuit’s CLI guide and sandbox documentation; if you choose to connect a tool, use your own sandbox and sample data, not a real company. Inspect the CLI and its permissions first.',
+    verify: 'Check the total is $60 and that no payment status or customer detail was invented. Review any proposed action before it runs; financial records and production credentials must stay private.',
+    question: 'Does a connected CLI mean every accounting action is safe to automate?', answer: 'No. Confirm the environment and permissions, and review proposed actions before allowing them.',
+  },
+  {
     id: 'agent-systems', field: 'Agent systems · automation', provider: 'Cloudflare',
     title: 'Run an agent with a memory',
     outcome: 'A working tutorial agent, or a paper design showing requests, memory and model calls.',
@@ -102,6 +113,7 @@ const workshops = [
             <details><summary>Quick check: {item.question}</summary><p>{item.answer}</p></details>
           </details>
           <p class="source">Official resource: <a href={item.source}>{item.sourceTitle}</a></p>
+          {item.id === 'finance' && <p><a href="https://static.developer.intuit.com/output_html/qbo/docs/develop/sandboxes/manage-your-sandboxes.html">Intuit: create and test with a sandbox company</a></p>}
         </article>
       ))}
     </div>
