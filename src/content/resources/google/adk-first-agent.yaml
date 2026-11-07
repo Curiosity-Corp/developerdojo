@@ -1,0 +1,10 @@
+title: "Build an AI Agent with Google ADK"
+provider: "Google"
+url: "https://codelabs.developers.google.com/build-ai-agent-google-adk"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+duration: "30 minutes"
+skills: [ai-agents, communication-writing]
+summary: "This Google codelab builds a blog-writing system with planner and writer agents and a local web interface. Compare its roles and handoff with a plan from any assistant, then check a generated article against its sources. The guide is free to read; running it requires Python and a Google AI Studio API key, and provider limits or charges can apply."
+verifiedOn: 2026-11-07

@@ -1,0 +1,9 @@
+title: "Building AI Agents with ADK: Data Analyst Agent"
+provider: "Google"
+url: "https://codelabs.developers.google.com/devsite/codelabs/build-agents-with-adk-data-analyst-agent"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [ai-agents, data-analytics, cloud-platforms]
+summary: "Build a data analysis agent that works with files and queries a public healthcare dataset in BigQuery. Before connecting anything, use synthetic data to ask your preferred assistant for a query, then manually verify the totals and assumptions; this is not clinical guidance. The lab requires a Google Cloud project and billing account, and cloud usage may incur charges."
+verifiedOn: 2026-11-07

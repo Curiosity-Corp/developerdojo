@@ -1,0 +1,9 @@
+title: "Welcome to the Robotics Course"
+provider: "Hugging Face"
+url: "https://huggingface.co/learn/robotics-course/en/unit0/1"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [robotics-manufacturing, ai-agents, open-source]
+summary: "Explore classical robotics and learning-based approaches using the LeRobot ecosystem; some later units are still being developed. Ask an assistant to plan tests for a simulated robot and compare the plan to the course material. Practice can start with datasets or simulation; hardware and cloud compute can cost money, and physical use requires independent safety review."
+verifiedOn: 2026-11-07
