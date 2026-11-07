@@ -61,6 +61,10 @@ export const SKILL_LABELS: Record<Skill, string> = {
   'data-analytics': 'Data and analytics',
   'communication-writing': 'Communication and writing',
   'career-portfolio': 'Career and portfolio',
+  'cad-3d-bim': 'CAD, 3D and BIM',
+  'creative-media': 'Creative media',
+  'business-automation': 'Business automation',
+  'robotics-manufacturing': 'Robotics and manufacturing',
 };
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

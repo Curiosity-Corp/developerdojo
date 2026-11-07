@@ -40,6 +40,10 @@ export const SKILLS = [
   'data-analytics',
   'communication-writing',
   'career-portfolio',
+  'cad-3d-bim',
+  'creative-media',
+  'business-automation',
+  'robotics-manufacturing',
 ] as const;
 
 export type LessonLevel = (typeof LESSON_LEVELS)[number];
