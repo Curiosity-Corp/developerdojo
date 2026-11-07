@@ -1,0 +1,9 @@
+title: "Docs MCP"
+provider: "xAI"
+url: "https://docs.x.ai/developers/docs-mcp"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [ai-agents]
+summary: "The official documentation describes an MCP server for finding and reading xAI documentation from compatible assistants, with command-line examples. Compare its read-only documentation tools with your preferred harness and inspect permissions before connecting; model or API usage may have separate charges."
+verifiedOn: 2026-11-06

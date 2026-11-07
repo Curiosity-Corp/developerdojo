@@ -141,3 +141,23 @@ for (const theme of ['light', 'dark'] as const) {
     expect(bad).toEqual([]);
   });
 }
+
+test('misspelled searches still find relevant learning material', async ({ page, isMobile }) => {
+  await page.goto('/');
+  const dialog = await openSearch(page, isMobile);
+  await dialog.getByRole('searchbox').fill('kubernetez');
+  await expect(dialog.getByRole('status')).toContainText(/results? for|close matches? for/);
+  await expect(dialog.getByRole('link', { name: /Kubernetes/i }).first()).toBeVisible();
+});
+
+test('related searches are selectable and make katas easy to find', async ({ page, isMobile }) => {
+  await page.goto('/');
+  const dialog = await openSearch(page, isMobile);
+  const box = dialog.getByRole('searchbox');
+  await box.fill('data');
+  await expect(dialog.getByText('Explore related searches')).toBeVisible();
+  await dialog.getByRole('button', { name: 'data rescue' }).click();
+  await expect(box).toHaveValue('data rescue');
+  await expect(dialog.getByRole('heading', { name: 'Katas' })).toBeVisible();
+  await expect(dialog.getByRole('link', { name: 'Rescue messy data' })).toBeVisible();
+});

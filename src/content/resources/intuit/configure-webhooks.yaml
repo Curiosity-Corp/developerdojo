@@ -1,0 +1,9 @@
+title: "Configure webhooks"
+provider: "Intuit"
+url: "https://static.developer.intuit.com/output_html/qbo/docs/develop/webhooks/configure-webhooks.html"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [business-automation, security, ai-agents]
+summary: "Intuit explains how an authorized QuickBooks app receives change notifications, including sandbox setup. Ask a preferred assistant to sketch an event-driven workflow using fake invoices and approval checkpoints; keep credentials private and verify account and pricing requirements."
+verifiedOn: 2026-11-06

@@ -1,0 +1,9 @@
+title: "Build an AI Agent with Agentforce"
+provider: "Salesforce Trailhead"
+url: "https://trailhead.salesforce.com/content/learn/trails/build-ai-assistants-with-einstein-copilot"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [ai-agents, business-automation]
+summary: "Salesforce Trailhead covers agent foundations and business workflows, including actions and connecting data. Practice defining a fictional customer-support agent with any harness and compare its permissions and tests with the Trailhead example; signing in may be required."
+verifiedOn: 2026-11-06

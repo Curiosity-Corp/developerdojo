@@ -1,0 +1,9 @@
+title: "Quickstart"
+provider: "ElevenLabs"
+url: "https://elevenlabs.io/docs/eleven-agents/quickstart"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [ai-agents, creative-media, communication-writing]
+summary: "Build and test a voice agent through ElevenLabs using its dashboard or documented CLI and API options. Apply the same test script in your preferred agent harness and compare the results; an ElevenLabs account is required and usage limits or charges may apply."
+verifiedOn: 2026-11-06

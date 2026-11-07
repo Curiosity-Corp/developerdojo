@@ -98,7 +98,8 @@ verifiedOn: 2026-11-03     # the day someone opened the link and it worked
 Allowed `skills` values: product-discovery, personas-journeys, roadmapping-epics, agile-delivery,
 stakeholder-communication, brand-web-design, ai-agents, prompt-engineering, ai-evaluation, git-gitlab,
 ci-cd, cloud-platforms, kubernetes-gitops, infrastructure-as-code, security, observability-reliability,
-itsm-service-management, open-source, data-analytics, communication-writing, career-portfolio.
+itsm-service-management, open-source, data-analytics, communication-writing, career-portfolio,
+cad-3d-bim, creative-media, business-automation, robotics-manufacturing.
 
 ## What fails the build
 
