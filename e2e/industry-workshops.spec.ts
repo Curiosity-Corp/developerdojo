@@ -34,6 +34,38 @@ test('industry workshops offer official lessons and reusable agent exercises', a
   expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(0);
 });
 
+test('a workshop prompt can be copied into an assistant', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: { writeText: async (text: string) => sessionStorage.setItem('test-copied-prompt', text) },
+    });
+  });
+  await page.goto('/katas/industry-workshops/');
+  const card = page.locator('#finance');
+  await card.getByText('Open the Dojo exercise').click();
+  await card.getByRole('button', { name: 'Copy prompt' }).click();
+  await expect(card.locator('[data-copy-status]')).toHaveText('Copied. Paste it into your assistant.');
+  const copied = await page.evaluate(() => sessionStorage.getItem('test-copied-prompt'));
+  expect(copied).toContain('Summarize this fictional invoice');
+  expect(copied).not.toContain('fictional case');
+});
+
+test('a blocked clipboard leaves the prompt available to select', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: { writeText: async () => { throw new Error('clipboard denied'); } },
+    });
+  });
+  await page.goto('/katas/industry-workshops/');
+  const card = page.locator('#finance');
+  await card.getByText('Open the Dojo exercise').click();
+  await card.getByRole('button', { name: 'Copy prompt' }).click();
+  await expect(card.locator('[data-copy-status]')).toContainText('copy command');
+  expect(await page.evaluate(() => window.getSelection()?.toString())).toContain('Summarize this fictional invoice');
+});
+
 test.describe('without JavaScript', () => {
   test.use({ javaScriptEnabled: false });
 

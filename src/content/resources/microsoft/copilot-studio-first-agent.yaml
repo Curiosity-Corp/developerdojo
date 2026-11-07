@@ -1,0 +1,10 @@
+title: "Build your first declarative agent for Microsoft Copilot by using Copilot Studio"
+provider: "Microsoft Learn"
+url: "https://learn.microsoft.com/en-us/training/modules/build-your-first-agent-microsoft-365-copilot-use-copilot-studio/"
+cost: "free"
+format: "course"
+level: "intermediate"
+duration: "1 hour 7 minutes"
+skills: [ai-agents, business-automation, ai-evaluation]
+summary: "Design, configure, and validate a declarative agent with custom knowledge in a business scenario. Draft the same objective, boundaries, and test cases with any assistant and compare the resulting agent plan. The module is free to read; hands-on work requires an eligible Microsoft 365 tenant, Copilot and Copilot Studio access, and may incur charges."
+verifiedOn: 2026-11-07

@@ -1,0 +1,9 @@
+title: "Rendering From The Command Line"
+provider: "Blender"
+url: "https://docs.blender.org/manual/en/5.1/advanced/command_line/render.html"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [cad-3d-bim, creative-media, open-source]
+summary: "Blender's manual explains command-line rendering of single images and animations, including why argument order matters. Ask a trusted AI assistant to propose a command for a sample scene and a named output directory; compare it with the manual before running, and inspect the rendered image. Blender runs on a supported computer; rendering may take substantial time or compute."
+verifiedOn: 2026-11-07

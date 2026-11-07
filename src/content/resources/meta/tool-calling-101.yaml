@@ -1,0 +1,9 @@
+title: "Tool Calling 101"
+provider: "Meta Llama"
+url: "https://github.com/meta-llama/llama-cookbook/blob/main/end-to-end-use-cases/agents/Agents_Tutorial/Tool_Calling_101.ipynb"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [ai-agents, prompt-engineering, ai-evaluation]
+summary: "Meta's notebook explains Llama tool calling, prompt formats, and how tool requests are handled. Ask a different assistant to explain the same tool contract, then compare where each workflow checks arguments and permissions. Running the example uses a third-party model API and may require accounts, API keys, and paid usage; check model and service terms."
+verifiedOn: 2026-11-07

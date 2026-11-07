@@ -1,0 +1,9 @@
+title: "Lenovo LLM Sizing Tool"
+provider: "Lenovo"
+url: "https://lenovopress.lenovo.com/llm-sizing-tool"
+cost: "free"
+format: "interactive"
+level: "intermediate"
+skills: [ai-agents, cloud-platforms, ai-evaluation]
+summary: "Estimate CPU or GPU capacity for a language-model workload, including optional retrieval and concurrency settings. Use an assistant to list your assumptions, compare two configurations in the calculator, and record what still needs benchmarking. The results recommend Lenovo hardware and are estimates, not independent benchmark measurements; deployment and hardware cost extra."
+verifiedOn: 2026-11-07

@@ -1,0 +1,9 @@
+title: "Firefly Generate Image API Tutorial"
+provider: "Adobe"
+url: "https://developer.adobe.com/firefly-services/docs/firefly-api/guides/how-tos/firefly-generate-image-api-tutorial"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [creative-media, brand-web-design, ai-agents]
+summary: "Adobe explains how to generate and localize images using its Firefly API and a Node.js example. Ask your preferred assistant to draft a fictional campaign brief, then review the generated image for suitability, accessibility, and usage rights. The guide is free to read; API credentials and service charges or access restrictions may apply, and secrets must stay out of prompts and public code."
+verifiedOn: 2026-11-07

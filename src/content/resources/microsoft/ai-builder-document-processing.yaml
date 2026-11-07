@@ -1,0 +1,10 @@
+title: "Process custom documents with AI Builder"
+provider: "Microsoft Learn"
+url: "https://learn.microsoft.com/en-us/training/modules/get-started-with-form-processing/"
+cost: "free"
+format: "course"
+level: "beginner"
+duration: "32 minutes"
+skills: [business-automation, data-analytics, ai-agents]
+summary: "Learn how document-processing models extract data and can be used in Power Apps or Power Automate. Use fictional invoices and any assistant to make an extraction checklist, then compare extracted totals with the original documents. Hands-on use requires a Power Apps or Power Automate license, Dataverse access, and an AI Builder add-on or trial; costs may apply."
+verifiedOn: 2026-11-07

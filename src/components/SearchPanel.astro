@@ -34,7 +34,7 @@ const { id, label = 'Search the whole site' } = Astro.props;
 </div>
 
 <script>
-  import { SEARCH_GROUP_LABELS, SEARCH_GROUP_ORDER, classifyUrl, type SearchGroup } from '../lib/search-groups';
+  import { SEARCH_GROUP_LABELS, SEARCH_GROUP_ORDER, classifyUrl } from '../lib/search-groups';
   import { correctSearch, relatedSearches } from '../lib/search-guidance';
 
   interface PagefindResultData {
@@ -68,46 +68,53 @@ const { id, label = 'Search the whole site' } = Astro.props;
     pagefind ??= import(/* @vite-ignore */ url).then(async (api: PagefindApi) => {
       await api.init();
       return api;
+    }).catch((error: unknown) => {
+      // A failed preload must not permanently poison the shared promise.
+      pagefind = undefined;
+      throw error;
     });
     return pagefind;
   }
 
   const MAX_RESULTS = 24;
+  const FIRST_RESULTS = 6;
 
-  function renderResults(container: HTMLElement, items: PagefindResultData[]): void {
-    container.replaceChildren();
-    const groups = new Map<SearchGroup, PagefindResultData[]>();
+  function appendResults(container: HTMLElement, items: PagefindResultData[]): void {
     for (const item of items) {
       const group = classifyUrl(item.url);
-      groups.set(group, [...(groups.get(group) ?? []), item]);
-    }
-    for (const group of SEARCH_GROUP_ORDER) {
-      const entries = groups.get(group);
-      if (!entries) continue;
-      const section = document.createElement('section');
-      const heading = document.createElement('h3');
-      heading.textContent = SEARCH_GROUP_LABELS[group];
-      const list = document.createElement('ul');
-      for (const entry of entries) {
+      let section = container.querySelector<HTMLElement>(`[data-result-group="${group}"]`);
+      if (!section) {
+        section = document.createElement('section');
+        section.dataset.resultGroup = group;
+        const heading = document.createElement('h3');
+        heading.textContent = SEARCH_GROUP_LABELS[group];
+        section.append(heading, document.createElement('ul'));
+        // Keep groups in the documented order without replacing a link the learner is using.
+        const groupIndex = SEARCH_GROUP_ORDER.indexOf(group);
+        const next = SEARCH_GROUP_ORDER.slice(groupIndex + 1)
+          .map((name) => container.querySelector(`[data-result-group="${name}"]`))
+          .find((element) => element !== null);
+        container.insertBefore(section, next ?? null);
+      }
+      const list = section.querySelector('ul');
+      if (list) {
         const li = document.createElement('li');
         const link = document.createElement('a');
-        link.href = entry.url;
-        link.textContent = entry.meta.title ?? entry.url;
+        link.href = item.url;
+        link.textContent = item.meta.title ?? item.url;
         li.append(link);
-        if (entry.meta.group) {
+        if (item.meta.group) {
           const where = document.createElement('span');
           where.className = 'where';
-          where.textContent = entry.meta.group;
+          where.textContent = item.meta.group;
           li.append(where);
         }
         const snippet = document.createElement('p');
         // Pagefind returns the excerpt as escaped text with <mark> around the matches.
-        snippet.innerHTML = entry.excerpt;
+        snippet.innerHTML = item.excerpt;
         li.append(snippet);
         list.append(li);
       }
-      section.append(heading, list);
-      container.append(section);
     }
   }
 
@@ -168,16 +175,25 @@ const { id, label = 'Search the whole site' } = Astro.props;
             }
           }
         }
-        const data = await Promise.all(search.results.slice(0, MAX_RESULTS).map((result) => result.data()));
+        const selected = search.results.slice(0, MAX_RESULTS);
+        const data = await Promise.all(selected.slice(0, FIRST_RESULTS).map((result) => result.data()));
         if (ticket !== latest) return;
-        renderResults(results, data);
+        appendResults(results, data);
         status.textContent =
           correction
             ? `No results for "${term}". Showing ${search.results.length} close ${search.results.length === 1 ? 'match' : 'matches'} for "${correction}".`
             : search.results.length === 0
             ? `No results for "${term}". Try a shorter or different word.`
             : `${search.results.length} ${search.results.length === 1 ? 'result' : 'results'} for "${term}"`;
+        // Fetch the rest after showing the first results, without replacing focused links.
+        const remaining = await Promise.allSettled(selected.slice(FIRST_RESULTS).map((result) => result.data()));
+        if (ticket !== latest) return;
+        appendResults(results, remaining.flatMap((result) => result.status === 'fulfilled' ? [result.value] : []));
+        if (remaining.some((result) => result.status === 'rejected')) {
+          status.textContent += ' Some results could not load; try again.';
+        }
       } catch (error) {
+        if (ticket !== latest) return;
         console.warn('Search is not available:', error);
         status.textContent = 'Search is not available here. It works on the published site.';
       }
@@ -187,6 +203,8 @@ const { id, label = 'Search the whole site' } = Astro.props;
       event.preventDefault();
       void run();
     });
+    // Start loading on explicit search intent, so it can initialize while the learner types.
+    input.addEventListener('focus', () => { void loadPagefind().catch(() => undefined); });
     input.addEventListener('input', () => void run());
   }
 </script>
