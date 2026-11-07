@@ -1,0 +1,9 @@
+title: "IBM SkillsBuild learning catalog"
+provider: "IBM"
+url: "https://skillsbuild.org/learning-catalog"
+cost: "free"
+format: "course"
+level: "beginner"
+skills: [ai-agents, ai-evaluation, prompt-engineering]
+summary: "Explore IBM SkillsBuild's free learning catalog for AI literacy, prompting, and agent concepts across fields. Choose a course and apply one idea to a task with your preferred assistant; a SkillsBuild account may be required."
+verifiedOn: 2026-11-06
