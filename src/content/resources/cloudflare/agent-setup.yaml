@@ -1,0 +1,9 @@
+title: "Agent setup"
+provider: "Cloudflare"
+url: "https://developers.cloudflare.com/agent-setup/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [ai-agents, cloud-platforms]
+summary: "Compare official setup guides for several AI agent harnesses, including terminal and editor workflows. Use the guide for a harness you already trust, and review each integration's access and permissions before connecting an account; service usage may incur charges."
+verifiedOn: 2026-11-06

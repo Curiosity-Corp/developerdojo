@@ -1,0 +1,9 @@
+title: "Build an AI agent with Langflow, Granite 4.0 models, and watsonx Orchestrate"
+provider: "IBM"
+url: "https://developer.ibm.com/learningpaths/watsonx-orchestrate-multiagent-orchestration/build-ai-agents/"
+cost: "free"
+format: "tutorial"
+level: "advanced"
+skills: [ai-agents, open-source]
+summary: "Build a visual tool flow, run a Granite model locally through Ollama, and connect it to the watsonx Orchestrate development kit. Compare the roles of model, harness and tools with an assistant of your choice; check IBM's prerequisites and service terms before starting."
+verifiedOn: 2026-11-06

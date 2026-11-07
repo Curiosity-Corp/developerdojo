@@ -1,0 +1,9 @@
+title: "Set up OAuth 2.0"
+provider: "Intuit"
+url: "https://static.developer.intuit.com/output_html/qbo/docs/develop/authentication-and-authorization/oauth-2.0.html"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [business-automation, security, ai-agents]
+summary: "Learn how QuickBooks Online uses consent, scopes, and tokens for its API and sandbox. Ask any assistant to diagram the approval flow with fictional data before connecting an account; do not paste credentials into prompts, and check current access and pricing terms."
+verifiedOn: 2026-11-06

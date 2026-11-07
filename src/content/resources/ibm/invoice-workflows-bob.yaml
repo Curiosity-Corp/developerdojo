@@ -1,0 +1,9 @@
+title: "Build agentic workflows with watsonx Orchestrate and IBM Bob"
+provider: "IBM"
+url: "https://developer.ibm.com/tutorials/build-programmatic-agentic-workflows-watsonx-orchestrate-bob/"
+cost: "free"
+format: "tutorial"
+level: "advanced"
+skills: [ai-agents, business-automation, data-analytics]
+summary: "IBM walks through an agentic document-processing workflow for invoices using an AI development assistant, schemas, and tools. Practice with fictional invoices, then have a second assistant check extracted totals and identify any approval steps; IBM accounts and services may have costs."
+verifiedOn: 2026-11-06

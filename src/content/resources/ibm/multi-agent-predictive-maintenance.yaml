@@ -1,0 +1,9 @@
+title: "Build an automated predictive maintenance system using a multi-agent architecture with BeeAI and watsonx Orchestrate"
+provider: "IBM"
+url: "https://developer.ibm.com/tutorials/automated-predictive-maintenance-beeai-watsonx-orchestrate/"
+cost: "free"
+format: "tutorial"
+level: "advanced"
+skills: [ai-agents, robotics-manufacturing, business-automation]
+summary: "Follow IBM's tutorial on using multiple agents and tools for predictive equipment maintenance. Compare its proposed decisions against a fictional maintenance log with your choice of assistant; keep real operational decisions subject to qualified human review. IBM services, accounts, or other infrastructure may have costs."
+verifiedOn: 2026-11-06

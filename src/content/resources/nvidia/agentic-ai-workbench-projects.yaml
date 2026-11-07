@@ -1,0 +1,9 @@
+title: "Example Projects for Agentic AI"
+provider: "NVIDIA"
+url: "https://docs.nvidia.com/ai-workbench/quickstart/example-agents/"
+cost: "free"
+format: "tutorial"
+level: "advanced"
+skills: [ai-agents, ai-evaluation, security]
+summary: "Explore NVIDIA's six-module Build An Agent Workshop covering agent tools, evaluation, customization, and security. Compare its agent roles and tests with those in a different harness; check hardware requirements and cloud pricing before using hosted GPUs."
+verifiedOn: 2026-11-06

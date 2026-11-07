@@ -1,0 +1,9 @@
+title: "Chat agent"
+provider: "Cloudflare"
+url: "https://developers.cloudflare.com/agents/examples/chat-agent/"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [ai-agents, cloud-platforms, business-automation]
+summary: "Build a chat agent with server tools, browser tools, and approval for sensitive actions using Cloudflare and Wrangler. Afterward, ask your preferred AI assistant to write test cases for approvals and refusal; an account is required, and usage beyond free allowances may incur charges."
+verifiedOn: 2026-11-06

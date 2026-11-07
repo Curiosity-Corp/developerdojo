@@ -1,0 +1,9 @@
+title: "Transfer Policies From Simulation to Reality"
+provider: "NVIDIA"
+url: "https://docs.nvidia.com/learning/physical-ai/getting-started-with-isaac-lab/latest/transfer-policies-from-simulation-to-reality/index.html"
+cost: "free"
+format: "course"
+level: "intermediate"
+skills: [robotics-manufacturing, ai-evaluation]
+summary: "Study NVIDIA's introduction to the gap between simulated and physical robot behavior; this module has no hands-on activity. Ask an assistant to help design a simulated test matrix, then have a qualified person review physical-world safety and validation before deployment."
+verifiedOn: 2026-11-06
