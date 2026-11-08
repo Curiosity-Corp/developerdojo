@@ -161,7 +161,7 @@ test('the header keeps its links and layout with search added', async ({ page, i
     const height = await page.locator('.site-header .bar').evaluate((el) => el.getBoundingClientRect().height);
     expect(height).toBeLessThan(80);
   }
-  const labels = await page.locator('header nav ul a').allInnerTexts();
+  const labels = await page.locator('header nav .primary-links > li > a').allInnerTexts();
   expect(labels).toEqual(['Katas', 'Train', 'Sensei', 'Library', 'Certificates', 'Challenges', 'Events', 'Membership']);
 });
 

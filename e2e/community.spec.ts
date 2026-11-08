@@ -108,7 +108,7 @@ test.describe('membership', () => {
 
   test('FAQ answers open and close', async ({ page }) => {
     await page.goto('/membership');
-    const first = page.locator('details').first();
+    const first = page.locator('main details').first();
     await first.locator('summary').click();
     await expect(first).toHaveAttribute('open', '');
     await expect(first).toContainText('no fee');

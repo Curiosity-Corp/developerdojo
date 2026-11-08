@@ -1,0 +1,53 @@
+---
+/** Formative check for two opaque hex colours. No user input leaves the page. */
+---
+<section class="contrast-check" data-contrast-check aria-labelledby="contrast-title">
+  <h3 id="contrast-title">Check your colours</h3>
+  <p>Paste the text and background colours from your design. This checks one colour pair on your device; it does not save or send them.</p>
+  <div class="fields">
+    <label>Text colour <input type="text" name="foreground" value="#000000" spellcheck="false" maxlength="7" autocomplete="off" aria-describedby="contrast-format" /></label>
+    <label>Background colour <input type="text" name="background" value="#ffffff" spellcheck="false" maxlength="7" autocomplete="off" aria-describedby="contrast-format" /></label>
+  </div>
+  <p id="contrast-format">Use opaque hex colours such as <code>#123456</code> or <code>#fff</code>.</p>
+  <button type="button" data-check-contrast hidden>Check contrast</button>
+  <p data-contrast-result role="status" aria-live="polite"></p>
+  <div class="sample" data-contrast-preview aria-hidden="true" hidden>Sample text on your background</div>
+  <p class="no-js">JavaScript is needed to calculate a ratio here. You can inspect the <a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html">W3C contrast guidance</a> and use another contrast calculator.</p>
+  <p class="note">Based on <a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html">WCAG 2.2 contrast for text</a>: 4.5:1 for normal text and 3:1 for large text. Large means at least 24 CSS px, or about 18.67 CSS px if bold. Thresholds use the full calculated ratio; the displayed number is rounded down. This does not check images, transparency, gradients, focus, layout, readability, or overall accessibility.</p>
+</section>
+<script>
+  import { checkContrast } from '../lib/contrast';
+  for (const root of document.querySelectorAll<HTMLElement>('[data-contrast-check]')) {
+    const fg = root.querySelector<HTMLInputElement>('input[name="foreground"]');
+    const bg = root.querySelector<HTMLInputElement>('input[name="background"]');
+    const button = root.querySelector<HTMLButtonElement>('[data-check-contrast]');
+    const output = root.querySelector<HTMLElement>('[data-contrast-result]');
+    const preview = root.querySelector<HTMLElement>('[data-contrast-preview]');
+    if (!fg || !bg || !button || !output || !preview) continue;
+    button.hidden = false;
+    button.addEventListener('click', () => {
+      const result = checkContrast(fg.value, bg.value);
+      if (!result) {
+        output.textContent = 'Enter both colours as opaque hex values, for example #123456 or #fff.';
+        preview.hidden = true;
+        return;
+      }
+      const shown = (Math.floor(result.ratio * 100) / 100).toFixed(2);
+      output.textContent = `${shown}:1. Normal text: ${result.normalTextPasses ? 'meets' : 'does not meet'} 4.5:1. Large text: ${result.largeTextPasses ? 'meets' : 'does not meet'} 3:1.`;
+      preview.style.color = result.foreground;
+      preview.style.backgroundColor = result.background;
+      preview.hidden = false;
+    });
+  }
+</script>
+<style>
+  .contrast-check { margin-block: var(--space-5); padding: var(--space-4); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper-raised); }
+  .contrast-check h3 { margin-top: 0; }
+  .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--space-3); }
+  label { display: grid; gap: var(--space-2); font-weight: 700; }
+  input { width: 100%; min-width: 0; padding: var(--space-3); font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--line-strong); border-radius: var(--radius); }
+  button { font: inherit; font-weight: 700; padding: .7rem 1rem; border: 1px solid var(--band); border-radius: var(--radius); background: var(--band); color: var(--band-text); cursor: pointer; }
+  button[hidden], .sample[hidden] { display: none; }
+  .sample { padding: var(--space-4); font-weight: 700; border: 1px solid var(--line-strong); border-radius: var(--radius); }
+  .note { font-size: var(--text-sm); color: var(--ink-muted); }
+</style>

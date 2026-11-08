@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+
+// Documentation review only: these entries are not an installation or runtime security audit.
+const entries = [
+  { id: 'claude-code', name: 'Claude Code', kind: 'harness', label: 'Harness · CLI', maintainer: 'Anthropic · official', what: 'A coding agent for working with files and commands in a terminal and other supported surfaces.', compatible: 'See the official platform and setup guide for supported systems, account and provider options.', access: 'It may read and edit files and run commands according to its configuration and permissions. Review the work folder and approvals.', license: 'Product and service terms apply; account access and charges depend on your plan.', source: 'https://code.claude.com/docs/en/overview', check: 'https://code.claude.com/docs/en/permissions', verify: 'In a disposable folder, ask it to describe the files it can see before allowing any edit.' },
+  { id: 'gemini-cli', name: 'Gemini CLI', kind: 'harness', label: 'Harness · CLI', maintainer: 'Google · official', what: 'A terminal-based agent with documented file, shell, skills and MCP workflows.', compatible: 'Check its current installation, authentication and platform instructions for your device.', access: 'File and shell capabilities depend on your configuration. Review permissions and any sandbox settings before running tools.', license: 'CLI source: Apache-2.0; model/service access and costs have separate terms.', source: 'https://geminicli.com/docs/', check: 'https://geminicli.com/docs/get-started/installation/', verify: 'In a test folder, ask the agent to describe the task and permissions before it changes anything.' },
+  { id: 'cloudflare-harness', name: 'Cloudflare Agents harnesses', kind: 'harness', label: 'Harness · runtime', maintainer: 'Cloudflare · official', what: 'Documentation for agent loops and supported runtime approaches including Pi, OpenCode and Think.', compatible: 'Runs on the provider’s Workers platform; inspect the selected harness and SDK version for its actual model and tool support.', access: 'The chosen tools and deployment determine file, network and data access. Cloud resources and model usage may cost money.', license: 'Check the individual harness, SDK and service terms.', source: 'https://developers.cloudflare.com/agents/harnesses/', check: 'https://developers.cloudflare.com/agents/getting-started/quick-start/', verify: 'Draw the request → harness → model → tool path and identify where the selected setup stores data.' },
+  { id: 'skills-format', name: 'Agent Skills format', kind: 'skill', label: 'Skill · format', maintainer: 'Agent Skills · specification', what: 'A documented format for packaging instructions in SKILL.md with optional references and scripts.', compatible: 'Use with a harness that supports the format; discovery paths and script execution differ between products.', access: 'A skill may ask an agent to read files or run bundled scripts. Read the whole skill and inspect its referenced code first.', license: 'The format is documented openly; each skill and bundled asset has its own terms.', source: 'https://agentskills.io/what-are-skills', check: 'https://agentskills.io/specification', verify: 'Open the example format and identify which parts are instructions, references and executable scripts.' },
+  { id: 'scan-to-threejs', name: 'scan-to-threejs', kind: 'skill', label: 'Skill · 3D workflow', maintainer: 'Wes Bos · community', what: 'A skill describing how to reconstruct an editable Three.js room from capture geometry and photos.', compatible: 'Requires a compatible agent and the companion project; capture and comparison workflows have additional device and software requirements.', access: 'The instructions reference local scripts, a browser helper and private capture files. Review them before use; keep room images and measurements private.', license: 'Code and skill: MIT; office demo assets have separate terms.', source: 'https://github.com/wesbos/3d-model-anything', check: 'https://github.com/wesbos/3d-model-anything/blob/31b2dc9da3fb541e501f2f0936e55b32afb70ee8/.agents/skills/scan-to-threejs/SKILL.md', verify: 'Read the skill and identify which steps measure, model and compare before trying it with permissioned data.' },
+  { id: 'playwright-mcp', name: 'Playwright MCP', kind: 'mcp', label: 'MCP · browser', maintainer: 'Microsoft · official project', what: 'A browser automation server for compatible MCP clients.', compatible: 'Check the project’s current browser, client and setup instructions; a matching protocol alone does not prove your setup works.', access: 'It can interact with browser content and sessions. The project says it is not a security boundary; use a separate test profile and review permissions.', license: 'Source: Apache-2.0; browser and connected-site terms can differ.', source: 'https://github.com/microsoft/playwright-mcp', check: 'https://github.com/microsoft/playwright-mcp#security', verify: 'With only a test site and profile, inspect its documented tools and identify which could change state.' },
+  { id: 'mcp-filesystem', name: 'MCP reference filesystem server', kind: 'mcp', label: 'MCP · files', maintainer: 'Model Context Protocol project · reference implementation', what: 'A reference server for file operations with configurable access controls.', compatible: 'Needs an MCP client and a server configuration. Confirm the current supported transport, version and allowed paths.', access: 'File operations can include writes within configured scope. Test with a disposable folder and inspect the available tools before use.', license: 'The MCP project reports a license transition; review its current license and individual package terms.', source: 'https://github.com/modelcontextprotocol/servers', check: 'https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices', verify: 'List the requested directories and tools. Check whether any write operation is needed for your task.' },
+  { id: 'blender-mcp', name: 'MCP for Blender', kind: 'mcp', label: 'MCP · 3D', maintainer: 'Siddharth Ahuja · community; not Blender Foundation', what: 'A community integration connecting an MCP client with a Blender add-on for scene operations.', compatible: 'Check the repository’s current Blender, Python, client and operating-system requirements before deciding whether to use it.', access: 'The project documents arbitrary Python execution in Blender and unauthenticated remote access. It also describes default anonymous operational telemetry and how to disable it.', license: 'Source: MIT; optional assets and services have separate terms.', source: 'https://github.com/ahujasid/mcp-for-blender', check: 'https://github.com/ahujasid/mcp-for-blender#limitations--security-considerations', verify: 'Read the security and telemetry sections. Use a disposable scene; do not expose a listener to the public internet.' },
+  { id: 'intuit-cli', name: 'Intuit CLI for QuickBooks', kind: 'cli', label: 'CLI · business', maintainer: 'Intuit · official repository', what: 'A command-line interface for QuickBooks Online API workflows.', compatible: 'Requires the documented Node.js, Intuit app and authorization setup; check current service availability and limits.', access: 'Commands can access or change financial data under granted scopes. Use your own sandbox and sample records when learning.', license: 'CLI source: Apache-2.0; Intuit API and account terms apply separately.', source: 'https://github.com/intuit/intuit-cli-for-quickbooks', check: 'https://static.developer.intuit.com/output_html/qbo/docs/develop/sandboxes/manage-your-sandboxes.html', verify: 'Identify the sandbox, requested scopes and read/write commands before authorizing any account.' },
+  { id: 'xai-docs', name: 'xAI Docs MCP', kind: 'mcp', label: 'MCP · documentation', maintainer: 'xAI · official documentation', what: 'A remote MCP endpoint for compatible assistants to find and retrieve the provider’s documentation.', compatible: 'Requires a client supporting the documented Streamable HTTP transport; follow the client’s own connection instructions.', access: 'A remote service receives requests you send to it. Review its current privacy and service terms, and do not send secrets.', license: 'See the provider’s current documentation and service terms.', source: 'https://docs.x.ai/developers/docs-mcp', check: 'https://modelcontextprotocol.io/docs/learn/architecture', verify: 'Read the listed documentation tools and confirm what information a sample query would send.' },
+] as const;
+---
+<BaseLayout title="The Armory: starter registry" description="Compare agent harnesses, skills, MCP servers and CLIs with source, access and verification guidance.">
+  <PageHero compact eyebrow="Equip your agents" title="Choose your tools" accent="." subtitle="Explore real harnesses, skills, integrations and CLIs. Inspect what each can access before adding it to your stack." ctas={[
+    { label: 'Explore the registry', href: '#registry', icon: 'arrow-right' },
+    { label: 'Try an agent exercise', href: '/katas/industry-workshops', variant: 'ghost', icon: 'play' },
+  ]} />
+  <section class="section" id="registry" aria-labelledby="registry-title"><div class="container">
+    <h2 id="registry-title">A starter registry, not an installation</h2>
+    <p>These are source-backed starting points, not a ranking. The documentation and linked license information were checked on 7 November 2026. No tool was installed, connected, runtime-tested or independently security-audited for this registry. Versions, access, plans and compatibility can change.</p>
+    <form class="filters" data-registry-filter hidden><label for="registry-kind">Show a type</label><select id="registry-kind" name="kind"><option value="all">All types</option><option value="harness">Harnesses</option><option value="skill">Skills and formats</option><option value="mcp">MCP servers</option><option value="cli">CLIs</option></select></form>
+    <p data-registry-status role="status" aria-live="polite"></p>
+    <div class="registry-grid">
+      {entries.map((entry) => <article class="entry" id={entry.id} data-registry-entry data-kind={entry.kind}>
+        <p class="type">{entry.label}</p><h3>{entry.name}</h3><p class="by">{entry.maintainer}</p><p>{entry.what}</p>
+        <details><summary>Compatibility, access and verification</summary>
+          <dl><div><dt>Compatibility</dt><dd>{entry.compatible}</dd></div><div><dt>Access and cost</dt><dd>{entry.access}</dd></div><div><dt>License and terms</dt><dd>{entry.license}</dd></div><div><dt>Try a verification</dt><dd>{entry.verify}</dd></div></dl>
+          <p><a href={entry.check}>Read the relevant guidance ↗</a></p>
+        </details>
+        <p><a href={entry.source}>Open the source ↗</a></p>
+      </article>)}
+    </div>
+    <p><a href="/armory">Back to the Armory</a> · <a href="/library/resources">Browse more learning resources</a> · <a href="/katas/industry-workshops">Explore industry workshops</a></p>
+  </div></section>
+  <section class="section safety" aria-labelledby="choose-title"><div class="container narrow">
+    <h2 id="choose-title">Choose a stack for your task</h2>
+    <ol><li>Name the outcome and choose an assistant or harness you can access.</li><li>List the data, files and actions the task actually needs. A skill is instructions; an MCP server or CLI may provide actions.</li><li>Inspect the source, version, license, permissions and compatibility. Start with fictional data and the smallest useful access.</li><li>Check the output and record what you tested. A successful installation or a model’s assurance does not prove the result is correct.</li></ol>
+    <p><a href="https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices">Read the MCP security guidance ↗</a></p>
+  </div></section>
+</BaseLayout>
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-registry-filter]');
+  const status = document.querySelector<HTMLElement>('[data-registry-status]');
+  const entries = Array.from(document.querySelectorAll<HTMLElement>('[data-registry-entry]'));
+  if (form && status) {
+    const select = form.querySelector<HTMLSelectElement>('select');
+    if (select) {
+      form.hidden = false;
+      const update = (): void => {
+        let visible = 0;
+        for (const entry of entries) {
+          const show = select.value === 'all' || entry.dataset.kind === select.value;
+          entry.hidden = !show;
+          if (show) visible += 1;
+        }
+        status.textContent = `${visible} ${visible === 1 ? 'entry' : 'entries'} shown.`;
+      };
+      select.addEventListener('change', update);
+      update();
+    }
+  }
+</script>
+<style>
+  .registry-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: var(--space-4); margin-block: var(--space-5); }
+  .entry { min-width: 0; padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); overflow-wrap: anywhere; }
+  .entry[hidden], .filters[hidden] { display: none; }
+  .entry h3 { font-size: var(--text-xl); margin-block: var(--space-2); }
+  .type { color: var(--rust-text); font-size: var(--text-sm); font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
+  .by { color: var(--ink-muted); font-size: var(--text-sm); }
+  summary { font-weight: 700; cursor: pointer; }
+  dt { font-weight: 700; } dd { margin: .25rem 0 var(--space-3); }
+  .filters { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+  .filters label { font-weight: 700; }
+  select { color: var(--ink); background: var(--paper); font: inherit; padding: .6rem; border: 1px solid var(--line-strong); border-radius: var(--radius); }
+  .safety { background: var(--paper-sunk); } .narrow { max-width: 70rem; } li + li { margin-top: var(--space-2); }
+</style>

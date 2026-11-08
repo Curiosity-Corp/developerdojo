@@ -1,0 +1,174 @@
+---
+/** Practice framework. Local self-checks are learner notes and never an award. */
+const stages = [
+  { name: 'White', title: 'See and explain', proof: 'Identify the outcome, its audience and a check for success. Explain what the harness, model and instructions each do.' },
+  { name: 'Yellow', title: 'Follow a kata', proof: 'Reproduce a documented result, record your stack and show that you checked it against the recipe.' },
+  { name: 'Green', title: 'Adapt the technique', proof: 'Change a requirement or tool, explain your decision and compare the result against the same checks.' },
+  { name: 'Brown', title: 'Solve an unfamiliar challenge', proof: 'Choose your own stack, respond to a failure or new constraint, and defend the evidence in a Randori exercise.' },
+  { name: 'Black', title: 'Improve and teach', proof: 'Combine or invent a repeatable technique, explain its limits, and help another learner reproduce and evaluate it.' },
+] as const;
+const fields = [
+  { id: 'software', title: 'Software and prototypes', artifact: 'A working, editable prototype and an explanation of who it serves.', verify: 'Test the main action, keyboard use and a narrow phone screen; record failures and repairs.', challenge: 'A key interaction must also work without a mouse.', href: '/katas/first-prototype', link: 'Build a prototype' },
+  { id: 'ux', title: 'SaaS UX and visual design', artifact: 'A user journey and an editable screen or prototype with stated design choices.', verify: 'Check the journey, readable text, contrast and a phone-sized layout with the intended audience in mind.', challenge: 'A user cannot complete the main task in the originally planned way.', href: '/katas/ux-journey', link: 'Practice a UX journey' },
+  { id: 'bim', title: '3D, BIM and construction', artifact: 'An editable practice model or design brief with units, assumptions and a review plan.', verify: 'Check the inputs, dimensions and information against the source; identify what a qualified person must review.', challenge: 'The requested material, file format or design constraint changes.', href: '/katas/scan-a-room', link: 'Explore a 3D reconstruction' },
+  { id: 'business', title: 'Business and data', artifact: 'A useful report or workflow using fictional or permissioned data, with a trace to its inputs.', verify: 'Recalculate totals, check claims against source data and identify any action requiring approval.', challenge: 'The source has a duplicate or an important value is missing.', href: '/katas/data-rescue', link: 'Rescue messy data' },
+  { id: 'robotics', title: 'Robotics and manufacturing', artifact: 'A simulation plan or design study that states its inputs, units and assumptions.', verify: 'Review the simulated result against the task and identify the specialist checks needed before any physical use.', challenge: 'A required dimension or operating condition changes.', href: '/katas/industry-workshops#robotics', link: 'Plan a robot simulation' },
+  { id: 'research', title: 'Science and health research', artifact: 'A research question, evidence log and analysis using fictional, public or permissioned material.', verify: 'Trace claims to sources, distinguish evidence from inference and record uncertainty; obtain qualified review for real health decisions.', challenge: 'A source contradicts the current conclusion.', href: '/library/tracks/research-and-evidence', link: 'Practice research and evidence' },
+  { id: 'media', title: 'Media and communications', artifact: 'A draft script or visual with an intended audience, sources and usage permissions.', verify: 'Check claims, accessibility and rights; compare the final output with the approved brief.', challenge: 'The output must work without sound or for a different audience.', href: '/katas/industry-workshops#audio', link: 'Make a spoken guide' },
+  { id: 'education', title: 'Education and learning', artifact: 'A short lesson with an objective, an activity and a check for understanding.', verify: 'Check the facts, accessibility and alignment between the objective and activity; ask an appropriate educator for feedback.', challenge: 'A learner needs a different way to access the activity.', href: '/katas/industry-workshops#education', link: 'Design a short lesson' },
+  { id: 'other', title: 'Another field', artifact: 'A field-relevant artifact with an audience, intended use and recorded sources.', verify: 'Define checks appropriate to the field and identify any required independent or qualified review.', challenge: 'A material requirement or tool changes unexpectedly.', href: '/katas/randori-challenges', link: 'Practice adapting a technique' },
+] as const;
+const checks = [
+  { id: 'goal', text: 'I stated the outcome, audience and success checks.' },
+  { id: 'stack', text: 'I recorded the harness, model, instructions, tools, permissions and versions where available.' },
+  { id: 'artifact', text: 'I can point to an artifact and explain what I and the agents each did.' },
+  { id: 'verify', text: 'I checked the result against evidence and recorded a failure or limitation honestly.' },
+  { id: 'adapt', text: 'I can explain a change, an unfamiliar constraint or what I would try next.' },
+  { id: 'review', text: 'I identified any independent or qualified review needed for the field.' },
+] as const;
+---
+<section class="section stages" aria-labelledby="belt-stages-title">
+  <div class="container belt-inner">
+    <h2 id="belt-stages-title">Five stages of practice</h2>
+    <p>Use these stages to see your next challenge. They are a proposed learning progression, not credentials that this website issues. A color does not replace independent review.</p>
+    <ol class="stage-grid">
+      {stages.map((stage) => <li><span class={`stripe ${stage.name.toLowerCase()}`} aria-hidden="true"></span><h3>{stage.name}: {stage.title}</h3><p>{stage.proof}</p></li>)}
+    </ol>
+    <p>Developer, Master Developer and Sensei are broader ranks. A Master Developer transfers judgment between tools or fields; a Sensei can explain, review and teach a technique. A field practice stage does not automatically confer either rank. See the <a href="/certificates">existing rank and certificate process</a>.</p>
+  </div>
+</section>
+<section class="section" aria-labelledby="field-evidence-title">
+  <div class="container belt-inner">
+    <h2 id="field-evidence-title">Choose a field. Show evidence.</h2>
+    <p>The shared skills travel across fields; the artifact, standards and checks change. These are starting points, not claims that every complete specialist pathway is available today.</p>
+    <div class="field-grid">
+      {fields.map((field) => <article class="field-card" id={`field-${field.id}`}><h3>{field.title}</h3><p><strong>Make:</strong> {field.artifact}</p><p><strong>Verify:</strong> {field.verify}</p><p><strong>Randori twist:</strong> {field.challenge}</p><a href={field.href}>{field.link} →</a></article>)}
+    </div>
+    <p>For safety-critical or regulated work, practice artifacts are not professional approval. Get the applicable independent validation and qualified approval before real-world use.</p>
+  </div>
+</section>
+<section class="section review" aria-labelledby="review-title">
+  <div class="container belt-inner">
+    <h2 id="review-title">Prepare an evidence review</h2>
+    <ol>
+      <li><strong>Bring the work:</strong> an artifact, the goal and the checks, the stack and the actual results, including failed attempts and limits.</li>
+      <li><strong>Explain and demonstrate:</strong> show what you and the agents did, how you checked it and why the work meets the criteria.</li>
+      <li><strong>Respond to a new situation:</strong> try an unfamiliar task or change a tool or constraint; explain and verify your choices.</li>
+      <li><strong>Get independent feedback:</strong> use a qualified reviewer where the field requires it. The existing <a href="/library/sensei-run-a-30-minute-review">Sensei review guide</a> offers a process for a review, not a promise that one has been arranged.</li>
+    </ol>
+    <p>Only share work you have permission to share. Do not put passwords, tokens, private customer information or confidential material in your checklist. A review, local tick or course completion does not automatically issue a belt or certificate.</p>
+    <p><a href="/katas/randori-challenges">Choose a Randori challenge</a> · <a href="/katas/constraint-roulette">Try Constraint Roulette</a> · <a href="/library/sensei-privacy-and-conduct">Review privacy guidance</a></p>
+  </div>
+</section>
+<section class="section" aria-labelledby="journal-title">
+  <div class="container belt-inner">
+    <h2 id="journal-title">My evidence checklist</h2>
+    <p>Use this private checklist to prepare for practice. It is your self-assessment, not a grade, belt or certificate. You can print this page; the evidence list above works without JavaScript.</p>
+    <div class="journal js-only" data-belt-journal data-pagefind-ignore>
+      <p>Save only what you choose on this device. Anyone using this browser may see it. Avoid secrets and personal or confidential details.</p>
+      <label for="belt-field">Field</label>
+      <select id="belt-field" data-belt-field>{fields.map((field) => <option value={field.id}>{field.title}</option>)}</select>
+      <label for="belt-stage">Stage I am practicing</label>
+      <select id="belt-stage" data-belt-stage>{stages.map((stage) => <option value={stage.name.toLowerCase()}>{stage.name}: {stage.title}</option>)}</select>
+      <fieldset><legend>Evidence I have prepared</legend>{checks.map((check) => <label class="check"><input type="checkbox" value={check.id} data-belt-check /> {check.text}</label>)}</fieldset>
+      <label for="belt-notes">Evidence notes (optional)</label>
+      <textarea id="belt-notes" data-belt-notes rows="4" maxlength="4000" placeholder="For example: prototype file name, checks run and one limitation. Avoid private details."></textarea>
+      <div class="actions"><button type="button" data-belt-save>Save this field on this device</button><button type="button" data-belt-clear>Clear this field</button></div>
+      <p role="status" aria-live="polite" data-belt-status></p>
+      <p>You can copy or delete all Dojo data using <a href="/train#device-data-title">Saved on this device</a>. Clearing browser data removes your saved checklist.</p>
+    </div>
+    <p class="no-js">Use the evidence review list above and your browser’s print or save option. The optional on-device checklist needs JavaScript.</p>
+  </div>
+</section>
+<script>
+  import { createStore, storageKey } from '../lib/storage';
+
+  type Entry = { stage: string; checks: string[]; notes: string };
+  type Journal = Record<string, Entry>;
+  const FIELDS = ['software', 'ux', 'bim', 'business', 'robotics', 'research', 'media', 'education', 'other'];
+  const STAGES = ['white', 'yellow', 'green', 'brown', 'black'];
+  const CHECKS = ['goal', 'stack', 'artifact', 'verify', 'adapt', 'review'];
+  const KEY = 'belt-evidence';
+  function parseJournal(value: unknown): Journal | undefined {
+    if (typeof value !== 'object' || value === null || Array.isArray(value)) return undefined;
+    const output: Journal = {};
+    for (const [field, raw] of Object.entries(value)) {
+      if (!FIELDS.includes(field) || typeof raw !== 'object' || raw === null || Array.isArray(raw)) continue;
+      const item = raw as Record<string, unknown>;
+      if (typeof item.stage !== 'string' || !STAGES.includes(item.stage) || !Array.isArray(item.checks) || typeof item.notes !== 'string') continue;
+      output[field] = { stage: item.stage, checks: item.checks.filter((x): x is string => typeof x === 'string' && CHECKS.includes(x)), notes: item.notes.slice(0, 4000) };
+    }
+    return output;
+  }
+  const root = document.querySelector<HTMLElement>('[data-belt-journal]');
+  if (root) {
+    const field = root.querySelector<HTMLSelectElement>('[data-belt-field]');
+    const stage = root.querySelector<HTMLSelectElement>('[data-belt-stage]');
+    const notes = root.querySelector<HTMLTextAreaElement>('[data-belt-notes]');
+    const boxes = Array.from(root.querySelectorAll<HTMLInputElement>('[data-belt-check]'));
+    const save = root.querySelector<HTMLButtonElement>('[data-belt-save]');
+    const clear = root.querySelector<HTMLButtonElement>('[data-belt-clear]');
+    const status = root.querySelector<HTMLElement>('[data-belt-status]');
+    if (field && stage && notes && save && clear && status) {
+      const store = createStore();
+      const read = (): Journal => store.load(KEY, { version: 1, validate: parseJournal }) ?? {};
+      const drafts: Journal = {};
+      let activeField = field.value;
+      function capture(): Entry {
+        return { stage: stage!.value, checks: boxes.filter((box) => box.checked).map((box) => box.value), notes: notes!.value.slice(0, 4000) };
+      }
+      function show(): void {
+        if (!field || !stage || !notes || !status) return;
+        const entry = drafts[field.value] ?? read()[field.value];
+        stage.value = entry?.stage ?? 'white';
+        notes.value = entry?.notes ?? '';
+        for (const box of boxes) box.checked = entry?.checks.includes(box.value) ?? false;
+        status.textContent = drafts[field.value] ? 'Showing your unsaved checklist for this field.' : entry ? 'Showing saved self-assessment for this field.' : 'No saved checklist for this field.';
+      }
+      field.addEventListener('change', () => {
+        drafts[activeField] = capture();
+        activeField = field.value;
+        show();
+      });
+      save.addEventListener('click', () => {
+        const journal = read();
+        journal[field.value] = capture();
+        const persisted = store.save(KEY, 1, journal);
+        delete drafts[field.value];
+        status.textContent = persisted ? 'Saved on this device. This is not a belt or certificate.' : 'Saving is blocked; your checklist lasts only while this page is open.';
+      });
+      clear.addEventListener('click', () => {
+        const journal = read();
+        delete drafts[field.value];
+        delete journal[field.value];
+        if (Object.keys(journal).length) store.save(KEY, 1, journal); else store.remove(KEY);
+        show();
+        status.textContent = 'Cleared this field’s saved checklist.';
+      });
+      window.addEventListener('storage', (event) => { if (event.key === storageKey(KEY)) show(); });
+      show();
+    }
+  }
+</script>
+<style>
+  .belt-inner { max-width: 75rem; }
+  .belt-inner > p { max-width: 75ch; }
+  .stages, .review { background: var(--paper-sunk); }
+  .stage-grid, .field-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--space-3); margin-block: var(--space-5); }
+  .stage-grid { list-style: none; padding: 0; }
+  .stage-grid li, .field-card { min-width: 0; padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); }
+  .stage-grid h3, .field-card h3 { font-size: var(--text-xl); }
+  .stripe { display: block; width: 5rem; max-width: 100%; height: .55rem; border: 1px solid var(--line-strong); border-radius: 1rem; background: #fff; }
+  .stripe.yellow { background: #e4b83c; } .stripe.green { background: #417257; } .stripe.brown { background: #79523e; } .stripe.black { background: #222; }
+  .field-card a { font-weight: 700; }
+  .review li { margin-block: var(--space-2); max-width: 75ch; }
+  .journal { max-width: 65ch; padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); }
+  .journal label:not(.check) { display: block; font-weight: 700; margin-block: var(--space-3) var(--space-2); }
+  .journal select, .journal textarea { display: block; box-sizing: border-box; width: 100%; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; }
+  .journal fieldset { margin-block: var(--space-4); border: 1px solid var(--line); }
+  .journal legend { font-weight: 700; }
+  .check { display: block; margin-block: var(--space-3); }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-3); }
+  .actions button { padding: .75rem 1rem; background: var(--band); color: var(--band-text); border: 1px solid var(--band); border-radius: var(--radius); font: inherit; font-weight: 700; cursor: pointer; }
+  .actions button:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+</style>

@@ -151,7 +151,7 @@ test.describe('navigation', () => {
   test('header and footer links go where the brief says and all resolve', async ({ page, request }) => {
     await page.goto('/');
     const header = page.locator('header nav[aria-label="Primary"]');
-    const navHrefs = await header.locator('ul a').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
+    const navHrefs = await header.locator('.primary-links > li > a').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
     expect(navHrefs).toEqual(NAV);
     await expect(page.locator('header a.start')).toHaveAttribute('href', '/membership');
     const footer = page.locator('footer nav[aria-label="Footer"]');

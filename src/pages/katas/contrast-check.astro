@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ContrastCheck from '../../components/ContrastCheck.astro';
+---
+<BaseLayout title="Check your design colours" description="Check text and background colour contrast locally, then use the result to improve an AI-assisted design.">
+  <PageHero compact eyebrow="Proof before praise · UX" title="Can you read it?" accent="" subtitle="A beautiful design still needs readable text. Check the actual colour pair, then improve it." />
+  <section class="section"><div class="container content">
+    <h2>Try a real check</h2>
+    <p>Enter <code>#777777</code> for text and <code>#ffffff</code> for the background. This pair looks understated, but its contrast is below the 4.5:1 threshold for normal text. Change the text to <code>#000000</code> and check again.</p>
+    <ContrastCheck />
+    <h2>Put your agent to work</h2>
+    <p>Ask any assistant: “Suggest three text colours for my background <code>#ffffff</code>. Explain how you would check normal-text contrast. Do not claim a colour passes without showing the ratio.” Check each pair yourself above and inspect it in your actual design.</p>
+    <p><strong>Randori:</strong> keep your background fixed and choose a different colour that meets the normal-text threshold. Explain what changed and which additional accessibility checks still matter.</p>
+    <p><a href="/katas/first-prototype">Try this in the prototype kata</a> · <a href="/katas">Explore more katas</a></p>
+  </div></section>
+</BaseLayout>
+<style>.content { max-width: 65rem; }</style>

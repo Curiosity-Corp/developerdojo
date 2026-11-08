@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+---
+<BaseLayout title="Randori: choose your own approach" description="Practice independent agent orchestration with four cross-field challenges, evidence checks and surprise constraints.">
+  <PageHero compact eyebrow="Randori · independent practice" title="Can you adapt?" accent="" subtitle="Pick a challenge, choose your own stack and verify what you make. Then reveal a new constraint and adapt." ctas={[{ label: 'Choose a challenge', href: '#challenges', icon: 'arrow-right' }]} />
+  <section class="section"><div class="container intro">
+    <h2>How to practice</h2>
+    <p>Use any AI assistant in a phone app, browser or trusted CLI harness. You decide the model, instructions and permitted tools; no particular skill or integration is required. Keep your input fictional and write down your actual choices, checks, failures and revisions. Provider access, limits and costs vary.</p>
+    <p>These exercises are practice, not automatically graded belts or professional approval. If you use a third-party tool, review its permissions before connecting it or running its code.</p>
+  </div></section>
+  <section class="section challenges" id="challenges" aria-labelledby="challenges-title"><div class="container">
+    <h2 id="challenges-title">Choose your mission</h2>
+    <div class="challenge-grid">
+      <article class="challenge" id="data">
+        <p class="field">Business · data</p><h3>Rescue a tiny invoice</h3>
+        <p><strong>Your outcome:</strong> a report showing the number of complete, unique lines and their total, with a list of rows needing review.</p>
+        <pre><code>{`id,item,qty,unit_price
+A1,Seed,2,4
+A1,Seed,2,4
+A2,Pot,3,5
+A3,Soil,,6`}</code></pre>
+        <p><strong>Rules:</strong> count exact duplicate rows once; exclude a row with a missing quantity. Do not guess the missing value.</p>
+        <p><strong>Evidence:</strong> show your arithmetic, identify the duplicate and exception, and explain what your assistant did. Check against the original rows yourself.</p>
+        <details><summary>Reveal a new constraint</summary><p>The report must fit in a short text message and still identify every excluded row. Revise your output without changing the source data.</p></details>
+        <div data-number-check data-answer="23"><label for="invoice-total">Your complete-line total (numbers only)</label><div class="check-row"><input id="invoice-total" type="text" inputmode="decimal" autocomplete="off" data-number-input /><button type="button" data-number-button hidden>Check total</button></div><p role="status" aria-live="polite" data-number-status></p></div>
+        <details><summary>Show the independent check</summary><p>A1 counts once: 2 × $4 = $8. A2 is 3 × $5 = $15. The two complete unique lines total <strong>$23</strong>; the duplicate A1 is removed and A3 needs a quantity.</p></details>
+      </article>
+      <article class="challenge" id="ux">
+        <p class="field">UX · communication</p><h3>Make booking understandable</h3>
+        <p><strong>Your outcome:</strong> a sketch or short interactive prototype for booking a meeting room on a phone.</p>
+        <p><strong>Facts:</strong> Tuesday at 2 pm is unavailable; Tuesday at 3 pm is available. The learner must be able to choose the available time and see a confirmation. This is fictional: there is no booking service behind it.</p>
+        <p><strong>Evidence:</strong> show the unavailable state, the 3 pm choice and a confirmation; explain the labels and a way to change the choice. Check touch targets and keyboard use where your prototype supports them.</p>
+        <details><summary>Reveal a new constraint</summary><p>A visitor cannot use color alone to tell whether a time is available. Adapt your design and explain the additional cue.</p></details>
+        <details><summary>Show review prompts</summary><p>Can someone identify the unavailable time without color? Can they choose 3 pm, see what was selected and find a way back? A picture alone does not establish keyboard or screen-reader behavior.</p></details>
+      </article>
+      <article class="challenge" id="built-environment">
+        <p class="field">3D · built environment</p><h3>Check a room brief</h3>
+        <p><strong>Your outcome:</strong> a simple room sketch or model and a traceable wall-area calculation, with units and assumptions.</p>
+        <p><strong>Practice dimensions:</strong> a rectangular room is 4 m long, 3 m wide and 2.5 m high. There is one 1 m × 2 m door and no windows. Calculate wall area excluding the door; ignore wall thickness, floor and ceiling.</p>
+        <p><strong>Evidence:</strong> list the four wall areas, door deduction and units. Mark the drawing as a conceptual practice artifact and identify what measurements a qualified person must verify.</p>
+        <details><summary>Reveal a new constraint</summary><p>A 1 m × 1 m window is added. Update the wall area and record the change; do not assume a location for the window.</p></details>
+        <div data-number-check data-answer="33"><label for="wall-area">Your original wall area in m² (numbers only)</label><div class="check-row"><input id="wall-area" type="text" inputmode="decimal" autocomplete="off" data-number-input /><button type="button" data-number-button hidden>Check area</button></div><p role="status" aria-live="polite" data-number-status></p></div>
+        <details><summary>Show the independent check</summary><p>Two long walls: 2 × 4 × 2.5 = 20 m². Two short walls: 2 × 3 × 2.5 = 15 m². Subtract the 2 m² door: <strong>33 m²</strong>. With the added 1 m² window, the result is 32 m² under the same assumptions.</p></details>
+        <p class="boundary">A sketch or 3D mesh is not a verified BIM model or construction document. Real measurements, code compliance and professional approval require qualified independent review.</p>
+      </article>
+      <article class="challenge" id="software">
+        <p class="field">Software · automation</p><h3>Build a resilient total</h3>
+        <p><strong>Your outcome:</strong> a small interface or written algorithm that totals non-negative quantities without sending data to a service.</p>
+        <p><strong>Requirements:</strong> accept two whole numbers, display their sum and reject a blank, negative or non-integer input with a clear message. Do not calculate a total for invalid input.</p>
+        <p><strong>Evidence:</strong> record your chosen harness and tools, the result, and tests for 2 + 3, 0 + 0, a blank, −1 and 1.5. Try it with a keyboard or explain what remains untested.</p>
+        <details><summary>Reveal a new constraint</summary><p>One input is unavailable on a phone. Adapt your interface so someone can enter both values without a mouse, and repeat your tests.</p></details>
+        <details><summary>Show the independent check</summary><p>2 + 3 must produce 5; 0 + 0 must produce 0. Blank, −1 and 1.5 must each produce a clear validation message and no new total. Test the actual result; an assistant’s claim that it works is not evidence.</p></details>
+      </article>
+    </div>
+    <div class="reflection"><h2>Keep evidence, not just a score</h2><ol><li>What did you and each agent actually do?</li><li>Which checks passed, failed or remain untested?</li><li>What changed when the constraint changed?</li><li>What independent or qualified review would real-world use require?</li></ol><p>Keep notes wherever you choose. These page checks do not save or transmit your answers and do not issue a belt or certificate.</p><p><a href="/belts">Explore belt practice</a> · <a href="/katas/constraint-roulette">Try Constraint Roulette</a> · <a href="/katas">More katas</a></p></div>
+  </div></section>
+</BaseLayout>
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>('[data-number-check]')) {
+    const input = root.querySelector<HTMLInputElement>('[data-number-input]');
+    const button = root.querySelector<HTMLButtonElement>('[data-number-button]');
+    const status = root.querySelector<HTMLElement>('[data-number-status]');
+    if (!input || !button || !status) continue;
+    button.hidden = false;
+    button.addEventListener('click', () => {
+      const value = input.value.trim();
+      if (!/^\d+(?:\.\d+)?$/.test(value)) {
+        status.textContent = 'Enter a non-negative number without a currency symbol or units.';
+      } else if (Number(value) === Number(root.dataset.answer)) {
+        status.textContent = 'That number matches the independent check. Review the calculation and assumptions too.';
+      } else {
+        status.textContent = 'Not quite. Recheck the source rows or wall areas and the stated exclusions.';
+      }
+    });
+  }
+</script>
+<style>
+  .intro { max-width: 70rem; }
+  .challenges { background: var(--paper-sunk); }
+  .challenge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 23rem), 1fr)); gap: var(--space-4); }
+  .challenge { min-width: 0; padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); }
+  .challenge h3 { font-size: var(--text-2xl); }
+  .field { color: var(--rust-text); font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+  pre { overflow-x: auto; padding: var(--space-3); background: var(--paper-sunk); border-radius: var(--radius); }
+  details { margin-block: var(--space-3); padding: var(--space-3); background: var(--paper-sunk); border-radius: var(--radius); }
+  summary { cursor: pointer; font-weight: 700; }
+  label { display: block; font-weight: 700; margin-block: var(--space-3) var(--space-2); }
+  .check-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  input { width: min(100%, 11rem); min-width: 0; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); color: var(--ink); background: var(--paper); font: inherit; }
+  button { padding: var(--space-3); border: 1px solid var(--band); border-radius: var(--radius); color: var(--band-text); background: var(--band); font: inherit; font-weight: 700; cursor: pointer; }
+  button[hidden] { display: none; }
+  .boundary { color: var(--ink-muted); font-size: var(--text-sm); }
+  .reflection { max-width: 70ch; margin-top: var(--space-6); }
+  li + li { margin-top: var(--space-2); }
+</style>

@@ -4,7 +4,7 @@ import Logo from './Logo.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import Icon from './Icon.astro';
 import SearchDialog from './SearchDialog.astro';
-import { NAV, START_FREE, isActive } from '../lib/nav';
+import { NAV, NAV_MENUS, START_FREE, isActive } from '../lib/nav';
 
 const pathname = Astro.url.pathname;
 ---
@@ -25,13 +25,37 @@ const pathname = Astro.url.pathname;
       <Icon name="x" size={22} class="close-icon" />
     </button>
     <nav id="primary-nav" class="nav" aria-label="Primary" data-nav>
-      <ul>
+      <ul class="primary-links">
         {
           NAV.map((item) => (
-            <li>
+            <li class="nav-item">
               <a href={item.href} aria-current={isActive(pathname, item.href) ? 'page' : undefined}>
                 {item.label}
               </a>
+              {NAV_MENUS[item.label] && (
+                <details class="dropdown" name="primary-nav-groups" data-nav-dropdown>
+                  <summary aria-label={`Explore ${item.label} options`}>
+                    <Icon name="chevron-down" size={16} />
+                  </summary>
+                  <div class="mega-panel">
+                    <div class="mega-grid">
+                      {(NAV_MENUS[item.label] ?? []).map((group) => (
+                        <section>
+                          <h2>{group.title}</h2>
+                          <div class="mega-links">
+                            {group.links.map((link) => (
+                              <a href={link.href}>
+                                <strong>{link.label}</strong>
+                                <span>{link.description}</span>
+                              </a>
+                            ))}
+                          </div>
+                        </section>
+                      ))}
+                    </div>
+                  </div>
+                </details>
+              )}
             </li>
           ))
         }
@@ -50,22 +74,51 @@ const pathname = Astro.url.pathname;
   const button = document.querySelector<HTMLButtonElement>('[data-menu-button]');
   const nav = document.querySelector<HTMLElement>('[data-nav]');
   const header = document.querySelector<HTMLElement>('.site-header');
+  const dropdowns = Array.from(document.querySelectorAll<HTMLDetailsElement>('[data-nav-dropdown]'));
+
+  function closeDropdowns(except?: HTMLDetailsElement): void {
+    for (const item of dropdowns) if (item !== except) item.open = false;
+  }
 
   function setOpen(open: boolean): void {
     if (!button || !header) return;
     header.toggleAttribute('data-open', open);
     button.setAttribute('aria-expanded', String(open));
     button.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (!open) closeDropdowns();
   }
 
   button?.addEventListener('click', () => setOpen(button.getAttribute('aria-expanded') !== 'true'));
+  for (const dropdown of dropdowns) {
+    dropdown.addEventListener('toggle', () => {
+      if (dropdown.open) closeDropdowns(dropdown);
+    });
+    dropdown.addEventListener('focusout', (event) => {
+      if (dropdown.open && event.relatedTarget instanceof Node && !dropdown.contains(event.relatedTarget)) {
+        dropdown.open = false;
+      }
+    });
+  }
   nav?.addEventListener('click', (event) => {
-    if (event.target instanceof HTMLAnchorElement) setOpen(false);
+    if (event.target instanceof Element && event.target.closest('a')) {
+      closeDropdowns();
+      setOpen(false);
+    }
+  });
+  document.addEventListener('click', (event) => {
+    if (event.target instanceof Node && !header?.contains(event.target)) closeDropdowns();
   });
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && button?.getAttribute('aria-expanded') === 'true') {
+    if (event.key !== 'Escape' || document.querySelector('dialog[open]')) return;
+    const active = dropdowns.find((item) => item.open);
+    if (active) {
+      active.open = false;
+      active.querySelector<HTMLElement>('summary')?.focus();
+      event.preventDefault();
+    } else if (button?.getAttribute('aria-expanded') === 'true') {
       setOpen(false);
       button.focus();
+      event.preventDefault();
     }
   });
   window.matchMedia('(min-width: 75rem)').addEventListener('change', (event) => {
@@ -96,13 +149,13 @@ const pathname = Astro.url.pathname;
   .nav {
     display: flex;
     align-items: center;
-    gap: var(--space-5);
+    gap: var(--space-3);
     margin-left: auto;
   }
-  ul {
+  .primary-links {
     display: flex;
     align-items: center;
-    gap: clamp(0.75rem, 2vw, 2rem);
+    gap: clamp(0.4rem, 1vw, 0.9rem);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -111,15 +164,15 @@ const pathname = Astro.url.pathname;
     color: var(--band-text);
     text-decoration: none;
     font-family: var(--font-serif);
-    font-size: 1.08rem;
+    font-size: 1rem;
     font-weight: 600;
     padding-block: 0.4rem;
     border-bottom: 2px solid transparent;
   }
-  .nav ul a:hover {
+  .primary-links > .nav-item > a:hover {
     color: var(--gold);
   }
-  .nav ul a[aria-current='page'] {
+  .primary-links > .nav-item > a[aria-current='page'] {
     color: var(--gold);
     border-bottom-color: var(--gold);
   }
@@ -141,6 +194,26 @@ const pathname = Astro.url.pathname;
   .nav .start:hover {
     background: var(--gold-strong);
   }
+  .nav-item { display: flex; align-items: center; }
+  .dropdown > summary {
+    display: grid; place-items: center; width: 2rem; height: 2.75rem; cursor: pointer;
+    list-style: none; color: var(--band-text); border-radius: var(--radius);
+  }
+  .dropdown > summary::-webkit-details-marker { display: none; }
+  .dropdown > summary:focus-visible { outline-color: var(--gold); }
+  .dropdown > summary:hover, .dropdown[open] > summary { color: var(--gold); }
+  .dropdown[open] > summary :global(svg) { transform: rotate(180deg); }
+  .mega-panel {
+    position: absolute; top: 100%; left: 0; right: 0; padding: var(--space-5) var(--gutter);
+    background: var(--band); border-bottom: 1px solid var(--band-line); box-shadow: 0 14px 28px rgb(0 0 0 / .22);
+    max-height: calc(100dvh - var(--header-h)); overflow-y: auto;
+  }
+  .mega-grid { max-width: 1200px; margin-inline: auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); }
+  .mega-grid h2 { margin: 0 0 var(--space-3); color: var(--gold); font: 700 var(--text-sm) var(--font-sans); letter-spacing: .06em; text-transform: uppercase; }
+  .mega-links { display: grid; gap: var(--space-1); }
+  .nav .mega-links a { display: grid; gap: .2rem; padding: var(--space-2); font: 600 var(--text-base) var(--font-sans); border: 1px solid transparent; border-radius: var(--radius); }
+  .nav .mega-links a:hover { background: var(--band-raised); border-color: var(--band-line); }
+  .mega-links span { color: var(--band-muted); font-size: var(--text-sm); font-weight: 400; }
   .menu-button {
     display: none;
     width: 44px;
@@ -163,14 +236,14 @@ const pathname = Astro.url.pathname;
   }
 
   /* Keep the expanded navigation on one row at smaller desktop widths. */
-  @media (min-width: 75rem) and (max-width: 79.99rem) {
+  @media (min-width: 75rem) and (max-width: 84.99rem) {
     .bar :global(.logo img) {
       height: 22px;
     }
     .nav {
       gap: var(--space-3);
     }
-    ul {
+    .primary-links {
       gap: 0.65rem;
     }
     .nav a {
@@ -203,20 +276,25 @@ const pathname = Astro.url.pathname;
       max-height: calc(100dvh - var(--header-h));
       overflow-y: auto;
     }
-    ul {
+    .primary-links {
       flex-direction: column;
       align-items: stretch;
       gap: 0;
     }
-    .nav ul a {
+    .nav-item { display: block; position: relative; }
+    .primary-links > .nav-item > a {
       display: block;
-      padding: 0.85rem 0;
+      padding: 0.85rem 3rem 0.85rem 0;
       border-bottom: 1px solid var(--band-line);
       font-size: 1.2rem;
     }
-    .nav ul a[aria-current='page'] {
+    .primary-links > .nav-item > a[aria-current='page'] {
       border-bottom-color: var(--gold);
     }
+    .dropdown > summary { position: absolute; top: 0; right: 0; width: 44px; height: 48px; }
+    .mega-panel { position: static; padding: var(--space-3) 0 var(--space-4); max-height: none; overflow: visible; box-shadow: none; border: 0; background: transparent; }
+    .mega-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
+    .mega-grid h2 { margin-bottom: var(--space-2); }
     .actions {
       justify-content: space-between;
     }
@@ -225,5 +303,10 @@ const pathname = Astro.url.pathname;
       text-align: center;
       padding-block: 0.8rem;
     }
+    /* Without JavaScript the links remain in the page flow; no nonfunctional drawer button. */
+    :global(html:not(.js)) .site-header { position: relative; }
+    :global(html:not(.js)) .bar { flex-wrap: wrap; }
+    :global(html:not(.js)) .menu-button { display: none; }
+    :global(html:not(.js)) .nav { position: static; flex: 0 0 100%; max-height: none; overflow: visible; padding-inline: 0; }
   }
 </style>

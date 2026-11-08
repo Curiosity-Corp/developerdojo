@@ -69,6 +69,20 @@ const bar = [
     </div>
   </PageHero>
 
+  <section class="outcome-shortcuts" aria-label="Start with an outcome">
+    <div class="container outcome-inner">
+      <p>What do you want to make?</p>
+      <div class="outcome-links">
+        <a href="/katas/scan-a-room">Explore a 3D room <Icon name="arrow-right" size={16} /></a>
+        <a href="/katas/ux-journey">Design a user journey <Icon name="arrow-right" size={16} /></a>
+        <a href="/katas/first-prototype">Prototype an idea <Icon name="arrow-right" size={16} /></a>
+        <a href="/katas/data-rescue">Fix messy data <Icon name="arrow-right" size={16} /></a>
+        <a href="/katas/compare-instructions">Compare AI instructions <Icon name="arrow-right" size={16} /></a>
+        <a href="/katas/industry-workshops">Explore more fields <Icon name="arrow-right" size={16} /></a>
+      </div>
+    </div>
+  </section>
+
   <section class="section showcase" aria-labelledby="showcase-title">
     <div class="container">
       <div id="showcase-title"><SectionHeader eyebrow="Start creating" title="Pick a result. Make it yours." intro="Choose a beginner kata or learn with a workshop." /></div>
@@ -245,6 +259,12 @@ const bar = [
 </BaseLayout>
 
 <style>
+  .outcome-shortcuts { padding-block: var(--space-5); background: var(--paper-sunk); border-bottom: 1px solid var(--line); }
+  .outcome-inner { display: grid; gap: var(--space-3); }
+  .outcome-inner p { margin: 0; font-weight: 800; font-family: var(--font-serif); font-size: var(--text-lg); }
+  .outcome-links { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .outcome-links a { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; padding: .6rem .8rem; color: var(--ink); background: var(--paper-raised); border: 1px solid var(--line-strong); border-radius: var(--radius); font-weight: 700; text-decoration: none; }
+  .outcome-links a:hover { border-color: var(--rust-text); text-decoration: underline; }
   .hero-art { overflow: hidden; border-radius: var(--radius); border: 1px solid rgb(255 255 255 / .3); background: var(--band); box-shadow: var(--shadow); }
   .hero-art img { display: block; width: 100%; height: 15rem; object-fit: cover; }
   .hero-art p { margin: 0; padding: var(--space-3) var(--space-4); color: var(--band-text); font-weight: 700; }
