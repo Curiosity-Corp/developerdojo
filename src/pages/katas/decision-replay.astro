@@ -9,11 +9,25 @@ import PageHero from '../../components/PageHero.astro';
       <h2>First, try the result</h2>
       <p>Pocket Garden is a real working example created for the Dojo with AI assistance. The decisions below are a fictional learning scenario, not a recording of how it was built.</p>
       <iframe title="Pocket Garden working example" src="/examples/pocket-garden.html" loading="lazy" sandbox="allow-scripts"></iframe>
+      <p>This page is the complete text version; no audio or video is needed. Choose what you would do first, then open each explanation. Your choices stay on this page and are not sent or saved.</p>
       <div class="decisions">
-        <article><span>01 / Understand</span><h3>A learner wants a reading list instead. What would you clarify first?</h3><p>Think about the audience, what the buttons should do, and how you would recognize success.</p><details><summary>Reveal one useful approach</summary><p>Agree on the desired result and a few checks: which books appear, what each control changes, and how the page should work on a phone. Ask when the brief leaves something important unclear.</p></details></article>
-        <article><span>02 / Verify</span><h3>The assistant says the filters work. What evidence would you seek?</h3><p>Pick actions you could actually perform against the result.</p><details><summary>Reveal one useful approach</summary><p>Try every filter, check the cards shown, and use the keyboard if available. A claim in a chat is not the same as observing the behavior. Record anything that fails.</p></details></article>
-        <article><span>03 / Adapt</span><h3>The learner cannot run JavaScript. What changes?</h3><p>Choose a fallback that keeps the content useful.</p><details><summary>Reveal one useful approach</summary><p>Make sure the content remains readable and explain which controls need JavaScript. Ask the assistant to provide a usable fallback and then test it with scripts disabled.</p></details></article>
+        <article>
+          <span>01 / Understand</span><h3>A learner wants a reading list instead. What would you clarify first?</h3>
+          <fieldset><legend>Predict your first move</legend><label><input type="radio" name="understand" /> Agree on the audience, controls and success checks</label><label><input type="radio" name="understand" /> Ask the assistant to choose all requirements</label></fieldset>
+          <details><summary>Reveal one useful approach</summary><p>Agree on the desired result and a few checks: which books appear, what each control changes, and how the page should work on a phone. Ask when the brief leaves something important unclear.</p><p>Without these checks, a polished page can solve the wrong problem. The right questions depend on the learner and their constraints.</p></details>
+        </article>
+        <article>
+          <span>02 / Verify</span><h3>The assistant says the filters work. What evidence would you seek?</h3>
+          <fieldset><legend>Predict your first move</legend><label><input type="radio" name="verify" /> Try the controls and compare their results</label><label><input type="radio" name="verify" /> Accept the assistant’s claim as proof</label></fieldset>
+          <details><summary>Reveal one useful approach</summary><p>Try every filter, check the cards shown, and use the keyboard if available. A claim in a chat is not the same as observing the behavior. Record anything that fails.</p><p>Testing on one device does not prove the result works everywhere; record the devices and checks you could not cover.</p></details>
+        </article>
+        <article>
+          <span>03 / Adapt</span><h3>The learner cannot run JavaScript. What changes?</h3>
+          <fieldset><legend>Predict your first move</legend><label><input type="radio" name="adapt" /> Keep content readable and test a fallback</label><label><input type="radio" name="adapt" /> Assume the controls will work anyway</label></fieldset>
+          <details><summary>Reveal one useful approach</summary><p>Make sure the content remains readable and explain which controls need JavaScript. Ask the assistant to provide a usable fallback and then test it with scripts disabled.</p><p>A fallback needs its own checks; readable content alone does not prove every interaction is accessible.</p></details>
+        </article>
       </div>
+      <p><strong>Limit of this replay:</strong> the questions and consequences are teaching examples, not evidence of the original build decisions or a test report. Try the actual prototype and record your own observations.</p>
       <p><a href="/katas/first-prototype">Build and check your own prototype</a> · <a href="/katas/constraint-roulette">Try an unfamiliar challenge</a></p>
     </div>
   </section>
@@ -24,5 +38,8 @@ import PageHero from '../../components/PageHero.astro';
   .decisions { display: grid; gap: var(--space-4); margin-block: var(--space-5); }
   article { padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); }
   article span { color: var(--rust-text); font-size: var(--text-sm); font-weight: 800; }
+  fieldset { display: grid; gap: var(--space-2); margin: var(--space-3) 0; padding: 0; border: 0; }
+  legend { font-weight: 700; }
+  label { display: flex; align-items: baseline; gap: var(--space-2); }
   summary { font-weight: 700; cursor: pointer; }
 </style>

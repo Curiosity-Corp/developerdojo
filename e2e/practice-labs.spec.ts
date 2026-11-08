@@ -9,6 +9,28 @@ test('decision replay shows the real example and staged feedback', async ({ page
   await expect(first.getByText(/Agree on the desired result/)).toBeVisible();
 });
 
+test('decision replay accepts predictions and reveals limits without scripts', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  try {
+    const page = await context.newPage();
+    await page.goto('/katas/decision-replay');
+    await expect(page.getByText(/complete text version/)).toBeVisible();
+    await expect(page.getByText(/not evidence of the original build decisions/)).toBeVisible();
+    const firstChoice = page.getByRole('radio', { name: 'Agree on the audience, controls and success checks' });
+    await firstChoice.focus();
+    await page.keyboard.press('Space');
+    await expect(firstChoice).toBeChecked();
+    await page.getByRole('radio', { name: 'Try the controls and compare their results' }).check();
+    const explanations = page.locator('.decisions details');
+    await explanations.nth(0).locator('summary').click();
+    await expect(explanations.nth(0)).toContainText('a polished page can solve the wrong problem');
+    await explanations.nth(1).locator('summary').click();
+    await expect(explanations.nth(1)).toContainText('does not prove the result works everywhere');
+  } finally {
+    await context.close();
+  }
+});
+
 test('a learner can pick an unfamiliar constraint', async ({ page }) => {
   await page.goto('/katas/constraint-roulette');
   await page.getByRole('button', { name: 'Pick a constraint' }).click();
