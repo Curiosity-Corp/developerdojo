@@ -1,0 +1,9 @@
+title: "Science of electricity"
+provider: "U.S. Energy Information Administration"
+url: "https://www.eia.gov/kids/energy-sources/electricity/science-of-electricity.php"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [data-analytics, ai-agents]
+summary: "A public introductory lesson explaining electricity, power in watts and energy over time in kilowatt-hours. Use its worked example to check units before developing an energy comparison with an assistant."
+verifiedOn: 2026-11-08
