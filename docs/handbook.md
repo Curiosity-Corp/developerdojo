@@ -514,3 +514,12 @@ The `test` job fails when an event is missing `id`, `title`, `description`, `sta
 name is misspelled, when a date or timezone is not valid, when `end` is not after `start`, when two events share
 an `id`, when a link does not start with `https://`, or when a `detail` part is missing or empty. It cannot check
 that an event is real. That is why step 1 of "Add an event" comes first.
+
+## 14. Maintain the learner portfolio template
+
+The source for the separate GitHub portfolio template is `templates/learner-portfolio/` in this repository. The public GitHub template is a distribution copy; the website's `gh-pages` publishing repository is a different repository and must not be edited for this task.
+
+1. Change the source here on a branch and merge through a GitLab MR after the required checks pass. Keep the starter clearly labelled, its existing license, and the privacy and source-credit guidance.
+2. Publish only those reviewed template files to the separate `Curiosity-Corp/dojo-portfolio-template` repository. Keep its existing history, use an ordinary reviewed change, and do not force-push. Record the GitLab source revision in the distribution commit.
+3. Verify that the repository is still marked as a template. Create a private learner-owned copy, edit a fictional entry and confirm the change in that copy. Check optional Pages instructions and availability against GitHub's current documentation.
+4. Check the Dojo portfolio page's link and leave issue #103 open if the personal-copy walkthrough or public template cannot be verified. Never put learner data, credentials or private evidence in the starter.

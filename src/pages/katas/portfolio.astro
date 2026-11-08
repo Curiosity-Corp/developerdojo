@@ -6,6 +6,12 @@ import PageHero from '../../components/PageHero.astro';
   <PageHero compact eyebrow="Own your evidence" title="Show what you made" subtitle="Turn an outcome, its checks and what you learned into a page you control." />
   <section class="section">
     <div class="container content">
+      <h2>Start from a repository template</h2>
+      <p>Want a ready-made portfolio in your own GitHub account? Open the template and choose <strong>Use this template</strong> to create your own copy. A GitHub account is required; choose visibility carefully and replace the prompts with work you are allowed to share.</p>
+      <p><a href="https://github.com/Curiosity-Corp/dojo-portfolio-template">Use the GitHub portfolio template</a> · <a href="https://curiosity-corp.github.io/dojo-portfolio-template/">Preview the blank starter</a> · <a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template">GitHub's template guide</a></p>
+      <details><summary>Use the GitHub CLI on a computer</summary><p>Install and authenticate the <a href="https://cli.github.com/manual/gh_auth_login">GitHub CLI</a>. Choose a repository name you have not used, and replace <code>YOUR-USERNAME</code> with your GitHub username:</p><pre><code>gh repo create my-portfolio --private --template Curiosity-Corp/dojo-portfolio-template
+gh repo clone YOUR-USERNAME/my-portfolio</code></pre><p>The first command creates a private copy in your own account; the second downloads it. Edit and commit only work you have permission to share. GitHub account and plan rules apply.</p></details>
+      <p>Prefer to work without a GitHub account? Make downloadable files below instead.</p>
       <h2>Make your page</h2>
       <p>Enter only material you are allowed to share. The Dojo does not save or send these fields. Your downloads stay on this device until you choose to share or publish them.</p>
       <div class="portfolio-form">
@@ -103,6 +109,9 @@ import PageHero from '../../components/PageHero.astro';
 </script>
 <style>
   .content { max-width: 65rem; }
+  details { margin-block: var(--space-4); padding: var(--space-3); border: 1px solid var(--line); border-radius: var(--radius); }
+  summary { cursor: pointer; font-weight: 700; }
+  pre { max-width: 100%; overflow-x: auto; padding: var(--space-3); background: var(--paper-sunk); border-radius: var(--radius); }
   :global(html:not(.js)) .portfolio-form { display: none; }
   label { display: block; margin: var(--space-3) 0 var(--space-2); font-weight: 700; }
   input, textarea { box-sizing: border-box; display: block; width: 100%; max-width: 65ch; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper-raised); color: var(--ink); font: inherit; }

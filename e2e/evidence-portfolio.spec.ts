@@ -4,6 +4,11 @@ test('builds local evidence files with decisions, limits and credits', async ({ 
   const requests: string[] = [];
   page.on('request', (request) => requests.push(`${request.url()}\n${request.postData() ?? ''}`));
   await page.goto('/katas/portfolio');
+  await expect(page.getByRole('link', { name: 'Use the GitHub portfolio template' })).toHaveAttribute('href', 'https://github.com/Curiosity-Corp/dojo-portfolio-template');
+  await expect(page.getByRole('link', { name: 'Preview the blank starter' })).toHaveAttribute('href', 'https://curiosity-corp.github.io/dojo-portfolio-template/');
+  await page.getByText('Use the GitHub CLI on a computer').click();
+  await expect(page.getByText('gh repo create my-portfolio', { exact: false })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(0);
   await page.getByLabel('Project title').fill('Garden <script>alert(1)</script>');
   await page.getByLabel('What did you make?').fill('A fictional garden prototype');
   await page.getByLabel('Which tools, versions and agent roles did you actually use?').fill('Browser assistant; sketch tool v2');
