@@ -40,5 +40,5 @@ test('the kata hub connects shared foundations and field-specific practice', asy
   await expect(page.getByRole('link', { name: 'Enter the Stack Lab' })).toHaveAttribute('href', '/stack-lab');
   await expect(page.getByRole('link', { name: 'Explore fields' })).toHaveAttribute('href', '/fields');
   await expect(page.getByRole('link', { name: 'Explore Randori' })).toHaveAttribute('href', '/randori');
-  await expect(page.getByText('The exercise and its verified recipe are still being prepared.', { exact: false })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Start the comparison kata' })).toHaveAttribute('href', '/katas/compare-instructions');
 });

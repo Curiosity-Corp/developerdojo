@@ -23,6 +23,10 @@ html.js .js-only[data-inline] {
 html.js .js-only[hidden] {
   display: none;
 }
+/* Visible fallback text when script cannot enable an interactive tool. */
+html.js .no-js {
+  display: none;
+}
 .tool [hidden],
 .done-badge[hidden],
 .tool-note[hidden] {

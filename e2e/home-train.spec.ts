@@ -50,8 +50,8 @@ test('katas explain the approach and keep training and progress accessible', asy
   await page.goto('/');
   await page.getByRole('link', { name: 'Explore katas' }).click();
   await expect(page).toHaveURL(/\/katas/);
-  await expect(page.getByRole('heading', { name: 'Same goal, different stack' })).toBeVisible();
-  await expect(page.getByText('The exercise and its verified recipe are still being prepared.')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Same goal, different instructions' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Start the comparison kata' })).toHaveAttribute('href', '/katas/compare-instructions');
   await hrefsResolve(page, 'main');
   await page.getByRole('link', { name: 'Developer and Master Developer training' }).click();
   await expect(page).toHaveURL(/\/train/);
