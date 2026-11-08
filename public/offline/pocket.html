@@ -30,7 +30,7 @@
         const saved=JSON.parse(raw);
         if(!saved||typeof saved!=='object'||Array.isArray(saved))throw new Error('Invalid progress');
         savedValues=saved;
-        fields.forEach(el=>{el.checked=saved[el.dataset.step]===true;});notes.value=typeof saved.notes==='string'?saved.notes:'';
+        fields.forEach(el=>{el.checked=Boolean(saved[el.dataset.step]);});notes.value=typeof saved.notes==='string'?saved.notes:'';
       }catch(e){unreadable=true;status.textContent='Saved progress could not be read. It will not be replaced unless you clear it. You can still download new notes.';}
     }
   }catch(e){status.textContent='Browser storage is unavailable. Your progress may not be saved after you leave.';}
