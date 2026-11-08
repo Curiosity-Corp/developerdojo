@@ -10,7 +10,7 @@ test('belt practice explains the stages, domain evidence and review limits', asy
   }
   await expect(page.getByText('not a grade, belt or certificate', { exact: false })).toBeVisible();
   await expect(page.getByText('not professional approval', { exact: false })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Try a Randori-style challenge' })).toHaveAttribute('href', '/katas/constraint-roulette');
+  await expect(page.getByRole('link', { name: 'Choose a Randori challenge' })).toHaveAttribute('href', '/katas/randori-challenges');
 });
 
 test('self-assessment remains separate by field, survives reload and can be cleared', async ({ page }) => {

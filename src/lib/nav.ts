@@ -38,6 +38,7 @@ export const NAV_MENUS: Readonly<Record<string, readonly MenuGroup[]>> = {
     { title: 'Practice your judgment', links: [
       { label: 'Find AI mistakes', href: '/katas/error-clinic', description: 'Check claims against the evidence.' },
       { label: 'Try a new constraint', href: '/katas/constraint-roulette', description: 'Adapt your approach to a challenge.' },
+      { label: 'Choose a Randori challenge', href: '/katas/randori-challenges', description: 'Solve an unfamiliar cross-field problem.' },
       { label: 'Explore Randori', href: '/randori', description: 'Practice without a prescribed recipe.' },
     ] },
   ],
@@ -45,6 +46,7 @@ export const NAV_MENUS: Readonly<Record<string, readonly MenuGroup[]>> = {
     { title: 'Build your foundation', links: [
       { label: 'Compare instructions', href: '/katas/compare-instructions', description: 'Change a brief and check the result.' },
       { label: 'Explore the Stack Lab', href: '/stack-lab', description: 'Learn how your agent stack fits together.' },
+      { label: 'Inspect the Armory', href: '/armory/registry', description: 'Review real tools, sources and access.' },
       { label: 'Working with AI agents', href: '/library/tracks/working-with-ai-agents', description: 'Learn context, delegation and review.' },
       { label: 'Training paths', href: '/train', description: 'Explore existing Developer training.' },
     ] },
