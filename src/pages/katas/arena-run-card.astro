@@ -56,9 +56,11 @@ import PageHero from '../../components/PageHero.astro';
   const orUnknown = (value: string) => value || 'Not recorded';
   if (root && button instanceof HTMLButtonElement && status && result && record instanceof HTMLTextAreaElement && copy instanceof HTMLButtonElement && copyStatus) {
     button.hidden = false;
-    root.addEventListener('input', (event) => {
+    const invalidate = (event: Event) => {
       if (event.target !== record && !result.hidden) { result.hidden = true; status.textContent = 'Inputs changed. Summarize again before copying.'; }
-    });
+    };
+    root.addEventListener('input', invalidate);
+    root.addEventListener('change', invalidate);
     button.addEventListener('click', () => {
       const a = parseArenaRuns(read('runs-a')); const b = parseArenaRuns(read('runs-b'));
       if (!a.ok || !b.ok) { result.hidden = true; status.textContent = !a.ok ? `Setup A: ${a.error}` : !b.ok ? `Setup B: ${b.error}` : 'Check your inputs.'; return; }
