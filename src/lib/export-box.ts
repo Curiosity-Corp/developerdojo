@@ -46,9 +46,18 @@ export function wireExportBox(root: ParentNode): ExportBox | undefined {
   const status = root.querySelector<HTMLElement>('[data-export-status]');
   if (!textarea || !button) return undefined;
 
+  let attempt = 0;
   button.addEventListener('click', async () => {
+    const current = ++attempt;
+    if (status) status.textContent = 'Copying…';
+    const waiting = window.setTimeout(() => {
+      if (status && current === attempt) {
+        status.textContent = 'Copy is taking longer than expected. You can select the text and copy it yourself.';
+      }
+    }, 3000);
     const ok = await copyTextarea(textarea);
-    if (!status) return;
+    window.clearTimeout(waiting);
+    if (!status || current !== attempt) return;
     if (ok) {
       status.textContent = 'Copied. Paste it into a file in your own repository.';
     } else {
@@ -59,6 +68,7 @@ export function wireExportBox(root: ParentNode): ExportBox | undefined {
 
   return {
     setText(text: string) {
+      attempt++;
       textarea.value = text;
       if (status) status.textContent = '';
     },

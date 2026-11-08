@@ -7,22 +7,35 @@ import PageHero from '../../components/PageHero.astro';
   <section class="section">
     <div class="container content">
       <h2>Make your page</h2>
-      <p>Enter only material you are allowed to share. The Dojo does not save or send these fields. The generated file stays on your device until you choose to share or publish it.</p>
+      <p>Enter only material you are allowed to share. The Dojo does not save or send these fields. Your downloads stay on this device until you choose to share or publish them.</p>
+      <div class="portfolio-form">
       <label for="portfolio-title">Project title</label><input id="portfolio-title" type="text" />
       <label for="portfolio-outcome">What did you make?</label><textarea id="portfolio-outcome" rows="3"></textarea>
+      <label for="portfolio-stack">Which tools, versions and agent roles did you actually use? (optional)</label><textarea id="portfolio-stack" rows="3"></textarea>
+      <label for="portfolio-decisions">What did you decide, change or delegate? (optional)</label><textarea id="portfolio-decisions" rows="3"></textarea>
       <label for="portfolio-checks">How did you check it?</label><textarea id="portfolio-checks" rows="3"></textarea>
+      <label for="portfolio-limits">What failed, remains untested or needs independent review? (optional)</label><textarea id="portfolio-limits" rows="3"></textarea>
       <label for="portfolio-learning">What did you learn?</label><textarea id="portfolio-learning" rows="3"></textarea>
+      <label for="portfolio-credits">Whose work or sources did you use, and how may they be shared? (optional)</label><textarea id="portfolio-credits" rows="3"></textarea>
       <label for="portfolio-link">Public evidence link, if you have one (optional)</label><input id="portfolio-link" type="url" placeholder="https://…" />
       <button id="portfolio-make" type="button" hidden>Prepare my page</button>
       <p id="portfolio-status" role="status" aria-live="polite"></p>
       <div id="portfolio-result" hidden>
         <label for="portfolio-html">Your page HTML</label><textarea id="portfolio-html" rows="12" readonly></textarea>
-        <p><a id="portfolio-download" download="index.html">Download index.html</a></p>
+        <p><a id="portfolio-download" download="index.html">Download index.html</a> · <a id="portfolio-readme-download" download="README.md">Download README.md</a></p>
+        <label for="portfolio-readme">Your repository README</label><textarea id="portfolio-readme" rows="12" readonly></textarea>
       </div>
-      <noscript><p>JavaScript is needed to generate a file here. You can still write a page yourself using the guide below.</p></noscript>
+      </div>
+      <p class="no-js">JavaScript is needed to generate files here. You can still download the blank template and edit it yourself.</p>
+      <p><a href="/examples/portfolio-template.md" download>Download the blank evidence template</a> · <a href="/examples/portfolio-template.md">Open it in your browser</a></p>
       <h2>Publish when you are ready</h2>
-      <p>One option is your own GitHub repository and GitHub Pages. A GitHub account is required, and availability depends on the repository and plan. Follow the <a href="https://docs.github.com/en/pages/quickstart">official GitHub Pages quickstart</a>, add your <code>index.html</code>, and check the published result.</p>
-      <p>Publishing can make your work public. Review names, links, permissions, client details and licenses first. This page is a starting file, not an independently verified certificate.</p>
+      <p>One option is a separate repository in your own GitHub account. Creating a repository requires an account; GitHub Pages availability depends on its visibility and your plan. Follow GitHub’s <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site">site creation guide</a> and <a href="https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository">file upload guide</a>.</p>
+      <ol>
+        <li>Review both downloads on your device. Remove names, secrets, private links and any work you cannot publish. Record permissions and credit sources; <a href="https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository">choose a license</a> only for material you have rights to license.</li>
+        <li>Create a new repository under your own account without an initial README. In the empty repository, choose the link to upload existing files. Upload <code>README.md</code> and <code>index.html</code> at its top level and commit them. The README presents your evidence on the repository page; the HTML is your optional website.</li>
+        <li>To publish the website, open the repository’s Settings → Pages. Choose “Deploy from a branch”, select your branch and its root folder, and save. Wait for the deployment, open the displayed URL and test your links. GitHub Pages sites can be public even when their source repository is private.</li>
+      </ol>
+      <p>GitHub’s interface and plan limits can change. Publishing can expose your work to anyone; check visibility before sharing. These files are your own evidence, not an independently verified certificate.</p>
       <p><a href="/katas">Explore more katas</a> · <a href="/missions">Learn about missions</a></p>
     </div>
   </section>
@@ -33,13 +46,22 @@ import PageHero from '../../components/PageHero.astro';
   const result = document.getElementById('portfolio-result');
   const output = document.getElementById('portfolio-html');
   const download = document.getElementById('portfolio-download');
+  const readme = document.getElementById('portfolio-readme');
+  const readmeDownload = document.getElementById('portfolio-readme-download');
+  const form = document.querySelector('.portfolio-form');
   const value = (id: string) => {
     const field = document.getElementById(id);
     return field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement ? field.value.trim() : '';
   };
-  let currentUrl = '';
-  if (button instanceof HTMLButtonElement && status && result && output instanceof HTMLTextAreaElement && download instanceof HTMLAnchorElement) {
+  let currentUrl = ''; let currentReadmeUrl = '';
+  if (button instanceof HTMLButtonElement && status && result && form && output instanceof HTMLTextAreaElement && download instanceof HTMLAnchorElement && readme instanceof HTMLTextAreaElement && readmeDownload instanceof HTMLAnchorElement) {
     button.hidden = false;
+    form.addEventListener('input', (event) => {
+      if (event.target !== output && event.target !== readme && !result.hidden) {
+        result.hidden = true;
+        status.textContent = 'Your details changed. Prepare your page again before downloading.';
+      }
+    });
     button.addEventListener('click', () => {
       const title = value('portfolio-title'); const outcome = value('portfolio-outcome');
       const checks = value('portfolio-checks'); const learning = value('portfolio-learning'); const link = value('portfolio-link');
@@ -55,7 +77,13 @@ import PageHero from '../../components/PageHero.astro';
       const viewport = doc.createElement('meta'); viewport.name = 'viewport'; viewport.content = 'width=device-width,initial-scale=1'; doc.head.append(viewport);
       const style = doc.createElement('style'); style.textContent = 'body{font:1rem/1.6 system-ui,sans-serif;max-width:46rem;margin:auto;padding:1.5rem;color:#1c2620}h1{line-height:1.1}p{white-space:pre-wrap}'; doc.head.append(style);
       const main = doc.createElement('main'); const h1 = doc.createElement('h1'); h1.textContent = title; main.append(h1);
-      for (const [heading, text] of [['The outcome', outcome], ['How I checked it', checks], ['What I learned', learning]]) {
+      const sections: [string, string][] = [
+        ['The outcome', outcome], ['Tools and agent roles', value('portfolio-stack')],
+        ['Decisions and delegation', value('portfolio-decisions')], ['How I checked it', checks],
+        ['Limitations and review', value('portfolio-limits')], ['What I learned', learning],
+        ['Sources and permissions', value('portfolio-credits')],
+      ];
+      for (const [heading, text] of sections.filter(([, content]) => content)) {
         const h2 = doc.createElement('h2'); h2.textContent = heading ?? ''; const p = doc.createElement('p'); p.textContent = text ?? ''; main.append(h2, p);
       }
       if (evidence) { const p = doc.createElement('p'); const a = doc.createElement('a'); a.href = evidence.href; a.textContent = 'View evidence'; p.append(a); main.append(p); }
@@ -64,12 +92,18 @@ import PageHero from '../../components/PageHero.astro';
       output.value = html;
       if (currentUrl) URL.revokeObjectURL(currentUrl);
       currentUrl = URL.createObjectURL(new Blob([html], { type: 'text/html;charset=utf-8' }));
-      download.href = currentUrl; result.hidden = false; status.textContent = 'Your page is ready to review and download.';
+      const escapeMarkdown = (text: string) => text.replace(/[\\`*_{}\[\]()#+\-.!|<>]/g, '\\$&');
+      const markdown = [`# ${escapeMarkdown(title)}`, ...sections.filter(([, content]) => content).map(([heading, content]) => `## ${heading}\n\n${escapeMarkdown(content)}`), ...(evidence ? [`## Evidence\n\n<${evidence.href}>`] : [])].join('\n\n') + '\n';
+      readme.value = markdown;
+      if (currentReadmeUrl) URL.revokeObjectURL(currentReadmeUrl);
+      currentReadmeUrl = URL.createObjectURL(new Blob([markdown], { type: 'text/markdown;charset=utf-8' }));
+      download.href = currentUrl; readmeDownload.href = currentReadmeUrl; result.hidden = false; status.textContent = 'Your files are ready to review and download.';
     });
   }
 </script>
 <style>
   .content { max-width: 65rem; }
+  :global(html:not(.js)) .portfolio-form { display: none; }
   label { display: block; margin: var(--space-3) 0 var(--space-2); font-weight: 700; }
   input, textarea { box-sizing: border-box; display: block; width: 100%; max-width: 65ch; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper-raised); color: var(--ink); font: inherit; }
   textarea { resize: vertical; }

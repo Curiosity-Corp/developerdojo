@@ -270,8 +270,20 @@ const json = JSON.stringify(model).replace(/</g, '\\u003c');
     }
     function scheduleRender(): void {
       if (timer !== undefined) window.clearTimeout(timer);
-      timer = window.setTimeout(renderMarkdown, 150);
+      timer = window.setTimeout(() => {
+        timer = undefined;
+        renderMarkdown();
+      }, 150);
     }
+
+    // Flush a pending edit before the export button reads the textarea. Capture
+    // runs before the button's copy handler, including for keyboard activation.
+    root.addEventListener('click', (event) => {
+      if (!(event.target instanceof Element) || !event.target.closest('[data-export-copy]') || timer === undefined) return;
+      window.clearTimeout(timer);
+      timer = undefined;
+      renderMarkdown();
+    }, true);
 
     function save(): void {
       const draft = collect();

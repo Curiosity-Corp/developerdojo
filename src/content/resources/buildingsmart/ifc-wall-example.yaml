@@ -1,0 +1,9 @@
+title: "IFC wall with opening and window sample"
+provider: "buildingSMART International"
+url: "https://github.com/buildingSMART/Certification-datasets/blob/80d976a9b193a26a8e928c3e79bff67af1de68a8/IFC%204.0.2.1%20%28IFC%204%20ADD2%20TC1%29/ISO%20Spec%20-%20ReferenceView_V1.2/wall-with-opening-and-window.ifc"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [cad-3d-bim, ai-agents]
+summary: "Inspect a real IFC4 sample and trace a wall, opening, window, property set and storey through their references. The linked source is a pinned educational example; its dataset is licensed CC BY 4.0; check its terms before reuse. An IFC file is not by itself proof of building safety, compliance or professional approval."
+verifiedOn: 2026-11-08

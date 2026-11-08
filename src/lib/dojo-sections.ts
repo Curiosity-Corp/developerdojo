@@ -36,6 +36,7 @@ export const dojoSections: DojoSection[] = [
     steps: [
       { title: 'Harness and model', description: 'Understand the model, agent loop, available tools and their limits.', href: '/library/tracks/working-with-ai-agents/01-how-ai-agents-work', link: 'How AI agents work' },
       { title: 'Instructions and context', description: 'Give the agent a clear task and the information it needs.', href: '/library/tracks/working-with-ai-agents/03-context-and-instructions', link: 'Context and instructions' },
+      { title: 'Test a suspicious source', description: 'Compare two prompts against a fictional note that tries to redirect the assistant, then check the actual outputs.', href: '/katas/context-trap', link: 'Try the context challenge' },
       { title: 'Delegation and orchestration', description: 'Choose roles, handoffs and review points for multi-agent work.', href: '/library/tracks/agent-orchestration/05-delegation-briefs-and-the-autonomy-ladder', link: 'Delegation briefs' },
       { title: 'Evidence and evaluation', description: 'Define acceptance criteria and independently check the work.', href: '/library/tracks/working-with-ai-agents/08-evals-and-testing-ai-work', link: 'Evals and testing' },
     ],

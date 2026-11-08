@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+
+const sample = 'https://github.com/buildingSMART/Certification-datasets/blob/80d976a9b193a26a8e928c3e79bff67af1de68a8/IFC%204.0.2.1%20%28IFC%204%20ADD2%20TC1%29/ISO%20Spec%20-%20ReferenceView_V1.2/wall-with-opening-and-window.ifc';
+const prompt = `Be my BIM information reviewer. Use only the buildingSMART IFC sample I supply. Identify the IFC schema, the length unit, the wall, its opening, the window, the relationships linking them, and the building storey containing the wall and window. For each observation, quote the entity number so I can check it in the source. Find the wall's external and fire-rating properties. Distinguish an empty value from a verified rating. Do not infer code compliance, quantities, suitability for construction, or professional approval. Return a small evidence table and list what remains unverified.`;
+---
+<BaseLayout title="Read the story inside an IFC model" description="Inspect an official buildingSMART IFC sample, trace a wall opening to a window and practice an evidence-backed BIM review.">
+  <PageHero compact eyebrow="3D · BIM · about 15 minutes" title="What's inside a building model?" accent="" subtitle="A wall, an opening, a window—and the information connecting them. Investigate a real IFC sample with an AI assistant." ctas={[{ label: 'Open the real IFC sample', href: sample, icon: 'arrow-right' }, { label: 'Start the kata', href: '#start', variant: 'ghost', icon: 'play' }]} />
+  <section class="section outcome"><div class="container">
+    <div class="intro"><p class="eyebrow">See the outcome</p><h2>A model tells a story</h2><p>This diagram is our simplified reading of an actual <a href={sample}>buildingSMART IFC4 example</a>. It is not a drawing, an edited model or a construction detail. Open the source to check each number.</p></div>
+    <div class="diagram" role="img" aria-label="The sample's wall number 45 has opening number 80, filled by window number 102. The wall and window are contained by storey number 38.">
+      <div><span>Storey</span><strong>#38</strong><small>contains wall and window</small></div><div><span>Wall</span><strong>#45</strong><small>opening relationship #85</small></div><div><span>Opening</span><strong>#80</strong><small>window relationship #112</small></div><div><span>Window</span><strong>#102</strong><small>fills the opening</small></div>
+    </div>
+    <p class="note">Source: buildingSMART’s public <a href="https://github.com/buildingSMART/Certification-datasets">certification datasets</a>, pinned to a specific revision. The dataset is <a href="https://github.com/buildingSMART/Certification-datasets/blob/80d976a9b193a26a8e928c3e79bff67af1de68a8/LICENSE">licensed CC BY 4.0</a>. This is an educational inspection, not a claim that the sample is suitable for a real project.</p>
+  </div></section>
+  <section class="section" id="start"><div class="container narrow">
+    <p class="eyebrow">Start on your phone</p><h2>Find the evidence</h2>
+    <ol><li>Open the <a href={sample}>IFC sample on GitHub</a>. Use your browser’s find-in-page to find <code>IFCWALL(</code>, <code>IFCOPENINGELEMENT(</code> and <code>IFCWINDOW(</code>. The source is plain text, but it describes a model rather than a prose document.</li><li>Find <code>IFCRELVOIDSELEMENT</code> and <code>IFCRELFILLSELEMENT</code>. Follow their <code>#</code> references to see how the objects relate. Find <code>IFCRELCONTAINEDINSPATIALSTRUCTURE</code> to identify the storey.</li><li>Download the sample yourself or copy the relevant lines into an assistant you trust, with the prompt below. An assistant may not be able to open a link; supply the source rather than assuming it has read the file. Review service terms and avoid private project data.</li><li>Check the assistant’s entity numbers against the original. Record the schema, unit, relationship, unknowns and a source link in a short evidence table.</li></ol>
+    <label for="ifc-prompt">Your complete prompt</label><textarea id="ifc-prompt" rows="9" readonly>{prompt}</textarea>
+    <details><summary>Show all ingredients</summary><p><strong>Outcome:</strong> an evidence table about a real IFC sample. <strong>Harness and model:</strong> an assistant and model you can access on a phone, browser or computer. <strong>Context:</strong> the pinned sample or relevant source lines and the prompt. <strong>Skills, MCP servers, plugins and CLI:</strong> none required for the phone exercise; the optional desktop path uses Python and IfcOpenShell. <strong>Verification:</strong> compare entity numbers and relationships with the source and record missing values.</p></details>
+    <p class="note">Select and copy the prompt into ChatGPT, Claude or another assistant on your phone or computer. This page does not connect an assistant, run a plugin or upload a file. Availability and model costs vary.</p>
+    <p><a href="/examples/ifc-evidence-example.csv" download>Download an example evidence table (CSV)</a> · <a href="https://docs.ifcopenshell.org/ifcopenshell-python/hello_world.html">Explore the IfcOpenShell tutorial</a></p>
+  </div></section>
+  <section class="section outcome"><div class="container narrow">
+    <p class="eyebrow">Check your work</p><h2>Can you prove it?</h2>
+    <p>The reference numbers below are local to this particular file; they are not persistent identifiers across exports. A model can contain many different walls and windows.</p>
+    <details><summary>Reveal the source checks</summary><ol><li><code>FILE_SCHEMA</code> says <strong>IFC4</strong>. The project’s length unit at <code>#8</code> is <strong>millimetres</strong>; the area unit at <code>#9</code> is square metres. Do not mix them.</li><li><code>#45</code> is the wall, <code>#80</code> is the opening and <code>#102</code> is the window. <code>#85</code> relates the wall to the opening; <code>#112</code> relates the opening to the window.</li><li><code>#44</code> places the wall and window in storey <code>#38</code>. The wall’s property set <code>#49</code> is attached by <code>#60</code>; <code>#56</code> records <code>IsExternal</code> as true.</li><li>The wall’s <code>FireRating</code> at <code>#52</code> is an empty label. It does <strong>not</strong> prove a fire rating. Report it as missing, not as a pass or failure against an unstated requirement.</li></ol></details>
+    <p>Our example table records observations from the pinned source; it is not an automated validation report. An IFC file can carry geometry and information, but being IFC does not prove the information is complete, the geometry is correct or a building is safe.</p>
+    <h3>Change the constraint</h3><p>A client now asks for a verified fire rating. Add an issue to your evidence table: identify the missing value, who should supply it, and what independent evidence or qualified review is required. Do not invent a rating or assert which regulation applies.</p>
+  </div></section>
+  <section class="section"><div class="container narrow">
+    <p class="eyebrow">Choose your stack</p><h2>Go further on a computer</h2><p>These optional commands come from <a href="https://docs.ifcopenshell.org/ifcopenshell-python/installation.html">IfcOpenShell’s installation guide</a> and <a href="https://docs.ifcopenshell.org/ifcopenshell-python/validation.html">validation documentation</a>. They download and run third-party software on your computer. Review the package, its license, compatibility and permissions first. The Dojo has inspected the sample, but has not executed these commands on your device.</p>
+    <p>Open the pinned IFC sample above, choose GitHub’s download raw file action and save it as <code>model.ifc</code> in a new practice folder. Install a compatible Python version, open a terminal in that folder and use a separate virtual environment:</p>
+    <details><summary>macOS or Linux</summary><pre><code>python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install ifcopenshell</code></pre></details>
+    <details><summary>Windows PowerShell</summary><pre><code>py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install ifcopenshell</code></pre><p>If your organization restricts activation scripts, follow its approved Python setup instead of changing its security policy.</p></details>
+    <p>Then run the published syntax and schema checks. Read the actual output and record any exceptions; do not assume the sample passes every validator or project rule.</p><pre><code>python -m ifcopenshell.simple_spf model.ifc
+python -m ifcopenshell.validate model.ifc --rules</code></pre>
+    <p>Neither check establishes dimensions, coordination, building-code compliance or construction readiness. An experienced BIM professional must independently review project information and any regulated deliverable; this practice does not grant a qualification.</p>
+    <p><a href="/katas/scan-a-room">Compare with a 3D room reconstruction</a> · <a href="/katas/randori-challenges#built-environment">Try a room-measurement challenge</a> · <a href="/fields#architecture-bim">Explore architecture and BIM</a></p>
+  </div></section>
+</BaseLayout>
+<style>
+  .narrow, .intro { max-width: 70rem; }
+  .outcome { background: var(--paper-raised); }
+  .eyebrow { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .diagram { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: var(--space-3); margin-block: var(--space-5); }
+  .diagram div { display: grid; gap: var(--space-2); padding: var(--space-4); border: 1px solid var(--line-strong); border-top: 4px solid var(--tone-gold); border-radius: var(--radius); background: var(--paper); }
+  .diagram span { color: var(--ink-muted); font-weight: 700; } .diagram strong { font-size: var(--text-2xl); } .diagram small { font-size: var(--text-sm); }
+  .note { color: var(--ink-muted); font-size: var(--text-sm); }
+  label { display: block; font-weight: 700; margin-block: var(--space-4) var(--space-2); }
+  textarea { box-sizing: border-box; width: 100%; max-width: 70ch; padding: var(--space-4); font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--line-strong); border-radius: var(--radius); }
+  li + li { margin-top: var(--space-2); }
+  details { margin-block: var(--space-3); padding: var(--space-3); border: 1px solid var(--line); border-radius: var(--radius); }
+  summary { cursor: pointer; font-weight: 800; }
+  pre { overflow-x: auto; padding: var(--space-3); background: var(--paper-sunk); border-radius: var(--radius); }
+</style>
