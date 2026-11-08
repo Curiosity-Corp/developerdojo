@@ -1,0 +1,80 @@
+---
+import QuickKata from '../../components/QuickKata.astro';
+
+const prompt = `Help me prepare an energy comparison for a fictional community room. Six existing lights each use 100 watts. A proposed alternative uses six lights at 12 watts each. Assume all six lights run for 5 hours per day for 30 days in both cases.
+
+Calculate each scenario's electricity use in kilowatt-hours (kWh), the difference and the percentage reduction. Show the arithmetic and units. State every assumption. Do not claim actual measured savings or invent an electricity price, product brightness, installation cost or approval. Identify what I must check before deciding whether a real replacement is suitable.`;
+---
+<QuickKata
+  title="Find the energy in a room"
+  description="Turn a lighting idea into a clear, checkable energy comparison."
+  time="About 10 minutes"
+  prompt={prompt}
+  exampleNote="This is a calculated example using fictional inputs, not a measured result, product recommendation or approved electrical design."
+>
+  <article slot="outcome" class="comparison">
+    <p class="tag">Fictional community room · 30 days</p>
+    <h3>What if the lights used less power?</h3>
+    <p>Six lights, each on for 5 hours per day. The comparison assumes the same usage in both scenarios.</p>
+    <div class="row"><div class="row-label"><span>Existing · six 100 W lights</span><strong>90 kWh</strong></div><div class="track" aria-hidden="true"><div class="bar before"></div></div></div>
+    <div class="row"><div class="row-label"><span>Proposed · six 12 W lights</span><strong>10.8 kWh</strong></div><div class="track" aria-hidden="true"><div class="bar after"></div></div></div>
+    <p class="result"><strong>79.2 kWh less</strong> in this scenario: an 88% reduction in estimated lighting electricity use.</p>
+    <p>No price or brightness data was provided. This comparison does not establish equal light output or actual savings.</p>
+  </article>
+  <div slot="verify">
+    <h3>Check the arithmetic</h3>
+    <p>Power in watts is a rate; kilowatt-hours measure energy over time. The <a href="https://www.eia.gov/kids/energy-sources/electricity/science-of-electricity.php">U.S. Energy Information Administration's electricity lesson</a> explains the distinction.</p>
+    <ol>
+      <li>Existing: 6 × 100 W × 5 hours × 30 days ÷ 1,000 = <strong>90 kWh</strong>.</li>
+      <li>Proposed: 6 × 12 W × 5 hours × 30 days ÷ 1,000 = <strong>10.8 kWh</strong>.</li>
+      <li>Difference: 90 − 10.8 = <strong>79.2 kWh</strong>; 79.2 ÷ 90 × 100 = <strong>88%</strong>.</li>
+      <li>For real work, check operating hours and power with reliable measurements. Compare lumens, compatibility, cost and other requirements before choosing a replacement; the <a href="https://www.energy.gov/cmei/femp/purchasing-energy-efficient-light-bulbs">U.S. Department of Energy lighting guide</a> explains why brightness is measured in lumens, not watts. Its purchasing guidance is dated June 2023; check current requirements.</li>
+    </ol>
+    <div id="energy-calculator" class="calculator js-only" hidden>
+      <h3>Try a different schedule</h3>
+      <p>Keep the six lights and wattages above. Change the schedule to see how the estimate changes; nothing is saved or sent.</p>
+      <div class="inputs"><div><label for="energy-hours">Hours per day</label><input id="energy-hours" type="number" min="0" max="24" step="any" value="5" inputmode="decimal" /></div><div><label for="energy-days">Number of days</label><input id="energy-days" type="number" min="1" max="366" step="1" value="30" inputmode="numeric" /></div></div>
+      <button id="energy-calculate" type="button">Calculate the estimate</button>
+      <p id="energy-output" role="status" aria-live="polite">Enter a schedule and calculate.</p>
+    </div>
+    <p><strong>Randori:</strong> if both sets run for 3 hours per day for 30 days, check that the estimates become 54 kWh and 6.48 kWh. What extra evidence would you need to estimate cost? Do not invent a tariff.</p>
+    <p>Do not modify wiring or treat an AI-generated estimate as an electrical design or professional approval. For real installations, use qualified review and applicable local requirements.</p>
+  </div>
+</QuickKata>
+<script>
+  const root = document.getElementById('energy-calculator');
+  const hours = document.getElementById('energy-hours');
+  const days = document.getElementById('energy-days');
+  const calculate = document.getElementById('energy-calculate');
+  const output = document.getElementById('energy-output');
+  if (root && hours instanceof HTMLInputElement && days instanceof HTMLInputElement && calculate instanceof HTMLButtonElement && output) {
+    root.hidden = false;
+    calculate.addEventListener('click', () => {
+      const h = Number(hours.value); const d = Number(days.value);
+      if (!hours.value.trim() || !days.value.trim() || !Number.isFinite(h) || !Number.isInteger(d) || h < 0 || h > 24 || d < 1 || d > 366) {
+        output.textContent = 'Enter 0–24 hours per day and a whole number of days from 1–366.';
+        return;
+      }
+      const before = 6 * 100 * h * d / 1000;
+      const after = 6 * 12 * h * d / 1000;
+      output.textContent = `Existing: ${before.toFixed(2)} kWh. Proposed: ${after.toFixed(2)} kWh. Difference: ${(before - after).toFixed(2)} kWh. These are estimates using your schedule.`;
+    });
+  }
+</script>
+<style>
+  .comparison { padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); }
+  .tag { color: var(--ink-muted); font-size: var(--text-sm); font-weight: 800; }
+  .comparison h3 { margin-top: 0; }
+  .row { margin-block: var(--space-4); }
+  .row-label { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-2); }
+  .track { height: 1rem; margin-top: var(--space-2); border-radius: 1rem; background: var(--paper-sunk); overflow: hidden; }
+  .bar { height: 100%; border-radius: inherit; background: var(--tone-gold); }
+  .before { width: 100%; } .after { width: 12%; }
+  .result { font-size: var(--text-xl); }
+  .calculator { padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); }
+  .inputs { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  .inputs div { min-width: 0; flex: 1 1 10rem; }
+  .inputs label { display: block; font-weight: 700; margin-block: var(--space-2); }
+  .inputs input { box-sizing: border-box; width: 100%; padding: var(--space-3); font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--line-strong); border-radius: var(--radius); }
+  button { margin-top: var(--space-4); padding: var(--space-3); border: 1px solid var(--band); border-radius: var(--radius); color: var(--band-text); background: var(--band); font: inherit; font-weight: 700; cursor: pointer; }
+</style>
