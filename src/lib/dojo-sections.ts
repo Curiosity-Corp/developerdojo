@@ -34,6 +34,7 @@ export const dojoSections: DojoSection[] = [
     introTitle: 'Learn the parts. Learn how they work together.',
     intro: 'The same development foundations can travel between fields. Each field adds its own tools, evidence and standards. These existing lessons are a place to start while the foundational kata collection is developed.',
     steps: [
+      { title: 'Build with your stack', description: 'Recreate a working prototype, compare two instructions and check each result yourself.', href: '/katas/stack-workbench', link: 'Start the stack workbench' },
       { title: 'Harness and model', description: 'Understand the model, agent loop, available tools and their limits.', href: '/library/tracks/working-with-ai-agents/01-how-ai-agents-work', link: 'How AI agents work' },
       { title: 'Instructions and context', description: 'Give the agent a clear task and the information it needs.', href: '/library/tracks/working-with-ai-agents/03-context-and-instructions', link: 'Context and instructions' },
       { title: 'Test a suspicious source', description: 'Compare two prompts against a fictional note that tries to redirect the assistant, then check the actual outputs.', href: '/katas/context-trap', link: 'Try the context challenge' },
