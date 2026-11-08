@@ -1,7 +1,7 @@
 # Image credits and provenance
 
-Every raster and vector asset here was made for Developer Dojo. No stock photos and no images
-scraped from the web. The kata artwork listed below was created with OpenAI image generation.
+Most raster and vector assets here were made for Developer Dojo. The credited exception below is
+used under its author's stated terms. The kata artwork listed below was created with OpenAI image generation.
 
 ## How the art was made
 
@@ -16,6 +16,7 @@ raster files under the same names without touching any code.
 
 | Asset | Files | Made by |
 |---|---|---|
+| 3D Model Anything video thumbnail | `wes-bos-3d-video-thumb.png` | Wes Bos; displayed with his project and linked to his video under the [project's asset terms](https://github.com/wesbos/3d-model-anything/blob/31b2dc9da3fb541e501f2f0936e55b32afb70ee8/ASSETS-LICENSE.md). Source: `docs/images/thumb-1.png`, unchanged. |
 | Kata discovery illustration | `kata-spark.webp` | AI-generated conceptual illustration created for the site with OpenAI image generation. It illustrates possibilities; it is not a screenshot or evidence of a finished kata. |
 | Dojo hero, bracket scroll (default `hero-dojo`) | `hero-dojo.{avif,webp,jpg}` 2400x900, `hero-dojo-mobile.*` 1000x900 | Original SVG scene (`tools/imagery/hero.py`): desk, laptop with the code glyph, tea with steam, books, plant, shoji window with pine and misty mountains, hanging scroll with brackets. |
 | Dojo hero, torii scroll (Sensei page) | `hero-dojo-torii.*` 2400x900, `hero-dojo-torii-mobile.*` 1000x900 | Same scene, scroll shows a torii gate. |

@@ -1,0 +1,9 @@
+title: "3D Model Anything"
+provider: "Wes Bos"
+url: "https://github.com/wesbos/3d-model-anything"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [cad-3d-bim, creative-media, ai-agents]
+summary: "Explore a real reconstructed room and its source, then study how an AI coding agent uses capture evidence, an agent skill and repeated visual comparisons to make an editable Three.js scene. The viewer is public; capturing a new room needs a compatible LiDAR device and setup, and some agent services may cost money. Code and example assets have different license terms; check privacy and asset rights before sharing."
+verifiedOn: 2026-11-07
