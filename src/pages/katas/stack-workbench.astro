@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import KataPreview from '../../components/KataPreview.astro';
+
+const task = `You are my prototype developer. Create one complete, responsive HTML file called Pocket Garden, with CSS and JavaScript inside the file. Do not use external libraries, images, fonts, network requests or a server. Do not read or change files or run commands for this task.
+
+Show three plant cards: Basil and Sunflower like sun; Mint likes shade. Provide filters for All plants, Loves sun and Likes shade. Each card has a button that toggles between “Mark as planted” and “Planted”. Buttons need clear labels, visible keyboard focus and pressed states. Say that choices reset on reload.
+
+Return the complete HTML in one code block, followed by a short checklist. Do not claim you ran or tested anything unless you actually did.`;
+const addition = `\n\nBefore answering, compare the requested filters, toggle and reload behavior against your draft. Identify any uncertainty in the checklist; do not present a mental review as an observed test.`;
+const prompts = [
+  { id: 'a', name: 'A · task brief', text: task },
+  { id: 'b', name: 'B · task brief plus self-review', text: task + addition },
+];
+const record = `MY POCKET GARDEN STACK RECORD
+Date:
+Device:
+Harness/app and version (or not shown):
+Model and version (or not shown):
+Inherited instructions, skills, integrations and permissions (or unknown):
+Input: Pocket Garden task brief
+Change: self-review instruction only
+
+A checks passed / attempted:
+B checks passed / attempted:
+Failures and corrections actually observed:
+Time and actual cost (or not shown):
+What varied or remained unknown:
+What I would try next:
+`;
+---
+<BaseLayout title="Build and inspect your first stack" description="Recreate a working prototype with a phone app or CLI harness, compare two instructions and verify the result.">
+  <PageHero compact eyebrow="Stack Lab · hands-on foundation" title="One outcome. Your stack." subtitle="Try a working mini app, assemble a small agent stack, then check what your assistant actually makes." ctas={[{ label: 'Start building', href: '#choose', icon: 'arrow-right' }]} />
+  <section class="section outcome"><div class="container content">
+    <p class="kicker">See the result</p><h2>Meet Pocket Garden</h2>
+    <p>Try the filters and a plant button. This is a working Dojo reference created with AI assistance; the original harness and model versions were not recorded. It is not a result from either experiment below.</p>
+    <iframe class="example" title="Pocket Garden reference" src="/examples/pocket-garden.html" loading="lazy" sandbox="allow-scripts"></iframe>
+    <p><a href="/examples/pocket-garden.html">Open the reference full screen</a> · <a href="/examples/pocket-garden-license.txt">Read the reference code license</a> · <a href="/katas/first-prototype">See the original prototype kata</a></p>
+  </div></section>
+  <section class="section" id="choose"><div class="container content">
+    <p class="kicker">Assemble your stack</p><h2>Choose one path</h2>
+    <details open><summary>Phone or browser · start here</summary><p>Open any assistant you can access, such as ChatGPT or Claude. Start a fresh chat. Copy prompt A below, send it and keep the complete HTML response. No CLI, plugin, MCP server, skill or connector is required for this path. An account and provider limits may apply.</p></details>
+    <details><summary>Computer · Claude Code CLI</summary><p>Choose a new empty practice folder you control and open a terminal in it. Claude Code requires a qualifying Claude subscription, a Console account with credits or supported cloud access; check the <a href="https://code.claude.com/docs/en/quickstart">official quickstart</a> and <a href="https://code.claude.com/docs/en/costs">cost guidance</a>. These installers download and run vendor software. Follow your organization’s policies and review the vendor instructions first.</p>
+      <details><summary>macOS</summary><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre></details>
+      <details><summary>Linux</summary><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre></details>
+      <details><summary>Windows PowerShell</summary><pre><code>irm https://claude.ai/install.ps1 | iex</code></pre></details>
+      <p>Open a new terminal in the empty practice folder, then run:</p><pre><code>claude --version
+claude</code></pre><p>Record the version shown and sign in when prompted. Paste prompt A into the session. For B, exit with <code>/exit</code>, run <code>claude</code> again and use the same model and settings where available. Review any requested permissions; this exercise asks for HTML in the response, not file edits or commands. Existing instructions, skills, plugins or MCP servers can still affect a session: inspect your configuration and record anything unknown. Do not bypass permission prompts.</p><p>Another trusted CLI harness can be used instead; consult its official setup, version and permission guidance. Do not mix harnesses during the A/B comparison.</p></details>
+    <details><summary>All ingredients</summary><dl><div><dt>Outcome</dt><dd>A standalone interactive HTML prototype.</dd></div><div><dt>Harness and model</dt><dd>Your chosen chat app, browser or CLI and an available model; note versions if shown.</dd></div><div><dt>Instructions and context</dt><dd>The complete prompt below; the task has fictional plant data and needs no personal information.</dd></div><div><dt>Skills and integrations</dt><dd>None are required. Existing configuration may add context or tools; record it rather than assuming it is absent.</dd></div><div><dt>Roles and verification</dt><dd>One assistant proposes a file; you are the developer and independently test it. A second agent is optional, not a substitute for your checks.</dd></div></dl></details>
+  </div></section>
+  <section class="section outcome"><div class="container content"><p class="kicker">Equip and execute</p><h2>Same task, one instruction changed</h2><p>Run A and B in separate fresh chats using the same assistant, model, available tools and settings as far as you can. B adds only a request for self-review. Copy each complete prompt and save each actual response. Hidden settings, memory and sampling can still affect results.</p>
+    <div class="prompts">{prompts.map((prompt) => <article data-prompt-box><h3>{prompt.name}</h3><label for={`stack-${prompt.id}`}>Complete prompt {prompt.id.toUpperCase()}</label><textarea id={`stack-${prompt.id}`} rows="15" readonly data-prompt>{prompt.text}</textarea><button type="button" data-copy hidden>Copy prompt {prompt.id.toUpperCase()}</button><span data-status aria-live="polite"> Or select and copy the text.</span></article>)}</div>
+    <p>Account access, model availability and usage limits vary. Record cost or version as “not shown” when unavailable. Do not send credentials or confidential data.</p>
+  </div></section>
+  <section class="section"><div class="container content"><p class="kicker">Verify, don't assume</p><h2>Check each result yourself</h2><p>Copy only the HTML inside one assistant response’s code block into the preview. Repeat with the other result. The preview is not an automatic grader.</p><KataPreview />
+    <ol><li><strong>Filters:</strong> All shows Basil, Sunflower and Mint; sun shows Basil and Sunflower; shade shows Mint.</li><li><strong>Interaction:</strong> A plant button shows a planted state and switches back. The reference adds a check mark. Check the pressed state if your browser exposes it.</li><li><strong>Reset and access:</strong> Reload the preview and check choices reset. Try keyboard navigation where available and check visible focus.</li><li><strong>Inspect the file:</strong> Review the HTML for external assets, requests and unsupported claims. The preview blocks many external requests; that alone does not prove the file contains none.</li></ol>
+    <p>Mark each check pass, fail or uncertain for A and B. If something fails, tell your assistant what you observed and request a complete correction; keep the original result for comparison. One pair of runs is not a benchmark or evidence that one model is universally better.</p>
+  </div></section>
+  <section class="section outcome"><div class="container content"><p class="kicker">Keep evidence</p><h2>Record the actual run</h2><p>This editable record stays on this page until you copy it. The Dojo does not save or send it; avoid sensitive information. Record failures, changed settings and unavailable data honestly.</p><label for="stack-record">Your stack record</label><textarea id="stack-record" rows="16">{record}</textarea><button type="button" id="copy-record" hidden>Copy my record</button><span id="record-status" aria-live="polite"> Or select and copy the text.</span></div></section>
+  <section class="section"><div class="container content"><p class="kicker">Adapt · Randori</p><h2>Change the brief</h2><p>Make a book chooser instead: mystery and science are the two categories; a book can be marked “Read”. Define the expected filters before prompting, then repeat the checks. For a design brief or 3D model, the same habit applies: hold inputs steady, specify observable checks and record the limits. Those transfers are ideas to try, not completed demonstrations or professional approval.</p><p><a href="/katas/compare-instructions">Compare instructions on data</a> · <a href="/katas/context-trap">Inspect untrusted context</a> · <a href="/stack-lab">Back to Stack Lab</a></p></div></section>
+</BaseLayout>
+<script>
+  for (const box of document.querySelectorAll<HTMLElement>('[data-prompt-box]')) {
+    const input = box.querySelector<HTMLTextAreaElement>('[data-prompt]');
+    const button = box.querySelector<HTMLButtonElement>('[data-copy]');
+    const status = box.querySelector<HTMLElement>('[data-status]');
+    if (!input || !button || !status) continue;
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(input.value); status.textContent = 'Copied. Paste it into a fresh session.'; }
+      catch { input.focus(); input.select(); status.textContent = 'Text selected. Use your device’s copy command.'; }
+    });
+  }
+  const record = document.getElementById('stack-record');
+  const button = document.getElementById('copy-record');
+  const status = document.getElementById('record-status');
+  if (record instanceof HTMLTextAreaElement && button instanceof HTMLButtonElement && status) {
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(record.value); status.textContent = 'Copied. Save it wherever you choose.'; }
+      catch { record.focus(); record.select(); status.textContent = 'Text selected. Use your device’s copy command.'; }
+    });
+  }
+</script>
+<style>
+  .content { max-width: 72rem; } .outcome { background: var(--paper-raised); }
+  .kicker { color: var(--rust-text); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .example { width: 100%; height: 28rem; border: 1px solid var(--line-strong); border-radius: var(--radius); background: white; }
+  details { margin-block: var(--space-3); padding: var(--space-3); border: 1px solid var(--line); border-radius: var(--radius); }
+  summary { cursor: pointer; font-weight: 800; } pre { max-width: 100%; overflow-x: auto; padding: var(--space-3); background: var(--paper-sunk); border-radius: var(--radius); }
+  dt { font-weight: 800; } dd { margin: 0 0 var(--space-3); } label { display: block; font-weight: 700; margin-block: var(--space-3) var(--space-2); }
+  textarea { box-sizing: border-box; width: 100%; padding: var(--space-3); font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--line-strong); border-radius: var(--radius); }
+  .prompts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--space-4); }
+  article { min-width: 0; padding: var(--space-4); background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); }
+  button { font: inherit; font-weight: 700; margin-block: var(--space-2); padding: .7rem 1rem; border: 1px solid var(--band); border-radius: var(--radius); color: var(--band-text); background: var(--band); cursor: pointer; }
+  button[hidden] { display: none; } li + li { margin-top: var(--space-2); }
+</style>
