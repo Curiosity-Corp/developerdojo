@@ -5,14 +5,10 @@ used under its author's stated terms. The kata artwork listed below was created 
 
 ## How the art was made
 
-The GPU Router (SenseNova U1, `hardmagic-image`) was not usable from the build host: the
-in-cluster address does not resolve there (curl exit 6), and the public endpoint answered
-`401 Unauthorized, Bearer token is required` because no router key is available to this
-session. The original site art is stylised vector illustration, written as SVG by the scripts in
+The original site art is stylised vector illustration, written as SVG by the scripts in
 `tools/imagery/` and rendered to raster with headless Chrome, then compressed with ImageMagick
 (AVIF q60, WebP q80-85, JPG q78 or 8-bit PNG fallback). To redo or tweak: run the scripts, then
-re-run the conversions. When the GPU Router is reachable, painterly versions can replace the
-raster files under the same names without touching any code.
+re-run the conversions.
 
 | Asset | Files | Made by |
 |---|---|---|
