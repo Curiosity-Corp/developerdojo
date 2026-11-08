@@ -6,13 +6,13 @@ import PageHero from '../../components/PageHero.astro';
   <PageHero compact eyebrow="Take practice with you" title="Pocket Dojo" subtitle="Save a small practice pack on this device. Work through three prompts even when you are offline." />
   <section class="section"><div class="container content">
     <h2>Save the pack</h2>
-    <p>While online, save the pack and then open it. It includes three short exercises, a note area and local progress. It does not include the whole site or a live AI assistant.</p>
+    <p>While online, save the pack and then open it. Select Save again when online to refresh the saved copy. It includes three short exercises, a note area and local progress. It does not include the whole site or a live AI assistant.</p>
     <button type="button" id="save-pocket" hidden>Save offline pack</button>
     <button type="button" id="remove-pocket" hidden>Remove offline pack</button>
     <p id="pocket-status" role="status" aria-live="polite">The pack can also be opened online.</p>
     <p><a href="/offline/pocket.html">Open Pocket Dojo</a></p>
     <p>Progress and notes stay in this browser when storage is available. Clearing browser data can remove them. Export your notes from the pack if you want another copy. Removing the offline pack leaves its progress intact; clear progress inside the pack.</p>
-    <noscript><p>JavaScript is needed to save the pack for offline use. You can open it while online.</p></noscript>
+    <p class="no-js">JavaScript is needed to save the pack for offline use. You can open it while online.</p>
   </div></section>
 </BaseLayout>
 <script>
@@ -22,7 +22,7 @@ import PageHero from '../../components/PageHero.astro';
   if (save instanceof HTMLButtonElement && remove instanceof HTMLButtonElement && status && 'serviceWorker' in navigator && 'caches' in window && window.isSecureContext) {
     save.hidden = false; remove.hidden = false;
     save.addEventListener('click', async () => {
-      save.disabled = true; status.textContent = 'Saving the offline pack…';
+      save.disabled = true; remove.disabled = true; status.textContent = 'Saving the offline pack…';
       try {
         const registration = await navigator.serviceWorker.register('/offline/sw.js', { scope: '/offline/' });
         const worker = registration.installing ?? registration.waiting ?? registration.active;
@@ -39,18 +39,26 @@ import PageHero from '../../components/PageHero.astro';
           });
         }
         const cache = await caches.open('dojo-pocket-v1');
+        // This page is outside the worker's scope, so this request reaches the
+        // network instead of the worker's cached response. Do not replace the
+        // existing copy unless a fresh HTML response is available.
+        const response = await fetch('/offline/pocket.html', { cache: 'no-store' });
+        if (!response.ok || !response.headers.get('content-type')?.includes('text/html')) throw new Error('Pack unavailable');
+        await cache.put('/offline/pocket.html', response);
         if (!await cache.match('/offline/pocket.html')) throw new Error('Pack not cached');
         status.textContent = 'Offline pack saved on this device. Open Pocket Dojo below.';
-      } catch { status.textContent = 'Could not save the pack. Check browser storage and connection, then try again.'; }
-      finally { save.disabled = false; }
+      } catch { status.textContent = 'Could not save or refresh the pack. Check browser storage and connection, then try again. A previously saved copy should remain available.'; }
+      finally { save.disabled = false; remove.disabled = false; }
     });
     remove.addEventListener('click', async () => {
+      save.disabled = true; remove.disabled = true;
       try {
         const registration = await navigator.serviceWorker.getRegistration('/offline/');
         if (registration?.scope === new URL('/offline/', location.origin).href) await registration.unregister();
         await caches.delete('dojo-pocket-v1');
         status.textContent = 'Offline pack removed. Notes and progress remain in this browser.';
       } catch { status.textContent = 'Could not remove the offline pack. Check browser settings and try again.'; }
+      finally { save.disabled = false; remove.disabled = false; }
     });
   } else if (status) {
     status.textContent = 'This browser cannot save the offline pack here. You can open it while online.';

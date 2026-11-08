@@ -3,12 +3,20 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 ---
 <BaseLayout title="Budget Boss" description="Compare your own dated measurements of cost, speed and checks for two agent stacks.">
-  <PageHero compact eyebrow="The Arena · practice" title="Compare two stacks" subtitle="Use your own measurements to see the tradeoffs. The Dojo does not provide or rank benchmark results here." />
+  <PageHero compact eyebrow="The Arena · practice" title="Compare two stacks" subtitle="Inspect a real historical comparison, then use your own measurements to explore tradeoffs." />
   <section class="section">
     <div class="container content">
+      <h2>A real comparison · historical snapshot</h2>
+      <p>The SWE-agent authors compared agent setups using GPT-4 Turbo (<code>gpt-4-1106-preview</code>) on 300 software issue tasks from SWE-bench Lite. The figures below come from <a href="https://arxiv.org/html/2405.15793v3#S4">their paper’s methods and Table 1</a>, version dated 11 November 2024. This was the authors’ experiment, not a Dojo run.</p>
+      <div class="compare historical" role="group" aria-label="Published SWE-bench Lite results">
+        <article><h3>Shell-only agent</h3><p><strong>11%</strong> of tasks resolved</p><p><strong>$1.46</strong> average API inference cost for resolved instances</p></article>
+        <article><h3>SWE-agent</h3><p><strong>18%</strong> of tasks resolved</p><p><strong>$1.67</strong> average API inference cost for resolved instances</p></article>
+      </div>
+      <p>In this benchmark, an issue counts as resolved when the generated patch passes the associated tests. The authors describe their cost metric as API inference cost averaged over successfully resolved instances, with a $4 per-instance budget. It excludes failed instances from that average; it is not the average cost per attempt or the total cost of achieving a success.</p>
+      <p>These are old research measurements, not current pricing, a universal ranking or a promise of production quality. Tools, prompts, model versions, tasks and prices change. The figures do not capture every possible cost. <a href="/katas/arena-evidence">Inspect the experiment and its limitations</a>.</p>
       <h2>Run the same task twice</h2>
       <p>Record the task, model and harness versions, instructions and test criteria outside this page. Keep the task and checks as consistent as possible. Use actual measurements or clearly labeled estimates, and include every cost you know about.</p>
-      <p>Enter results for each run below. Values stay in this page and are not saved or sent by the Dojo. Use the same currency and unit for both costs.</p>
+      <p>Enter results for each run below. Values stay in this page and are not saved or sent by the Dojo. Use the same currency and unit for both costs. The historical averages above describe a different measure, so do not enter them as cost per run.</p>
       <div class="compare">
         {['A', 'B'].map((name) => <fieldset>
           <legend>Stack {name}</legend>
@@ -53,6 +61,9 @@ import PageHero from '../../components/PageHero.astro';
 <style>
   .content { max-width: 70rem; }
   .compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: var(--space-4); }
+  .historical { margin-block: var(--space-4); }
+  .historical article { min-width: 0; padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); }
+  .historical h3 { margin-top: 0; }
   fieldset { min-width: 0; display: grid; gap: var(--space-2); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-4); background: var(--paper-raised); }
   legend, label { font-weight: 700; }
   input { box-sizing: border-box; width: 100%; min-width: 0; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; }

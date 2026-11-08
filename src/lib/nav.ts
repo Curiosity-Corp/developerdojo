@@ -70,7 +70,7 @@ export const NAV_MENUS: Readonly<Record<string, readonly MenuGroup[]>> = {
     { title: 'Compare and reflect', links: [
       { label: 'Visit the Arena', href: '/arena', description: 'Learn to compare stacks with evidence.' },
       { label: 'Compare two stacks', href: '/katas/budget-boss', description: 'Work with your own measurements.' },
-      { label: 'Explore decision replay', href: '/katas/decision-replay', description: 'Study choices behind a build.' },
+      { label: 'Explore decision replay', href: '/katas/decision-replay', description: 'Practice choices using an example.' },
     ] },
     { title: 'Keep practicing', links: [
       { label: 'Practice offline', href: '/katas/pocket-dojo', description: 'Use the optional offline pack.' },
