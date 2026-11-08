@@ -63,6 +63,7 @@ export const dojoSections: DojoSection[] = [
       { title: 'Record the configuration', description: 'Keep the task, inputs, harness and model versions, instructions, tools, permissions and date with each experiment.' },
       { title: 'Run a first experiment', description: 'Use the same sample data with two instructions, then score the outputs against an independently checkable answer.', href: '/katas/compare-instructions', link: 'Compare instructions' },
       { title: 'Inspect published evidence', description: 'Read a dated external study, check its arithmetic and learn what its findings do and do not establish.', href: '/katas/arena-evidence', link: 'Explore an agent experiment' },
+      { title: 'Repeat and record', description: 'Summarize your own repeated runs while keeping unknown costs and unassessed checks distinct from zero.', href: '/katas/arena-run-card', link: 'Make a run record' },
       { title: 'Use a relevant rubric', description: 'Measure the outcome for its field as well as system qualities such as reliability, cost where measurable, and completion of checks.' },
       { title: 'Report limitations', description: 'Keep failures, repetitions and uncertainty visible. Do not treat a single result or another provider’s score as a universal ranking.', href: '/library/tracks/working-with-ai-agents/08-evals-and-testing-ai-work', link: 'Learn about evaluations' },
     ],

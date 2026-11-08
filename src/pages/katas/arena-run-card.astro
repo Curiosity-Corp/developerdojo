@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+---
+<BaseLayout title="Make an Arena run record" description="Compare repeated agent experiments without turning unknown costs or unassessed checks into zero.">
+  <PageHero compact eyebrow="Arena · repeat and verify" title="Can you reproduce that result?" subtitle="Run a small task more than once, keep the evidence and see what your checks actually show." ctas={[{ label: 'Make a run record', href: '#record', icon: 'arrow-right' }]} />
+  <section class="section outcome"><div class="container content">
+    <h2>See what a record can show</h2>
+    <p><strong>Fictional arithmetic example, not an agent result:</strong> Two practice runs pass 4 of 5 and 5 of 5 checks. That is 9 of 10 checks across two assessed runs. If a third run was not assessed, record it as unassessed; it is not another zero out of five.</p>
+    <p>If one run's cost is unknown, an average cost for all runs is unknown. Even when numbers match, inspect the artifacts and the checks; a count is not proof of quality, safety or a universal winner.</p>
+    <p><a href="/katas/compare-instructions">Try the seed-data experiment first</a> · <a href="/examples/arena-run-worksheet.md" download>Download a blank worksheet</a></p>
+  </div></section>
+  <section class="section" id="record"><div class="container content">
+    <h2>Run, check, record</h2>
+    <ol><li>Choose one task, input and independent rubric. The <a href="/katas/compare-instructions">seed-data kata</a> supplies fictional input and five checks; you can use a task from another field instead.</li><li>Record the actual harness, model, versions, instructions, skills, tool permissions and date for each setup. Change one factor where possible; if several change, label it a full-stack comparison.</li><li>Repeat the same task in fresh runs. Check each output yourself. Include failures and unassessed runs rather than silently dropping them. Record actual cost and timing only if available.</li><li>Use the form below or the blank worksheet. Keep the task, input, checks and settings with your evidence; equal numbers of checks do not prove that the checks were equivalent.</li></ol>
+    <p>Use a phone app, browser assistant or trusted CLI harness. Provider accounts, access and costs vary. Never paste credentials, private customer data or other information you cannot share into an assistant.</p>
+    <p class="no-js">JavaScript is needed for the on-page calculation. <a href="/examples/arena-run-worksheet.md" download>Download the blank worksheet</a> and calculate the checks by hand.</p>
+    <div class="js-only lab" id="arena-lab">
+      <label for="experiment-date">Date or most recent run date</label><input id="experiment-date" type="date" />
+      <label for="experiment-task">Task, input and rubric</label><textarea id="experiment-task" rows="3" placeholder="Name the task, input and checks you used"></textarea>
+      <label for="experiment-change">Comparison type</label><select id="experiment-change"><option value="Not recorded">Choose a comparison</option><option>Model</option><option>Harness</option><option>Instructions</option><option>Skill or integration</option><option>Complete stack</option><option>Other</option></select>
+      <label for="experiment-control">What stayed the same, and any uncontrolled differences</label><textarea id="experiment-control" rows="3"></textarea>
+      <label for="experiment-currency">Cost currency or unit, if known</label><input id="experiment-currency" type="text" placeholder="For example, USD" />
+      <p><strong>One line per run:</strong> checks passed, checks attempted, cost, seconds. Use <code>NA,NA</code> for unassessed checks. Leave cost or seconds blank if unknown; write <code>0</code> only when measured as zero.</p>
+      <p>Format examples only: <code>4,5,,</code> means 4 of 5 checks with cost and time unknown; <code>NA,NA,,</code> means checks were not assessed. These are not measured results.</p>
+      <div class="setups">
+        <fieldset><legend>Setup A</legend><label for="config-a">Harness, model, versions and permissions for A</label><textarea id="config-a" rows="3"></textarea><label for="runs-a">Runs for A</label><textarea id="runs-a" rows="5" placeholder="passed,attempted,cost,seconds"></textarea></fieldset>
+        <fieldset><legend>Setup B</legend><label for="config-b">Harness, model, versions and permissions for B</label><textarea id="config-b" rows="3"></textarea><label for="runs-b">Runs for B</label><textarea id="runs-b" rows="5" placeholder="passed,attempted,cost,seconds"></textarea></fieldset>
+      </div>
+      <button type="button" id="summarize" hidden>Summarize my runs</button>
+      <p id="arena-status" role="status" aria-live="polite"></p>
+      <div id="arena-result" hidden><label for="arena-record">Your editable evidence record</label><textarea id="arena-record" rows="16"></textarea><button type="button" id="copy-record">Copy my record</button><p id="copy-status" role="status" aria-live="polite"></p></div>
+    </div>
+    <p>The Dojo does not save or send these inputs. The record remains in this page until you copy it or leave. The <a href="/examples/arena-run-worksheet.md">blank worksheet</a> has space for source links, individual artifacts, failures and reviewer notes.</p>
+  </div></section>
+  <section class="section outcome"><div class="container content">
+    <h2>Read the result carefully</h2>
+    <p>Counts pool the checks you report across assessed runs. Unassessed runs are listed separately and excluded from the passed-check fraction. This tool requires the same number of checks per assessed run, but cannot verify that the checks themselves, the data or the conditions matched.</p>
+    <p>It cannot verify your model versions, compare field-specific quality, establish statistical significance, price API usage or assess professional safety. Record unobserved values as unknown, repeat meaningful cases, inspect your artifacts and ask a qualified reviewer when the field requires one.</p>
+    <p><a href="https://airc.nist.gov/airmf-resources/airmf/5-sec-core/">NIST: document test sets, metrics and measurement limits</a> · <a href="/katas/arena-evidence">Inspect a historical published experiment</a> · <a href="/arena">Return to the Arena</a></p>
+  </div></section>
+</BaseLayout>
+<script>
+  import { parseArenaRuns, sameRubricSize, summarizeArenaRuns } from '../../lib/arena-runs';
+  const root = document.getElementById('arena-lab');
+  const button = document.getElementById('summarize');
+  const status = document.getElementById('arena-status');
+  const result = document.getElementById('arena-result');
+  const record = document.getElementById('arena-record');
+  const copy = document.getElementById('copy-record');
+  const copyStatus = document.getElementById('copy-status');
+  function read(id: string): string {
+    const node = document.getElementById(id);
+    return node instanceof HTMLInputElement || node instanceof HTMLTextAreaElement || node instanceof HTMLSelectElement ? node.value.trim() : '';
+  }
+  const orUnknown = (value: string) => value || 'Not recorded';
+  if (root && button instanceof HTMLButtonElement && status && result && record instanceof HTMLTextAreaElement && copy instanceof HTMLButtonElement && copyStatus) {
+    button.hidden = false;
+    root.addEventListener('input', (event) => {
+      if (event.target !== record && !result.hidden) { result.hidden = true; status.textContent = 'Inputs changed. Summarize again before copying.'; }
+    });
+    button.addEventListener('click', () => {
+      const a = parseArenaRuns(read('runs-a')); const b = parseArenaRuns(read('runs-b'));
+      if (!a.ok || !b.ok) { result.hidden = true; status.textContent = !a.ok ? `Setup A: ${a.error}` : !b.ok ? `Setup B: ${b.error}` : 'Check your inputs.'; return; }
+      if (!sameRubricSize(a.runs, b.runs)) { result.hidden = true; status.textContent = 'Use the same number of checks for every assessed run, or compare different rubrics separately.'; return; }
+      record.value = [`MY ARENA RUN RECORD — learner-supplied, not a Dojo benchmark`,
+        `Date: ${orUnknown(read('experiment-date'))}`, `Task, input and rubric: ${orUnknown(read('experiment-task'))}`,
+        `Comparison type: ${read('experiment-change')}`, `Controls and uncontrolled differences: ${orUnknown(read('experiment-control'))}`,
+        `Cost currency or unit: ${orUnknown(read('experiment-currency'))}`,
+        `Setup A configuration: ${orUnknown(read('config-a'))}`, `Setup A rows (passed,attempted,cost,seconds):\n${read('runs-a')}`, summarizeArenaRuns('A', a.runs),
+        `Setup B configuration: ${orUnknown(read('config-b'))}`, `Setup B rows (passed,attempted,cost,seconds):\n${read('runs-b')}`, summarizeArenaRuns('B', b.runs),
+        `Evidence links or artifacts: [add permitted evidence]`, `Failures, limitations and next check: [record what actually happened]`,
+        'Equal check counts do not establish equivalent checks. No universal ranking or professional approval is implied.'].join('\n\n');
+      result.hidden = false; status.textContent = 'Your record is ready to review and edit.'; copyStatus.textContent = '';
+    });
+    copy.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(record.value); copyStatus.textContent = 'Copied. Save it somewhere you control.'; }
+      catch { record.focus(); record.select(); copyStatus.textContent = 'Text selected. Use your device’s copy command.'; }
+    });
+  }
+</script>
+<style>
+  .content { max-width: 70rem; } .outcome { background: var(--paper-raised); }
+  .lab { padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); }
+  .setups { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: var(--space-4); }
+  fieldset { min-width: 0; padding: var(--space-4); border: 1px solid var(--line-strong); border-radius: var(--radius); }
+  legend, label { font-weight: 700; } label { display: block; margin-block: var(--space-3) var(--space-2); }
+  input, textarea, select { box-sizing: border-box; width: 100%; min-width: 0; max-width: 65ch; padding: var(--space-3); color: var(--ink); background: var(--paper); border: 1px solid var(--line-strong); border-radius: var(--radius); font: inherit; }
+  button { margin-top: var(--space-3); padding: var(--space-3) var(--space-4); color: var(--band-text); background: var(--band); border: 0; border-radius: var(--radius); font: inherit; font-weight: 700; cursor: pointer; }
+  [hidden] { display: none; } li + li { margin-top: var(--space-2); }
+</style>
