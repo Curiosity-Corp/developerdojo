@@ -8,7 +8,7 @@ import PageHero from '../../components/PageHero.astro';
     <div class="container content">
       <h2>A real comparison · historical snapshot</h2>
       <p>The SWE-agent authors compared agent setups using GPT-4 Turbo (<code>gpt-4-1106-preview</code>) on 300 software issue tasks from SWE-bench Lite. The figures below come from <a href="https://arxiv.org/html/2405.15793v3#S4">their paper’s methods and Table 1</a>, version dated 11 November 2024. This was the authors’ experiment, not a Dojo run.</p>
-      <div class="compare historical" aria-label="Published SWE-bench Lite results">
+      <div class="compare historical" role="group" aria-label="Published SWE-bench Lite results">
         <article><h3>Shell-only agent</h3><p><strong>11%</strong> of tasks resolved</p><p><strong>$1.46</strong> average API inference cost for resolved instances</p></article>
         <article><h3>SWE-agent</h3><p><strong>18%</strong> of tasks resolved</p><p><strong>$1.67</strong> average API inference cost for resolved instances</p></article>
       </div>
