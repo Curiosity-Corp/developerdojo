@@ -10,6 +10,10 @@ const workshops = [
     training: 'https://learn.microsoft.com/en-us/training/azure/', lab: 'https://learn.microsoft.com/en-us/azure/logic-apps/call-azure-functions-from-workflows',
     account: 'Microsoft Learn reading is free. Hands-on Azure resources require a subscription; Microsoft says its Learn sandboxes are no longer available. Check your plan and pricing before creating resources.',
     pricing: 'https://learn.microsoft.com/en-us/training/support/faq?pivots=sandbox',
+    access: 'Use only the permissions needed for your exercise. Review who can trigger the workflow and function; keep keys and trigger URLs private.',
+    accessDoc: 'https://learn.microsoft.com/en-us/azure/logic-apps/set-up-security-permissions',
+    cleanup: 'Review and remove the workshop resources you no longer need, including related storage and monitoring. Deleting a resource group also deletes its other resources; inspect it first.',
+    cleanupDoc: 'https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/delete-resource-group',
     question: 'Which part runs custom code, and which coordinates the workflow?',
     answer: 'Azure Functions runs the function code; the Logic Apps workflow coordinates steps and can call that function.',
     exercise: 'Sketch the trigger, workflow, function and output. Explain what the workflow should do when the function fails.',
@@ -20,6 +24,10 @@ const workshops = [
     training: 'https://aws.amazon.com/training/', lab: 'https://docs.aws.amazon.com/apigateway/latest/developerguide/getting-started.html',
     account: 'AWS offers free digital learning. The hands-on exercise needs an AWS account and can be possible within Free Tier limits; check eligibility and current charges for your account.',
     pricing: 'https://aws.amazon.com/free/',
+    access: 'Check whether your API route can be called publicly. AWS recommends an authorizer for each HTTP API route; give the function and your account only the permissions they need.',
+    accessDoc: 'https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-access-control.html',
+    cleanup: 'Follow the tutorial cleanup for the API, Lambda function, log group and execution role. Confirm each is your workshop resource before deleting it.',
+    cleanupDoc: 'https://docs.aws.amazon.com/apigateway/latest/developerguide/getting-started.html',
     question: 'What happens when a request reaches the HTTP API?',
     answer: 'API Gateway routes the request to the Lambda function, then returns its response.',
     exercise: 'Draw the path from request to response. Describe one input your function should reject and how you would test it.',
@@ -28,8 +36,12 @@ const workshops = [
     id: 'oracle', title: 'Oracle Cloud', outcome: 'Create a Linux cloud server',
     description: 'Start with Oracle’s training, then follow its tutorial for a Linux compute instance.',
     training: 'https://www.oracle.com/education/', lab: 'https://docs.oracle.com/en/learn/first-oci-linux-instance/index.html',
-    account: 'An Oracle Cloud account is required. Always Free resources have limits, eligibility and region or capacity conditions; other selections can incur charges. Check the current terms before creating anything.',
+    account: 'An Oracle Cloud account is required; registration generally needs a phone number and credit card. A time-limited trial and Always Free resources are different. Always Free compute must be in your home region and may lack capacity; check eligibility and limits. Paid selections or usage outside allowances can incur charges on an upgraded account.',
     pricing: 'https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier.htm',
+    access: 'Protect the private SSH key and never paste it into an assistant. Review network rules and restrict SSH access to trusted sources.',
+    accessDoc: 'https://docs.oracle.com/en-us/iaas/Content/Compute/Tasks/connect-to-linux-instance.htm',
+    cleanup: 'Terminate only the practice instance when finished. Oracle preserves its boot volume by default, so review that volume and other workshop resources separately before removing them.',
+    cleanupDoc: 'https://docs.oracle.com/en-us/iaas/Content/Compute/Tasks/terminatinginstance.htm',
     question: 'What should you check before assuming a server is Always Free?',
     answer: 'Check that the selected resources are Always Free eligible for your account and region, and remain within the current limits.',
     exercise: 'List the instance, network and access controls your tutorial created. Explain how you will confirm their cost and remove what you no longer need.',
@@ -40,6 +52,10 @@ const workshops = [
     training: 'https://cloud.google.com/learn/training', lab: 'https://docs.cloud.google.com/run/docs/quickstarts/functions/deploy-functions-console',
     account: 'Training and labs have different access and pricing. The cloud quickstart requires a Google Cloud project and billing setup; check available credits and charges, including related resources.',
     pricing: 'https://cloud.google.com/free/docs/free-cloud-features',
+    access: 'The linked quickstart asks you to allow public access. That allows unauthenticated calls; choose it only for a non-sensitive exercise you intend to expose, or follow Google’s authenticated alternative.',
+    accessDoc: 'https://docs.cloud.google.com/run/docs/quickstarts/functions/deploy-functions-gcloud',
+    cleanup: 'Review the service and the Artifact Registry image repository, which can incur storage charges. Deleting a project deletes its other work too; inspect resources before choosing what to remove.',
+    cleanupDoc: 'https://docs.cloud.google.com/run/docs/quickstarts/functions/deploy-functions-console',
     question: 'Why check the resources used by a function, not just the function itself?',
     answer: 'Related resources can have their own charges and lifecycle; deleting or stopping one service might not remove everything.',
     exercise: 'Describe what the function returns, test an expected input, and list the resources you need to review or clean up.',
@@ -60,12 +76,21 @@ const workshops = [
             <p>{item.description}</p>
             <p class="links"><a href={item.training}>Explore official training</a><a href={item.lab}>Open the official exercise</a></p>
             <p><strong>Before you start:</strong> {item.account} <a href={item.pricing}>Check current terms</a>.</p>
+            <p><strong>Access:</strong> {item.access} <a href={item.accessDoc}>Read the provider guidance</a>.</p>
+            <p><strong>When finished:</strong> {item.cleanup} <a href={item.cleanupDoc}>Read cleanup guidance</a>.</p>
             <h3>Dojo follow-up</h3>
             <p>{item.exercise}</p>
             <details><summary>Quick check: {item.question}</summary><p>{item.answer}</p></details>
           </article>
         ))}
       </div>
+      <details class="agent-practice">
+        <summary>Use any assistant to review your plan</summary>
+        <p>On a phone or computer, copy this prompt into an assistant or CLI harness you trust. Replace the brackets with the provider and outcome you chose. This page does not connect to your cloud account or run commands.</p>
+        <label for="cloud-review-prompt">Assistant review prompt</label>
+        <textarea id="cloud-review-prompt" rows="9" readonly>Help me plan [outcome] using the official [provider] workshop. Explain the components and draw a simple text diagram. Identify who can access the result, possible charges, and resources to check when I clean up. Give me three checks I can perform myself and one failure to investigate. Separate facts from assumptions and link to official documentation. Do not connect to my account or execute changes. Do not ask for credentials, keys, private URLs, or customer data.</textarea>
+        <p>Compare the answer with the provider documentation. Record what you actually checked and what remains unknown; an assistant’s answer is not proof that a resource is secure or deleted.</p>
+      </details>
       <p>Keep credentials and private customer data out of prompts and shared evidence. Record what you built, what you checked, any remaining costs, and what you cleaned up.</p>
       <p><a href="/katas">Back to katas</a> · <a href="/library/tracks/cloud-platforms">Explore the existing cloud track</a></p>
     </div>
@@ -82,4 +107,7 @@ const workshops = [
   .links a { font-weight: 700; }
   summary { cursor: pointer; font-weight: 700; }
   details { padding: var(--space-3); border-radius: var(--radius); background: var(--paper-sunk); }
+  .agent-practice { max-width: 75ch; margin-block: var(--space-5); }
+  label { display: block; font-weight: 700; margin-block: var(--space-3) var(--space-2); }
+  textarea { box-sizing: border-box; width: 100%; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper-raised); color: var(--ink); font: inherit; }
 </style>
