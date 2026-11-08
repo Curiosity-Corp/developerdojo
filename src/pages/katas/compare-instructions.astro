@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SeedReportCheck from '../../components/SeedReportCheck.astro';
+import { seedSalesCsv } from '../../data/seed-sales';
+
+const promptA = `Summarize this fictional seed-sales CSV. Give me a short report.\n\n${seedSalesCsv}`;
+const promptB = `You are my data-quality partner. Summarize this fictional seed-sales CSV.
+
+Treat exact duplicate rows as one sale. Ignore capitalization when grouping item names. Do not guess missing quantities or non-numeric prices: list those rows as exceptions. Calculate quantities and revenue only for complete, unique rows. Show your arithmetic.
+
+Report the number of input rows, duplicates removed, complete unique sales, exceptions, units sold and complete sales total. Label assumptions and do not invent data.\n\n${seedSalesCsv}`;
+const prompts = [
+  { id: 'a', title: 'Prompt A · a short instruction', text: promptA },
+  { id: 'b', title: 'Prompt B · a clear contract', text: promptB },
+];
+const evidenceTemplate = `MY TWO-RUN RECORD (fictional seed dataset)
+Date:
+Harness/app and version, if known:
+Model and version, if shown:
+Same settings and tool permissions?:
+Input: Dojo seed-sales-messy.csv (7 rows)
+Change: instruction text only
+
+A output or link:
+A checks passed / attempted:
+B output or link:
+B checks passed / attempted:
+What changed and what I cannot conclude:
+Cost and elapsed time, if actually available:
+Next experiment:
+`;
+---
+<BaseLayout title="Change the instructions" description="Run a controlled experiment on one agent stack, verify both results and record what changed.">
+  <PageHero compact eyebrow="Foundation kata · start on any device" title="Change the instructions" subtitle="One task. Two prompts. Find out what clearer instructions change, using evidence you can check." ctas={[{ label: 'Start the experiment', href: '#experiment', icon: 'arrow-right' }]} />
+  <section class="section outcome" aria-labelledby="outcome-title"><div class="container content">
+    <p class="kicker">First, see the result</p>
+    <h2 id="outcome-title">A checked report from messy data</h2>
+    <div class="report"><p>For this fictional dataset, the four complete, unique sales total <strong>$22</strong>. Two rows need review; one exact duplicate is removed.</p>
+      <div class="facts"><p><strong>4</strong> complete sales</p><p><strong>2</strong> exceptions</p><p><strong>7</strong> units · <strong>$22</strong></p></div>
+      <p>Check it yourself: (2 × $3) + (1 × $4) + (3 × $3) + (1 × $3) = $22. This is the Dojo’s expected answer, not a claim about an AI model’s performance.</p>
+      <p><a href="/examples/seed-sales-messy.csv">Open the exact practice CSV</a> · <a href="/katas/data-rescue">See the original data-rescue kata</a></p></div>
+    <p>The input is a synthetic Dojo exercise. No model output, cost, timing, or winner is pre-recorded here; your two runs are your own evidence.</p>
+  </div></section>
+
+  <section class="section" id="experiment"><div class="container content">
+    <p class="kicker">Your turn</p><h2>Run the same task twice</h2>
+    <ol>
+      <li>Choose one assistant in an app or browser, or a CLI harness you trust. Record the harness, model and versions if visible. Use the same choice, settings and tools for both runs.</li>
+      <li>Start a fresh conversation. Copy prompt A, including its data, and save the response.</li>
+      <li>Start another fresh conversation. Copy prompt B and save the response. Only the instruction changes; the dataset and requested report are the same.</li>
+      <li>Check both against the answer and rubric below. A leaves the data-handling rules unspecified; a difference demonstrates the effects of this particular brief, not a universal model ranking.</li>
+    </ol>
+    <p><strong>Ingredients:</strong> one chosen harness and its available model, the synthetic CSV embedded below, one assistant, and you as the reviewer. No skill, CLI, MCP, plugin or connector is required for the basic chat version. <a href="/katas/spark-ideas#device-options">Phone, Windows, macOS and Linux options</a>.</p>
+    <p>Account availability, model access and usage charges depend on your provider and plan. If a version or cost is unavailable, record “not shown”; never paste credentials or private customer data into a prompt.</p>
+    <div class="prompts">{prompts.map((prompt) => <article class="prompt" data-prompt-box>
+      <h3>{prompt.title}</h3><label for={`prompt-${prompt.id}`}>Complete prompt and input</label><textarea id={`prompt-${prompt.id}`} readonly rows="12" data-prompt-text>{prompt.text}</textarea>
+      <div class="copy-row"><button type="button" data-copy-prompt hidden>Copy {prompt.title.split(' · ')[0]}</button><span data-copy-status aria-live="polite">Or select and copy the text.</span></div>
+    </article>)}</div>
+  </div></section>
+
+  <section class="section checks"><div class="container content"><p class="kicker">Verify independently</p><h2>Five checks, for each response</h2>
+    <ol>
+      <li>Reports seven input rows, one exact duplicate removed and four complete unique sales.</li>
+      <li>Flags S104 and S105 as exceptions without guessing missing or invalid values.</li>
+      <li>Groups “Basil” and “basil” together and counts seven units across complete sales.</li>
+      <li>Shows complete revenue as $22 with arithmetic that can be inspected.</li>
+      <li>Does not invent transactions, customers or missing values.</li>
+    </ol>
+    <p>Mark each check pass, fail or not assessable for A and B. Prompt A does not specify all the rules, so an apparently different answer is not necessarily an instruction-following failure. Investigate the input and assumptions before drawing conclusions.</p>
+    <SeedReportCheck />
+    <p><a href="https://developers.google.com/machine-learning/crash-course/overfitting/data-characteristics">Google: missing values and duplicates</a> · <a href="https://platform.claude.com/docs/en/test-and-evaluate/develop-tests">Anthropic: define success and build evaluations</a></p>
+  </div></section>
+
+  <section class="section"><div class="container content"><p class="kicker">Keep the evidence</p><h2>Record what actually happened</h2>
+    <p>Edit this record with your own observations. It stays in this page until you copy it; nothing is submitted or saved by the Dojo. Do not include secrets or personal data. A single pair of responses can vary with sampling, hidden settings and service changes.</p>
+    <label for="run-record">Your experiment record</label><textarea id="run-record" rows="16">{evidenceTemplate}</textarea>
+    <div class="copy-row"><button type="button" id="copy-record" hidden>Copy my record</button><span id="record-status" aria-live="polite">Or select and copy the text.</span></div>
+    <p><a href="/katas/budget-boss">Compare measured costs and checks in Budget Boss</a> · <a href="/arena">Explore the Arena</a></p>
+  </div></section>
+
+  <section class="section checks"><div class="container content"><p class="kicker">Adapt · Randori</p><h2>Try an unfamiliar dataset</h2>
+    <p>Use the same rules on the rows below without changing your assistant’s answer to match the first dataset. Predict the valid sales, exceptions and revenue before you reveal the check.</p>
+    <pre><code>{`id,item,quantity,unit_price_usd
+T1,Rose,2,5
+T1,Rose,2,5
+T2,Mint,1,3
+T3,Mint,,3`}</code></pre>
+    <details><summary>Reveal the independent check</summary><p>Four rows contain one exact duplicate, two complete unique sales and one exception. The complete sales total is (2 × $5) + (1 × $3) = <strong>$13</strong>. T3 needs review.</p></details>
+    <p>Next, apply the same method to a design brief, a set of customer notes or a 3D model checklist. Those are transfer ideas, not demonstrations of tested integrations or professional approval.</p>
+    <details><summary>Explore other controlled changes</summary><p>After this exercise, change only one factor: a model, harness, instruction, reviewed skill, permitted integration or agent delegation. Keep the input and rubric stable, record actual configurations and compare results with appropriate review. These variants are ideas for your own tests, not published benchmarks.</p></details>
+    <p><a href="/katas">Explore more katas</a> · <a href="/randori">Practice Randori</a> · <a href="/belts">Explore belts</a></p>
+  </div></section>
+</BaseLayout>
+<script>
+  for (const box of document.querySelectorAll<HTMLElement>('[data-prompt-box]')) {
+    const input = box.querySelector<HTMLTextAreaElement>('[data-prompt-text]');
+    const button = box.querySelector<HTMLButtonElement>('[data-copy-prompt]');
+    const status = box.querySelector<HTMLElement>('[data-copy-status]');
+    if (!input || !button || !status) continue;
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(input.value); status.textContent = 'Copied. Paste it into a fresh conversation.'; }
+      catch { input.focus(); input.select(); status.textContent = 'Text selected. Use your device’s copy command.'; }
+    });
+  }
+  const record = document.getElementById('run-record');
+  const copyRecord = document.getElementById('copy-record');
+  const recordStatus = document.getElementById('record-status');
+  if (record instanceof HTMLTextAreaElement && copyRecord instanceof HTMLButtonElement && recordStatus) {
+    copyRecord.hidden = false;
+    copyRecord.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(record.value); recordStatus.textContent = 'Copied. Save it somewhere you control.'; }
+      catch { record.focus(); record.select(); recordStatus.textContent = 'Text selected. Use your device’s copy command.'; }
+    });
+  }
+</script>
+<style>
+  .content { max-width: 72rem; }
+  .kicker { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .outcome, .checks { background: var(--paper-raised); }
+  .report, .prompt { padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: var(--space-3); }
+  .facts p { padding: var(--space-3); background: var(--paper-sunk); border-radius: var(--radius); }
+  .facts strong { font-size: var(--text-2xl); }
+  .prompts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--space-4); }
+  .prompt { min-width: 0; }
+  label { display: block; font-weight: 700; margin-bottom: var(--space-2); }
+  textarea { box-sizing: border-box; width: 100%; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; }
+  .copy-row { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-2); }
+  button { font: inherit; font-weight: 700; padding: .7rem 1rem; border: 1px solid var(--gold); border-radius: var(--radius); color: var(--gold-ink); background: var(--gold); cursor: pointer; }
+  button[hidden] { display: none; }
+  pre { overflow-x: auto; padding: var(--space-3); background: var(--paper-sunk); border-radius: var(--radius); }
+  summary { cursor: pointer; font-weight: 700; }
+</style>
