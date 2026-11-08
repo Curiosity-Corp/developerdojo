@@ -3,18 +3,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import { fields } from '../lib/fields';
+
+const practice: Record<string, { href: string; label: string }> = {
+  ux: { href: '/katas/ux-journey', label: 'Design a user journey' },
+  '3d': { href: '/katas/scan-a-room', label: 'Explore a real 3D room' },
+  'architecture-bim': { href: '/katas/scan-a-room', label: 'Study a 3D reconstruction' },
+  finance: { href: '/katas/industry-workshops#finance', label: 'Try the fictional invoice exercise' },
+  data: { href: '/katas/data-rescue', label: 'Rescue messy data' },
+  robotics: { href: '/katas/industry-workshops#robotics', label: 'Plan a robot simulation' },
+};
 ---
 <BaseLayout title="Development fields" description="Explore fields where shared development foundations can be applied, from UX and BIM to science and manufacturing.">
   <PageHero compact eyebrow="Choose a field" title="Develop across industries" subtitle="The development stack is shared. Every field adds its own artifacts, specialist knowledge, standards and review." />
   <section class="section">
     <div class="container">
-      <SectionHeader title="One foundation, many fields" intro="These are areas to explore, not a claim that a kata or belt is available for each one. Where a related existing track is available, you can open it below." />
+      <SectionHeader title="One foundation, many fields" intro="Explore the fields and start with the available practice. Not every field has a complete kata or belt pathway yet." />
       <ul class="fields">
         {fields.map((field) => (
           <li id={field.id}>
             <h2>{field.name}</h2>
             <p>{field.examples}</p>
             {field.trackHref && <a href={field.trackHref}>Explore a related existing track</a>}
+            {practice[field.id] && <p><a href={practice[field.id]?.href}>{practice[field.id]?.label}</a></p>}
           </li>
         ))}
       </ul>
