@@ -1,0 +1,11 @@
+Claim,File reference,Observed value,Limit
+Schema,FILE_SCHEMA,IFC4,Not a compliance determination
+Project length unit,#8,millimetre,Area unit #9 is square metre
+Wall,#45,IfcWall,Example wall only
+Opening,#80,IfcOpeningElement,Not proof of physical conditions
+Window,#102,IfcWindow,Not proof of installed product
+Wall opening relationship,#85,#45 to #80,Verify in original source
+Window filling relationship,#112,#80 to #102,Verify in original source
+Storey containment,#44,#45 and #102 in #38,Example spatial relationship
+Wall external property,#56,IsExternal true,Not independently verified
+Wall fire rating,#52,Empty label,No rating can be concluded
