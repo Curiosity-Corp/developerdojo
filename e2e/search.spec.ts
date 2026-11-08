@@ -24,6 +24,47 @@ test('search warms its index when the learner opens it', async ({ page, isMobile
   await expect(dialog.getByRole('searchbox')).toHaveValue('');
 });
 
+test('two search panels can finish when Pagefind supersedes a request', async ({ page, isMobile }) => {
+  // Simulate Pagefind's documented shared debounce cancellation deterministically.
+  // The ordinary search tests below still exercise the real index and worker.
+  await page.route('**/pagefind/pagefind.js', (route) => route.fulfill({
+    contentType: 'text/javascript',
+    body: `
+      let latest = 0;
+      globalThis.__dojoCancelled = 0;
+      globalThis.__dojoIndependent = 0;
+      export async function init() { globalThis.__dojoSearchReady = true; }
+      function result(term) {
+        return { results: [{ data: async () => ({ url: '/library/', excerpt: term, meta: { title: term } }) }] };
+      }
+      export async function debouncedSearch(term) {
+        const id = ++latest;
+        await new Promise(resolve => setTimeout(resolve, 50));
+        if (id !== latest) { globalThis.__dojoCancelled++; return null; }
+        return result(term);
+      }
+      export async function search(term) { globalThis.__dojoIndependent++; return result(term); }
+    `,
+  }));
+  await page.goto('/library');
+  const dialog = await openSearch(page, isMobile);
+  await page.waitForFunction(() => (window as unknown as { __dojoSearchReady?: boolean }).__dojoSearchReady === true);
+  await page.evaluate(() => {
+    const inline = document.getElementById('library-site-search-input') as HTMLInputElement;
+    const header = document.getElementById('site-search-input') as HTMLInputElement;
+    inline.value = 'epic';
+    inline.dispatchEvent(new Event('input', { bubbles: true }));
+    inline.value = 'persona';
+    inline.dispatchEvent(new Event('input', { bubbles: true }));
+    header.value = 'orbital';
+    header.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+  await expect(page.locator('#library-site-search-status')).toHaveText('1 result for "persona"');
+  await expect(dialog.getByRole('status')).toHaveText('1 result for "orbital"');
+  await expect.poll(() => page.evaluate(() => (window as unknown as { __dojoCancelled: number }).__dojoCancelled)).toBeGreaterThan(0);
+  await expect.poll(() => page.evaluate(() => (window as unknown as { __dojoIndependent: number }).__dojoIndependent)).toBe(1);
+});
+
 test('the first results remain usable while later results load', async ({ page, isMobile }) => {
   let fragments = 0;
   let release!: () => void;
