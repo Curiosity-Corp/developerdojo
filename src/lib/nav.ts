@@ -29,7 +29,8 @@ export const NAV_MENUS: Readonly<Record<string, readonly MenuGroup[]>> = {
       { label: 'Rescue messy data', href: '/katas/data-rescue', description: 'Make a report you can check.' },
     ] },
     { title: 'Explore by field', links: [
-      { label: 'Scan a room in 3D', href: '/katas/scan-a-room', description: 'Explore a real scan and try the workflow.' },
+      { label: 'Scan a room in 3D', href: '/katas/scan-a-room', description: 'Explore a real 3D room and its workflow.' },
+      { label: 'Design a user journey', href: '/katas/ux-journey', description: 'Study a working prototype and create your own.' },
       { label: 'Industry workshops', href: '/katas/industry-workshops', description: 'Try design, audio, business and more.' },
       { label: 'Cloud workshops', href: '/katas/cloud-workshops', description: 'Learn with official provider training.' },
       { label: 'Explore outcomes', href: '/gallery', description: 'See what you could develop.' },

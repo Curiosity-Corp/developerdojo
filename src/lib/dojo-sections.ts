@@ -18,9 +18,11 @@ export const dojoSections: DojoSection[] = [
     slug: 'gallery', eyebrow: 'See the outcome', title: 'The Gallery',
     description: 'Explore the outcomes a developer can create and the evidence behind them.',
     introTitle: 'Try a result, then make your own',
-    intro: 'Start with a working prototype or an example project brief. Both were created for these exercises with AI assistance. Follow the kata to create your own and check the result.',
+    intro: 'Start with working examples, including Dojo exercises and a credited creator’s interactive 3D room. Follow a kata to make your own and check the result.',
     steps: [
       { title: 'A clickable mini app', description: 'Try the Pocket Garden example, then ask an assistant to create a prototype you can test and remix.', href: '/katas/first-prototype', link: 'Make a clickable prototype' },
+      { title: 'An interactive 3D room', description: 'Explore Wes Bos’s reconstructed office and work backward through its capture and agent workflow.', href: '/katas/scan-a-room', link: 'Explore the room' },
+      { title: 'A UX journey', description: 'Try a working prototype, trace its states and develop an editable design of your own.', href: '/katas/ux-journey', link: 'Design a user journey' },
       { title: 'An idea becomes a plan', description: 'See a complete example brief and use a ready-to-copy prompt to develop your own idea.', href: '/katas/spark-ideas', link: 'Turn an idea into a plan' },
       { title: 'Look behind the result', description: 'Check inputs, instructions, tools and evidence. These starter examples are not a complete benchmark or verified replay of the same stack.' },
     ],
@@ -37,7 +39,7 @@ export const dojoSections: DojoSection[] = [
       { title: 'Delegation and orchestration', description: 'Choose roles, handoffs and review points for multi-agent work.', href: '/library/tracks/agent-orchestration/05-delegation-briefs-and-the-autonomy-ladder', link: 'Delegation briefs' },
       { title: 'Evidence and evaluation', description: 'Define acceptance criteria and independently check the work.', href: '/library/tracks/working-with-ai-agents/08-evals-and-testing-ai-work', link: 'Evals and testing' },
     ],
-    nextTitle: 'Compare stacks carefully', next: 'The first planned foundation kata compares the same goal across different stack choices. Record versions, inputs, outputs and checks, and isolate one change where practical.', nextHref: '/katas', nextLabel: 'Explore the kata approach',
+    nextTitle: 'Compare stacks carefully', next: 'Try the same task with two different instructions. Record your setup and results, and isolate one change where practical.', nextHref: '/katas/compare-instructions', nextLabel: 'Compare instructions',
   },
   {
     slug: 'armory', eyebrow: 'Equip your agents', title: 'The Armory',
@@ -58,6 +60,7 @@ export const dojoSections: DojoSection[] = [
     intro: 'A result depends on more than a model name. Compare like with like where possible; record what changed, what stayed fixed, and what could not be controlled.',
     steps: [
       { title: 'Record the configuration', description: 'Keep the task, inputs, harness and model versions, instructions, tools, permissions and date with each experiment.' },
+      { title: 'Run a first experiment', description: 'Use the same sample data with two instructions, then score the outputs against an independently checkable answer.', href: '/katas/compare-instructions', link: 'Compare instructions' },
       { title: 'Use a relevant rubric', description: 'Measure the outcome for its field as well as system qualities such as reliability, cost where measurable, and completion of checks.' },
       { title: 'Report limitations', description: 'Keep failures, repetitions and uncertainty visible. Do not treat a single result or another provider’s score as a universal ranking.', href: '/library/tracks/working-with-ai-agents/08-evals-and-testing-ai-work', link: 'Learn about evaluations' },
     ],

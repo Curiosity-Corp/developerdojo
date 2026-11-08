@@ -4,9 +4,10 @@ import { expect, test } from '@playwright/test';
 test('outcome shortcuts lead directly to a kata', async ({ page }) => {
   await page.goto('/');
   const shortcuts = page.getByRole('region', { name: 'Start with an outcome' });
-  await expect(shortcuts.getByRole('link', { name: 'Explore a 3D scan' })).toHaveAttribute('href', '/katas/scan-a-room');
+  await expect(shortcuts.getByRole('link', { name: 'Explore a 3D room' })).toHaveAttribute('href', '/katas/scan-a-room');
+  await expect(shortcuts.getByRole('link', { name: 'Design a user journey' })).toHaveAttribute('href', '/katas/ux-journey');
   await expect(shortcuts.getByRole('link', { name: 'Compare AI instructions' })).toHaveAttribute('href', '/katas/compare-instructions');
-  await shortcuts.getByRole('link', { name: 'Explore a 3D scan' }).click();
+  await shortcuts.getByRole('link', { name: 'Explore a 3D room' }).click();
   await expect(page).toHaveURL(/\/katas\/scan-a-room\/?$/);
 });
 
