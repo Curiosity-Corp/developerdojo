@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import StackWorksheet from '../components/StackWorksheet.astro';
+import BeltJourney from '../components/BeltJourney.astro';
 import { dojoSections } from '../lib/dojo-sections';
 
 export function getStaticPaths() {
@@ -27,6 +28,7 @@ const { section } = Astro.props;
     </div>
   </section>
   {section.slug === 'stack-lab' && <StackWorksheet />}
+  {section.slug === 'belts' && <BeltJourney />}
   <section class="section next">
     <div class="container section-content">
       <SectionHeader title={section.nextTitle} intro={section.next} />

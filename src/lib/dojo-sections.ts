@@ -66,14 +66,14 @@ export const dojoSections: DojoSection[] = [
   {
     slug: 'belts', eyebrow: 'Demonstrate capability', title: 'The Belts',
     description: 'Explore how evidence of field-specific ability can complement universal development ranks.',
-    introTitle: 'A belt should represent what you can do',
-    intro: 'The planned belt system will assess demonstrated capability in a field. It is distinct from the Developer, Master Developer and Sensei progression, which describes broader development and orchestration skills.',
+    introTitle: 'Show what you can develop',
+    intro: 'Practice a technique, adapt it, and show your work. The following belt stages are a practice framework for field-specific capability; Developer, Master Developer and Sensei remain the broader development and mentoring ranks.',
     steps: [
       { title: 'Practice', description: 'Follow a documented technique and explain the goal, stack and checks.' },
       { title: 'Adapt', description: 'Change a constraint, tool or requirement and explain the effect on the outcome.' },
       { title: 'Demonstrate', description: 'Provide artifacts and evidence for independent review, including an unfamiliar challenge where appropriate.' },
     ],
-    nextTitle: 'Status and professional boundaries', next: 'Specialist belts and their assessment process are being designed; they are not currently issued here. A Dojo belt will not be a professional license, permit or approval. The existing certificate information remains available.', nextHref: '/certificates', nextLabel: 'Existing certificates',
+    nextTitle: 'Status and professional boundaries', next: 'The checklist is for practice and does not award a belt. Specialist belts are not currently issued here. A Dojo belt is not a professional license, permit or approval. The existing certificate information remains available.', nextHref: '/certificates', nextLabel: 'Existing certificates',
   },
   {
     slug: 'randori', eyebrow: 'Practice without a recipe', title: 'Randori',
