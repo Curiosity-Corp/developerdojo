@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A starting point for a learner-owned development portfolio.">
+  <title>My development portfolio</title>
+  <style>
+    :root{color-scheme:dark;--page:#111b18;--panel:#1b2a25;--ink:#f7f6ed;--muted:#d5dfd7;--accent:#f3c878;--line:#60776c}
+    *{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font:1rem/1.6 system-ui,-apple-system,sans-serif}a{color:var(--accent);text-underline-offset:.2em}a:focus-visible{outline:3px solid var(--accent);outline-offset:4px}.wrap{width:min(100% - 2rem,70rem);margin:auto}header{border-bottom:1px solid var(--line)}nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 0}nav strong{letter-spacing:.03em}.hero{position:relative;overflow:hidden;padding:clamp(4rem,12vw,8rem) 0}.hero:after{content:"";position:absolute;right:-8rem;top:1rem;width:22rem;height:22rem;border:2px solid var(--line);border-radius:50%;box-shadow:0 0 0 3rem #1b2a25,0 0 0 3.1rem var(--line);z-index:-1}.eyebrow{color:var(--accent);font-size:.85rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(2.8rem,8vw,6rem);line-height:1.02;letter-spacing:-.04em;max-width:12ch;margin:.5rem 0 1.5rem}h2{font-size:clamp(2rem,5vw,3rem);line-height:1.1}.lede{max-width:38rem;font-size:1.15rem;color:var(--muted)}.button{display:inline-block;margin-top:1rem;padding:.8rem 1.2rem;border:2px solid var(--accent);border-radius:.4rem;color:var(--page);background:var(--accent);font-weight:800;text-decoration:none}.section{padding:3rem 0 5rem}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr));gap:1rem}.card{min-width:0;padding:1.5rem;border:1px solid var(--line);border-radius:.75rem;background:var(--panel)}.card h3{margin-top:0;color:var(--accent)}.muted{color:var(--muted)}footer{border-top:1px solid var(--line);padding:2rem 0;color:var(--muted)}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+  <header><nav class="wrap" aria-label="Main navigation"><strong>My portfolio</strong><a href="#work">Explore my work</a></nav></header>
+  <main>
+    <section class="hero"><div class="wrap">
+      <p class="eyebrow">A learner-owned portfolio</p>
+      <h1>What will you develop?</h1>
+      <p class="lede">This is your starting point. Replace this introduction with your own goal and share work you are allowed to publish.</p>
+      <a class="button" href="#work">Start with an outcome</a>
+    </div></section>
+    <section class="section" id="work"><div class="wrap">
+      <p class="eyebrow">Your first project</p><h2>Show the work and the evidence.</h2>
+      <p class="muted">These cards are prompts, not claims of completed work. Edit this file with your own details before sharing.</p>
+      <div class="grid">
+        <article class="card"><h3>Outcome</h3><p>What did you develop and who is it for? Add a link only when you have permission to share it.</p></article>
+        <article class="card"><h3>Stack and decisions</h3><p>Which tools, models and agent roles did you actually use? What did you decide, change or delegate?</p></article>
+        <article class="card"><h3>Checks and limits</h3><p>What did you verify, what remains unknown, and what needs independent review?</p></article>
+        <article class="card"><h3>Sources and credit</h3><p>Credit collaborators and sources, and check the rights for everything you share.</p></article>
+      </div>
+    </div></section>
+  </main>
+  <footer><div class="wrap">Starter page · replace these prompts with your own verified work.</div></footer>
+</body>
+</html>

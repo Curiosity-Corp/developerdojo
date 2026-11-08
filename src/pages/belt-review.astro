@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+<BaseLayout title="Prepare a practice review" description="A learner-owned evidence packet for independent feedback and a changed-constraint challenge.">
+  <PageHero compact eyebrow="Belts · evidence · Randori" title="Show the work. Test your judgment." subtitle="Bring a real artifact, explain your choices and practice adapting when the situation changes." ctas={[{ label: 'Get the review packet', href: '/examples/belt-review-packet.md', icon: 'arrow-right' }, { label: 'See the review steps', href: '#steps', variant: 'ghost', icon: 'arrow-right' }]} />
+  <section class="section outcome"><div class="container content">
+    <h2>A review you can prepare today</h2>
+    <p>Use the packet with a person who independently agrees to review your work. It asks for the outcome, the stack you actually used, an artifact, observed checks, a changed constraint and honest limits. It works for a software prototype, a design, a research summary or another field.</p>
+    <p><a href="/examples/belt-review-packet.md" download>Download the blank review packet</a> · <a href="/examples/belt-review-packet.md">Open the packet in your browser</a></p>
+    <p>On a phone, open or download the file and edit a copy in your notes or document app. You choose where to keep and share it. The Dojo does not save, receive or send this packet. Browser downloads and printing also work without JavaScript.</p>
+    <p class="boundary"><strong>Practice, not an award:</strong> This packet does not assign a reviewer, score an assessment, issue a belt or certify a professional deliverable. Specialist belts and a formal independent assessment process are still being developed.</p>
+  </div></section>
+  <section class="section" id="steps"><div class="container content">
+    <h2>How to use the packet</h2>
+    <ol>
+      <li><strong>Agree the scope.</strong> Choose a field and the proposed practice stage; define the outcome, audience and checks. Agree with an independent reviewer what they may access, share and retain. Disclose conflicts and choose someone with relevant expertise.</li>
+      <li><strong>Bring the evidence.</strong> Record the artifact and source, your role and each agent's role, the harness, model, instructions, versions and permitted tools where known. Include reproduction steps, actual checks, failures and limitations.</li>
+      <li><strong>Open the work together.</strong> The human reviewer checks the original artifact or observes the behavior. For each dimension below, write <em>Observed</em>, <em>Not yet observed</em> or <em>Unclear</em>, with an evidence reference or question. Absence of evidence is not a pass.</li>
+      <li><strong>Change the situation.</strong> The reviewer chooses an unfamiliar constraint suited to the field. The learner chooses an approach, explains it, repeats relevant checks and records what still needs review. Do not share private material with an AI tool without permission.</li>
+      <li><strong>Leave with a next step.</strong> Give one evidence-based strength and one gap; let the learner choose what to do next. Share and retain the review notes only as agreed.</li>
+    </ol>
+  </div></section>
+  <section class="section outcome"><div class="container content">
+    <h2>What the reviewer looks for</h2>
+    <p>These are proposed cross-field practice prompts, not a replacement for an existing rank rubric or a passing threshold. Use standards and checks appropriate to the actual field.</p>
+    <div class="rubric">
+      <article><h3>Outcome and constraints</h3><p>The intended audience, result and success checks are clear; unsupported assumptions are named.</p></article>
+      <article><h3>Stack and permissions</h3><p>The learner identifies the harness, model, instructions, tools and permitted actions actually used, with versions when available.</p></article>
+      <article><h3>Ownership and delegation</h3><p>The learner explains their own decisions, what each agent did and why the approach fits the task.</p></article>
+      <article><h3>Verification and failures</h3><p>Inputs, checks and actual results can be inspected; failed or untested cases are recorded rather than hidden.</p></article>
+      <article><h3>Adaptation</h3><p>The learner responds to a new constraint without copying a memorized recipe, explains the change and checks the revised result.</p></article>
+      <article><h3>Limits and review</h3><p>Privacy, permissions and unresolved risks are identified, along with any independent or qualified review needed.</p></article>
+    </div>
+    <details><summary>See a fictional review example</summary><p>A practice sales table has two unique complete lines: 2 items at $4 and 3 at $5. A duplicate is counted once and a missing quantity is left for review. The learner reports $23 and shows the arithmetic: 2 × $4 + 3 × $5. The reviewer independently checks those source rows.</p><p>A changed constraint asks for a short text-message report that still names the duplicate and missing quantity. The reviewer records whether the learner adapted without inventing the missing value. This is an illustration, not an observed learner review.</p></details>
+  </div></section>
+  <section class="section"><div class="container content">
+    <h2>Keep the boundaries clear</h2>
+    <p>The five colored stages on the <a href="/belts">belts page</a> are proposed field-practice stages, not issued credentials. Developer, Master Developer and Sensei are broader Dojo ranks; a field practice stage does not automatically confer a rank.</p>
+    <p>For an actual Developer or Master Developer certificate, use the existing <a href="/library/product-package-rubric">Product Package rubric</a> or <a href="/library/master-developer-assessment">Master Developer assessment</a> as applicable. A Sensei, or a mentor for Master Developer, reviews; a separate Maintainer decides under the <a href="/certificates">certificate process</a>. Sensei selection follows the existing process. This practice packet does not change those rules or promise a review.</p>
+    <p>For regulated or safety-critical work, a practice review is separate from independent validation and any approval required from a qualified professional.</p>
+    <p>Review notes, scores and learner work are private by default. Ask before sharing learner material with an AI service; a human reviewer reads the evidence and writes feedback. See the <a href="/library/sensei-privacy-and-conduct">Sensei privacy guide</a> and <a href="/library/sensei-run-a-30-minute-review">review guide</a>.</p>
+    <p><a href="/katas/randori-challenges">Choose a Randori challenge</a> · <a href="/belts">Return to belt practice</a></p>
+  </div></section>
+</BaseLayout>
+<style>
+  .content { max-width: 75rem; }
+  .content > p, .content > ol { max-width: 75ch; }
+  .outcome { background: var(--paper-raised); }
+  .rubric { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: var(--space-3); margin-block: var(--space-4); }
+  article { min-width: 0; padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+  article h3 { font-size: var(--text-xl); }
+  .boundary { padding: var(--space-4); border-left: 4px solid var(--tone-gold); background: var(--paper-sunk); }
+  details { padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); }
+  summary { cursor: pointer; font-weight: 800; }
+  li + li { margin-top: var(--space-3); }
+</style>
