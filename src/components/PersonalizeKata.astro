@@ -1,12 +1,17 @@
 <details class="personalize" id="personalize-kata">
   <summary>Make this prompt about your idea</summary>
-  <p>These details stay in this page. The Dojo does not save or send them; you choose whether to copy and share the result.</p>
+  <p>Your details stay in this browser page; the Dojo does not save or send them. If you paste the prompt into an assistant, that service receives it. Avoid private information you do not have permission to share.</p>
+  <p class="no-js">JavaScript is needed to assemble a personalized prompt here. You can still select and copy the original prompt above, then edit it in your assistant.</p>
+  <div class="personalize-form">
   <label for="personal-goal">What do you want to make?</label>
-  <textarea id="personal-goal" rows="2" placeholder="For example: a reading club"></textarea>
+  <input id="personal-goal" type="text" list="personal-goal-options" placeholder="For example: a reading club" />
+  <datalist id="personal-goal-options"><option value="A reading club"></option><option value="A small garden"></option><option value="An app for my community"></option></datalist>
   <label for="personal-time">How much time do you have? <span>(optional)</span></label>
-  <input id="personal-time" type="text" placeholder="For example: 15 minutes" />
+  <input id="personal-time" type="text" list="personal-time-options" placeholder="For example: 15 minutes" />
+  <datalist id="personal-time-options"><option value="10 minutes"></option><option value="30 minutes"></option><option value="1 hour"></option></datalist>
   <label for="personal-tools">What tools can you use? <span>(optional)</span></label>
-  <input id="personal-tools" type="text" placeholder="For example: a phone and a chat app" />
+  <input id="personal-tools" type="text" list="personal-tool-options" placeholder="For example: a phone and a chat app" />
+  <datalist id="personal-tool-options"><option value="A phone and a chat app"></option><option value="A browser and an AI assistant"></option><option value="A laptop and a CLI harness"></option></datalist>
   <label for="personal-constraints">What else should it know? <span>(optional)</span></label>
   <textarea id="personal-constraints" rows="2" placeholder="A limit, audience, or requirement"></textarea>
   <button type="button" id="personal-create" hidden>Create my prompt</button>
@@ -16,7 +21,7 @@
     <textarea id="personal-prompt" rows="14"></textarea>
     <button type="button" id="personal-copy">Copy my prompt</button>
   </div>
-  <noscript><p>JavaScript is needed to assemble a personalized prompt here. You can still copy the original prompt and edit it in your assistant.</p></noscript>
+  </div>
 </details>
 <script>
   const source = document.getElementById('kata-prompt');
@@ -29,7 +34,7 @@
   const output = document.getElementById('personal-prompt');
   const copy = document.getElementById('personal-copy');
   const status = document.getElementById('personal-status');
-  if (source instanceof HTMLTextAreaElement && goal instanceof HTMLTextAreaElement && time instanceof HTMLInputElement && tools instanceof HTMLInputElement && constraints instanceof HTMLTextAreaElement && create instanceof HTMLButtonElement && result && output instanceof HTMLTextAreaElement && copy instanceof HTMLButtonElement && status) {
+  if (source instanceof HTMLTextAreaElement && goal instanceof HTMLInputElement && time instanceof HTMLInputElement && tools instanceof HTMLInputElement && constraints instanceof HTMLTextAreaElement && create instanceof HTMLButtonElement && result && output instanceof HTMLTextAreaElement && copy instanceof HTMLButtonElement && status) {
     create.hidden = false;
     create.addEventListener('click', () => {
       if (!goal.value.trim()) { status.textContent = 'Add what you want to make first.'; goal.focus(); return; }
@@ -51,6 +56,7 @@
 </script>
 <style>
   .personalize { margin-block: var(--space-5); padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-sunk); }
+  :global(html:not(.js)) .personalize-form { display: none; }
   summary { cursor: pointer; font-weight: 800; }
   p { max-width: 65ch; }
   label { display: block; margin: var(--space-3) 0 var(--space-2); font-weight: 700; }
