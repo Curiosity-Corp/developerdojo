@@ -202,6 +202,25 @@ test.describe('fillable templates', () => {
     await expect(markdown(page)).toHaveValue(/\| Change owner \(human\) \| Leo \|/);
   });
 
+  test('copy immediately after an edit includes the latest text', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'the shared export helper is the same on every screen size');
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, 'clipboard', {
+        configurable: true,
+        value: { writeText: async (text: string) => { document.documentElement.dataset.copiedMarkdown = text; } },
+      });
+    });
+    await openForm(page, CHANGE);
+    await page.getByLabel('Change owner (human)', { exact: true }).evaluate((element) => {
+      const field = element as HTMLTextAreaElement;
+      field.value = 'Immediate edit';
+      field.dispatchEvent(new Event('input', { bubbles: true }));
+      document.querySelector<HTMLButtonElement>('#fill-in [data-export-copy]')?.click();
+    });
+    await expect(page.locator('html')).toHaveAttribute('data-copied-markdown', /\| Change owner \(human\) \| Immediate edit \|/);
+    await expect(page.locator('#fill-in [data-export-status]')).toContainText('Copied.');
+  });
+
   test('clearing needs a second click and deletes the draft', async ({ page }) => {
     await openForm(page, CHANGE);
     await page.getByLabel('Change owner (human)', { exact: true }).fill('Leo');
