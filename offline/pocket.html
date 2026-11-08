@@ -13,7 +13,7 @@
 <article><h2>1. Frame the outcome</h2><p>Choose something you want to develop. Write who it is for and one way you will check that it works.</p><label><input type="checkbox" data-step="outcome"> I framed an outcome</label></article>
 <article><h2>2. Find the weak claim</h2><p>Practice data: 10 people visited a fictional page; 2 signed up. A draft says “everyone signed up.” What can you actually conclude?</p><details><summary>Reveal one check</summary><p>Two of ten signed up, or 20%. The data does not say what the other visitors thought or why they did not sign up.</p></details><label><input type="checkbox" data-step="verify"> I checked the claim</label></article>
 <article><h2>3. Adapt the plan</h2><p>Your preferred tool is unavailable. What could you use instead, and how would you verify that the result still meets your goal?</p><label><input type="checkbox" data-step="adapt"> I considered an alternative</label></article>
-<article><h2>Your notes</h2><label for="notes">Notes to yourself</label><textarea id="notes" rows="5"></textarea><p class="note">Notes stay on this device when storage is available. Do not rely on browser storage as your only copy.</p><button id="export" type="button">Download my notes</button><button id="reset" type="button">Clear this pack’s progress</button></article>
+<article><h2>Your notes</h2><label for="notes">Notes to yourself</label><textarea id="notes" rows="5"></textarea><p class="note">Notes stay on this device when storage is available. Do not rely on browser storage as your only copy.</p><button id="export" type="button" hidden>Download my notes</button><button id="reset" type="button" hidden>Clear this pack’s progress</button></article>
 <p><a href="/katas/pocket-dojo">About Pocket Dojo</a> · <a href="/katas">More katas (when online)</a></p>
 </main>
 <script>
@@ -22,11 +22,23 @@
   const fields=[...document.querySelectorAll('[data-step]')];
   const notes=document.getElementById('notes');
   const status=document.getElementById('storage-status');
-  try{const saved=JSON.parse(localStorage.getItem(key)||'{}');fields.forEach(el=>{el.checked=Boolean(saved[el.dataset.step]);});notes.value=typeof saved.notes==='string'?saved.notes:'';}catch(e){status.textContent='Browser storage is unavailable. Your progress may not be saved after you leave.';}
-  function save(){const data={notes:notes.value};fields.forEach(el=>{data[el.dataset.step]=el.checked;});try{localStorage.setItem(key,JSON.stringify(data));}catch(e){status.textContent='Browser storage is unavailable. Your progress may not be saved after you leave.';}return data;}
+  let unreadable=false;let savedValues={};
+  try{
+    const raw=localStorage.getItem(key);
+    if(raw!==null){
+      try{
+        const saved=JSON.parse(raw);
+        if(!saved||typeof saved!=='object'||Array.isArray(saved))throw new Error('Invalid progress');
+        savedValues=saved;
+        fields.forEach(el=>{el.checked=Boolean(saved[el.dataset.step]);});notes.value=typeof saved.notes==='string'?saved.notes:'';
+      }catch(e){unreadable=true;status.textContent='Saved progress could not be read. It will not be replaced unless you clear it. You can still download new notes.';}
+    }
+  }catch(e){status.textContent='Browser storage is unavailable. Your progress may not be saved after you leave.';}
+  function save(){const data={...savedValues,notes:notes.value};fields.forEach(el=>{data[el.dataset.step]=el.checked;});if(!unreadable){try{localStorage.setItem(key,JSON.stringify(data));savedValues=data;}catch(e){status.textContent='Browser storage is unavailable. Your progress may not be saved after you leave.';}}return data;}
   fields.forEach(el=>el.addEventListener('change',save));notes.addEventListener('input',save);
   document.getElementById('export').addEventListener('click',()=>{const data=save();const a=document.createElement('a');const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));a.href=url;a.download='pocket-dojo-progress.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
-  document.getElementById('reset').addEventListener('click',()=>{fields.forEach(el=>{el.checked=false;});notes.value='';try{localStorage.removeItem(key);status.textContent='This pack’s progress was cleared.';}catch(e){status.textContent='Browser storage is unavailable.';}});
+  document.getElementById('reset').addEventListener('click',()=>{fields.forEach(el=>{el.checked=false;});notes.value='';try{localStorage.removeItem(key);unreadable=false;savedValues={};status.textContent='This pack’s progress was cleared.';}catch(e){status.textContent='Browser storage is unavailable.';}});
+  document.getElementById('export').hidden=false;document.getElementById('reset').hidden=false;
 })();
 </script>
 </body></html>
