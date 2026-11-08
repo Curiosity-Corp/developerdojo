@@ -18,6 +18,12 @@ test('a learner can record repeated runs without inventing missing measurements'
   expect(requests.join('\n')).not.toContain('My fictional seed task');
   expect(await page.evaluate(() => JSON.stringify({ ...localStorage, ...sessionStorage }))).not.toContain('My fictional seed task');
 
+  await page.getByLabel('Comparison type').evaluate((element) => {
+    (element as HTMLSelectElement).value = 'Model';
+    element.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+  await expect(record).toBeHidden();
+  await page.getByRole('button', { name: 'Summarize my runs' }).click();
   await page.getByLabel('Runs for B').fill('5,6,,');
   await expect(record).toBeHidden();
   await page.getByRole('button', { name: 'Summarize my runs' }).click();
