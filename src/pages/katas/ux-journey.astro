@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+
+const prompt = `You are my UX development collaborator. Help me design a tiny app for choosing and tracking a personal collection, inspired by the Pocket Garden example.
+
+First ask what people are trying to do and what device they use. Then propose: (1) one user goal and a short journey including an empty state and a way back; (2) low-fidelity screen descriptions; (3) a small color, typography and spacing system; and (4) accessible interaction notes for touch and keyboard.
+
+Separate observations of the Pocket Garden example from suggestions for my new app. Do not claim to have created a Figma or Penpot file or tested the design. Give me a checklist I can use to verify the result.`;
+---
+<BaseLayout title="UX kata: from journey to prototype" description="Explore a working app and build a UX journey with an AI assistant, design tools and independent checks.">
+  <PageHero compact eyebrow="SaaS UX · Start with an outcome" title="Design an app people can use" accent="." subtitle="Try a real prototype, see its journey and design choices, then develop your own with an AI assistant." ctas={[
+    { label: 'Try the prototype', href: '#try', icon: 'arrow-right' },
+    { label: 'Start the UX kata', href: '#brief', variant: 'ghost', icon: 'play' },
+  ]} />
+  <section id="try" class="section outcome" aria-labelledby="try-title"><div class="container outcome-grid">
+    <div><p class="eyebrow">01 / See the outcome</p><h2 id="try-title">Try Pocket Garden</h2>
+      <p>Filter the plants, then mark one as planted. This working example was created for Developer Dojo with AI assistance. It is a small browser prototype—not a production SaaS or a Figma/Penpot file.</p>
+      <p><a class="action" href="/examples/pocket-garden.html">Open the full prototype ↗</a></p>
+      <p class="note">The prototype resets when reloaded and does not create an account or save your selection.</p>
+    </div>
+    <iframe title="Try the working Pocket Garden prototype" src="/examples/pocket-garden.html" loading="lazy" sandbox="allow-scripts"></iframe>
+  </div></section>
+  <section class="section" aria-labelledby="journey-title"><div class="container narrow">
+    <p class="eyebrow">02 / Work backward</p><h2 id="journey-title">Map what actually happens</h2>
+    <p>The diagram below is a Dojo-created, editable SVG wireframe of three states of the <em>same screen</em>. It describes the working example rather than claiming a separate design-tool file already exists.</p>
+    <img class="flow" src="/examples/pocket-garden-flow.svg" width="1200" height="480" alt="Three Pocket Garden states: all plants, sunlight filter showing Basil and Sunflower, and Basil marked planted. All restores the list; tapping the plant button again undoes the change." loading="lazy" />
+    <p><a href="/examples/pocket-garden-flow.svg" download>Download the editable SVG wireframe</a></p>
+    <ol><li><strong>Start:</strong> see Basil, Mint and Sunflower.</li><li><strong>Choose:</strong> select <em>Loves sun</em> to show Basil and Sunflower, or <em>Likes shade</em> to show Mint. Select <em>All plants</em> to return to the complete list.</li><li><strong>Act and undo:</strong> mark a plant as planted and tap again to undo. Reloading resets all choices.</li></ol>
+    <p>The example uses fixed data: it does not demonstrate accounts, a server, an empty result, a payment flow or persistent storage. Add and test those separately if your own concept needs them.</p>
+  </div></section>
+  <section class="section tokens" aria-labelledby="tokens-title"><div class="container narrow">
+    <p class="eyebrow">03 / Inspect the design</p><h2 id="tokens-title">A small, reusable visual system</h2>
+    <p>These values come from the actual Pocket Garden example’s CSS. Open the full example and inspect its source to see them in context.</p>
+    <div class="swatches">
+      <div><span class="swatch forest" aria-hidden="true"></span><strong>Forest</strong> <code>#173d2d</code> · header and selected filter</div>
+      <div><span class="swatch ink" aria-hidden="true"></span><strong>Ink</strong> <code>#183429</code> · body text</div>
+      <div><span class="swatch paper" aria-hidden="true"></span><strong>Paper</strong> <code>#f4f5eb</code> · page background</div>
+      <div><span class="swatch focus" aria-hidden="true"></span><strong>Focus</strong> <code>#aa481c</code> · keyboard outline</div>
+    </div>
+    <p>The example uses a system sans-serif font, rounded cards, flexible grids and spaced controls. These are starting choices, not proof of accessibility: test contrast, zoom, focus and labels in your own result.</p>
+  </div></section>
+  <section id="brief" class="section" aria-labelledby="brief-title"><div class="container narrow">
+    <p class="eyebrow">04 / Your turn</p><h2 id="brief-title">Give your agent a UX brief</h2>
+    <p>Open any AI assistant on a phone or computer, or use a CLI harness you trust. No special plugin, paid design tool or connected account is needed for this prompt. Check your chosen service’s terms and costs.</p>
+    <label for="ux-prompt">Copy this prompt and adapt it</label><textarea id="ux-prompt" rows="10" readonly>{prompt}</textarea>
+    <div class="copy"><button type="button" data-copy hidden>Copy prompt</button><span data-copy-status aria-live="polite">Or select and copy the text.</span></div>
+    <p><strong>Ingredients:</strong> your goal and audience; the prompt; your chosen assistant and model; and a place to sketch. Optional: use a design tool for your own editable screens. Do not share sensitive customer information with an assistant without permission.</p>
+    <details><summary>Choose a phone, browser or desktop setup</summary><p>For the first pass, use an assistant app or browser and sketch on paper. If you already use a CLI, paste the same brief into your trusted harness and review any file or command permissions. <a href="/katas/spark-ideas#device-options">See phone, Windows, macOS and Linux setup options</a>.</p></details>
+  </div></section>
+  <section class="section learn" aria-labelledby="learn-title"><div class="container narrow">
+    <p class="eyebrow">05 / Build and verify</p><h2 id="learn-title">Turn a sketch into a prototype</h2>
+    <p>Choose a learning resource, create your own boards or frames, and connect a starting screen to a detail screen and back. Test it on your device. These are external provider tutorials; account, access and plan limits may apply.</p>
+    <ul><li><a href="https://help.penpot.app/user-guide/prototyping-testing/prototyping/">Penpot: connect boards and prototype interactions</a></li><li><a href="https://help.figma.com/hc/en-us/articles/16118297069463-Create-a-photo-gallery-prototype">Figma: create a low-fidelity clickable photo gallery</a></li><li><a href="https://help.figma.com/hc/en-us/sections/30880632542743-Figma-Design-for-beginners">Figma: beginner design course and videos</a></li></ul>
+    <p>Optional integrations have their own compatibility, permissions and installation requirements. This kata does not install or connect an MCP server, plugin or skill, and does not claim that an agent can edit your design file.</p>
+    <h3>Check your work</h3>
+    <ol><li>Try each route, including the way back and any empty or error state your design includes.</li><li>Test on a narrow screen and with a keyboard if available. Check labels, visible focus and readable contrast.</li><li>Compare the prototype to your journey and design choices. Record what you tested, what is untested and what changed.</li></ol>
+    <details><summary>Quick check: does a screenshot prove a prototype is accessible?</summary><p>No. A screenshot cannot demonstrate keyboard operation, focus order, labels or screen-reader behavior. Test the actual interactions and seek feedback from people using assistive technology.</p></details>
+    <h3>Randori: change the goal</h3><p>Adapt the same approach to a reading list for a busy commuter. Design the empty state and a clear way to undo an action, then ask someone to attempt your journey. Record what you learned; do not invent results from a usability test.</p>
+    <p><a href="/katas">Explore more katas</a> · <a href="/katas/first-prototype">Build the Pocket Garden prototype</a> · <a href="/fields">Explore more fields</a></p>
+  </div></section>
+</BaseLayout>
+<script>
+  const button = document.querySelector<HTMLButtonElement>('[data-copy]');
+  const input = document.querySelector<HTMLTextAreaElement>('#ux-prompt');
+  const status = document.querySelector<HTMLElement>('[data-copy-status]');
+  if (button && input && status) {
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(input.value); status.textContent = 'Copied. Paste it into your assistant.'; }
+      catch { input.focus(); input.select(); status.textContent = 'Text selected. Use your device’s copy command.'; }
+    });
+  }
+</script>
+<style>
+  .narrow { max-width: 68rem; } .eyebrow { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .outcome, .tokens { background: var(--paper-raised); } .outcome-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-5); align-items: center; }
+  @media (min-width: 60rem) { .outcome-grid { grid-template-columns: 1fr 1fr; } }
+  iframe { width: 100%; height: 30rem; border: 1px solid var(--line-strong); border-radius: var(--radius); background: #fff; } .note { color: var(--ink-muted); font-size: var(--text-sm); }
+  .action, .copy button { display: inline-block; background: var(--gold); color: var(--gold-ink); padding: .75rem 1rem; border: 1px solid var(--gold); border-radius: var(--radius); font: inherit; font-weight: 800; text-decoration: none; }
+  .flow { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius); } .swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: var(--space-3); }
+  .swatches div { display: grid; grid-template-columns: 2rem 1fr; gap: .25rem .6rem; align-items: center; padding: var(--space-3); background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); } .swatch { width: 2rem; height: 2rem; border: 1px solid var(--line-strong); border-radius: .3rem; grid-row: span 2; } .forest { background: #173d2d; } .ink { background: #183429; } .paper { background: #f4f5eb; } .focus { background: #aa481c; }
+  label { display: block; font-weight: 700; margin-block: var(--space-4) var(--space-2); } textarea { display: block; width: 100%; max-width: 70ch; padding: var(--space-4); font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--line-strong); border-radius: var(--radius); } .copy { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-top: var(--space-3); } .copy button { cursor: pointer; } .copy button[hidden] { display: none; }
+  details { border-bottom: 1px solid var(--line); padding: var(--space-3) 0; } summary { cursor: pointer; font-weight: 800; } li + li { margin-top: var(--space-2); }
+</style>
