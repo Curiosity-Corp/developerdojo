@@ -12,6 +12,11 @@ const fields = [
   { id: 'ux', title: 'SaaS UX and visual design', artifact: 'A user journey and an editable screen or prototype with stated design choices.', verify: 'Check the journey, readable text, contrast and a phone-sized layout with the intended audience in mind.', challenge: 'A user cannot complete the main task in the originally planned way.', href: '/katas/ux-journey', link: 'Practice a UX journey' },
   { id: 'bim', title: '3D, BIM and construction', artifact: 'An editable practice model or design brief with units, assumptions and a review plan.', verify: 'Check the inputs, dimensions and information against the source; identify what a qualified person must review.', challenge: 'The requested material, file format or design constraint changes.', href: '/katas/scan-a-room', link: 'Explore a 3D reconstruction' },
   { id: 'business', title: 'Business and data', artifact: 'A useful report or workflow using fictional or permissioned data, with a trace to its inputs.', verify: 'Recalculate totals, check claims against source data and identify any action requiring approval.', challenge: 'The source has a duplicate or an important value is missing.', href: '/katas/data-rescue', link: 'Rescue messy data' },
+  { id: 'robotics', title: 'Robotics and manufacturing', artifact: 'A simulation plan or design study that states its inputs, units and assumptions.', verify: 'Review the simulated result against the task and identify the specialist checks needed before any physical use.', challenge: 'A required dimension or operating condition changes.', href: '/katas/industry-workshops#robotics', link: 'Plan a robot simulation' },
+  { id: 'research', title: 'Science and health research', artifact: 'A research question, evidence log and analysis using fictional, public or permissioned material.', verify: 'Trace claims to sources, distinguish evidence from inference and record uncertainty; obtain qualified review for real health decisions.', challenge: 'A source contradicts the current conclusion.', href: '/library/tracks/research-and-evidence', link: 'Practice research and evidence' },
+  { id: 'media', title: 'Media and communications', artifact: 'A draft script or visual with an intended audience, sources and usage permissions.', verify: 'Check claims, accessibility and rights; compare the final output with the approved brief.', challenge: 'The output must work without sound or for a different audience.', href: '/katas/industry-workshops#audio', link: 'Make a spoken guide' },
+  { id: 'education', title: 'Education and learning', artifact: 'A short lesson with an objective, an activity and a check for understanding.', verify: 'Check the facts, accessibility and alignment between the objective and activity; ask an appropriate educator for feedback.', challenge: 'A learner needs a different way to access the activity.', href: '/katas/industry-workshops#education', link: 'Design a short lesson' },
+  { id: 'other', title: 'Another field', artifact: 'A field-relevant artifact with an audience, intended use and recorded sources.', verify: 'Define checks appropriate to the field and identify any required independent or qualified review.', challenge: 'A material requirement or tool changes unexpectedly.', href: '/katas/randori-challenges', link: 'Practice adapting a technique' },
 ] as const;
 const checks = [
   { id: 'goal', text: 'I stated the outcome, audience and success checks.' },
@@ -80,7 +85,7 @@ const checks = [
 
   type Entry = { stage: string; checks: string[]; notes: string };
   type Journal = Record<string, Entry>;
-  const FIELDS = ['software', 'ux', 'bim', 'business'];
+  const FIELDS = ['software', 'ux', 'bim', 'business', 'robotics', 'research', 'media', 'education', 'other'];
   const STAGES = ['white', 'yellow', 'green', 'brown', 'black'];
   const CHECKS = ['goal', 'stack', 'artifact', 'verify', 'adapt', 'review'];
   const KEY = 'belt-evidence';

@@ -5,7 +5,7 @@ test('belt practice explains the stages, domain evidence and review limits', asy
   for (const title of ['White: See and explain', 'Yellow: Follow a kata', 'Green: Adapt the technique', 'Brown: Solve an unfamiliar challenge', 'Black: Improve and teach']) {
     await expect(page.getByRole('heading', { name: title })).toBeVisible();
   }
-  for (const title of ['Software and prototypes', 'SaaS UX and visual design', '3D, BIM and construction', 'Business and data']) {
+  for (const title of ['Software and prototypes', 'SaaS UX and visual design', '3D, BIM and construction', 'Business and data', 'Robotics and manufacturing', 'Science and health research', 'Media and communications', 'Education and learning', 'Another field']) {
     await expect(page.getByRole('heading', { name: title })).toBeVisible();
   }
   await expect(page.getByText('not a grade, belt or certificate', { exact: false })).toBeVisible();
@@ -33,6 +33,12 @@ test('self-assessment remains separate by field, survives reload and can be clea
   await expect(page.getByLabel('Evidence notes (optional)')).toHaveValue('');
   await page.getByLabel('Field', { exact: true }).selectOption('bim');
   await expect(page.getByLabel('Evidence notes (optional)')).toHaveValue('Practice model, units reviewed.');
+  await page.getByLabel('Field', { exact: true }).selectOption('other');
+  await page.getByLabel('Evidence notes (optional)').fill('A field-specific practice artifact and review plan.');
+  await page.getByRole('button', { name: 'Save this field on this device' }).click();
+  await page.reload();
+  await page.getByLabel('Field', { exact: true }).selectOption('other');
+  await expect(page.getByLabel('Evidence notes (optional)')).toHaveValue('A field-specific practice artifact and review plan.');
   expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(0);
 });
 
