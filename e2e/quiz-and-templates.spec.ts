@@ -179,10 +179,27 @@ test.describe('fillable templates', () => {
     await openForm(page, CHANGE);
     await page.getByLabel('Change owner (human)', { exact: true }).fill('Leo');
     await page.getByRole('button', { name: 'Copy Markdown' }).click();
-    await expect(page.locator('#fill-in [data-export-status]')).toContainText(/Copied|did not allow copying/);
+    // CI has not always observed a status within five seconds. Allow more time
+    // for a real write, and do not accept the permission-denied fallback as success.
+    await expect(page.locator('#fill-in [data-export-status]')).toContainText('Copied.', { timeout: 20_000 });
     const clipboard = await page.evaluate(() => navigator.clipboard.readText());
     expect(clipboard).toContain('# Change Record');
     expect(clipboard).toContain('| Change owner (human) | Leo |');
+  });
+
+  test('a stalled clipboard request gives a manual-copy option', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'the shared export helper is the same on every screen size');
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, 'clipboard', {
+        configurable: true,
+        value: { writeText: () => new Promise<void>(() => {}) },
+      });
+    });
+    await openForm(page, CHANGE);
+    await page.getByLabel('Change owner (human)', { exact: true }).fill('Leo');
+    await page.getByRole('button', { name: 'Copy Markdown' }).click();
+    await expect(page.locator('#fill-in [data-export-status]')).toContainText('Copy is taking longer than expected', { timeout: 10_000 });
+    await expect(markdown(page)).toHaveValue(/\| Change owner \(human\) \| Leo \|/);
   });
 
   test('clearing needs a second click and deletes the draft', async ({ page }) => {
