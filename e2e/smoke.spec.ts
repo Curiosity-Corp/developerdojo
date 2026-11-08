@@ -37,7 +37,7 @@ test('every header nav link resolves and shows its page', async ({ page, request
   await page.goto('/');
   if (isMobile) await page.getByRole('button', { name: 'Open menu' }).click();
   const nav = page.getByRole('navigation', { name: 'Primary' });
-  const labels = await nav.locator('ul a').allInnerTexts();
+  const labels = await nav.locator('.primary-links > li > a').allInnerTexts();
   expect(labels).toEqual(NAV);
   const hrefs = await nav.locator('a').evaluateAll((links) => links.map((a) => a.getAttribute('href') ?? ''));
   for (const href of hrefs) {
