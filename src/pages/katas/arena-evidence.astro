@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+---
+<BaseLayout title="Arena: inspect a real agent experiment" description="Examine a dated published agent-interface comparison and verify its result from the original evidence.">
+  <PageHero compact eyebrow="Arena · published research" title="Same model. Different tools." subtitle="Inspect a real historical experiment, check its arithmetic and decide what the evidence can—and cannot—tell you." ctas={[
+    { label: 'See the result', href: '#result', icon: 'arrow-right' },
+    { label: 'Try the evidence check', href: '#verify', variant: 'ghost', icon: 'play' },
+  ]} />
+  <section class="section result" id="result" aria-labelledby="result-title"><div class="container narrow">
+    <p class="eyebrow">Published evidence · 2024 · software engineering</p>
+    <h2 id="result-title">What happened when the agent’s interface changed?</h2>
+    <p>In a 2024 research paper, the SWE-agent authors compared two agent setups using GPT-4 Turbo on SWE-bench Lite, a set of 300 software issue tasks. The result is from the authors’ experiment, not a test run by Developer Dojo.</p>
+    <div class="bars" role="img" aria-label="Published results: shell-only agent 11 percent, SWE-agent 18 percent">
+      <div><strong>Shell-only agent</strong><span>11% · 33 of 300</span><div class="track" aria-hidden="true"><div class="bar shell"></div></div></div>
+      <div><strong>SWE-agent interface</strong><span>18% · 54 of 300</span><div class="track" aria-hidden="true"><div class="bar swe"></div></div></div>
+    </div>
+    <p>The difference is <strong>7 percentage points</strong> in that reported comparison. Both used the same named model; the overall agent setups differed. The result does not prove that one tool or prompt alone caused the difference.</p>
+    <p><a href="https://arxiv.org/html/2405.15793v3#S4">Read the paper’s methods and Table 1 ↗</a> · <a href="https://raw.githubusercontent.com/SWE-bench/experiments/e6dd51f9e0e002faf7d542da5f63a923f01ef400/evaluation/lite/20240402_sweagent_gpt4/results/results.json">Inspect the published result list ↗</a></p>
+    <p class="note">Historical snapshot: paper version dated 11 November 2024. Not a current leaderboard or a recommendation for today’s models. The archived submission is labeled 2024-04-02.</p>
+  </div></section>
+  <section class="section" aria-labelledby="stack-title"><div class="container narrow">
+    <p class="eyebrow">What was tested</p><h2 id="stack-title">Inspect the ingredients</h2>
+    <dl class="stack">
+      <div><dt>Task and input</dt><dd>300 SWE-bench Lite tasks drawn from software issues and repositories. An agent receives the issue and proposes a patch.</dd></div>
+      <div><dt>Model</dt><dd>GPT-4 Turbo, identified in the paper as <code>gpt-4-1106-preview</code>.</dd></div>
+      <div><dt>Agent setup</dt><dd>The shell-only baseline used an interactive Linux shell. SWE-agent added specialized file navigation, editing and feedback on top of a shell.</dd></div>
+      <div><dt>Instructions and context</dt><dd>The paper describes prompts, a demonstration, feedback and history management. These are part of the system, so do not treat the result as a model-only score.</dd></div>
+      <div><dt>Measure</dt><dd>Percent resolved: the generated patch must pass the benchmark’s associated tests. Passing those tests is evidence for that task, not proof of production quality or security.</dd></div>
+      <div><dt>Version and limits</dt><dd>The paper documents its setup and hyperparameter choices. Tools, models and interfaces change; the current repository may differ from the 2024 experiment.</dd></div>
+    </dl>
+    <p><a href="https://arxiv.org/html/2405.15793v3#S3">See the authors’ interface design ↗</a> · <a href="https://github.com/SWE-agent/SWE-agent">Explore the SWE-agent source ↗</a> · <a href="https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite">Open the dataset ↗</a></p>
+  </div></section>
+  <section class="section verify" id="verify" aria-labelledby="verify-title"><div class="container narrow">
+    <p class="eyebrow">Your turn · no account required</p><h2 id="verify-title">Check the evidence yourself</h2>
+    <ol><li>Open the published result list above. Find the <code>resolved</code> array and count the task identifiers. The pinned file records 54.</li><li>Use the paper’s 300-task Lite denominator. Calculate 54 ÷ 300 × 100.</li><li>Find the shell-only result in Table 1. Subtract its percentage from the SWE-agent percentage. Explain why a percentage-point difference is not a guarantee on another task.</li></ol>
+    <div class="check" data-evidence-check>
+      <label for="resolved-percent">What percentage is 54 out of 300?</label>
+      <div class="check-row"><input id="resolved-percent" type="number" min="0" max="100" step="any" inputmode="decimal" placeholder="Percentage" /><button type="button" data-check-answer hidden>Check answer</button></div>
+      <p data-check-status role="status" aria-live="polite"></p>
+      <details><summary>Reveal the arithmetic</summary><p>54 ÷ 300 × 100 = 18%. Compared with 11%, that is a 7 percentage-point difference.</p></details>
+    </div>
+    <p><strong>Adapt:</strong> Choose a task from another field. What would a successful artifact look like? Write three checks, decide which tools the agent may use and record unknowns before comparing two setups. Do not invent a benchmark result.</p>
+  </div></section>
+  <section class="section" aria-labelledby="limits-title"><div class="container narrow">
+    <p class="eyebrow">Read the limits</p><h2 id="limits-title">What this result does not prove</h2>
+    <ul><li>It tests software issues in one benchmark, not architecture, design, healthcare or every form of development.</li><li>The issue set and published code may appear in model training data; test coverage and problem wording can miss valid solutions. Read the benchmark’s own limitations.</li><li>Models and scaffolds have changed since 2024. Different prompts, environments, budgets, datasets or repeated runs can change results.</li><li>Neither reported percentage is a measurement made by the Dojo, and neither is a promise about your outcome.</li></ul>
+    <p>To attempt your own run, use the <a href="https://www.swebench.com/SWE-bench/guides/evaluation/">benchmark’s evaluation guide</a> and <a href="https://swe-agent.com/latest/">SWE-agent documentation</a>. Running agent-generated code and containers requires careful permissions, a suitable computer and potentially paid model access. Inspect scripts and isolate test data; the historical model or exact software version may no longer be available. Record your own versions, task IDs, costs, outputs and failures instead of assuming you reproduced the paper.</p>
+    <p><a href="/arena">Return to the Arena</a> · <a href="/katas/budget-boss">Compare your own measurements</a> · <a href="/katas">Explore katas</a></p>
+  </div></section>
+</BaseLayout>
+<script>
+  const root = document.querySelector<HTMLElement>('[data-evidence-check]');
+  const input = root?.querySelector<HTMLInputElement>('#resolved-percent');
+  const button = root?.querySelector<HTMLButtonElement>('[data-check-answer]');
+  const status = root?.querySelector<HTMLElement>('[data-check-status]');
+  if (input && button && status) {
+    button.hidden = false;
+    button.addEventListener('click', () => {
+      const number = input.valueAsNumber;
+      if (!Number.isFinite(number) || number < 0 || number > 100) status.textContent = 'Enter a percentage from 0 to 100.';
+      else if (Math.abs(number - 18) < 0.001) status.textContent = 'Correct: 54 out of 300 is 18%.';
+      else status.textContent = 'Try dividing 54 by 300, then multiply by 100.';
+    });
+  }
+</script>
+<style>
+  .narrow { max-width: 68rem; } .eyebrow { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .result, .verify { background: var(--paper-raised); } .note { color: var(--ink-muted); font-size: var(--text-sm); }
+  .bars { display: grid; gap: var(--space-4); margin-block: var(--space-5); max-width: 42rem; } .bars span { display: block; } .track { height: 1rem; background: var(--paper-sunk); border: 1px solid var(--line-strong); border-radius: 1rem; overflow: hidden; } .bar { height: 100%; background: #42674c; } .shell { width: 11%; } .swe { width: 18%; background: #9a562d; }
+  .stack { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: var(--space-3); } .stack div { padding: var(--space-4); background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); } dt { font-weight: 800; } dd { margin: .4em 0 0; }
+  .check { max-width: 34rem; padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); } label { display: block; font-weight: 700; } .check-row { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); } input { min-width: 0; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper-raised); color: var(--ink); font: inherit; } button { padding: .7rem 1rem; font: inherit; font-weight: 700; border: 1px solid var(--band); border-radius: var(--radius); background: var(--band); color: var(--band-text); cursor: pointer; } button[hidden] { display: none; } summary { cursor: pointer; font-weight: 700; } li + li { margin-top: var(--space-2); }
+</style>

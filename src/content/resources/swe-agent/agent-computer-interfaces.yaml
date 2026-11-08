@@ -1,0 +1,9 @@
+title: "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering"
+provider: "SWE-agent research team"
+url: "https://arxiv.org/html/2405.15793v3"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [ai-agents, ai-evaluation]
+summary: "The authors examine how an agent's tools and feedback affect performance on software issue benchmarks, including SWE-bench Lite. Read their dated experiment and limitations, then identify the tasks, model, agent interfaces and verification needed for a fair comparison. The paper is free to read; running a comparable experiment may require compute and paid model access."
+verifiedOn: 2026-11-07
