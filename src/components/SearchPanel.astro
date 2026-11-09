@@ -79,42 +79,46 @@ const { id, label = 'Search the whole site' } = Astro.props;
   const MAX_RESULTS = 24;
   const FIRST_RESULTS = 6;
 
-  function appendResults(container: HTMLElement, items: PagefindResultData[]): void {
-    for (const item of items) {
-      const group = classifyUrl(item.url);
-      let section = container.querySelector<HTMLElement>(`[data-result-group="${group}"]`);
-      if (!section) {
-        section = document.createElement('section');
-        section.dataset.resultGroup = group;
-        const heading = document.createElement('h3');
-        heading.textContent = SEARCH_GROUP_LABELS[group];
-        section.append(heading, document.createElement('ul'));
-        // Keep groups in the documented order without replacing a link the learner is using.
-        const groupIndex = SEARCH_GROUP_ORDER.indexOf(group);
-        const next = SEARCH_GROUP_ORDER.slice(groupIndex + 1)
-          .map((name) => container.querySelector(`[data-result-group="${name}"]`))
-          .find((element) => element !== null);
-        container.insertBefore(section, next ?? null);
+  function appendResult(container: HTMLElement, item: PagefindResultData, index: number): void {
+    const group = classifyUrl(item.url);
+    let section = container.querySelector<HTMLElement>(`[data-result-group="${group}"]`);
+    if (!section) {
+      section = document.createElement('section');
+      section.dataset.resultGroup = group;
+      const heading = document.createElement('h3');
+      heading.textContent = SEARCH_GROUP_LABELS[group];
+      section.append(heading, document.createElement('ul'));
+      // Keep groups in the documented order without replacing a link the learner is using.
+      const groupIndex = SEARCH_GROUP_ORDER.indexOf(group);
+      const next = SEARCH_GROUP_ORDER.slice(groupIndex + 1)
+        .map((name) => container.querySelector(`[data-result-group="${name}"]`))
+        .find((element) => element !== null);
+      container.insertBefore(section, next ?? null);
+    }
+    const list = section.querySelector('ul');
+    if (list) {
+      const li = document.createElement('li');
+      li.dataset.resultIndex = String(index);
+      const link = document.createElement('a');
+      link.href = item.url;
+      link.textContent = item.meta.title ?? item.url;
+      li.append(link);
+      if (item.meta.group) {
+        const where = document.createElement('span');
+        where.className = 'where';
+        where.textContent = item.meta.group;
+        li.append(where);
       }
-      const list = section.querySelector('ul');
-      if (list) {
-        const li = document.createElement('li');
-        const link = document.createElement('a');
-        link.href = item.url;
-        link.textContent = item.meta.title ?? item.url;
-        li.append(link);
-        if (item.meta.group) {
-          const where = document.createElement('span');
-          where.className = 'where';
-          where.textContent = item.meta.group;
-          li.append(where);
-        }
-        const snippet = document.createElement('p');
-        // Pagefind returns the excerpt as escaped text with <mark> around the matches.
-        snippet.innerHTML = item.excerpt;
-        li.append(snippet);
-        list.append(li);
-      }
+      const snippet = document.createElement('p');
+      // Pagefind returns the excerpt as escaped text with <mark> around the matches.
+      snippet.innerHTML = item.excerpt;
+      li.append(snippet);
+      // A slower earlier result may arrive after a later one. Insert it in
+      // Pagefind's order without replacing a link the learner has focused.
+      const next = [...list.children].find((element) =>
+        element instanceof HTMLElement && Number(element.dataset.resultIndex) > index,
+      );
+      list.insertBefore(li, next ?? null);
     }
   }
 
@@ -181,22 +185,37 @@ const { id, label = 'Search the whole site' } = Astro.props;
           }
         }
         const selected = search.results.slice(0, MAX_RESULTS);
-        const data = await Promise.all(selected.slice(0, FIRST_RESULTS).map((result) => result.data()));
-        if (ticket !== latest) return;
-        appendResults(results, data);
-        status.textContent =
+        const summary =
           correction
             ? `No results for "${term}". Showing ${search.results.length} close ${search.results.length === 1 ? 'match' : 'matches'} for "${correction}".`
             : search.results.length === 0
             ? `No results for "${term}". Try a shorter or different word.`
             : `${search.results.length} ${search.results.length === 1 ? 'result' : 'results'} for "${term}"`;
-        // Fetch the rest after showing the first results, without replacing focused links.
-        const remaining = await Promise.allSettled(selected.slice(FIRST_RESULTS).map((result) => result.data()));
+        const cap = search.results.length > selected.length ? ` Showing up to ${selected.length}.` : '';
+        let failures = 0;
+        const showStatus = (loading: boolean): void => {
+          if (ticket !== latest) return;
+          const pending = loading ? ' Loading result previews…' : '';
+          const partial = failures ? ` ${failures} result ${failures === 1 ? 'preview' : 'previews'} could not load; try again.` : '';
+          status.textContent = `${summary}${cap}${pending}${partial}`;
+        };
+        showStatus(selected.length > 0);
+        const loadBatch = async (start: number, end: number): Promise<void> => {
+          await Promise.all(selected.slice(start, end).map(async (result, offset) => {
+            try {
+              const data = await result.data();
+              if (ticket === latest) appendResult(results, data, start + offset);
+            } catch {
+              if (ticket === latest) { failures += 1; showStatus(true); }
+            }
+          }));
+        };
+        // Show each of the first six as it arrives; start the rest only after
+        // that batch settles, limiting concurrent fragment requests.
+        await loadBatch(0, FIRST_RESULTS);
         if (ticket !== latest) return;
-        appendResults(results, remaining.flatMap((result) => result.status === 'fulfilled' ? [result.value] : []));
-        if (remaining.some((result) => result.status === 'rejected')) {
-          status.textContent += ' Some results could not load; try again.';
-        }
+        await loadBatch(FIRST_RESULTS, selected.length);
+        showStatus(false);
       } catch (error) {
         if (ticket !== latest) return;
         console.warn('Search is not available:', error);
