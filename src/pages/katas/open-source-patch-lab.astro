@@ -7,6 +7,13 @@ const renovate = `{
   "extends": ["config:recommended"],
   "git-submodules": { "enabled": true }
 }`;
+const setup = `# In your own clean composition repository, replace each placeholder.
+git submodule add 'YOUR_REVIEWED_UPSTREAM_URL' vendor/upstream && \\
+git submodule add 'YOUR_REVIEWED_CUSTOM_REPO_URL' vendor/custom && \\
+git -C vendor/upstream checkout --detach 'YOUR_REVIEWED_UPSTREAM_COMMIT' && \\
+git -C vendor/custom checkout --detach 'YOUR_REVIEWED_CUSTOM_COMMIT' && \\
+git add .gitmodules vendor/upstream vendor/custom && \\
+git commit -m 'Pin upstream and customization'`;
 const ci = `# Example only: paths and project-specific tests belong to your project.
 # Run in an isolated CI checkout after both repositories are pinned and reviewed.
 set -eu
@@ -63,6 +70,7 @@ const pinnedWelcomeLicense = 'https://github.com/mattermost-community/mattermost
     <p class="eyebrow">Module 5 · maintain the stack</p><h2>Renovate proposes. CI composes.</h2>
     <ol><li>Place approved upstream source and your independently authored customization in separate repositories. Pin both to reviewed commits. If you use a community extension, pin and review that separately too.</li><li>Use Git submodules or another supported pinning approach. <a href="https://docs.renovatebot.com/modules/manager/git-submodules/">Renovate's Git submodule manager</a> can propose updates to submodule references. Its documentation currently calls this manager beta and says it must be enabled. Install and authorize Renovate separately for your Git host.</li><li>In an isolated, disposable CI checkout, fetch the pinned sources; check and apply your patch or build/install the reviewed extension using that project's documented method. Renovate does not automatically combine repositories or resolve conflicts.</li><li>Fail closed on a patch conflict, failing tests, unresolved license findings or security review. Check features, regression tests, an SBOM and notices; review the update and release only after the gates pass. Preserve the previous artifact and record a rollback plan.</li></ol>
     <p>This optional <code>renovate.json</code> enables the documented beta submodule manager; it does not install Renovate or set up submodules:</p><pre><code>{renovate}</code></pre>
+    <details><summary>Pin your own two repositories</summary><p>In a Linux or macOS terminal or Windows Git Bash, start from a clean composition repository and replace the placeholders with your own approved Git URLs and reviewed full commit IDs. The custom repository must contain your independently authored <code>feature.patch</code> at its root for the example below. Configure Git identity and any required repository access through your organization's approved method; do not put credentials in URLs. Commit the submodule pointers, then let Renovate propose changes for review.</p><pre><code>{setup}</code></pre></details>
     <p>Illustrative CI commands, <strong>not</strong> a ready-to-run Mattermost build. Adapt paths, pinned repositories and project-specific build and test commands after review:</p><pre><code>{ci}</code></pre>
     <p>Pinning does not guarantee safety. Review bot permissions and proposed changes, verify provenance and license changes at each update, restrict untrusted build scripts and secrets, and apply your organization's approval policy. A separate repository does not automatically change copyright or copyleft obligations.</p>
     <p><a href="/library/patch-sets-and-forks">Study patch sets and forks</a> · <a href="/library/deck-13-patch-fork-loop">Follow the patch-fork loop lesson</a> · <a href="https://docs.renovatebot.com/modules/datasource/git-refs/">Explore Renovate's Git reference datasource</a></p>
