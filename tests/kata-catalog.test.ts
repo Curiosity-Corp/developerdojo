@@ -50,4 +50,16 @@ describe('kata catalog reference integrity', () => {
     const example = { ...original, href: '/katas/example-new-field', metadata: { ...original.metadata, id: 'NEW-001', domainIds: ['new-field'], foundationKataIds: ['FND-001'] } };
     expect(validateKataCatalog([...kataCatalog, example], { ...refs, fields: [...refs.fields, 'new-field'] })).toHaveLength(kataCatalog.length + 1);
   });
+
+  it('supports several fields, outcomes, foundations and recipes in one synthetic draft', () => {
+    const original = kataCatalog.find((entry) => entry.metadata.id === 'UX-001');
+    expect(original).toBeDefined();
+    if (!original) throw new Error('test fixture missing');
+    const example = { ...original, href: '/katas/example-cross-field', metadata: {
+      ...original.metadata, id: 'MULTI-001', domainIds: ['ux', 'data'], outcomeIds: ['design-journey', 'clean-data'],
+      foundationKataIds: ['FND-001', 'FND-002'], stackRecipeIds: ['assistant-and-browser', 'git-and-node'],
+      crossFieldTransfers: ['energy'],
+    } };
+    expect(validateKataCatalog([...kataCatalog, example], refs)).toHaveLength(kataCatalog.length + 1);
+  });
 });
