@@ -10,7 +10,7 @@ test('learners can reach the kata and find the complete stack and evidence', asy
   await expect(page.getByText('No skill, MCP server, plugin or external API is required.', { exact: false })).toBeVisible();
   await expect(page.getByText('Renovate does not automatically combine repositories or resolve conflicts.', { exact: false })).toBeVisible();
   await expect(page.getByText('The Dojo has not installed or tested this integration.', { exact: false })).toBeVisible();
-  for (const file of ['app.mjs', 'feature.patch', 'two-repo-lab.sh', 'product-catalog.csv', 'license-catalog.csv']) {
+  for (const file of ['app.mjs', 'feature.patch', 'two-repo-lab.sh', 'product-catalog.csv', 'license-catalog.csv', 'LICENSE.txt']) {
     const response = await request.get(`/examples/oss-patch-lab/${file}`);
     expect(response.status(), file).toBe(200);
     expect((await response.text()).length, file).toBeGreaterThan(10);

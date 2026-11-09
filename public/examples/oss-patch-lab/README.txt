@@ -1,4 +1,5 @@
 Developer Dojo patch lab: illustrative, Dojo-authored files, not Mattermost.
+The practice files are provided under the repository's MIT license in LICENSE.txt.
 
 Download app.mjs and feature.patch into a new empty folder. You need Git and Node.js.
 Run node app.mjs to see the base result. Then run:
