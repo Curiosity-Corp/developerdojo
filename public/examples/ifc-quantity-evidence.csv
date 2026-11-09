@@ -1,6 +1,6 @@
 Claim,Source reference,Calculation,Result,Limit
 Project length unit,#8,IFCSIUNIT LENGTHUNIT MILLI METRE,mm,Source model unit
-Gross broad wall face,#45 #71 #73 #74-77,3 m × 2 m,6 m²,One broad face before opening
-Opening deduction,#80 #83 #85 #87 #89-93,1 m × 1 m,1 m²,Assumes one full rectangular opening
+Gross broad wall face,#45 #71 #72 #73 #74-77,3 m × 2 m,6 m²,One broad face before opening
+Opening deduction,#80 #81 #83 #85 #87 #88 #89-93,1 m × 1 m,1 m²,Assumes one full rectangular opening
 Estimated remaining face,#45 #80 #85,6 m² − 1 m²,5 m²,Excludes opposite face edges reveals waste and measurement rules
 Wall fire rating,#52,Empty label,Unknown,Not proof of a rating or approval
