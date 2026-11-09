@@ -29,8 +29,14 @@ test('phone readers can inspect the exercise and prompt without JavaScript', asy
   } finally { await context.close(); }
 });
 
-test('the kata has no serious accessibility violations', async ({ page }) => {
+test('the kata and its expanded instructions have no serious accessibility violations', async ({ page }) => {
   await page.goto('/katas/open-source-patch-lab/');
+  await page.locator('main details').evaluateAll((items) => {
+    for (const item of items) if (item instanceof HTMLDetailsElement) item.open = true;
+  });
+  const commands = page.locator('main pre').nth(2);
+  await commands.focus();
+  await expect(commands).toBeFocused();
   const result = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
   expect(result.violations.filter((item) => item.impact === 'serious' || item.impact === 'critical')).toEqual([]);
 });
