@@ -104,6 +104,6 @@ export const dojoSections: DojoSection[] = [
       { title: 'Develop and verify', description: 'Keep a trace of decisions and evidence; use independent or qualified review where the work requires it.' },
       { title: 'Learn without exposing private work', description: 'Share a retrospective only when permitted, removing confidential material and respecting ownership and licenses.' },
     ],
-    nextTitle: 'Prepare for a mission', next: 'A dedicated mission playbook is being developed. The existing product training includes briefs, acceptance criteria and delivery practice.', nextHref: '/train', nextLabel: 'Explore current training',
+    nextTitle: 'Prepare for a mission', next: 'Adapt a practiced technique into a brief with permissions, checks and a retrospective. The template does not claim a completed mission or approval.', nextHref: '/mission-playbook', nextLabel: 'Build a mission brief',
   },
 ];

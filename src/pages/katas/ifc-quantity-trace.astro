@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+
+const sample = 'https://github.com/buildingSMART/Certification-datasets/blob/80d976a9b193a26a8e928c3e79bff67af1de68a8/IFC%204.0.2.1%20%28IFC%204%20ADD2%20TC1%29/ISO%20Spec%20-%20ReferenceView_V1.2/wall-with-opening-and-window.ifc';
+const prompt = `You are my construction-information reviewer. Help me prepare a traceable practice estimate from a public buildingSMART IFC4 example. The observations below are extracted from the linked file; verify them against the source, and do not claim you opened the file unless you actually did.
+
+Source: https://github.com/buildingSMART/Certification-datasets/blob/80d976a9b193a26a8e928c3e79bff67af1de68a8/IFC%204.0.2.1%20%28IFC%204%20ADD2%20TC1%29/ISO%20Spec%20-%20ReferenceView_V1.2/wall-with-opening-and-window.ifc
+
+Project length unit #8 is millimetres; area unit #9 is square metres. Wall #45 has a rectangular body profile #72 bounded by polyline #73 with coordinates from (0,0) to (3000,300), extruded 2000 mm along #27 by #71. Opening #80 has a rectangular profile #88 bounded by polyline #89 from (0,0) to (1000,300), extruded 1000 mm along #27 by #87. Local placement #81 uses point #83 to locate the opening at (1000,0,500) relative to the wall. Relationship #85 links the wall and opening. Wall FireRating #52 is an empty label.
+
+For this exercise only, assume one broad wall face and subtract the full rectangular opening once. Ignore the opposite face, edges, reveals, waste and other adjustments. Convert dimensions to metres before calculating. Show the gross face area, deducted opening area and resulting one-face area, with arithmetic, units and source entity references. List what is assumed or unverified and what a qualified reviewer needs to check. Do not claim the IFC file already contains these quantities, that software has validated them, or that the result is a cost estimate, approved design or construction-ready takeoff.`;
+---
+<BaseLayout title="Trace a wall quantity to an IFC model" description="Practice an evidence-backed wall-area estimate using a public buildingSMART IFC example and explicit assumptions.">
+  <PageHero compact eyebrow="3D · BIM · quantity evidence" title="Can you trace the quantity?" subtitle="Follow one wall and one opening from a real IFC sample to a checkable practice estimate." ctas={[{ label: 'Start the kata', href: '#start', icon: 'arrow-right' }, { label: 'Open the IFC sample', href: sample, variant: 'ghost', icon: 'arrow-right' }]} />
+
+  <section class="section outcome"><div class="container content">
+    <p class="eyebrow">See the outcome first</p><h2>One face: 6 − 1 = 5 m²</h2>
+    <p>Under the stated practice assumptions, a 3 m × 2 m wall face is 6 m². Subtract one 1 m × 1 m opening to get <strong>5 m²</strong>. This is a hand-worked estimate from the example's geometry, not a stored IFC quantity or an automated validation result.</p>
+    <svg class="wall" viewBox="0 0 600 340" role="img" aria-labelledby="wall-title wall-desc">
+      <title id="wall-title">One wall face and one opening</title>
+      <desc id="wall-desc">A wall face is three metres wide and two metres high. A one metre square opening is deducted once. The illustrative remaining face area is five square metres.</desc>
+      <rect x="120" y="45" width="360" height="240" rx="3" fill="#e5e8d6" stroke="#173d2d" stroke-width="4" />
+      <rect x="240" y="105" width="120" height="120" fill="#ffffff" stroke="#173d2d" stroke-width="4" />
+      <text x="300" y="28" text-anchor="middle">3 m wall</text><text x="92" y="165" text-anchor="middle" transform="rotate(-90 92 165)">2 m</text>
+      <text x="300" y="170" text-anchor="middle">1 m × 1 m</text><text x="300" y="315" text-anchor="middle">6 m² − 1 m² = 5 m²</text>
+    </svg>
+    <p class="note">This simplified elevation illustrates the calculation. It is not a dimensioned construction drawing, a measured building or proof that a product can be installed.</p>
+  </div></section>
+
+  <section class="section" id="start"><div class="container content">
+    <p class="eyebrow">Study the evidence</p><h2>Follow the references</h2>
+    <p>Open the <a href={sample}>pinned buildingSMART IFC4 sample</a> and use find-in-page for the entity numbers. The source is plain text. Entity numbers beginning with <code>#</code> identify lines in this file, not stable identifiers across exports.</p>
+    <ol>
+      <li><strong>Units:</strong> <code>#8</code> sets project length to millimetres; <code>#9</code> sets area to square metres. Divide each length in millimetres by 1,000 before multiplying in metres.</li>
+      <li><strong>Wall:</strong> wall <code>#45</code> uses profile <code>#72</code>, bounded by polyline <code>#73</code>. Points <code>#74–#77</code> span 3,000 mm by 300 mm; <code>#71</code> extrudes it 2,000 mm in the <code>#27</code> direction. For one broad face, use the 3,000 mm length and 2,000 mm height.</li>
+      <li><strong>Opening:</strong> opening <code>#80</code> uses profile <code>#88</code>, bounded by polyline <code>#89</code>, spanning 1,000 mm by 300 mm, and is extruded 1,000 mm by <code>#87</code>. Local placement <code>#81</code> uses point <code>#83</code>; <code>#85</code> relates it to the wall.</li>
+      <li><strong>Boundary:</strong> the wall's <code>FireRating</code> at <code>#52</code> is an empty label. An empty field is not a verified rating. The sample does not contain an <code>IFCELEMENTQUANTITY</code> set; this exercise derives an estimate rather than reading an existing quantity set.</li>
+    </ol>
+    <p><a href="/examples/ifc-quantity-evidence.csv" download>Download the example evidence table</a> · <a href="/examples/ifc-quantity-evidence.csv">Open the table</a> · <a href="/katas/inspect-ifc">First inspect the IFC relationships</a></p>
+    <p class="note">The source is a public buildingSMART certification dataset, pinned to a revision and <a href="https://github.com/buildingSMART/Certification-datasets/blob/80d976a9b193a26a8e928c3e79bff67af1de68a8/LICENSE">licensed CC BY 4.0</a>. This page's values and diagram are a Dojo interpretation of that source.</p>
+  </div></section>
+
+  <section class="section outcome"><div class="container content">
+    <p class="eyebrow">Assemble your stack</p><h2>Ask, then verify</h2>
+    <p>Use any assistant available in a phone app or browser, or a trusted CLI harness on a computer. You need the prompt, the extracted observations and yourself as reviewer; no plugin, skill, MCP server or connector is required. Provider access and costs vary. Do not share confidential model data without permission.</p>
+    <label for="quantity-prompt">Your complete prompt</label><textarea id="quantity-prompt" rows="15" readonly>{prompt}</textarea>
+    <div class="copy"><button id="copy-quantity" type="button" hidden>Copy the prompt</button><span id="copy-status" aria-live="polite">Or select and copy the text.</span></div>
+    <details><summary>Check the arithmetic</summary><ol><li>Wall: 3,000 mm ÷ 1,000 = 3 m; 2,000 mm ÷ 1,000 = 2 m. Gross one-face area: 3 × 2 = <strong>6 m²</strong>.</li><li>Opening: 1,000 mm = 1 m in width and height. Deduction: 1 × 1 = <strong>1 m²</strong>.</li><li>Practice result: 6 − 1 = <strong>5 m²</strong>. This excludes the opposite face, edges and reveals. The thickness is not another face-area multiplier.</li><li>Confirm that the assistant cites the source, keeps the empty fire rating unresolved and states its assumptions instead of asserting an approval.</li></ol></details>
+    <p>For another method, study the official <a href="https://docs.ifcopenshell.org/autoapi/ifcopenshell/util/shape/index.html">IfcOpenShell geometry documentation</a>, which distinguishes actual side area from projected area. This kata has not run that software or compared its output with the hand calculation.</p>
+  </div></section>
+
+  <section class="section"><div class="container content">
+    <p class="eyebrow">Adapt · Randori</p><h2>Change the rule</h2>
+    <p>A reviewer asks for <em>both</em> broad faces under the same simple assumptions. Calculate the area, and state which extra surfaces remain excluded. Do not change the source IFC or imply this is a contractual measurement rule.</p>
+    <details><summary>Reveal one check</summary><p>Two identical broad faces give 2 × 5 = <strong>10 m²</strong>. Edges, opening reveals, coatings, waste, site conditions and project-specific measurement rules remain outside this simple estimate.</p></details>
+    <p>For real work, a qualified professional must check the source model, measurement rules, openings, geometry, units, quantities and any required approval. This exercise does not establish safety, code compliance, a price, construction readiness or a professional certification.</p>
+    <p><a href="/katas/randori-challenges#built-environment">Try the room-measurement challenge</a> · <a href="/katas/inspect-ifc">Return to IFC inspection</a> · <a href="/fields#architecture-bim">Explore BIM and construction</a></p>
+  </div></section>
+</BaseLayout>
+<script>
+  const button = document.getElementById('copy-quantity');
+  const input = document.getElementById('quantity-prompt');
+  const status = document.getElementById('copy-status');
+  if (button instanceof HTMLButtonElement && input instanceof HTMLTextAreaElement && status) {
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(input.value); status.textContent = 'Copied. Paste it into your assistant.'; }
+      catch { input.focus(); input.select(); status.textContent = 'Text selected. Use your device’s copy command.'; }
+    });
+  }
+</script>
+<style>
+  .content { max-width: 70rem; } .outcome { background: var(--paper-raised); }
+  .eyebrow { color: var(--rust-text); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .wall { display: block; width: min(100%, 40rem); height: auto; border: 1px solid var(--line); border-radius: var(--radius); background: white; }
+  .wall text { fill: #173d2d; font: 700 19px system-ui, sans-serif; }
+  .note { color: var(--ink-muted); font-size: var(--text-sm); }
+  label { display: block; font-weight: 700; margin-block: var(--space-4) var(--space-2); }
+  textarea { box-sizing: border-box; width: 100%; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); color: var(--ink); background: var(--paper); font: inherit; }
+  .copy { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-top: var(--space-2); }
+  button { padding: .7rem 1rem; border: 1px solid var(--band); border-radius: var(--radius); background: var(--band); color: var(--band-text); font: inherit; font-weight: 700; cursor: pointer; }
+  button[hidden] { display: none; } details { margin-block: var(--space-3); padding: var(--space-3); border: 1px solid var(--line); border-radius: var(--radius); }
+  summary { cursor: pointer; font-weight: 800; } li + li { margin-top: var(--space-2); }
+</style>
