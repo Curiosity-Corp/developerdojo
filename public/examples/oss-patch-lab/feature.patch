@@ -1,0 +1,8 @@
+diff --git a/app.mjs b/app.mjs
+--- a/app.mjs
++++ b/app.mjs
+@@ -1,3 +1,3 @@
+ // Dojo-authored practice fixture; not code from Mattermost.
+ const message = 'Hello from upstream';
+-console.log(message);
++console.log(`${message} + locally owned feature`);
