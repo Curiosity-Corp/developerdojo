@@ -45,7 +45,6 @@ import { missionBrief } from '../data/mission-brief';
     download.addEventListener('click', () => {
       status.textContent = 'Your browser is downloading the brief.';
     });
-    window.addEventListener('pagehide', () => { if (objectUrl) URL.revokeObjectURL(objectUrl); });
   }
 </script>
 <style>
