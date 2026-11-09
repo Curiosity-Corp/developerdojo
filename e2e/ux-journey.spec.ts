@@ -23,5 +23,22 @@ test.describe('without JavaScript', () => {
     await expect(page.locator('#ux-prompt')).toContainText('Do not claim');
     await expect(page.getByRole('button', { name: 'Copy prompt' })).toBeHidden();
     await expect(page.getByRole('link', { name: 'Penpot: connect boards and prototype interactions' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Download the UX review worksheet' })).toBeVisible();
   });
+});
+
+test('the UX handoff has traceable reference values and a blank review record', async ({ page, request }) => {
+  await page.goto('/katas/ux-journey/');
+  const tokenLink = page.getByRole('link', { name: 'Download the reference values as JSON' });
+  await expect(tokenLink).toHaveAttribute('href', '/examples/pocket-garden-tokens.json');
+  const tokens = await request.get('/examples/pocket-garden-tokens.json');
+  expect(tokens.status()).toBe(200);
+  expect(await tokens.json()).toMatchObject({ source: 'pocket-garden.html', colors: { keyboardFocus: '#aa481c' } });
+  const worksheet = await request.get('/examples/pocket-garden-ux-review.md');
+  expect(worksheet.status()).toBe(200);
+  expect(await worksheet.text()).toContain('not a completed usability study');
+  const disclosure = page.getByText('Bring the SVG into a design tool');
+  await disclosure.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByText('does not create connected prototype interactions', { exact: false })).toBeVisible();
 });

@@ -1,0 +1,28 @@
+{
+  "description": "Reference values copied from the Pocket Garden example CSS; not an exported Figma or Penpot token file.",
+  "source": "pocket-garden.html",
+  "colors": {
+    "pageBackground": "#f4f5eb",
+    "bodyText": "#183429",
+    "headerAndSelectedFilter": "#173d2d",
+    "cardBorder": "#c5d3c4",
+    "plantedButtonBackground": "#daf2d1",
+    "keyboardFocus": "#aa481c"
+  },
+  "typography": {
+    "body": "16px/1.5 system-ui,sans-serif",
+    "heading": "clamp(2.1rem,9vw,3.5rem)"
+  },
+  "spacing": {
+    "containerPadding": "24px",
+    "headerPadding": "28px",
+    "filterGap": "8px",
+    "cardGap": "14px",
+    "cardPadding": "18px"
+  },
+  "corners": {
+    "header": "20px",
+    "card": "16px",
+    "filterAndPlantButtons": "999px"
+  }
+}
