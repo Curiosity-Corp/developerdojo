@@ -8,6 +8,7 @@
 // Usage: node scripts/check-external-links.mjs [--report link-check-report.md] [--concurrency 6]
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { join, relative, resolve } from 'node:path';
+import { isReservedExampleHost } from './link-host-policy.mjs';
 
 const args = process.argv.slice(2);
 const option = (name, fallback) => {
@@ -44,13 +45,16 @@ const BOT_BLOCKERS = new Set([
   'www.pmi.org',
   'www.atlassian.com',
   'help.figma.com',
+  // Canva's help page opened through a browser-accessible source on 2026-11-09;
+  // its automated request returned 403. Treat blocks as unverified, not live.
+  'www.canva.com',
   'www.w3.org',
   'www.peoplecert.org',
   // Akamai blocks CI runners with HTTP 403 while the page opens fine in a browser (checked 2026-11-03).
   'www.census.gov',
 ]);
 const BLOCKED_STATUSES = new Set([401, 403, 429, 999]);
-const IGNORED_HOSTS = new Set(['developerdojo.org', 'www.developerdojo.org', 'localhost', 'example.com', 'www.example.com']);
+const IGNORED_HOSTS = new Set(['developerdojo.org', 'www.developerdojo.org', 'localhost']);
 
 const repoRoot = resolve(import.meta.dirname, '..');
 
@@ -77,6 +81,12 @@ async function collectUrls() {
     }
     if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') return;
     if (IGNORED_HOSTS.has(parsed.hostname)) return;
+    if (isReservedExampleHost(parsed.hostname)) {
+      // Fictional examples in lessons are not links to check. A resource entry,
+      // however, must never quietly publish an example address as a real source.
+      if (file.endsWith('.yaml')) throw new Error(`Reserved example URL in resource ${relative(repoRoot, file)}`);
+      return;
+    }
     const files = found.get(clean) ?? new Set();
     files.add(relative(repoRoot, file));
     found.set(clean, files);
