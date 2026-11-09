@@ -84,9 +84,10 @@ links:
 
 # Weekly external link audit (schedule variable LINK_CHECK=true), also available as an optional manual
 # MR job. Checks resource YAML, library/track Markdown and real outbound anchors in rendered pages,
-# fetching them politely and reporting broken or unverified links. It needs no npm install: Node alone.
+# fetching them politely and reporting broken or unverified links. The HTML parser is installed by npm ci.
 # No issue is opened (that needs a masked project access token CI variable, which does not exist yet).
 external_links:
+  extends: .node
   stage: e2e
   needs: [build]
   rules:

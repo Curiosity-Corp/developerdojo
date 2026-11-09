@@ -25,4 +25,10 @@ describe('rendered external link collection', () => {
     expect(renderedExternalLinks('<a href="https://real.example/a_(b)?x=1&#38;y=2">Example</a>'))
       .toEqual(['https://real.example/a_(b)?x=1&y=2']);
   });
+
+  it('parses unquoted hrefs and greater-than signs in earlier attributes', () => {
+    const html = `<a title="One > two" href=https://real.example/one>One</a>
+      <a data-value='x > y' href="https://real.example/two">Two</a>`;
+    expect(renderedExternalLinks(html)).toEqual(['https://real.example/one', 'https://real.example/two']);
+  });
 });
