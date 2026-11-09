@@ -62,9 +62,14 @@ test('resources filter by skill, provider, cost and format with JavaScript', asy
   await expect(form).toBeVisible();
   await expect(page.locator('#resource-status')).toHaveText(`${total} resources`);
 
+  const providerFilter = form.locator('select[name="provider"]');
+  const formatFilter = form.locator('select[name="format"]');
+  await expect(providerFilter).toHaveAccessibleName('Provider');
+  await expect(formatFilter).toHaveAccessibleName('Format');
+
   // Pick the first card's provider: only that provider's cards stay.
   const provider = (await page.locator('[data-resource]').first().getAttribute('data-provider')) ?? '';
-  await form.getByLabel('Provider').selectOption(provider);
+  await providerFilter.selectOption(provider);
   const visible = page.locator('[data-resource]:not([hidden])');
   expect(await visible.count()).toBeGreaterThan(0);
   for (const card of await visible.all()) {
@@ -77,15 +82,18 @@ test('resources filter by skill, provider, cost and format with JavaScript', asy
   const cards = await page
     .locator('[data-resource]')
     .evaluateAll((els) => els.map((el) => ({ provider: el.getAttribute('data-provider') ?? '', format: el.getAttribute('data-format') ?? '' })));
+  const pairs = new Set(cards.map((card) => JSON.stringify([card.provider, card.format])));
+  const formats = new Set(cards.map((card) => card.format));
   let clash: { provider: string; format: string } | undefined;
-  for (const a of cards) {
-    for (const b of cards) {
-      if (!cards.some((c) => c.provider === a.provider && c.format === b.format)) clash = { provider: a.provider, format: b.format };
+  for (const provider of new Set(cards.map((card) => card.provider))) {
+    for (const format of formats) {
+      if (!pairs.has(JSON.stringify([provider, format]))) { clash = { provider, format }; break; }
     }
+    if (clash) break;
   }
   if (clash) {
-    await form.getByLabel('Provider').selectOption(clash.provider);
-    await form.getByLabel('Format').selectOption(clash.format);
+    await providerFilter.selectOption(clash.provider);
+    await formatFilter.selectOption(clash.format);
     await expect(page.locator('#resource-empty')).toBeVisible();
     await expect(visible).toHaveCount(0);
   }

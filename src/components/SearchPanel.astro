@@ -161,7 +161,12 @@ const { id, label = 'Search the whole site' } = Astro.props;
       try {
         const api = await loadPagefind();
         let search = await api.debouncedSearch(term, {}, 150);
-        if (search === null || ticket !== latest) return; // a newer keystroke replaced this search
+        if (ticket !== latest) return;
+        // Pagefind's debounce is shared by all panels using this module. Another
+        // panel can supersede this request even though this panel is still current.
+        // Use an independent search in that case, rather than leaving it waiting.
+        if (search === null) search = await api.search(term);
+        if (ticket !== latest) return;
         let correction: string | null = null;
         if (search.results.length === 0) {
           const proposed = correctSearch(term, await loadVocabulary());
