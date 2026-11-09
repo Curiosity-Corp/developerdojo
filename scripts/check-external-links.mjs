@@ -4,12 +4,13 @@
 // one politely (per-host spacing, bounded concurrency, retries, browser User-Agent), and writes a
 // markdown report. YouTube links are checked through oEmbed because youtube.com pages answer bots
 // with consent walls. Hosts in BOT_BLOCKERS are known to refuse automated requests: a 401/403/429/999
-// there is reported as "unverified" and does not fail the run.
+// there is reported as "unverified" and does not fail the run. A separately scoped signup endpoint
+// is handled the same way without exempting unrelated links on its host.
 // Exit codes: 0 no hard failures, 1 at least one hard failure, 2 the script itself could not run.
 // Usage: node scripts/check-external-links.mjs [--report link-check-report.md] [--concurrency 6]
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { join, relative, resolve } from 'node:path';
-import { isReservedExampleHost } from './link-host-policy.mjs';
+import { isKnownBlockedEndpoint, isReservedExampleHost } from './link-host-policy.mjs';
 import { renderedExternalLinks } from './rendered-external-links.mjs';
 
 const args = process.argv.slice(2);
@@ -225,6 +226,7 @@ async function checkYouTube(url) {
 async function checkUrl(url) {
   const parsed = new URL(url);
   const host = parsed.hostname;
+  const botBlocker = BOT_BLOCKERS.has(host) || isKnownBlockedEndpoint(parsed);
   if (/(^|\.)youtube\.com$/u.test(host) && /^\/(watch|embed|shorts)/u.test(parsed.pathname)) return checkYouTube(url);
   if (host === 'youtu.be') return checkYouTube(url);
 
@@ -237,15 +239,15 @@ async function checkUrl(url) {
       return { verdict: 'ok', detail: moved ? `HTTP ${last.status}, redirected to ${last.finalUrl}` : `HTTP ${last.status}` };
     }
     if (last.status !== undefined && [404, 410].includes(last.status)) break;
-    if (last.status !== undefined && BLOCKED_STATUSES.has(last.status) && BOT_BLOCKERS.has(host)) break;
+    if (last.status !== undefined && BLOCKED_STATUSES.has(last.status) && botBlocker) break;
     await sleep(1500 * (tryNumber + 1));
   }
-  if (last.status !== undefined && BLOCKED_STATUSES.has(last.status) && BOT_BLOCKERS.has(host)) {
-    return { verdict: 'unverified', detail: `HTTP ${last.status} from a known bot-blocking host` };
+  if (last.status !== undefined && BLOCKED_STATUSES.has(last.status) && botBlocker) {
+    return { verdict: 'unverified', detail: `HTTP ${last.status} from a known bot-blocking host or endpoint` };
   }
   if (last.status !== undefined) return { verdict: 'broken', detail: `HTTP ${last.status}` };
   // Bot-blocking hosts also drop the connection or the HTTP/2 session instead of answering.
-  if (BOT_BLOCKERS.has(host)) return { verdict: 'unverified', detail: `${last.error} (known bot-blocking host)` };
+  if (botBlocker) return { verdict: 'unverified', detail: `${last.error} (known bot-blocking host or endpoint)` };
   return { verdict: 'broken', detail: last.error };
 }
 
@@ -280,7 +282,7 @@ async function main() {
     '',
     `Run: ${new Date().toISOString()}`,
     '',
-    `Checked ${results.length} links: ${by('ok').length} ok, ${broken.length} broken, ${unverified.length} unverified (bot-blocking hosts), ${redirected.length} redirected.`,
+    `Checked ${results.length} links: ${by('ok').length} ok, ${broken.length} broken, ${unverified.length} unverified (bot-blocking hosts or endpoints), ${redirected.length} redirected.`,
     '',
   ];
   const section = (title, rows, withFiles) => {
@@ -293,7 +295,7 @@ async function main() {
     lines.push('');
   };
   section('Broken links (fix or replace)', broken, true);
-  section('Unverified (host blocks automated requests; spot-check by hand)', unverified, true);
+  section('Unverified (host or endpoint blocks automated requests; spot-check by hand)', unverified, true);
   section('Redirected (update to the final URL when convenient)', redirected, true);
   if (broken.length === 0) lines.push('No broken links.', '');
   const report = lines.join('\n');
