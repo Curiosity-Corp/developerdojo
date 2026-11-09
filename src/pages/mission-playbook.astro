@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { missionBrief } from '../data/mission-brief';
+---
+<BaseLayout title="Mission playbook" description="Turn a practiced kata into a learner-owned mission brief, verification plan and retrospective.">
+  <PageHero compact eyebrow="Missions · practice to real work" title="Take a kata into the world" subtitle="Define the outcome, agree what you can use, choose your stack and show how the work will be checked." ctas={[{ label: 'Make a mission brief', href: '#brief', icon: 'arrow-right' }, { label: 'See an example', href: '#example', variant: 'ghost', icon: 'arrow-right' }]} />
+  <section id="example" class="section outcome"><div class="container content">
+    <p class="eyebrow">See the outcome · fictional example</p><h2>A useful estimate, with its limits attached</h2>
+    <div class="example"><p><strong>Goal:</strong> compare two lighting schedules for a fictional community room.</p><p><strong>Check:</strong> six 100 W lights for five hours on 30 days use 90 kWh; six 12 W lights use 10.8 kWh under the same assumptions.</p><p><strong>Decision still needed:</strong> compare actual brightness, measured usage, costs and compatibility. A qualified person reviews real installation work.</p></div>
+    <p>This is an illustrative brief based on the <a href="/katas/lighting-energy">lighting energy kata</a>, not a completed customer mission or measured saving. The technique transfers: keep inputs and assumptions explicit, ask an assistant for a draft, and check the arithmetic independently.</p>
+  </div></section>
+  <section class="section"><div class="container content"><p class="eyebrow">Choose your approach</p><h2>Five moves for a mission</h2>
+    <ol><li><strong>Agree the goal and permissions.</strong> Identify the decision-maker, audience, permitted source material, constraints and what success looks like.</li><li><strong>Adapt a kata.</strong> Pick a technique that fits. Use the <a href="/katas/context-trap">context-trust kata</a> when reading an unfamiliar source, or the <a href="/katas/arena-run-card">run record</a> when comparing approaches.</li><li><strong>Choose your stack.</strong> Record the harness, model, instructions, tools, versions and permissions actually used. Separate your decisions from what an agent did.</li><li><strong>Verify the result.</strong> Define observable checks, keep the source and output where authorized, and record failures or uncertainty. Arrange independent or qualified review when the work calls for it.</li><li><strong>Learn and share responsibly.</strong> Capture what changed and what evidence supports an improvement. Share a sanitized lesson only with permission and appropriate credit.</li></ol>
+    <p>Use any assistant you can access on a phone or computer, or a trusted CLI harness. This page does not connect to a service or execute an agent. Provider access, terms and costs vary.</p>
+  </div></section>
+  <section id="brief" class="section outcome"><div class="container content"><p class="eyebrow">Your turn</p><h2>Make a brief you own</h2>
+    <p>Edit this template on your device. The Dojo does not save or send what you type. If you copy or share it with another service, that service receives it; include only information you are permitted to share.</p>
+    <label for="mission-record">Your editable mission brief</label><textarea id="mission-record" rows="19">{missionBrief}</textarea>
+    <div class="actions"><button id="copy-mission" type="button" hidden>Copy my brief</button><a id="download-mission" download="mission-brief.md" hidden>Download my brief</a><span id="mission-status" role="status" aria-live="polite">You can also select and copy the text.</span></div>
+    <p><a href="/examples/mission-brief.md" download>Download the blank template</a> · <a href="/examples/mission-brief.md">Open the blank template</a></p>
+    <p>A brief is a planning aid, not proof of completed work, a belt or professional approval. For real projects, agree the review and sign-off required for the field before relying on the outcome.</p>
+    <p><a href="/belt-review">Prepare a practice review</a> · <a href="/katas/portfolio">Keep an evidence portfolio</a> · <a href="/missions">Back to Missions</a></p>
+  </div></section>
+</BaseLayout>
+<script>
+  const input = document.getElementById('mission-record');
+  const copy = document.getElementById('copy-mission');
+  const download = document.getElementById('download-mission');
+  const status = document.getElementById('mission-status');
+  if (input instanceof HTMLTextAreaElement && copy instanceof HTMLButtonElement && download instanceof HTMLAnchorElement && status) {
+    copy.hidden = false; download.hidden = false;
+    copy.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(input.value); status.textContent = 'Copied. Share it only where you choose.'; }
+      catch { input.focus(); input.select(); status.textContent = 'Text selected. Use your device’s copy command.'; }
+    });
+    let objectUrl = '';
+    const updateDownload = () => {
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+      objectUrl = URL.createObjectURL(new Blob([input.value], { type: 'text/markdown;charset=utf-8' }));
+      download.href = objectUrl;
+    };
+    updateDownload();
+    input.addEventListener('input', updateDownload);
+    download.addEventListener('click', () => {
+      status.textContent = 'Your browser is downloading the brief.';
+    });
+    window.addEventListener('pagehide', () => { if (objectUrl) URL.revokeObjectURL(objectUrl); });
+  }
+</script>
+<style>
+  .content { max-width: 70rem; } .outcome { background: var(--paper-raised); }
+  .eyebrow { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .example { padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+  label { display: block; font-weight: 700; margin-block: var(--space-4) var(--space-2); }
+  textarea { box-sizing: border-box; width: 100%; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); color: var(--ink); background: var(--paper); font: inherit; }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-block: var(--space-3); }
+  button, .actions a { padding: var(--space-3); border: 1px solid var(--band); border-radius: var(--radius); background: var(--band); color: var(--band-text); font: inherit; font-weight: 700; cursor: pointer; }
+  [hidden] { display: none; } li + li { margin-top: var(--space-2); }
+</style>
