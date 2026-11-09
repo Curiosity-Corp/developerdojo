@@ -64,9 +64,14 @@ build:
     - test -f dist/index.html
     - test "$(cat dist/CNAME)" = "developerdojo.org"
     - test -f dist/.nojekyll
+    # Keep a producer-side fingerprint outside dist. Downstream jobs can tell
+    # whether the validated Pagefind metadata survived artifact transfer.
+    - test -s dist/pagefind/pagefind-entry.json
+    - sha256sum dist/pagefind/pagefind-entry.json > search-index.sha256
   artifacts:
     paths:
       - dist
+      - search-index.sha256
     expire_in: 7 days
 
 # Blocking: dist/ link check. Every internal href/src/srcset in the built pages must resolve.
@@ -119,6 +124,7 @@ e2e:
   stage: e2e
   needs: [build]
   script:
+    - sha256sum -c search-index.sha256
     - npx playwright test
   artifacts:
     when: always
@@ -133,6 +139,7 @@ pages:
   needs: [check, test, build, e2e, links]
   interruptible: false
   script:
+    - sha256sum -c search-index.sha256
     - mv dist public
   artifacts:
     paths:
@@ -154,6 +161,7 @@ publish_github_pages:
   variables:
     GITHUB_PAGES_REPOSITORY: Curiosity-Corp/developerdojo
   script:
+    - sha256sum -c search-index.sha256
     - bash .gitlab/ci/publish-github-pages.sh
   environment:
     name: production
