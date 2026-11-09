@@ -1,0 +1,39 @@
+/** Discovery metadata for existing kata routes; this is not a certification or field taxonomy. */
+export type KataInterest = 'create' | 'build' | 'think' | 'real';
+export interface KataDirectoryEntry {
+  href: `/katas/${string}`;
+  title: string;
+  description: string;
+  action: string;
+  eyebrow: string;
+  category: KataInterest;
+  keywords: string;
+  artwork?: 'prototype' | 'idea';
+}
+
+export const KATA_DIRECTORY: readonly KataDirectoryEntry[] = [
+  { href: '/katas/first-prototype', title: 'Make a clickable prototype', description: 'Build a small interactive experience and make it your own.', action: 'Start the prototype kata', eyebrow: 'About 15 minutes', category: 'create', keywords: 'prototype website html design app', artwork: 'prototype' },
+  { href: '/katas/spark-ideas', title: 'Turn an idea into a plan', description: 'Use an AI assistant to turn a spark into a clear one-page project brief.', action: 'Start the idea kata', eyebrow: 'About 10 minutes', category: 'create', keywords: 'ideas planning product brief spark', artwork: 'idea' },
+  { href: '/katas/data-rescue', title: 'Rescue messy data', description: 'Clean a fictional dataset and make a report you can check.', action: 'Start the data kata', eyebrow: 'About 10 minutes', category: 'think', keywords: 'csv spreadsheet excel data cleanup' },
+  { href: '/katas/scan-a-room', title: 'Turn a room into a world', description: 'Explore an interactive 3D room and study the agent workflow behind it.', action: 'Explore the 3D room', eyebrow: 'Real-world 3D showcase', category: 'create', keywords: '3d model scan room gaussian splat world' },
+  { href: '/katas/inspect-ifc', title: 'Find the story in a building model', description: 'Trace a wall, opening and window through a real IFC file.', action: 'Start the BIM kata', eyebrow: 'BIM · real IFC sample', category: 'build', keywords: 'architecture construction bim ifc wall window building' },
+  { href: '/katas/ux-journey', title: 'Design a user journey', description: 'Try a working prototype, map its states and design your own.', action: 'Start the UX kata', eyebrow: 'SaaS UX', category: 'create', keywords: 'ux saas wireframe figma penpot prototype design' },
+  { href: '/katas/lighting-energy', title: "Compare a room's energy", description: 'Make a lighting estimate and check every number.', action: 'Start the energy kata', eyebrow: 'Energy · about 10 minutes', category: 'real', keywords: 'energy lighting electricity sustainability' },
+  { href: '/katas/open-source-patch-lab', title: 'Keep the upstream. Add your own.', description: 'Apply a feature, trace the licenses and plan an update-safe build.', action: 'Start the open-source kata', eyebrow: 'Software · open source', category: 'build', keywords: 'software open source enterprise git renovate license licence ci patch' },
+  { href: '/katas/compare-instructions', title: 'Compare AI instructions', description: 'Run two prompts on the same task and check the evidence.', action: 'Start the stack experiment', eyebrow: 'Universal foundation', category: 'think', keywords: 'ai assistant agents prompts comparison instructions' },
+  { href: '/katas/industry-workshops', title: 'Make something in your field', description: 'Explore design, business, media and more with provider training and an AI assistant.', action: 'Explore industry workshops', eyebrow: 'Official training · Dojo practice', category: 'real', keywords: 'industry workshops tutorials provider business media design' },
+  { href: '/katas/cloud-workshops', title: 'Build in the cloud', description: 'Learn with Azure, AWS, Oracle or Google Cloud, then try a Dojo follow-up.', action: 'Explore cloud workshops', eyebrow: 'Official provider training', category: 'build', keywords: 'azure aws gcp oracle cloud infrastructure' },
+  { href: '/katas/error-clinic', title: 'Spot the AI mistakes', description: 'Check a report against the evidence and fix what is wrong.', action: 'Start the error clinic', eyebrow: 'About 10 minutes', category: 'think', keywords: 'errors facts evidence verification report' },
+  { href: '/katas/arena-evidence', title: 'Check an agent experiment', description: 'Examine a published historical comparison and its limits.', action: 'Inspect the evidence', eyebrow: 'More practice', category: 'think', keywords: 'benchmark model comparison arena research evaluation' },
+  { href: '/katas/arena-run-card', title: 'Repeat and record a run', description: 'Record repeated results and what your checks actually show.', action: 'Make a run record', eyebrow: 'More practice', category: 'think', keywords: 'benchmark evaluation testing evidence reproducibility arena' },
+  { href: '/katas/budget-boss', title: 'Compare two stacks', description: 'Explore costs and tradeoffs using measurements you supply.', action: 'Compare stacks', eyebrow: 'More practice', category: 'think', keywords: 'budget cost pricing benchmark model arena' },
+  { href: '/katas/constraint-roulette', title: 'Change the rules', description: 'Adapt your approach when a new constraint appears.', action: 'Try a constraint', eyebrow: 'More practice', category: 'think', keywords: 'randori challenge adapt independent' },
+  { href: '/katas/context-trap', title: 'Spot a context trap', description: 'Investigate a suspicious note before trusting an agent’s answer.', action: 'Check the context', eyebrow: 'More practice', category: 'think', keywords: 'prompt injection security trust document agent' },
+  { href: '/katas/contrast-check', title: 'Check design contrast', description: 'Test a real color pair and improve its readability.', action: 'Check contrast', eyebrow: 'More practice', category: 'create', keywords: 'ux accessibility color colour visual design wcag' },
+  { href: '/katas/decision-replay', title: 'Replay a decision', description: 'Try a prototype and make three decisions about improving it.', action: 'Play Decision Replay', eyebrow: 'More practice', category: 'think', keywords: 'product ux prototype judgment' },
+  { href: '/katas/ifc-quantity-trace', title: 'Trace a wall quantity', description: 'Follow an IFC wall and opening to a checkable area estimate.', action: 'Trace the quantity', eyebrow: 'More practice', category: 'build', keywords: 'ifc bim architecture construction building model wall quantity' },
+  { href: '/katas/pocket-dojo', title: 'Practice offline', description: 'Save a small practice pack to this device.', action: 'Open Pocket Dojo', eyebrow: 'More practice', category: 'think', keywords: 'offline phone prompt mobile' },
+  { href: '/katas/portfolio', title: 'Show what you made', description: 'Turn your outcome and evidence into a portfolio you control.', action: 'Make a portfolio', eyebrow: 'More practice', category: 'create', keywords: 'github pages showcase artifact evidence' },
+  { href: '/katas/randori-challenges', title: 'Adapt to a new challenge', description: 'Choose a stack, verify your work and handle a changed constraint.', action: 'Practice Randori', eyebrow: 'More practice', category: 'think', keywords: 'randori independent unfamiliar build challenge' },
+  { href: '/katas/stack-workbench', title: 'Assemble an agent stack', description: 'Try a small app and assemble a stack for your own result.', action: 'Open the stack workbench', eyebrow: 'More practice', category: 'build', keywords: 'harness models instructions skills agents tools cli mcp' },
+];
