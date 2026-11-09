@@ -91,6 +91,99 @@ test('the first results remain usable while later results load', async ({ page, 
   }
 });
 
+test('a slow first-batch fragment does not hold back other results or focus', async ({ page, isMobile }) => {
+  let fragments = 0;
+  let held = false;
+  let release!: () => void;
+  const gate = new Promise<void>((resolve) => { release = resolve; });
+  await page.route('**/pagefind/fragment/*', async (route) => {
+    fragments += 1;
+    if (fragments === 2) { held = true; await gate; }
+    await route.continue();
+  });
+  try {
+    await page.goto('/');
+    const dialog = await openSearch(page, isMobile);
+    await dialog.getByRole('searchbox').fill('epic');
+    await expect.poll(() => held, { timeout: 20_000 }).toBe(true);
+    const first = dialog.locator('[data-search-results] a').first();
+    await expect(first).toBeVisible({ timeout: 20_000 });
+    await expect(dialog.getByRole('status')).toContainText('Loading result previews');
+    await first.evaluate((element) => element.setAttribute('data-focus-probe', 'yes'));
+    await first.focus();
+    release();
+    await expect(dialog.getByRole('status')).not.toContainText('Loading result previews', { timeout: 20_000 });
+    await expect(dialog.locator('[data-focus-probe="yes"]')).toBeFocused();
+    const ordering = await dialog.locator('[data-result-group]').evaluateAll((groups) => groups.map((group) => ({
+      name: (group as HTMLElement).dataset.resultGroup ?? '',
+      ranks: [...group.querySelectorAll<HTMLElement>('li[data-result-index]')].map((item) => Number(item.dataset.resultIndex)),
+    })));
+    const order = ['katas', 'lessons', 'tracks', 'resources', 'pages'];
+    const groupRanks = ordering.map((group) => order.indexOf(group.name));
+    expect(groupRanks).toEqual([...groupRanks].sort((a, b) => a - b));
+    for (const group of ordering) expect(group.ranks).toEqual([...group.ranks].sort((a, b) => a - b));
+  } finally {
+    release();
+  }
+});
+
+test('a failed fragment is reported without hiding successful results', async ({ page, isMobile }) => {
+  await page.route('**/pagefind/pagefind.js', (route) => route.fulfill({
+    contentType: 'text/javascript',
+    body: `
+      export async function init() {}
+      function result(title) { return { url: '/library/', excerpt: title, meta: { title } }; }
+      export async function debouncedSearch() {
+        return { results: [
+          { data: async () => result('First result') },
+          { data: async () => { throw new Error('fragment unavailable'); } },
+          { data: () => new Promise(resolve => { globalThis.__releaseFragment = () => resolve(result('Later result')); }) },
+        ] };
+      }
+      export async function search(term) { return debouncedSearch(term); }
+    `,
+  }));
+  await page.goto('/');
+  const dialog = await openSearch(page, isMobile);
+  await dialog.getByRole('searchbox').fill('fixture');
+  await expect(dialog.getByRole('link', { name: 'First result' })).toBeVisible();
+  await expect(dialog.getByRole('status')).toContainText('Loading result previews');
+  await expect(dialog.getByRole('status')).toContainText('1 result preview could not load');
+  await page.waitForFunction(() => typeof (window as unknown as { __releaseFragment?: unknown }).__releaseFragment === 'function');
+  await page.evaluate(() => (window as unknown as { __releaseFragment: () => void }).__releaseFragment());
+  await expect(dialog.getByRole('link', { name: 'Later result' })).toBeVisible();
+  await expect(dialog.getByRole('status')).not.toContainText('Loading result previews');
+  await expect(dialog.getByRole('status')).toContainText('1 result preview could not load');
+});
+
+test('a late fragment from an earlier query cannot replace newer results', async ({ page, isMobile }) => {
+  await page.route('**/pagefind/pagefind.js', (route) => route.fulfill({
+    contentType: 'text/javascript',
+    body: `
+      export async function init() {}
+      function result(title) { return { url: '/library/', excerpt: title, meta: { title } }; }
+      export async function debouncedSearch(term) {
+        if (term === 'old') return { results: [{ data: () => new Promise(resolve => {
+          globalThis.__releaseOld = () => resolve();
+        }).then(() => { globalThis.__oldSettled = true; return result('Old result'); }) }] };
+        return { results: [{ data: async () => result('New result') }] };
+      }
+      export async function search(term) { return debouncedSearch(term); }
+    `,
+  }));
+  await page.goto('/');
+  const dialog = await openSearch(page, isMobile);
+  const input = dialog.getByRole('searchbox');
+  await input.fill('old');
+  await page.waitForFunction(() => typeof (window as unknown as { __releaseOld?: unknown }).__releaseOld === 'function');
+  await input.fill('new');
+  await expect(dialog.getByRole('link', { name: 'New result' })).toBeVisible();
+  await page.evaluate(() => (window as unknown as { __releaseOld: () => void }).__releaseOld());
+  await page.waitForFunction(() => (window as unknown as { __oldSettled?: boolean }).__oldSettled === true);
+  await expect(dialog.getByRole('link', { name: 'Old result' })).toHaveCount(0);
+  await expect(dialog.getByRole('status')).toContainText('1 result for "new"');
+});
+
 test('the header search finds a lesson and opens it', async ({ page, isMobile }) => {
   await page.goto('/train');
   const dialog = await openSearch(page, isMobile);
