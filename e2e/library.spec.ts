@@ -1,3 +1,4 @@
+import { performance } from 'node:perf_hooks';
 import { expect, test } from '@playwright/test';
 
 test('library groups pages by section and filters client-side', async ({ page }) => {
@@ -54,7 +55,7 @@ test.describe('without JavaScript', () => {
   });
 });
 
-test('resources filter by skill, provider, cost and format with JavaScript', async ({ page }) => {
+test('resources filter by skill, provider, cost and format with JavaScript', async ({ page }, testInfo) => {
   await page.goto('/library/resources');
   const total = await page.locator('[data-resource]').count();
   expect(total).toBeGreaterThan(0);
@@ -69,9 +70,14 @@ test('resources filter by skill, provider, cost and format with JavaScript', asy
 
   // Pick the first card's provider: only that provider's cards stay.
   const provider = (await page.locator('[data-resource]').first().getAttribute('data-provider')) ?? '';
+  const filterStarted = performance.now();
   await providerFilter.selectOption(provider);
   const visible = page.locator('[data-resource]:not([hidden])');
   expect(await visible.count()).toBeGreaterThan(0);
+  console.info('[catalog-diagnostics] provider filter', JSON.stringify({
+    project: testInfo.project.name, retry: testInfo.retry, resources: total,
+    interactionMs: Math.round(performance.now() - filterStarted),
+  }));
   for (const card of await visible.all()) {
     await expect(card).toHaveAttribute('data-provider', provider);
   }

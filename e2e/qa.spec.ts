@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { performance } from 'node:perf_hooks';
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 
@@ -246,18 +247,42 @@ test.describe('wiring', () => {
 test.describe('accessibility (WCAG 2.1 AA, no serious or critical violations)', () => {
   for (const theme of ['light', 'dark'] as const) {
     for (const route of DEEP_SCAN) {
-      test(`${route} (${theme})`, async ({ page, isMobile }) => {
+      test(`${route} (${theme})`, async ({ page, isMobile, browser }, testInfo) => {
         // /library/resources lists every catalogued resource; axe needs more than the default minute there.
         test.slow();
         // The desktop project scans every page; the phone project scans the three flagship pages
         // (the markup is shared, so a full second pass only slows CI).
         test.skip(isMobile && !['/', '/train/', '/sensei/'].includes(route), 'covered by the desktop project');
+        const catalog = route.replace(/\/$/, '') === '/library/resources';
+        const started = performance.now();
         await page.goto(route);
         await setTheme(page, theme);
         // Match the route checks above: the static page is ready on load, while
         // networkidle can hang on the large resources catalogue in CI (#66).
         await page.waitForLoadState('load');
-        const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
+        const catalogMetrics = catalog ? {
+          project: testInfo.project.name,
+          browser: browser.version(),
+          theme,
+          retry: testInfo.retry,
+          navigationAndThemeMs: Math.round(performance.now() - started),
+          ...(await page.evaluate(() => ({
+            resources: document.querySelectorAll('[data-resource]').length,
+            domElements: document.querySelectorAll('*').length,
+            hardwareConcurrency: navigator.hardwareConcurrency,
+            viewport: { width: innerWidth, height: innerHeight },
+          }))),
+        } : null;
+        if (catalogMetrics) console.info('[catalog-diagnostics] scan started', JSON.stringify(catalogMetrics));
+        const scanStarted = performance.now();
+        let results;
+        try {
+          results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
+        } finally {
+          if (catalogMetrics) console.info('[catalog-diagnostics] scan finished or interrupted', JSON.stringify({
+            ...catalogMetrics, scanElapsedMs: Math.round(performance.now() - scanStarted),
+          }));
+        }
         const bad = results.violations
           .filter((v) => v.impact === 'serious' || v.impact === 'critical')
           .map((v) => `${v.id} (${v.impact}): ${v.nodes.map((n) => n.target.join(' ')).slice(0, 4).join(' | ')}`);
