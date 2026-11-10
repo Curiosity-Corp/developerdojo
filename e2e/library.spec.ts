@@ -1,4 +1,5 @@
 import { performance } from 'node:perf_hooks';
+import { readdirSync } from 'node:fs';
 import { expect, test } from '@playwright/test';
 
 test('library groups pages by section and filters client-side', async ({ page }) => {
@@ -31,18 +32,25 @@ test('the library links to the tracks and resources hubs', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Learning resources' })).toHaveAttribute('href', '/library/resources');
 });
 
-test('the tracks page lists every track and each track page lists its lessons in order', async ({ page }) => {
+// Match the same top-level Markdown track collection used by the site build.
+const trackIds = readdirSync('src/content/tracks').filter((name) => name.endsWith('.md')).map((name) => name.slice(0, -3)).sort();
+
+test('the tracks page lists every published track', async ({ page }) => {
   await page.goto('/library/tracks');
   await expect(page.locator('h1')).toHaveText('Learning tracks');
   const hrefs = await page
     .locator('main a[href^="/library/tracks/"]')
     .evaluateAll((links) => links.map((a) => a.getAttribute('href') ?? ''));
-  for (const href of hrefs) {
-    await page.goto(href);
+  expect(hrefs.sort()).toEqual(trackIds.map((id) => `/library/tracks/${id}`));
+});
+
+for (const id of trackIds) {
+  test(`track ${id} shows its lessons in order`, async ({ page }) => {
+    await page.goto(`/library/tracks/${id}`);
     await expect(page.locator('h1')).toHaveCount(1);
     await expect(page.getByRole('heading', { name: 'Lessons in order' })).toBeVisible();
-  }
-});
+  });
+}
 
 test.describe('without JavaScript', () => {
   test.use({ javaScriptEnabled: false });

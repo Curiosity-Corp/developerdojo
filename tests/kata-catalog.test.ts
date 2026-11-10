@@ -14,23 +14,23 @@ describe('kata catalog reference integrity', () => {
     const entries = validateKataCatalog(kataCatalog, refs);
     const specializations = entries.filter((entry) => entry.metadata.layer === 'specialization');
     expect(new Set(specializations.flatMap((entry) => entry.metadata.domainIds)).size).toBeGreaterThanOrEqual(5);
-    expect(specializations.filter((entry) => entry.metadata.foundationKataIds.includes('FND-001')).length).toBeGreaterThanOrEqual(2);
-    expect(specializations.find((entry) => entry.metadata.id === 'OSS-001')?.metadata.stackRecipeIds).toEqual(['assistant-and-browser', 'git-and-node']);
-    expect(specializations.find((entry) => entry.metadata.id === 'BIM-001')?.metadata.professionalReviewRequired).toBe(true);
+    expect(specializations.filter((entry) => entry.metadata.foundationKataIds.includes('PRACTICE-001')).length).toBeGreaterThanOrEqual(2);
+    expect(specializations.find((entry) => entry.metadata.id === 'PRACTICE-006')?.metadata.stackRecipeIds).toEqual(['assistant-and-browser', 'git-and-node']);
+    expect(specializations.find((entry) => entry.metadata.id === 'PRACTICE-004')?.metadata.professionalReviewRequired).toBe(true);
   });
 
   it('rejects unknown fields, resources, dimensions and missing or non-foundation references', () => {
-    const original = kataCatalog.find((entry) => entry.metadata.id === 'OSS-001');
+    const original = kataCatalog.find((entry) => entry.metadata.id === 'PRACTICE-006');
     expect(original).toBeDefined();
     if (!original) throw new Error('test fixture missing');
-    const changed = { ...original, metadata: { ...original.metadata, domainIds: ['unknown-field'], externalResources: ['unknown/item'], outcomeIds: ['unknown-outcome'], foundationKataIds: ['MISSING-001', 'UX-001'] } };
+    const changed = { ...original, metadata: { ...original.metadata, domainIds: ['unknown-field'], externalResources: ['unknown/item'], outcomeIds: ['unknown-outcome'], foundationKataIds: ['MISSING-001', 'PRACTICE-003'] } };
     expect(() => validateKataCatalog(kataCatalog.map((entry) => entry === original ? changed : entry), refs)).toThrow(/unknown field unknown-field/);
     try { validateKataCatalog(kataCatalog.map((entry) => entry === original ? changed : entry), refs); }
     catch (error) {
       expect(String(error)).toContain('unknown resource unknown/item');
       expect(String(error)).toContain('unknown outcome unknown-outcome');
       expect(String(error)).toContain('unknown foundation MISSING-001');
-      expect(String(error)).toContain('UX-001 is not a foundation');
+      expect(String(error)).toContain('PRACTICE-003 is not a foundation');
     }
   });
 
@@ -44,20 +44,20 @@ describe('kata catalog reference integrity', () => {
   });
 
   it('accepts a new field as reference data without a schema change', () => {
-    const original = kataCatalog.find((entry) => entry.metadata.id === 'DATA-001');
+    const original = kataCatalog.find((entry) => entry.metadata.id === 'PRACTICE-007');
     expect(original).toBeDefined();
     if (!original) throw new Error('test fixture missing');
-    const example = { ...original, href: '/katas/example-new-field', metadata: { ...original.metadata, id: 'NEW-001', domainIds: ['new-field'], foundationKataIds: ['FND-001'] } };
+    const example = { ...original, href: '/katas/example-new-field', metadata: { ...original.metadata, id: 'NEW-001', domainIds: ['new-field'], foundationKataIds: ['PRACTICE-001'] } };
     expect(validateKataCatalog([...kataCatalog, example], { ...refs, fields: [...refs.fields, 'new-field'] })).toHaveLength(kataCatalog.length + 1);
   });
 
   it('supports several fields, outcomes, foundations and recipes in one synthetic draft', () => {
-    const original = kataCatalog.find((entry) => entry.metadata.id === 'UX-001');
+    const original = kataCatalog.find((entry) => entry.metadata.id === 'PRACTICE-003');
     expect(original).toBeDefined();
     if (!original) throw new Error('test fixture missing');
     const example = { ...original, href: '/katas/example-cross-field', metadata: {
       ...original.metadata, id: 'MULTI-001', domainIds: ['ux', 'data'], outcomeIds: ['design-journey', 'clean-data'],
-      foundationKataIds: ['FND-001', 'FND-002'], stackRecipeIds: ['assistant-and-browser', 'git-and-node'],
+      foundationKataIds: ['PRACTICE-001', 'PRACTICE-002'], stackRecipeIds: ['assistant-and-browser', 'git-and-node'],
       crossFieldTransfers: ['energy'],
     } };
     expect(validateKataCatalog([...kataCatalog, example], refs)).toHaveLength(kataCatalog.length + 1);

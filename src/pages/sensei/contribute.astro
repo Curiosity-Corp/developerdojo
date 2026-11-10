@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+---
+<BaseLayout title="Improve a kata" description="Prepare a reproducible kata improvement, benchmark correction or private mentoring review.">
+  <PageHero compact eyebrow="Sensei · share the practice" title="Make the next kata better" subtitle="Choose one improvement, show the evidence and help someone else repeat it." ctas={[{ label: 'Choose a contribution', href: '#choose', icon: 'arrow-right' }, { label: 'See an example', href: '#example', variant: 'ghost', icon: 'play' }]} />
+  <section class="section outcome" id="example"><div class="container content">
+    <p class="eyebrow">See the outcome first</p><h2>Turn one failed update into a lesson</h2>
+    <p>The <a href="/katas/open-source-patch-lab">open-source patch lab</a> lets a learner compare a successful change with a conflicting upstream update. A useful improvement would identify the exact step, show a repeatable input and result, explain what failed and make the independent check easier to follow.</p>
+    <div class="moves"><div><strong>1 · Observe</strong><span>Point to the step and evidence.</span></div><div><strong>2 · Reproduce</strong><span>Record the setup and actual result.</span></div><div><strong>3 · Improve</strong><span>Suggest one testable change.</span></div><div><strong>4 · Review</strong><span>Another person checks the work.</span></div></div>
+    <p>This is an illustration of the contribution process, not a claim that a particular learner submitted a proposal or that an independent review happened.</p>
+  </div></section>
+  <section class="section" id="choose"><div class="container content"><p class="eyebrow">Your turn</p><h2>Choose what you want to improve</h2>
+    <article><h3>Improve a kata</h3><p>Record the learner outcome, source and usage rights, a reproducible stack, what was actually checked, and how the technique transfers to another field.</p><p><a href="/examples/sensei/kata-improvement.md" download>Download the kata improvement worksheet</a> · <a href="/examples/sensei/kata-improvement.md">Open and copy on a phone</a></p></article>
+    <article><h3>Correct benchmark evidence</h3><p>Point to the exact claim and original dated source. Show what you observed, what changed and what remains unknown; retain the historical evidence.</p><p><a href="/examples/sensei/benchmark-correction.md" download>Download the benchmark correction worksheet</a> · <a href="/examples/sensei/benchmark-correction.md">Open and copy on a phone</a></p></article>
+    <article><h3>Give private mentoring feedback</h3><p>Describe the work you saw, why it matters and a question that lets the learner choose a next step. Keep identifying details and private evidence in the agreed location.</p><p><a href="/examples/sensei/mentoring-feedback.md" download>Download the private feedback worksheet</a> · <a href="/examples/sensei/mentoring-feedback.md">Open and copy on a phone</a></p></article>
+    <p>The worksheets are blank and remain yours. This site does not save or submit them. Ask the maintainer how to share a proposal through an approved channel; do not post private learner or customer material in a public issue or send it to an AI service without permission.</p>
+  </div></section>
+  <section class="section outcome"><div class="container content"><p class="eyebrow">Equip the reviewer</p><h2>What evidence earns trust?</h2>
+    <ol><li><strong>Check provenance.</strong> Record source, author, revision, date, license and permission for every example or asset. Unknown rights remain unknown.</li><li><strong>Inspect the stack.</strong> Name the harness, model, instructions, skills, tools and permissions actually used. Review executable code and integrations before running them with limited access.</li><li><strong>Reproduce and verify.</strong> Keep the steps, actual outcomes, failures and untested checks separate. Accessibility, device, security and domain checks depend on the work.</li><li><strong>Invite independent review.</strong> A reviewer inspects the evidence, records the decision and unresolved concerns, and checks the version history. A reviewer is not implied until this happens.</li><li><strong>Adapt responsibly.</strong> Explain what transfers across fields and what needs specialist validation or qualified professional approval.</li></ol>
+    <p>Use any assistant available on a phone or computer to draft a proposal, with only authorized context. The assistant does not become the reviewer; you and any independent reviewer remain responsible for the decisions.</p>
+    <p><a href="/library/sensei-feedback-sentences">Read the feedback guide</a> · <a href="/library/sensei-privacy-and-conduct">Privacy and conduct</a> · <a href="/katas/arena-run-card">Record a benchmark run</a> · <a href="/sensei">Back to Sensei</a></p>
+    <p>Preparing a worksheet does not make someone a Sensei, award a belt or establish a professional qualification. Sensei applications and formal assessment follow the existing program process.</p>
+  </div></section>
+</BaseLayout>
+<style>
+  .content { max-width: 70rem; } .outcome { background: var(--paper-raised); }
+  .eyebrow { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .moves { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: var(--space-3); margin-block: var(--space-4); }
+  .moves div { display: grid; gap: var(--space-2); padding: var(--space-4); border: 1px solid var(--line); border-top: 4px solid var(--tone-gold); border-radius: var(--radius); background: var(--paper); }
+  .moves span { color: var(--ink-muted); } article { padding-block: var(--space-3); border-bottom: 1px solid var(--line); } li + li { margin-top: var(--space-2); }
+</style>
