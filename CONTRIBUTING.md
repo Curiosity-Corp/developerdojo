@@ -199,6 +199,12 @@ and how much time it needs.
 - Then add lessons to the folder `src/content/library/tracks/<track-name>/`, each with `track: "<track-name>"`.
   The track page lists them in `order`.
 
+## Propose a kata improvement or benchmark correction
+
+Start with the [Sensei contribution worksheets](https://developerdojo.org/sensei/contribute) to record the learner outcome, sources, permissions, what actually ran, verification and open questions. In the GitLab issue form, maintainers can choose the **Kata_improvement** or **Benchmark_correction** template. Follow the same branch, merge-request and CI workflow as other changes. Record a real reviewer and outcome only after the review happens; do not treat a completed form as an approval or a credential.
+
+Do not put learner names, private work, credentials or other restricted material in an issue or public merge request. Keep mentoring feedback in an agreed private location. In a safety-critical or regulated field, identify any qualified review and approvals needed for the intended use.
+
 ## Reading the pipeline
 
 On the MR page, click the pipeline number to see its jobs:
