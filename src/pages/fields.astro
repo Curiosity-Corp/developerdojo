@@ -3,14 +3,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import { fields } from '../lib/fields';
+import { loadContent } from '../lib/content';
+import { validateKataCatalog } from '../lib/kata-catalog';
+import { kataCatalog, kataDimensions } from '../data/kata-catalog';
 
+const { resources } = await loadContent();
+const validatedKatas = validateKataCatalog(kataCatalog, {
+  fields: fields.map((field) => field.id), resources: resources.map((resource) => resource.id), ...kataDimensions,
+});
+const foundations = new Map(validatedKatas.filter((kata) => kata.metadata.layer === 'foundation').map((kata) => [kata.metadata.id, kata]));
 const practice: Record<string, { href: string; label: string }> = {
-  ux: { href: '/katas/ux-journey', label: 'Design a user journey' },
-  '3d': { href: '/katas/scan-a-room', label: 'Explore a real 3D room' },
-  'architecture-bim': { href: '/katas/inspect-ifc', label: 'Investigate a real IFC model' },
-  energy: { href: '/katas/lighting-energy', label: 'Compare a room’s lighting energy' },
   finance: { href: '/katas/industry-workshops#finance', label: 'Try the fictional invoice exercise' },
-  data: { href: '/katas/data-rescue', label: 'Rescue messy data' },
   robotics: { href: '/katas/industry-workshops#robotics', label: 'Plan a robot simulation' },
 };
 ---
@@ -26,6 +29,14 @@ const practice: Record<string, { href: string; label: string }> = {
             <p>{field.examples}</p>
             {field.trackHref && <a href={field.trackHref}>Explore a related existing track</a>}
             {practice[field.id] && <p><a href={practice[field.id]?.href}>{practice[field.id]?.label}</a></p>}
+            {validatedKatas.filter((kata) => kata.metadata.domainIds.includes(field.id)).map((kata) => (
+              <div class="practice"><p><a href={kata.href}>{kata.linkLabel}</a></p>
+                {kata.metadata.foundationKataIds.map((id) => {
+                  const foundation = foundations.get(id);
+                  return foundation && <p>Related foundation: <a href={foundation.href}>{foundation.linkLabel}</a></p>;
+                })}
+              </div>
+            ))}
           </li>
         ))}
       </ul>
