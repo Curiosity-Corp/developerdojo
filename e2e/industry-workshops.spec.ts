@@ -89,7 +89,7 @@ test('science and agriculture lead to the same reusable, verifiable practice', a
   }
   await page.locator('#agriculture').getByRole('link', { name: 'Investigate a vegetation signal' }).click();
   const card = page.locator('#vegetation');
-  await card.getByText('Open the Dojo exercise').click();
+  await expect(card.locator('blockquote')).toBeVisible();
   await expect(card.locator('blockquote')).toContainText('fictional surface reflectance');
   await expect(card.getByText('a zero denominator is undefined', { exact: false })).toBeVisible();
   await expect(card.getByText('0.5', { exact: false })).toBeVisible();

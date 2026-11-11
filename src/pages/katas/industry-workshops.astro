@@ -3,108 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 
-// Each provider link goes to the original training; the agent exercises are Dojo's own.
-const workshops = [
-  {
-    id: 'product-design', field: '3D · manufacturing', provider: 'Autodesk Fusion',
-    title: 'Explore a lighter part',
-    outcome: 'A design study brief with constraints, manufacturing choices and a review plan.',
-    source: 'https://www.autodesk.com/learn/ondemand/course/generative-design', sourceTitle: 'Generative design course',
-    needs: 'The lesson can be read online. Fusion access and generative design features may require eligibility, a license or credits; check current terms.',
-    prompt: 'Act as a design study assistant. I need a fictional lightweight bracket. Ask for missing loads, mounting points, materials, manufacturing method and units. Then make a study brief with assumptions, preserve and obstacle geometry, and checks. Mark any unknowns as unknown.',
-    practice: 'Study Autodesk’s course and its practice exercise. Use your assistant to draft the brief, then compare each constraint with the course. If you have access, try the provider’s exercise using its sample files.',
-    verify: 'Check units, mounting points, loads and manufacturing assumptions against the brief. A generated shape is a candidate, not a verified engineering design; qualified professionals must validate real parts.',
-    question: 'Is a generated part ready to manufacture?', answer: 'No. Review its constraints and results, and obtain independent engineering validation appropriate to its use.',
-  },
-  {
-    id: 'customer-operations', field: 'Sales · service · operations', provider: 'Salesforce Trailhead',
-    title: 'Turn a case into a useful brief',
-    outcome: 'A reusable prompt and a short, evidence-grounded customer-case summary.',
-    source: 'https://trailhead.salesforce.com/content/learn/modules/prompt-builder-basics', sourceTitle: 'Prompt Builder Basics',
-    needs: 'Trailhead reading is available online; hands-on features can require a Trailhead login and a compatible practice org.',
-    prompt: 'Summarize this fictional case in three bullets: A customer reports a cracked mug on arrival; support requested a photo; the customer has not replied. Separate facts from missing information and suggest one next step. Do not invent a resolution.',
-    practice: 'Learn how Salesforce structures reusable prompts. Try the prompt in any assistant, then create a reusable template with placeholders for the case facts and output format.',
-    verify: 'Compare every statement with the fictional case. The summary must mention the missing reply and must not claim the mug was replaced.',
-    question: 'Why use fictional data?', answer: 'It lets you practice without sharing private customer information with a tool.',
-  },
-  {
-    id: 'education', field: 'Education · content · communication', provider: 'Canva Design School',
-    title: 'Design a lesson people remember',
-    outcome: 'A one-page lesson plan and an accessible visual concept for a chosen audience.',
-    source: 'https://www.canva.com/design-school/courses/ai-in-the-classroom/', sourceTitle: 'AI in the classroom',
-    needs: 'The course page is public; completing activities or using particular AI features may require a Canva account or a paid plan.',
-    prompt: 'Help me design a five-minute lesson on recycling for beginners. Give me one learning objective, a three-step activity and a one-question check. Suggest a visual with readable text, good contrast and a text alternative. Flag claims I should verify.',
-    practice: 'Explore Canva’s lesson-planning course. Ask your chosen assistant for a draft, then build the visual in Canva or another design tool. Revise it for the real audience.',
-    verify: 'Read the design at phone size, check contrast and the text alternative, and verify the facts with a reliable source.',
-    question: 'Does the model’s draft remove the need to check facts?', answer: 'No. Review factual claims and accessibility before sharing it.',
-  },
-  {
-    id: 'audio', field: 'Media · audio · accessibility', provider: 'ElevenLabs',
-    title: 'Make a short spoken guide',
-    outcome: 'A short script, an audio draft if you choose, and a corrected transcript.',
-    source: 'https://elevenlabs.io/docs/eleven-api/quickstart/', sourceTitle: 'Text-to-speech API quickstart',
-    needs: 'The guide is public. Generating audio requires an account and API key or the provider’s app; usage limits and charges depend on the plan.',
-    prompt: 'Write a 45-word welcome to a fictional community garden. Use plain language and spell out any number that could be mispronounced. Return the script and a checklist for reviewing pronunciation and accessibility.',
-    practice: 'Draft the script with any assistant. Follow ElevenLabs’ official quickstart for its API or use an available speech tool. Compare the spoken audio with your original transcript.',
-    verify: 'Listen for mispronunciations and omissions. Publish a corrected transcript with the audio. Use a voice you have permission to use; do not imitate a person without consent.',
-    question: 'What stays useful if you switch speech tools?', answer: 'The script, transcript and review criteria can be reused even when the audio tool changes.',
-  },
-  {
-    id: 'finance', field: 'Finance · small business', provider: 'Intuit QuickBooks',
-    title: 'Explain a fictional invoice',
-    outcome: 'A checked invoice summary and a safe plan for experimenting with accounting data.',
-    source: 'https://github.com/intuit/intuit-cli-for-quickbooks', sourceTitle: 'Intuit QuickBooks CLI guide',
-    needs: 'The guide is public. Optional API practice requires an Intuit developer account, an app and a sandbox company; review app permissions and current terms before connecting anything.',
-    prompt: 'Summarize this fictional invoice: Design work $35, materials $15, delivery $10. Show the arithmetic, total and any information missing before payment. Do not create, send or modify an invoice.',
-    practice: 'First ask your assistant to review the fictional invoice. Explore Intuit’s CLI guide and sandbox documentation; if you choose to connect a tool, use your own sandbox and sample data, not a real company. Inspect the CLI and its permissions first.',
-    verify: 'Check the total is $60 and that no payment status or customer detail was invented. Review any proposed action before it runs; financial records and production credentials must stay private.',
-    question: 'Does a connected CLI mean every accounting action is safe to automate?', answer: 'No. Confirm the environment and permissions, and review proposed actions before allowing them.',
-  },
-  {
-    id: 'agent-systems', field: 'Agent systems · automation', provider: 'Cloudflare',
-    title: 'Run an agent with a memory',
-    outcome: 'A working tutorial agent, or a paper design showing requests, memory and model calls.',
-    source: 'https://developers.cloudflare.com/agents/getting-started/quick-start/', sourceTitle: 'Build your first Durable Agent',
-    needs: 'The tutorial uses Node.js, Wrangler and a Cloudflare account; model calls and deployed resources may incur charges. Check the provider’s current limits and pricing.',
-    prompt: 'Explain this agent as a diagram in words: a request, a harness, a model, a persistent transcript and a response. List where access control and a spending limit belong. Do not assume the example is private.',
-    practice: 'Read the official guide and ask any assistant to explain its components. If you choose to run it, follow the provider’s setup and use only test data. Compare the requested response with the retrieved transcript.',
-    verify: 'Check whether the stored transcript matches the exchange. Before exposing an endpoint, add appropriate authentication and review costs and resource cleanup.',
-    question: 'Is an endpoint private just because its URL is hard to guess?', answer: 'No. The provider warns that callers can access the example URL; add suitable authentication before sharing it.',
-  },
-  {
-    id: 'robotics', field: 'Robotics · simulation · 3D', provider: 'NVIDIA Isaac Sim',
-    title: 'Plan a robot simulation',
-    outcome: 'A simulation scene brief and a checklist for testing a virtual robot.',
-    source: 'https://docs.isaacsim.omniverse.nvidia.com/latest/learn/basic_stage_and_robot_setup.html', sourceTitle: 'Basic Stage and Robot Setup',
-    needs: 'The tutorial is public. Running Isaac Sim has Windows or Linux, GPU, storage and driver requirements; cloud alternatives may cost money.',
-    prompt: 'Help me plan a simulated wheeled robot in an empty room. List the stage, gravity, ground, robot, joints and camera. Write three checks for a simulation and separate them from real-world safety validation.',
-    practice: 'Read the setup tutorial and make a scene brief with your assistant. If your system meets the requirements, follow NVIDIA’s steps and observe the simulated scene.',
-    verify: 'Check the stage, gravity, joints and camera in the simulation. A simulation is not proof of physical safety; use qualified review and real-world validation before operating a robot.',
-    question: 'Does a successful simulation prove a physical robot is safe?', answer: 'No. A simulation tests a model under chosen assumptions; real-world validation is still required.',
-  },
-  {
-    id: 'vegetation', field: 'Science · agriculture · remote sensing', provider: 'USGS Landsat',
-    title: 'Investigate a vegetation signal',
-    outcome: 'A checked vegetation-index calculation and a short research note that separates evidence from assumptions.',
-    source: 'https://www.usgs.gov/landsat-missions/landsat-normalized-difference-vegetation-index', sourceTitle: 'Landsat Normalized Difference Vegetation Index',
-    needs: 'The USGS explanation is public. This exercise uses fictional reflectance values and needs no satellite imagery, account or connected tool.',
-    prompt: 'Act as a research assistant. Using the USGS formula NDVI = (NIR − red) / (NIR + red), calculate the index for fictional surface reflectance values NIR 0.6 and red 0.2. Show the arithmetic. Explain what this number might indicate, identify assumptions and what further evidence is needed. What happens if the denominator is zero? Do not claim this is real satellite data or predict crop yield.',
-    practice: 'Read the official USGS explanation. Give the brief to any assistant, then make a research note with the formula, fictional inputs, result, source and limitations. Repeat with another pair of values and compare the arithmetic yourself.',
-    verify: 'The example is (0.6 − 0.2) / (0.6 + 0.2) = 0.5; a zero denominator is undefined. One fictional value cannot establish crop yield or plant health. Real imagery requires checks for data quality, timing and context, plus appropriate expert review before decisions.',
-    question: 'Does this fictional index prove a crop will yield well?', answer: 'No. It is a practice calculation, not a field measurement or a yield prediction.',
-  },
-  {
-    id: 'career-skills', field: 'Workplace · career · AI foundations', provider: 'IBM SkillsBuild',
-    title: 'Practice an AI-assisted work task',
-    outcome: 'A fact-checked practice brief with a clear human review step.',
-    source: 'https://skillsbuild.org/university/students', sourceTitle: 'IBM SkillsBuild for university students',
-    needs: 'IBM describes its SkillsBuild learning as free; registration may be required and individual course availability can vary.',
-    prompt: 'Create a meeting brief from these fictional notes: The team wants a community garden; a volunteer will price soil by Friday; the site owner has not approved the location. Separate decisions, actions and open questions; cite the exact note behind each.',
-    practice: 'Explore IBM’s AI learning for students, then run the fictional task in your chosen assistant. Revise your instruction if the first result mixes decisions and open questions.',
-    verify: 'Confirm that pricing soil is an action and site approval is still open. Remove anything not supported by the notes.',
-    question: 'Can a confident summary supply a missing approval?', answer: 'No. A reviewer must check it against the source; the approval is still unknown.',
-  },
-] as const;
+import { INDUSTRY_WORKSHOPS } from '../../data/industry-workshops';
 ---
 <BaseLayout title="Industry workshops" description="Explore official training and practice developing with AI across design, robotics, education, audio and business.">
   <PageHero compact eyebrow="Make something real" title="Build across industries" subtitle="Pick an outcome. Learn from the people who make the tools. Then adapt the technique with your own AI assistant." />
@@ -112,7 +11,7 @@ const workshops = [
     <SectionHeader title="Choose your next outcome" intro="Each card links to an official learning resource and adds a small Dojo exercise. Start with the prompt, or dive into the provider’s material." />
     <p class="notice"><strong>Bring your own stack.</strong> Use an assistant in a phone or browser app, or a CLI harness you already trust. Copy the prompt yourself; these exercises do not install a skill, connect an app or run a tool for you. Check compatibility, permissions and costs before adding any integration. <a href="/katas/spark-ideas#device-options">See phone, Windows, macOS and Linux setup options</a>.</p>
     <div class="workshops">
-      {workshops.map((item) => (
+      {INDUSTRY_WORKSHOPS.map((item) => (
         <article id={item.id} class="workshop">
           <p class="field">{item.field}</p><h2>{item.title}</h2><p>{item.outcome}</p>
           <p><a class="start" href={item.source}>Start with {item.provider} ↗</a></p>
@@ -134,6 +33,17 @@ const workshops = [
   </div></section>
 </BaseLayout>
 <script>
+  // A direct result in the kata finder opens the matching exercise immediately.
+  const openLinkedExercise = () => {
+    const target = document.getElementById(window.location.hash.slice(1));
+    if (target?.matches('.workshop')) {
+      const exercise = target.querySelector<HTMLDetailsElement>('details');
+      if (exercise) exercise.open = true;
+    }
+  };
+  openLinkedExercise();
+  window.addEventListener('hashchange', openLinkedExercise);
+
   for (const card of document.querySelectorAll<HTMLElement>('.workshop')) {
     const prompt = card.querySelector<HTMLElement>('[data-workshop-prompt]');
     const button = card.querySelector<HTMLButtonElement>('[data-copy-workshop]');

@@ -39,40 +39,43 @@ test.describe('routes', () => {
   });
 
   for (const route of ROUTES) {
-    test(`${route} loads with one h1, a title, no console errors, no horizontal scroll`, async ({ page, isMobile }) => {
-      test.skip(isMobile && !DEEP_SCAN.includes(route), 'lesson pages: the phone pass runs on the sample');
-      const errors: string[] = [];
-      page.on('pageerror', (e) => errors.push(e.message));
-      page.on('console', (m) => {
-        if (m.type() === 'error') errors.push(m.text());
+    test.describe(() => {
+      // Decide before Playwright creates a browser page for a skipped mobile case.
+      test.skip(({ isMobile }) => isMobile && !DEEP_SCAN.includes(route), 'lesson pages: the phone pass runs on the sample');
+      test(`${route} loads with one h1, a title, no console errors, no horizontal scroll`, async ({ page }) => {
+        const errors: string[] = [];
+        page.on('pageerror', (e) => errors.push(e.message));
+        page.on('console', (m) => {
+          if (m.type() === 'error') errors.push(m.text());
+        });
+        const response = await page.goto(route);
+        expect(response?.status()).toBe(200);
+        await expect(page.locator('h1')).toHaveCount(1);
+        expect((await page.title()).length).toBeGreaterThan(5);
+        // A static site: once 'load' has fired, every stylesheet, font and eager image is in. 'networkidle'
+        // (discouraged by Playwright) never resolved on /library/resources/ on the CI runner even though
+        // every request had finished, so this check waits for things it can see instead (#66).
+        await page.waitForLoadState('load');
+        const overflow = await page.evaluate(
+          () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        );
+        expect(overflow, 'horizontal overflow in px').toBeLessThanOrEqual(0);
+        expect(errors).toEqual([]);
+        // Every image on the page decoded (no broken art).
+        await page.evaluate(async () => {
+          window.scrollTo(0, document.body.scrollHeight);
+          await new Promise((r) => setTimeout(r, 150));
+        });
+        // Lazy images start loading after the scroll; wait until each rendered one has finished (loaded or
+        // broken). A lazy image inside a hidden element (the other theme's logo) never loads, so skip those.
+        await page.waitForFunction(() =>
+          [...document.images].filter((img) => img.getClientRects().length > 0).every((img) => img.complete),
+        );
+        const broken = await page.evaluate(() =>
+          [...document.images].filter((img) => img.complete && img.naturalWidth === 0).map((img) => img.currentSrc || img.src),
+        );
+        expect(broken).toEqual([]);
       });
-      const response = await page.goto(route);
-      expect(response?.status()).toBe(200);
-      await expect(page.locator('h1')).toHaveCount(1);
-      expect((await page.title()).length).toBeGreaterThan(5);
-      // A static site: once 'load' has fired, every stylesheet, font and eager image is in. 'networkidle'
-      // (discouraged by Playwright) never resolved on /library/resources/ on the CI runner even though
-      // every request had finished, so this check waits for things it can see instead (#66).
-      await page.waitForLoadState('load');
-      const overflow = await page.evaluate(
-        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
-      );
-      expect(overflow, 'horizontal overflow in px').toBeLessThanOrEqual(0);
-      expect(errors).toEqual([]);
-      // Every image on the page decoded (no broken art).
-      await page.evaluate(async () => {
-        window.scrollTo(0, document.body.scrollHeight);
-        await new Promise((r) => setTimeout(r, 150));
-      });
-      // Lazy images start loading after the scroll; wait until each rendered one has finished (loaded or
-      // broken). A lazy image inside a hidden element (the other theme's logo) never loads, so skip those.
-      await page.waitForFunction(() =>
-        [...document.images].filter((img) => img.getClientRects().length > 0).every((img) => img.complete),
-      );
-      const broken = await page.evaluate(() =>
-        [...document.images].filter((img) => img.complete && img.naturalWidth === 0).map((img) => img.currentSrc || img.src),
-      );
-      expect(broken).toEqual([]);
     });
   }
 
@@ -104,10 +107,10 @@ const REFLOW_ROUTES = [
 ];
 
 test.describe('reflow: no sideways scroll on a narrow phone', () => {
+  test.skip(({ isMobile }) => isMobile, 'the viewport is set here; the desktop project runs it once');
   for (const width of [195, 320]) {
     for (const route of REFLOW_ROUTES) {
-      test(`${route} fits ${width} px wide`, async ({ page, isMobile }) => {
-        test.skip(isMobile, 'the viewport is set here; the desktop project runs it once');
+      test(`${route} fits ${width} px wide`, async ({ page }) => {
         await page.setViewportSize({ width, height: 800 });
         await page.goto(route);
         await page.waitForLoadState('load');
@@ -133,8 +136,7 @@ test.describe('reflow: no sideways scroll on a narrow phone', () => {
     }
   }
 
-  test('a wide table in a lesson scrolls inside its own box, not the page', async ({ page, isMobile }) => {
-    test.skip(isMobile, 'the viewport is set here; the desktop project runs it once');
+  test('a wide table in a lesson scrolls inside its own box, not the page', async ({ page }) => {
     await page.setViewportSize({ width: 195, height: 800 });
     await page.goto('/library/catalogue-trailmug-full-example/');
     const tables = await page.locator('.prose table').evaluateAll((els) =>
@@ -166,16 +168,18 @@ test.describe('navigation', () => {
     }
   });
 
-  test('on a phone the menu button opens the drawer with every nav link', async ({ page, isMobile }) => {
-    test.skip(!isMobile, 'drawer is a phone and tablet pattern');
-    await page.goto('/');
-    const nav = page.locator('header nav[aria-label="Primary"]');
-    await expect(nav).toBeHidden();
-    await page.getByRole('button', { name: 'Open menu' }).click();
-    await expect(nav).toBeVisible();
-    for (const label of ['Katas', 'Train', 'Sensei', 'Library', 'Certificates', 'Challenges', 'Events', 'Membership']) {
-      await expect(nav.getByRole('link', { name: label, exact: true })).toBeVisible();
-    }
+  test.describe(() => {
+    test.skip(({ isMobile }) => !isMobile, 'drawer is a phone and tablet pattern');
+    test('on a phone the menu button opens the drawer with every nav link', async ({ page }) => {
+      await page.goto('/');
+      const nav = page.locator('header nav[aria-label="Primary"]');
+      await expect(nav).toBeHidden();
+      await page.getByRole('button', { name: 'Open menu' }).click();
+      await expect(nav).toBeVisible();
+      for (const label of ['Katas', 'Train', 'Sensei', 'Library', 'Certificates', 'Challenges', 'Events', 'Membership']) {
+        await expect(nav.getByRole('link', { name: label, exact: true })).toBeVisible();
+      }
+    });
   });
 
   test('the header and footer links are the same on every route and all resolve', async ({ page, request }) => {
@@ -247,46 +251,48 @@ test.describe('wiring', () => {
 test.describe('accessibility (WCAG 2.1 AA, no serious or critical violations)', () => {
   for (const theme of ['light', 'dark'] as const) {
     for (const route of DEEP_SCAN) {
-      test(`${route} (${theme})`, async ({ page, isMobile, browser }, testInfo) => {
-        // /library/resources lists every catalogued resource; axe needs more than the default minute there.
-        test.slow();
+      test.describe(() => {
         // The desktop project scans every page; the phone project scans the three flagship pages
-        // (the markup is shared, so a full second pass only slows CI).
-        test.skip(isMobile && !['/', '/train/', '/sensei/'].includes(route), 'covered by the desktop project');
-        const catalog = route.replace(/\/$/, '') === '/library/resources';
-        const started = performance.now();
-        await page.goto(route);
-        await setTheme(page, theme);
-        // Match the route checks above: the static page is ready on load, while
-        // networkidle can hang on the large resources catalogue in CI (#66).
-        await page.waitForLoadState('load');
-        const catalogMetrics = catalog ? {
-          project: testInfo.project.name,
-          browser: browser.version(),
-          theme,
-          retry: testInfo.retry,
-          navigationAndThemeMs: Math.round(performance.now() - started),
-          ...(await page.evaluate(() => ({
-            resources: document.querySelectorAll('[data-resource]').length,
-            domElements: document.querySelectorAll('*').length,
-            hardwareConcurrency: navigator.hardwareConcurrency,
-            viewport: { width: innerWidth, height: innerHeight },
-          }))),
-        } : null;
-        if (catalogMetrics) console.info('[catalog-diagnostics] scan started', JSON.stringify(catalogMetrics));
-        const scanStarted = performance.now();
-        let results;
-        try {
-          results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
-        } finally {
-          if (catalogMetrics) console.info('[catalog-diagnostics] scan finished or interrupted', JSON.stringify({
-            ...catalogMetrics, scanElapsedMs: Math.round(performance.now() - scanStarted),
-          }));
-        }
-        const bad = results.violations
-          .filter((v) => v.impact === 'serious' || v.impact === 'critical')
-          .map((v) => `${v.id} (${v.impact}): ${v.nodes.map((n) => n.target.join(' ')).slice(0, 4).join(' | ')}`);
-        expect(bad).toEqual([]);
+        // (the markup is shared, so a full second pass only slows CI). Decide before page setup.
+        test.skip(({ isMobile }) => isMobile && !['/', '/train/', '/sensei/'].includes(route), 'covered by the desktop project');
+        test(`${route} (${theme})`, async ({ page, browser }, testInfo) => {
+          // /library/resources lists every catalogued resource; axe needs more than the default minute there.
+          test.slow();
+          const catalog = route.replace(/\/$/, '') === '/library/resources';
+          const started = performance.now();
+          await page.goto(route);
+          await setTheme(page, theme);
+          // Match the route checks above: the static page is ready on load, while
+          // networkidle can hang on the large resources catalogue in CI (#66).
+          await page.waitForLoadState('load');
+          const catalogMetrics = catalog ? {
+            project: testInfo.project.name,
+            browser: browser.version(),
+            theme,
+            retry: testInfo.retry,
+            navigationAndThemeMs: Math.round(performance.now() - started),
+            ...(await page.evaluate(() => ({
+              resources: document.querySelectorAll('[data-resource]').length,
+              domElements: document.querySelectorAll('*').length,
+              hardwareConcurrency: navigator.hardwareConcurrency,
+              viewport: { width: innerWidth, height: innerHeight },
+            }))),
+          } : null;
+          if (catalogMetrics) console.info('[catalog-diagnostics] scan started', JSON.stringify(catalogMetrics));
+          const scanStarted = performance.now();
+          let results;
+          try {
+            results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
+          } finally {
+            if (catalogMetrics) console.info('[catalog-diagnostics] scan finished or interrupted', JSON.stringify({
+              ...catalogMetrics, scanElapsedMs: Math.round(performance.now() - scanStarted),
+            }));
+          }
+          const bad = results.violations
+            .filter((v) => v.impact === 'serious' || v.impact === 'critical')
+            .map((v) => `${v.id} (${v.impact}): ${v.nodes.map((n) => n.target.join(' ')).slice(0, 4).join(' | ')}`);
+          expect(bad).toEqual([]);
+        });
       });
     }
   }
