@@ -5,6 +5,7 @@ import SectionHeader from '../components/SectionHeader.astro';
 import Icon from '../components/Icon.astro';
 
 import { KATA_DIRECTORY } from '../data/kata-directory';
+import { INDUSTRY_WORKSHOPS } from '../data/industry-workshops';
 
 const pathways = [
   { title: 'See an outcome', text: 'Start with real examples as the Gallery grows.', href: '/gallery', link: 'Explore the Gallery' },
@@ -45,6 +46,17 @@ const pathways = [
         <button type="reset">Clear</button>
       </form>
       <p id="kata-filter-status" role="status" aria-live="polite" hidden></p>
+      <section id="workshop-results" aria-labelledby="workshop-results-title" hidden>
+        <h2 id="workshop-results-title">Go straight to a workshop exercise</h2>
+        <ul class="workshop-result-list">
+          {INDUSTRY_WORKSHOPS.map((workshop) => (
+            <li data-workshop-result data-keywords={`${workshop.field} ${workshop.provider} ${workshop.keywords}`} hidden>
+              <a href={`/katas/industry-workshops#${workshop.id}`}>{workshop.title}</a>
+              <span>{workshop.field} · {workshop.provider}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
       <div class="starter-grid">
         {KATA_DIRECTORY.map((kata) => (
           <article class:list={['starter-card', { 'idea-card': kata.artwork === 'idea' }]} data-kata data-category={kata.category} data-keywords={kata.keywords}>
@@ -123,22 +135,33 @@ const pathways = [
   const status = document.querySelector<HTMLElement>('#kata-filter-status');
   const empty = document.querySelector<HTMLElement>('#kata-no-results');
   const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-kata]'));
-  if (form && query && category && status && empty && cards.length) {
+  const workshopSection = document.querySelector<HTMLElement>('#workshop-results');
+  const workshops = Array.from(document.querySelectorAll<HTMLElement>('[data-workshop-result]'));
+  if (form && query && category && status && empty && workshopSection && cards.length) {
     const words = (text: string) => (text.toLowerCase().normalize('NFKD').match(/[a-z0-9]+/g) ?? []);
     const searchIndex = cards.map((card) => words(`${card.textContent ?? ''} ${card.dataset['keywords'] ?? ''}`));
+    const workshopIndex = workshops.map((workshop) => words(`${workshop.textContent ?? ''} ${workshop.dataset['keywords'] ?? ''}`));
+    const matchesTokens = (tokens: string[], index: string[]) => tokens.every((token) => index.some((word) =>
+      word.startsWith(token) || (token.length >= 5 && token.length <= 24 && isOneEditAway(token, word)),
+    ));
     const update = () => {
       const tokens = words(query.value);
       let visible = 0;
       cards.forEach((card, index) => {
         const matchesCategory = !category.value || card.dataset['category'] === category.value;
-        const matchesWords = tokens.every((token) => searchIndex[index]!.some((word) =>
-          word.startsWith(token) || (token.length >= 5 && token.length <= 24 && isOneEditAway(token, word)),
-        ));
+        const matchesWords = matchesTokens(tokens, searchIndex[index]!);
         card.hidden = !(matchesCategory && matchesWords);
         if (!card.hidden) visible += 1;
       });
-      empty.hidden = visible !== 0;
-      status.textContent = `${visible} of ${cards.length} katas shown`;
+      let workshopCount = 0;
+      workshops.forEach((workshop, index) => {
+        const matches = tokens.length > 0 && (!category.value || category.value === 'real') && matchesTokens(tokens, workshopIndex[index]!);
+        workshop.hidden = !matches;
+        if (matches) workshopCount += 1;
+      });
+      workshopSection.hidden = workshopCount === 0;
+      empty.hidden = visible !== 0 || workshopCount !== 0;
+      status.textContent = `${visible} of ${cards.length} katas shown${workshopCount ? `; ${workshopCount} matching workshop ${workshopCount === 1 ? 'exercise' : 'exercises'}` : ''}`;
     };
     form.addEventListener('submit', (event) => event.preventDefault());
     form.addEventListener('input', update);
@@ -157,7 +180,13 @@ const pathways = [
   .kata-filters input, .kata-filters select, .kata-filters button { box-sizing: border-box; max-width: 100%; padding: .65rem; border: 1px solid var(--line-strong); border-radius: var(--radius); color: var(--ink); background: var(--paper); font: inherit; }
   .kata-filters input { min-width: min(100%, 16rem); }
   .kata-filters button { cursor: pointer; }
-  .kata-filters[hidden], .starter-card[hidden], #kata-filter-status[hidden], #kata-no-results[hidden] { display: none; }
+  .kata-filters[hidden], .starter-card[hidden], #kata-filter-status[hidden], #kata-no-results[hidden], #workshop-results[hidden], [data-workshop-result][hidden] { display: none; }
+  #workshop-results { margin-block: var(--space-4); }
+  #workshop-results h2 { font-size: var(--text-xl); }
+  .workshop-result-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--space-2); list-style: none; padding: 0; }
+  .workshop-result-list li { min-width: 0; margin: 0; padding: var(--space-3); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); overflow-wrap: anywhere; }
+  .workshop-result-list a { display: block; font-weight: 700; }
+  .workshop-result-list span { font-size: var(--text-sm); }
   .starter-card { display: grid; grid-template-columns: minmax(0, 1fr); overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); box-shadow: var(--shadow); }
   .starter-copy { display: grid; justify-items: start; align-content: start; gap: var(--space-3); padding: var(--space-5); }
   .starter-copy span { color: var(--olive-text); font-size: var(--text-sm); font-weight: 700; }
