@@ -172,3 +172,22 @@ publish_github_pages:
     url: https://developerdojo.org
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_COMMIT_REF_PROTECTED == "true"'
+
+# Optional diagnostic for #113. Full axe scans under two temporary CSS treatments; never replaces e2e.
+# Run after the blocking suite finishes to reduce contention. Results are shared-runner observations.
+catalog_a11y_profile:
+  extends: .node
+  stage: e2e
+  needs: [build]
+  timeout: 1h
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" || $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: manual
+      allow_failure: true
+  script:
+    - node scripts/profile-catalog-a11y.mjs
+  artifacts:
+    when: always
+    paths:
+      - catalog-a11y-profile.json
+    expire_in: 90 days
