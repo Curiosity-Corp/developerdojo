@@ -20,6 +20,7 @@ test('industry workshops offer official lessons and reusable agent exercises', a
     ['agent-systems', 'developers.cloudflare.com'],
     ['robotics', 'docs.isaacsim.omniverse.nvidia.com'],
     ['career-skills', 'skillsbuild.org'],
+    ['vegetation', 'www.usgs.gov'],
   ];
   for (const [id, domain] of workshops) {
     const card = page.locator(`#${id}`);
@@ -77,4 +78,19 @@ test.describe('without JavaScript', () => {
     await card.getByText('Quick check: Why use fictional data?').click();
     await expect(card.getByText('It lets you practice without sharing private customer information with a tool.')).toBeVisible();
   });
+});
+
+
+test('science and agriculture lead to the same reusable, verifiable practice', async ({ page }) => {
+  await page.goto('/fields/');
+  for (const field of ['science', 'agriculture']) {
+    await expect(page.locator(`#${field}`).getByRole('link', { name: 'Investigate a vegetation signal' }))
+      .toHaveAttribute('href', '/katas/industry-workshops#vegetation');
+  }
+  await page.locator('#agriculture').getByRole('link', { name: 'Investigate a vegetation signal' }).click();
+  const card = page.locator('#vegetation');
+  await card.getByText('Open the Dojo exercise').click();
+  await expect(card.locator('blockquote')).toContainText('fictional surface reflectance');
+  await expect(card.getByText('a zero denominator is undefined', { exact: false })).toBeVisible();
+  await expect(card.getByText('0.5', { exact: false })).toBeVisible();
 });

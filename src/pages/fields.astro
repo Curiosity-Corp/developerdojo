@@ -13,6 +13,8 @@ const validatedKatas = validateKataCatalog(kataCatalog, {
 });
 const foundations = new Map(validatedKatas.filter((kata) => kata.metadata.layer === 'foundation').map((kata) => [kata.metadata.id, kata]));
 const practice: Record<string, { href: string; label: string }> = {
+  science: { href: '/katas/industry-workshops#vegetation', label: 'Investigate a vegetation signal' },
+  agriculture: { href: '/katas/industry-workshops#vegetation', label: 'Investigate a vegetation signal' },
   finance: { href: '/katas/industry-workshops#finance', label: 'Try the fictional invoice exercise' },
   robotics: { href: '/katas/industry-workshops#robotics', label: 'Plan a robot simulation' },
 };

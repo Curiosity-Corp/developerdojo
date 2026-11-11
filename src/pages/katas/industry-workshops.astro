@@ -83,6 +83,17 @@ const workshops = [
     question: 'Does a successful simulation prove a physical robot is safe?', answer: 'No. A simulation tests a model under chosen assumptions; real-world validation is still required.',
   },
   {
+    id: 'vegetation', field: 'Science · agriculture · remote sensing', provider: 'USGS Landsat',
+    title: 'Investigate a vegetation signal',
+    outcome: 'A checked vegetation-index calculation and a short research note that separates evidence from assumptions.',
+    source: 'https://www.usgs.gov/landsat-missions/landsat-normalized-difference-vegetation-index', sourceTitle: 'Landsat Normalized Difference Vegetation Index',
+    needs: 'The USGS explanation is public. This exercise uses fictional reflectance values and needs no satellite imagery, account or connected tool.',
+    prompt: 'Act as a research assistant. Using the USGS formula NDVI = (NIR − red) / (NIR + red), calculate the index for fictional surface reflectance values NIR 0.6 and red 0.2. Show the arithmetic. Explain what this number might indicate, identify assumptions and what further evidence is needed. What happens if the denominator is zero? Do not claim this is real satellite data or predict crop yield.',
+    practice: 'Read the official USGS explanation. Give the brief to any assistant, then make a research note with the formula, fictional inputs, result, source and limitations. Repeat with another pair of values and compare the arithmetic yourself.',
+    verify: 'The example is (0.6 − 0.2) / (0.6 + 0.2) = 0.5; a zero denominator is undefined. One fictional value cannot establish crop yield or plant health. Real imagery requires checks for data quality, timing and context, plus appropriate expert review before decisions.',
+    question: 'Does this fictional index prove a crop will yield well?', answer: 'No. It is a practice calculation, not a field measurement or a yield prediction.',
+  },
+  {
     id: 'career-skills', field: 'Workplace · career · AI foundations', provider: 'IBM SkillsBuild',
     title: 'Practice an AI-assisted work task',
     outcome: 'A fact-checked practice brief with a clear human review step.',
@@ -98,7 +109,7 @@ const workshops = [
 <BaseLayout title="Industry workshops" description="Explore official training and practice developing with AI across design, robotics, education, audio and business.">
   <PageHero compact eyebrow="Make something real" title="Build across industries" subtitle="Pick an outcome. Learn from the people who make the tools. Then adapt the technique with your own AI assistant." />
   <section class="section"><div class="container">
-    <SectionHeader title="Choose your next outcome" intro="Each card links to official training and adds a small Dojo exercise. Start with the prompt, or dive into the provider’s material." />
+    <SectionHeader title="Choose your next outcome" intro="Each card links to an official learning resource and adds a small Dojo exercise. Start with the prompt, or dive into the provider’s material." />
     <p class="notice"><strong>Bring your own stack.</strong> Use an assistant in a phone or browser app, or a CLI harness you already trust. Copy the prompt yourself; these exercises do not install a skill, connect an app or run a tool for you. Check compatibility, permissions and costs before adding any integration. <a href="/katas/spark-ideas#device-options">See phone, Windows, macOS and Linux setup options</a>.</p>
     <div class="workshops">
       {workshops.map((item) => (
@@ -149,7 +160,7 @@ const workshops = [
 <style>
   .notice { max-width: 78ch; padding: var(--space-4); border-left: 4px solid var(--tone-gold); background: var(--paper-raised); }
   .workshops { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--space-4); margin: var(--space-5) 0; }
-  .workshop { min-width: 0; padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); overflow-wrap: anywhere; }
+  .workshop { scroll-margin-top: calc(var(--header-h) + var(--space-4)); min-width: 0; padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); overflow-wrap: anywhere; }
   .workshop h2 { font-size: var(--text-2xl); }
   .workshop h3 { font-size: var(--text-xl); }
   .field { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
