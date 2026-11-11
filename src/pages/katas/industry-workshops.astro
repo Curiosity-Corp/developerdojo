@@ -109,7 +109,7 @@ const workshops = [
 <BaseLayout title="Industry workshops" description="Explore official training and practice developing with AI across design, robotics, education, audio and business.">
   <PageHero compact eyebrow="Make something real" title="Build across industries" subtitle="Pick an outcome. Learn from the people who make the tools. Then adapt the technique with your own AI assistant." />
   <section class="section"><div class="container">
-    <SectionHeader title="Choose your next outcome" intro="Each card links to official training and adds a small Dojo exercise. Start with the prompt, or dive into the provider’s material." />
+    <SectionHeader title="Choose your next outcome" intro="Each card links to an official learning resource and adds a small Dojo exercise. Start with the prompt, or dive into the provider’s material." />
     <p class="notice"><strong>Bring your own stack.</strong> Use an assistant in a phone or browser app, or a CLI harness you already trust. Copy the prompt yourself; these exercises do not install a skill, connect an app or run a tool for you. Check compatibility, permissions and costs before adding any integration. <a href="/katas/spark-ideas#device-options">See phone, Windows, macOS and Linux setup options</a>.</p>
     <div class="workshops">
       {workshops.map((item) => (
@@ -160,7 +160,7 @@ const workshops = [
 <style>
   .notice { max-width: 78ch; padding: var(--space-4); border-left: 4px solid var(--tone-gold); background: var(--paper-raised); }
   .workshops { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--space-4); margin: var(--space-5) 0; }
-  .workshop { min-width: 0; padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); overflow-wrap: anywhere; }
+  .workshop { scroll-margin-top: calc(var(--header-h) + var(--space-4)); min-width: 0; padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); overflow-wrap: anywhere; }
   .workshop h2 { font-size: var(--text-2xl); }
   .workshop h3 { font-size: var(--text-xl); }
   .field { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
