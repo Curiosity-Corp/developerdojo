@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { seedSalesCsv } from '../../data/seed-sales';
+
+const rules = `Treat exact duplicate rows as one sale. Group item names without regard to capitalization. Do not guess missing quantities or non-numeric prices: list those rows as exceptions. Calculate quantities and revenue only for complete, unique rows. Show arithmetic. Report input rows, duplicates removed, complete unique sales, exceptions, units and revenue. Do not invent facts.`;
+const builder = `You are the builder. Produce a short report from this fictional CSV. Follow these rules: ${rules}\n\nCSV:\n${seedSalesCsv}`;
+const reviewer = `You are the reviewer. Check the draft below against the source CSV and rules, independently calculating the answer. Identify each error, cite the relevant rows or arithmetic, and propose corrections. Say when you cannot verify a claim. Do not treat the draft as authoritative.\n\nRules: ${rules}\n\nSource CSV:\n${seedSalesCsv}\n\nDRAFT START\nSeven rows came in. No duplicates were removed. Five complete sales brought in $26 from eight units. There were no exceptions.\nDRAFT END`;
+---
+<BaseLayout title="Lead a builder and reviewer" description="Delegate a report and an independent review, then check the evidence yourself.">
+  <PageHero compact eyebrow="Foundation kata · about 10 minutes" title="Lead a builder and reviewer" subtitle="Orchestrate a draft and a review—then verify their work yourself." ctas={[{ label: 'Review a draft now', href: '#review', icon: 'arrow-right' }]} />
+  <section class="section outcome"><div class="container content">
+    <p class="kicker">The outcome</p><h2>One report. Two roles. Your decision.</h2>
+    <div class="flow" aria-label="Delegation workflow"><p><strong>1 · Builder</strong><br />Makes a report from the source.</p><p><strong>2 · Reviewer</strong><br />Checks the report against the source.</p><p><strong>3 · You</strong><br />Verify the checks and decide what to fix.</p></div>
+    <p>The Dojo's fictional seed-sales data has four complete unique sales totaling <strong>$22</strong>. A useful review catches a duplicate and two incomplete rows. This is a worked answer, not a claim about an agent run.</p>
+    <p><strong>Ingredients:</strong> any chat harness and an available model, the prompts below, the fictional CSV included in each prompt, and you. No CLI, skill, MCP server, plugin, connector or paid service is required by this exercise. Existing harness instructions or tools may still affect a response.</p>
+    <p>On a phone, use an assistant app such as ChatGPT or Claude; on Windows, macOS or Linux, use a browser or a trusted CLI harness. Provider accounts, availability, limits and charges vary. Never paste secrets or private data into a service.</p>
+  </div></section>
+  <section class="section" id="review"><div class="container content">
+    <p class="kicker">Start here</p><h2>Give the reviewer a flawed draft</h2>
+    <ol><li>Open a fresh assistant conversation. Copy and send this complete prompt, including the source and the intentionally flawed sample draft.</li><li>Ask for errors, row evidence and corrections. Save the actual response; the reviewer can make mistakes too.</li><li>Check the response against the independent answer below. Decide whether it is safe to use and what needs correction.</li></ol>
+    <p>The sample draft is an invented exercise, not an AI response. To review your own builder's report instead, replace only the text between <code>DRAFT START</code> and <code>DRAFT END</code>. Keep the original CSV and rules.</p>
+    <article class="prompt" data-prompt-box><label for="reviewer">Reviewer prompt and source data · editable</label><textarea id="reviewer" rows="19" data-prompt>{reviewer}</textarea><button type="button" data-copy hidden>Copy reviewer prompt</button><span data-status aria-live="polite"> Or select and copy the text.</span></article>
+    <details><summary>Reveal the independent check</summary><p>Seven input rows include one exact duplicate, S102. Four complete unique sales contain seven units and total <strong>$22</strong>: (2 × $3) + (1 × $4) + (3 × $3) + (1 × $3). S104 has no quantity and S105 has an unknown price; both are exceptions. “Basil” and “basil” belong together. The sample draft's count of seven input rows is correct; its duplicate, sales, unit, revenue and exception claims are wrong.</p></details>
+    <p>Check each finding against the CSV. If anything is missing or incorrect, give the reviewer the specific evidence and ask for a correction. A reviewer agreeing with a draft is not proof that either is correct.</p>
+  </div></section>
+  <section class="section outcome"><div class="container content">
+    <p class="kicker">Run the full delegation</p><h2>Now commission your own builder</h2>
+    <ol><li>Start a separate fresh conversation and send the builder prompt below. Save the actual report without silently correcting it.</li><li>Return to the reviewer prompt above, replace the sample draft between its markers with that report, then send it in another fresh conversation. Include the original source and rules.</li><li>Compare the builder and reviewer with the independent check. Keep the original outputs, errors and your final decision as evidence.</li></ol>
+    <article class="prompt" data-prompt-box><label for="builder">Builder prompt and source data</label><textarea id="builder" rows="14" readonly data-prompt>{builder}</textarea><button type="button" data-copy hidden>Copy builder prompt</button><span data-status aria-live="polite"> Or select and copy the text.</span></article>
+    <p>This is manual delegation: you transfer the work between sessions. Separate conversations do not guarantee independent models or eliminate shared memory, settings or mistakes. Record the app, model and versions if shown, plus any tools or instructions in use; write “not shown” when unknown. Do not assume a second role improves accuracy without checking.</p>
+    <p><a href="https://www.anthropic.com/research/building-effective-agents">Anthropic: building effective agents</a> · <a href="https://platform.claude.com/docs/en/test-and-evaluate/develop-tests">Anthropic: define success and build evaluations</a></p>
+  </div></section>
+  <section class="section"><div class="container content"><p class="kicker">Adapt</p><h2>Take the pattern further</h2><p>Try a design brief or construction checklist with a builder, a reviewer and observable acceptance criteria. Provide sources each reviewer can inspect. For regulated or safety-critical work, an agent's draft and review do not replace independent professional validation or approval.</p><p><a href="/katas/data-rescue">Practice the original data kata</a> · <a href="/katas/compare-instructions">Compare instructions</a> · <a href="/katas/stack-workbench">Explore your stack</a> · <a href="/randori">Practice Randori</a></p></div></section>
+</BaseLayout>
+<script>
+  for (const box of document.querySelectorAll<HTMLElement>('[data-prompt-box]')) {
+    const input = box.querySelector<HTMLTextAreaElement>('[data-prompt]');
+    const button = box.querySelector<HTMLButtonElement>('[data-copy]');
+    const status = box.querySelector<HTMLElement>('[data-status]');
+    if (!input || !button || !status) continue;
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(input.value); status.textContent = 'Copied. Paste it into a fresh conversation.'; }
+      catch { input.focus(); input.select(); status.textContent = 'Text selected. Use your device’s copy command.'; }
+    });
+  }
+</script>
+<style>
+  .content { max-width: 72rem; } .outcome { background: var(--paper-raised); }
+  .kicker { color: var(--rust-text); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--space-3); }
+  .flow p, .prompt, details { padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+  .prompt { min-width: 0; } label { display: block; font-weight: 700; margin-bottom: var(--space-2); }
+  textarea { box-sizing: border-box; width: 100%; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; }
+  button { margin-top: var(--space-2); } summary { cursor: pointer; font-weight: 700; }
+</style>
