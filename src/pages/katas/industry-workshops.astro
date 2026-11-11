@@ -83,6 +83,17 @@ const workshops = [
     question: 'Does a successful simulation prove a physical robot is safe?', answer: 'No. A simulation tests a model under chosen assumptions; real-world validation is still required.',
   },
   {
+    id: 'vegetation', field: 'Science · agriculture · remote sensing', provider: 'USGS Landsat',
+    title: 'Investigate a vegetation signal',
+    outcome: 'A checked vegetation-index calculation and a short research note that separates evidence from assumptions.',
+    source: 'https://www.usgs.gov/landsat-missions/landsat-normalized-difference-vegetation-index', sourceTitle: 'Landsat Normalized Difference Vegetation Index',
+    needs: 'The USGS explanation is public. This exercise uses fictional reflectance values and needs no satellite imagery, account or connected tool.',
+    prompt: 'Act as a research assistant. Using the USGS formula NDVI = (NIR − red) / (NIR + red), calculate the index for fictional surface reflectance values NIR 0.6 and red 0.2. Show the arithmetic. Explain what this number might indicate, identify assumptions and what further evidence is needed. What happens if the denominator is zero? Do not claim this is real satellite data or predict crop yield.',
+    practice: 'Read the official USGS explanation. Give the brief to any assistant, then make a research note with the formula, fictional inputs, result, source and limitations. Repeat with another pair of values and compare the arithmetic yourself.',
+    verify: 'The example is (0.6 − 0.2) / (0.6 + 0.2) = 0.5; a zero denominator is undefined. One fictional value cannot establish crop yield or plant health. Real imagery requires checks for data quality, timing and context, plus appropriate expert review before decisions.',
+    question: 'Does this fictional index prove a crop will yield well?', answer: 'No. It is a practice calculation, not a field measurement or a yield prediction.',
+  },
+  {
     id: 'career-skills', field: 'Workplace · career · AI foundations', provider: 'IBM SkillsBuild',
     title: 'Practice an AI-assisted work task',
     outcome: 'A fact-checked practice brief with a clear human review step.',
