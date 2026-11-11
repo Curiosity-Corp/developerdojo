@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 
 // Documentation review only: these entries are not an installation or runtime security audit.
+const registryReviewedOn = '2026-11-07';
 const entries = [
   { id: 'claude-code', name: 'Claude Code', kind: 'harness', label: 'Harness · CLI', maintainer: 'Anthropic · official', what: 'A coding agent for working with files and commands in a terminal and other supported surfaces.', compatible: 'See the official platform and setup guide for supported systems, account and provider options.', access: 'It may read and edit files and run commands according to its configuration and permissions. Review the work folder and approvals.', license: 'Product and service terms apply; account access and charges depend on your plan.', source: 'https://code.claude.com/docs/en/overview', check: 'https://code.claude.com/docs/en/permissions', verify: 'In a disposable folder, ask it to describe the files it can see before allowing any edit.' },
   { id: 'gemini-cli', name: 'Gemini CLI', kind: 'harness', label: 'Harness · CLI', maintainer: 'Google · official', what: 'A terminal-based agent with documented file, shell, skills and MCP workflows.', compatible: 'Check its current installation, authentication and platform instructions for your device.', access: 'File and shell capabilities depend on your configuration. Review permissions and any sandbox settings before running tools.', license: 'CLI source: Apache-2.0; model/service access and costs have separate terms.', source: 'https://geminicli.com/docs/', check: 'https://geminicli.com/docs/get-started/installation/', verify: 'In a test folder, ask the agent to describe the task and permissions before it changes anything.' },
@@ -23,7 +24,8 @@ const entries = [
   ]} />
   <section class="section" id="registry" aria-labelledby="registry-title"><div class="container">
     <h2 id="registry-title">A starter registry, not an installation</h2>
-    <p>These are source-backed starting points, not a ranking. The documentation and linked license information were checked on 7 November 2026. No tool was installed, connected, runtime-tested or independently security-audited for this registry. Versions, access, plans and compatibility can change.</p>
+    <p>These are source-backed starting points, not a ranking. The documentation and linked license information were checked on <time datetime={registryReviewedOn}>7 November 2026</time>. No tool was installed, connected, runtime-tested or independently security-audited for this registry. Versions, access, plans and compatibility can change.</p>
+    <p data-registry-review-date={registryReviewedOn} role="status">Check the current source and terms before use; this date is a documentation check, not a security or compatibility guarantee.</p>
     <form class="filters" data-registry-filter hidden><label for="registry-kind">Show a type</label><select id="registry-kind" name="kind"><option value="all">All types</option><option value="harness">Harnesses</option><option value="skill">Skills and formats</option><option value="mcp">MCP servers</option><option value="cli">CLIs</option></select></form>
     <p data-registry-status role="status" aria-live="polite"></p>
     <div class="registry-grid">
@@ -45,6 +47,14 @@ const entries = [
   </div></section>
 </BaseLayout>
 <script>
+  const reviewNotice = document.querySelector<HTMLElement>('[data-registry-review-date]');
+  if (reviewNotice) {
+    const reviewed = Date.parse(`${reviewNotice.dataset.registryReviewDate}T00:00:00Z`);
+    const age = Math.floor((Date.now() - reviewed) / 86_400_000);
+    if (Number.isFinite(age) && age > 90) {
+      reviewNotice.textContent = 'This registry is due for a documentation refresh. Check the current source, permissions and terms before use; the recorded date is not a security or compatibility guarantee.';
+    }
+  }
   const form = document.querySelector<HTMLFormElement>('[data-registry-filter]');
   const status = document.querySelector<HTMLElement>('[data-registry-status]');
   const entries = Array.from(document.querySelectorAll<HTMLElement>('[data-registry-entry]'));
