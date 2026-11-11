@@ -1,6 +1,6 @@
 // Optional CI experiment for #113. This does not replace the blocking accessibility suite.
 import { spawn } from 'node:child_process';
-import { writeFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { setTimeout as delay } from 'node:timers/promises';
 import { chromium } from '@playwright/test';
 import AxeModule from '@axe-core/playwright';
@@ -8,10 +8,15 @@ import AxeModule from '@axe-core/playwright';
 const AxeBuilder = AxeModule.default ?? AxeModule;
 const port = 4321;
 const origin = `http://127.0.0.1:${port}`;
-const reportFile = 'catalog-a11y-profile.json';
+// Texture mode changes the visual backdrop for comparison only; it does not assess the live page.
+const textureMode = process.argv.includes('--texture');
+const reportFile = textureMode ? 'catalog-texture-profile.json' : 'catalog-a11y-profile.json';
 const tags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
 const report = {
-  description: 'Exploratory full-page axe scans on one shared CI runner; not real-device or learner performance.',
+  description: textureMode
+    ? 'Exploratory scans compare the original page with its body texture removed only in the test browser. Modified-backdrop findings do not verify contrast on the original page.'
+    : 'Exploratory full-page axe scans on one shared CI runner; not real-device or learner performance.',
+  experiment: textureMode ? 'texture' : 'content-visibility',
   startedAt: new Date().toISOString(),
   commit: process.env.CI_COMMIT_SHA ?? 'unknown',
   pipeline: process.env.CI_PIPELINE_URL ?? 'unknown',
@@ -40,13 +45,17 @@ try {
   }
   if (!ready) throw new Error('Built catalog did not become available within 30 seconds');
 
+  if (textureMode) await mkdir('catalog-texture-screenshots', { recursive: true });
   browser = await chromium.launch();
   report.chromium = browser.version();
-  // AB then BA in light; BA then AB in dark. New context each time, same browser and runner.
-  const order = [
-    ['light', 'baseline'], ['light', 'visible'], ['light', 'visible'], ['light', 'baseline'],
-    ['dark', 'visible'], ['dark', 'baseline'], ['dark', 'baseline'], ['dark', 'visible'],
-  ];
+  // A new context per scan, with treatment order reversed between themes.
+  // The texture comparison is exploratory: repeat the job before interpreting timings or findings.
+  const order = textureMode
+    ? [['light', 'baseline'], ['light', 'texture-removed'], ['dark', 'texture-removed'], ['dark', 'baseline']]
+    : [
+      ['light', 'baseline'], ['light', 'visible'], ['light', 'visible'], ['light', 'baseline'],
+      ['dark', 'visible'], ['dark', 'baseline'], ['dark', 'baseline'], ['dark', 'visible'],
+    ];
   for (const [theme, treatment] of order) {
     const context = await browser.newContext({ viewport: report.viewport });
     try {
@@ -58,6 +67,9 @@ try {
       if (treatment === 'visible') {
         await page.addStyleTag({ content: '#resource-list > li { content-visibility: visible !important; }' });
       }
+      if (treatment === 'texture-removed') {
+        await page.addStyleTag({ content: 'body::before { content: none !important; }' });
+      }
       const metrics = await page.evaluate(() => {
         const items = [...document.querySelectorAll('#resource-list > li[data-resource]')];
         if (!items.length) throw new Error('No resource cards found');
@@ -65,6 +77,9 @@ try {
           resources: items.length,
           domElements: document.querySelectorAll('*').length,
           contentVisibility: getComputedStyle(items[0]).contentVisibility,
+          bodyBeforeContent: getComputedStyle(document.body, '::before').content,
+          bodyBeforeBackgroundImage: getComputedStyle(document.body, '::before').backgroundImage,
+          bodyBeforeOpacity: getComputedStyle(document.body, '::before').opacity,
           hardwareConcurrency: navigator.hardwareConcurrency,
           userAgent: navigator.userAgent,
         };
@@ -72,6 +87,12 @@ try {
       const expected = treatment === 'visible' ? 'visible' : 'auto';
       if (metrics.contentVisibility !== expected) {
         throw new Error(`Expected ${expected} content-visibility for ${treatment}; found ${metrics.contentVisibility}`);
+      }
+      if (textureMode) {
+        const textureAbsent = metrics.bodyBeforeContent === 'none' || metrics.bodyBeforeContent === 'normal';
+        if ((treatment === 'texture-removed') !== textureAbsent) {
+          throw new Error(`Unexpected body::before content for ${treatment}: ${metrics.bodyBeforeContent}`);
+        }
       }
       const setupMs = Math.round(performance.now() - loadStarted);
       const scanStarted = performance.now();
@@ -89,6 +110,10 @@ try {
       };
       report.measurements.push(sample);
       await save();
+      if (textureMode) {
+        // Illustrative viewport only; it does not establish contrast across the whole page.
+        await page.screenshot({ path: `catalog-texture-screenshots/${theme}-${treatment}.png` });
+      }
       console.log(JSON.stringify({ ...sample, violations: sample.violations.length, incomplete: sample.incomplete.length }));
     } finally {
       await context.close();
