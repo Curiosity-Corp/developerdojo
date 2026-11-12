@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+
+const exercise = `FICTIONAL PRACTICE NOTE: On 10 May, two volunteers prepared six kits. One kit is still waiting for inspection. The note does not say how many kits passed inspection.
+CLAIM TO CHECK: All six kits passed inspection.`;
+const prompt = `Act as a peer-learning assistant. Help me prepare an eight-minute practice session for a colleague on separating a source fact from an unsupported claim. Use only the fictional note and claim below. Produce: (1) a clear learning goal; (2) a brief session plan where the learner checks the source before hearing the answer; (3) one adaptation challenge; (4) two respectful feedback questions; and (5) a blank record for the actual session and its next step. State that the session has not happened. Do not invent an attendee, approval, attendance, learner performance, feedback, date or completion. Do not send invitations or connect to a calendar.\n\n${exercise}`;
+---
+<BaseLayout title="Lead a peer learning session" description="Plan a short, evidence-backed peer lesson, invite practice and record what really happened.">
+  <PageHero compact eyebrow="Leadership kata · about 10 minutes to prepare" title="Lead a peer learning session" subtitle="Turn one clear idea into practice someone else can use." ctas={[{ label: 'Plan the session', href: '#plan', icon: 'arrow-right' }]} />
+  <section class="section outcome"><div class="container content">
+    <p class="kicker">The finished outcome</p><h2>A session plan—not a claim that it happened</h2>
+    <div class="flow" aria-label="Peer learning loop"><p><strong>1 · Show</strong><br />One source and one claim to check.</p><p><strong>2 · Practice</strong><br />The learner finds what the source does and does not say.</p><p><strong>3 · Adapt</strong><br />Try the same thinking with a new example.</p><p><strong>4 · Follow through</strong><br />Ask for feedback and record only what actually happens.</p></div>
+    <p><strong>Goal:</strong> after practicing, the learner can identify a supported fact, an unknown and a useful next question. <strong>Status:</strong> not yet run; participant and time are not scheduled.</p>
+    <p><strong>Ingredients:</strong> the fictional note below, the session plan, somewhere to save your notes and a willing peer when you choose to invite one. You can prepare on paper, use an assistant in a phone or browser app, or use a trusted CLI harness. No skill, MCP server, plugin, connected calendar, paid tool or account is required for the paper exercise. Provider access and charges vary.</p>
+  </div></section>
+  <section class="section" id="plan"><div class="container content">
+    <p class="kicker">Start here</p><h2>Prepare the eight-minute lesson</h2>
+    <div class="source"><p><strong>Fictional practice note:</strong> On 10 May, two volunteers prepared six kits. One kit is still waiting for inspection. The note does not say how many kits passed inspection.</p><p><strong>Claim to check:</strong> All six kits passed inspection.</p></div>
+    <ol>
+      <li><strong>Show, one minute:</strong> share the note and the claim. Ask the learner to mark a source fact and an unknown before you explain.</li>
+      <li><strong>Practice, three minutes:</strong> ask them to explain their answer and point to the exact words in the note. Invite a question they would ask before accepting the claim.</li>
+      <li><strong>Adapt, two minutes:</strong> try a fresh fictional statement: “Eight meals were plated; two were delivered.” Ask whether it proves all eight were delivered and how they know.</li>
+      <li><strong>Reflect, two minutes:</strong> ask “What was useful?” and “What should I change next time?” Agree on a next step if the learner wants one.</li>
+    </ol>
+    <details><summary>Reveal the independent check</summary><p>The source supports that six kits were prepared and one is waiting for inspection. It does not say how many passed, so “all six passed” is unsupported. A useful question is “How many kits passed inspection?” In the adapted example, two meals were delivered; it does not prove all eight were delivered.</p></details>
+    <h3>Optional: ask an assistant to help you prepare</h3>
+    <p>Use the complete fictional prompt. Review the result against the note yourself; an AI-generated plan is a draft, not proof that someone learned or that a session occurred.</p>
+    <article class="prompt" data-prompt-box><label for="session-prompt">Session-planning prompt and fictional note</label><textarea id="session-prompt" rows="16" readonly data-prompt>{prompt}</textarea><button type="button" data-copy hidden>Copy session prompt</button><span data-status aria-live="polite"> Or select and copy the text.</span></article>
+  </div></section>
+  <section class="section outcome"><div class="container content">
+    <p class="kicker">Lead and learn</p><h2>Invite, listen and record the real result</h2>
+    <p>Offer a short session and agree on a time and format that works for both people. If it happens, invite the learner to demonstrate the method and adapt it; let them ask questions. Give feedback about the work and evidence, not assumptions about the person. Invite their feedback on your teaching.</p>
+    <div class="record"><p><strong>Session record — fill in only after a real session</strong></p><ul><li>Date and participant, if they agree to be named: <em>not recorded</em></li><li>What the learner actually demonstrated or asked: <em>not recorded</em></li><li>Feedback they chose to share: <em>not recorded</em></li><li>Agreed next step, owner and date if set: <em>not recorded</em></li></ul></div>
+    <p>If no session happens, leave it marked “not run.” Do not invent attendance, approval, learning or a next meeting. Keep real learner notes in an appropriate private place and ask permission before sharing or putting them into an AI service.</p>
+    <p><a href="/library/tracks/leading-people-and-agents/01-set-direction-and-written-expectations/">Set direction and expectations</a> · <a href="/library/tracks/leading-people-and-agents/02-give-and-receive-feedback/">Give and receive feedback</a> · <a href="/katas/delegate-and-review">Lead a builder and reviewer</a></p>
+  </div></section>
+</BaseLayout>
+<script>
+  for (const box of document.querySelectorAll<HTMLElement>('[data-prompt-box]')) {
+    const input = box.querySelector<HTMLTextAreaElement>('[data-prompt]');
+    const button = box.querySelector<HTMLButtonElement>('[data-copy]');
+    const status = box.querySelector<HTMLElement>('[data-status]');
+    if (!input || !button || !status) continue;
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(input.value); status.textContent = 'Copied. Paste it into your assistant.'; }
+      catch { input.focus(); input.select(); status.textContent = 'Text selected. Use your device’s copy command.'; }
+    });
+  }
+</script>
+<style>
+  .content { max-width: 72rem; }
+  .outcome { background: var(--paper-raised); }
+  .kicker { color: var(--rust-text); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--space-3); }
+  .flow p, .source, .prompt, .record, details { padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+  .prompt { min-width: 0; }
+  label { display: block; font-weight: 700; margin-bottom: var(--space-2); }
+  textarea { box-sizing: border-box; width: 100%; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; }
+  button { margin-top: var(--space-2); }
+  summary { cursor: pointer; font-weight: 700; }
+</style>
