@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+
+const prompt = `You are my research and change-review assistant. Use only the fictional sources below. I am responsible for the decision; you can help organize evidence but cannot approve a change.
+
+Task: Phase 1 migrates the approved baseline intact. Phase 2 may propose a redesign after review. Keep the original version and its history. Make an aligned comparison with exactly two content columns: Baseline and Proposed. Label each stage unchanged, changed or added outside the columns. Quote and cite the source and line for each claim. Flag additions and changes as pending approval; do not quietly treat an idea as a decision. Identify missing evidence, give one testable hypothesis and a next check, and explain the approval and rollback path. Do not invent studies, outcomes, links or approvals.
+
+SOURCE S1 — fictional approved baseline, version 1:
+S1.1 Phase 1: copy stages A–C unchanged and preserve version 1 and its history.
+S1.2 A: Explore the problem.
+S1.3 B: Practice with a mentor.
+S1.4 C: Review progress after two weeks.
+S1.5 Phase 2: propose changes for review after migration.
+
+SOURCE S2 — fictional discussion note, not an approval:
+S2.1 Someone suggested trying optional peer workshops in phase 2.
+S2.2 There is no measured completion data and no approval to change the baseline.
+
+CANDIDATE DRAFT — fictional proposal to inspect, not an approved plan:
+D1 A: Explore the problem.
+D2 B: Learn by building.
+D3 C: Review progress after 30 days.
+D4 D: Mandatory peer workshops for everyone.
+
+Produce: a two-column stage-by-stage comparison; a short evidence log with source, line, claim and limitation; a migration decision; and an approval and rollback plan. Distinguish source facts, interpretations and unknowns. Show your reasoning as a concise evidence trail, not a claim that an AI run has already happened.`;
+---
+<BaseLayout title="Trace a change to its evidence" description="Compare a fictional migration with its baseline, inspect research and prepare a reviewable change decision.">
+  <PageHero compact eyebrow="Foundation kata · about 15 minutes" title="Trace a change to its evidence" subtitle="Turn a revised plan into a clear comparison that another person can actually review." ctas={[{ label: 'Inspect the comparison', href: '#comparison', icon: 'arrow-right' }]} />
+  <section class="section outcome"><div class="container content">
+    <p class="kicker">The outcome · a fictional worked example</p><h2>One baseline. One proposal. Every difference visible.</h2>
+    <p>A team is moving a three-stage learning plan to a new home. The approved migration keeps the plan unchanged. A later redesign may be proposed, but has not been approved. The cards below compare a fictional baseline with a fictional draft; they are a worked answer, not the result of an AI run.</p>
+    <div id="comparison" class="compare" aria-label="Aligned baseline and proposed stages">
+      <article><h3>A · Unchanged</h3><dl><div><dt>Baseline</dt><dd>Explore the problem.</dd></div><div><dt>Proposed</dt><dd>Explore the problem.</dd></div></dl><p>Same wording · S1.2, D1</p></article>
+      <article><h3>B · Changed</h3><dl><div><dt>Baseline</dt><dd>Practice with a mentor.</dd></div><div><dt>Proposed</dt><dd>Learn by building.</dd></div></dl><p>Mentor removed · S1.3, D2</p></article>
+      <article><h3>C · Changed</h3><dl><div><dt>Baseline</dt><dd>Review progress after two weeks.</dd></div><div><dt>Proposed</dt><dd>Review progress after 30 days.</dd></div></dl><p>Timing changed · S1.4, D3</p></article>
+      <article><h3>D · Added</h3><dl><div><dt>Baseline</dt><dd>No stage D in this practice baseline.</dd></div><div><dt>Proposed</dt><dd>Mandatory peer workshops for everyone.</dd></div></dl><p>New requirement · D4; S2.1 only suggests an optional future trial.</p></article>
+    </div>
+    <p><strong>Decision:</strong> migrate the approved A–C wording as phase 1. Keep the draft as a separate phase 2 proposal; B, C and D are not approved changes. The practice sources contain no completion data, so they cannot establish that either version works better.</p>
+  </div></section>
+  <section class="section" id="practice"><div class="container content">
+    <p class="kicker">Try it now</p><h2>Give your assistant the full evidence</h2>
+    <p><strong>Ingredients:</strong> an assistant app or browser, or a CLI harness you already trust; an available model; the complete prompt and fictional sources below; and a place to save your review. On a phone use an assistant app such as ChatGPT or Claude; on Windows, macOS or Linux use a browser or compatible CLI. No skill, MCP server, plugin, account connection, paid tool or special installation is required for the exercise itself. Accounts, model availability and costs vary.</p>
+    <ol><li>Read the worked comparison above. Copy the prompt and send it to your chosen assistant.</li><li>Check each row against the original source lines and the proposal. Ask for corrections where its claims, citations or change labels do not match.</li><li>Save the actual output and your corrections. Record the assistant, model and tools if known, and write “not shown” for unknown details.</li></ol>
+    <div class="prompt"><label for="research-prompt">Complete prompt, sources and draft</label><textarea id="research-prompt" rows="21" readonly>{prompt}</textarea><button type="button" id="copy-research" hidden>Copy the complete prompt</button><span id="copy-status" aria-live="polite"> Or select and copy the text.</span></div>
+    <p><strong>Research is more than a confident summary.</strong> Ask a specific question, state a testable hypothesis, seek evidence that could challenge it, inspect sources yourself, and record authority, date, method and limits. For real projects open each cited source; an agent-generated title or link alone does not prove the source exists or supports the claim.</p>
+  </div></section>
+  <section class="section outcome"><div class="container content">
+    <p class="kicker">Verify and hand off</p><h2>Make the decision reviewable</h2>
+    <ol><li><strong>Source of truth:</strong> identify the approved baseline and version, who owns it and where it is stored. This kata’s S1 and S2 are fictional text inside the prompt, not real documents or links.</li><li><strong>Trace every difference:</strong> compare each proposed row with S1, record the source line and label its status. S2 suggests optional workshops; it does not authorize mandatory ones.</li><li><strong>Separate phases:</strong> preserve the original version and its history; document migration completeness before proposing redesign. Do not assume a copied draft is an approved successor.</li><li><strong>Test an uncertainty:</strong> hypothesis: “An optional workshop improves completion.” No completion data is supplied. Define the population, comparison, measure, permission and a fair follow-up before drawing a conclusion.</li><li><strong>Approval and rollback:</strong> identify the actual decision-maker and request a review of each change. If approved, retain the prior version and the documented restoration steps; verify a restored copy before relying on rollback. This practice grants no approval.</li></ol>
+    <details><summary>Quick check: what may phase 1 change?</summary><p>None of the approved A–C wording in this example. Preserve the baseline and its history; put B, C and D in a separate proposal for a decision.</p></details>
+    <p>For real work, obtain permission before sharing source material with an assistant. Do not paste private personnel, client or confidential project details into an unapproved service. Standards and regulated decisions require the appropriate qualified review.</p>
+    <p><a href="/library/tracks/research-and-evidence/02-find-and-judge-sources">Learn to find and judge sources</a> · <a href="/library/tracks/research-and-evidence/03-keep-an-evidence-log-in-git">Keep an evidence log</a> · <a href="/katas/delegate-and-review">Lead a builder and reviewer</a> · <a href="/katas">More katas</a></p>
+  </div></section>
+</BaseLayout>
+<script>
+  const input = document.querySelector<HTMLTextAreaElement>('#research-prompt');
+  const button = document.querySelector<HTMLButtonElement>('#copy-research');
+  const status = document.querySelector<HTMLElement>('#copy-status');
+  if (input && button && status) {
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(input.value); status.textContent = 'Copied. Paste it into your assistant.'; }
+      catch { input.focus(); input.select(); status.textContent = 'Text selected. Use your device’s copy command.'; }
+    });
+  }
+</script>
+<style>
+  .content { max-width: 72rem; } .outcome { background: var(--paper-raised); }
+  .kicker { color: var(--rust-text); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr)); gap: var(--space-3); scroll-margin-top: calc(var(--header-h) + var(--space-4)); }
+  .compare article, .prompt, details { min-width: 0; padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+  .compare h3 { font-size: var(--text-xl); margin-bottom: var(--space-3); }
+  .compare dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
+  .compare dl div { min-width: 0; padding: var(--space-2); border-radius: var(--radius); background: var(--paper-sunk); overflow-wrap: anywhere; }
+  .compare dt { font-weight: 800; } .compare dd { margin: var(--space-2) 0 0; }
+  .compare article > p { margin: 0; font-size: var(--text-sm); }
+  label { display: block; font-weight: 700; margin-bottom: var(--space-2); }
+  textarea { box-sizing: border-box; width: 100%; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; }
+  button { margin-top: var(--space-2); } summary { cursor: pointer; font-weight: 700; }
+</style>

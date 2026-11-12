@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+
+const prompt = `You are helping me check a FICTIONAL workplace activity report. I remain responsible for the review. Use only the fictional records below; do not create or carry out personnel decisions.
+
+SOURCE A — an incomplete workspace export for Tuesday:
+A1: Two chat messages and one document revision were recorded.
+A2: The export does not include external email, phone calls or offline work and does not record meeting attendance or hours worked.
+
+SOURCE B — an organizer's fictional meeting note:
+B1: The organizer recorded that the teammate joined Tuesday's stand-up. The note does not say how long anyone attended.
+
+SOURCE C — the fictional teammate's response:
+C1: They say they assisted a client by phone and worked offline. They have offered to share permitted evidence. The account has not yet been independently checked.
+
+DRAFT D — an intentionally flawed fictional AI report:
+D1: The teammate did not work on Tuesday, missed the stand-up and made no contribution.
+
+Build a short evidence review with four headings: observations with source references; contradictions; unknowns and limitations; and respectful questions and next checks. Distinguish the teammate's unverified account from confirmed records. Correct the draft and invite the person to explain, provide permitted evidence and request correction. Do not infer hours, motive, location, another job, or overall performance from these records. Do not rank the person, recommend discipline, or automate a personnel decision. Explain what a responsible human still needs to verify.`;
+---
+<BaseLayout title="Check an activity report fairly" description="Reconcile fictional workplace records, identify what is missing and invite correction before any human decision.">
+  <PageHero compact eyebrow="Evidence kata · about 10 minutes" title="Check an activity report fairly" subtitle="Turn an overconfident report into an evidence record a person can question and correct." ctas={[{ label: 'Inspect the evidence', href: '#evidence', icon: 'arrow-right' }]} />
+  <section class="section outcome"><div class="container content">
+    <p class="kicker">The outcome · fictional worked example</p><h2>A report with room for the missing story</h2>
+    <p>A workspace export records two messages and one document revision. An organizer’s note records a stand-up. The teammate says some work happened outside the workspace; that account has not yet been checked. The sources are fictional practice material, not a real monitoring report or an AI run.</p>
+    <div id="evidence" class="evidence">
+      <article><h3>What the records say</h3><p>The export records two messages and one revision (A1). The organizer’s note records the teammate joining a stand-up (B1). A separate account describes phone and offline work (C1), which is not yet verified.</p></article>
+      <article><h3>What remains unknown</h3><p>The export omits phone, external email and offline work and does not measure attendance or hours (A2). The meeting note gives no duration (B1). Neither record establishes overall contribution or performance.</p></article>
+      <article><h3>What to do next</h3><p>Show the person the draft, invite their account and corrections, request only permitted supporting evidence, and reconcile the sources. A responsible human reviews the result; do not automate personnel decisions.</p></article>
+    </div>
+    <p><strong>Correction:</strong> “did not work,” “missed the stand-up” and “made no contribution” are not supported. The meeting note conflicts with the missed-meeting claim. A record’s absence from one system is not proof that an activity did not occur.</p>
+  </div></section>
+  <section class="section" id="practice"><div class="container content">
+    <p class="kicker">Try it now</p><h2>Give the reviewer all three sources</h2>
+    <p><strong>Ingredients:</strong> your choice of assistant app, browser or trusted CLI harness; an available model; the full fictional prompt below; and a place to save your review. On a phone, use an assistant app such as ChatGPT or Claude; on Windows, macOS or Linux use a browser or compatible CLI. No plugin, MCP server, skill, account connection or paid service is required by the exercise itself. Accounts, model availability and charges vary.</p>
+    <ol><li>Read the fictional records and flawed draft in the prompt. Predict which statements are supported, contradicted or unverified.</li><li>Copy the complete prompt into your assistant. Keep the response as an actual draft, not as proof that its assertions are correct.</li><li>Compare each claim and citation with sources A–C. Correct unsupported claims and write down any further check that a person would need to make.</li></ol>
+    <div class="prompt"><label for="activity-prompt">Complete prompt and fictional records</label><textarea id="activity-prompt" rows="20" readonly>{prompt}</textarea><button type="button" id="copy-activity" hidden>Copy the complete prompt</button><span id="activity-copy-status" aria-live="polite"> Or select and copy the text.</span></div>
+  </div></section>
+  <section class="section outcome"><div class="container content">
+    <p class="kicker">Verify and adapt</p><h2>Ask before you conclude</h2>
+    <ol><li><strong>Check scope:</strong> write down the period and which systems and activities the export covers. The sample does not measure hours, location or meeting attendance.</li><li><strong>Reconcile:</strong> the organizer’s note contradicts “missed the stand-up”; check the underlying note and resolve any disagreement rather than choosing a convenient record.</li><li><strong>Listen and correct:</strong> ask the person for their account and any evidence they can share appropriately. Label unverified statements and give them a chance to explain or challenge errors.</li><li><strong>Protect and review:</strong> restrict access to sensitive records, avoid copying personal or client information into unapproved tools, and follow the relevant workplace policies and applicable rules. A person, not an automated report, must handle consequential decisions.</li></ol>
+    <details><summary>Quick check: does the export prove a teammate worked zero hours?</summary><p>No. The export does not measure hours and excludes some work. Ask for context and check appropriate records.</p></details>
+    <p><a href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/employment/monitoring-workers/data-protection-and-monitoring-workers/">UK Information Commissioner’s Office: monitoring workers</a> discusses accuracy and allowing workers to challenge information. Its guidance is under review; its legal context is the UK, and requirements vary by jurisdiction.</p>
+    <p><a href="/katas/error-clinic">Spot mistakes in a report</a> · <a href="/katas/delegate-and-review">Lead a builder and reviewer</a> · <a href="/library/tracks/research-and-evidence/02-find-and-judge-sources">Find and judge sources</a> · <a href="/katas">More katas</a></p>
+  </div></section>
+</BaseLayout>
+<script>
+  const input = document.querySelector<HTMLTextAreaElement>('#activity-prompt');
+  const button = document.querySelector<HTMLButtonElement>('#copy-activity');
+  const status = document.querySelector<HTMLElement>('#activity-copy-status');
+  if (input && button && status) {
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(input.value); status.textContent = 'Copied. Paste it into your assistant.'; }
+      catch { input.focus(); input.select(); status.textContent = 'Text selected. Use your device’s copy command.'; }
+    });
+  }
+</script>
+<style>
+  .content { max-width: 72rem; } .outcome { background: var(--paper-raised); }
+  .kicker { color: var(--rust-text); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .evidence { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: var(--space-3); scroll-margin-top: calc(var(--header-h) + var(--space-4)); }
+  .evidence article, .prompt, details { min-width: 0; padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+  .evidence h3 { font-size: var(--text-xl); } .evidence p { margin-bottom: 0; }
+  label { display: block; font-weight: 700; margin-bottom: var(--space-2); }
+  textarea { box-sizing: border-box; width: 100%; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; }
+  button { margin-top: var(--space-2); } summary { cursor: pointer; font-weight: 700; }
+</style>
