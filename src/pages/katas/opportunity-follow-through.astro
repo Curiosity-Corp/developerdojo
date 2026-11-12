@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+
+const sources = `FICTIONAL PRACTICE RECORDS — no real people or customer data
+S1 — Inquiry: A fictional garden cooperative asks for information about a volunteer-scheduling demo. It has not stated a budget or purchase date. The sender agreed to a reply about this inquiry only.
+S2 — Internal planning note: Mira will draft a response for internal review by 12 May. The approving manager has not been named. No message has been sent.
+S3 — Privacy note: Do not share the inquiry with an outside AI service without permission. Further marketing and use of the cooperative's name in public material are not approved. The buyer or decision-maker is unknown.`;
+const prompt = `Act as a research and sales-planning assistant. Work only from these fictional records. Build a small opportunity record with: source IDs; a relationship map separating the inquiry sender, the unknown buyer, the internal owner and the unknown approver; the current stage; one next internal action, its owner and due date; and the approval and privacy limits. Separate confirmed facts, unknowns and proposed next steps. Do not invent a person, price, sale, revenue, meeting, permission, contacted stakeholder or outcome. Do not send messages or connect to a CRM.\n\n${sources}`;
+---
+<BaseLayout title="Turn an inquiry into a next step" description="Practice an evidence-backed opportunity and relationship map without contacting anyone.">
+  <PageHero compact eyebrow="Business kata · about 10 minutes" title="Turn an inquiry into a next step" subtitle="Map the people, make the next action clear, and check the evidence before anyone reaches out." ctas={[{ label: 'Start with the example', href: '#brief', icon: 'arrow-right' }]} />
+  <section class="section outcome"><div class="container content">
+    <p class="kicker">The finished outcome</p><h2>A lead you can actually follow</h2>
+    <div class="flow" aria-label="Opportunity workflow">
+      <p><strong>1 · Source</strong><br />A fictional inquiry asks for demo information.</p>
+      <p><strong>2 · People</strong><br />The sender is known by role; the buyer and approver are unknown.</p>
+      <p><strong>3 · Next step</strong><br />Mira drafts an internal response by 12 May for review.</p>
+      <p><strong>4 · Verify</strong><br />No message, sale or revenue is documented.</p>
+    </div>
+    <p>This is a worked practice outcome made from invented records, not a real customer or an AI run. An inquiry is a lead to investigate; it is not a signed contract or earned revenue.</p>
+    <p><strong>Ingredients:</strong> the three short records and prompt below, a place to save a draft, and your own judgment. Use any available assistant or trusted CLI harness; no skill, MCP server, plugin, CRM connection, paid tool or account is required for the paper exercise.</p>
+    <p>On a phone, use an assistant app or write it yourself. On Windows, macOS or Linux, use a browser or a CLI harness you already trust. Provider availability, account requirements and charges vary. This exercise does not install or connect anything.</p>
+  </div></section>
+  <section class="section" id="brief"><div class="container content">
+    <p class="kicker">Start here</p><h2>Read the evidence</h2>
+    <p>These records are fictional. Each ID identifies the source for a fact; there are no real email addresses to use.</p>
+    <ol class="sources">
+      <li><strong>S1 · Inquiry.</strong> A fictional garden cooperative asks for information about a volunteer-scheduling demo. It has not stated a budget or purchase date. The sender agreed to a reply about this inquiry only.</li>
+      <li><strong>S2 · Internal planning note.</strong> Mira will draft a response for internal review by 12 May. The approving manager has not been named. No message has been sent.</li>
+      <li><strong>S3 · Privacy note.</strong> Do not share the inquiry with an outside AI service without permission. Further marketing and use of the cooperative's name in public material are not approved. The buyer or decision-maker is unknown.</li>
+    </ol>
+    <h3>Build the next-step record</h3>
+    <ol>
+      <li>Map roles: the inquiry sender, the unknown buyer, the internal owner and the unknown approver. Mark missing names as unknown.</li>
+      <li>Write the opportunity stage, one next action, its owner and date. Cite the source IDs and list what needs permission or clarification.</li>
+      <li>Use the prompt below if you want an assistant. Compare every line with S1–S3 before treating it as a plan.</li>
+    </ol>
+    <article class="prompt" data-prompt-box><label for="opportunity-prompt">Complete prompt and fictional records</label><textarea id="opportunity-prompt" rows="19" readonly data-prompt>{prompt}</textarea><button type="button" data-copy hidden>Copy practice prompt</button><span data-status aria-live="polite"> Or select and copy the text.</span></article>
+    <details><summary>Reveal the independent check</summary>
+      <ul>
+        <li><strong>Stage:</strong> an inquiry to investigate (S1); it is not a qualified deal or a sale.</li>
+        <li><strong>Relationship map:</strong> inquiry sender—name and role beyond sender unknown (S1); buyer unknown (S3); internal owner—Mira (S2); approving manager unknown (S2).</li>
+        <li><strong>Next action:</strong> Mira drafts a response for internal review by 12 May (S2). A reply may be relevant to the inquiry, but the records do not say that a response was approved or sent.</li>
+        <li><strong>Evidence and limits:</strong> the budget, purchase date and revenue are unknown; no deal or meeting is documented (S1–S3). The sender agreed to an inquiry reply only; further marketing and public use of the name are not approved (S1, S3). Do not put the inquiry into an external AI service without permission (S3).</li>
+      </ul>
+    </details>
+  </div></section>
+  <section class="section outcome"><div class="container content">
+    <p class="kicker">Adapt</p><h2>Make it useful in your field</h2>
+    <p>Try the same source → people → next step → verify pattern for a partnership, procurement notice or client request. Record the public source or authorized record, who can make a decision, the relationship you need to develop, and the next follow-up. Do not guess contact details, claim a response or count potential value as revenue. Check communication permissions, client approval and applicable rules before outreach.</p>
+    <p>Practice with <a href="https://academy.hubspot.com/courses/inbound-sales">HubSpot Academy’s Inbound Sales course</a> for more on finding and engaging buyers. HubSpot describes it as free; enrollment requires sign-up and availability can change. This kata does not grant its certification or make a CRM connection.</p>
+    <p><a href="/katas/industry-workshops#customer-operations">Practice a fictional customer brief</a> · <a href="/katas/delegate-and-review">Lead a builder and reviewer</a> · <a href="/library/tracks/stakeholder-communication/">Explore stakeholder communication</a></p>
+  </div></section>
+</BaseLayout>
+<script>
+  for (const box of document.querySelectorAll<HTMLElement>('[data-prompt-box]')) {
+    const input = box.querySelector<HTMLTextAreaElement>('[data-prompt]');
+    const button = box.querySelector<HTMLButtonElement>('[data-copy]');
+    const status = box.querySelector<HTMLElement>('[data-status]');
+    if (!input || !button || !status) continue;
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(input.value); status.textContent = 'Copied. Paste it into your assistant.'; }
+      catch { input.focus(); input.select(); status.textContent = 'Text selected. Use your device’s copy command.'; }
+    });
+  }
+</script>
+<style>
+  .content { max-width: 72rem; }
+  .outcome { background: var(--paper-raised); }
+  .kicker { color: var(--rust-text); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--space-3); }
+  .flow p, .prompt, details { padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+  .sources li { margin-bottom: var(--space-3); }
+  .prompt { min-width: 0; }
+  label { display: block; font-weight: 700; margin-bottom: var(--space-2); }
+  textarea { box-sizing: border-box; width: 100%; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; }
+  button { margin-top: var(--space-2); }
+  summary { cursor: pointer; font-weight: 700; }
+</style>
