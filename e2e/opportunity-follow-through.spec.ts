@@ -7,7 +7,7 @@ test('a beginner can check the fictional opportunity on a phone without JavaScri
     const page = await context.newPage();
     await page.goto('/katas/opportunity-follow-through/');
     await page.getByRole('link', { name: 'Start with the example' }).click();
-    await expect(page.getByLabel('Complete prompt and fictional records')).toHaveValue(/Do not invent a person, price, sale, revenue/);
+    await expect(page.getByLabel('Complete prompt and fictional records')).toHaveValue(/Do not invent a person, year, price, sale, revenue/);
     await page.getByText('Reveal the independent check').click();
     await expect(page.getByText('Mira drafts a response for internal review by 12 May', { exact: false })).toBeVisible();
     await expect(page.getByText('the budget, purchase date and revenue are unknown', { exact: false })).toBeVisible();
