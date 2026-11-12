@@ -4,9 +4,9 @@ import PageHero from '../../components/PageHero.astro';
 
 const sources = `FICTIONAL PRACTICE RECORDS — no real people or customer data
 S1 — Inquiry: A fictional garden cooperative asks for information about a volunteer-scheduling demo. It has not stated a budget or purchase date. The sender agreed to a reply about this inquiry only.
-S2 — Internal planning note: Mira will draft a response for internal review by 12 May. The approving manager has not been named. No message has been sent.
+S2 — Internal planning note: Mira will draft a response for internal review by 12 May; the note does not state a year. The approving manager has not been named. No message has been sent.
 S3 — Privacy note: Do not share the inquiry with an outside AI service without permission. Further marketing and use of the cooperative's name in public material are not approved. The buyer or decision-maker is unknown.`;
-const prompt = `Act as a research and sales-planning assistant. Work only from these fictional records. Build a small opportunity record with: source IDs; a relationship map separating the inquiry sender, the unknown buyer, the internal owner and the unknown approver; the current stage; one next internal action, its owner and due date; and the approval and privacy limits. Separate confirmed facts, unknowns and proposed next steps. Do not invent a person, price, sale, revenue, meeting, permission, contacted stakeholder or outcome. Do not send messages or connect to a CRM.\n\n${sources}`;
+const prompt = `Act as a research and sales-planning assistant. Work only from these fictional records. Build a small opportunity record with: source IDs; a relationship map separating the inquiry sender, the unknown buyer, the internal owner and the unknown approver; the current stage; one next internal action, its owner and due date; and the approval and privacy limits. Separate confirmed facts, unknowns and proposed next steps. Do not invent a person, year, price, sale, revenue, meeting, permission, contacted stakeholder or outcome. Do not send messages or connect to a CRM.\n\n${sources}`;
 ---
 <BaseLayout title="Turn an inquiry into a next step" description="Practice an evidence-backed opportunity and relationship map without contacting anyone.">
   <PageHero compact eyebrow="Business kata · about 10 minutes" title="Turn an inquiry into a next step" subtitle="Map the people, make the next action clear, and check the evidence before anyone reaches out." ctas={[{ label: 'Start with the example', href: '#brief', icon: 'arrow-right' }]} />
@@ -24,10 +24,10 @@ const prompt = `Act as a research and sales-planning assistant. Work only from t
   </div></section>
   <section class="section" id="brief"><div class="container content">
     <p class="kicker">Start here</p><h2>Read the evidence</h2>
-    <p>These records are fictional. Each ID identifies the source for a fact; there are no real email addresses to use.</p>
+    <p>These records were invented for this practice and may be copied into your assistant. Each ID identifies a source; there are no real email addresses. For real inquiries, get permission before sharing information with an outside service.</p>
     <ol class="sources">
       <li><strong>S1 · Inquiry.</strong> A fictional garden cooperative asks for information about a volunteer-scheduling demo. It has not stated a budget or purchase date. The sender agreed to a reply about this inquiry only.</li>
-      <li><strong>S2 · Internal planning note.</strong> Mira will draft a response for internal review by 12 May. The approving manager has not been named. No message has been sent.</li>
+      <li><strong>S2 · Internal planning note.</strong> Mira will draft a response for internal review by 12 May; the note does not state a year. The approving manager has not been named. No message has been sent.</li>
       <li><strong>S3 · Privacy note.</strong> Do not share the inquiry with an outside AI service without permission. Further marketing and use of the cooperative's name in public material are not approved. The buyer or decision-maker is unknown.</li>
     </ol>
     <h3>Build the next-step record</h3>
@@ -41,7 +41,7 @@ const prompt = `Act as a research and sales-planning assistant. Work only from t
       <ul>
         <li><strong>Stage:</strong> an inquiry to investigate (S1); it is not a qualified deal or a sale.</li>
         <li><strong>Relationship map:</strong> inquiry sender—name and role beyond sender unknown (S1); buyer unknown (S3); internal owner—Mira (S2); approving manager unknown (S2).</li>
-        <li><strong>Next action:</strong> Mira drafts a response for internal review by 12 May (S2). A reply may be relevant to the inquiry, but the records do not say that a response was approved or sent.</li>
+        <li><strong>Next action:</strong> Mira drafts a response for internal review by 12 May (S2); the year is unknown. A reply may be relevant to the inquiry, but the records do not say that a response was approved or sent.</li>
         <li><strong>Evidence and limits:</strong> the budget, purchase date and revenue are unknown; no deal or meeting is documented (S1–S3). The sender agreed to an inquiry reply only; further marketing and public use of the name are not approved (S1, S3). Do not put the inquiry into an external AI service without permission (S3).</li>
       </ul>
     </details>
