@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+
+const records = `FICTIONAL PRACTICE RECORDS — no real person or employer
+F1 — Lee is a fictional operations coordinator who wants to write a clear, evidence-backed weekly update. A fictional manager approves using the weekly-note section of the Dojo lesson “Write the one-pager and the weekly note” and two protected 20-minute practice blocks, one in each of the next two weeks. Exact calendar dates have not been scheduled. A mentor offers to review a draft during week two; no review has happened.
+F2 — A fictional team drafted a welcome packet. Client approval is still pending. Lee will ask for feedback by the end of week one. No deadline for client approval is recorded.`;
+const prompt = `Act as a career-development planning assistant. Using only the fictional records below, prepare a two-week, role-relevant learning plan. Include: one specific skill and observable goal; the approved lesson section; the two protected practice blocks; one fictional application artifact; a weekly check-in; an opportunity for mentor feedback; and costs or access requirements that are unknown. Separate confirmed facts from proposed actions. State that no calendar booking, completed practice, feedback, certificate or outcome is documented. Do not invent attendance, approvals, dates, fees, credentials or performance results. Do not schedule meetings or connect tools.\n\n${records}`;
+---
+<BaseLayout title="Plan a skill you can use" description="Build a short, evidence-backed development plan with practice time and feedback.">
+  <PageHero compact eyebrow="Career kata · 10–15 minutes to plan" title="Plan a skill you can use" subtitle="Choose one skill. Protect practice time. Make something. Learn from feedback." ctas={[{ label: 'Build the plan', href: '#plan', icon: 'arrow-right' }]} />
+  <section class="section outcome"><div class="container content">
+    <p class="kicker">The finished outcome</p><h2>Two weeks. One useful skill.</h2>
+    <div class="flow" aria-label="Skill growth plan"><p><strong>Learn</strong><br />Read one approved lesson section.</p><p><strong>Practice</strong><br />Use two protected 20-minute blocks.</p><p><strong>Apply</strong><br />Draft and revise a weekly update.</p><p><strong>Reflect</strong><br />Check in weekly and seek mentor feedback.</p></div>
+    <p>In this invented example, Lee wants to write a weekly update that separates completed work, pending approval and the next action. The two-week plan is a <strong>proposed plan, not a completed activity</strong>. No session has been booked and no credential has been earned.</p>
+    <div class="example"><p><strong>Example practice update · based on F2</strong></p><p>Drafted: welcome packet. Approval: pending; deadline unknown. Next: Lee will ask for feedback by the end of week one.</p></div>
+    <p><strong>Ingredients:</strong> the two fictional records, the approved lesson linked below, a place to save a plan and your own judgment. You can work on paper, use an assistant on your phone or in a browser, or use a trusted CLI harness on Windows, macOS or Linux. No skill, plugin, MCP server, connected calendar, paid service or account is needed for this paper exercise; optional assistant access and costs vary.</p>
+  </div></section>
+  <section class="section" id="plan"><div class="container content">
+    <p class="kicker">Start here</p><h2>Use the fictional brief</h2>
+    <ol class="sources">
+      <li><strong>F1 · Development brief.</strong> Lee is a fictional operations coordinator who wants to write a clear, evidence-backed weekly update. A fictional manager approves using the weekly-note section of the Dojo lesson “Write the one-pager and the weekly note” and two protected 20-minute practice blocks, one in each of the next two weeks. Exact calendar dates have not been scheduled. A mentor offers to review a draft during week two; no review has happened.</li>
+      <li><strong>F2 · Practice notes.</strong> A fictional team drafted a welcome packet. Client approval is still pending. Lee will ask for feedback by the end of week one. No deadline for client approval is recorded.</li>
+    </ol>
+    <p><strong>Approved resource in this fictional brief:</strong> the weekly-note section of <a href="/library/tracks/stakeholder-communication/02-write-the-one-pager-and-weekly-note/">Write the one-pager and the weekly note</a>. The lesson is publicly readable; the whole lesson is longer than either practice block, so select the relevant section. This fictional approval is not approval from your own manager.</p>
+    <h3>Make the plan</h3>
+    <ol><li>Choose one role-relevant skill and an observable result. Cite F1 and F2.</li><li>Set out one 20-minute practice block and one check-in each week; leave dates and locations unknown until agreed.</li><li>Describe the artifact: draft a weekly update from F2, then revise it after feedback if that feedback actually occurs. Keep the client approval marked pending.</li><li>Ask a mentor for feedback in week two. Record what is known about access and cost; do not assume a subscription, meeting or credential.</li></ol>
+    <article class="prompt" data-prompt-box><label for="growth-prompt">Complete planning prompt and fictional records</label><textarea id="growth-prompt" rows="20" readonly data-prompt>{prompt}</textarea><button type="button" data-copy hidden>Copy planning prompt</button><span data-status aria-live="polite"> Or select and copy the text.</span></article>
+    <details><summary>Reveal the independent check</summary>
+      <ul>
+        <li><strong>Skill and outcome:</strong> write a weekly update whose statements can be checked against the source (F1–F2).</li>
+        <li><strong>Approved practice:</strong> use the weekly-note section of the Dojo lesson in two protected 20-minute blocks; the exact dates are unknown (F1). Proposed check-ins are weekly; none is recorded as completed.</li>
+        <li><strong>Application:</strong> a draft based on F2 can say the welcome packet was drafted, approval is pending, and Lee plans to ask for feedback by the end of week one. It must not claim that approval or feedback occurred.</li>
+        <li><strong>Feedback:</strong> a mentor offered to review in week two, but the review and any next step have not happened (F1). Ask and record the actual response.</li>
+        <li><strong>Access and cost:</strong> the Dojo lesson can be read publicly. Access and cost for any optional assistant, certification or other service are unknown until checked. Practicing a skill is not the same as earning a certification.</li>
+      </ul>
+    </details>
+  </div></section>
+  <section class="section outcome"><div class="container content">
+    <p class="kicker">Adapt</p><h2>Make a plan for your own role</h2>
+    <p>Choose one skill you can apply to your actual work, identify a suitable source and get agreement on practice time. Build an artifact with authorized material, ask for mentor feedback, and record what happened at each check-in. Record unknown time, cost, access and permission instead of guessing. Keep personnel or client details private and do not put them in an outside assistant without permission.</p>
+    <p>For ideas on structuring check-ins, read the <a href="https://handbook.gitlab.com/handbook/leadership/1-1/">GitLab Handbook’s one-to-one guide</a>, already listed in the Dojo’s resources. Adapt it to your context. Reading a guide or completing this kata does not award a professional credential.</p>
+    <p><a href="/katas/lead-a-learning-session">Lead a peer learning session</a> · <a href="/library/tracks/leading-people-and-agents/02-give-and-receive-feedback/">Give and receive feedback</a> · <a href="/library/tracks/stakeholder-communication/">Explore stakeholder communication</a></p>
+  </div></section>
+</BaseLayout>
+<script>
+  for (const box of document.querySelectorAll<HTMLElement>('[data-prompt-box]')) {
+    const input = box.querySelector<HTMLTextAreaElement>('[data-prompt]');
+    const button = box.querySelector<HTMLButtonElement>('[data-copy]');
+    const status = box.querySelector<HTMLElement>('[data-status]');
+    if (!input || !button || !status) continue;
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(input.value); status.textContent = 'Copied. Paste it into your assistant.'; }
+      catch { input.focus(); input.select(); status.textContent = 'Text selected. Use your device’s copy command.'; }
+    });
+  }
+</script>
+<style>
+  .content { max-width: 72rem; }
+  .outcome { background: var(--paper-raised); }
+  .kicker { color: var(--rust-text); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--space-3); }
+  .flow p, .prompt, .example, details { padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+  .sources li { margin-bottom: var(--space-3); }
+  .prompt { min-width: 0; }
+  label { display: block; font-weight: 700; margin-bottom: var(--space-2); }
+  textarea { box-sizing: border-box; width: 100%; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; }
+  button { margin-top: var(--space-2); }
+  summary { cursor: pointer; font-weight: 700; }
+</style>
