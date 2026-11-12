@@ -36,7 +36,7 @@ test('teamwork practice is discoverable by role and outcome', async ({ page }) =
     ['monitoring', 'Start the evidence review'],
     ['mentoring', 'Start the mentoring kata'],
     ['growth', 'Start the growth-plan kata'],
-  ]) {
+  ] as const) {
     await search.fill(query);
     await expect(page.getByRole('link', { name: link })).toBeVisible();
   }
