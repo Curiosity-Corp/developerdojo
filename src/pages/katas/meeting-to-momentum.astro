@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+
+const notes = `FICTIONAL MEETING NOTES — Community library signup prototype
+Goal: demonstrate a signup prototype; a public launch has not been approved.
+Lee shared a draft signup screen. It has not been reviewed yet.
+Rin will check its keyboard flow by 13 October 2026 and save the findings. The shared folder location still needs confirming.
+Sam will ask the library coordinator to review the draft by 14 October 2026. This is a request for review, not approval.
+The team discussed a volunteer demonstration. No one agreed to own it or set a date.
+Next team sync: 12 October 2026 at 15:00 UTC.`;
+const prompt = `You are my meeting-to-action assistant. Turn these fictional notes into a concise follow-through board. Separate confirmed commitments, open questions and decisions that have not been made. For each confirmed commitment show owner, next action, due date, status, evidence to save, and the exact note supporting it. Mark unknown dates, owners and locations as unknown; do not invent approvals, completed work or client contact. Include a short update for the next sync and a question that helps resolve each unknown. I will review the source and decide what to send.\n\n${notes}`;
+---
+<BaseLayout title="Turn a meeting into momentum" description="Turn a fictional team meeting into clear commitments, verifiable evidence and a useful next update.">
+  <PageHero compact eyebrow="Teamwork kata · about 10 minutes" title="Turn a meeting into momentum" subtitle="Make the next action obvious, keep the evidence, and catch what nobody actually agreed." ctas={[{ label: 'Start with the notes', href: '#practice', icon: 'arrow-right' }]} />
+  <section class="section outcome"><div class="container content">
+    <p class="kicker">The finished outcome</p><h2>A small board your team can act on</h2>
+    <div class="board" aria-label="Example follow-through board">
+      <article><strong>Rin · 13 Oct</strong><p>Check keyboard flow; save the findings. Folder location: <strong>unknown</strong>.</p></article>
+      <article><strong>Sam · 14 Oct</strong><p>Ask the coordinator to review the draft. Review requested does not mean approved.</p></article>
+      <article><strong>Open question</strong><p>Who owns the volunteer demo, and when? The meeting did not decide.</p></article>
+    </div>
+    <p><strong>Ingredients:</strong> the fictional notes and prompt below; any assistant and model in a phone app, browser or trusted CLI; a place to keep your reviewed draft; and a human decision-maker. No plugin, skill, MCP server, account connection or paid service is required by this exercise. Provider access and costs vary.</p>
+    <p>Use fictional or authorized notes. Do not paste private meeting records, customer information or credentials into a service without permission.</p>
+  </div></section>
+  <section class="section" id="practice"><div class="container content">
+    <p class="kicker">Start now</p><h2>Turn notes into commitments</h2>
+    <ol><li>Copy the complete prompt into your chosen assistant. You can also make the board yourself.</li><li>Compare every owner, date and status with the notes. Mark anything absent as unknown.</li><li>Save the board where your team has agreed; ask the relevant people to confirm before changing a shared tracker or sending a message.</li></ol>
+    <article class="prompt" data-prompt-box><label for="meeting-prompt">Complete prompt and fictional notes</label><textarea id="meeting-prompt" rows="17" readonly data-prompt>{prompt}</textarea><button type="button" data-copy hidden>Copy prompt</button><span data-status aria-live="polite"> Or select and copy the text.</span></article>
+    <details><summary>Reveal the independent check</summary><p>There are two explicit commitments: Rin's keyboard check by 13 October and Sam's request for review by 14 October. Lee shared a draft; no date or owner was assigned to a volunteer demo. The shared folder location is unknown. The notes say the draft is not reviewed and a public launch is not approved. The next sync is 12 October at 15:00 UTC.</p></details>
+    <h3>Write an update people can use</h3><p>For the next sync, report the goal, what is actually complete, each commitment and its evidence, the open owner and folder questions, and the next time to check in. Ask for help early when a blocker needs another person's decision. If a date becomes unrealistic, propose a revised date and obtain agreement rather than silently changing it.</p>
+  </div></section>
+  <section class="section outcome"><div class="container content">
+    <p class="kicker">Make it a team habit</p><h2>Move from activity to an outcome</h2>
+    <ol><li><strong>Agree:</strong> confirm the goal, decision-maker, responsibilities, availability and what done looks like.</li><li><strong>Work together:</strong> use the check-in to inspect progress, ask for help, pair on a difficult task and update the plan. Not every useful contribution happens in a meeting.</li><li><strong>Leave evidence:</strong> save an authorized link or artifact, say what changed and what still needs review, and agree on the next action.</li><li><strong>Improve:</strong> review the outcome and invite corrections. Missing records or automated activity counts alone do not prove that work was not done; ask for context and supporting evidence. People make personnel decisions through their own appropriate processes.</li></ol>
+    <p>The <a href="https://scrumguides.org/scrum-guide.html#daily-scrum">2020 Scrum Guide's Daily Scrum</a> describes a focused inspection and plan for the next day. This kata is a general follow-through exercise, not a substitute for the full Scrum framework. For structured learning, explore Atlassian’s <a href="https://community.atlassian.com/learning/path/registered-scrum-basics">Registered Scrum Basics learning path</a>; check the provider’s current access and credential requirements.</p>
+    <p><a href="/library/tracks/agile-delivery/">Explore agile delivery</a> · <a href="/library/tracks/leading-people-and-agents/">Practice leading people and agents</a> · <a href="/katas/delegate-and-review">Review an agent's draft</a></p>
+  </div></section>
+</BaseLayout>
+<script>
+  for (const box of document.querySelectorAll<HTMLElement>('[data-prompt-box]')) {
+    const input = box.querySelector<HTMLTextAreaElement>('[data-prompt]');
+    const button = box.querySelector<HTMLButtonElement>('[data-copy]');
+    const status = box.querySelector<HTMLElement>('[data-status]');
+    if (!input || !button || !status) continue;
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(input.value); status.textContent = 'Copied. Paste it into your assistant.'; }
+      catch { input.focus(); input.select(); status.textContent = 'Text selected. Use your device’s copy command.'; }
+    });
+  }
+</script>
+<style>
+  .content { max-width: 72rem; } .outcome { background: var(--paper-raised); }
+  .kicker { color: var(--rust-text); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .board { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: var(--space-3); }
+  .board article, .prompt, details { padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+  .board p { margin: var(--space-2) 0 0; } .prompt { min-width: 0; }
+  label { display: block; font-weight: 700; margin-bottom: var(--space-2); }
+  textarea { box-sizing: border-box; width: 100%; padding: var(--space-3); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; }
+  button { margin-top: var(--space-2); } summary { cursor: pointer; font-weight: 700; }
+</style>
