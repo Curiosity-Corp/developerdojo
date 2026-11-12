@@ -25,3 +25,21 @@ test('a learner can copy the complete prompt and source notes', async ({ page })
   expect(copied).toContain('not been approved');
   expect(copied).toContain('No one agreed to own it or set a date');
 });
+
+test('teamwork practice is discoverable by role and outcome', async ({ page }) => {
+  await page.goto('/katas/');
+  const search = page.getByRole('search', { name: 'Find a kata' }).getByLabel('Find by outcome or topic');
+  for (const [query, link] of [
+    ['research', 'Start the research kata'],
+    ['scrum', 'Start the teamwork kata'],
+    ['procurement', 'Start the opportunity kata'],
+    ['monitoring', 'Start the evidence review'],
+    ['mentoring', 'Start the mentoring kata'],
+    ['growth', 'Start the growth-plan kata'],
+  ]) {
+    await search.fill(query);
+    await expect(page.getByRole('link', { name: link })).toBeVisible();
+  }
+  await page.getByRole('link', { name: 'Start the growth-plan kata' }).click();
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Plan a skill you can use');
+});
