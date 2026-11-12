@@ -94,6 +94,19 @@ try {
           throw new Error(`Unexpected body::before content for ${treatment}: ${metrics.bodyBeforeContent}`);
         }
       }
+      if (textureMode) {
+        // Capture before axe, with a real card in view. The cards use content-visibility,
+        // so a screenshot immediately after the scan can omit their interiors.
+        const firstCardLink = page.locator('#resource-list > li[data-resource] a').first();
+        await firstCardLink.scrollIntoViewIfNeeded();
+        await firstCardLink.waitFor({ state: 'visible' });
+        await page.evaluate(async () => {
+          await document.fonts.ready;
+          await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        });
+        await page.screenshot({ path: `catalog-texture-screenshots/${theme}-${treatment}.png` });
+        await page.evaluate(() => window.scrollTo(0, 0));
+      }
       const setupMs = Math.round(performance.now() - loadStarted);
       const scanStarted = performance.now();
       const result = await new AxeBuilder({ page }).withTags(tags).analyze();
@@ -110,10 +123,6 @@ try {
       };
       report.measurements.push(sample);
       await save();
-      if (textureMode) {
-        // Illustrative viewport only; it does not establish contrast across the whole page.
-        await page.screenshot({ path: `catalog-texture-screenshots/${theme}-${treatment}.png` });
-      }
       console.log(JSON.stringify({ ...sample, violations: sample.violations.length, incomplete: sample.incomplete.length }));
     } finally {
       await context.close();
