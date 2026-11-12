@@ -95,16 +95,51 @@ try {
         }
       }
       if (textureMode) {
-        // Capture before axe, with a real card in view. The cards use content-visibility,
-        // so a screenshot immediately after the scan can omit their interiors.
+        // Center a card before capture: content-visibility may otherwise leave a
+        // partially visible card unpainted even when its link has a layout box.
         const firstCardLink = page.locator('#resource-list > li[data-resource] a').first();
-        await firstCardLink.scrollIntoViewIfNeeded();
+        await firstCardLink.evaluate((link) => link.scrollIntoView({ block: 'center', inline: 'nearest' }));
         await firstCardLink.waitFor({ state: 'visible' });
+        await page.waitForFunction(() => {
+          const card = document.querySelector('#resource-list > li[data-resource]');
+          return card && card.checkVisibility({ contentVisibilityAuto: true });
+        });
         await page.evaluate(async () => {
           await document.fonts.ready;
           await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
         });
-        await page.screenshot({ path: `catalog-texture-screenshots/${theme}-${treatment}.png` });
+        const box = await firstCardLink.boundingBox();
+        if (!box) throw new Error('Resource title has no visible screenshot bounds');
+        const screenshot = await page.screenshot();
+        // Check the actual screenshot pixels inside the title, not just the DOM:
+        // the latter can report visible while content-visibility has not painted.
+        const painted = await page.evaluate(async ({ encoded, box }) => {
+          const image = new Image();
+          image.src = `data:image/png;base64,${encoded}`;
+          await image.decode();
+          const scale = image.width / window.innerWidth;
+          const x = Math.max(0, Math.floor(box.x * scale));
+          const y = Math.max(0, Math.floor(box.y * scale));
+          const width = Math.min(image.width - x, Math.ceil(box.width * scale));
+          const height = Math.min(image.height - y, Math.ceil(box.height * scale));
+          if (width < 1 || height < 1) return false;
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const context = canvas.getContext('2d');
+          if (!context) return false;
+          context.drawImage(image, x, y, width, height, 0, 0, width, height);
+          const pixels = context.getImageData(0, 0, width, height).data;
+          const colors = new Map();
+          for (let i = 0; i < pixels.length; i += 4) {
+            const color = `${pixels[i] >> 4},${pixels[i + 1] >> 4},${pixels[i + 2] >> 4}`;
+            colors.set(color, (colors.get(color) ?? 0) + 1);
+          }
+          const dominant = Math.max(...colors.values());
+          return width * height - dominant >= Math.max(40, width * height * 0.001);
+        }, { encoded: screenshot.toString('base64'), box });
+        if (!painted) throw new Error('Resource title appears unpainted in the viewport screenshot');
+        await writeFile(`catalog-texture-screenshots/${theme}-${treatment}.png`, screenshot);
         await page.evaluate(() => window.scrollTo(0, 0));
       }
       const setupMs = Math.round(performance.now() - loadStarted);
