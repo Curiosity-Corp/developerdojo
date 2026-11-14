@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
+import KataDeviceOptions from '../../components/KataDeviceOptions.astro';
 
 const prompt = `You are helping me check a FICTIONAL workplace activity report. I remain responsible for the review. Use only the fictional records below; do not create or carry out personnel decisions.
 
@@ -33,7 +34,8 @@ Build a short evidence review with four headings: observations with source refer
   </div></section>
   <section class="section" id="practice"><div class="container content">
     <p class="kicker">Try it now</p><h2>Give the reviewer all three sources</h2>
-    <p><strong>Ingredients:</strong> your choice of assistant app, browser or trusted CLI harness; an available model; the full fictional prompt below; and a place to save your review. On a phone, use an assistant app such as ChatGPT or Claude; on Windows, macOS or Linux use a browser or compatible CLI. No plugin, MCP server, skill, account connection or paid service is required by the exercise itself. Accounts, model availability and charges vary.</p>
+    <p><strong>Ingredients:</strong> your choice of assistant app, browser or trusted CLI harness; an available model; the full fictional prompt below; and a place to save your review. No plugin, MCP server, skill, account connection or paid service is required by the exercise itself. Accounts, model availability and charges vary.</p>
+    <KataDeviceOptions />
     <ol><li>Read the fictional records and flawed draft in the prompt. Predict which statements are supported, contradicted or unverified.</li><li>Copy the complete prompt into your assistant. Keep the response as an actual draft, not as proof that its assertions are correct.</li><li>Compare each claim and citation with sources A–C. Correct unsupported claims and write down any further check that a person would need to make.</li></ol>
     <div class="prompt"><label for="activity-prompt">Complete prompt and fictional records</label><textarea id="activity-prompt" rows="20" readonly>{prompt}</textarea><button type="button" id="copy-activity" hidden>Copy the complete prompt</button><span id="activity-copy-status" aria-live="polite"> Or select and copy the text.</span></div>
   </div></section>

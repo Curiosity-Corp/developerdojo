@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
+import KataDeviceOptions from '../../components/KataDeviceOptions.astro';
 
 const notes = `FICTIONAL MEETING NOTES — Community library signup prototype
 Goal: demonstrate a signup prototype; a public launch has not been approved.
@@ -21,6 +22,7 @@ const prompt = `You are my meeting-to-action assistant. Turn these fictional not
       <article><strong>Open question</strong><p>Who owns the volunteer demo, and when? The meeting did not decide.</p></article>
     </div>
     <p><strong>Ingredients:</strong> the fictional notes and prompt below; any assistant and model in a phone app, browser or trusted CLI; a place to keep your reviewed draft; and a human decision-maker. No plugin, skill, MCP server, account connection or paid service is required by this exercise. Provider access and costs vary.</p>
+    <KataDeviceOptions />
     <p>Use fictional or authorized notes. Do not paste private meeting records, customer information or credentials into a service without permission.</p>
   </div></section>
   <section class="section" id="practice"><div class="container content">

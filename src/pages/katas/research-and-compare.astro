@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
+import KataDeviceOptions from '../../components/KataDeviceOptions.astro';
 
 const prompt = `You are my research and change-review assistant. Use only the fictional sources below. I am responsible for the decision; you can help organize evidence but cannot approve a change.
 
@@ -40,7 +41,8 @@ Produce: a two-column stage-by-stage comparison; a short evidence log with sourc
   </div></section>
   <section class="section" id="practice"><div class="container content">
     <p class="kicker">Try it now</p><h2>Give your assistant the full evidence</h2>
-    <p><strong>Ingredients:</strong> an assistant app or browser, or a CLI harness you already trust; an available model; the complete prompt and fictional sources below; and a place to save your review. On a phone use an assistant app such as ChatGPT or Claude; on Windows, macOS or Linux use a browser or compatible CLI. No skill, MCP server, plugin, account connection, paid tool or special installation is required for the exercise itself. Accounts, model availability and costs vary.</p>
+    <p><strong>Ingredients:</strong> an assistant app or browser, or a CLI harness you already trust; an available model; the complete prompt and fictional sources below; and a place to save your review. No skill, MCP server, plugin, account connection, paid tool or special installation is required for the exercise itself. Accounts, model availability and costs vary.</p>
+    <KataDeviceOptions />
     <ol><li>Read the worked comparison above. Copy the prompt and send it to your chosen assistant.</li><li>Check each row against the original source lines and the proposal. Ask for corrections where its claims, citations or change labels do not match.</li><li>Save the actual output and your corrections. Record the assistant, model and tools if known, and write “not shown” for unknown details.</li></ol>
     <div class="prompt"><label for="research-prompt">Complete prompt, sources and draft</label><textarea id="research-prompt" rows="21" readonly>{prompt}</textarea><button type="button" id="copy-research" hidden>Copy the complete prompt</button><span id="copy-status" aria-live="polite"> Or select and copy the text.</span></div>
     <p><strong>Research is more than a confident summary.</strong> Ask a specific question, state a testable hypothesis, seek evidence that could challenge it, inspect sources yourself, and record authority, date, method and limits. For real projects open each cited source; an agent-generated title or link alone does not prove the source exists or supports the claim.</p>
