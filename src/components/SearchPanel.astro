@@ -28,6 +28,7 @@ const { id, label = 'Search the whole site' } = Astro.props;
     />
   </form>
   <p id={`${id}-status`} class="status" role="status" aria-live="polite" data-search-status></p>
+  <p class="search-help" data-search-help hidden>You can also <a href="/library/">browse the library</a>.</p>
   <div class="suggestions" data-search-suggestions></div>
   <div class="results" data-search-results></div>
   <noscript><p>Search needs JavaScript. You can still browse the <a href="/library">library</a>.</p></noscript>
@@ -128,12 +129,16 @@ const { id, label = 'Search the whole site' } = Astro.props;
     const status = root.querySelector<HTMLElement>('[data-search-status]');
     const results = root.querySelector<HTMLElement>('[data-search-results]');
     const suggestions = root.querySelector<HTMLElement>('[data-search-suggestions]');
-    if (!input || !form || !status || !results || !suggestions) continue;
+    const help = root.querySelector<HTMLElement>('[data-search-help]');
+    if (!input || !form || !status || !results || !suggestions || !help) continue;
 
     let latest = 0;
+    let slowTimer: number | undefined;
     const run = async (): Promise<void> => {
       const term = input.value.trim();
       const ticket = ++latest;
+      if (slowTimer !== undefined) window.clearTimeout(slowTimer);
+      help.hidden = true;
       if (term.length === 0) {
         status.textContent = '';
         results.replaceChildren();
@@ -143,6 +148,13 @@ const { id, label = 'Search the whole site' } = Astro.props;
       status.textContent = 'Searching…';
       results.replaceChildren();
       suggestions.replaceChildren();
+      const timer = window.setTimeout(() => {
+        if (ticket !== latest) return;
+        status.textContent = `${status.textContent ?? ''} This is taking longer than expected.`.trim();
+        help.hidden = false;
+      }, 8_000);
+      slowTimer = timer;
+      let failed = false;
       const related = relatedSearches(term);
       if (related.length) {
         const label = document.createElement('p');
@@ -218,8 +230,15 @@ const { id, label = 'Search the whole site' } = Astro.props;
         showStatus(false);
       } catch (error) {
         if (ticket !== latest) return;
+        failed = true;
         console.warn('Search is not available:', error);
-        status.textContent = 'Search is not available here. It works on the published site.';
+        status.textContent = 'Search could not load. Try again or browse the library.';
+        help.hidden = false;
+      } finally {
+        window.clearTimeout(timer);
+        if (slowTimer === timer) slowTimer = undefined;
+        // Do not remove the browse link while a learner is using the keyboard on it.
+        if (ticket === latest && !failed && !help.contains(document.activeElement)) help.hidden = true;
       }
     };
 
@@ -266,6 +285,8 @@ const { id, label = 'Search the whole site' } = Astro.props;
     min-height: 1.5em;
     color: var(--ink-muted);
   }
+  .search-help { margin: 0; }
+  .search-help[hidden] { display: none; }
   .suggestions:empty { display: none; }
   .suggestions p { margin: 0 0 var(--space-2); font-weight: 700; }
   .suggestion-list { display: flex; flex-wrap: wrap; gap: var(--space-2); }
