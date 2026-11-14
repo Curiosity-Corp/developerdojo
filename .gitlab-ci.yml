@@ -191,3 +191,21 @@ catalog_a11y_profile:
     paths:
       - catalog-a11y-profile.json
     expire_in: 90 days
+
+# Optional #122 investigation; it does not replace or gate the normal unit suite.
+event_initialization_profile:
+  extends: .node
+  stage: e2e
+  needs: []
+  timeout: 1h
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" || $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: manual
+      allow_failure: true
+  script:
+    - node scripts/diagnose-event-initialization.mjs
+  artifacts:
+    when: always
+    paths:
+      - event-initialization-diagnostic.json
+    expire_in: 90 days

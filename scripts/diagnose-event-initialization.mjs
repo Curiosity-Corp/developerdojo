@@ -120,6 +120,7 @@ async function main() {
     samples: [],
   };
   const save = () => writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`);
+  await save();
   // One and three children mirror the current worker cap without assuming actual simultaneous CPU.
   // Alternating order reduces, but does not eliminate, time/load bias.
   for (let round = 0; round < rounds; round++) {
