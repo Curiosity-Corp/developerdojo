@@ -30,7 +30,7 @@ test('a slow search offers a way to browse and accepts its eventual result', asy
   const browse = dialog.getByRole('link', { name: 'browse the library' });
   await expect(browse).toHaveAttribute('href', '/library/');
   await browse.focus();
-  await page.evaluate(() => (window as Window & { __finishSearch: () => void }).__finishSearch());
+  await page.evaluate(() => (window as unknown as Window & { __finishSearch: () => void }).__finishSearch());
   await expect(dialog.getByRole('link', { name: 'Recovered result' })).toBeVisible();
   await expect(browse).toBeFocused();
   await expect(browse).toBeVisible();
@@ -61,7 +61,7 @@ test('a stalled preview keeps available results and clears the hint when complet
   await expect(dialog.getByRole('status')).toContainText('taking longer than expected');
   await expect(dialog.getByRole('link', { name: 'browse the library' })).toBeVisible();
   await expect(first).toBeFocused();
-  await page.evaluate(() => (window as Window & { __finishPreview: () => void }).__finishPreview());
+  await page.evaluate(() => (window as unknown as Window & { __finishPreview: () => void }).__finishPreview());
   await expect(dialog.getByRole('link', { name: 'Later result' })).toBeVisible();
   await expect(dialog.getByRole('link', { name: 'browse the library' })).toBeHidden();
   await expect(first).toBeFocused();
@@ -101,7 +101,7 @@ test('a superseded slow query cannot show a stale hint over a newer result', asy
   await input.fill('new');
   await expect(dialog.getByRole('link', { name: 'New result' })).toBeVisible();
   await page.clock.fastForward(8_001);
-  await page.evaluate(() => (window as Window & { __finishOldSearch: () => void }).__finishOldSearch());
+  await page.evaluate(() => (window as unknown as Window & { __finishOldSearch: () => void }).__finishOldSearch());
   await expect(dialog.getByRole('status')).toHaveText('1 result for "new"');
   await expect(dialog.getByRole('link', { name: 'browse the library' })).toBeHidden();
   await expect(dialog.getByRole('link', { name: 'Old result' })).toHaveCount(0);
@@ -133,7 +133,7 @@ test('a slow inline panel does not put its hint into the header panel', async ({
   await expect(inline.locator('[data-search-help]')).not.toHaveAttribute('hidden', '');
   await expect(dialog.getByRole('link', { name: 'browse the library' })).toBeHidden();
   await expect(dialog.getByRole('status')).toHaveText('1 result for "quick"');
-  await page.evaluate(() => (window as Window & { __finishInline: () => void }).__finishInline());
+  await page.evaluate(() => (window as unknown as Window & { __finishInline: () => void }).__finishInline());
   await expect(inline.locator('[data-search-results] a')).toHaveText('Inline result');
   await expect(inline.locator('[data-search-help]')).toBeHidden();
 });
