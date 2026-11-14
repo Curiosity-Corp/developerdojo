@@ -1,0 +1,25 @@
+---
+// These fictional chat exercises need no connected tool. Keep paths usable without scripts.
+const computers = [
+  { name: 'Windows', terminal: 'PowerShell or a compatible terminal' },
+  { name: 'macOS', terminal: 'Terminal' },
+  { name: 'Linux', terminal: 'a terminal' },
+] as const;
+---
+<details class="device-options" data-kata-device-options>
+  <summary>Choose your setup · phone, computer or paper</summary>
+  <p>Pick one route for the same fictional prompt. You can also complete the exercise on paper. No plugin, skill, MCP server or connected account is needed for the paper exercise. This guide does not install or connect anything. Do not put private work into an unapproved service.</p>
+  <details><summary>Phone · ChatGPT app</summary><p>Open the app, start a chat, copy the complete prompt on this page and paste it into the chat. Check the response against the independent answer. No plugin or connector is needed.</p></details>
+  <details><summary>Phone · Claude app</summary><p>Open the app, start a chat, copy the complete prompt on this page and paste it into the chat. Check the response against the independent answer. No plugin or connector is needed.</p></details>
+  {computers.map((computer) => (
+    <details><summary>{computer.name}</summary><p>Open an assistant in a browser and paste the same prompt. Or, if you already have a compatible CLI installed, open {computer.terminal} in a folder you are comfortable granting access to; start your chosen harness with <code>codex</code> or <code>claude</code>, then paste the prompt. Review any requested file or command access.</p></details>
+  ))}
+  <p>Assistant accounts, model availability, platform support and costs vary. Check the official <a href="https://learn.chatgpt.com/docs/codex/cli">Codex CLI guide</a> or <a href="https://code.claude.com/docs/en/setup">Claude Code setup</a> if you choose a CLI. The <a href="/katas/spark-ideas#device-options">expanded setup guide</a> has more options; installing a CLI is optional.</p>
+</details>
+<style>
+  .device-options { margin-block: var(--space-3); padding: var(--space-3); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-sunk); overflow-wrap: anywhere; }
+  summary { font-weight: 700; cursor: pointer; }
+  .device-options details { margin-block: var(--space-2); padding: var(--space-2); border-radius: var(--radius); background: var(--paper-raised); }
+  .device-options p { margin-block: var(--space-2); }
+  code { overflow-wrap: anywhere; }
+</style>

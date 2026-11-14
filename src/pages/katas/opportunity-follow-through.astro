@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
+import KataDeviceOptions from '../../components/KataDeviceOptions.astro';
 
 const sources = `FICTIONAL PRACTICE RECORDS — no real people or customer data
 S1 — Inquiry: A fictional garden cooperative asks for information about a volunteer-scheduling demo. It has not stated a budget or purchase date. The sender agreed to a reply about this inquiry only.
@@ -20,7 +21,7 @@ const prompt = `Act as a research and sales-planning assistant. Work only from t
     </div>
     <p>This is a worked practice outcome made from invented records, not a real customer or an AI run. An inquiry is a lead to investigate; it is not a signed contract or earned revenue.</p>
     <p><strong>Ingredients:</strong> the three short records and prompt below, a place to save a draft, and your own judgment. Use any available assistant or trusted CLI harness; no skill, MCP server, plugin, CRM connection, paid tool or account is required for the paper exercise.</p>
-    <p>On a phone, use an assistant app or write it yourself. On Windows, macOS or Linux, use a browser or a CLI harness you already trust. Provider availability, account requirements and charges vary. This exercise does not install or connect anything.</p>
+    <KataDeviceOptions />
   </div></section>
   <section class="section" id="brief"><div class="container content">
     <p class="kicker">Start here</p><h2>Read the evidence</h2>

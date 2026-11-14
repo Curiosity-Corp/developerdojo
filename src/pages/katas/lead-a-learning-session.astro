@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
+import KataDeviceOptions from '../../components/KataDeviceOptions.astro';
 
 const exercise = `FICTIONAL PRACTICE NOTE: On 10 May, two volunteers prepared six kits. One kit is still waiting for inspection. The note does not say how many kits passed inspection.
 CLAIM TO CHECK: All six kits passed inspection.`;
@@ -13,6 +14,7 @@ const prompt = `Act as a peer-learning assistant. Help me prepare an eight-minut
     <div class="flow" aria-label="Peer learning loop"><p><strong>1 · Show</strong><br />One source and one claim to check.</p><p><strong>2 · Practice</strong><br />The learner finds what the source does and does not say.</p><p><strong>3 · Adapt</strong><br />Try the same thinking with a new example.</p><p><strong>4 · Follow through</strong><br />Ask for feedback and record only what actually happens.</p></div>
     <p><strong>Goal:</strong> after practicing, the learner can identify a supported fact, an unknown and a useful next question. <strong>Status:</strong> not yet run; participant and time are not scheduled.</p>
     <p><strong>Ingredients:</strong> the fictional note below, the session plan, somewhere to save your notes and a willing peer when you choose to invite one. You can prepare on paper, use an assistant in a phone or browser app, or use a trusted CLI harness. No skill, MCP server, plugin, connected calendar, paid tool or account is required for the paper exercise. Provider access and charges vary.</p>
+    <KataDeviceOptions />
   </div></section>
   <section class="section" id="plan"><div class="container content">
     <p class="kicker">Start here</p><h2>Prepare the eight-minute lesson</h2>
