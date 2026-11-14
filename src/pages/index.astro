@@ -101,6 +101,19 @@ const bar = [
             <iframe src="/examples/pocket-garden.html" title="Pocket Garden working prototype example" loading="lazy" sandbox="allow-scripts"></iframe>
           </div>
         </article>
+        <article class="showcase-card brief-card" aria-labelledby="room-showcase-title">
+          <div class="showcase-copy">
+            <span class="showcase-tag">Real example · 3D</span>
+            <h3 id="room-showcase-title">Explore a room in 3D</h3>
+            <p>Explore Wes Bos’s interactive office, then study the technique behind it.</p>
+            <a class="showcase-action" href="/katas/scan-a-room">Start the 3D kata <Icon name="arrow-right" size={18} /></a>
+            <a class="showcase-secondary" href="https://wesbos.github.io/3d-model-anything/">Open the finished room ↗</a>
+          </div>
+          <figure class="showcase-media">
+            <a href="https://www.youtube.com/watch?v=JGQCcCzuS88" aria-label="Watch Wes Bos explain 3D Model Anything on YouTube"><img src="/images/wes-bos-3d-video-thumb.png" width="1920" height="1080" alt="" loading="lazy" decoding="async" /></a>
+            <figcaption>Wes Bos’s <a href="https://github.com/wesbos/3d-model-anything">3D Model Anything</a> · <a href="https://www.youtube.com/watch?v=JGQCcCzuS88">Watch the creator’s video</a></figcaption>
+          </figure>
+        </article>
         <article class="showcase-card brief-card">
           <div class="showcase-copy">
             <span class="showcase-tag">Beginner · about 10 minutes</span>
@@ -279,6 +292,10 @@ const bar = [
   .showcase-action { display: inline-flex; align-items: center; gap: var(--space-2); padding: .75rem 1rem; background: #294333; color: #fff; border-radius: var(--radius); font-weight: 700; text-decoration: none; }
   .showcase-action:hover { text-decoration: underline; }
   .showcase-secondary, .showcase-browse a { font-weight: 700; }
+  .showcase-media { margin: 0; padding: 0 var(--space-4) var(--space-4); }
+  .showcase-media a { font-weight: 700; }
+  .showcase-media img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+  .showcase-media figcaption { margin-top: var(--space-2); color: var(--ink-muted); font-size: var(--text-sm); }
   .showcase-browse { margin: var(--space-4) 0; }
   .showcase-browse a { display: inline-flex; align-items: center; gap: var(--space-2); }
   .example-window { padding: var(--space-4); background: var(--paper-sunk); }
