@@ -28,7 +28,9 @@ test('a slow search offers a way to browse and accepts its eventual result', asy
   await page.clock.fastForward(8_001);
   await expect(dialog.getByRole('status')).toContainText('taking longer than expected');
   const browse = dialog.getByRole('link', { name: 'browse the library' });
-  await expect(browse).toHaveAttribute('href', '/library/');
+  await expect(browse).toHaveAttribute('href', '/library/#library-sections');
+  await expect(dialog.getByRole('link', { name: 'katas', exact: true })).toHaveAttribute('href', '/katas');
+  await expect(dialog.getByRole('link', { name: 'learning resources' })).toHaveAttribute('href', '/library/resources');
   await browse.focus();
   await page.evaluate(() => (window as unknown as Window & { __finishSearch: () => void }).__finishSearch());
   await expect(dialog.getByRole('link', { name: 'Recovered result' })).toBeVisible();
@@ -75,8 +77,22 @@ test('a failed index reports the failure and offers browsing', async ({ page }) 
   await page.goto('/');
   const dialog = await openSearch(page);
   await dialog.getByRole('searchbox').fill('example');
-  await expect(dialog.getByRole('status')).toHaveText('Search could not load. Try again or browse the library.');
+  await expect(dialog.getByRole('status')).toHaveText('Search could not load. Try again or choose a way to explore.');
   await expect(dialog.getByRole('link', { name: 'browse the library' })).toBeVisible();
+});
+
+test('the browse fallback reaches the library sections from its own search dialog', async ({ page }) => {
+  await page.route('**/pagefind/pagefind.js', (route) => route.fulfill({
+    contentType: 'text/javascript',
+    body: `export async function init() { throw new Error('test index failure'); }`,
+  }));
+  await page.goto('/library/');
+  const dialog = await openSearch(page);
+  await dialog.getByRole('searchbox').fill('example');
+  await dialog.getByRole('link', { name: 'browse the library' }).click();
+  await expect(dialog).toBeHidden();
+  await expect(page).toHaveURL(/\/library\/#library-sections$/);
+  await expect(page.getByRole('navigation', { name: 'Library sections' })).toBeInViewport();
 });
 
 test('a superseded slow query cannot show a stale hint over a newer result', async ({ page }) => {
