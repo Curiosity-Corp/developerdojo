@@ -28,10 +28,12 @@ const { id, label = 'Search the whole site' } = Astro.props;
     />
   </form>
   <p id={`${id}-status`} class="status" role="status" aria-live="polite" data-search-status></p>
-  <p class="search-help" data-search-help hidden>You can also <a href="/library/">browse the library</a>.</p>
+  <p class="search-help" data-search-help hidden>
+    Explore <a href="/katas">katas</a>, <a href="/library/resources">learning resources</a>, or <a href="/library/#library-sections">browse the library</a>.
+  </p>
   <div class="suggestions" data-search-suggestions></div>
   <div class="results" data-search-results></div>
-  <noscript><p>Search needs JavaScript. You can still browse the <a href="/library">library</a>.</p></noscript>
+  <noscript><p>Search needs JavaScript. You can still explore <a href="/katas">katas</a>, <a href="/library/resources">learning resources</a>, or <a href="/library/#library-sections">browse the library</a>.</p></noscript>
 </div>
 
 <script>
@@ -232,7 +234,7 @@ const { id, label = 'Search the whole site' } = Astro.props;
         if (ticket !== latest) return;
         failed = true;
         console.warn('Search is not available:', error);
-        status.textContent = 'Search could not load. Try again or browse the library.';
+        status.textContent = 'Search could not load. Try again or choose a way to explore.';
         help.hidden = false;
       } finally {
         window.clearTimeout(timer);

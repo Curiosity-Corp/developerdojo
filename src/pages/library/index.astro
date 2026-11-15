@@ -50,7 +50,7 @@ const total = sections.reduce((sum, section) => sum + section.entries.length, 0)
         </li>
       </ul>
 
-      <nav class="jump" aria-label="Library sections">
+      <nav class="jump" id="library-sections" aria-label="Library sections">
         {
           sections.map((section) => (
             <a href={`#section-${section.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{section.name}</a>
