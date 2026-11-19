@@ -100,7 +100,7 @@ COUNTER_DROP = (3.0, 3.8, 1.5708)   # in front of the counter, facing it (pi / 2
 SEE_CUP_RANGE_M = (0.3, 1.5)        # the camera must see the cup this far away
 ```
 
-Because map = world + (3, 2), the cup at world (2.5, 1.5) is at (5.5, 3.5) on the map. Check this arithmetic yourself.
+Because map = world + (3, 2), the cup at world (2.5, 1.5) is at (5.5, 3.5) on the map. Check the sum.
 
 ### The report format
 
@@ -118,18 +118,18 @@ Because map = world + (3, 2), the cup at world (2.5, 1.5) is at (5.5, 3.5) on th
 }
 ```
 
-These numbers are from one checked run, as an example. Yours will differ. The script must exit 0 only if every step is `ok`.
+These numbers are from one run. Yours will differ. The script must exit 0 only if every step is `ok`.
 
 ### How to run it
 
-A small script starts the simulation, the bridge, the cup finder, the fetch server and the camera frame saver, then runs the mission. It waits a fixed time after the launch because Nav2 needs the initial pose soon after it starts.
+A small script starts the simulation, the bridge, the cup finder, the fetch server and the camera frame saver, then runs the mission. It waits a fixed time after the launch, because Nav2 needs the initial pose soon after it starts.
 
 ```bash
 #!/usr/bin/env bash
-set -uo pipefail
 export ROS_DOMAIN_ID="${ROS_DOMAIN_ID:-61}" GZ_PARTITION="${GZ_PARTITION:-capstone}"
 source /opt/ros/lyrical/setup.bash
 source install/setup.bash
+set -uo pipefail  # after the sources: the ROS setup scripts use unset variables
 SIM="$PWD/src/cuprunner_sim"
 mkdir -p log evidence/frames
 trap 'kill $(jobs -p) 2>/dev/null' EXIT
@@ -145,9 +145,12 @@ ros2 run cuprunner_tasks fetch_server > log/fetch_server.log 2>&1 &
 python3 scripts/save_frames.py evidence/frames 2.0 > log/frames.log 2>&1 &
 sleep 5
 ros2 run cuprunner_tasks fetch_mission
+status=$?
+echo "mission exit code: ${status}"
+exit "${status}"
 ```
 
-`save_frames.py` is a small node that saves the camera picture to a PNG file every two seconds. `frames_to_gif.py` joins the PNGs into one GIF with the Pillow library (`python3-pil` in Ubuntu). Both are short enough to write with an agent in a few minutes. Brief the agent from the lesson 3 pattern.
+`save_frames.py` is a small node that saves the camera picture to a PNG file every two seconds. `frames_to_gif.py` joins the PNGs into one GIF with the Pillow library (`python3-pil` in Ubuntu). Write both with an agent, using the lesson 3 briefing pattern.
 
 ### What to build, in order
 
@@ -164,7 +167,7 @@ TrailMug is fictional. The numbers here are invented.
 
 The founder writes the mission and the criteria before she asks an agent for code. She asks it to write `fetch_mission.py` from the four steps and the constants. The first version drives, then calls the fetch action, and reports success. It never checks that the camera saw the cup. She reads her criterion 6: "the see step records a distance". The script has no see step. She sends it back with the step named, the topic and the range.
 
-The second version passes on the first run. She wants to know why a run might fail, so she moves the robot start to a wrong place on purpose. The mission reports `drive to the cup: FAILED` and exits 1, and the later steps do not run. That log goes into the evidence folder as the failure case.
+The second version passes on the first run. She wants to know why a run might fail, so she leaves the cup finder out of the run on purpose. The mission reports `see the cup: FAILED` after ten seconds and exits 1, and the later steps do not run. That log goes into the evidence folder as the failure case.
 
 She writes the report. It states the four results with their times, shows the GIF of the camera, and says: "The grasp is simulated. The map is from a perfect simulated scanner in an empty room. A real café with glass, people and clutter is not tested." She asks a classmate to review it.
 
@@ -189,7 +192,7 @@ Rules: type hints, clean shutdown in finally, no hard-coded sleeps for
 synchronisation, constants at the top. After the code, list anything you were unsure of.
 ```
 
-**How you verify.** Go criterion by criterion. Run the mission from a clean clone, in a fresh container, using only the README. Read the report JSON and compare each result with what you saw. Break something on purpose and check the mission fails the right step. Read every line that sets a frame, a unit or a timeout. Do not accept a report that an agent wrote: check each number against the file it came from.
+**How you verify.** Go criterion by criterion. Run the mission from a clean clone, in a fresh container, using only the README. Read the report JSON and compare each result with what you saw. Break something on purpose and check the mission fails the right step. Read every line that sets a frame, a unit or a timeout. Check each number in an agent's report against its source file.
 
 **Which disciplines are involved.** Safety and review: a second person must be able to say what you did not show, which is why the report has a limits section. Mechanical engineers would own the real arm, gripper and robot. Operations asks who reruns this. Legal asks which licences apply if the work ships. Security asks what is in the image and the logs. See [Write a technical report](/library/tracks/safety-reports-and-review/02-write-a-technical-report) and [Team work with human review](/library/tracks/safety-reports-and-review/03-team-work-with-human-review) for the report and the review habits.
 
@@ -223,7 +226,7 @@ A reviewer can check each of these. Number them in your `README.md` and point to
 6. **The mission succeeds.** `scripts/run_mission.sh` exits 0 and writes a report in which all four steps are `ok`.
 7. **The camera saw the cup.** The report has `distance_m` between 0.3 and 1.5 for the see step.
 8. **The action honours its contract.** Evidence shows an empty `cup_id` rejected and a goal cancelled midway, with the printed result.
-9. **A failure is shown.** `evidence/` holds the log of a run that fails on purpose and exits 1.
+9. **A failure is shown.** `evidence/` holds the log of a run that fails on purpose and exits 1, and says what you broke. Leaving out the cup finder is one way.
 10. **A picture of the run.** `evidence/` has a GIF made from camera frames, or a short screen recording from a machine with a display. State which.
 11. **The report is honest.** `REPORT.md` is one to two pages, gives every result with units, names the commands to reproduce it, and has a limits section that says the grasp is simulated and lists at least four other things the simulation does not show.
 12. **AI use is disclosed and checked.** The README names the files an agent drafted, `docs/briefs/` has each brief and a review note, and each note says what you checked.

@@ -134,6 +134,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-lyrical-demo-nodes-py \
     python3-pytest \
     python3-numpy \
+    python3-pil \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /work

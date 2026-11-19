@@ -269,7 +269,7 @@ After the code, list anything about Nav2 in Lyrical you were unsure of,
 for example topic types or launch arguments.
 ```
 
-**How you verify.** Run it with a goal you can reach and one you cannot, such as a point inside a wall. The first must print `SUCCEEDED` and exit 0. The second must not. Read the frame in every pose. Check the exit code with `echo $?`. Compare the conversion with your own arithmetic. Open the map picture yourself and check that the walls are where the world file puts them. Watch for old API habits: an agent trained on older releases may use `Twist` where Lyrical uses `TwistStamped`, or a launch argument that has since changed.
+**How you verify.** Run it with a goal you can reach and one you cannot. A point outside the room, such as `9.0 2.0 0.0`, printed `FAILED` and exited 1 in our runs. The reachable goal must print `SUCCEEDED` and exit 0. Do not use a point on a wall as your failing case: Nav2 accepts a goal near free space, and ours printed `SUCCEEDED`. That word means "close enough", not "exactly there". Read the frame in every pose. Check the exit code with `echo $?`. Open the map picture yourself and check that the walls are where the world file puts them. Watch for old API habits: an agent trained on older releases may use `Twist` where Lyrical uses `TwistStamped`, or a launch argument that has since changed.
 
 **Which disciplines are involved.** Safety decides how fast the robot may move near people and what it does when blocked. Mechanical engineers know the robot's real turning circle and the clearance it needs. Operations decides who remaps the room when furniture moves. Design knows where the real shelf and counter will be.
 
