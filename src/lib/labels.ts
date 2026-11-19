@@ -33,6 +33,9 @@ export const RESOURCE_LEVEL_LABELS: Record<ResourceLevel, string> = {
 };
 
 export const GROUP_LABELS: Record<TrackGroup, string> = {
+  robotics: 'Robotics',
+  biotechnology: 'Biotechnology',
+  frontier: 'Shared modules for robotics and biotechnology',
   product: 'Product skills',
   ai: 'Working with AI',
   engineering: 'Engineering skills',
@@ -65,6 +68,10 @@ export const SKILL_LABELS: Record<Skill, string> = {
   'creative-media': 'Creative media',
   'business-automation': 'Business automation',
   'robotics-manufacturing': 'Robotics and manufacturing',
+  'robot-software': 'Robot software',
+  'robot-learning': 'Robot learning',
+  bioinformatics: 'Bioinformatics',
+  'lab-automation': 'Lab automation',
 };
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

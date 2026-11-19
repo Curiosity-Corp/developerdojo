@@ -11,6 +11,9 @@ The GitHub copy only ever receives the **built** site on its `gh-pages` branch.
 
 Running the site: [CONTRIBUTING.md](CONTRIBUTING.md) (how to change a page), [docs/handbook.md](docs/handbook.md) (maintainer handbook), [ROADMAP.md](ROADMAP.md) (what is next).
 
+Core focuses: robotics and biotechnology. Their four tracks and the shared modules have stable URLs that other sites
+link to: [docs/track-urls.md](docs/track-urls.md).
+
 ## Stack
 
 Astro (static output), TypeScript strict, content collections validated with zod, self-hosted fonts

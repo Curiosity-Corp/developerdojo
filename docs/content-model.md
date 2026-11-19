@@ -68,7 +68,7 @@ Files: `src/content/tracks/<slug>.md`.
 ```yaml
 title: "Product discovery"
 description: "..."
-group: "product"           # product | ai | engineering | frameworks
+group: "product"           # robotics | biotechnology | frontier | product | ai | engineering | frameworks
 order: 1
 icon: "search"             # a lucide icon name (https://lucide.dev/icons)
 level: "foundation"        # foundation | core | advanced
@@ -77,6 +77,10 @@ outcomes: ["...", "..."]
 ```
 
 The body is the track overview. The page is `/library/tracks/<slug>/` and lists the track's lessons in `order`.
+
+`/library/tracks` shows the groups in the order of `TRACK_GROUPS`. `robotics`, `biotechnology` and `frontier` (the
+modules those tracks share) are the core focuses: they lead the page in their own block, and the home page lists them
+from `src/lib/core-focuses.ts`. Their URLs are stable; see [track-urls.md](track-urls.md).
 
 ## Resources
 
@@ -99,7 +103,8 @@ Allowed `skills` values: product-discovery, personas-journeys, roadmapping-epics
 stakeholder-communication, brand-web-design, ai-agents, prompt-engineering, ai-evaluation, git-gitlab,
 ci-cd, cloud-platforms, kubernetes-gitops, infrastructure-as-code, security, observability-reliability,
 itsm-service-management, open-source, data-analytics, communication-writing, career-portfolio,
-cad-3d-bim, creative-media, business-automation, robotics-manufacturing.
+cad-3d-bim, creative-media, business-automation, robotics-manufacturing, robot-software, robot-learning,
+bioinformatics, lab-automation.
 
 ## What fails the build
 

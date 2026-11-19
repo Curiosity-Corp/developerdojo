@@ -10,6 +10,7 @@ import FeatureGrid from '../components/FeatureGrid.astro';
 import Icon from '../components/Icon.astro';
 import Pagoda from '../components/Pagoda.astro';
 import QuickStack from '../components/QuickStack.astro';
+import { coreFocuses, sharedFocusTrack } from '../lib/core-focuses';
 
 const spaces = [
   { number: '01', title: 'Gallery', description: 'Find the outcomes that give a kata its purpose.', href: '/gallery', action: 'Visit the Gallery' },
@@ -26,8 +27,8 @@ const spaces = [
 const fields = [
   { title: 'Digital products & UX', description: 'Journeys, prototypes, software and accessible experiences.' },
   { title: '3D, BIM & construction', description: 'Editable models, coordination and the built environment.' },
-  { title: 'Robotics & manufacturing', description: 'Physical systems, simulation, design and production.' },
-  { title: 'Science & health', description: 'Research, models and evidence with qualified review.' },
+  { title: 'Robotics & manufacturing', description: 'Physical systems, simulation, design and production. A core focus.' },
+  { title: 'Science, health & biotechnology', description: 'Biological data, lab automation and evidence with qualified review. A core focus.' },
   { title: 'Energy & agriculture', description: 'Develop work for the natural and built world.' },
   { title: 'Media & business', description: 'Creative work, communication and useful workflows.' },
 ] as const;
@@ -81,6 +82,38 @@ const bar = [
         <a href="/katas/compare-instructions">Compare AI instructions <Icon name="arrow-right" size={16} /></a>
         <a href="/katas/industry-workshops">Explore more fields <Icon name="arrow-right" size={16} /></a>
       </div>
+    </div>
+  </section>
+
+  <section class="section core-focus" aria-labelledby="core-focus-title">
+    <div class="container">
+      <div id="core-focus-title">
+        <SectionHeader
+          eyebrow="Core focuses"
+          title="Robotics and biotechnology."
+          intro="Program a robot that maps a room and fetches an object. Write a lab loop that plans its own next experiment. Each track ends in a capstone you can show, built with open tools in simulation or on public data."
+        />
+      </div>
+      <div class="focus-grid">
+        {coreFocuses.map((focus) => (
+          <article class:list={['focus-card', `focus-${focus.id}`]} aria-labelledby={`focus-${focus.id}-title`}>
+            <div class="focus-head">
+              <span class="focus-icon" aria-hidden="true"><Icon name={focus.icon} size={28} /></span>
+              <h3 id={`focus-${focus.id}-title`}>{focus.title}</h3>
+            </div>
+            <p>{focus.summary}</p>
+            <ul class="focus-tracks">
+              {focus.tracks.map((track) => (
+                <li>
+                  <a href={`/library/tracks/${track.slug}`}>{track.title} <Icon name="arrow-right" size={16} /></a>
+                  <span>Capstone: {track.capstone}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+      <p class="focus-shared">Every track shares three modules: when not to trust a model, writing a technical report, and team work with human review. <a href={`/library/tracks/${sharedFocusTrack.slug}`}>{sharedFocusTrack.title} <Icon name="arrow-right" size={16} /></a> <span aria-hidden="true"> · </span> <a href="/library/tracks">All tracks <Icon name="arrow-right" size={16} /></a></p>
     </div>
   </section>
 
@@ -282,6 +315,21 @@ const bar = [
   .hero-art { overflow: hidden; border-radius: var(--radius); border: 1px solid rgb(255 255 255 / .3); background: var(--band); box-shadow: var(--shadow); }
   .hero-art img { display: block; width: 100%; height: 15rem; object-fit: cover; }
   .hero-art p { margin: 0; padding: var(--space-3) var(--space-4); color: var(--band-text); font-weight: 700; }
+  .core-focus { padding-block: var(--space-6); }
+  .focus-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); margin-top: var(--space-5); }
+  .focus-card { display: grid; align-content: start; gap: var(--space-3); padding: var(--space-5); background: var(--paper-raised); border: 1px solid var(--line); border-top: 4px solid var(--tone-rust); border-radius: var(--radius); box-shadow: var(--shadow); }
+  .focus-biotechnology { border-top-color: var(--tone-olive); }
+  .focus-head { display: flex; align-items: center; gap: var(--space-3); }
+  .focus-head h3 { margin: 0; font-size: var(--text-2xl); }
+  .focus-icon { display: inline-grid; place-items: center; width: 3rem; height: 3rem; border-radius: var(--radius); background: var(--paper-sunk); color: var(--ink); }
+  .focus-card > p { margin: 0; max-width: 52ch; }
+  .focus-tracks { display: grid; gap: var(--space-3); list-style: none; padding: 0; margin: 0; }
+  .focus-tracks li { display: grid; gap: var(--space-1); padding-top: var(--space-3); border-top: 1px solid var(--line); }
+  .focus-tracks a { display: inline-flex; align-items: center; gap: var(--space-2); font-family: var(--font-serif); font-size: var(--text-lg); font-weight: 700; }
+  .focus-tracks span { color: var(--ink-muted); }
+  .focus-shared { margin: var(--space-4) 0 0; max-width: 80ch; }
+  .focus-shared a { display: inline-flex; align-items: center; gap: var(--space-2); font-weight: 700; }
+  @media (min-width: 62rem) { .focus-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .showcase { padding-block: var(--space-6); }
   .showcase-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); margin-top: var(--space-5); }
   .showcase-card { display: grid; grid-template-columns: minmax(0, 1fr); overflow: hidden; background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }

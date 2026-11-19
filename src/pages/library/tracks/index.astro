@@ -1,25 +1,41 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
-import SectionHeader from '../../../components/SectionHeader.astro';
-import IconCard from '../../../components/IconCard.astro';
+import TrackGroupList from '../../../components/TrackGroupList.astro';
 import { loadContent, lessonsOfTrack } from '../../../lib/content';
 import { TRACK_GROUPS } from '../../../lib/schemas';
-import { GROUP_LABELS, LESSON_LEVEL_LABELS } from '../../../lib/labels';
+import type { TrackGroup } from '../../../lib/schemas';
+import type { Tone } from '../../../lib/ranks';
+import { sharedFocusTrack } from '../../../lib/core-focuses';
 
-const GROUP_TONES = { product: 'olive', ai: 'gold', engineering: 'rust', frameworks: 'neutral' } as const;
+const GROUP_TONES: Record<TrackGroup, Tone> = {
+  robotics: 'rust',
+  biotechnology: 'olive',
+  frontier: 'gold',
+  product: 'olive',
+  ai: 'gold',
+  engineering: 'rust',
+  frameworks: 'neutral',
+};
+/** Robotics and biotechnology are the Dojo's core focuses (#125); their groups lead the page under one heading. */
+const CORE_GROUPS: readonly TrackGroup[] = ['robotics', 'biotechnology', 'frontier'];
 const { tracks, lessons } = await loadContent();
+const lessonCounts = new Map(tracks.map((track) => [track.id, lessonsOfTrack(lessons, track.id).length]));
 const groups = TRACK_GROUPS.map((group) => ({
   group,
+  tone: GROUP_TONES[group],
+  lessonCounts,
   tracks: tracks
     .filter((track) => track.data.group === group)
     .sort((a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title)),
 })).filter((entry) => entry.tracks.length > 0);
+const coreGroups = groups.filter((entry) => CORE_GROUPS.includes(entry.group));
+const otherGroups = groups.filter((entry) => !CORE_GROUPS.includes(entry.group));
 ---
 
 <BaseLayout
   title="Learning tracks"
-  description="Focused tracks of lessons for the new kind of developer: product skills, working with AI agents, and engineering skills."
+  description="Focused tracks of lessons for the new kind of developer. Core focuses: robotics and biotechnology. Also product skills, working with AI agents and engineering skills."
 >
   <PageHero
     compact
@@ -30,34 +46,21 @@ const groups = TRACK_GROUPS.map((group) => ({
   <section class="section">
     <div class="container">
       <p class="back"><a href="/library">Back to the library</a> · <a href="/library/resources">All learning resources</a></p>
+      {groups.length === 0 && <p>Tracks are being written. Check back soon.</p>}
       {
-        groups.length === 0 ? (
-          <p>Tracks are being written. Check back soon.</p>
-        ) : (
-          groups.map(({ group, tracks: groupTracks }) => (
-            <div class="group">
-              <SectionHeader eyebrow="Tracks" title={GROUP_LABELS[group]} />
-              <ul class="cards">
-                {groupTracks.map((track) => {
-                  const count = lessonsOfTrack(lessons, track.id).length;
-                  return (
-                    <li>
-                      <IconCard
-                        icon={track.data.icon}
-                        title={track.data.title}
-                        description={track.data.description}
-                        href={`/library/tracks/${track.id}`}
-                        meta={`${LESSON_LEVEL_LABELS[track.data.level]} · ${count} ${count === 1 ? 'lesson' : 'lessons'}`}
-                        tone={GROUP_TONES[group]}
-                      />
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ))
+        coreGroups.length > 0 && (
+          <section class="core" aria-labelledby="core-focuses-title">
+            <h2 id="core-focuses-title" class="core-title">Core focuses: robotics and biotechnology</h2>
+            <p class="core-intro">
+              Four practical tracks that end in a capstone you can show: robots that map, navigate and learn, and code
+              that reads biological data and runs experiments. Everything runs in simulation or on public data. Every
+              track uses the shared modules in {sharedFocusTrack.title}, listed last in this block.
+            </p>
+            {coreGroups.map((entry) => <TrackGroupList {...entry} headingLevel="h3" />)}
+          </section>
         )
       }
+      {otherGroups.map((entry) => <TrackGroupList {...entry} />)}
     </div>
   </section>
 </BaseLayout>
@@ -66,19 +69,20 @@ const groups = TRACK_GROUPS.map((group) => ({
   .back {
     margin-top: 0;
   }
-  .group {
+  .core {
     margin-bottom: var(--space-6);
+    padding: var(--space-5);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--tone-rust);
+    border-radius: var(--radius);
+    background: var(--paper-sunk);
   }
-  .cards {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
-    gap: var(--space-4);
+  .core-title {
+    margin-top: 0;
+    font-size: var(--text-2xl);
   }
-  .cards > li {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
+  .core-intro {
+    max-width: 70ch;
+    margin-bottom: var(--space-5);
   }
 </style>

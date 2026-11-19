@@ -1,0 +1,67 @@
+---
+/**
+ * One group of tracks on /library/tracks: a section header and a grid of track cards.
+ * Props: group (a TrackGroup), tracks (track entries of that group, already sorted),
+ *        lessonCounts (track id to number of lessons), tone (card tone for the group),
+ *        headingLevel ("h2" default, "h3" when the group sits inside another section; card titles go one level lower).
+ */
+import type { CollectionEntry } from 'astro:content';
+import SectionHeader from './SectionHeader.astro';
+import IconCard from './IconCard.astro';
+import { GROUP_LABELS, LESSON_LEVEL_LABELS } from '../lib/labels';
+import type { TrackGroup } from '../lib/schemas';
+import type { Tone } from '../lib/ranks';
+
+interface Props {
+  group: TrackGroup;
+  tracks: CollectionEntry<'tracks'>[];
+  lessonCounts: ReadonlyMap<string, number>;
+  tone: Tone;
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { group, tracks, lessonCounts, tone, headingLevel = 'h2' } = Astro.props;
+const cardHeading = headingLevel === 'h2' ? 'h3' : 'h4';
+---
+
+<div class="group" data-track-group={group}>
+  <SectionHeader eyebrow="Tracks" title={GROUP_LABELS[group]} as={headingLevel} />
+  <ul class="cards">
+    {
+      tracks.map((track) => {
+        const count = lessonCounts.get(track.id) ?? 0;
+        return (
+          <li>
+            <IconCard
+              icon={track.data.icon}
+              title={track.data.title}
+              description={track.data.description}
+              href={`/library/tracks/${track.id}`}
+              meta={`${LESSON_LEVEL_LABELS[track.data.level]} · ${count} ${count === 1 ? 'lesson' : 'lessons'}`}
+              tone={tone}
+              as={cardHeading}
+            />
+          </li>
+        );
+      })
+    }
+  </ul>
+</div>
+
+<style>
+  .group {
+    margin-bottom: var(--space-6);
+  }
+  .cards {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+    gap: var(--space-4);
+  }
+  .cards > li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+</style>

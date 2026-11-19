@@ -98,6 +98,8 @@ const REFLOW_ROUTES = [
   '/library/',
   '/library/tracks/',
   '/library/tracks/git-and-gitlab/',
+  '/library/tracks/robot-software/',
+  '/library/tracks/bioinformatics/',
   '/library/template-personas/',
   '/library/resources/',
   '/library/tracks/frameworks/24-running-android-ops-in-gitlab/',

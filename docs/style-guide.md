@@ -88,7 +88,23 @@ Program pages (The Way, weekly pages, standards, templates) are as long as the s
 
 ### The TrailMug example
 
-The running example product is **TrailMug**: reusable cups for cafes. It is fictional. Keep every new example
+The running example product is **TrailMug**: reusable cups for cafes. It is fictional. The robotics tracks use it too, as a fictional
+café robot that collects returned cups.
+
+The biotechnology tracks do not use TrailMug, because the work needs real data. Bioinformatics works on small public
+datasets, named by their real accession. Lab automation in code uses a colour-mixing experiment run in simulation. In
+these tracks the fourth part is called **Worked example**.
+
+### Robotics and biotechnology tracks
+
+These are the core focuses (see [track-urls.md](track-urls.md)). On top of the honesty rules below:
+
+- Everything runs in simulation or on public data. Never write wet-lab steps beyond what an official simulator or
+  protocol guide shows. Biosafety is taught as awareness, and real lab work needs a trained supervisor and approval.
+- Name the real tool, its maker and the version the official page names on the day you write. Say licence limits,
+  for example model weights that are for non-commercial use only. If you cannot check a version, leave it out.
+- Never say the Dojo or CRC has a robot, a lab, a partner, a kit or an award. SBIR or STTR funding may be named as an
+  aim, never as a win. Keep every new example
 consistent with the pages that already use it (search the site for "TrailMug" before you invent details).
 Never present TrailMug numbers as real. Use clearly invented, round, labelled-as-example numbers, or no numbers.
 
