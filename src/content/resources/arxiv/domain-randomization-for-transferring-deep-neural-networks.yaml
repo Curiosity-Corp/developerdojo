@@ -1,0 +1,9 @@
+title: "Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World"
+provider: "arXiv"
+url: "https://arxiv.org/abs/1703.06907"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [robot-learning]
+summary: "The paper by Tobin and colleagues that trains an object detector only on randomised simulated images and uses it on a real robot, with grasping as a demonstration. It is a clear early statement of domain randomisation. Read the abstract and notice how narrow the task is: locating objects."
+verifiedOn: 2026-11-19

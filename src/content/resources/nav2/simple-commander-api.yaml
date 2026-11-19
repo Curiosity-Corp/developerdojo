@@ -1,0 +1,9 @@
+title: "Simple Commander API - Nav2 Docs"
+provider: "Nav2"
+url: "https://docs.nav2.org/lyrical/configuration_and_development/simple_commander_api/simple_commander_api/"
+cost: free
+format: docs
+level: intermediate
+skills: [robot-software]
+summary: "The Nav2 page for the Simple Commander, a Python API for sending navigation goals from a script. Use it to drive a robot to a pose or through waypoints without writing a full node."
+verifiedOn: 2026-11-19

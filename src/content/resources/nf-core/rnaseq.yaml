@@ -1,0 +1,9 @@
+title: "rnaseq: Introduction"
+provider: "nf-core"
+url: "https://nf-co.re/rnaseq"
+cost: free
+format: docs
+level: intermediate
+skills: [bioinformatics, data-analytics]
+summary: "The home page of nf-core/rnaseq, a community pipeline that turns RNA sequencing reads into gene counts and quality reports. It lists the steps, the inputs and the outputs, and links to the usage guide. Use it to see how a mature pipeline is documented."
+verifiedOn: 2026-11-19

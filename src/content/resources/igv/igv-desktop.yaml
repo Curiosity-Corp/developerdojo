@@ -1,0 +1,9 @@
+title: "IGV Desktop Application"
+provider: "IGV"
+url: "https://igv.org/doc/desktop/"
+cost: free
+format: docs
+level: beginner
+skills: [bioinformatics, data-analytics]
+summary: "The user guide for IGV, the open viewer for alignments, variants and annotations. It runs on a laptop and lets you look at the reads behind any variant call. Use it to check by eye what a pipeline reported."
+verifiedOn: 2026-11-19

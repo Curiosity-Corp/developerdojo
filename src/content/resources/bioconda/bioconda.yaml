@@ -1,0 +1,9 @@
+title: "Bioconda"
+provider: "Bioconda"
+url: "https://bioconda.github.io/"
+cost: free
+format: docs
+level: beginner
+skills: [bioinformatics, open-source]
+summary: "The documentation of Bioconda, a community channel with thousands of bioinformatics tools packaged for the conda package manager. It says how to install tools and how to find a version. The ready-made containers used in this track are built from these packages."
+verifiedOn: 2026-11-19

@@ -1,0 +1,9 @@
+title: "Gaussian Processes for Machine Learning"
+provider: "gaussianprocess.org"
+url: "https://gaussianprocess.org/gpml/"
+cost: "free"
+format: "book"
+level: "advanced"
+skills: [data-analytics]
+summary: "The web page of the book by Rasmussen and Williams (MIT Press, 2006). The authors offer the book for download in electronic format. It is the deep reference for the Gaussian process model that sits inside Bayesian optimisation. It is written for researchers and students, so expect maths."
+verifiedOn: 2026-11-19

@@ -1,0 +1,9 @@
+title: "ColabFold: Making Protein folding accessible to all!"
+provider: "ColabFold"
+url: "https://github.com/sokrypton/ColabFold"
+cost: free
+format: tutorial
+level: intermediate
+skills: [bioinformatics]
+summary: "The ColabFold project, which runs AlphaFold-style prediction in free Google Colab notebooks or from the command line. Its README lists the notebooks and the limits of the shared sequence-search server. A practical way to fold a protein without owning a GPU."
+verifiedOn: 2026-11-19

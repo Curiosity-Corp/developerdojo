@@ -1,0 +1,9 @@
+title: "Concepts"
+provider: "MoveIt"
+url: "https://moveit.picknik.ai/main/doc/concepts/concepts.html"
+cost: free
+format: docs
+level: intermediate
+skills: [robot-software]
+summary: "The MoveIt page on its main ideas: kinematics, motion planning, the move_group node, the planning scene monitor and the Task Constructor. It gives you the words to read any MoveIt tutorial."
+verifiedOn: 2026-11-19

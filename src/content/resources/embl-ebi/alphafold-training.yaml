@@ -1,0 +1,9 @@
+title: "AlphaFold"
+provider: "EMBL-EBI Training"
+url: "https://www.ebi.ac.uk/training/online/courses/alphafold/"
+cost: free
+format: course
+level: beginner
+skills: [bioinformatics, ai-evaluation]
+summary: "A free online course from EMBL-EBI, the team that runs the AlphaFold database. It covers how to find and read predictions, what the confidence scores mean and what the tools cannot do. Take it before you rely on a predicted structure."
+verifiedOn: 2026-11-19

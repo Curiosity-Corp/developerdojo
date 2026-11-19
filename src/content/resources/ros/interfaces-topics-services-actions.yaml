@@ -1,0 +1,9 @@
+title: "Interfaces (topics, services, actions)"
+provider: "ROS"
+url: "https://docs.ros.org/en/lyrical/ROS-Framework/Interfaces-Topics-Services-Actions.html"
+cost: free
+format: docs
+level: beginner
+skills: [robot-software]
+summary: "The official overview of the three ways ROS 2 nodes talk to each other. It explains when to pick a topic, a service or an action. Read it before you design the messages in your own package."
+verifiedOn: 2026-11-19

@@ -1,0 +1,9 @@
+title: "Recording and playing back data - tutorial"
+provider: "ROS"
+url: "https://docs.ros.org/en/lyrical/ROS-Framework/interfaces/Working-with-interfaces/Recording-And-Playing-Back-Data/Recording-And-Playing-Back-Data.html"
+cost: free
+format: tutorial
+level: beginner
+skills: [robot-software]
+summary: "The official tutorial for ros2 bag. You record topics to a file and play them back later. A bag is how you keep evidence of a robot run and replay it for a test."
+verifiedOn: 2026-11-19

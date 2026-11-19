@@ -1,0 +1,9 @@
+title: "Overview - MuJoCo Documentation"
+provider: "Google DeepMind"
+url: "https://mujoco.readthedocs.io/en/stable/overview.html"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [robot-learning, open-source]
+summary: "The official documentation for MuJoCo, the open-source physics engine maintained by Google DeepMind and released under the Apache 2.0 licence. This overview introduces the engine and its parts, and the site covers the model format, the Python bindings and the API. Use it as the reference when you edit a robot model."
+verifiedOn: 2026-11-19

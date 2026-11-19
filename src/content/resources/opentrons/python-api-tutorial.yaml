@@ -1,0 +1,9 @@
+title: "Python API: Tutorial"
+provider: "Opentrons"
+url: "https://docs.opentrons.com/python-api/tutorial/"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [lab-automation]
+summary: "A step-by-step tutorial from the Opentrons docs. It builds a first protocol with metadata, requirements, labware, pipettes and commands, then shows how to run it. Start here for lesson two."
+verifiedOn: 2026-11-19

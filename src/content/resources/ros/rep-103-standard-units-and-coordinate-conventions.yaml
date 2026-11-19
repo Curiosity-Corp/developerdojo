@@ -1,0 +1,9 @@
+title: "REP 103: Standard Units of Measure and Coordinate Conventions"
+provider: "ROS"
+url: "https://www.ros.org/reps/rep-0103.html"
+cost: free
+format: docs
+level: intermediate
+skills: [robot-software]
+summary: "The ROS Enhancement Proposal that fixes the units and axes every ROS package uses: metres, radians, seconds, and x forward, y left, z up. Wrong units are a common source of robot bugs. Its status in the source repository is Active."
+verifiedOn: 2026-11-19

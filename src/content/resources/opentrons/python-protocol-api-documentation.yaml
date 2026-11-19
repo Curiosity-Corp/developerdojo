@@ -1,0 +1,9 @@
+title: "Python Protocol API Documentation"
+provider: "Opentrons"
+url: "https://docs.opentrons.com/python-api/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [lab-automation, robotics-manufacturing]
+summary: "The official reference for writing Opentrons protocols in Python. It covers the Flex and the OT-2, labware, pipettes, liquid handling, the API version number and how to simulate. Keep it open while you write a protocol, and check the version it describes."
+verifiedOn: 2026-11-19

@@ -1,0 +1,9 @@
+title: "Preparing for strict syntax"
+provider: "Nextflow"
+url: "https://docs.seqera.io/nextflow/strict-syntax"
+cost: free
+format: docs
+level: intermediate
+skills: [bioinformatics]
+summary: "A Nextflow documentation page on the strict syntax parser, which is the default from release 26.04. It lists the older Groovy patterns the parser rejects and what to write instead. Use it when an older pipeline or an agent's draft fails to run on a current release."
+verifiedOn: 2026-11-19

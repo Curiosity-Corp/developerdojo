@@ -1,0 +1,9 @@
+title: "Introducing tf2 — tutorial"
+provider: "ROS"
+url: "https://docs.ros.org/en/lyrical/ROS-Framework/interfaces/Working-with-interfaces/Introduction-To-Tf2/Introduction-To-Tf2.html"
+cost: free
+format: tutorial
+level: beginner
+skills: [robot-software]
+summary: "An introduction to tf2, the library that tracks coordinate frames over time. You run a turtlesim demo with two turtles and inspect the transforms between them. Read it before you write code that says where something is."
+verifiedOn: 2026-11-19

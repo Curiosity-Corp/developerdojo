@@ -1,0 +1,9 @@
+title: "Installation"
+provider: "ROS"
+url: "https://docs.ros.org/en/lyrical/Get-Started/Installation.html"
+cost: free
+format: docs
+level: beginner
+skills: [robot-software]
+summary: "The official ROS 2 install page. It compares binary packages with source builds and points to the install guide for each platform. Use it when you want ROS on your own machine instead of in a container."
+verifiedOn: 2026-11-19

@@ -1,0 +1,9 @@
+title: "Use ROS 2 to interact with Gazebo"
+provider: "Gazebo"
+url: "https://gazebosim.org/docs/jetty/ros2_integration/"
+cost: free
+format: tutorial
+level: intermediate
+skills: [robot-software]
+summary: "A Gazebo page on connecting the simulator to ROS 2 with the ros_gz_bridge package. It explains the bridge syntax and says the bridge supports only certain message types. It is the link between the simulator and your nodes."
+verifiedOn: 2026-11-19

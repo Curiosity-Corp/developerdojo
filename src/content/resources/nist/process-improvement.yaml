@@ -1,0 +1,9 @@
+title: "5. Process Improvement"
+provider: "NIST"
+url: "https://www.itl.nist.gov/div898/handbook/pri/pri.htm"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [data-analytics]
+summary: "A chapter of the NIST e-Handbook of Statistical Methods on designing experiments. It covers factorial and fractional factorial designs, randomisation, blocking and screening designs. Use it to choose a design for a set of factors."
+verifiedOn: 2026-11-19

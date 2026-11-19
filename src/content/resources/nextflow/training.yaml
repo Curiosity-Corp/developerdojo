@@ -1,0 +1,9 @@
+title: "Nextflow Training"
+provider: "Nextflow"
+url: "https://training.nextflow.io/latest/"
+cost: free
+format: tutorial
+level: beginner
+skills: [bioinformatics, ci-cd]
+summary: "The Nextflow project's own hands-on training. It teaches the pipeline language step by step, with exercises that run in a ready-made cloud workspace or on your laptop. Take the first modules before you read or write a pipeline."
+verifiedOn: 2026-11-19

@@ -1,0 +1,9 @@
+title: "LIBERO"
+provider: "LIBERO project"
+url: "https://libero-project.github.io/main.html"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [robot-learning, ai-evaluation]
+summary: "The project page for LIBERO, a simulated benchmark for robot manipulation and lifelong learning, with a code licence of MIT and a data licence of CC BY 4.0 stated in its repository. It is used to test vision-language-action policies in simulation. Read how its task suites are defined before you report a result."
+verifiedOn: 2026-11-19

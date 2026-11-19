@@ -1,0 +1,9 @@
+title: "Concrete Problems in AI Safety"
+provider: "arXiv"
+url: "https://arxiv.org/abs/1606.06565"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [ai-evaluation, robot-learning]
+summary: "A 2016 paper by Amodei, Olah, Steinhardt, Christiano, Schulman and Mané on accidents in machine learning systems. It names five problems, including safe exploration and distributional shift, with robot examples. Read the introduction and the section on distributional shift."
+verifiedOn: 2026-11-19

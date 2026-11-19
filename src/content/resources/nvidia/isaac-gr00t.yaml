@@ -1,0 +1,9 @@
+title: "Isaac-GR00T"
+provider: "NVIDIA"
+url: "https://github.com/NVIDIA/Isaac-GR00T"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [robot-learning, open-source]
+summary: "The repository for NVIDIA Isaac GR00T, a family of open foundation models for generalist robots. Its readme states the code licence, the separate licence on the model weights and the GPU memory needed for inference and fine-tuning. Read those sections before you plan a run."
+verifiedOn: 2026-11-19

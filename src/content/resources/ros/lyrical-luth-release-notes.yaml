@@ -1,0 +1,9 @@
+title: "Lyrical Luth (codename 'lyrical'; May, 2026)"
+provider: "ROS"
+url: "https://docs.ros.org/en/lyrical/Releases/Release-Lyrical-Luth.html"
+cost: free
+format: docs
+level: intermediate
+skills: [robot-software]
+summary: "The release page for ROS 2 Lyrical Luth. It says this is a Long Term Support release, supported until May 2031, and links the supported platforms. Read it before you pick a ROS release."
+verifiedOn: 2026-11-19

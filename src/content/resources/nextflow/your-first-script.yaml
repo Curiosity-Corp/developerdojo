@@ -1,0 +1,9 @@
+title: "Your first script"
+provider: "Nextflow"
+url: "https://docs.seqera.io/nextflow/your-first-script"
+cost: free
+format: docs
+level: beginner
+skills: [bioinformatics]
+summary: "A short page from the Nextflow documentation. It runs a tiny pipeline, changes it and resumes it, then sets a parameter from the command line. It shows the current syntax, so it is the quickest way to see what a modern pipeline file looks like."
+verifiedOn: 2026-11-19

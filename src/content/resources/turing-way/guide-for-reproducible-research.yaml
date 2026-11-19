@@ -1,0 +1,9 @@
+title: "Guide for Reproducible Research"
+provider: "The Turing Way"
+url: "https://book.the-turing-way.org/reproducible-research/reproducible-research.html"
+cost: "free"
+format: "book"
+level: "beginner"
+skills: [data-analytics, open-source]
+summary: "A chapter of The Turing Way, an open handbook written by a community of researchers. It explains what reproducible research means and how to share code, data and environment so others can repeat a result. Use it to write the reproducibility part of a report."
+verifiedOn: 2026-11-19

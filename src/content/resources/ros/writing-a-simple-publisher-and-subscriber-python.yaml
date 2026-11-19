@@ -1,0 +1,9 @@
+title: "Writing a simple publisher and subscriber (Python) — tutorial"
+provider: "ROS"
+url: "https://docs.ros.org/en/lyrical/ROS-Framework/client-libraries/Working-with-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html"
+cost: free
+format: tutorial
+level: beginner
+skills: [robot-software]
+summary: "The official first Python tutorial for ROS 2. You write one node that publishes and one that subscribes. It is the pattern behind many other nodes you will write."
+verifiedOn: 2026-11-19

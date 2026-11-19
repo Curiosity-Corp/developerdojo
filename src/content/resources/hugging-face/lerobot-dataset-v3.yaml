@@ -1,0 +1,9 @@
+title: "LeRobotDataset v3.0"
+provider: "Hugging Face"
+url: "https://huggingface.co/docs/lerobot/lerobot-dataset-v3"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [robot-learning, data-analytics]
+summary: "The format page for LeRobot datasets: Parquet files for numbers, MP4 files for video and a meta folder that describes them. It shows how to record a dataset, load it for training and stream it from the Hugging Face Hub. Read it before you collect or share demonstrations."
+verifiedOn: 2026-11-19

@@ -1,0 +1,9 @@
+title: "HTS format specifications"
+provider: "htslib"
+url: "https://samtools.github.io/hts-specs/"
+cost: free
+format: docs
+level: advanced
+skills: [bioinformatics]
+summary: "The official specifications for SAM, BAM, CRAM, VCF, BCF and BED, kept by the team behind samtools. They are exact and dry. Use them to settle a question about what a field in a file means, not as a first read."
+verifiedOn: 2026-11-19

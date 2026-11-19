@@ -1,0 +1,9 @@
+title: "Biopython Tutorial & Cookbook"
+provider: "Biopython"
+url: "https://biopython.org/docs/latest/Tutorial/index.html"
+cost: free
+format: docs
+level: beginner
+skills: [bioinformatics, data-analytics]
+summary: "The official Biopython guide, with worked examples for reading sequence files, working with sequence objects, talking to NCBI Entrez and aligning sequences. Use it to look up the exact call an agent should use, and to check that code you are given matches the current release."
+verifiedOn: 2026-11-19

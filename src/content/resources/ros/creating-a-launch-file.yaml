@@ -1,0 +1,9 @@
+title: "Creating a launch file - tutorial"
+provider: "ROS"
+url: "https://docs.ros.org/en/lyrical/Developer-Tools/Launch/Creating-Launch-Files.html"
+cost: free
+format: tutorial
+level: beginner
+skills: [robot-software]
+summary: "The official tutorial for starting several nodes together with one launch file. You write it in Python and set parameters and names. Every robot you build in this track starts from a launch file."
+verifiedOn: 2026-11-19

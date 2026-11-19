@@ -1,0 +1,9 @@
+title: "Python API: Complex Commands"
+provider: "Opentrons"
+url: "https://docs.opentrons.com/python-api/complex-commands/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [lab-automation]
+summary: "The part of the Opentrons docs about transfer, distribute and consolidate. It explains volumes, tip handling, mixing and disposal volume. Read it to learn what one command does before you rely on it."
+verifiedOn: 2026-11-19

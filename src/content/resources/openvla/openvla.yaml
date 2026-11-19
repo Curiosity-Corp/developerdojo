@@ -1,0 +1,9 @@
+title: "OpenVLA: An Open-Source Vision-Language-Action Model"
+provider: "OpenVLA project"
+url: "https://openvla.github.io/"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [robot-learning, open-source]
+summary: "The project page for OpenVLA, a 7-billion-parameter vision-language-action model trained on real robot demonstrations. It links the paper, the code and the model. Read the licence notes in the code repository before you use the weights."
+verifiedOn: 2026-11-19

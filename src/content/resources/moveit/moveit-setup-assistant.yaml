@@ -1,0 +1,9 @@
+title: "MoveIt Setup Assistant"
+provider: "MoveIt"
+url: "https://moveit.picknik.ai/main/doc/examples/setup_assistant/setup_assistant_tutorial.html"
+cost: free
+format: tutorial
+level: intermediate
+skills: [robot-software]
+summary: "The tutorial for the Setup Assistant, a tool that turns a URDF into a MoveIt configuration. You choose planning groups and named poses. It is how you add a new arm to MoveIt."
+verifiedOn: 2026-11-19

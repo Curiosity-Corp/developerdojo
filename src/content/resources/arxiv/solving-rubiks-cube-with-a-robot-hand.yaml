@@ -1,0 +1,9 @@
+title: "Solving Rubik's Cube with a Robot Hand"
+provider: "arXiv"
+url: "https://arxiv.org/abs/1910.07113"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [robot-learning]
+summary: "OpenAI's report on solving a Rubik's cube with a humanoid robot hand, using control policies trained only in simulation with automatic domain randomization (ADR). Read it for the method, and check what the authors say about how often and how well it worked before you quote it."
+verifiedOn: 2026-11-19

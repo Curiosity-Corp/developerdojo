@@ -1,0 +1,9 @@
+title: "What is nf-core?"
+provider: "nf-core"
+url: "https://nf-co.re/docs/get_started/nf-core"
+cost: free
+format: docs
+level: beginner
+skills: [bioinformatics, open-source]
+summary: "An introduction to nf-core, a community that builds and reviews open Nextflow pipelines and shared modules. It explains the standards every pipeline follows, such as test profiles and pinned software. Read it to know what you get when you run a pipeline from nf-core."
+verifiedOn: 2026-11-19

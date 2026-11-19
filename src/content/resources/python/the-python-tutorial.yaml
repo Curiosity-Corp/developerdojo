@@ -1,0 +1,9 @@
+title: "The Python Tutorial"
+provider: "Python Software Foundation"
+url: "https://docs.python.org/3/tutorial/index.html"
+cost: free
+format: tutorial
+level: beginner
+skills: [robot-software]
+summary: "The official Python tutorial from the Python project. It covers the language you need to read ROS 2 node code: functions, classes, modules and errors. Skim it if you can read code but have not written Python."
+verifiedOn: 2026-11-19

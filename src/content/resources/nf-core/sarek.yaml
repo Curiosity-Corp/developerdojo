@@ -1,0 +1,9 @@
+title: "sarek: Introduction"
+provider: "nf-core"
+url: "https://nf-co.re/sarek"
+cost: free
+format: docs
+level: intermediate
+skills: [bioinformatics, data-analytics]
+summary: "The home page of nf-core/sarek, a community pipeline for finding variants in DNA sequencing data, with several callers to choose from. It lists the steps and the outputs. Use it to compare a full pipeline with the small one you build."
+verifiedOn: 2026-11-19

@@ -1,0 +1,9 @@
+title: "Open X-Embodiment: Robotic Learning Datasets and RT-X Models"
+provider: "Open X-Embodiment Collaboration"
+url: "https://robotics-transformer-x.github.io/"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [robot-learning, data-analytics]
+summary: "The project page for Open X-Embodiment, a collaborative collection of robot datasets from many labs and robot types, and the RT-X models trained on it. It links the paper and the data. Check each source dataset's own licence before you reuse it."
+verifiedOn: 2026-11-19

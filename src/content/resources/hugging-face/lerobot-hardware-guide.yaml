@@ -1,0 +1,9 @@
+title: "Compute HW Guide for LeRobot Training"
+provider: "Hugging Face"
+url: "https://huggingface.co/docs/lerobot/hardware_guide"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [robot-learning]
+summary: "Rough GPU memory needs and training times for LeRobot policies, from small action-chunking models to large vision-language-action models. The guide says its numbers are indicative, not exact. Read it before you rent or buy compute."
+verifiedOn: 2026-11-19

@@ -1,0 +1,9 @@
+title: "AlphaFold Protein Structure Database"
+provider: "EMBL-EBI"
+url: "https://alphafold.ebi.ac.uk/"
+cost: free
+format: docs
+level: beginner
+skills: [bioinformatics]
+summary: "The public database of predicted protein structures, run by EMBL-EBI with Google DeepMind. Search by protein name or UniProt accession, view the model coloured by confidence, and download the files. Data is open under a CC-BY 4.0 licence."
+verifiedOn: 2026-11-19

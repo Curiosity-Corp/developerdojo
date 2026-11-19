@@ -1,0 +1,9 @@
+title: "Analyzing RNA-seq data with DESeq2"
+provider: "Bioconductor"
+url: "https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html"
+cost: free
+format: tutorial
+level: intermediate
+skills: [bioinformatics, data-analytics]
+summary: "The official guide to DESeq2, a widely used R package for finding genes whose counts differ between groups. It explains count data, dispersion and multiple testing with worked examples. Read it to learn what the statistics must handle, even if you never write the R code."
+verifiedOn: 2026-11-19

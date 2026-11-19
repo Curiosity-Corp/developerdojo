@@ -1,0 +1,9 @@
+title: "MultiQC overview"
+provider: "Seqera Docs"
+url: "https://docs.seqera.io/multiqc"
+cost: free
+format: docs
+level: beginner
+skills: [bioinformatics, data-analytics]
+summary: "The official guide to MultiQC, a tool that reads the logs of many bioinformatics tools and writes one report. It explains what the report shows and how to run it. It is the report format used by nf-core pipelines and by the capstone in this track."
+verifiedOn: 2026-11-19

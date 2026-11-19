@@ -1,0 +1,9 @@
+title: "Samtools"
+provider: "htslib"
+url: "https://www.htslib.org/"
+cost: free
+format: docs
+level: intermediate
+skills: [bioinformatics]
+summary: "The home page of samtools, bcftools and htslib. It links the manual page of every command, such as sort, index, view, stats and mpileup. Keep it open when you read a pipeline: each step is usually one of these commands."
+verifiedOn: 2026-11-19

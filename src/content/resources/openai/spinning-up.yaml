@@ -1,0 +1,9 @@
+title: "Welcome to Spinning Up in Deep RL!"
+provider: "OpenAI"
+url: "https://spinningup.openai.com/en/latest/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [robot-learning]
+summary: "OpenAI's educational introduction to deep reinforcement learning. It explains the key concepts, the kinds of algorithm and the idea of policy optimisation, with a page on Proximal Policy Optimization. Read the first three introduction parts before your first training run."
+verifiedOn: 2026-11-19

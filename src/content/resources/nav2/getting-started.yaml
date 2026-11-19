@@ -1,0 +1,9 @@
+title: "Getting Started - Nav2 Docs"
+provider: "Nav2"
+url: "https://docs.nav2.org/lyrical/getting_started/"
+cost: free
+format: docs
+level: beginner
+skills: [robot-software]
+summary: "The Nav2 Lyrical guide to installing and first running navigation. It links to the concept pages and the quickstart with a simulated robot. It is the front door of the Nav2 docs."
+verifiedOn: 2026-11-19

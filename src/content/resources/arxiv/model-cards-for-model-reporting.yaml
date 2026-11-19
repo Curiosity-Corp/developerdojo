@@ -1,0 +1,9 @@
+title: "Model Cards for Model Reporting"
+provider: "arXiv"
+url: "https://arxiv.org/abs/1810.03993"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [ai-evaluation, communication-writing]
+summary: "The paper by Mitchell and colleagues, presented at FAT* '19, that proposed model cards: short documents that state what a model is for, how it was evaluated and where it should not be used. Read the section on card contents, then write one for your own model."
+verifiedOn: 2026-11-19

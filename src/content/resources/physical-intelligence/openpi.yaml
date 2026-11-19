@@ -1,0 +1,9 @@
+title: "openpi"
+provider: "Physical Intelligence"
+url: "https://github.com/Physical-Intelligence/openpi"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [robot-learning, open-source]
+summary: "The open-source repository for the pi-zero family of vision-language-action models from Physical Intelligence, with code under the Apache 2.0 licence. Its readme gives GPU memory needs for running and fine-tuning. Read the licence notes for each model you download."
+verifiedOn: 2026-11-19

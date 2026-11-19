@@ -13,6 +13,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **Accessibility.** Making a product work for everyone, including people who use screen readers or keyboards.
 
+**Acquisition function.** A score that ranks the next experiment, weighing the best guess against the unknown.
+
 **ADR (architecture decision record).** A short file that records a decision, the options, the reason and how to leave. Also called a decision record.
 
 **Agent ladder.** Four rungs of skill with AI agents: use, delegate, orchestrate and govern. Each rung needs different skills.
@@ -35,13 +37,27 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **AI disclosure.** A plain line that says where AI helped with a piece of work. It goes in the README or the merge request.
 
+**ALCOA+.** Data rules: attributable, legible, contemporaneous, original, accurate, plus complete, consistent, enduring and available.
+
 **Assumption.** Something you believe is true but have not yet checked.
+
+**Audit trail.** A dated record of who did what, kept so others can check it.
 
 ## B
 
 **B2B2C.** Business to business to consumer. A business pays. Its consumers use the product.
 
 **Backlog.** An ordered list of work waiting to be done: wanted features and fixes. The top items come next. See [The backlog](/library/tracks/agile-delivery/02-backlog-and-stories).
+
+**BAM file.** A compact file of reads and where each one lines up on a reference.
+
+**Batch effect.** A difference in the data caused by when or how you measured, not by biology.
+
+**Bayesian optimisation.** A method that uses past results to pick the next experiment to try.
+
+**Biological replicate.** A separate living sample of the same kind, such as another mouse or culture.
+
+**Biosafety level.** A set of lab controls matched to the risk of the work.
 
 **Blameless review.** A review after an incident that asks what failed, not who failed. It ends in a gate, a test, a check or a rule.
 
@@ -77,11 +93,21 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **CI/CD.** Continuous integration and delivery. Automatic steps that test, build and deliver changes.
 
+**Closed loop.** A cycle where the result of one experiment helps choose the next.
+
 **Cloud platform.** A provider that rents you computers and services over the internet. Examples are AWS, Azure and Google Cloud.
 
 **Commit.** One saved step in git, with a message.
 
+**Confidence interval.** A range that shows how far a measured rate could be from the true one.
+
 **Configuration item.** Anything that must be managed to deliver a service: a repo, an app, a database.
+
+**Container.** A packaged tool with everything it needs, so it runs the same everywhere.
+
+**Control.** A well that shows what happens with no effect, so you can judge the rest.
+
+**Coordinate frame.** A named origin and set of axes used to say where things are.
 
 **Copyleft.** A licence idea: if you pass on the code, you must pass on the same freedoms.
 
@@ -109,7 +135,11 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **Discovery.** Learning what to build, and who it is for, before you build it.
 
+**Distribution shift.** The real world drifts away from the data a model learned from. Its answers then get worse, and it may not warn you.
+
 **Dojo Readiness.** Six areas coaches look at when they ask if a learner is ready: Practical Application, Reasoning, Technical Execution, Launch Readiness, Communication and Coachability. See the [readiness map](/library/rubric-readiness-map).
+
+**Domain randomisation.** Changing the simulator's looks and physics at random during training, so the policy copes with more variety.
 
 **Drift.** Any difference between desired state and actual state.
 
@@ -118,6 +148,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 **Epic.** A whole-product outcome across several repos. Weeks to months. Written by a human.
 
 **Epic manager.** The human who owns the epics and the roadmap of a product.
+
+**Episode.** One attempt at a task, from the first reset to success, failure or a time limit.
 
 **Error budget.** The amount of failure a service-level target allows.
 
@@ -131,6 +163,14 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 ## F
 
+**Factor.** Something you change on purpose, such as the volume of one dye.
+
+**False discovery rate.** The share of your reported findings that you expect to be false.
+
+**FASTA file.** A text file of named sequences, one name line then the letters.
+
+**FASTQ file.** A text file of reads, each with a quality score for every letter.
+
 **Fit %.** How much of your needs a tool already meets. MUST needs count double.
 
 **Fix forward.** Fix problems with a new change. Do not revert shipped work.
@@ -139,17 +179,27 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 ## G
 
+**Gaussian process.** A model that predicts a value and says how unsure it is.
+
+**Gazebo.** An open-source simulator that models a robot, its sensors and its world.
+
 **Git.** A tool that records every change to files.
 
 **GitOps.** A controller makes a system match what is in git, continuously.
 
 **Golden path.** The easy, safe, standard way to go from idea to production.
 
+## H
+
+**Hazard analysis.** A structured search for what could go wrong and who could be hurt.
+
 ## I
 
 **IaC (infrastructure as code).** Cloud setup written as files in git.
 
 **Idempotent.** Running it twice gives the same result as running it once.
+
+**Imitation learning.** Training a policy to copy actions that people demonstrated.
 
 **Incident.** An unplanned break or drop in quality of a service.
 
@@ -199,6 +249,16 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **Mockup.** A drawing of a screen before it is built.
 
+**Model card.** A short note on what a model is for and where it fails.
+
+**MoveIt 2.** The ROS 2 software that plans arm motions and avoids collisions.
+
+## N
+
+**Nav2.** The ROS 2 software that plans routes and drives a mobile robot.
+
+**Nextflow.** An open-source language and runner for repeatable data analysis pipelines.
+
 ## O
 
 **Observability.** Being able to see from the outside what a running system is doing.
@@ -221,11 +281,17 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **PHANTOMS.** A pattern of jobs and default tools that agents can build a product on. Each letter of the name is one job.
 
+**Phred score.** A number that says how likely a sequenced letter is wrong. Higher means safer.
+
 **Pipeline.** The automatic steps that test and deliver a change.
 
 **Plan (infrastructure as code).** A preview of what the tool will add, change or destroy. You read it before you approve.
 
+**pLDDT.** A 0 to 100 score of a model's confidence in each amino acid.
+
 **Point of view.** One claim that someone could disagree with and that your own work supports.
+
+**Policy.** A model that reads what a robot senses and chooses its next action.
 
 **Primary source.** A first-hand record, such as a law, a data table or your own test.
 
@@ -245,19 +311,33 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 ## R
 
+**Reference genome.** An agreed full DNA sequence that new reads are compared with.
+
 **Refinement (grooming).** Regularly reading, clarifying and sizing backlog items, so they are ready before a sprint starts.
 
 **Region.** A place in the world where a cloud provider runs its computers. Where your data lives is a business and legal choice.
 
+**Reinforcement learning.** Training a policy by trial and error, guided by a reward score.
+
+**Replicate.** A repeat of the same condition, used to measure noise.
+
 **Repository (repo).** A folder of files with a full change history.
 
+**Reward.** A number the environment gives after each step. Reinforcement learning tries to raise its total.
+
 **Roadmap.** Epics laid out in order over time.
+
+**ROS 2.** An open-source toolkit and message system for building robot software.
+
+**Rosbag.** A file that records robot messages so you can replay them later.
 
 **Runbook.** Step-by-step instructions for running or fixing a service.
 
 ## S
 
 **SAFe (Scaled Agile Framework).** A set of guidance for using lean and agile methods in a large company with many teams.
+
+**Safety case.** A written argument, with evidence, that a system is safe enough to use.
 
 **SBOM (software bill of materials).** A list of the parts inside software and their licences.
 
@@ -269,9 +349,19 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **Secret.** A password, key or token. Never kept in git. Only its name is.
 
+**Self-driving lab.** A lab where software plans experiments and machines run them.
+
+**Sequencing read.** A short piece of DNA text that a sequencing machine reports.
+
 **Service level (SLI, SLO, SLA).** An indicator you measure, an objective you aim for, and an agreement you promise.
 
 **Shared responsibility model.** The split between what the cloud provider secures and what you must secure.
+
+**Sim-to-real gap.** The difference between how a robot acts in simulation and in the real world.
+
+**Simulation.** Running a protocol or model on a computer instead of on real equipment.
+
+**SLAM.** Building a map and finding your place on it at the same time.
 
 **SPDX id.** A standard short name for a licence, such as `MIT` or `Apache-2.0`.
 
@@ -303,11 +393,19 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **Upstream.** The original project that you adopt or fork.
 
+**URDF.** An XML file that describes a robot's links, joints and shape.
+
 **User.** The person who uses the product.
 
 ## V
 
+**Variant.** A place where a sample's DNA differs from the reference genome.
+
+**VCF file.** A text file that lists variants, one per line, with the evidence for each.
+
 **Velocity.** How many story points a team finishes in one sprint. Teams use it to forecast their next sprints.
+
+**Vision-language-action model (VLA).** A large model that reads camera images and text and outputs robot actions.
 
 ## W
 

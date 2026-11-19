@@ -1,0 +1,9 @@
+title: "Binomial proportion confidence interval"
+provider: "Wikipedia"
+url: "https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [ai-evaluation, data-analytics]
+summary: "An encyclopaedia article on confidence intervals for a success rate counted out of a number of trials. It gives the Wilson score interval used in this track and says why the simple normal approximation can mislead for small counts or rates near 0 or 1. Use it to check the formula in your code."
+verifiedOn: 2026-11-19

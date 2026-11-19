@@ -1,0 +1,9 @@
+title: "MuJoCo Playground"
+provider: "Google DeepMind"
+url: "https://playground.mujoco.org/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [robot-learning, open-source]
+summary: "The site for MuJoCo Playground, an Apache 2.0 suite of robot environments, reinforcement learning tasks and hardware workflows built on MuJoCo and MuJoCo Warp. Its repository describes large-batch training on a GPU and workflows from simulation to hardware. Check the installation notes for your platform before you start."
+verifiedOn: 2026-11-19

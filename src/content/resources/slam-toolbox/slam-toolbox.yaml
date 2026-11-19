@@ -1,0 +1,9 @@
+title: "slam_toolbox"
+provider: "Steve Macenski"
+url: "https://github.com/SteveMacenski/slam_toolbox"
+cost: free
+format: docs
+level: intermediate
+skills: [robot-software, open-source]
+summary: "The source repository and README of slam_toolbox, the mapping package used with Nav2. It describes synchronous and asynchronous mapping, lifelong mapping and a localisation mode. Read the README and the licence file before you depend on it."
+verifiedOn: 2026-11-19

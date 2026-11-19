@@ -1,0 +1,9 @@
+title: "OpenFold3 documentation"
+provider: "OpenFold"
+url: "https://openfold-3.readthedocs.io/en/latest/"
+cost: free
+format: docs
+level: advanced
+skills: [bioinformatics, open-source]
+summary: "The documentation of OpenFold3, an open attempt to reproduce AlphaFold 3 from the OpenFold community. It explains installation, inputs and the model parameters, and says which release works with which parameters. The project calls itself a preview, so read the status notes."
+verifiedOn: 2026-11-19

@@ -1,0 +1,9 @@
+title: "Opentrons OT-2: Importing Protocols"
+provider: "Opentrons"
+url: "https://docs.opentrons.com/ot-2/opentrons-app/protocol-import/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [lab-automation]
+summary: "A page from the OT-2 docs on importing a protocol into the Opentrons App. It explains the analysis the app runs on import and how to read its warnings and errors. This is a second check, after the simulator."
+verifiedOn: 2026-11-19

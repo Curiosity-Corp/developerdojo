@@ -1,0 +1,9 @@
+title: "FAIR Principles"
+provider: "GO FAIR Foundation"
+url: "https://www.gofair.foundation/fair-principles"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [data-analytics, open-source]
+summary: "The GO FAIR Foundation's page on the FAIR principles. They say data should be findable, accessible, interoperable and reusable. Use it to check that your run data and metadata could be found and reused by someone else."
+verifiedOn: 2026-11-19

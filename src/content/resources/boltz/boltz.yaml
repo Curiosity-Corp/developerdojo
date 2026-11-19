@@ -1,0 +1,9 @@
+title: "Boltz"
+provider: "Boltz"
+url: "https://github.com/jwohlwend/boltz"
+cost: free
+format: docs
+level: advanced
+skills: [bioinformatics, open-source]
+summary: "The repository of the open Boltz models for predicting how biomolecules fold and bind. Code and weights carry the MIT licence, which allows academic and commercial use. A GPU is recommended, and the README says the CPU version is much slower."
+verifiedOn: 2026-11-19
