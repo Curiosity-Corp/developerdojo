@@ -85,6 +85,27 @@ const bar = [
     </div>
   </section>
 
+  <section class="section tight definition" aria-labelledby="definition-title">
+    <div class="container">
+      <div id="definition-title">
+        <SectionHeader
+          eyebrow="What a developer is"
+          title="The orchestrator is the developer."
+          intro="A developer defines an outcome, orchestrates AI agents and tools to make it, and verifies the result. Development has two layers."
+        />
+      </div>
+      <ol class="layer-list">
+        <li><strong>Universal foundation.</strong> <span>Outcomes, instructions, agent stacks and verification: the skills every developer shares.</span></li>
+        <li><strong>Field expertise.</strong> <span>The tools, standards and qualified review that your field adds on top.</span></li>
+      </ol>
+      <p class="definition-links">
+        <a href="/start">Start here <Icon name="arrow-right" size={16} /></a>
+        <a href="/start#terms">Read the terminology guide <Icon name="arrow-right" size={16} /></a>
+        <a href="/train">Existing training paths <Icon name="arrow-right" size={16} /></a>
+      </p>
+    </div>
+  </section>
+
   <section class="section core-focus" aria-labelledby="core-focus-title">
     <div class="container">
       <div id="core-focus-title">
@@ -312,6 +333,13 @@ const bar = [
   .outcome-links { display: flex; flex-wrap: wrap; gap: var(--space-2); }
   .outcome-links a { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; padding: .6rem .8rem; color: var(--ink); background: var(--paper-raised); border: 1px solid var(--line-strong); border-radius: var(--radius); font-weight: 700; text-decoration: none; }
   .outcome-links a:hover { border-color: var(--rust-text); text-decoration: underline; }
+  .layer-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-3); list-style: none; padding: 0; margin: var(--space-4) 0; }
+  .layer-list li { display: grid; gap: var(--space-1); padding: var(--space-4); overflow-wrap: anywhere; background: var(--paper-raised); border-left: 3px solid var(--tone-olive); }
+  .layer-list li + li { border-left-color: var(--tone-gold); }
+  .layer-list span { color: var(--ink-muted); }
+  .definition-links { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); margin: 0; }
+  .definition-links a { display: inline-flex; align-items: center; gap: var(--space-2); font-weight: 700; }
+  @media (min-width: 62rem) { .layer-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .hero-art { overflow: hidden; border-radius: var(--radius); border: 1px solid rgb(255 255 255 / .3); background: var(--band); box-shadow: var(--shadow); }
   .hero-art img { display: block; width: 100%; height: 15rem; object-fit: cover; }
   .hero-art p { margin: 0; padding: var(--space-3) var(--space-4); color: var(--band-text); font-weight: 700; }

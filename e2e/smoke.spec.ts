@@ -3,6 +3,7 @@ import { expect, test } from '@playwright/test';
 // Every page a visitor can reach from the header or footer must return 200 and render one h1.
 const PAGES = [
   '/',
+  '/start',
   '/katas',
   '/train',
   '/sensei',
