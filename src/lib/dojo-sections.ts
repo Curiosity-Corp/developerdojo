@@ -1,4 +1,7 @@
-/** Site sections connect the new practice model to resources that already exist. */
+/**
+ * Site sections connect the new practice model to resources that already exist. Each renders at /<slug>
+ * through src/pages/[dojoSection].astro. The Gallery has its own page (src/pages/gallery.astro, #87).
+ */
 export interface DojoSection {
   slug: string;
   eyebrow: string;
@@ -14,20 +17,6 @@ export interface DojoSection {
 }
 
 export const dojoSections: DojoSection[] = [
-  {
-    slug: 'gallery', eyebrow: 'See the outcome', title: 'The Gallery',
-    description: 'Explore the outcomes a developer can create and the evidence behind them.',
-    introTitle: 'Try a result, then make your own',
-    intro: 'Start with working examples, including Dojo exercises and a credited creator’s interactive 3D room. Follow a kata to make your own and check the result.',
-    steps: [
-      { title: 'A clickable mini app', description: 'Try the Pocket Garden example, then ask an assistant to create a prototype you can test and remix.', href: '/katas/first-prototype', link: 'Make a clickable prototype' },
-      { title: 'An interactive 3D room', description: 'Explore Wes Bos’s reconstructed office and work backward through its capture and agent workflow.', href: '/katas/scan-a-room', link: 'Explore the room' },
-      { title: 'A UX journey', description: 'Try a working prototype, trace its states and develop an editable design of your own.', href: '/katas/ux-journey', link: 'Design a user journey' },
-      { title: 'An idea becomes a plan', description: 'See a complete example brief and use a ready-to-copy prompt to develop your own idea.', href: '/katas/spark-ideas', link: 'Turn an idea into a plan' },
-      { title: 'Look behind the result', description: 'Check inputs, instructions, tools and evidence. These starter examples are not a complete benchmark or verified replay of the same stack.' },
-    ],
-    nextTitle: 'Make something today', next: 'Choose a starter kata, try its example and make the result your own.', nextHref: '/katas', nextLabel: 'Explore katas',
-  },
   {
     slug: 'stack-lab', eyebrow: 'Universal foundations', title: 'The Stack Lab',
     description: 'Learn how harnesses, models, instructions, context, tools, agents and verification shape an outcome.',
