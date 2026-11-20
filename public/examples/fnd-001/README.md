@@ -1,6 +1,6 @@
 # FND-001 evidence
 
-Evidence for the FND-001 kata record (`src/data/kata-recipes/fnd-001.ts`, #84). Everything here was produced on 2026-11-20 with Claude Code 2.1.329 and can be reproduced with the two scripts in `scripts/fnd-001/`.
+Evidence for the FND-001 kata record (`src/data/kata-recipes/fnd-001.ts`). Everything here was produced on 2026-11-20 with Claude Code 2.1.329 and can be reproduced with the two scripts in `scripts/fnd-001/`.
 
 | Path | What it is |
 | --- | --- |
