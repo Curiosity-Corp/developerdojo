@@ -93,6 +93,27 @@ No internal hostnames or infrastructure details on public pages. Reward amounts 
 Pages serves at https://developerdojo.org. Protected CI variables: `GITHUB_APP_ID`,
 `GITHUB_APP_INSTALLATION_ID`, `GITHUB_APP_PRIVATE_KEY_B64`.
 
+### Checking the live site
+
+Public traffic goes Cloudflare (proxied, edge certificate `CN=developerdojo.org`) to GitHub Pages. Two
+things mislead a check from a fleet machine:
+
+- **Ziti-enrolled hosts may not see the public site.** Their resolver sends all of `developerdojo.org` to
+  the Ziti overlay (GitLab, Coder and other tools live under it). If the apex resolves to a `100.64.x.x`
+  address you are looking at the internal ingress (`harbor-ca` certificate, 404), not the site. Check the
+  public path explicitly:
+
+  ```sh
+  ip=$(dig +short @1.1.1.1 developerdojo.org | head -1)
+  curl -sv --resolve "developerdojo.org:443:$ip" -o /dev/null -w '%{http_code}\n' \
+    https://developerdojo.org/library/tracks/robot-software/ 2>&1 | grep -E 'subject:|issuer:|^[0-9]{3}$'
+  ```
+
+- **GitHub's Pages settings say `source: master`; that is expected.** The repository uses
+  `build_type: workflow`, so the branch setting is ignored and `pages.yml` on `gh-pages` deploys. The
+  real health signals are the latest `publish_github_pages` job on GitLab and the "Deploy static site to
+  GitHub Pages" run on GitHub (`gh api repos/Curiosity-Corp/developerdojo/actions/runs`).
+
 ## License
 
 See [LICENSE](LICENSE).
