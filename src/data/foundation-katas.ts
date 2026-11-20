@@ -308,7 +308,7 @@ export const stagedFoundationKatas: readonly StagedFoundationKata[] = [
       exercise: 'Read the prompt-injection entry, then add one indirect-injection line to a source from the learner’s own field and record whether the trust boundary held.',
       state: 'linked',
       checkedOn: CHECKED_ON,
-      rights: { state: 'not-checked', note: 'OWASP project page; its licence was not confirmed for this record. Link only.' },
+      rights: { state: 'licence-recorded', note: 'The project repository (OWASP/www-project-top-10-for-large-language-model-applications) LICENSE file states CC BY-SA 4.0. Reuse needs attribution and share-alike; the kata links rather than copies.' },
     },
     assessment: {
       rubric: [
@@ -324,7 +324,7 @@ export const stagedFoundationKatas: readonly StagedFoundationKata[] = [
     },
     evidenceAssessment: 'PRACTICE-002 is published and three specializations (inspect-ifc, open-source-patch-lab, scan-a-room) build on it. Whether a given model follows the injected line varies by model and version and is not recorded by the Dojo, so the page must keep saying a run can go either way.',
     openGaps: [
-      'The OWASP-based transfer exercise has not been run for the Dojo, and its licence is unconfirmed.',
+      'The OWASP-based transfer exercise has not been run for the Dojo.',
       'No exercise yet on choosing and trimming context for a long task (the effective-context-engineering article is linked, not practised).',
       'No page at the planned route. No maintainer assigned.',
     ],

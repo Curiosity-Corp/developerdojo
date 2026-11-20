@@ -11,7 +11,7 @@ This file changes no program rule. The decision record in #80 is untouched.
 | FND-002 Harness Selection & Capability Limits | harness | stack-workbench, arena-evidence | SWE-agent paper (`swe-agent/agent-computer-interfaces`) | paper link only; code MIT | no harness-only Dojo run |
 | FND-003 Model Routing & Escalation | models | budget-boss, arena-run-card | routing pattern (`anthropic/building-effective-agents`) | publisher terms, link only | no routing run, cost unavailable |
 | FND-004 Instruction Engineering | instructions | compare-instructions (PRACTICE-001), stack-workbench | `anthropic/prompt-engineering-interactive-tutorial` | **no licence detected**: link only | tutorial not worked for the Dojo |
-| FND-005 Context & Knowledge | context | context-trap (PRACTICE-002), research-and-compare | OWASP LLM Top 10 (`owasp/top-10-for-llm-applications`) | not checked | transfer exercise not run |
+| FND-005 Context & Knowledge | context | context-trap (PRACTICE-002), research-and-compare | OWASP LLM Top 10 (`owasp/top-10-for-llm-applications`) | CC BY-SA 4.0 (repository LICENSE) | transfer exercise not run |
 | FND-006 Agent Armory | skills and tools | stack-workbench, /armory/registry | `microsoft/mcp-for-beginners` | MIT | no equipped-capability run; security review |
 | FND-007 Delegation & Agent Hierarchies | orchestration | delegate-and-review (!136), meeting-to-momentum | `anthropic/multi-agent-research-system` | publisher terms, link only | no hierarchy exercise |
 | FND-008 Evidence, QA & Acceptance | verification | error-clinic, check-an-activity-report, arena-run-card | `anthropic/define-success-criteria` | publisher terms, link only | criteria-first exercise missing |
