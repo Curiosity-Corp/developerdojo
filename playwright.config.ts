@@ -9,7 +9,7 @@ const port = Number(process.env['PORT'] ?? 4321);
 // read-only production subset runs: routes, navigation, menus, images and the landing page.
 // Nothing in it writes data or submits a form.
 const productionBaseURL = process.env['E2E_BASE_URL'];
-const PRODUCTION_SPECS = ['smoke.spec.ts', 'dojo-navigation.spec.ts', 'mega-navigation.spec.ts', 'production-landing.spec.ts'];
+const PRODUCTION_SPECS = ['smoke.spec.ts', 'dojo-navigation.spec.ts', 'mega-navigation.spec.ts', 'production-landing.spec.ts', 'start-here.spec.ts'];
 
 export default defineConfig({
   testDir: 'e2e',
