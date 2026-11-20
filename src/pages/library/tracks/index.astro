@@ -76,6 +76,14 @@ const otherGroups = groups.filter((entry) => !CORE_GROUPS.includes(entry.group))
     border-top: 4px solid var(--tone-rust);
     border-radius: var(--radius);
     background: var(--paper-sunk);
+    /* The cards sit inside this box, so on a phone at 200 percent zoom (about 195 px) a long word such as
+       "biotechnology" may break rather than widen the page (#68). */
+    overflow-wrap: break-word;
+  }
+  @media (max-width: 40rem) {
+    .core {
+      padding: var(--space-3);
+    }
   }
   .core-title {
     margin-top: 0;

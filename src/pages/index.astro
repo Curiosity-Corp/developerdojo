@@ -317,10 +317,13 @@ const bar = [
   .hero-art p { margin: 0; padding: var(--space-3) var(--space-4); color: var(--band-text); font-weight: 700; }
   .core-focus { padding-block: var(--space-6); }
   .focus-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); margin-top: var(--space-5); }
-  .focus-card { display: grid; align-content: start; gap: var(--space-3); padding: var(--space-5); background: var(--paper-raised); border: 1px solid var(--line); border-top: 4px solid var(--tone-rust); border-radius: var(--radius); box-shadow: var(--shadow); }
+  /* At 195 px (200 percent zoom) "Biotechnology" and "Bioinformatics" are wider than the card. The card and track list
+     are grids and the track links inline-flex, all sized from min-content; overflow-wrap: anywhere (not break-word)
+     makes a long word breakable in min-content too, so it breaks instead of widening the page (#68, #125). */
+  .focus-card { display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; gap: var(--space-3); padding: var(--space-5); overflow-wrap: anywhere; background: var(--paper-raised); border: 1px solid var(--line); border-top: 4px solid var(--tone-rust); border-radius: var(--radius); box-shadow: var(--shadow); }
   .focus-biotechnology { border-top-color: var(--tone-olive); }
-  .focus-head { display: flex; align-items: center; gap: var(--space-3); }
-  .focus-head h3 { margin: 0; font-size: var(--text-2xl); }
+  .focus-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+  .focus-head h3 { min-width: 0; margin: 0; font-size: var(--text-2xl); }
   .focus-icon { display: inline-grid; place-items: center; width: 3rem; height: 3rem; border-radius: var(--radius); background: var(--paper-sunk); color: var(--ink); }
   .focus-card > p { margin: 0; max-width: 52ch; }
   .focus-tracks { display: grid; gap: var(--space-3); list-style: none; padding: 0; margin: 0; }
@@ -329,6 +332,7 @@ const bar = [
   .focus-tracks span { color: var(--ink-muted); }
   .focus-shared { margin: var(--space-4) 0 0; max-width: 80ch; }
   .focus-shared a { display: inline-flex; align-items: center; gap: var(--space-2); font-weight: 700; }
+  @media (max-width: 40rem) { .focus-card { padding: var(--space-4); } }
   @media (min-width: 62rem) { .focus-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .showcase { padding-block: var(--space-6); }
   .showcase-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); margin-top: var(--space-5); }
