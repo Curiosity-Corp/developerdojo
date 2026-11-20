@@ -11,7 +11,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import AxeBuilder from '@axe-core/playwright';
 
 export const EVIDENCE_DIR = fileURLToPath(new URL('../../public/examples/fnd-001/', import.meta.url));
-export const REFERENCE_FILE = fileURLToPath(new URL('../../public/examples/pocket-garden.html', import.meta.url));
+export const REFERENCE_FILE = fileURLToPath(new URL('../../src/data/pocket-garden.html', import.meta.url));
 export const ORIGIN = 'https://pocket-garden.fnd-001.invalid';
 export const PLANTS = ['Basil', 'Sunflower', 'Mint'];
 export const CHECKS = ['single-html-block', 'no-external-requests', 'three-cards', 'sun-filter', 'shade-filter', 'all-filter',
