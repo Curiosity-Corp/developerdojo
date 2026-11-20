@@ -17,8 +17,9 @@ workflow:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     # Pushes to master AND the nightly pipeline schedule (a schedule runs on master as a branch pipeline).
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-    # A production e2e run started by hand on any branch (Run pipeline with PRODUCTION_E2E=true).
-    - if: '$CI_PIPELINE_SOURCE == "web" && $PRODUCTION_E2E == "true"'
+    # A production e2e run started by hand on any branch: Run pipeline (web) or the API / glab ci run
+    # (api), with PRODUCTION_E2E=true.
+    - if: '$CI_PIPELINE_SOURCE =~ /^(web|api)$/ && $PRODUCTION_E2E == "true"'
 
 stages:
   - validate
