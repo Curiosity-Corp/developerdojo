@@ -1,4 +1,5 @@
 ---
+import { pocketGardenFrameDoc } from '../../data/pocket-garden';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import KataPreview from '../../components/KataPreview.astro';
@@ -35,7 +36,7 @@ What I would try next:
   <section class="section outcome"><div class="container content">
     <p class="kicker">See the result</p><h2>Meet Pocket Garden</h2>
     <p>Try the filters and a plant button. This is a working Dojo reference created with AI assistance; the original harness and model versions were not recorded. It is not a result from either experiment below.</p>
-    <iframe class="example" title="Pocket Garden reference" src="/examples/pocket-garden.html" loading="lazy" sandbox="allow-scripts"></iframe>
+    <iframe class="example" title="Pocket Garden reference" srcdoc={pocketGardenFrameDoc} loading="lazy" sandbox="allow-scripts"></iframe>
     <p><a href="/examples/pocket-garden.html">Open the reference full screen</a> · <a href="/examples/pocket-garden-license.txt">Read the reference code license</a> · <a href="/katas/first-prototype">See the original prototype kata</a></p>
   </div></section>
   <section class="section" id="choose"><div class="container content">

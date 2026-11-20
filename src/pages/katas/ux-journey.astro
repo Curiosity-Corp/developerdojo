@@ -1,4 +1,5 @@
 ---
+import { pocketGardenFrameDoc } from '../../data/pocket-garden';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 
@@ -19,7 +20,7 @@ Separate observations of the Pocket Garden example from suggestions for my new a
       <p><a class="action" href="/examples/pocket-garden.html">Open the full prototype ↗</a></p>
       <p class="note">The prototype resets when reloaded and does not create an account or save your selection.</p>
     </div>
-    <iframe title="Try the working Pocket Garden prototype" src="/examples/pocket-garden.html" loading="lazy" sandbox="allow-scripts"></iframe>
+    <iframe title="Try the working Pocket Garden prototype" srcdoc={pocketGardenFrameDoc} loading="lazy" sandbox="allow-scripts"></iframe>
   </div></section>
   <section class="section" aria-labelledby="journey-title"><div class="container narrow">
     <p class="eyebrow">02 / Work backward</p><h2 id="journey-title">Map what actually happens</h2>
