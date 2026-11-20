@@ -78,7 +78,10 @@ describe('FND-001 evidence files', () => {
 
   it('links only to files that exist', () => {
     const hrefs = [fnd001Recipe.outcome.finishedArtifact.href, ...fnd001Recipe.prompts.map((p) => p.href)];
-    for (const href of hrefs) expect(existsSync(join('public', href)), href).toBe(true);
+    // A path is served either as a static file from public/ or by an endpoint route under src/pages
+    // (/examples/pocket-garden.html is rendered from src/data/pocket-garden.html, #128).
+    const served = (href: string) => existsSync(join('public', href)) || existsSync(join('src/pages', `${href}.ts`));
+    for (const href of hrefs) expect(served(href), href).toBe(true);
     expect(existsSync(join('src/pages', `${fnd001Recipe.sourceExercise.href}.astro`))).toBe(true);
     for (const script of [fnd001Recipe.execution.runner, 'scripts/fnd-001/check-pocket-garden.mjs']) expect(existsSync(script), script).toBe(true);
   });
