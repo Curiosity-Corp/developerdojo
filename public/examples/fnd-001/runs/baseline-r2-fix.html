@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pocket Garden</title>
+<style>
+  :root {
+    --bg: #f4f7f0;
+    --ink: #1d2b1f;
+    --muted: #4a5b4d;
+    --card: #ffffff;
+    --line: #c9d6c5;
+    --green: #1f6b3a;
+    --green-dark: #154d29;
+    --sun: #7a4b00;
+    --sun-bg: #fff1cc;
+    --shade: #1f4a73;
+    --shade-bg: #dcecfa;
+    --focus: #1a4fd6;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  h1 { margin: 0 0 0.25rem; font-size: clamp(1.75rem, 5vw, 2.5rem); }
+  .lede { margin: 0 0 0.5rem; color: var(--muted); }
+
+  .notice {
+    display: inline-block;
+    margin: 0 0 1.25rem;
+    padding: 0.4rem 0.75rem;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--green);
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0 0 0.75rem;
+    padding: 0;
+    border: 0;
+  }
+  .filters legend {
+    padding: 0;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+  }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .filter-btn {
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--green);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--green-dark);
+    font-weight: 600;
+  }
+  .filter-btn:hover { background: #e8f3ea; }
+  .filter-btn[aria-pressed="true"] {
+    background: var(--green);
+    color: #fff;
+  }
+  .filter-btn:active { transform: translateY(1px); background: var(--green-dark); color: #fff; }
+
+  button:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px #fff;
+  }
+
+  .status { margin: 0 0 1rem; color: var(--muted); font-size: 0.95rem; min-height: 1.5em; }
+
+  .grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.1rem;
+    background: var(--card);
+    border: 2px solid var(--line);
+    border-radius: 12px;
+  }
+  .card[hidden] { display: none; }
+  .card.is-planted { border-color: var(--green); background: #f1faf3; }
+
+  .card h2 { margin: 0; font-size: 1.35rem; }
+  .card p { margin: 0; color: var(--muted); }
+
+  .tag {
+    align-self: flex-start;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  .tag.sun { background: var(--sun-bg); color: var(--sun); }
+  .tag.shade { background: var(--shade-bg); color: var(--shade); }
+
+  .plant-btn {
+    margin-top: auto;
+    min-height: 44px;
+    padding: 0.55rem 1rem;
+    border: 2px solid var(--green);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--green-dark);
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .plant-btn:hover { background: #e8f3ea; }
+  .plant-btn:active { transform: translateY(1px); background: #cfe6d4; }
+  .plant-btn .tick { display: none; }
+  .plant-btn.on { background: var(--green); color: #fff; }
+  .plant-btn.on:hover { background: var(--green-dark); }
+  .plant-btn.on:active { background: #0f3a1e; }
+  .plant-btn.on .tick { display: inline; }
+
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Pocket Garden</h1>
+    <p class="lede">Pick what to plant based on the light you have.</p>
+    <p class="notice">Your choices reset when you reload this page.</p>
+
+    <fieldset class="filters">
+      <legend>Filter plants</legend>
+      <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">All plants</button>
+      <button type="button" class="filter-btn" data-filter="sun" aria-pressed="false">Loves sun</button>
+      <button type="button" class="filter-btn" data-filter="shade" aria-pressed="false">Likes shade</button>
+    </fieldset>
+
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+
+    <ul class="grid" id="grid">
+      <li class="card" data-light="sun" data-name="Basil">
+        <h2 id="name-basil">Basil</h2>
+        <span class="tag sun">Loves sun</span>
+        <p>A fragrant herb that thrives with plenty of warm light.</p>
+        <button type="button" class="plant-btn" aria-pressed="false" aria-describedby="name-basil">
+          <span class="tick" aria-hidden="true">✓</span><span class="label">Mark as planted</span>
+        </button>
+      </li>
+
+      <li class="card" data-light="sun" data-name="Sunflower">
+        <h2 id="name-sunflower">Sunflower</h2>
+        <span class="tag sun">Loves sun</span>
+        <p>Tall and cheerful, it follows full sun all day long.</p>
+        <button type="button" class="plant-btn" aria-pressed="false" aria-describedby="name-sunflower">
+          <span class="tick" aria-hidden="true">✓</span><span class="label">Mark as planted</span>
+        </button>
+      </li>
+
+      <li class="card" data-light="shade" data-name="Mint">
+        <h2 id="name-mint">Mint</h2>
+        <span class="tag shade">Likes shade</span>
+        <p>A hardy herb that stays lush in cooler, shadier spots.</p>
+        <button type="button" class="plant-btn" aria-pressed="false" aria-describedby="name-mint">
+          <span class="tick" aria-hidden="true">✓</span><span class="label">Mark as planted</span>
+        </button>
+      </li>
+    </ul>
+  </main>
+
+<script>
+(function () {
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  var filterBtns = Array.prototype.slice.call(document.querySelectorAll('.filter-btn'));
+  var status = document.getElementById('status');
+
+  function applyFilter(filter) {
+    var shown = 0;
+    cards.forEach(function (card) {
+      var match = filter === 'all' || card.dataset.light === filter;
+      card.hidden = !match;
+      if (match) shown++;
+    });
+    filterBtns.forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.filter === filter));
+    });
+    status.textContent = 'Showing ' + shown + ' of ' + cards.length + ' plants.';
+  }
+
+  filterBtns.forEach(function (b) {
+    b.addEventListener('click', function () { applyFilter(b.dataset.filter); });
+  });
+
+  cards.forEach(function (card) {
+    var btn = card.querySelector('.plant-btn');
+    var label = btn.querySelector('.label');
+    btn.addEventListener('click', function () {
+      var planted = !card.classList.contains('is-planted');
+      card.classList.toggle('is-planted', planted);
+      btn.classList.toggle('on', planted);
+      btn.setAttribute('aria-pressed', String(planted));
+      label.textContent = planted ? 'Planted' : 'Mark as planted';
+      status.textContent = card.dataset.name + (planted ? ' marked as planted.' : ' no longer marked as planted.');
+    });
+  });
+
+  applyFilter('all');
+})();
+</script>
+</body>
+</html>
