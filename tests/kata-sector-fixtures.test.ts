@@ -33,7 +33,7 @@ describe('sector fixtures are labelled and cannot be mistaken for published kata
     expect(problems([...kataCatalog, ...allFixtures])).toEqual([]);
   });
 
-  it('use FIX* IDs and /katas/fixture-* routes that have no page', () => {
+  it('use FIX* IDs and /katas/fixture-* routes that have no hand-written page', () => {
     for (const entry of allFixtures) {
       expect(entry.metadata.id, entry.metadata.id).toMatch(/^FIX[A-Z]*-\d{3}$/);
       expect(entry.href).toMatch(/^\/katas\/fixture-/);

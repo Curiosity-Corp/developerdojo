@@ -1,0 +1,57 @@
+# FIXTURE (#86): the shared foundation FIXFND-001 from tests/fixtures/kata-sectors.ts, rendered so the
+# template can show a foundation and the specializations that use it. Most sections are unavailable on purpose.
+status: fixture
+notice: This is a fixture. It shows how a foundation recipe page looks when most of its evidence does not exist yet.
+maintainer:
+  role: Kata template maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/86
+review:
+  unavailable: A fixture is never verified.
+summary: Before building anything, write down the finished outcome, who uses it and the checks that decide it is done.
+metadata:
+  id: FIXFND-001
+  title: Define the finished outcome and how it will be checked
+  layer: foundation
+  outcomeIds: [acceptance-brief]
+  artifactTypes: [acceptance-brief]
+  capabilityIds: [define-acceptance]
+  stackRecipeIds: [assistant-and-browser]
+  professionalReviewRequired: false
+  verificationEvidence:
+    - description: A brief naming the finished artifact, who uses it and the checks that decide it is done
+      method: peer-review
+  beltCriteria:
+    - stage: practice
+      criterion: States acceptance checks before any build step
+showcase:
+  unavailable: No learner has made this outcome yet.
+brief:
+  goal: A one-page brief that names the finished artifact, who uses it and how you will know it is done.
+  audience: Anyone starting a kata in any field.
+  inputs:
+    - name: Your own idea
+      source: The learner
+      terms: The learner's own work
+  doneWhen:
+    - The brief names the artifact, the user and at least three checks
+    - Someone else can tell from the checks alone whether a result is done
+stack:
+  unavailable: No stack has been recorded for this fixture.
+agents:
+  unavailable: No agent roles have been recorded for this fixture.
+setup:
+  unavailable: No setup has been recorded for this fixture.
+exercise:
+  unavailable: No source exercise has been chosen for this fixture.
+execution:
+  unavailable: Nobody has run this fixture.
+verification:
+  unavailable: Nobody has run this fixture, so there are no checks to report.
+adaptation:
+  unavailable: No variations have been recorded for this fixture.
+randori:
+  unavailable: No unseen challenge has been written for this fixture.
+maintenance:
+  cadence: Not reviewed; fixtures change only with the template
+  caveats:
+    - This fixture exists to test the template. Do not treat it as checked guidance.

@@ -16,6 +16,7 @@ It changes no program rule. The decision record for the kata and belt program is
 | Learning pathways | track slugs, `src/content/tracks/<slug>.md` | track editors ([content-model.md](content-model.md#tracks)) |
 | External resources | `src/content/resources/<publisher>/<resource>.yaml` | catalog maintainers (#23, [content-model.md](content-model.md#resources)) |
 | Kata pages | `src/pages/katas/<slug>.astro`, listed in `src/data/kata-directory.ts` | kata maintainers |
+| Kata recipes (operational pages) | `src/content/kata-recipes/<slug>.yaml`, rendered at `/katas/<slug>` | kata maintainers ([kata-recipes.md](kata-recipes.md)) |
 | Worked examples across six sectors | `tests/fixtures/kata-sectors.ts` | fixtures only, see below |
 
 Everything an editor adds is data. A new field, outcome, recipe, constraint or pathway never needs a change to the schema or the validator. `tests/kata-catalog.test.ts` and `tests/kata-sector-fixtures.test.ts` show this with a `maritime` field.
@@ -57,11 +58,13 @@ If an editor decides that something else does not apply, for example that no sta
 
 ## Status, maintainers and dates
 
-The contract validates structure only. A kata's editorial status, its maintainer and its verification dates are kept where [catalog-lifecycle.md](catalog-lifecycle.md) already keeps them for every catalog item: in the kata's tracking issue and MR. They are not schema fields, so a record cannot claim a check in a value that nobody had to perform.
+The metadata contract validates structure only. For a kata in `kataCatalog`, the editorial status, maintainer and verification dates are kept where [catalog-lifecycle.md](catalog-lifecycle.md) already keeps them for every catalog item: in the kata's tracking issue and MR.
+
+A kata that has a recipe record (#86) carries them in the record instead: `status`, `maintainer` and `review` (last verified, what was checked, next review), shown on the page. The recipe schema stops a record from claiming a check nobody performed: a passed or failed check needs evidence and a date, a fixture or draft cannot pretend to be reviewed, and a published recipe must have a real review, showcase and named maintainer. See [kata-recipes.md](kata-recipes.md#rules-the-build-enforces). The tracking issue still holds the discussion and the decision trail. "Review due" is not a stored status: the page shows it once `nextReview` has passed.
 
 | Status | Meaning | Where it shows | Move on when |
 | --- | --- | --- | --- |
-| **Fixture** | A synthetic record that tests the taxonomy. It has a `FIX*` ID and a `/katas/fixture-*` route that does not exist. | `tests/fixtures/` only | never published; a real kata is written from scratch, with its own ID |
+| **Fixture** | A synthetic record that tests the taxonomy. It has a `FIX*` ID and a `/katas/fixture-*` route. A few have a labelled, `noindex` recipe page that shows the template; none has a hand-written page. | `tests/fixtures/`, and `src/content/kata-recipes/fixture-*.yaml` | never published; a real kata is written from scratch, with its own ID |
 | **Draft** | A real record whose page, evidence or review is incomplete. It may be in `kataCatalog` only if its page exists. | tracking issue labelled draft | the publication checks below pass and a maintainer is assigned |
 | **Published** | The page is live, linked from `kataCatalog` and listed in `KATA_DIRECTORY`. | the site | its review cadence passes, or a source, stack or standard changes |
 | **Review due** | The last check is older than the cadence, or a change was reported. The page stays, with its last real check date. | issue, plus a notice on the page if learners are affected | the check is repeated (back to Published) or the kata is withdrawn |
@@ -114,7 +117,7 @@ Adding a recipe, constraint or pathway follows step 3 alone: add the ID to its r
 | Public service and finance | `public-service`, `ux`, `finance` | legal and accounting review boundaries |
 | New field | `maritime` | added as reference data, reusing the shared foundations |
 
-They are **fixtures**. None has a page, a run, a reviewer or a working integration, and integrations named with `-candidate` have not been run for the Dojo. Use them as examples of shape, not as content to publish.
+They are **fixtures**. None has a run, a reviewer or a working integration, and only FIXUX-001, FIXFND-001 and FIXFND-002 have a page: a recipe page labelled as a fixture ([kata-recipes.md](kata-recipes.md#fixtures)), and integrations named with `-candidate` have not been run for the Dojo. Use them as examples of shape, not as content to publish.
 
 ## Migration from the existing collections
 

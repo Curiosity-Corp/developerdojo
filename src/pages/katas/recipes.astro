@@ -1,0 +1,82 @@
+---
+/**
+ * Index of operational kata recipes (#86). Real recipes are listed first; fixtures, which only show
+ * the template, are listed separately and labelled.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { loadKataRecipes } from '../../lib/kata-recipe-content';
+import { STATUS_LABELS } from '../../lib/kata-recipes';
+
+const recipes = await loadKataRecipes();
+const real = recipes.filter((item) => item.recipe.status !== 'fixture');
+const fixtures = recipes.filter((item) => item.recipe.status === 'fixture');
+---
+
+<BaseLayout title="Kata recipes" description="Step-by-step kata recipes: the outcome, the stack, prompts, checks and how to adapt each one.">
+  <PageHero compact eyebrow="Katas" title="Kata recipes" subtitle="Each recipe starts with the outcome, then gives the stack, prompts, checks, failures and ways to adapt it. Anything that has not been checked says so." />
+  <section class="section">
+    <div class="container content">
+      <Breadcrumbs items={[{ label: 'Katas', href: '/katas' }, { label: 'Kata recipes' }]} />
+      <h2>Recipes</h2>
+      {real.length > 0 ? (
+        <ul class="recipes">
+          {real.map((item) => (
+            <li>
+              <a href={item.href}>{item.recipe.metadata.title}</a>
+              <span class="meta">{item.recipe.metadata.id} · {STATUS_LABELS[item.recipe.status]}</span>
+              <p>{item.recipe.summary}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p data-no-recipes>No recipe has been published yet. The first foundation recipes are being written. Until then, try the <a href="/katas">katas</a> that already have their own pages.</p>
+      )}
+      {fixtures.length > 0 && (
+        <>
+          <h2>Template examples (fixtures)</h2>
+          <p>These pages show how a recipe is laid out. They are fixtures: nobody has run, reviewed or published them, and they are not katas to follow.</p>
+          <ul class="recipes">
+            {fixtures.map((item) => (
+              <li>
+                <a href={item.href}>{item.recipe.metadata.title} (fixture)</a>
+                <span class="meta">{item.recipe.metadata.id} · {STATUS_LABELS[item.recipe.status]}</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .content {
+    max-width: 72ch;
+  }
+  .recipes {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0 0 var(--space-6);
+    padding: 0;
+    list-style: none;
+  }
+  .recipes li {
+    padding: var(--space-3) var(--space-4);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .recipes a {
+    font-weight: 700;
+  }
+  .meta {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+  }
+  .recipes p {
+    margin: var(--space-2) 0 0;
+  }
+</style>

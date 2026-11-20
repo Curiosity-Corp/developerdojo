@@ -1,0 +1,106 @@
+---
+/**
+ * One copyable prompt on a kata recipe page (#86). Same pattern as QuickKata: the text is always in a
+ * read-only textarea, so it can be selected and copied without JavaScript; the Copy button appears only
+ * when the script runs, and falls back to selecting the text when the clipboard is not available.
+ * Several prompts on one page each get their own textarea, button and status.
+ * Props: id (unique on the page), title, purpose, text
+ */
+interface Props {
+  id: string;
+  title: string;
+  purpose: string;
+  text: string;
+}
+const { id, title, purpose, text } = Astro.props;
+const fieldId = `prompt-${id}`;
+const rows = Math.min(14, Math.max(4, text.split('\n').length + 1));
+---
+
+<div class="copy-prompt" data-copy-prompt-block>
+  <h3 id={`${fieldId}-title`}>{title}</h3>
+  <p>{purpose}</p>
+  <label for={fieldId}>Prompt text: {title}</label>
+  <textarea id={fieldId} rows={rows} readonly>{text}</textarea>
+  <div class="copy-row">
+    <button type="button" data-copy-prompt={fieldId} hidden>Copy prompt<span class="visually-hidden">: {title}</span></button>
+    <span data-copy-status aria-live="polite">You can also select and copy the text.</span>
+  </div>
+</div>
+
+<script>
+  for (const block of document.querySelectorAll<HTMLElement>('[data-copy-prompt-block]')) {
+    const button = block.querySelector<HTMLButtonElement>('[data-copy-prompt]');
+    const input = block.querySelector<HTMLTextAreaElement>('textarea');
+    const status = block.querySelector<HTMLElement>('[data-copy-status]');
+    if (!button || !input || !status) continue;
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(input.value);
+        status.textContent = 'Copied. Paste it into your assistant.';
+      } catch {
+        input.focus();
+        input.select();
+        status.textContent = 'Text selected. Use your device’s copy command.';
+      }
+    });
+  }
+</script>
+
+<style>
+  .copy-prompt {
+    margin-bottom: var(--space-5);
+    padding: var(--space-4);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  h3 {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-lg);
+  }
+  p {
+    margin: 0 0 var(--space-3);
+  }
+  label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+  }
+  textarea {
+    display: block;
+    width: 100%;
+    padding: var(--space-3);
+    font: inherit;
+    line-height: 1.5;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    resize: vertical;
+  }
+  .copy-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+  }
+  .copy-row button {
+    padding: 0.6rem 1rem;
+    font: inherit;
+    font-weight: 800;
+    color: var(--gold-ink);
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: var(--radius);
+    cursor: pointer;
+  }
+  .copy-row button[hidden] {
+    display: none;
+  }
+  .copy-row span {
+    font-size: var(--text-sm);
+  }
+</style>
