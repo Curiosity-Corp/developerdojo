@@ -24,7 +24,7 @@ resources:
 updated: 2026-11-03
 ---
 
-Lesson 10 closes the track. It supports Developer week 6 (the final Product Package, with its "How I used AI" section) and the Master Developer assessment, where you explain your work out loud. It also puts Rule 1 and Rule 5 of [The Way](/library/the-way-five-rules) into daily practice.
+Lesson 10 closes the core track; lesson 11 is an extra on choosing model sizes. It supports Developer week 6 (the final Product Package, with its "How I used AI" section) and the Master Developer assessment, where you explain your work out loud. It also puts Rule 1 and Rule 5 of [The Way](/library/the-way-five-rules) into daily practice.
 
 ## 1. Why this matters
 
