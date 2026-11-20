@@ -19,6 +19,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **Agent ladder.** Four rungs of skill with AI agents: use, delegate, orchestrate and govern. Each rung needs different skills.
 
+**Agent stack.** The harness, models, instructions, skills and tools you choose for a piece of work.
+
 **AGENTS.md.** A file in a repository that tells an AI agent how to work there.
 
 **Agile.** A way of building a product in small steps. You release a little, learn from real use, then change the plan. See [Choose your rhythm](/library/tracks/agile-delivery/01-choose-your-rhythm).
@@ -54,6 +56,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 **Batch effect.** A difference in the data caused by when or how you measured, not by biology.
 
 **Bayesian optimisation.** A method that uses past results to pick the next experiment to try.
+
+**Belt.** A practice stage for showing capability in one field: practice, adapt, demonstrate. Belts are not issued yet, and a belt is never a professional license.
 
 **Biological replicate.** A separate living sample of the same kind, such as another mouse or culture.
 
@@ -129,6 +133,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **Desired state.** What git says should exist.
 
+**Developer.** Anyone who develops an outcome: you define it, orchestrate AI agents and tools to make it, and verify the result. Developer is also the first rank on the training path.
+
 **DevOps.** Developers and operations people working as one team, with automatic delivery (CI/CD), so changes reach users quickly and safely.
 
 **Diff.** A view of what changed between two versions of a file.
@@ -170,6 +176,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 **FASTA file.** A text file of named sequences, one name line then the letters.
 
 **FASTQ file.** A text file of reads, each with a quality score for every letter.
+
+**Field expertise.** The tools, standards and qualified review that one field adds on top of the universal foundation, such as robotics or biotechnology.
 
 **Fit %.** How much of your needs a tool already meets. MUST needs count double.
 
@@ -219,6 +227,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **Kanban.** A method that shows work on a board and limits how much is in progress at once, so work keeps flowing to done.
 
+**Kata.** A repeatable technique you practice, from a clear outcome to the evidence that it worked.
+
 **KPI (key performance indicator).** A number that shows progress toward a goal.
 
 **Kubernetes.** Software that runs other software and keeps it running as you described. It restarts what crashes.
@@ -239,6 +249,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **Manifest.** A file that says what should run on a Kubernetes cluster.
 
+**Master Developer.** The second rank. A Master Developer owns a whole product end to end and runs it in the real world.
+
 **Merge request (MR).** A proposal to add a change to the main branch. Also called a pull request.
 
 **Merge train.** A queue that tests each merge request on top of the others before it merges.
@@ -246,6 +258,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 **Milestone.** A time-boxed slice of work with a goal and a date.
 
 **Minimum viable product (MVP).** The smallest version of a product that people can really use. You release it to learn what customers need.
+
+**Mission.** Real work where you apply a practiced technique, with agreed permissions, checks and review.
 
 **Mockup.** A drawing of a screen before it is built.
 
@@ -266,6 +280,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 **Open source.** Software whose code you may read, change and run under a public licence.
 
 **ORBITAL.** The catalogue layer for objective, resources, budget, indicators, transport, activities and logistics.
+
+**Orchestrator.** The person who chooses, equips and directs AI agents toward an outcome and answers for the result. The orchestrator is the developer.
 
 **Orphan issue.** An issue with no epic.
 
@@ -311,6 +327,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 ## R
 
+**Randori.** Practice without a recipe: you get a goal, constraints and checks, then choose your own stack and approach.
+
 **Reference genome.** An agreed full DNA sequence that new reads are compared with.
 
 **Refinement (grooming).** Regularly reading, clarifying and sizing backlog items, so they are ready before a sprint starts.
@@ -351,6 +369,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 
 **Self-driving lab.** A lab where software plans experiments and machines run them.
 
+**Sensei.** The third rank. A Sensei coaches other developers, reviews their work and hosts live builds.
+
 **Sequencing read.** A short piece of DNA text that a sequencing machine reports.
 
 **Service level (SLI, SLO, SLA).** An indicator you measure, an objective you aim for, and an agreement you promise.
@@ -390,6 +410,8 @@ Short meanings, in alphabetical order. Each page of the library also explains it
 **Touch point.** Any place where a person meets your product.
 
 ## U
+
+**Universal foundation.** The skills every developer shares in any field: outcomes and evidence, instructions and context, agent stacks, and verification.
 
 **Upstream.** The original project that you adopt or fork.
 

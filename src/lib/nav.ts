@@ -44,6 +44,7 @@ export const NAV_MENUS: Readonly<Record<string, readonly MenuGroup[]>> = {
   ],
   Train: [
     { title: 'Build your foundation', links: [
+      { label: 'Start here', href: '/start', description: 'What a developer is, the two layers and the terms.' },
       { label: 'Compare instructions', href: '/katas/compare-instructions', description: 'Change a brief and check the result.' },
       { label: 'Explore the Stack Lab', href: '/stack-lab', description: 'Learn how your agent stack fits together.' },
       { label: 'Inspect the Armory', href: '/armory/registry', description: 'Review real tools, sources and access.' },

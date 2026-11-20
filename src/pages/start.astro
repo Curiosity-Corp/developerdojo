@@ -1,0 +1,281 @@
+---
+/**
+ * /start: what a developer is (#79). The explicit definition, the two layers (universal foundation plus field
+ * expertise), an outcome-first journey that says honestly what exists today, the Developer / Master Developer /
+ * Sensei path, every route to the existing training, and the terminology guide (src/lib/terms.ts).
+ *
+ * Release boundary: this page adds copy and navigation only. It does not say the program rules are replaced;
+ * that needs the recorded approvals in #80.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import RankPath from '../components/RankPath.astro';
+import Icon from '../components/Icon.astro';
+import { coreFocuses, sharedFocusTrack } from '../lib/core-focuses';
+import { TERMS } from '../lib/terms';
+
+type Status = 'now' | 'prepared';
+interface JourneyStep {
+  title: string;
+  description: string;
+  status: Status;
+  statusNote: string;
+  links: { label: string; href: string }[];
+}
+
+const STATUS_LABEL: Record<Status, string> = { now: 'Available now', prepared: 'Partly available' };
+
+const journey: JourneyStep[] = [
+  {
+    title: 'Choose an outcome',
+    description: 'Start from what you want to make and how you will know it works, not from a tool.',
+    status: 'now',
+    statusNote: 'Starter katas and working examples are ready.',
+    links: [
+      { label: 'See outcomes in the Gallery', href: '/gallery' },
+      { label: 'Build a first prototype', href: '/katas/first-prototype' },
+    ],
+  },
+  {
+    title: 'Build the universal foundation',
+    description: 'Learn to give agents clear instructions and context, choose a stack, and check what comes back.',
+    status: 'prepared',
+    statusNote: 'Starter lessons and katas are ready. The full foundation kata collection is being prepared.',
+    links: [
+      { label: 'Enter the Stack Lab', href: '/stack-lab' },
+      { label: 'Compare two instructions', href: '/katas/compare-instructions' },
+      { label: 'Working with AI agents track', href: '/library/tracks/working-with-ai-agents' },
+    ],
+  },
+  {
+    title: 'Add field expertise',
+    description: 'Apply the same foundation in one field, with its own tools, standards and qualified review.',
+    status: 'prepared',
+    statusNote: 'Robotics and biotechnology tracks are ready. Other fields have starter practice only.',
+    links: [
+      { label: 'Choose a field', href: '/fields' },
+      ...coreFocuses.flatMap((focus) => focus.tracks.map((track) => ({ label: track.title, href: '/library/tracks/' + track.slug }))),
+    ],
+  },
+  {
+    title: 'Practice, stretch and apply',
+    description: 'Repeat a kata, meet an unfamiliar Randori challenge, then take the technique into a real mission.',
+    status: 'prepared',
+    statusNote: 'Randori challenges and the mission playbook are ready. Belts are a practice checklist and are not issued yet.',
+    links: [
+      { label: 'Try a Randori challenge', href: '/katas/randori-challenges' },
+      { label: 'Build a mission brief', href: '/mission-playbook' },
+      { label: 'Read about belts', href: '/belts' },
+    ],
+  },
+  {
+    title: 'Grow on the training path',
+    description: 'Move from Developer to Master Developer, then coach others as a Sensei.',
+    status: 'now',
+    statusNote: 'The Developer and Master Developer paths and the Sensei guides are ready today.',
+    links: [
+      { label: 'Open the training paths', href: '/train' },
+      { label: 'Meet the Sensei', href: '/sensei' },
+    ],
+  },
+];
+
+const rankDescriptions = {
+  developer: 'Develop an outcome yourself: define it, orchestrate agents and tools, and verify it. Today this is the six-week Developer path for one product.',
+  'master-developer': 'Own a whole product end to end and run it in the real world. Today this is the advanced Master Developer path.',
+  sensei: 'Coach other developers, review their work and host live builds. The Sensei guides are ready today.',
+} as const;
+
+const existing = [
+  { label: 'Training paths and your progress', href: '/train', note: 'Developer and Master Developer, with the progress you marked.' },
+  { label: 'The six-week Developer plan', href: '/library/developer-path-overview', note: 'Weeks 1 to 6 and the Product Package.' },
+  { label: 'The Master Developer path', href: '/library/master-developer-overview', note: 'Platform, operations and launch modules.' },
+  { label: 'All tracks', href: '/library/tracks', note: 'Every lesson, grouped by skill.' },
+  { label: 'The Library', href: '/library', note: 'Rules, standards, templates and the glossary.' },
+  { label: 'Certificates', href: '/certificates', note: 'The current certificate information.' },
+];
+---
+
+<BaseLayout
+  title="Start here: the orchestrator is the developer"
+  description="What a developer is at Developer Dojo: a universal foundation plus field expertise, the Developer, Master Developer and Sensei path, and the words we use."
+>
+  <PageHero
+    compact
+    eyebrow="Start here"
+    title="The orchestrator is the developer"
+    accent="."
+    subtitle="A developer defines an outcome, chooses and equips AI agents and tools to make it, verifies the result and answers for it. You do not need to type the code yourself."
+    ctas={[
+      { label: 'Choose an outcome', href: '#journey', icon: 'arrow-right' },
+      { label: 'Read the terms', href: '#terms', variant: 'ghost', icon: 'book-open' },
+    ]}
+  />
+
+  <section class="section" aria-labelledby="layers-title">
+    <div class="container">
+      <div id="layers-title">
+        <SectionHeader
+          eyebrow="Two layers"
+          title="One foundation, plus your field."
+          intro="Every developer learns the same universal foundation. Each field then adds its own expertise. A field pathway builds on the foundation; it does not teach it again."
+        />
+      </div>
+      <div class="layers">
+        <article class="layer layer-foundation" aria-labelledby="layer-foundation-title">
+          <span class="layer-number" aria-hidden="true">1</span>
+          <h2 id="layer-foundation-title">Universal foundation</h2>
+          <p>The skills every developer shares, in any field:</p>
+          <ul>
+            <li>Outcomes and evidence: the goal, the limits and the proof of success.</li>
+            <li>Instructions and context: what the agent needs to know and do.</li>
+            <li>Agent stacks: harnesses, models, skills and tools, with only the access the job needs.</li>
+            <li>Verification: check the result, its risks and its cost before you rely on it.</li>
+          </ul>
+          <p class="layer-links">
+            <a href="/stack-lab">Enter the Stack Lab <Icon name="arrow-right" size={16} /></a>
+            <a href={'/library/tracks/' + sharedFocusTrack.slug}>{sharedFocusTrack.title} <Icon name="arrow-right" size={16} /></a>
+          </p>
+        </article>
+        <article class="layer layer-field" aria-labelledby="layer-field-title">
+          <span class="layer-number" aria-hidden="true">2</span>
+          <h2 id="layer-field-title">Field expertise</h2>
+          <p>What one field adds on top of the foundation:</p>
+          <ul>
+            <li>The field's own artifacts and tools, such as a robot simulation or a sequencing pipeline.</li>
+            <li>Its standards, and the qualified review its work needs.</li>
+            <li>Its safety limits. Practice here never replaces a license or a professional approval.</li>
+          </ul>
+          <p class="layer-links">
+            <a href="/fields">See every field <Icon name="arrow-right" size={16} /></a>
+            <a href="/library/tracks">Browse the tracks <Icon name="arrow-right" size={16} /></a>
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" aria-labelledby="journey-title">
+    <div class="container" id="journey">
+      <div id="journey-title">
+        <SectionHeader
+          eyebrow="Outcome first"
+          title="Your journey, step by step."
+          intro="Each step says what you can use today and what is still being prepared."
+        />
+      </div>
+      <ol class="journey">
+        {journey.map((step, index) => (
+          <li class="step">
+            <span class="step-number" aria-hidden="true">{index + 1}</span>
+            <div class="step-body">
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+              <p class:list={['status', 'status-' + step.status]}><strong>{STATUS_LABEL[step.status]}.</strong> {step.statusNote}</p>
+              <ul class="step-links">
+                {step.links.map((link) => (
+                  <li><a href={link.href}>{link.label} <Icon name="arrow-right" size={16} /></a></li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="path-title">
+    <div class="container">
+      <div id="path-title">
+        <SectionHeader
+          eyebrow="Training path"
+          title="Developer, Master Developer, Sensei."
+          intro="Three ranks describe how far you have grown as a developer. Belts, when they are issued, will show capability in one field; they do not replace the ranks."
+        />
+      </div>
+      <div class="path"><RankPath linked descriptions={rankDescriptions} /></div>
+    </div>
+  </section>
+
+  <section class="section alt" aria-labelledby="existing-title">
+    <div class="container">
+      <div id="existing-title">
+        <SectionHeader
+          eyebrow="Existing training"
+          title="Everything you used before is still here."
+          intro="The lessons, tracks and paths keep their addresses. Progress you marked stays in this browser; this page does not change it."
+        />
+      </div>
+      <ul class="existing">
+        {existing.map((item) => (
+          <li><a href={item.href}>{item.label} <Icon name="arrow-right" size={16} /></a><span>{item.note}</span></li>
+        ))}
+      </ul>
+      <p class="boundary">
+        The current program rules, assessments and certificates still apply as written. How they fit this wider
+        definition of a developer is being reviewed. Until that review is approved, this page does not change them.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="terms-title">
+    <div class="container" id="terms">
+      <div id="terms-title">
+        <SectionHeader
+          eyebrow="Terminology guide"
+          title="The words we use."
+          intro="We use each word in one way across the site. The same meanings are in the glossary."
+        />
+      </div>
+      <dl class="terms">
+        {TERMS.map((item) => (
+          <div class="term">
+            <dt><a href={item.href}>{item.term}</a></dt>
+            <dd>{item.definition}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="glossary-link"><a href="/library/glossary">Open the full glossary <Icon name="arrow-right" size={16} /></a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .alt { background: var(--paper-sunk); border-block: 1px solid var(--line); }
+  .layers { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); margin-top: var(--space-5); }
+  .layer { display: grid; align-content: start; gap: var(--space-3); padding: var(--space-5); overflow-wrap: anywhere; background: var(--paper-raised); border: 1px solid var(--line); border-top: 4px solid var(--tone-olive); border-radius: var(--radius); box-shadow: var(--shadow); }
+  .layer-field { border-top-color: var(--tone-gold); }
+  .layer-number { font-size: var(--text-sm); font-weight: 700; letter-spacing: .08em; color: var(--ink-muted); }
+  .layer h2 { margin: 0; font-size: var(--text-2xl); }
+  .layer p, .layer ul { margin: 0; }
+  .layer ul { display: grid; gap: var(--space-2); padding-left: 1.2rem; }
+  .layer-links { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
+  .layer-links a, .step-links a, .existing a, .glossary-link a { display: inline-flex; align-items: center; gap: var(--space-2); font-weight: 700; }
+  .journey { display: grid; gap: var(--space-4); list-style: none; padding: 0; margin: var(--space-5) 0 0; }
+  .step { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-4); padding: var(--space-4); background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); overflow-wrap: anywhere; }
+  .step-number { display: inline-grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; background: var(--paper-sunk); border: 1px solid var(--line-strong); font-weight: 800; }
+  .step-body { display: grid; gap: var(--space-2); }
+  .step h3 { margin: 0; font-size: var(--text-xl); }
+  .step p { margin: 0; }
+  .status { padding-left: var(--space-3); border-left: 3px solid var(--tone-olive); }
+  .status-prepared { border-left-color: var(--tone-gold); }
+  .step-links { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); list-style: none; padding: 0; margin: 0; }
+  .path { margin-top: var(--space-5); }
+  .existing { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-3); list-style: none; padding: 0; margin: var(--space-5) 0 var(--space-4); }
+  .existing li { display: grid; gap: var(--space-1); padding: var(--space-4); background: var(--paper-raised); border-left: 3px solid var(--tone-olive); overflow-wrap: anywhere; }
+  .existing span { color: var(--ink-muted); }
+  .boundary { max-width: 70ch; margin: 0; }
+  .terms { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-3); margin: var(--space-5) 0 var(--space-4); }
+  .term { padding: var(--space-4); background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); overflow-wrap: anywhere; }
+  .term dt { font-family: var(--font-serif); font-size: var(--text-lg); font-weight: 700; }
+  .term dt a { color: var(--ink); }
+  .term dd { margin: var(--space-1) 0 0; }
+  @media (min-width: 40rem) {
+    .existing, .terms { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 62rem) {
+    .layers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .existing, .terms { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+</style>
