@@ -16,7 +16,7 @@ for (const { path, title } of pages) {
   test(`the Pocket Garden example renders inline and offline on ${path}`, async ({ page }) => {
     const fetched: string[] = [];
     page.on('request', (request) => {
-      if (new URL(request.url()).pathname.startsWith('/examples/pocket-garden')) fetched.push(request.url());
+      if (new URL(request.url()).pathname === '/examples/pocket-garden.html') fetched.push(request.url());
     });
     const errors: string[] = [];
     page.on('console', (message) => {
