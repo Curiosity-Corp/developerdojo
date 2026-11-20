@@ -1,0 +1,9 @@
+title: "DROID: A Large-Scale In-the-Wild Robot Manipulation Dataset"
+provider: "DROID project"
+url: "https://droid-dataset.github.io/"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [robot-learning, data-analytics]
+summary: "The project page for DROID, a large robot manipulation dataset recorded in many real settings. It describes how the data was collected and where to find it. Check the dataset's terms of use before you use it."
+verifiedOn: 2026-11-19

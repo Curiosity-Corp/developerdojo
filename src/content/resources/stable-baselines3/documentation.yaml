@@ -1,0 +1,9 @@
+title: "Stable-Baselines3 Docs - Reliable Reinforcement Learning Implementations"
+provider: "Stable-Baselines3"
+url: "https://stable-baselines3.readthedocs.io/en/master/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [robot-learning, open-source]
+summary: "The documentation for Stable-Baselines3, a set of reliable PyTorch implementations of reinforcement learning algorithms, released under the MIT licence. It includes PPO, tips on using the library and a guide to reproducibility. Use it to train and save a policy in a few lines."
+verifiedOn: 2026-11-19

@@ -1,0 +1,9 @@
+title: "Assurance of Machine Learning for use in Autonomous Systems (AMLAS)"
+provider: "University of York, Centre for Assuring Autonomy"
+url: "https://www.york.ac.uk/assuring-autonomy/guidance/amlas/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-evaluation, security]
+summary: "A six-stage method for building a safety case for a machine learning component in an autonomous system. It gives safety case patterns and a list of the evidence to collect. Skim the stages to see what a careful argument for a learned model contains."
+verifiedOn: 2026-11-19

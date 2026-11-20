@@ -1,0 +1,9 @@
+title: "Ten Simple Rules for Reproducible Computational Research"
+provider: "PLOS Computational Biology"
+url: "https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285"
+cost: "free"
+format: "article"
+level: "beginner"
+skills: [data-analytics, open-source]
+summary: "A 2013 open-access article by Sandve, Nekrutenko, Taylor and Hovig. Its ten rules include tracking how each result was made, avoiding manual steps, using version control and sharing scripts and results. A short, practical checklist for any analysis that others must repeat."
+verifiedOn: 2026-11-19

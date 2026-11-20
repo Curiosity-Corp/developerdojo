@@ -1,0 +1,9 @@
+title: "Writing Basic Integration Tests with launch_testing - tutorial"
+provider: "ROS"
+url: "https://docs.ros.org/en/lyrical/Developer-Tools/Debugging/Testing/Integration.html"
+cost: free
+format: tutorial
+level: intermediate
+skills: [robot-software]
+summary: "The official guide to tests that start real nodes and check what they do. It covers the launch_testing package. Use it when a unit test is too small to prove a node works."
+verifiedOn: 2026-11-19

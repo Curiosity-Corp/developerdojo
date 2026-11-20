@@ -1,0 +1,9 @@
+title: "Writing a simple service and client (Python) — tutorial"
+provider: "ROS"
+url: "https://docs.ros.org/en/lyrical/ROS-Framework/client-libraries/Working-with-Client-Libraries/Writing-A-Simple-Py-Service-And-Client.html"
+cost: free
+format: tutorial
+level: beginner
+skills: [robot-software]
+summary: "The official tutorial for request and reply calls between nodes in Python. It shows how a client waits for a service and handles the answer. Use it to learn the difference from a topic."
+verifiedOn: 2026-11-19

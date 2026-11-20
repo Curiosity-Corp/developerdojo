@@ -1,0 +1,9 @@
+title: "Navigating while Mapping (SLAM) - Nav2 Docs"
+provider: "Nav2"
+url: "https://docs.nav2.org/lyrical/tutorials/general_tutorials/navigation2_with_slam/navigation2_with_slam/"
+cost: free
+format: tutorial
+level: intermediate
+skills: [robot-software]
+summary: "The Nav2 tutorial on navigating while building a map with SLAM. It is the closest official guide to the mapping method used in the capstone of this track."
+verifiedOn: 2026-11-19

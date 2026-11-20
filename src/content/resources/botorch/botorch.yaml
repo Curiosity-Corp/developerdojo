@@ -1,0 +1,9 @@
+title: "BoTorch"
+provider: "BoTorch"
+url: "https://botorch.org/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [data-analytics]
+summary: "The home of BoTorch, a library for Bayesian optimisation built on PyTorch. Its docs and tutorials cover Gaussian process models and acquisition functions such as expected improvement. Ax uses it underneath. Read it when you want to see the model rather than the wrapper."
+verifiedOn: 2026-11-19

@@ -1,0 +1,9 @@
+title: "STPA Handbook"
+provider: "MIT Partnership for Systems Approaches to Safety and Security"
+url: "https://psas.scripts.mit.edu/home/get_file.php?name=STPA_handbook.pdf"
+cost: "free"
+format: "book"
+level: "advanced"
+skills: [security, ai-evaluation]
+summary: "A practical handbook by Nancy Leveson and John Thomas (March 2018) on STPA, a hazard analysis method that looks at unsafe control actions in a whole system. The authors allow the unaltered text for non-commercial use. Read the introduction and the first worked steps."
+verifiedOn: 2026-11-19

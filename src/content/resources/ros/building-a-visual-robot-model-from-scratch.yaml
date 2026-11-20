@@ -1,0 +1,9 @@
+title: "Building a visual robot model from scratch — tutorial"
+provider: "ROS"
+url: "https://docs.ros.org/en/lyrical/Capabilities/Simulation/URDF/Building-a-Visual-Robot-Model-with-URDF-from-Scratch.html"
+cost: free
+format: tutorial
+level: beginner
+skills: [robot-software]
+summary: "The official tutorial that builds a robot description in URDF, one link and joint at a time. It teaches the file format that ROS tools use to describe a robot."
+verifiedOn: 2026-11-19

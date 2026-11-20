@@ -1,0 +1,9 @@
+title: "Getting Started with Ax"
+provider: "Ax"
+url: "https://ax.dev/docs/tutorials/getting_started/"
+cost: "free"
+format: "tutorial"
+level: "intermediate"
+skills: [data-analytics, lab-automation]
+summary: "A tutorial from the Ax project, an open-source adaptive experimentation platform. It shows how to set up an experiment, ask for trials, report results and read the best result. It is the model for the ask-and-tell loop in this track."
+verifiedOn: 2026-11-19

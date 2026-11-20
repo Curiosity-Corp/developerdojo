@@ -1,0 +1,9 @@
+title: "Exploring Benchmarks for Self-Driving Labs using Color Matching"
+provider: "arXiv"
+url: "https://arxiv.org/abs/2310.00510"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [lab-automation, data-analytics]
+summary: "A paper that uses colour matching as a test case for self-driving labs. The task is to find the amounts of coloured pigments that match a target colour. The authors say it needs experiment proposal, sample creation and sample analysis. They describe a robotic solution that runs it without a person."
+verifiedOn: 2026-11-19

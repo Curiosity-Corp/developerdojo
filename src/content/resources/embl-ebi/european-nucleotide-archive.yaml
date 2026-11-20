@@ -1,0 +1,9 @@
+title: "ENA Browser"
+provider: "EMBL-EBI"
+url: "https://www.ebi.ac.uk/ena/browser/home"
+cost: free
+format: docs
+level: beginner
+skills: [bioinformatics, data-analytics]
+summary: "The browser for the European Nucleotide Archive, a public store of sequences and raw reads that mirrors the same data as NCBI's SRA. Search by run accession, read the sample description and copy the download links for the FASTQ files."
+verifiedOn: 2026-11-19

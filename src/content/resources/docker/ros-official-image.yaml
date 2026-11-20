@@ -1,0 +1,9 @@
+title: "ros - Official Image"
+provider: "Docker"
+url: "https://hub.docker.com/_/ros"
+cost: free
+format: docs
+level: beginner
+skills: [robot-software, ci-cd]
+summary: "The Docker Official Image page for ROS. It lists the tags for each ROS release, including lyrical, and how to run them. This is the quickest free way to get a ROS 2 shell on a laptop that runs Docker."
+verifiedOn: 2026-11-19

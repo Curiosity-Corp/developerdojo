@@ -1,0 +1,9 @@
+title: "About the Sequence Read Archive (SRA)"
+provider: "NCBI"
+url: "https://www.ncbi.nlm.nih.gov/sra/docs/"
+cost: free
+format: docs
+level: beginner
+skills: [bioinformatics, data-analytics]
+summary: "NCBI's guide to the Sequence Read Archive, the public store of raw sequencing reads. It explains accessions, how data are organised and how to download them. Read it before you fetch a dataset."
+verifiedOn: 2026-11-19

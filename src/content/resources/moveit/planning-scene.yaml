@@ -1,0 +1,9 @@
+title: "Planning Scene"
+provider: "MoveIt"
+url: "https://moveit.picknik.ai/main/doc/examples/planning_scene/planning_scene_tutorial.html"
+cost: free
+format: tutorial
+level: intermediate
+skills: [robot-software]
+summary: "A MoveIt tutorial on the PlanningScene class, the main interface for collision checking and constraint checking. It uses the C++ interface. Read it to learn what the planner knows about the world."
+verifiedOn: 2026-11-19

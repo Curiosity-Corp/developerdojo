@@ -1,0 +1,9 @@
+title: "Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile"
+provider: "NIST"
+url: "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [ai-evaluation, security]
+summary: "NIST AI 600-1, published on 26 July 2024, is a companion to the AI Risk Management Framework. It lists risks that are new or made worse by generative AI and suggests actions for each. Read the risk list when an AI agent drafts your code, text or analysis."
+verifiedOn: 2026-11-19

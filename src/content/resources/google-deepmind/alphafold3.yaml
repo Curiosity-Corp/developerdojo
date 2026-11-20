@@ -1,0 +1,9 @@
+title: "AlphaFold 3"
+provider: "Google DeepMind"
+url: "https://github.com/google-deepmind/alphafold3"
+cost: free
+format: docs
+level: advanced
+skills: [bioinformatics, open-source]
+summary: "The source repository for AlphaFold 3. The code is open, but the model parameters are separate and come under terms that allow non-commercial use only. Read the terms files in the repository before you plan any use."
+verifiedOn: 2026-11-19

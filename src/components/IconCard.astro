@@ -78,12 +78,19 @@ const Wrapper = href ? 'a' : 'div';
   .body {
     display: block;
     min-width: 0;
-    overflow-wrap: break-word;
+    /* anywhere, not break-word: the title is a flex container, so its text is an anonymous flex item whose minimum
+       width is its min-content. Only anywhere makes a long word ("Bioinformatics") breakable there; with break-word
+       the word stays whole and spills past a 195 px screen (WCAG 1.4.10, #68, #125). */
+    overflow-wrap: anywhere;
   }
   @media (max-width: 30rem) {
     /* A phone at 200 percent zoom: the text goes under the icon instead of into a column a few letters wide. */
     .icon-card {
       flex-wrap: wrap;
+    }
+    /* Narrower side padding so a one-word title such as "Bioinformatics" fits a card nested in a boxed section. */
+    .variant-card {
+      padding-inline: var(--space-4);
     }
     .body {
       flex: 1 1 9rem;

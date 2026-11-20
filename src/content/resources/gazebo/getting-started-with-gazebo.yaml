@@ -1,0 +1,9 @@
+title: "Getting Started with Gazebo?"
+provider: "Gazebo"
+url: "https://gazebosim.org/docs/jetty/getstarted/"
+cost: free
+format: docs
+level: beginner
+skills: [robot-software]
+summary: "The Gazebo Jetty page that says what Gazebo is and how to get started. It names the recommended Gazebo release for each ROS 2 release, including Jetty with ROS 2 Lyrical. Start here before you add a simulator to a project."
+verifiedOn: 2026-11-19

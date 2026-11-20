@@ -1,0 +1,9 @@
+title: "Getting Started"
+provider: "MoveIt"
+url: "https://moveit.picknik.ai/main/doc/tutorials/getting_started/getting_started.html"
+cost: free
+format: tutorial
+level: intermediate
+skills: [robot-software]
+summary: "The first MoveIt 2 tutorial. It sets up a colcon workspace and builds MoveIt from source, which it says can take 20 to 30 minutes, and it points to a Docker guide. These docs follow the Rolling branch, so check each step against the version you installed."
+verifiedOn: 2026-11-19

@@ -1,0 +1,9 @@
+title: "Data Wrangling and Processing for Genomics"
+provider: "Data Carpentry"
+url: "https://datacarpentry.github.io/wrangling-genomics/"
+cost: free
+format: tutorial
+level: beginner
+skills: [bioinformatics, data-analytics]
+summary: "A free lesson that takes real bacterial sequencing reads through quality control, alignment and variant calling on the command line. It uses a public E. coli dataset. It is the manual version of the pipeline you automate in the capstone."
+verifiedOn: 2026-11-19

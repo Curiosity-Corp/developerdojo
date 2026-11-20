@@ -1,0 +1,9 @@
+title: "Building your own robot"
+provider: "Gazebo"
+url: "https://gazebosim.org/docs/jetty/building_robot/"
+cost: free
+format: tutorial
+level: beginner
+skills: [robot-software]
+summary: "A Gazebo tutorial that builds a simple two wheeled robot in SDFormat. You write the links, joints and plugins yourself. It shows how the parts of a simulated robot fit together."
+verifiedOn: 2026-11-19

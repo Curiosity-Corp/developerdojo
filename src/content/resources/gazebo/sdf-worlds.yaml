@@ -1,0 +1,9 @@
+title: "SDF worlds"
+provider: "Gazebo"
+url: "https://gazebosim.org/docs/jetty/sdf_worlds/"
+cost: free
+format: tutorial
+level: beginner
+skills: [robot-software]
+summary: "A Gazebo tutorial on building a world in SDF and adding models to it. It explains the physics step size and the plugins a world needs. You learn the file that describes everything the simulator loads."
+verifiedOn: 2026-11-19

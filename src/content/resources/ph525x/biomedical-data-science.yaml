@@ -1,0 +1,9 @@
+title: "PH525x series - Biomedical Data Science"
+provider: "PH525x"
+url: "https://genomicsclass.github.io/book/"
+cost: free
+format: book
+level: intermediate
+skills: [data-analytics, bioinformatics]
+summary: "A free online book on statistics and data analysis for biology and genomics, with R code. Its chapters cover replicates, batch effects, multiple testing and plotting. Use it to go deeper on the ideas in the statistics lesson."
+verifiedOn: 2026-11-19

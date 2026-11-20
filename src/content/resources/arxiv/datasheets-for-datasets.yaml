@@ -1,0 +1,9 @@
+title: "Datasheets for Datasets"
+provider: "arXiv"
+url: "https://arxiv.org/abs/1803.09010"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [data-analytics, communication-writing]
+summary: "The paper by Gebru and colleagues, published in Communications of the ACM in 2021, that proposes a datasheet for every dataset. It lists questions on why the data was made, how it was collected and what it should not be used for. Use the questions as a template."
+verifiedOn: 2026-11-19

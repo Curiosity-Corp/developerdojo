@@ -1,0 +1,9 @@
+title: "Motion Planning Python API"
+provider: "MoveIt"
+url: "https://moveit.picknik.ai/main/doc/examples/motion_planning_python_api/motion_planning_python_api_tutorial.html"
+cost: free
+format: tutorial
+level: intermediate
+skills: [robot-software]
+summary: "The official tutorial for moveit_py, the Python interface to MoveIt 2. It covers planning to a named state, a robot state or a pose, and adding collision objects to a planning scene. The docs follow the Rolling branch, so check the code against your installed version."
+verifiedOn: 2026-11-19

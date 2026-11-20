@@ -1,0 +1,9 @@
+title: "SmolVLA: A Vision-Language-Action Model for Affordable and Efficient Robotics"
+provider: "arXiv"
+url: "https://arxiv.org/abs/2506.01844"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [robot-learning]
+summary: "The paper for SmolVLA, a small vision-language-action model from Hugging Face that is built to be trained on a single GPU and run on consumer GPUs or even CPUs. It describes training on community-collected datasets. Read it with the LeRobot documentation, which has the code."
+verifiedOn: 2026-11-19

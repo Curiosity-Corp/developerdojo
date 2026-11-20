@@ -1,0 +1,9 @@
+title: "Mapping and Localization - Nav2 Docs"
+provider: "Nav2"
+url: "https://docs.nav2.org/lyrical/configuration_and_development/first_time_robot_setup_guide/sensors/mapping_localization/"
+cost: free
+format: docs
+level: intermediate
+skills: [robot-software]
+summary: "A Nav2 setup-guide page on mapping and localisation. Read it to tell building a map from finding your place on one, and to see the options Nav2 supports."
+verifiedOn: 2026-11-19

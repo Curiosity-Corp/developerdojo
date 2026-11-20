@@ -1,0 +1,9 @@
+title: "Installing Gazebo with ROS"
+provider: "Gazebo"
+url: "https://gazebosim.org/docs/jetty/ros_installation/"
+cost: free
+format: docs
+level: intermediate
+skills: [robot-software]
+summary: "The Gazebo page on which Gazebo releases work with which ROS 2 releases. For a first project it recommends the latest long term support version of both. Use it to choose a pairing."
+verifiedOn: 2026-11-19

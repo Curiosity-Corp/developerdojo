@@ -1,0 +1,9 @@
+title: "Genome in a Bottle"
+provider: "NIST"
+url: "https://www.nist.gov/programs-projects/genome-bottle"
+cost: free
+format: docs
+level: intermediate
+skills: [bioinformatics, data-analytics]
+summary: "The NIST-hosted consortium that publishes reference human genomes with trusted, high-confidence variant calls. Use these to measure how accurate a variant-calling pipeline is. The data are public and made for benchmarking."
+verifiedOn: 2026-11-19

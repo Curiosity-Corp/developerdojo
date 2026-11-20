@@ -17,7 +17,8 @@ export const FORMATS = [
   'certification',
   'podcast',
 ] as const;
-export const TRACK_GROUPS = ['product', 'ai', 'engineering', 'frameworks'] as const;
+/** Display order on /library/tracks. Robotics and biotechnology are the core focuses, so they come first. */
+export const TRACK_GROUPS = ['robotics', 'biotechnology', 'frontier', 'product', 'ai', 'engineering', 'frameworks'] as const;
 export const SKILLS = [
   'product-discovery',
   'personas-journeys',
@@ -44,6 +45,10 @@ export const SKILLS = [
   'creative-media',
   'business-automation',
   'robotics-manufacturing',
+  'robot-software',
+  'robot-learning',
+  'bioinformatics',
+  'lab-automation',
 ] as const;
 
 export type LessonLevel = (typeof LESSON_LEVELS)[number];

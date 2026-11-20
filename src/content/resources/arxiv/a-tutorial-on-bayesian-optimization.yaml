@@ -1,0 +1,9 @@
+title: "A Tutorial on Bayesian Optimization"
+provider: "arXiv"
+url: "https://arxiv.org/abs/1807.02811"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [data-analytics]
+summary: "A free tutorial by Peter Frazier on Bayesian optimisation. It explains Gaussian process regression and acquisition functions such as expected improvement. It also covers noise and several extensions. It needs some maths, but the early sections are readable."
+verifiedOn: 2026-11-19

@@ -1,0 +1,9 @@
+title: "Deep Reinforcement Learning that Matters"
+provider: "arXiv"
+url: "https://arxiv.org/abs/1709.06560"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [robot-learning, ai-evaluation]
+summary: "A paper on why reinforcement learning results are hard to reproduce and to compare. It shows how random seeds, non-determinism in benchmarks and reporting choices change the conclusions, and it suggests guidelines. Read it to learn why this track asks for several seeds and a full learning curve."
+verifiedOn: 2026-11-19

@@ -1,0 +1,9 @@
+title: "Writing Basic Tests with Python - tutorial"
+provider: "ROS"
+url: "https://docs.ros.org/en/lyrical/Developer-Tools/Debugging/Testing/Python.html"
+cost: free
+format: tutorial
+level: beginner
+skills: [robot-software]
+summary: "The official guide to unit tests for a ROS 2 Python package. It shows pytest and the lint tests that colcon runs. Use it to make your first test pass and to read a failing one."
+verifiedOn: 2026-11-19

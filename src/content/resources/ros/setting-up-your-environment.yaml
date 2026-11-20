@@ -1,0 +1,9 @@
+title: "Setting up your environment - how-to"
+provider: "ROS"
+url: "https://docs.ros.org/en/lyrical/Get-Started/Configuring-ROS2-Environment.html"
+cost: free
+format: tutorial
+level: beginner
+skills: [robot-software]
+summary: "A short guide to sourcing the ROS 2 setup files, making sourcing persistent and checking key environment variables. Many first-day ROS problems come from a shell that is not set up. This page tells you what to check."
+verifiedOn: 2026-11-19

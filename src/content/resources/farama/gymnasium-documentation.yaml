@@ -1,0 +1,9 @@
+title: "Gymnasium Documentation"
+provider: "Farama Foundation"
+url: "https://gymnasium.farama.org/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [robot-learning, open-source]
+summary: "The documentation for Gymnasium, the maintained interface for reinforcement learning environments, including the MuJoCo environments used in this track. Each environment page lists its observations, actions, rewards and when an episode ends. Read the page for an environment before you train on it."
+verifiedOn: 2026-11-19

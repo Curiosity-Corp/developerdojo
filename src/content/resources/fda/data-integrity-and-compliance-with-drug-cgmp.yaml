@@ -1,0 +1,9 @@
+title: "Data Integrity and Compliance With Drug CGMP: Questions and Answers"
+provider: "U.S. Food and Drug Administration"
+url: "https://www.fda.gov/media/119267/download"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security, data-analytics]
+summary: "A December 2018 guidance for industry from the US FDA. It explains data integrity, the ALCOA attributes, audit trails and metadata in plain questions and answers. It is about drug manufacturing, so use it to learn the ideas, not as a rule for your own project."
+verifiedOn: 2026-11-19

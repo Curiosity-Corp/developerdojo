@@ -1,0 +1,9 @@
+title: "REP 105: Coordinate Frames for Mobile Platforms"
+provider: "ROS"
+url: "https://www.ros.org/reps/rep-0105.html"
+cost: free
+format: docs
+level: intermediate
+skills: [robot-software]
+summary: "The ROS Enhancement Proposal that names the coordinate frames of a mobile robot, such as map, odom and base_link. Read it before you wire a sensor or a map into a robot."
+verifiedOn: 2026-11-19

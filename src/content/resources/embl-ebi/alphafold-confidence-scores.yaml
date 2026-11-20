@@ -1,0 +1,9 @@
+title: "Evaluating AlphaFold2's predicted structures using confidence scores"
+provider: "EMBL-EBI Training"
+url: "https://www.ebi.ac.uk/training/online/courses/alphafold/inputs-and-outputs/evaluating-alphafolds-predicted-structures-using-confidence-scores/"
+cost: "free"
+format: "tutorial"
+level: "beginner"
+skills: [ai-evaluation, data-analytics]
+summary: "A page from the EMBL-EBI course AlphaFold: A practical guide. It explains the two confidence scores, pLDDT for local regions and PAE for the position of regions relative to each other. It says every prediction should be read with these scores in mind."
+verifiedOn: 2026-11-19

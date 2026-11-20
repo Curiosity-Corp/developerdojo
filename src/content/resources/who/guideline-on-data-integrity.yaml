@@ -1,0 +1,9 @@
+title: "Annex 4 Guideline on data integrity"
+provider: "World Health Organization"
+url: "https://cdn.who.int/media/docs/default-source/medicines/norms-and-standards/guidelines/inspections/trs1033-annex4-guideline-on-data-integrity.pdf"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [security, data-analytics]
+summary: "A WHO guideline from Technical Report Series No. 1033 on keeping data and records trustworthy in regulated work. It defines ALCOA+ and says records should be attributable, legible, contemporaneous, original, accurate, complete, consistent, enduring and available. It is written for medicines work. Use it to learn the ideas, not as a rule for your project."
+verifiedOn: 2026-11-19

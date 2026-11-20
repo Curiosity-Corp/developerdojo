@@ -1,0 +1,9 @@
+title: "Writing an action server and client (Python) — tutorial"
+provider: "ROS"
+url: "https://docs.ros.org/en/lyrical/ROS-Framework/interfaces/actions/Working-with-actions/Writing-an-Action-Server-Client/Py.html"
+cost: free
+format: tutorial
+level: intermediate
+skills: [robot-software]
+summary: "The official tutorial for an action server and client in Python. You define an action type, then write both sides with goal, feedback and result. It is the shape of a fetch task for a robot."
+verifiedOn: 2026-11-19

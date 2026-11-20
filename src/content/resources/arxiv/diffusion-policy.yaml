@@ -1,0 +1,9 @@
+title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion"
+provider: "arXiv"
+url: "https://arxiv.org/abs/2303.04137"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [robot-learning, ai-evaluation]
+summary: "The paper that represents a robot policy as a denoising diffusion process. It reports results on 12 tasks from four robot manipulation benchmarks and explains why the method handles actions that have several good answers. Read the abstract first, then the evaluation section."
+verifiedOn: 2026-11-19

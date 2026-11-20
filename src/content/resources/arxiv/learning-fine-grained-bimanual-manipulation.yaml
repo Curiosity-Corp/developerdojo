@@ -1,0 +1,9 @@
+title: "Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware"
+provider: "arXiv"
+url: "https://arxiv.org/abs/2304.13705"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [robot-learning, ai-evaluation]
+summary: "The paper that introduced Action Chunking with Transformers (ACT). It names the problem of errors that compound over time in imitation learning, and reports 80 to 90 per cent success on six real-world tasks from about 10 minutes of demonstrations each. Those results are the authors' own, on their own hardware."
+verifiedOn: 2026-11-19

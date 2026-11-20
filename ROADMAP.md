@@ -40,6 +40,22 @@ Parent epic **&1** "developerdojo.org v2". Milestone due dates are in each epic.
 | **&10** Agent orchestration and policy administration | 2026-12-01 | The advanced track: command chain, policy as data, hooks and gates, delegation briefs, fleet running, Launch Sequence for agent-built software, capstone | In review and in progress |
 | **&11** Backlog after v2 | none | Fifteen ready-to-pick issues (below) | Ready |
 
+## Core focuses: robotics and biotechnology (added 2026-11-19)
+
+CEO order of 19 November 2026 (issue #125): robotics and biotechnology are the Dojo's core focuses, in practical form,
+with training behind them. Four tracks, each ending in a capstone a learner can show, plus shared modules:
+
+| Track | Capstone |
+| --- | --- |
+| Robot software | A simulated mobile robot that maps a room and fetches an object, with a test suite |
+| Robot learning | A learned policy for one manipulation task, with a written evaluation of where it fails |
+| Bioinformatics | A reproducible pipeline from raw reads to a short report |
+| Lab automation in code | A closed loop in simulation that designs, runs and analyses three rounds |
+| Safety, reports and review | Shared by all four: when not to trust a model, technical reports, human review |
+
+Their URLs are stable because other sites link to them: [docs/track-urls.md](docs/track-urls.md). Next for this
+focus: practice katas in the Gallery for each capstone, and field pages that tie the kata taxonomy (#81) to these tracks.
+
 ## What is next
 
 In this order:

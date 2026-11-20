@@ -1,0 +1,9 @@
+title: "Python API Reference: Executing and Simulating"
+provider: "Opentrons"
+url: "https://docs.opentrons.com/python-api/reference/execute-simulate/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [lab-automation]
+summary: "The Opentrons reference for running a protocol from the command line and for simulating it on a computer. It describes the simulate command and what its output shows. Use it to check a protocol before it goes near a robot."
+verifiedOn: 2026-11-19

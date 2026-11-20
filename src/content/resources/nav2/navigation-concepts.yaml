@@ -1,0 +1,9 @@
+title: "Navigation Concepts - Nav2 Docs"
+provider: "Nav2"
+url: "https://docs.nav2.org/lyrical/getting_started/navigation_concepts/"
+cost: free
+format: docs
+level: beginner
+skills: [robot-software]
+summary: "A plain overview of the parts of Nav2: the servers, the behaviour trees, the map and the state estimate. Read it to learn which part does what. It makes the launch files much less mysterious."
+verifiedOn: 2026-11-19

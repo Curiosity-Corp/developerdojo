@@ -1,0 +1,9 @@
+title: "Pick and Place with MoveIt Task Constructor"
+provider: "MoveIt"
+url: "https://moveit.picknik.ai/main/doc/tutorials/pick_and_place_with_moveit_task_constructor/pick_and_place_with_moveit_task_constructor.html"
+cost: free
+format: tutorial
+level: advanced
+skills: [robot-software]
+summary: "The MoveIt tutorial for pick and place with the MoveIt Task Constructor, which plans a task as a series of stages. Read it to see how a real pick task is structured."
+verifiedOn: 2026-11-19

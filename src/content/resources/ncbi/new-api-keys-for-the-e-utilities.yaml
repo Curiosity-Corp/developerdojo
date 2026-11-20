@@ -1,0 +1,9 @@
+title: "New API Keys for the E-utilities - NCBI Insights"
+provider: "NCBI"
+url: "https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/"
+cost: free
+format: article
+level: beginner
+skills: [bioinformatics]
+summary: "An NCBI post that explains the request limits of the E-utilities, which Biopython's Entrez module calls. It says how many requests per second you may send with and without an API key, and how to get a key. Read it before you script any NCBI download."
+verifiedOn: 2026-11-19

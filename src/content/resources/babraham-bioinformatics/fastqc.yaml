@@ -1,0 +1,9 @@
+title: "FastQC A Quality Control tool for High Throughput Sequence Data"
+provider: "Babraham Bioinformatics"
+url: "https://www.bioinformatics.babraham.ac.uk/projects/fastqc/"
+cost: free
+format: docs
+level: beginner
+skills: [bioinformatics]
+summary: "The home page of FastQC, with a link to the help pages that explain each quality plot and what a good or bad result looks like. Read the example reports for a good and a bad run before you judge your own data."
+verifiedOn: 2026-11-19

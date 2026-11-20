@@ -1,0 +1,9 @@
+title: "Galaxy Training!"
+provider: "Galaxy Training Network"
+url: "https://training.galaxyproject.org/training-material/"
+cost: free
+format: tutorial
+level: beginner
+skills: [bioinformatics]
+summary: "A large free library of bioinformatics tutorials that run in the Galaxy web platform, so you need no install. Topics include sequence analysis, variant calling and RNA sequencing. A good second route if your laptop cannot run containers."
+verifiedOn: 2026-11-19

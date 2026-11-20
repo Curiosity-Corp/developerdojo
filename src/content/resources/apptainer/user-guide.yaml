@@ -1,0 +1,9 @@
+title: "Apptainer User Guide"
+provider: "Apptainer"
+url: "https://apptainer.org/docs/user/latest/"
+cost: free
+format: docs
+level: intermediate
+skills: [bioinformatics, infrastructure-as-code]
+summary: "The user guide for Apptainer, a container tool built for shared research computers where Docker is not allowed. Nextflow can run its containers with it. Read the first chapters if you work on a university or lab cluster."
+verifiedOn: 2026-11-19

@@ -1,0 +1,9 @@
+title: "Learning about actions - tutorial"
+provider: "ROS"
+url: "https://docs.ros.org/en/lyrical/ROS-Framework/interfaces/actions/Working-with-actions/Understanding-ROS2-Actions/Understanding-ROS2-Actions.html"
+cost: free
+format: tutorial
+level: beginner
+skills: [robot-software]
+summary: "A command-line tour of ROS 2 actions, run with the turtlesim demo. You use the ROS tools to inspect actions and send goals. It shows why long tasks, such as driving to a point, use actions."
+verifiedOn: 2026-11-19

@@ -1,0 +1,9 @@
+title: "Deep Reinforcement Learning at the Edge of the Statistical Precipice"
+provider: "arXiv"
+url: "https://arxiv.org/abs/2108.13264"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [robot-learning, ai-evaluation, data-analytics]
+summary: "A paper arguing that reinforcement learning results should carry interval estimates, not only a mean, because few training runs leave real uncertainty. It proposes performance profiles and more robust summary scores. Read it to see why this track reports an interval with every success rate."
+verifiedOn: 2026-11-19

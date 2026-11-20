@@ -1,0 +1,9 @@
+title: "LeRobot"
+provider: "Hugging Face"
+url: "https://huggingface.co/docs/lerobot/index"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [robot-learning, open-source]
+summary: "The official documentation for LeRobot, Hugging Face's open toolkit for robot learning, released under the Apache 2.0 licence. It covers installation, recording and loading datasets, training policies and testing them in simulation. Use it as the reference for the commands in this track, and follow the install steps it shows on the day you work."
+verifiedOn: 2026-11-19

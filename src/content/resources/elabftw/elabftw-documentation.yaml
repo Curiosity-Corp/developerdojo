@@ -1,0 +1,9 @@
+title: "eLabFTW Documentation"
+provider: "eLabFTW"
+url: "https://doc.elabftw.net/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [lab-automation, open-source]
+summary: "The official documentation for eLabFTW, which describes itself as an open-source electronic lab notebook and database. It includes a page on GMP compliance. Use it to see what a real electronic lab notebook records, and how one could sit beside your own audit log."
+verifiedOn: 2026-11-19

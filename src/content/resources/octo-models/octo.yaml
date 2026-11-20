@@ -1,0 +1,9 @@
+title: "Octo: An Open-Source Generalist Robot Policy"
+provider: "Octo project"
+url: "https://octo-models.github.io/"
+cost: "free"
+format: "article"
+level: "advanced"
+skills: [robot-learning, open-source]
+summary: "The project page for Octo, an open generalist robot policy trained on a large mix of robot datasets. It links the paper, the code and pretrained models. Use it as a contrast with the larger vision-language-action models."
+verifiedOn: 2026-11-19

@@ -184,6 +184,9 @@ const hasArt = hasImage(art, 'jpg');
   }
   .grid {
     display: grid;
+    /* One column that may shrink below its longest word: without it a one-word title such as "Bioinformatics"
+       sizes the column past a 195 px screen and the hero clips it (#68, #125). */
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-6);
     align-items: center;
   }
@@ -192,6 +195,7 @@ const hasArt = hasImage(art, 'jpg');
   }
   .copy {
     max-width: 40rem;
+    overflow-wrap: break-word;
   }
   .eyebrow {
     margin: 0 0 var(--space-2);

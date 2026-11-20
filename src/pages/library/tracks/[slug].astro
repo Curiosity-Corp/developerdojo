@@ -95,6 +95,13 @@ const data = track.data;
     border: 1px solid var(--line);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
+    /* A long word in an outcome ("demonstrations") may break at 195 px rather than widen the page (#68). */
+    overflow-wrap: break-word;
+  }
+  @media (max-width: 30rem) {
+    .facts {
+      padding-inline: var(--space-4);
+    }
   }
   .facts h2 {
     margin-top: 0;
