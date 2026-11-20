@@ -1,0 +1,9 @@
+title: "LLM Course"
+provider: "Hugging Face"
+url: "https://huggingface.co/learn/llm-course/chapter1/1"
+cost: "free"
+format: "course"
+level: "intermediate"
+skills: [ai-agents, open-source]
+summary: "Hugging Face's free course on transformer models: encoders, decoders, fine-tuning and sharing models. It shows how the small rungs of the model ladder work, from text classifiers to small language models. Some chapters use Python and a free notebook service."
+verifiedOn: 2026-11-20
