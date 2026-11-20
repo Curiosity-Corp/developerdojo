@@ -59,6 +59,7 @@ src/
                    frontmatter: title, description, section, order, plus optional track, level, duration, ...
     tracks/        track overviews (<slug>.md)
     resources/     external learning resources (<publisher>/<resource>.yaml)
+    arena/         Arena evidence records (<slug>.yaml; docs/arena-evidence.md)
   data/          events.json, challenges.json, certificates.json, plus typed kata/workshop data (*.ts)
   lib/           nav, ranks, schemas, data loaders, image lookup, custom icons, kata catalog
   styles/        tokens.css (light + dark design tokens), global.css

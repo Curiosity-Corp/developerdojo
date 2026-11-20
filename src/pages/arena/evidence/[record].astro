@@ -1,0 +1,229 @@
+---
+/**
+ * One Arena evidence record (#89): src/content/arena/<slug>.yaml, validated against its evidence by
+ * loadArenaRecords (an invalid record fails the build).
+ *
+ * Order: status first (who ran it, how fresh it is), then the task and rubric, the stacks with versions,
+ * the method, each comparison with its shared system metrics and its field-specific outcome kept in
+ * separate tables, then limitations, sources and the machine-readable copy.
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import ArenaFact from '../../../components/ArenaFact.astro';
+import RecipeUnavailable from '../../../components/RecipeUnavailable.astro';
+import { loadArenaRecords } from '../../../lib/arena-content';
+import { ARENA_PARTS } from '../../../lib/arena-record';
+import { COMPARISON_LABELS, KIND_LABELS, formatProportion, formatUsd, proportion, type ArmMeasurement, type ArmReported } from '../../../lib/arena-records';
+import { fields } from '../../../lib/fields';
+import { formatDate } from '../../../lib/labels';
+import { humanize } from '../../../lib/kata-recipes';
+
+export function getStaticPaths() {
+  return loadArenaRecords().map((item) => ({ params: { record: item.slug }, props: { item } }));
+}
+
+const { item } = Astro.props;
+const { record } = item;
+const dojo = record.kind === 'dojo-experiment';
+const isoDay = (date: string) => formatDate(new Date(`${date}T00:00:00Z`));
+const fieldName = fields.find((field) => field.id === record.domain.fieldId)?.name ?? record.domain.fieldId;
+const arm = (id: string) => record.arms.find((candidate) => candidate.id === id);
+const parts = ARENA_PARTS.filter((part) => record.arms.some((candidate) => candidate.stack.some((entry) => entry.part === part)));
+const checkText = new Map(record.rubric.checks.map((check) => [check.id, check.checks]));
+const measuredOf = (id: string): ArmMeasurement | undefined => { const value = item.arms[id]; return value?.kind === 'measured' ? value : undefined; };
+const reportedOf = (id: string): ArmReported | undefined => { const value = item.arms[id]; return value?.kind === 'reported' ? value : undefined; };
+const afterCorrection = (value: ArmMeasurement) => proportion(value.passingAll.count + value.corrections.passingAll, value.runs);
+const runLinks = (id: string) => (arm(id)?.runs ?? []).map((run) => ({ run, json: `${record.evidence?.dir}/runs/${run}.json`, html: `${record.evidence?.dir}/runs/${run}.html` }));
+const variables = [...new Set(record.comparisons.map((comparison) => COMPARISON_LABELS[comparison.variable]))].join(', ');
+const repetitions = record.method.repetitions;
+---
+
+<BaseLayout title={record.title} description={record.question}>
+  <PageHero compact eyebrow={`${KIND_LABELS[record.kind]} · ${record.id} · ${isoDay(record.date)}`} title={record.title} subtitle={record.question} />
+  <article class="section" data-arena-record={record.id} data-arena-kind={record.kind}>
+    <div class="container narrow">
+      <Breadcrumbs items={[{ label: 'The Arena', href: '/arena' }, { label: 'Evidence records', href: '/arena/evidence' }, { label: record.id }]} />
+
+      <div class="status" role="note" aria-label="Status of this result">
+        {dojo
+          ? <p data-provenance><strong>Run by Developer Dojo on {isoDay(record.date)}.</strong> Every number below is computed from the published run files and check results.</p>
+          : <p data-provenance><strong>Published by others; not run by Developer Dojo.</strong> Each number is as reported by the linked source. Historical snapshot of the version dated {isoDay(record.date)}.</p>}
+        {item.supersededBy && <p data-superseded><strong>Superseded.</strong> A newer record replaces this one: <a href={item.supersededBy.href}>{item.supersededBy.id}</a>. This page stays as a historical snapshot.</p>}
+        {item.stale
+          ? <p data-stale><strong>Stale.</strong> Its review date passed on {isoDay(record.review.staleAfter)}. Models, tools and prices change; re-run or re-check it before relying on it.</p>
+          : <p data-review>Last checked {isoDay(record.review.lastChecked)}; marked stale after {isoDay(record.review.staleAfter)}.</p>}
+        <p>Compares: {variables}. Field: {fieldName}. This is not a general ranking; see the scope below.</p>
+      </div>
+
+      <h2 id="task">Task and rubric</h2>
+      <p>{record.task.summary}</p>
+      <ul>
+        {record.task.inputs.map((input) => <li>{input.href ? <a href={input.href}>{input.name}</a> : input.name}</li>)}
+      </ul>
+      <p><strong>Outcome measured:</strong> {record.domain.outcome} <strong>Rubric:</strong> {record.rubric.name}. {record.domain.measure}</p>
+      {record.rubric.checks.length > 0 && (
+        <details>
+          <summary>All {record.rubric.checks.length} checks</summary>
+          <dl class="checks">{record.rubric.checks.map((check) => <div><dt><code>{check.id}</code></dt><dd>{check.checks}</dd></div>)}</dl>
+        </details>
+      )}
+
+      <h2 id="stacks">Stacks and versions</h2>
+      <div class="scroll" role="region" aria-labelledby="stacks-caption" tabindex="0">
+        <table>
+          <caption id="stacks-caption">Each arm's stack. A part shown as not available was not reported.</caption>
+          <thead><tr><th scope="col">Part</th>{record.arms.map((candidate) => <th scope="col">{candidate.label}</th>)}</tr></thead>
+          <tbody>
+            {parts.map((part) => (
+              <tr>
+                <th scope="row">{humanize(part)}</th>
+                {record.arms.map((candidate) => {
+                  const entry = candidate.stack.find((value) => value.part === part);
+                  return <td>{entry ? <>{entry.name}<br /><span class="version">Version: <ArenaFact value={entry.version} /></span></> : <span>Not part of this stack</span>}</td>;
+                })}
+              </tr>
+            ))}
+            <tr><th scope="row">Permissions</th>{record.arms.map((candidate) => <td><ArenaFact value={candidate.permissions} /></td>)}</tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="method">Method and how to reproduce it</h2>
+      <p>{record.method.design}</p>
+      <p><strong>Runs per arm:</strong> {typeof repetitions === 'number' ? repetitions : <RecipeUnavailable reason={repetitions.unavailable} inline />}</p>
+      <ol>{record.method.reproduce.map((step) => <li>{step}</li>)}</ol>
+
+      <h2 id="comparisons">Comparisons</h2>
+      {record.comparisons.map((comparison, index) => {
+        const control = arm(comparison.control);
+        const variantId = comparison.status === 'measured' ? comparison.variant : undefined;
+        const variant = variantId ? arm(variantId) : undefined;
+        const a = measuredOf(comparison.control);
+        const b = variantId ? measuredOf(variantId) : undefined;
+        const ra = reportedOf(comparison.control);
+        const rb = variantId ? reportedOf(variantId) : undefined;
+        const headingId = `comparison-${index + 1}`;
+        return (
+          <section class="comparison" aria-labelledby={headingId} data-comparison={comparison.variable} data-comparison-status={comparison.status}>
+            <h3 id={headingId}>{COMPARISON_LABELS[comparison.variable]}: {comparison.status === 'measured' ? `${control?.label} against ${variant?.label}` : 'proposed, not run'}</h3>
+            <p><strong>Change:</strong> {comparison.change}</p>
+            <p><strong>Held constant:</strong> {comparison.heldConstant.join('; ')}.</p>
+            {comparison.status === 'proposed' ? (
+              <p class="proposed" data-proposed><strong>Proposed, not run. No results.</strong> {comparison.whyNotRun}</p>
+            ) : (
+              <>
+                {a && b && (
+                  <>
+                    <div class="scroll" role="region" aria-labelledby={`${headingId}-system`} tabindex="0">
+                      <table data-system-metrics>
+                        <caption id={`${headingId}-system`}>System metrics (the same measures in every field)</caption>
+                        <thead><tr><th scope="col">Measure</th><th scope="col">{control?.label}</th><th scope="col">{variant?.label}</th></tr></thead>
+                        <tbody>
+                          <tr><th scope="row">Runs</th><td>{a.runs}</td><td>{b.runs}</td></tr>
+                          <tr><th scope="row">Reliability: completed without a harness error</th><td>{formatProportion(a.completed)}</td><td>{formatProportion(b.completed)}</td></tr>
+                          <tr><th scope="row">Verification completed: every check has a result</th><td>{formatProportion(a.fullyChecked)}</td><td>{formatProportion(b.fullyChecked)}</td></tr>
+                          <tr><th scope="row">Repeatability: runs passing every check, first attempt</th><td>{formatProportion(a.passingAll)}</td><td>{formatProportion(b.passingAll)}</td></tr>
+                          <tr><th scope="row">Passing every check after one correction round</th><td>{formatProportion(afterCorrection(a))}</td><td>{formatProportion(afterCorrection(b))}</td></tr>
+                          <tr><th scope="row">Mean time per run</th>{[a, b].map((value) => <td>{value.meanSeconds === null ? <RecipeUnavailable reason="Not reported for every run." inline /> : `${value.meanSeconds} s`}</td>)}</tr>
+                          <tr><th scope="row">Cost of first attempts</th>{[a, b].map((value) => <td>{value.totalCostUsd === null ? <RecipeUnavailable reason="Not reported for every run." inline /> : `${formatUsd(value.totalCostUsd)} (${value.costBasis === 'list' ? 'list price, not an invoice' : value.costBasis})`}</td>)}</tr>
+                          <tr><th scope="row">Cost of corrections</th>{[a, b].map((value) => <td>{value.corrections.made === 0 ? 'None needed' : value.corrections.totalCostUsd === null ? <RecipeUnavailable reason="Not reported." inline /> : `${formatUsd(value.corrections.totalCostUsd)} for ${value.corrections.made}`}</td>)}</tr>
+                          <tr><th scope="row">Permission safety</th><td><ArenaFact value={control?.permissions ?? { unavailable: 'Not recorded.' }} /></td><td><ArenaFact value={variant?.permissions ?? { unavailable: 'Not recorded.' }} /></td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="scroll" role="region" aria-labelledby={`${headingId}-domain`} tabindex="0">
+                      <table data-domain-metrics>
+                        <caption id={`${headingId}-domain`}>Domain outcome ({fieldName}): runs passing each check</caption>
+                        <thead><tr><th scope="col">Check</th><th scope="col">{control?.label}</th><th scope="col">{variant?.label}</th></tr></thead>
+                        <tbody>
+                          {a.perCheck.map((check, row) => (
+                            <tr class={check.passed < check.of || (b.perCheck[row]?.passed ?? 0) < (b.perCheck[row]?.of ?? 0) ? 'miss' : undefined}>
+                              <th scope="row"><code>{check.id}</code><span class="sr-detail"> {checkText.get(check.id)}</span></th>
+                              <td>{check.passed} of {check.of}</td>
+                              <td>{b.perCheck[row]?.passed} of {b.perCheck[row]?.of}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                )}
+                {ra && rb && (
+                  <>
+                    <div class="scroll" role="region" aria-labelledby={`${headingId}-domain`} tabindex="0">
+                      <table data-domain-metrics>
+                        <caption id={`${headingId}-domain`}>Domain outcome ({fieldName}), as reported by the source</caption>
+                        <thead><tr><th scope="col">Measure</th><th scope="col">{control?.label}</th><th scope="col">{variant?.label}</th></tr></thead>
+                        <tbody>
+                          <tr><th scope="row">{ra.metric}</th>{[ra, rb].map((value) => <td>{formatProportion(value.outcome)} <a href={value.source}>source</a></td>)}</tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="scroll" role="region" aria-labelledby={`${headingId}-system`} tabindex="0">
+                      <table data-system-metrics>
+                        <caption id={`${headingId}-system`}>System metrics (the same measures in every field)</caption>
+                        <thead><tr><th scope="col">Measure</th><th scope="col">{control?.label}</th><th scope="col">{variant?.label}</th></tr></thead>
+                        <tbody>
+                          <tr><th scope="row">Runs per task</th><td colspan="2">{typeof repetitions === 'number' ? repetitions : <RecipeUnavailable reason={repetitions.unavailable} inline />}</td></tr>
+                          <tr><th scope="row">Cost</th>{[control, variant].map((value) => <td><ArenaFact value={value?.reported?.cost ?? { unavailable: 'Not reported.' }} /></td>)}</tr>
+                          <tr><th scope="row">Time</th>{[control, variant].map((value) => <td><ArenaFact value={value?.reported?.time ?? { unavailable: 'Not reported.' }} /></td>)}</tr>
+                          <tr><th scope="row">Permission safety</th>{[control, variant].map((value) => <td><ArenaFact value={value?.permissions ?? { unavailable: 'Not recorded.' }} /></td>)}</tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                )}
+                <p><strong>What it shows:</strong> {comparison.reading}</p>
+              </>
+            )}
+            <p><strong>Confounders:</strong></p>
+            <ul>{comparison.confounders.map((confounder) => <li>{confounder}</li>)}</ul>
+          </section>
+        );
+      })}
+      <p class="note">Intervals are 95% Wilson score intervals. With three runs per arm they are wide: read the counts, not a winner.</p>
+
+      <h2 id="limits">Limitations and scope</h2>
+      <ul>{record.limitations.map((limitation) => <li>{limitation}</li>)}</ul>
+      <p data-scope><strong>Scope:</strong> {record.scope}</p>
+
+      <h2 id="sources">Sources and evidence</h2>
+      <ul>{record.sources.map((source) => <li><a href={source.href}>{source.title}</a> <span class="meta">({humanize(source.kind)})</span></li>)}</ul>
+      {dojo && (
+        <details>
+          <summary>Every run file</summary>
+          {record.arms.map((candidate) => (
+            <>
+              <h3 class="runs-heading">{candidate.label}</h3>
+              <ul class="runs">{runLinks(candidate.id).map((link) => <li>{link.run}: <a href={link.json}>run record (JSON)</a> · <a href={link.html}>checked page (HTML)</a></li>)}</ul>
+            </>
+          ))}
+        </details>
+      )}
+      <p><a href={`${item.href}.json`} download>Download this record with its measurements (JSON)</a></p>
+      <p><a href="/arena/evidence">All evidence records</a> · <a href="/arena">The Arena</a></p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 68rem; }
+  .status { padding: var(--space-4); margin-bottom: var(--space-5); background: var(--paper-raised); border: 1px solid var(--line-strong); border-left-width: .4rem; border-radius: var(--radius); }
+  .status p { margin: 0 0 var(--space-2); } .status p:last-child { margin: 0; }
+  .comparison { padding: var(--space-4); margin-block: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); }
+  .comparison h3 { margin-top: 0; }
+  .proposed { padding: var(--space-3) var(--space-4); background: var(--paper-sunk); border: 1px dashed var(--line-strong); border-radius: var(--radius); }
+  .scroll { overflow-x: auto; margin-block: var(--space-4); }
+  .scroll:focus-visible { outline: 3px solid var(--focus, currentColor); outline-offset: 2px; }
+  table { border-collapse: collapse; width: 100%; min-width: 34rem; }
+  caption { text-align: left; font-weight: 700; padding-bottom: var(--space-2); }
+  th, td { text-align: left; vertical-align: top; padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--line); }
+  thead th { border-bottom: 2px solid var(--line-strong); }
+  tr.miss td { font-weight: 700; }
+  .version, .meta, .note { color: var(--ink-muted); font-size: var(--text-sm); }
+  .sr-detail { display: block; font-weight: 400; font-size: var(--text-sm); color: var(--ink-muted); }
+  .checks div { margin-bottom: var(--space-2); } .checks dd { margin: 0; }
+  summary { cursor: pointer; font-weight: 700; }
+  .runs-heading { font-size: var(--text-base, 1rem); margin-bottom: 0; }
+</style>

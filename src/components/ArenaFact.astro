@@ -1,0 +1,16 @@
+---
+/**
+ * One Arena value that may be unavailable (#89). An unavailable value always reads "Not available" with
+ * the reason, so a missing cost, version or permission can never look like zero or like a pass.
+ * Props: value (text, or { unavailable: reason })
+ */
+import RecipeUnavailable from './RecipeUnavailable.astro';
+import type { Unavailable } from '../lib/kata-recipe';
+
+interface Props {
+  value: string | Unavailable;
+}
+const { value } = Astro.props;
+---
+
+{typeof value === 'string' ? <span>{value}</span> : <RecipeUnavailable reason={value.unavailable} inline />}
