@@ -373,10 +373,10 @@ export const stagedFoundationKatas: readonly StagedFoundationKata[] = [
         'Removes or disables the capability afterwards, or says why it stays.',
       ],
       passThreshold: '5 of 5',
-      smokeTest: 'Open /armory/registry and confirm the documentation review date and the Agent Skills entry are shown.',
+      smokeTest: 'Open /armory/registry and confirm each entry shows its checked date and the Agent Skills format entry is shown.',
       transferCheck: 'The learner writes the same plan for a capability from another field (for example an IFC reader or a spreadsheet tool).',
     },
-    evidenceAssessment: 'The Armory registry is a documentation review dated 7 November 2026, not a runtime test, and the workbench equips nothing. No Dojo run of an equipped capability exists, so this kata has the least practice material of the family.',
+    evidenceAssessment: 'The Armory registry records a checked date per entry and smoke tests for a few tools, but none for an equipped skill, and the workbench equips nothing. No Dojo run of an equipped capability exists, so this kata has the least practice material of the family.',
     openGaps: [
       'No Dojo run with a capability equipped; the MCP lesson has not been worked for the Dojo.',
       'Executable skills and servers need a security review before a learner is told to run them.',

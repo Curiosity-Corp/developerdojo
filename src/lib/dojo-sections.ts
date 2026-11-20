@@ -53,7 +53,7 @@ export const dojoSections: DojoSection[] = [
       { title: 'Check permissions and trust', description: 'Read the source and permissions of a skill or integration before using it; consider what it can read, write or execute.', href: '/library/tracks/working-with-ai-agents/09-safety-security-and-trust', link: 'Safety, security and trust' },
       { title: 'Test access', description: 'Check the actual version, compatibility and permitted operations in your own environment. An integration name alone does not prove it can create or edit an artifact.' },
     ],
-    nextTitle: 'Explore the starter registry', next: 'Inspect source, compatibility, licensing, permissions and verification guidance for a first collection of harnesses, skills, MCP servers and CLIs. Documentation review is not a security audit or proof of a working installation.', nextHref: '/armory/registry', nextLabel: 'Open the registry',
+    nextTitle: 'Explore the registry', next: 'Compare harnesses, models, skills, MCP servers, CLIs and libraries by source, version, licence, permissions and a recorded smoke test. Entries that are not tested yet are shown apart, with what is missing. A smoke test is not a security audit.', nextHref: '/armory/registry', nextLabel: 'Open the registry',
   },
   {
     slug: 'arena', eyebrow: 'Compare with evidence', title: 'The Arena',

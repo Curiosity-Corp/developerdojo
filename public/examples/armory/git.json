@@ -1,0 +1,27 @@
+{
+  "entry": "git",
+  "date": "2026-11-20",
+  "package": "git 2.53.0 (operating-system package)",
+  "environment": "Linux; a new empty folder; identity passed per command (-c user.name, -c user.email) so no global configuration was changed.",
+  "commands": [
+    "git --version",
+    "git init -q -b main .",
+    "printf 'Basil: sun\\n' > notes.txt",
+    "git add notes.txt",
+    "git commit -q -m 'Add notes'",
+    "printf 'Basil: full sun\\n' > notes.txt",
+    "git diff --stat",
+    "git commit -qam 'Edit notes'",
+    "git log --oneline | wc -l",
+    "git status --porcelain | wc -l",
+    "git fsck --no-progress"
+  ],
+  "expected": "Two commits, a clean working tree and an fsck without errors.",
+  "output": {
+    "version": "git version 2.53.0",
+    "diffStat": " notes.txt | 2 +-\n 1 file changed, 1 insertion(+), 1 deletion(-)",
+    "commits": 2,
+    "uncommittedFiles": 0,
+    "fsck": "no errors"
+  }
+}
