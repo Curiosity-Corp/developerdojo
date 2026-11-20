@@ -16,7 +16,7 @@ test('the index keeps Dojo experiments and external results apart, with honest s
 test('a Dojo experiment shows versions, separate system and domain metrics, and proposals without results', async ({ page }) => {
   await page.goto('/arena/evidence/fnd-001-pocket-garden/');
   await expect(page.locator('[data-provenance]')).toContainText('Run by Developer Dojo');
-  await expect(page.locator('[data-review]')).toContainText('Last checked 20 Nov 2026');
+  await expect(page.locator('[data-review]')).toContainText('Last checked 20 November 2026; marked stale after 20 February 2027');
   await expect(page.getByRole('table', { name: /Each arm's stack/ })).toContainText('claude-haiku-5-5');
   const model = page.locator('[data-comparison="model"]');
   await expect(model.locator('[data-system-metrics]')).toContainText('2 of 3 (67%; 95% interval');
