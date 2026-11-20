@@ -1,0 +1,560 @@
+---
+/**
+ * Operational kata recipe page (#86): one page per src/content/kata-recipes/<slug>.yaml.
+ * Outcome first, then everything needed to reproduce, check and adapt the kata. Every section of the
+ * #86 contract renders; a section the record marks unavailable says so and why, never as checked.
+ * Fixture recipes are labelled on the page and kept out of search (noindex, data-pagefind-ignore).
+ * Records and relationships are validated by loadKataRecipes; an invalid record fails the build.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
+import ResourceCard from '../../components/ResourceCard.astro';
+import CopyPrompt from '../../components/CopyPrompt.astro';
+import RecipeUnavailable from '../../components/RecipeUnavailable.astro';
+import { loadKataRecipes } from '../../lib/kata-recipe-content';
+import { loadContent } from '../../lib/content';
+import { fields } from '../../lib/fields';
+import { newField, fixtureStackRecipes } from '../../data/kata-fixtures';
+import { STATUS_LABELS, humanize } from '../../lib/kata-recipes';
+import { isUnavailable } from '../../lib/kata-recipe';
+import { formatDate } from '../../lib/labels';
+
+export async function getStaticPaths() {
+  const recipes = await loadKataRecipes();
+  return recipes.map((resolved) => ({ params: { recipe: resolved.slug }, props: { resolved } }));
+}
+
+const { resolved } = Astro.props;
+const { recipe, href } = resolved;
+const { metadata } = recipe;
+const fixture = recipe.status === 'fixture';
+const { resources, tracks } = await loadContent();
+
+const fieldNames = new Map<string, string>([...fields.map((field) => [field.id, field.name] as const), [newField.id, newField.name]]);
+const linkedFields = new Set(fields.map((field) => field.id));
+const fieldLink = (id: string) => ({ id, name: fieldNames.get(id) ?? humanize(id), href: linkedFields.has(id) ? `/fields#${id}` : undefined });
+const trackTitles = new Map(tracks.map((track) => [track.id, track.data.title]));
+const stackNotes = new Map<string, string>(fixtureStackRecipes.map((item) => [item.id, item.note]));
+const resourceById = new Map(resources.map((resource) => [resource.id, resource]));
+const sourceIds = [...new Set([
+  ...metadata.externalResources,
+  ...metadata.standards.flatMap((standard) => standard.sourceResourceId ?? []),
+  ...(!isUnavailable(recipe.exercise) && recipe.exercise.resourceId ? [recipe.exercise.resourceId] : []),
+])];
+const sources = sourceIds.flatMap((id) => resourceById.get(id) ?? []);
+const exerciseResource = !isUnavailable(recipe.exercise) && recipe.exercise.resourceId ? resourceById.get(recipe.exercise.resourceId) : undefined;
+
+const METHOD_LABELS: Record<string, string> = {
+  'automated-check': 'Automated check',
+  'self-check': 'Self-check',
+  'peer-review': 'Peer review',
+  'sensei-review': 'Sensei review',
+  'professional-review': 'Professional review',
+};
+const RESULT_LABELS = { passed: 'Passed', failed: 'Failed', 'not-run': 'Not run' } as const;
+const STAGE_LABELS = { practice: 'Practice', adapt: 'Adapt', demonstrate: 'Demonstrate' } as const;
+const LAYER_LABELS: Record<string, string> = { foundation: 'Foundation kata', specialization: 'Specialization kata' };
+
+const allSections: [string, string][] = [
+  ['outcome', 'The outcome'],
+  ['showcase', 'Showcase and provenance'],
+  ['brief', 'Brief, inputs and constraints'],
+  ['stack', 'Stack, permissions and cost'],
+  ['rationale', 'Why this stack'],
+  ['agents', 'Agents and review gates'],
+  ['setup', 'Setup and smoke test'],
+  ['prompts', 'Prompts'],
+  ['exercise', 'Practice exercise'],
+  ['execution', 'Execution and handoffs'],
+  ['verification', 'Tests, failures and corrections'],
+  ['adaptation', 'Adapt it'],
+  ['randori', 'Unseen Randori'],
+  ['belt', 'Belt evidence'],
+  ['connections', 'Connections'],
+  ['downloads', 'Downloads'],
+  ['maintenance', 'Maintenance and caveats'],
+];
+const sections = allSections.filter(([slug]) => slug !== 'downloads' || recipe.downloads.length > 0);
+const headings = sections.map(([slug, text]) => ({ depth: 2, slug, text }));
+const title = (slug: string) => sections.find(([id]) => id === slug)?.[1] ?? slug;
+
+const pageTitle = fixture ? `${metadata.title} (fixture)` : metadata.title;
+const crumbs = [{ label: 'Katas', href: '/katas' }, { label: 'Kata recipes', href: '/katas/recipes' }, { label: pageTitle }];
+const isoDay = (date: string) => formatDate(new Date(`${date}T00:00:00Z`));
+---
+
+<BaseLayout title={pageTitle} description={recipe.summary} noindex={fixture}>
+  <PageHero compact eyebrow={`${LAYER_LABELS[metadata.layer] ?? 'Kata'} · ${metadata.id}`} title={pageTitle} subtitle={recipe.summary} />
+  <article class="section" data-kata-recipe={metadata.id} data-recipe-status={recipe.status}>
+    <div class="container lesson">
+      <div class="main">
+        <Breadcrumbs items={crumbs} />
+
+        {
+          (fixture || recipe.status !== 'published' || recipe.notice) && (
+            <div class:list={['status-banner', recipe.status]} role="note" aria-label={`${STATUS_LABELS[recipe.status]} recipe`} data-status-banner>
+              <p><strong>{STATUS_LABELS[recipe.status]}.</strong> {recipe.notice ?? (recipe.status === 'draft' ? 'This recipe is a draft. Its checks may not have been run, and it can change.' : '')}</p>
+            </div>
+          )
+        }
+
+        <dl class="identity" aria-label="About this recipe">
+          <div><dt>Status</dt><dd>{STATUS_LABELS[recipe.status]}</dd></div>
+          <div><dt>Kata ID</dt><dd>{metadata.id}</dd></div>
+          <div><dt>Maintainer</dt><dd>{recipe.maintainer.person ? `${recipe.maintainer.person}, ${recipe.maintainer.role}` : recipe.maintainer.role}</dd></div>
+          <div>
+            <dt>Last verified</dt>
+            <dd>
+              {isUnavailable(recipe.review) ? <RecipeUnavailable inline reason={recipe.review.unavailable} /> : (
+                <><time datetime={recipe.review.lastVerified}>{isoDay(recipe.review.lastVerified)}</time>. {recipe.review.checked}</>
+              )}
+            </dd>
+          </div>
+          {!isUnavailable(recipe.review) && (
+            <div>
+              <dt>Next review</dt>
+              <dd><time datetime={recipe.review.nextReview}>{isoDay(recipe.review.nextReview)}</time>{resolved.reviewDue && <strong class="due"> Review overdue: treat versions and steps as stale until it is checked again.</strong>}</dd>
+            </div>
+          )}
+          {/* trackingIssue is for maintainers: the tracker is private, so learners report problems through /contact. */}
+          <div><dt>Found a problem?</dt><dd><a href="/contact">Report it</a></dd></div>
+        </dl>
+
+        <TableOfContents headings={headings} variant="inline" />
+
+        <section aria-labelledby="outcome">
+          <h2 id="outcome">{title('outcome')}</h2>
+          <p class="goal">{recipe.brief.goal}</p>
+          <p><strong>For:</strong> {recipe.brief.audience}</p>
+          <h3>Done when</h3>
+          <ul>{recipe.brief.doneWhen.map((item) => <li>{item}</li>)}</ul>
+          <p><strong>You make:</strong> {metadata.artifactTypes.map(humanize).join(', ')}. <strong>Outcome:</strong> {metadata.outcomeIds.map(humanize).join(', ')}.</p>
+        </section>
+
+        <section aria-labelledby="showcase">
+          <h2 id="showcase">{title('showcase')}</h2>
+          {isUnavailable(recipe.showcase) ? <RecipeUnavailable reason={recipe.showcase.unavailable} /> : (
+            <>
+              <p>{recipe.showcase.summary}</p>
+              {recipe.showcase.href && <p><a href={recipe.showcase.href}>See the showcase</a></p>}
+              <dl class="pairs">
+                <div><dt>Made by</dt><dd>{recipe.showcase.provenance.creator}</dd></div>
+                <div><dt>Source</dt><dd>{recipe.showcase.provenance.source}</dd></div>
+                <div><dt>Licence</dt><dd>{recipe.showcase.provenance.license}</dd></div>
+                <div><dt>Date</dt><dd><time datetime={recipe.showcase.provenance.date}>{isoDay(recipe.showcase.provenance.date)}</time></dd></div>
+              </dl>
+            </>
+          )}
+        </section>
+
+        <section aria-labelledby="brief">
+          <h2 id="brief">{title('brief')}</h2>
+          <h3>Inputs</h3>
+          <ul>
+            {recipe.brief.inputs.map((input) => <li><strong>{input.name}.</strong> Source: {input.source}. Terms: {input.terms}.</li>)}
+          </ul>
+          <h3>Constraints</h3>
+          {metadata.constraintIds.length > 0 ? <ul>{metadata.constraintIds.map((id) => <li>{humanize(id)}</li>)}</ul> : <p>No extra constraints beyond the brief.</p>}
+          <h3>Capabilities practised</h3>
+          <ul>{metadata.capabilityIds.map((id) => <li>{humanize(id)}</li>)}</ul>
+        </section>
+
+        <section aria-labelledby="stack">
+          <h2 id="stack">{title('stack')}</h2>
+          {isUnavailable(recipe.stack) ? <RecipeUnavailable reason={recipe.stack.unavailable} /> : (
+            <div class="table-wrap" role="region" aria-label="Stack components table" tabindex="0">
+              <table>
+                <caption class="visually-hidden">Stack components with version, permissions and cost</caption>
+                <thead><tr><th scope="col">Part</th><th scope="col">Component</th><th scope="col">Version</th><th scope="col">Permissions</th><th scope="col">Cost</th></tr></thead>
+                <tbody>
+                  {recipe.stack.components.map((component) => (
+                    <tr>
+                      <td>{humanize(component.part)}</td>
+                      <th scope="row">{component.name}</th>
+                      {[component.version, component.permissions, component.cost].map((value) => (
+                        <td>{isUnavailable(value) ? <RecipeUnavailable inline reason={value.unavailable} /> : value}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+          {metadata.stackRecipeIds.length > 0 && (
+            <>
+              <h3>Stack recipes</h3>
+              <ul>{metadata.stackRecipeIds.map((id) => <li>{humanize(id)}{stackNotes.has(id) && `: ${stackNotes.get(id)}`}</li>)}</ul>
+            </>
+          )}
+        </section>
+
+        <section aria-labelledby="rationale">
+          <h2 id="rationale">{title('rationale')}</h2>
+          {isUnavailable(recipe.stack) ? <RecipeUnavailable reason={recipe.stack.unavailable} /> : (
+            <>
+              <p>{recipe.stack.rationale}</p>
+              {recipe.stack.alternatives.length > 0 && (
+                <>
+                  <h3>Alternatives</h3>
+                  <ul>
+                    {recipe.stack.alternatives.map((alternative) => (
+                      <li><strong>{alternative.name}.</strong> {alternative.tradeoff} {alternative.tested ? 'Tested for this recipe.' : 'Not tested for this recipe.'}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </>
+          )}
+        </section>
+
+        <section aria-labelledby="agents">
+          <h2 id="agents">{title('agents')}</h2>
+          {isUnavailable(recipe.agents) ? <RecipeUnavailable reason={recipe.agents.unavailable} /> : (
+            <ol class="cards">
+              {recipe.agents.roles.map((role) => (
+                <li>
+                  <h3>{role.role}</h3>
+                  <p>{role.responsibility}</p>
+                  {role.dependsOn.length > 0 && <p><strong>Depends on:</strong> {role.dependsOn.join(', ')}</p>}
+                  <p><strong>Review gate:</strong> {role.reviewGate}</p>
+                </li>
+              ))}
+            </ol>
+          )}
+        </section>
+
+        <section aria-labelledby="setup">
+          <h2 id="setup">{title('setup')}</h2>
+          {isUnavailable(recipe.setup) ? <RecipeUnavailable reason={recipe.setup.unavailable} /> : (
+            <>
+              <ol>{recipe.setup.steps.map((step) => <li>{step}</li>)}</ol>
+              <p><strong>Sign-in and access:</strong> {recipe.setup.auth}</p>
+              <h3>Smoke test</h3>
+              <dl class="pairs check" data-check-result={recipe.setup.smokeTest.result}>
+                <div><dt>Do</dt><dd>{recipe.setup.smokeTest.action}</dd></div>
+                <div><dt>Expect</dt><dd>{recipe.setup.smokeTest.expected}</dd></div>
+                <div><dt>Result</dt><dd><span class:list={['result', recipe.setup.smokeTest.result]}>{RESULT_LABELS[recipe.setup.smokeTest.result]}</span>{recipe.setup.smokeTest.result === 'not-run' ? ' Nobody has recorded running this check. It is not a pass.' : ` ${recipe.setup.smokeTest.evidence ?? ''}`}</dd></div>
+              </dl>
+            </>
+          )}
+        </section>
+
+        <section aria-labelledby="prompts">
+          <h2 id="prompts">{title('prompts')}</h2>
+          {recipe.prompts.length === 0 ? <RecipeUnavailable reason="This recipe has no prompts yet." /> : (
+            <>
+              <p>Copy a prompt into the assistant you use. Replace anything that does not fit your situation, and never paste private or personal data you are not allowed to share.</p>
+              {recipe.prompts.map((prompt) => <CopyPrompt id={prompt.id} title={prompt.title} purpose={prompt.purpose} text={prompt.text} />)}
+            </>
+          )}
+        </section>
+
+        <section aria-labelledby="exercise">
+          <h2 id="exercise">{title('exercise')}</h2>
+          {isUnavailable(recipe.exercise) ? <RecipeUnavailable reason={recipe.exercise.unavailable} /> : (
+            <>
+              <p><strong>{recipe.exercise.title}.</strong> {exerciseResource ? <>From <a href={exerciseResource.data.url}>{exerciseResource.data.title}</a> ({exerciseResource.data.provider}).</> : recipe.exercise.href && <a href={recipe.exercise.href}>Open the exercise</a>}</p>
+              <p><strong>Terms:</strong> {recipe.exercise.terms}</p>
+            </>
+          )}
+        </section>
+
+        <section aria-labelledby="execution">
+          <h2 id="execution">{title('execution')}</h2>
+          {isUnavailable(recipe.execution) ? <RecipeUnavailable reason={recipe.execution.unavailable} /> : (
+            <ol class="steps">
+              {recipe.execution.steps.map((step) => (
+                <li><strong>{step.actor}:</strong> {step.action}{step.handoff && <span class="handoff"> Hand-off: {step.handoff}</span>}</li>
+              ))}
+            </ol>
+          )}
+        </section>
+
+        <section aria-labelledby="verification">
+          <h2 id="verification">{title('verification')}</h2>
+          {isUnavailable(recipe.verification) ? <RecipeUnavailable reason={recipe.verification.unavailable} /> : (
+            <>
+              <div class="table-wrap" role="region" aria-label="Checks table" tabindex="0">
+                <table>
+                  <caption class="visually-hidden">Checks with expected and recorded results</caption>
+                  <thead><tr><th scope="col">Check</th><th scope="col">Expected</th><th scope="col">Result</th><th scope="col">Evidence</th></tr></thead>
+                  <tbody>
+                    {recipe.verification.checks.map((check) => (
+                      <tr data-check-result={check.result}>
+                        <th scope="row">{check.action}</th>
+                        <td>{check.expected}</td>
+                        <td><span class:list={['result', check.result]}>{RESULT_LABELS[check.result]}</span>{check.date && <> on <time datetime={check.date}>{isoDay(check.date)}</time></>}</td>
+                        <td>{check.evidence ?? (check.result === 'not-run' ? 'Not run, so there is no evidence. This is not a pass.' : '')}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <h3>Failures and corrections</h3>
+              {recipe.verification.failures.length > 0 ? (
+                <ul>{recipe.verification.failures.map((failure) => <li><strong>Observed:</strong> {failure.observed} <strong>Correction:</strong> {failure.correction}</li>)}</ul>
+              ) : <p>No failures have been recorded{recipe.verification.checks.every((check) => check.result === 'not-run') ? ', because no check has been run' : ''}.</p>}
+            </>
+          )}
+        </section>
+
+        <section aria-labelledby="adaptation">
+          <h2 id="adaptation">{title('adaptation')}</h2>
+          {isUnavailable(recipe.adaptation) ? <RecipeUnavailable reason={recipe.adaptation.unavailable} /> : (
+            <ul>{recipe.adaptation.variations.map((variation) => <li><strong>{variation.change}</strong> {variation.effect}</li>)}</ul>
+          )}
+        </section>
+
+        <section aria-labelledby="randori">
+          <h2 id="randori">{title('randori')}</h2>
+          {isUnavailable(recipe.randori) ? <RecipeUnavailable reason={recipe.randori.unavailable} /> : (
+            <>
+              <p>{recipe.randori.challenge}</p>
+              <h3>Constraints</h3>
+              <ul>{recipe.randori.constraints.map((constraint) => <li>{constraint}</li>)}</ul>
+              <p><strong>How it is judged:</strong> {recipe.randori.evaluation}</p>
+            </>
+          )}
+          <p><a href="/katas/randori-challenges">More Randori challenges</a></p>
+        </section>
+
+        <section aria-labelledby="belt">
+          <h2 id="belt">{title('belt')}</h2>
+          <p>Belt stages are proposed practice stages, not issued credentials. Evidence below is what a reviewer would look for; it is not a record that anyone has shown it.</p>
+          <h3>Evidence a reviewer looks for</h3>
+          {metadata.verificationEvidence.length > 0 ? (
+            <ul>
+              {metadata.verificationEvidence.map((evidence) => (
+                <li>{evidence.description} <span class="method">({METHOD_LABELS[evidence.method]}{evidence.standards.length > 0 && `, against ${evidence.standards.join(', ')}`})</span></li>
+              ))}
+            </ul>
+          ) : <RecipeUnavailable reason="No verification evidence has been defined for this kata yet." />}
+          <h3>Belt criteria</h3>
+          {metadata.beltCriteria.length > 0 ? (
+            <ul>{metadata.beltCriteria.map((item) => <li><strong>{STAGE_LABELS[item.stage]}:</strong> {item.criterion}</li>)}</ul>
+          ) : <RecipeUnavailable reason="No belt criteria have been defined for this kata yet." />}
+          <p><a href="/belts">See the belt stages</a>{resolved.reviewedEvidence && <> · <a href="/belt-review">Prepare a practice review</a></>}</p>
+        </section>
+
+        <section aria-labelledby="connections">
+          <h2 id="connections">{title('connections')}</h2>
+          <dl class="pairs connections">
+            <div>
+              <dt>Foundations</dt>
+              <dd>{resolved.foundations.length > 0 ? <ul>{resolved.foundations.map((link) => <li><a href={link.href}>{link.title}</a>{link.status === 'fixture' && ' (fixture)'}</li>)}</ul> : metadata.layer === 'foundation' ? 'This is a foundation kata.' : 'None named.'}</dd>
+            </div>
+            <div>
+              <dt>Used by</dt>
+              <dd>{resolved.usedBy.length > 0 ? <ul>{resolved.usedBy.map((link) => <li><a href={link.href}>{link.title}</a>{link.status === 'fixture' && ' (fixture)'}</li>)}</ul> : 'No other kata names this one as a foundation yet.'}</dd>
+            </div>
+            <div>
+              <dt>Fields</dt>
+              <dd>{metadata.domainIds.length > 0 ? <ul>{metadata.domainIds.map(fieldLink).map((field) => <li>{field.href ? <a href={field.href}>{field.name}</a> : field.name}</li>)}</ul> : 'Shared by every field.'}</dd>
+            </div>
+            {metadata.crossFieldTransfers.length > 0 && (
+              <div>
+                <dt>Transfers to</dt>
+                <dd><ul>{metadata.crossFieldTransfers.map(fieldLink).map((field) => <li>{field.href ? <a href={field.href}>{field.name}</a> : field.name}</li>)}</ul></dd>
+              </div>
+            )}
+            {metadata.pathwayIds.length > 0 && (
+              <div>
+                <dt>Tracks</dt>
+                <dd><ul>{metadata.pathwayIds.map((id) => <li><a href={`/library/tracks/${id}`}>{trackTitles.get(id) ?? humanize(id)}</a></li>)}</ul></dd>
+              </div>
+            )}
+            <div>
+              <dt>Professional review</dt>
+              <dd>{metadata.professionalReviewRequired ? 'Required. Any real use of this outcome needs independent validation and any approval required from a qualified professional. Practice here does not grant a licence.' : 'Not required for practice. Real work in a regulated field still follows that field’s rules.'}</dd>
+            </div>
+          </dl>
+          {metadata.standards.length > 0 && (
+            <>
+              <h3>Standards in scope</h3>
+              <ul>
+                {metadata.standards.map((standard) => (
+                  <li><strong>{standard.name}, {standard.version}.</strong> Applies to: {standard.applicability}. Review scope: {standard.reviewScope}</li>
+                ))}
+              </ul>
+            </>
+          )}
+          {sources.length > 0 && (
+            <>
+              <h3>Sources</h3>
+              <ul class="sources">{sources.map((resource) => <li><ResourceCard resource={resource} compact /></li>)}</ul>
+            </>
+          )}
+        </section>
+
+        {recipe.downloads.length > 0 && (
+          <section aria-labelledby="downloads">
+            <h2 id="downloads">{title('downloads')}</h2>
+            <p>Plain text files. Read them before you use them; nothing runs when you download one.</p>
+            <ul>
+              {recipe.downloads.map((file) => (
+                <li><a href={`${href}/${file.filename}`} download={file.filename}>{file.filename}</a>: {file.description}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <section aria-labelledby="maintenance">
+          <h2 id="maintenance">{title('maintenance')}</h2>
+          <p><strong>Review cadence:</strong> {recipe.maintenance.cadence}</p>
+          <ul>{recipe.maintenance.caveats.map((caveat) => <li>{caveat}</li>)}</ul>
+        </section>
+
+        <p class="back"><a href="/katas/recipes">All kata recipes</a> · <a href="/katas">Back to katas</a></p>
+      </div>
+      <aside class="side" data-pagefind-ignore><TableOfContents headings={headings} variant="side" /></aside>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .lesson {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: start;
+  }
+  .side {
+    display: none;
+  }
+  @media (min-width: 70rem) {
+    .side {
+      display: block;
+      align-self: stretch;
+    }
+    .lesson {
+      grid-template-columns: minmax(0, 72ch) 16rem;
+      justify-content: center;
+    }
+  }
+  section {
+    margin-bottom: var(--space-6);
+    scroll-margin-top: calc(var(--header-h) + var(--space-4));
+  }
+  h2 {
+    scroll-margin-top: calc(var(--header-h) + var(--space-4));
+  }
+  h3 {
+    margin: var(--space-4) 0 var(--space-2);
+    font-size: var(--text-lg);
+  }
+  .status-banner {
+    margin-bottom: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    background: var(--paper-sunk);
+    border: 2px solid var(--rust-text);
+    border-radius: var(--radius);
+  }
+  .status-banner p {
+    margin: 0;
+  }
+  .identity,
+  .pairs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: var(--space-3);
+    margin: 0 0 var(--space-5);
+  }
+  .identity div,
+  .pairs div {
+    min-width: 0;
+    padding: var(--space-3);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  dt {
+    font-weight: 800;
+  }
+  dd {
+    margin: var(--space-1) 0 0;
+    overflow-wrap: anywhere;
+  }
+  dd ul {
+    margin: 0;
+    padding-left: var(--space-5);
+  }
+  .goal {
+    font-size: var(--text-lg);
+    font-weight: 600;
+  }
+  .due {
+    display: block;
+    color: var(--rust-text);
+  }
+  .table-wrap {
+    overflow-x: auto;
+    margin-bottom: var(--space-4);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+  th,
+  td {
+    padding: var(--space-2) var(--space-3);
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--line);
+  }
+  thead th {
+    font-weight: 800;
+  }
+  .result {
+    font-weight: 800;
+  }
+  .result.not-run {
+    text-decoration: underline dotted;
+  }
+  .cards {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .cards li {
+    padding: var(--space-3) var(--space-4);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .cards h3 {
+    margin-top: 0;
+  }
+  .cards p {
+    margin: 0 0 var(--space-2);
+  }
+  .steps li + li,
+  section > ul > li + li {
+    margin-top: var(--space-2);
+  }
+  .handoff {
+    display: block;
+    color: var(--ink-muted);
+  }
+  .method {
+    color: var(--ink-muted);
+  }
+  .sources {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .back {
+    margin-top: var(--space-5);
+  }
+  .back a,
+  section > p > a {
+    font-weight: 700;
+  }
+</style>

@@ -1,0 +1,56 @@
+# FIXTURE (#86): the shared foundation FIXFND-002 from tests/fixtures/kata-sectors.ts. Most sections are unavailable on purpose.
+status: fixture
+notice: This is a fixture. It shows how a foundation recipe page looks when most of its evidence does not exist yet.
+maintainer:
+  role: Kata template maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/86
+review:
+  unavailable: A fixture is never verified.
+summary: Run the same task twice, changing one part of the stack, and compare the outputs side by side.
+metadata:
+  id: FIXFND-002
+  title: Change one part of the stack and compare
+  layer: foundation
+  outcomeIds: [stack-comparison]
+  artifactTypes: [comparison-matrix]
+  capabilityIds: [compare-stacks]
+  stackRecipeIds: [assistant-and-browser, git-and-node]
+  professionalReviewRequired: false
+  verificationEvidence:
+    - description: Two runs that differ in one recorded variable, with outputs kept side by side
+      method: self-check
+  beltCriteria:
+    - stage: adapt
+      criterion: Names the changed variable and at least one confounder
+showcase:
+  unavailable: No learner has made this outcome yet.
+brief:
+  goal: A comparison of two runs that differ in exactly one recorded part of the stack.
+  audience: Anyone choosing between two tools, models or instructions.
+  inputs:
+    - name: A task you already know the answer to
+      source: The learner
+      terms: The learner's own work
+  doneWhen:
+    - Both runs and the one changed variable are recorded
+    - At least one confounder is named
+stack:
+  unavailable: No stack has been recorded for this fixture.
+agents:
+  unavailable: No agent roles have been recorded for this fixture.
+setup:
+  unavailable: No setup has been recorded for this fixture.
+exercise:
+  unavailable: No source exercise has been chosen for this fixture.
+execution:
+  unavailable: Nobody has run this fixture.
+verification:
+  unavailable: Nobody has run this fixture, so there are no checks to report.
+adaptation:
+  unavailable: No variations have been recorded for this fixture.
+randori:
+  unavailable: No unseen challenge has been written for this fixture.
+maintenance:
+  cadence: Not reviewed; fixtures change only with the template
+  caveats:
+    - This fixture exists to test the template. Do not treat it as checked guidance.

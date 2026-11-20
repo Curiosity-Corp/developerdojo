@@ -3,9 +3,10 @@ import { describe, expect, it } from 'vitest';
 import { KATA_DIRECTORY } from '../src/data/kata-directory';
 
 describe('kata directory', () => {
-  it('lists every existing kata route once so practice is not stranded', () => {
+  it('lists every hand-written kata route once so practice is not stranded', () => {
+    // Recipe pages ([recipe].astro) are listed on /katas/recipes, which /katas links to (#86).
     const routes = readdirSync('src/pages/katas')
-      .filter((file) => file.endsWith('.astro'))
+      .filter((file) => file.endsWith('.astro') && !file.startsWith('[') && file !== 'recipes.astro')
       .map((file) => `/katas/${file.slice(0, -'.astro'.length)}`)
       .sort();
     const listed = KATA_DIRECTORY.map((kata) => kata.href).sort();

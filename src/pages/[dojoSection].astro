@@ -4,12 +4,16 @@ import PageHero from '../components/PageHero.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import StackWorksheet from '../components/StackWorksheet.astro';
 import BeltJourney from '../components/BeltJourney.astro';
+import KataRecipeLinks from '../components/KataRecipeLinks.astro';
 import { dojoSections } from '../lib/dojo-sections';
+import { loadKataRecipes } from '../lib/kata-recipe-content';
 
 export function getStaticPaths() {
   return dojoSections.map((section) => ({ params: { dojoSection: section.slug }, props: { section } }));
 }
 const { section } = Astro.props;
+// Recipes that state belt criteria link here; /belts links back to them (#86).
+const beltRecipes = section.slug === 'belts' ? (await loadKataRecipes()).filter(({ recipe }) => recipe.metadata.beltCriteria.length > 0) : [];
 ---
 <BaseLayout title={section.title} description={section.description}>
   <PageHero compact eyebrow={section.eyebrow} title={section.title} subtitle={section.description} />
@@ -29,6 +33,13 @@ const { section } = Astro.props;
   </section>
   {section.slug === 'stack-lab' && <StackWorksheet />}
   {section.slug === 'belts' && <BeltJourney />}
+  {beltRecipes.length > 0 && (
+    <section class="section" aria-labelledby="belt-recipes">
+      <div class="container section-content">
+        <KataRecipeLinks id="belt-recipes" recipes={beltRecipes} title="Kata recipes with belt criteria" intro="Each recipe lists the evidence a reviewer would look for at each stage. Fixtures only show the template." />
+      </div>
+    </section>
+  )}
   <section class="section next">
     <div class="container section-content">
       <SectionHeader title={section.nextTitle} intro={section.next} />

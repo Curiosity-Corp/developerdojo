@@ -7,12 +7,18 @@
  * professional review took place.
  *
  * IDs use FIX* prefixes so they never take the planned FND-*, UX-* or other curriculum IDs, and every
- * href is /katas/fixture-*, a route that does not exist (tests/kata-sector-fixtures.test.ts checks).
+ * href is /katas/fixture-*. A few fixtures also have a recipe page there, labelled as a fixture and
+ * kept out of search (src/content/kata-recipes/fixture-*.yaml, #86); no fixture has a hand-written page.
  * docs/kata-taxonomy.md explains how to turn a record like these into a real kata.
+ *
+ * The fixture vocabulary lives in src/data/kata-fixtures.ts so the site can render those examples.
  */
 import type { KataCatalogEntryInput, KataReferences } from '../../src/lib/kata-catalog';
-import { kataDimensions } from '../../src/data/kata-catalog';
+import { fixtureDimensions, fixtureStackRecipes, newField } from '../../src/data/kata-fixtures';
+import { withFixtureVocabulary } from '../../src/lib/kata-recipes';
 import { fields } from '../../src/lib/fields';
+
+export { fixtureDimensions, fixtureStackRecipes, newField };
 
 type Metadata = KataCatalogEntryInput['metadata'];
 
@@ -21,57 +27,11 @@ function fixture(metadata: Metadata): KataCatalogEntryInput {
 }
 
 /**
- * Stack recipes the fixtures name. `candidate` marks an integration nobody has run for the Dojo: it
- * names a documented product interface and nothing more. `practice` marks a local or simulated setup
- * that existing Dojo material already teaches. Neither status is checked by the validator; the
- * fixture test only checks that every candidate is labelled as one.
- */
-export const fixtureStackRecipes = [
-  { id: 'browser-prototype', status: 'practice', note: 'HTML prototype in a browser' },
-  { id: 'penpot-design-file', status: 'practice', note: 'Penpot prototype file (penpot/prototyping)' },
-  { id: 'figma-mcp-candidate', status: 'candidate', note: 'Figma design context through an MCP server; not run for the Dojo' },
-  { id: 'ifcopenshell-python', status: 'practice', note: 'Python reading an IFC file, as /katas/inspect-ifc' },
-  { id: 'speckle-candidate', status: 'candidate', note: 'Speckle model exchange; not run for the Dojo' },
-  { id: 'opentrons-simulate', status: 'practice', note: 'opentrons_simulate on a protocol, as the lab-automation-in-code track' },
-  { id: 'elabftw-candidate', status: 'candidate', note: 'eLabFTW API for an electronic lab notebook; not run for the Dojo' },
-  { id: 'nextflow-local', status: 'practice', note: 'Nextflow pipeline on a laptop, as the bioinformatics track' },
-  { id: 'galaxy-candidate', status: 'candidate', note: 'Galaxy workflow on a public server; not run for the Dojo' },
-  { id: 'ros2-gazebo-sim', status: 'practice', note: 'ROS 2 with Gazebo in simulation, as the robot-software track' },
-  { id: 'moveit-sim', status: 'practice', note: 'MoveIt Task Constructor in simulation, as the robot-software track' },
-  { id: 'spreadsheet-and-assistant', status: 'practice', note: 'Spreadsheet plus an AI assistant, as /katas/data-rescue' },
-  { id: 'python-pandas', status: 'practice', note: 'Python and pandas in a notebook' },
-  { id: 'quickbooks-sandbox-candidate', status: 'candidate', note: 'QuickBooks Online sandbox through its OAuth API; not run for the Dojo' },
-] as const;
-
-/** A field added as reference data only: nothing in src/ changes for it. */
-export const newField = { id: 'maritime', name: 'Maritime and ports', examples: 'Vessel schedules, port calls, cargo records and berth planning.' };
-
-/** Fixture vocabulary, added the same way an editor extends kataDimensions in src/data/kata-catalog.ts. */
-export const fixtureDimensions = {
-  outcomes: ['acceptance-brief', 'stack-comparison', 'source-clearance', 'usable-onboarding', 'usability-evidence', 'quantity-takeoff',
-    'traceable-batch-record', 'variant-report', 'cell-cycle-evidence', 'field-data-report', 'reconciled-ledger', 'port-call-check'],
-  artifacts: ['acceptance-brief', 'comparison-matrix', 'provenance-record', 'interactive-prototype', 'usability-findings', 'quantity-schedule',
-    'batch-record', 'pipeline-report', 'simulation-log', 'cleaned-dataset', 'reconciliation-report', 'schedule-check'],
-  capabilities: ['define-acceptance', 'compare-stacks', 'check-provenance', 'test-usability', 'automate-protocol', 'build-pipeline',
-    'simulate-robot', 'reconcile-records'],
-  constraints: ['simulation-only', 'public-reference-data-only', 'keyboard-only'],
-} as const;
-
-/**
  * Reference data for validating the fixtures: the real registries the build uses, plus the new field
  * and the fixture vocabulary. Resource and pathway IDs come from the caller, read from the collections.
  */
 export function fixtureReferences(resources: readonly string[], pathways: readonly string[]): KataReferences {
-  return {
-    fields: [...fields.map((field) => field.id), newField.id],
-    resources,
-    pathways,
-    outcomes: [...kataDimensions.outcomes, ...fixtureDimensions.outcomes],
-    artifacts: [...kataDimensions.artifacts, ...fixtureDimensions.artifacts],
-    capabilities: [...kataDimensions.capabilities, ...fixtureDimensions.capabilities],
-    constraints: [...kataDimensions.constraints, ...fixtureDimensions.constraints],
-    stackRecipes: [...kataDimensions.stackRecipes, ...fixtureStackRecipes.map((recipe) => recipe.id)],
-  };
+  return withFixtureVocabulary({ fields: fields.map((field) => field.id), resources, pathways });
 }
 
 const WCAG_22 = {

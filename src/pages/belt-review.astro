@@ -1,6 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import KataRecipeLinks from '../components/KataRecipeLinks.astro';
+import { loadKataRecipes } from '../lib/kata-recipe-content';
+
+// Recipes whose evidence someone other than the learner checks link here; this page links back (#86).
+const reviewRecipes = (await loadKataRecipes()).filter((item) => item.reviewedEvidence);
 ---
 <BaseLayout title="Prepare a practice review" description="A learner-owned evidence packet for independent feedback and a changed-constraint challenge.">
   <PageHero compact eyebrow="Belts · evidence · Randori" title="Show the work. Test your judgment." subtitle="Bring a real artifact, explain your choices and practice adapting when the situation changes." ctas={[{ label: 'Get the review packet', href: '/examples/belt-review-packet.md', icon: 'arrow-right' }, { label: 'See the review steps', href: '#steps', variant: 'ghost', icon: 'arrow-right' }]} />
@@ -42,6 +47,11 @@ import PageHero from '../components/PageHero.astro';
     <p>Review notes, scores and learner work are private by default. Ask before sharing learner material with an AI service; a human reviewer reads the evidence and writes feedback. See the <a href="/library/sensei-privacy-and-conduct">Sensei privacy guide</a> and <a href="/library/sensei-run-a-30-minute-review">review guide</a>.</p>
     <p><a href="/katas/randori-challenges">Choose a Randori challenge</a> · <a href="/belts">Return to belt practice</a></p>
   </div></section>
+  {reviewRecipes.length > 0 && (
+    <section class="section outcome" aria-labelledby="review-recipes"><div class="container content">
+      <KataRecipeLinks id="review-recipes" recipes={reviewRecipes} title="Kata recipes with reviewed evidence" intro="These recipes name evidence a peer, Sensei or professional checks. Use the packet to prepare it. Fixtures only show the template." />
+    </div></section>
+  )}
 </BaseLayout>
 <style>
   .content { max-width: 75rem; }
