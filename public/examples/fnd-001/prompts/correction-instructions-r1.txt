@@ -1,0 +1,235 @@
+Here is a Pocket Garden HTML file you made earlier. An independent browser check found these problems:
+- pressed-state: aria-pressed planted=null, unplanted=null
+
+Fix only these problems and keep everything else the same. Return the complete corrected HTML in one code block, followed by one sentence saying what you changed. Do not claim you ran or tested anything unless you actually did.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pocket Garden</title>
+<style>
+  :root {
+    --bg: #f4f1e8;
+    --card: #ffffff;
+    --ink: #1d2a21;
+    --muted: #4b5a4f;
+    --green: #1f5130;
+    --green-soft: #e3efe5;
+    --sun: #7a4b00;
+    --sun-soft: #fff0c9;
+    --shade: #1f4a63;
+    --shade-soft: #dcecf5;
+    --focus: #0b57d0;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 16px 48px;
+  }
+
+  h1 { margin: 0 0 4px; font-size: 1.9rem; color: var(--green); }
+  .intro { margin: 0 0 20px; color: var(--muted); }
+
+  .notice {
+    margin: 0 0 20px;
+    padding: 10px 14px;
+    background: var(--green-soft);
+    border-left: 4px solid var(--green);
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 12px;
+    padding: 0;
+    border: 0;
+  }
+  .filters legend {
+    padding: 0;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+    min-height: 44px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 2px solid var(--green);
+    background: #fff;
+    color: var(--green);
+    font-weight: 600;
+    transition: background-color 0.12s, color 0.12s, transform 0.06s;
+  }
+  button:hover { background: var(--green-soft); }
+  button:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+  }
+  button:active { transform: translateY(1px) scale(0.98); }
+
+  .filters button[aria-pressed="true"] {
+    background: var(--green);
+    color: #fff;
+  }
+  .filters button[aria-pressed="true"]::before { content: "\2713\00a0"; }
+
+  .status {
+    margin: 0 0 16px;
+    color: var(--muted);
+    font-size: 0.95rem;
+    min-height: 1.5em;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--card);
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    padding: 18px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  }
+  .card[hidden] { display: none !important; }
+  .card[data-planted="true"] { border-color: var(--green); }
+
+  .card h2 { margin: 0; font-size: 1.3rem; }
+  .card p { margin: 0; color: var(--muted); }
+
+  .tag {
+    align-self: flex-start;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+  .tag.sun   { background: var(--sun-soft);   color: var(--sun); }
+  .tag.shade { background: var(--shade-soft); color: var(--shade); }
+
+  .plant-btn { margin-top: auto; width: 100%; }
+  .plant-btn[data-planted="true"] {
+    background: var(--green);
+    color: #fff;
+  }
+  .plant-btn[data-planted="true"]::before { content: "\2713\00a0"; }
+  .plant-btn[data-planted="true"]:hover { background: #17402a; }
+
+  @media (prefers-reduced-motion: reduce) {
+    button { transition: none; }
+    button:active { transform: none; }
+  }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Pocket Garden</h1>
+    <p class="intro">Pick what to plant, and filter by the light each plant prefers.</p>
+
+    <p class="notice"><strong>Note:</strong> your choices reset when you reload this page. Nothing is saved.</p>
+
+    <fieldset class="filters">
+      <legend>Filter plants</legend>
+      <button type="button" data-filter="all" aria-pressed="true">All plants</button>
+      <button type="button" data-filter="sun" aria-pressed="false">Loves sun</button>
+      <button type="button" data-filter="shade" aria-pressed="false">Likes shade</button>
+    </fieldset>
+
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+
+    <ul class="grid" id="grid">
+      <li class="card" data-light="sun" data-planted="false" data-name="Basil">
+        <h2>Basil</h2>
+        <span class="tag sun">Loves sun</span>
+        <p>A fragrant herb that grows best with plenty of warm, direct light.</p>
+        <button type="button" class="plant-btn" data-planted="false">Mark as planted</button>
+      </li>
+
+      <li class="card" data-light="sun" data-planted="false" data-name="Sunflower">
+        <h2>Sunflower</h2>
+        <span class="tag sun">Loves sun</span>
+        <p>A tall, cheerful flower that follows the light and needs full sun.</p>
+        <button type="button" class="plant-btn" data-planted="false">Mark as planted</button>
+      </li>
+
+      <li class="card" data-light="shade" data-planted="false" data-name="Mint">
+        <h2>Mint</h2>
+        <span class="tag shade">Likes shade</span>
+        <p>A hardy herb that stays lush in cooler, shadier spots.</p>
+        <button type="button" class="plant-btn" data-planted="false">Mark as planted</button>
+      </li>
+    </ul>
+  </main>
+
+<script>
+(function () {
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".card"));
+  var filterButtons = Array.prototype.slice.call(document.querySelectorAll("[data-filter]"));
+  var status = document.getElementById("status");
+
+  var filterNames = { all: "all plants", sun: "plants that love sun", shade: "plants that like shade" };
+
+  function applyFilter(filter) {
+    var shown = 0;
+    cards.forEach(function (card) {
+      var match = filter === "all" || card.dataset.light === filter;
+      card.hidden = !match;
+      if (match) shown++;
+    });
+    filterButtons.forEach(function (btn) {
+      btn.setAttribute("aria-pressed", String(btn.dataset.filter === filter));
+    });
+    status.textContent = "Showing " + shown + " of " + cards.length + " plants (" + filterNames[filter] + ").";
+  }
+
+  filterButtons.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      applyFilter(btn.dataset.filter);
+    });
+  });
+
+  cards.forEach(function (card) {
+    var btn = card.querySelector(".plant-btn");
+    btn.addEventListener("click", function () {
+      var planted = btn.dataset.planted !== "true";
+      btn.dataset.planted = String(planted);
+      card.dataset.planted = String(planted);
+      btn.textContent = planted ? "Planted" : "Mark as planted";
+      status.textContent = card.dataset.name + (planted ? " marked as planted." : " is no longer marked as planted.");
+    });
+  });
+
+  applyFilter("all");
+})();
+</script>
+</body>
+</html>
+```
