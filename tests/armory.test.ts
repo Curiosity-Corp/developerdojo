@@ -36,6 +36,8 @@ describe('armory registry: published records', () => {
     expect(real.entries.filter((entry) => entry.listed).map((entry) => entry.entry.id).sort())
       .toEqual(['claude-code', 'claude-haiku-5-5', 'claude-sonnet-5-5', 'git', 'ifcopenshell', 'mcp-filesystem', 'playwright-mcp']);
     for (const entry of real.entries) expect(entry.listed).toBe(entry.gaps.length === 0);
+    // e2e/armory-registry.spec.ts counts the rendered cards; keep both in step.
+    expect(real.entries.filter((entry) => !entry.listed)).toHaveLength(16);
   });
 
   it('keeps the anchors of the earlier registry so old links still land', () => {

@@ -4,7 +4,7 @@ test('the registry lists tested entries and keeps candidates apart', async ({ pa
   await page.goto('/armory/registry/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Choose your tools');
   await expect(page.locator('[data-registry-entry][data-listed="true"]')).toHaveCount(7);
-  await expect(page.locator('#candidates [data-registry-entry]')).toHaveCount(14);
+  await expect(page.locator('#candidates [data-registry-entry]')).toHaveCount(16);
   const filter = page.getByLabel('Show a type');
   await filter.selectOption('mcp');
   await expect(page.locator('[data-registry-status]')).toHaveText('2 listed and 2 not listed yet shown.');
@@ -45,7 +45,7 @@ test.describe('without JavaScript', () => {
   test('every entry and its details remain available', async ({ page }) => {
     await page.goto('/armory/registry/');
     await expect(page.getByLabel('Show a type')).toBeHidden();
-    await expect(page.locator('[data-registry-entry]')).toHaveCount(21);
+    await expect(page.locator('[data-registry-entry]')).toHaveCount(23);
     const card = page.locator('#scan-to-threejs');
     await card.getByText('What is known and what is missing').click();
     await expect(card.locator('[data-security-review]')).toContainText('api.polyhaven.com');
