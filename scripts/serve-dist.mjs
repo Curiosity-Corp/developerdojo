@@ -21,6 +21,10 @@ const TYPES = {
   '.woff2': 'font/woff2',
   '.xml': 'application/xml',
   '.txt': 'text/plain; charset=utf-8',
+  // Plain-text downloads (examples, kata recipe config files, #86), typed as static hosts serve them.
+  '.md': 'text/markdown; charset=utf-8',
+  '.yaml': 'text/yaml; charset=utf-8',
+  '.toml': 'text/plain; charset=utf-8',
 };
 
 async function resolveFile(urlPath) {
