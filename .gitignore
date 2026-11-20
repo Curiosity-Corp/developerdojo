@@ -4,6 +4,7 @@ dist/
 .npm/
 test-results/
 playwright-report/
+production-e2e/
 .DS_Store
 *.log
 .env
