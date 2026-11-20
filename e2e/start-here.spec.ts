@@ -17,8 +17,8 @@ test('Start here shows the two layers, the honest journey, the path and the term
   await page.goto('/start');
   // Validation evidence for the MR: a full-page capture per project (desktop 1440, phone 390) in the HTML report.
   await testInfo.attach('start-' + testInfo.project.name, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' });
-  await expect(page.getByRole('heading', { name: 'Universal foundation' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Field expertise' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Universal foundation', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Field expertise', exact: true })).toBeVisible();
   const steps = page.locator('.journey > li');
   await expect(steps).toHaveCount(5);
   for (let i = 0; i < 5; i += 1) {

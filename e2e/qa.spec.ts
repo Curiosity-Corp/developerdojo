@@ -61,13 +61,19 @@ test.describe('routes', () => {
         );
         expect(overflow, 'horizontal overflow in px').toBeLessThanOrEqual(0);
         expect(errors).toEqual([]);
-        // Every image on the page decoded (no broken art).
+        // Every image on the page decoded (no broken art). A jump to the bottom only starts the lazy images near
+        // the bottom: a lazy image in the middle of a long page stays unrequested, so img.complete never turns true
+        // and the wait below hung once the home page grew taller on a phone (#79). Ask every rendered lazy image
+        // to load now, so the check covers all of them.
         await page.evaluate(async () => {
+          for (const img of document.images) {
+            if (img.loading === 'lazy' && img.getClientRects().length > 0) img.loading = 'eager';
+          }
           window.scrollTo(0, document.body.scrollHeight);
           await new Promise((r) => setTimeout(r, 150));
         });
-        // Lazy images start loading after the scroll; wait until each rendered one has finished (loaded or
-        // broken). A lazy image inside a hidden element (the other theme's logo) never loads, so skip those.
+        // Wait until each rendered image has finished (loaded or broken). An image inside a hidden element (the
+        // other theme's logo) never loads, so skip those.
         await page.waitForFunction(() =>
           [...document.images].filter((img) => img.getClientRects().length > 0).every((img) => img.complete),
         );
