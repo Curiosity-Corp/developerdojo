@@ -65,8 +65,8 @@ test('a learner moves from a finished artifact to its recipe page', async ({ pag
 
 test('outcome and field filters compose and never hide the shared foundation', async ({ page }) => {
   await page.goto(GALLERY);
-  const outcome = page.getByLabel('Outcome');
-  const field = page.getByLabel('Field');
+  const outcome = page.getByLabel('Outcome', { exact: true });
+  const field = page.getByLabel('Field', { exact: true });
   const status = page.locator('[data-gallery-status]');
   const empty = page.locator('[data-gallery-empty]');
 
@@ -101,7 +101,8 @@ test('outcome and field filters compose and never hide the shared foundation', a
 
 test('a filtered link restores its filters', async ({ page }) => {
   await page.goto(`${GALLERY}?outcome=inspect-3d&field=3d`);
-  await expect(page.getByLabel('Outcome')).toHaveValue('inspect-3d');
+  await expect(page.getByLabel('Outcome', { exact: true })).toHaveValue('inspect-3d');
+  await expect(page.getByLabel('Field', { exact: true })).toHaveValue('3d');
   expect(await visibleIds(page)).toEqual(['reconstructed-3d-office']);
 });
 
