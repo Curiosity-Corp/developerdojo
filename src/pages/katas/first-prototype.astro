@@ -1,4 +1,5 @@
 ---
+import { pocketGardenFrameDoc } from '../../data/pocket-garden';
 import QuickKata from '../../components/QuickKata.astro';
 import KataPreview from '../../components/KataPreview.astro';
 import ContrastCheck from '../../components/ContrastCheck.astro';
@@ -28,7 +29,7 @@ Return the entire HTML in one code block so I can copy it. Then give me four sho
 >
   <div slot="outcome" class="example">
     <p>Try this mini garden: filter the plants and mark one as planted.</p>
-    <iframe title="Working Pocket Garden example" src="/examples/pocket-garden.html" loading="lazy" sandbox="allow-scripts"></iframe>
+    <iframe title="Working Pocket Garden example" srcdoc={pocketGardenFrameDoc} loading="lazy" sandbox="allow-scripts"></iframe>
   </div>
   <KataPreview slot="preview" />
   <div slot="verify">

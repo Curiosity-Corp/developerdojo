@@ -1,4 +1,5 @@
 ---
+import { pocketGardenFrameDoc } from '../data/pocket-garden';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHeader from '../components/SectionHeader.astro';
@@ -61,7 +62,7 @@ const pathways = [
         {KATA_DIRECTORY.map((kata) => (
           <article class:list={['starter-card', { 'idea-card': kata.artwork === 'idea' }]} data-kata data-category={kata.category} data-keywords={kata.keywords}>
             <div class="starter-copy"><span>{kata.eyebrow}</span><h3>{kata.title}</h3><p>{kata.description}</p><a href={kata.href}>{kata.action} <Icon name="arrow-right" size={16} /></a></div>
-            {kata.artwork === 'prototype' && <div class="starter-demo"><iframe src="/examples/pocket-garden.html" title="Pocket Garden working prototype example" loading="lazy" sandbox="allow-scripts"></iframe></div>}
+            {kata.artwork === 'prototype' && <div class="starter-demo"><iframe srcdoc={pocketGardenFrameDoc} title="Pocket Garden working prototype example" loading="lazy" sandbox="allow-scripts"></iframe></div>}
             {kata.artwork === 'idea' && <img src="/images/kata-spark.webp" width="1672" height="941" alt="" loading="lazy" />}
           </article>
         ))}
