@@ -1,0 +1,116 @@
+# Arena record (#89). Format and rules: docs/arena-evidence.md.
+# Every measured number on the page is computed from /examples/fnd-001-harness at build time; none is typed here.
+# The prose claims about what each harness sent are checked against the run files in tests/arena-records.test.ts.
+id: ARN-003
+title: "Pocket Garden prototype: the same model and prompt in two harnesses"
+question: On one small prototype task, what changes when only the harness changes, with the same model, effort, prompt, endpoint and no tools?
+kind: dojo-experiment
+date: 2026-11-21
+kataId: FND-001
+domain:
+  fieldId: software
+  outcome: A working single-file web prototype (Pocket Garden) built from a fixed brief.
+  measure: Fourteen functional, accessibility and honesty checks made by an independent browser checker that never reads the assistant's own checklist.
+review:
+  lastChecked: 2026-11-21
+  staleAfter: 2027-02-21
+task:
+  summary: Build Pocket Garden, a one-file page with three plant cards, sun and shade filters, and a "Mark as planted" toggle that resets on reload, from a fixed brief. The same brief as the FND-001 baseline (prompt A).
+  inputs:
+    - name: Prompt A, the task brief (byte for byte the FND-001 prompt A)
+      href: /examples/fnd-001-harness/prompts/A.txt
+    - name: The Qwen Code settings file used for every Qwen Code run (model, endpoint and placeholder key are filled in per run)
+      href: /examples/fnd-001-harness/qwen-settings.json
+    - name: The Dojo's reference page, which passes every check (a target, not a result)
+      href: /examples/pocket-garden.html
+rubric:
+  name: Pocket Garden checks
+  checks:
+    - { id: single-html-block, checks: "The response holds exactly one complete HTML code block." }
+    - { id: no-external-requests, checks: "No request leaves the page at load, and the file has no network code or remote asset." }
+    - { id: three-cards, checks: "Basil, Sunflower and Mint are visible on load." }
+    - { id: sun-filter, checks: '"Loves sun" shows Basil and Sunflower only.' }
+    - { id: shade-filter, checks: '"Likes shade" shows Mint only.' }
+    - { id: all-filter, checks: '"All plants" shows all three again.' }
+    - { id: toggle-both-ways, checks: 'A "Mark as planted" button becomes "Planted" and switches back.' }
+    - { id: pressed-state, checks: "The plant button exposes its state to assistive technology (aria-pressed true, then false)." }
+    - { id: reload-resets, checks: 'After a reload, all three buttons say "Mark as planted" again.' }
+    - { id: reset-note, checks: "The page tells the user that choices reset on reload." }
+    - { id: visible-keyboard-focus, checks: "The first button reached with Tab has a visible outline or focus shadow." }
+    - { id: no-horizontal-scroll-390, checks: "At a 390 px wide viewport the page does not scroll sideways." }
+    - { id: axe-serious, checks: "axe finds no serious or critical WCAG A/AA rule violation." }
+    - { id: no-test-claim, checks: 'The prose outside the code does not claim the assistant ran or tested the file (a heuristic; read the matches).' }
+method:
+  design: Two arms, three repetitions each. Repetition r of both arms started at the same moment. Each run was a new harness process with a new, empty home folder and working folder, so no sign-in, settings, memory or history was visible to it. Both harnesses sent their requests through one local recording relay to the same Anthropic-compatible endpoint (OpenRouter) with the same account, the serving provider pinned to Amazon Bedrock and no fallback. The relay held the key, recorded what each harness sent (model, effort, thinking mode, output limit, system prompt size and hash, tool names, prompt hash) and what came back (served model, token usage, billed cost). Time is the wall-clock time of the harness process, measured the same way for both arms. Every saved response was checked by the same browser checker as ARN-001; a run that failed a check got one correction round in a fresh process of the same harness, checked again.
+  repetitions: 3
+  reproduce:
+    - Install Claude Code from its official quickstart and Qwen Code from its repository, and record both versions. The recorded runs used Claude Code 2.1.330 and Qwen Code 0.28.0; a different version is a different stack.
+    - Create an OpenRouter API key and pin the serving provider for Claude Sonnet 5.5 (provider routing), so both harnesses reach the same provider. Give the key to the harnesses only through their documented environment variables.
+    - 'Claude Code, in a new empty folder with a new empty home and configuration folder: set ANTHROPIC_BASE_URL to the OpenRouter Anthropic endpoint and ANTHROPIC_AUTH_TOKEN to your key, then run claude -p --model anthropic/claude-sonnet-5.5 --effort high --setting-sources "" --strict-mcp-config --tools "" --no-session-persistence --output-format json < A.txt'
+    - 'Qwen Code, in a new empty folder with a new empty home: copy qwen-settings.json to .qwen/settings.json in that home and fill in the model and endpoint, set ANTHROPIC_BASE_URL and ANTHROPIC_API_KEY, then run qwen --safe-mode --chat-recording false --exclude-tools <every built-in tool&gt; --output-format json < A.txt. Check its first output line: the tool list must be empty.'
+    - Start repetition r of both arms together, three repetitions each. Save each answer, extract the one HTML code block and check it against every check below in a browser at desktop width and at 390 px, including an axe scan for WCAG A and AA.
+    - Compare your record with the published run files and results.json. Models are sampled and change, so a different number is a new observation, not a failed reproduction.
+evidence:
+  dir: /examples/fnd-001-harness
+arms:
+  - id: claude-code
+    label: Claude Code (print mode)
+    stack:
+      - { part: harness, name: Claude Code in print mode, version: 2.1.330 }
+      - { part: model, name: "Claude Sonnet 5.5 at high effort, through OpenRouter, served by Amazon Bedrock", version: anthropic/claude-sonnet-5.5 }
+      - { part: instructions, name: Prompt A (task brief), version: /examples/fnd-001-harness/prompts/A.txt }
+      - { part: context, name: "Empty home and working folder; no settings files, memory, project instructions or saved session", version: none loaded }
+      - { part: tool, name: No built-in tools and no MCP servers, version: none granted }
+    permissions: &no-tools No tools, so no file, shell or network access for the model; the relay recorded an empty tool list on every request. The process environment was cleared except the new home folder, the command path, the endpoint and a placeholder key.
+    runs: [claude-code-r1, claude-code-r2, claude-code-r3]
+  - id: qwen-code
+    label: Qwen Code (non-interactive)
+    stack:
+      - { part: harness, name: "Qwen Code in non-interactive mode, Anthropic API auth type", version: 0.28.0 }
+      - { part: model, name: "Claude Sonnet 5.5 at high effort, through OpenRouter, served by Amazon Bedrock", version: anthropic/claude-sonnet-5.5 }
+      - { part: instructions, name: Prompt A (task brief), version: /examples/fnd-001-harness/prompts/A.txt }
+      - { part: context, name: "Empty home and working folder; no settings files, memory, project instructions or saved session", version: none loaded }
+      - { part: tool, name: No built-in tools and no MCP servers, version: none granted }
+    permissions: *no-tools
+    runs: [qwen-code-r1, qwen-code-r2, qwen-code-r3]
+comparisons:
+  - status: measured
+    variable: harness
+    control: claude-code
+    variant: qwen-code
+    change: Qwen Code 0.28.0 instead of Claude Code 2.1.330 as the program that wraps the prompt, sends it to the model and returns the answer.
+    heldConstant:
+      - "Model and effort: every request asked for anthropic/claude-sonnet-5.5 with adaptive thinking and effort high"
+      - "Endpoint, account and serving provider (OpenRouter, pinned to Amazon Bedrock, no fallback)"
+      - "Prompt A, byte for byte"
+      - "No tools and no MCP servers on any request"
+      - "A new empty home and working folder per run"
+      - "Start time of each repetition"
+    confounders:
+      - "Each harness adds its own hidden system prompt. Qwen Code's was more than twice as long as Claude Code's and was the same in every run; Claude Code's changed from run to run."
+      - "Both harnesses add environment details (date or working folder, operating system, shell). Claude Code sent prompt A unchanged as the first message and added its details as a separate system turn; Qwen Code put its details in a block in front of prompt A, in the same message."
+      - "The harnesses asked for different output limits and different thinking display settings, and Claude Code sent more beta feature flags. These belong to the harness, so they are part of what changed."
+      - "Prompt caching: Qwen Code's unchanged system prompt was read from the provider's cache on every run, including the first, which followed a short setup check minutes earlier; Claude Code wrote its changed system prompt to the cache each time. That lowers Qwen Code's billed cost and is a harness behaviour, not a price difference."
+      - "Sampling: the same prompt gives different files on each run, and three runs per arm cannot detect a small effect."
+    reading: "Both harnesses produced pages that the checker passed on most checks. The failures were the pressed-state check in both arms, plus one colour-contrast failure in one Claude Code run; after one correction round every corrected run in both arms passed every check. Two of three against one of three first-attempt runs passing every check is within run-to-run variation. Billed cost was lower for Qwen Code in each of the three paired repetitions, which the request records attribute mainly to prompt caching. This is what happened on one small task with these versions on one date; it does not show that either harness gives better pages."
+limitations:
+  - Three runs per arm, one task, one date and one version of each harness.
+  - "The model was reached through OpenRouter and served by Amazon Bedrock, not through Anthropic's own endpoint as in ARN-001, and with an API key instead of a subscription sign-in, so neither arm is directly comparable with ARN-001's numbers."
+  - Costs are what OpenRouter billed for each request (reported with the response), the same basis in both arms. Claude Code's own cost estimate is kept in each run file as harnessReportedCostUsd; Qwen Code does not report a cost.
+  - "Time is the wall-clock time of the whole harness process, including start-up, so it is not the model's generation time. Each harness's own reported duration is kept in the run files."
+  - "Qwen Code was run in safe mode with every built-in tool excluded. Without safe mode it made a second, background request that carried tools, so its default behaviour is not what was measured."
+  - The relay records each request's system prompt and first message only as a length and a SHA-256 hash, not as text, so the hidden prompts are described, not published.
+  - The checker tests only the fourteen listed behaviours. The accessibility checks are not a WCAG conformance claim for any page; the no-test-claim check is a text heuristic.
+scope: What happened on this one small prototype task, with this rubric, these two harness versions and this endpoint, on 2026-11-21. It is not a ranking of harnesses, and it says nothing about tasks that use tools, files or more than one turn, where harnesses differ most.
+sources:
+  - { title: Checker results for the reference and every run, href: /examples/fnd-001-harness/results.json, kind: evidence-file }
+  - { title: Prompt A (task brief), href: /examples/fnd-001-harness/prompts/A.txt, kind: evidence-file }
+  - { title: Qwen Code settings used for every Qwen Code run, href: /examples/fnd-001-harness/qwen-settings.json, kind: evidence-file }
+  - { title: "The FND-001 instructions and model comparison (ARN-001)", href: /arena/evidence/fnd-001-pocket-garden, kind: exercise }
+  - { title: The practice kata this task comes from, href: /katas/first-prototype, kind: exercise }
+  - { title: Run Claude Code programmatically (print mode and flags), href: 'https://code.claude.com/docs/en/headless', kind: documentation }
+  - { title: Claude Code with an LLM gateway (ANTHROPIC_BASE_URL and ANTHROPIC_AUTH_TOKEN), href: 'https://code.claude.com/docs/en/llm-gateway', kind: documentation }
+  - { title: Qwen Code source and documentation, href: 'https://github.com/QwenLM/qwen-code', kind: documentation }
+  - { title: OpenRouter provider selection (pinning the serving provider), href: 'https://openrouter.ai/docs/guides/routing/provider-selection', kind: documentation }
+  - { title: OpenRouter usage accounting (billed cost reported with each response), href: 'https://openrouter.ai/docs/cookbook/administration/usage-accounting', kind: documentation }
+  - { title: Prompt caching, href: 'https://platform.claude.com/docs/en/build-with-claude/prompt-caching', kind: documentation }

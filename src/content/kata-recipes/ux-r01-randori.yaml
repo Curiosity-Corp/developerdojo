@@ -1,0 +1,175 @@
+# UX pathway (M9): a draft recipe. The worked example, its Penpot file and its checks are on /katas/ux-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given; not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: UX pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/91
+review:
+  unavailable: Built and checked by the Dojo maintainers; no independent review yet.
+summary: "An unseen-constraint UX Randori: map, wire and check a small flow you have not seen, and adapt when a partner reveals one constraint after you start."
+metadata:
+  id: UX-R01
+  title: "UX Randori: an unseen flow with a hidden constraint"
+  layer: specialization
+  professionalReviewRequired: false
+  outcomeIds:
+    - map-user-flow
+    - connect-wireframes
+    - implement-and-qa-screens
+  artifactTypes:
+    - sitemap
+    - wireframe-set
+    - qa-report
+  domainIds:
+    - ux
+  capabilityIds:
+    - map-flows
+    - design-interaction
+    - test-accessibility
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - penpot-and-browser
+    - assistant-and-browser
+  pathwayIds:
+    - personas-and-journeys
+    - brand-website-and-mockups
+  constraintIds:
+    - fictional-data
+    - no-personal-data
+    - no-paid-tools
+  externalResources:
+    - gov-uk/moderated-usability-testing
+  verificationEvidence:
+    - description: A partner who did not see the work walks the sitemap and the prototype and records where they stopped
+      method: peer-review
+    - description: The learner records what the hidden constraint changed, with the before and after
+      method: self-check
+  beltCriteria:
+    - stage: demonstrate
+      criterion: Delivers a sitemap and a wired low-fidelity prototype for the unseen flow that meet the hidden constraint, with a partner walk that finds no dead end
+  standards: []
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: Pocket Invoice as an editable Penpot file, a token file and a working, accessible page."
+  href: /katas/ux-pathway
+  provenance:
+    creator: Developer Dojo maintainers
+    source: Generated from the Pocket Invoice flow and tokens with Penpot’s official library
+    license: MIT
+    date: "2026-11-20"
+brief:
+  goal: In one session, map and wire a flow you have not seen, then adapt it to one constraint a partner reveals after you start.
+  audience: Learners who have done UX-001 to UX-004.
+  inputs:
+    - name: An unseen brief and a sealed constraint
+      source: Chosen by your partner from the list in the download
+      terms: Dojo content, MIT licence
+    - name: Moderated usability testing
+      source: gov-uk/moderated-usability-testing
+      terms: Open Government Licence v3.0 unless it says otherwise
+  doneWhen:
+    - The sitemap has no unreachable state and no dead end
+    - The prototype reaches every transition
+    - The hidden constraint is met, and you can say what it changed
+    - "The partner walk is written up: where they went, where they stopped"
+stack:
+  components:
+    - part: tool
+      name: Penpot (self-hosted or penpot.app)
+      version: 2.18 (the example file was checked on a self-hosted 2.18.7)
+      permissions: Edit one practice project of your own
+      cost: "Penpot Professional plan: $0, up to 8 members and 10 GB, no file limits (penpot.app/pricing, checked 2026-11-20). Self-hosting is free under MPL-2.0; you pay for your own server."
+    - part: harness
+      name: Any chat assistant in a browser
+      version:
+        unavailable: Not fixed; any assistant can draft the text, and its version changes the wording, not the checks
+      permissions: Reads only what you paste into it; it never touches the design file
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+    - part: instructions
+      name: The prompts on this page
+      version: Draft, 2026-11-20
+      permissions: None
+      cost: None
+    - part: data
+      name: Pocket Invoice, an invented invoicing app
+      version: "Flow spec of 2026-11-20: 11 states, 19 transitions"
+      permissions: Fictional; no real company, person or customer
+      cost: None
+  rationale: Penpot is open source, runs in a browser, can be self-hosted and has a free plan with no file limits, so every learner can open the same editable file. The assistant only drafts text you check; the design work and the checks stay with you.
+  alternatives:
+    - name: Figma
+      tradeoff: Widely used. The free Starter plan allows unlimited drafts but is limited elsewhere (for example 20 MCP tool calls a month); Professional seats cost $3 to $16 a month and there is no self-hosting (figma.com/pricing, checked 2026-11-20). The example file is Penpot-only and has not been tried in Figma.
+      tested: false
+    - name: Penpot MCP server with an agent
+      tradeoff: "Lets an agent edit the open page directly, but uses a personal key with no permission scopes. Not run for this pathway: no native write by an agent was verified."
+      tested: false
+agents:
+  unavailable: A Randori is done without an assistant, so the learner shows their own judgement.
+setup:
+  steps:
+    - Your partner picks one brief and one constraint from the download and keeps the constraint hidden.
+    - Open an empty Penpot project.
+  auth: Your own Penpot account.
+  smokeTest:
+    action: Your partner reads the brief aloud.
+    expected: You can name the user, the job and the first screen.
+    result: not-run
+exercise:
+  title: Moderated usability testing (GOV.UK Service Manual)
+  resourceId: gov-uk/moderated-usability-testing
+  terms: Read on the publisher’s site. GOV.UK guidance is published under the Open Government Licence v3.0 unless it says otherwise.
+execution:
+  steps:
+    - actor: Partner
+      action: Reads the brief aloud and keeps the constraint hidden.
+    - actor: Learner
+      action: Maps the sitemap, with errors and the way back.
+      handoff: The partner reveals the constraint.
+    - actor: Learner
+      action: Changes the sitemap and draws low-fidelity screens that meet the constraint, then wires them.
+    - actor: Partner
+      action: Walks the prototype without help, as in a moderated test, and notes where they stopped.
+verification:
+  checks:
+    - action: Partner walk of the prototype
+      expected: No dead end; the constraint is met
+      result: not-run
+adaptation:
+  variations:
+    - change: Two constraints instead of one.
+      effect: "Harder: they may conflict, and you must say which one wins and why."
+randori:
+  challenge: Map and wire an unseen flow, then adapt it to a constraint your partner reveals only after your first sitemap.
+  constraints:
+    - The constraint is unseen until the first sitemap is drawn
+    - Fictional data only
+    - Every error state has a way back
+    - No assistant during the session
+  evaluation: "The partner walks the prototype without help. Pass: no dead end, the constraint is met, and the learner can say what the constraint changed."
+maintenance:
+  cadence: Every six months, or when Penpot changes its file format or token import
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers, and no learner has run it yet."
+    - Penpot plans, versions and features change; check penpot.app/pricing and help.penpot.app before you rely on a limit.
+    - The example file was checked on a self-hosted Penpot 2.18.7. Penpot cloud (penpot.app) was not checked.
+downloads:
+  - filename: randori-cards.md
+    description: Briefs and hidden constraints for the partner. The learner should not read it first.
+    content: |
+      # UX Randori cards (for the partner)
+
+      Pick one brief and one constraint. Read the brief aloud. Keep the constraint until the learner has drawn a first sitemap.
+
+      ## Briefs
+      1. A library app: a member reserves a book, is told when it is ready, and can cancel.
+      2. A tool-lending shelf for neighbours: borrow a drill, return it, report it broken.
+      3. A class trip form: a parent gives permission, pays, and can change their answer.
+
+      ## Hidden constraints
+      - Every screen must work with a keyboard only, and the order of focus must match the order of reading.
+      - The user may lose their connection at any step; nothing they typed may be lost.
+      - Half the users read English as a second language; no screen may have more than one action.
+      - The user must be able to undo the last action for 30 seconds.
+      - A second person (a parent, a manager) must approve before the action takes effect.

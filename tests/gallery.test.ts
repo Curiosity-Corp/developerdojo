@@ -25,7 +25,7 @@ const handWritten = readdirSync('src/pages/katas').filter((file) => file.endsWit
 const recipeFiles = readdirSync('src/content/kata-recipes').filter((file) => file.endsWith('.yaml'));
 const recipes = resolveRecipes(
   recipeFiles.map((file) => ({ slug: file.slice(0, -5), data: parseYaml(readFileSync(join('src/content/kata-recipes', file), 'utf8')) as unknown })),
-  { registries: { fields: fieldIds, resources, pathways }, catalog: kataCatalog, reservedSlugs: handWritten, today: '2026-11-20' },
+  { registries: { fields: fieldIds, resources, pathways }, catalog: kataCatalog, reservedSlugs: handWritten, today: '2026-11-21' },
 );
 const catalog = validateKataCatalog(kataCatalog, { fields: fieldIds, resources, pathways, ...kataDimensions });
 
@@ -33,7 +33,7 @@ const context: GalleryContext = {
   katas: galleryKatas(catalog, recipes, [kataMetadataSchema.parse(fnd001Metadata)]),
   fields,
   outcomes: Object.entries(galleryOutcomeLabels).map(([id, label]) => ({ id, label })),
-  today: '2026-11-20',
+  today: '2026-11-21',
 };
 
 const clone = (): GalleryEntryInput[] => structuredClone(galleryEntries);

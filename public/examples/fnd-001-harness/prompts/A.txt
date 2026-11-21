@@ -1,0 +1,5 @@
+You are my prototype developer. Create one complete, responsive HTML file called Pocket Garden, with CSS and JavaScript inside the file. Do not use external libraries, images, fonts, network requests or a server. Do not read or change files or run commands for this task.
+
+Show three plant cards: Basil and Sunflower like sun; Mint likes shade. Provide filters for All plants, Loves sun and Likes shade. Each card has a button that toggles between “Mark as planted” and “Planted”. Buttons need clear labels, visible keyboard focus and pressed states. Say that choices reset on reload.
+
+Return the complete HTML in one code block, followed by a short checklist. Do not claim you ran or tested anything unless you actually did.

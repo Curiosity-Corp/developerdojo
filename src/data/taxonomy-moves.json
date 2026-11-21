@@ -1,0 +1,21 @@
+{
+  "moves": [
+    {
+      "kind": "kata-route",
+      "from": "/katas/fixture-fixfnd-001",
+      "to": "/katas/fixture-foundation-define-outcome",
+      "issue": 82,
+      "date": "2026-11-21",
+      "reason": "Worked migration: the fixture foundation family takes descriptive route slugs. The kata ID FIXFND-001 is unchanged."
+    },
+    {
+      "kind": "kata-route",
+      "from": "/katas/fixture-fixfnd-002",
+      "to": "/katas/fixture-foundation-compare-stack",
+      "issue": 82,
+      "date": "2026-11-21",
+      "reason": "Worked migration: the fixture foundation family takes descriptive route slugs. The kata ID FIXFND-002 is unchanged."
+    }
+  ],
+  "retired": []
+}

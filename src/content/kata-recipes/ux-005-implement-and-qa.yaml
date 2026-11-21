@@ -1,0 +1,189 @@
+# UX pathway (M9): a draft recipe. The worked example, its Penpot file and its checks are on /katas/ux-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given; not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: UX pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/91
+review:
+  unavailable: Built and checked by the Dojo maintainers; no independent review yet.
+summary: Build the screens as a working web page from the same flow and tokens, then prove keyboard use, screen reader structure, contrast and reflow with automated checks.
+metadata:
+  id: UX-005
+  title: Implement the screens and check accessibility
+  layer: specialization
+  professionalReviewRequired: false
+  outcomeIds:
+    - implement-and-qa-screens
+  artifactTypes:
+    - prototype
+    - qa-report
+  domainIds:
+    - ux
+  capabilityIds:
+    - test-accessibility
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - penpot-and-browser
+    - assistant-and-browser
+  pathwayIds:
+    - personas-and-journeys
+    - brand-website-and-mockups
+  constraintIds:
+    - fictional-data
+    - no-personal-data
+    - no-paid-tools
+  externalResources:
+    - w3c/wcag-quickref
+    - gov-uk/error-summary
+    - gov-uk/making-service-accessible
+  standards:
+    - name: Web Content Accessibility Guidelines (WCAG)
+      version: "2.2"
+      applicability: The practice screens and the Pocket Invoice example only
+      reviewScope: "What the listed checks test: axe rules tagged WCAG A and AA, keyboard focus, reflow at 320 px, and text and control contrast computed from the tokens. No conformance claim for any product."
+      sourceResourceId: w3c/wcag-quickref
+  verificationEvidence:
+    - description: axe checks for WCAG A and AA in every state, light and dark, plus reflow at 320 px and keyboard and dialog focus, run in the site pipeline
+      method: automated-check
+      standards:
+        - Web Content Accessibility Guidelines (WCAG)
+    - description: A keyboard-only pass from sign-up to a sent invoice and through every error
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Uses the Pocket Invoice example with a keyboard only and reaches every state
+    - stage: adapt
+      criterion: Changes one token and shows the page and the design changing together
+    - stage: demonstrate
+      criterion: Implements the Randori screens and attaches a QA report with no serious or critical failure
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: Pocket Invoice as an editable Penpot file, a token file and a working, accessible page."
+  href: /katas/ux-pathway
+  provenance:
+    creator: Developer Dojo maintainers
+    source: Generated from the Pocket Invoice flow and tokens with Penpot’s official library
+    license: MIT
+    date: "2026-11-20"
+brief:
+  goal: A working, accessible web page for every Pocket Invoice state, built from the same flow and tokens as the Penpot file, with a QA report.
+  audience: Learners who can write some HTML, CSS and JavaScript, or who work with an agent that can.
+  inputs:
+    - name: Pocket Invoice example page
+      source: /examples/pocket-invoice/
+      terms: Dojo content, MIT licence
+    - name: Error summary pattern
+      source: gov-uk/error-summary
+      terms: Open Government Licence v3.0; pattern credited, no text or code copied
+    - name: WCAG 2.2 quick reference
+      source: w3c/wcag-quickref
+      terms: Read on the publisher’s site under its terms
+  doneWhen:
+    - Every state in the sitemap can be reached in the page with a keyboard only
+    - "Errors use an error summary that takes focus and links to each field, and the page title starts with Error:"
+    - The dialog traps focus, closes with Escape and returns focus to the button that opened it
+    - axe finds no serious or critical WCAG A or AA issue in any state, and the page reflows at 320 px without sideways scrolling
+stack:
+  components:
+    - part: tool
+      name: Penpot (self-hosted or penpot.app)
+      version: 2.18 (the example file was checked on a self-hosted 2.18.7)
+      permissions: Read the example file; no write needed for this step
+      cost: "Penpot Professional plan: $0, up to 8 members and 10 GB, no file limits (penpot.app/pricing, checked 2026-11-20). Self-hosting is free under MPL-2.0; you pay for your own server."
+    - part: harness
+      name: Any chat assistant in a browser
+      version:
+        unavailable: Not fixed; any assistant can draft the text, and its version changes the wording, not the checks
+      permissions: Reads only what you paste into it; it never touches the design file
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+    - part: instructions
+      name: The prompts on this page
+      version: Draft, 2026-11-20
+      permissions: None
+      cost: None
+    - part: data
+      name: Pocket Invoice, an invented invoicing app
+      version: "Flow spec of 2026-11-20: 11 states, 19 transitions"
+      permissions: Fictional; no real company, person or customer
+      cost: None
+  rationale: Penpot is open source, runs in a browser, can be self-hosted and has a free plan with no file limits, so every learner can open the same editable file. The assistant only drafts text you check; the design work and the checks stay with you.
+  alternatives:
+    - name: Figma
+      tradeoff: Widely used. The free Starter plan allows unlimited drafts but is limited elsewhere (for example 20 MCP tool calls a month); Professional seats cost $3 to $16 a month and there is no self-hosting (figma.com/pricing, checked 2026-11-20). The example file is Penpot-only and has not been tried in Figma.
+      tested: false
+    - name: Penpot MCP server with an agent
+      tradeoff: "Lets an agent edit the open page directly, but uses a personal key with no permission scopes. Not run for this pathway: no native write by an agent was verified."
+      tested: false
+agents:
+  roles:
+    - role: Drafting assistant
+      responsibility: Writes the page from the flow and tokens, one state at a time.
+      reviewGate: You compare every line with the flow and the done-when list before it goes into Penpot.
+    - role: Reviewer
+      responsibility: Runs the automated checks and a keyboard pass, and lists failures by state.
+      dependsOn:
+        - Drafting assistant
+      reviewGate: A finding counts only when the reviewer can point to the board, layer or line it is about.
+setup:
+  steps:
+    - Open the Pocket Invoice example page in a browser.
+    - Open the downloaded token file next to it.
+  auth: None.
+  smokeTest:
+    action: Press Tab from the address bar and submit the empty sign-up form with Enter.
+    expected: Focus moves to the error summary, which links to both fields.
+    result: passed
+    evidence: /examples/ux-pathway/qa-report.md (row signup-error, both projects)
+    date: "2026-11-20"
+prompts:
+  - id: implement-state
+    title: Implement one state
+    purpose: Builds the page a state at a time, so each can be checked.
+    text: |-
+      Build the state below as accessible HTML with CSS custom properties from my token file.
+      Use real labels, one h2 per state, native buttons and a native <dialog> for confirmations.
+      For errors: put an error summary above the heading, move focus to it, link each item to its field, add aria-invalid to the field and prefix the page title with "Error: ".
+      State:
+      <paste one state from your sitemap>
+exercise:
+  title: Error summary (GOV.UK Design System)
+  resourceId: gov-uk/error-summary
+  terms: Read on the publisher’s site. GOV.UK Design System guidance is published under the Open Government Licence v3.0 unless it says otherwise; the Dojo credits the pattern and copies no text or code.
+execution:
+  steps:
+    - actor: Drafting assistant
+      action: Implement each state with the prompt.
+      handoff: You run each state with a keyboard before the next.
+    - actor: Reviewer
+      action: Run axe in every state, in light and dark mode, and check reflow at 320 px.
+      handoff: You fix each finding and run the checks again.
+verification:
+  checks:
+    - action: "Run the site’s browser checks on the example page: every state, axe in light and dark, reflow at 320 px, keyboard and dialog focus"
+      expected: No serious or critical WCAG A or AA issue in any state; no sideways scroll; focus lands as described
+      result: passed
+      evidence: /examples/ux-pathway/qa-report.md (11 of 11 states, desktop and mobile)
+      date: "2026-11-20"
+    - action: Keyboard-only pass of your own page
+      expected: Every state reachable; focus always visible
+      result: not-run
+adaptation:
+  variations:
+    - change: Implement the screens in a framework (for example React or Svelte).
+      effect: Keep the same states and focus rules; move focus after each state change yourself, because the browser will not.
+    - change: Send the invoice to a real email service.
+      effect: "Out of scope for practice: it needs real personal data and a privacy review. Keep the fictional .invalid rule."
+randori:
+  challenge: See the UX Randori recipe.
+  constraints:
+    - No serious or critical axe issue
+  evaluation: The QA report shows every state checked.
+maintenance:
+  cadence: Every six months, or when Penpot changes its file format or token import
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers, and no learner has run it yet."
+    - Penpot plans, versions and features change; check penpot.app/pricing and help.penpot.app before you rely on a limit.
+    - The example file was checked on a self-hosted Penpot 2.18.7. Penpot cloud (penpot.app) was not checked.

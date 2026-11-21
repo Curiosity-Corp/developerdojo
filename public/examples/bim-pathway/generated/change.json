@@ -1,0 +1,28 @@
+{
+  "edit": {
+    "element": 45,
+    "property": "FireRating",
+    "pset": "Pset_WallCommon",
+    "value": "REI 60"
+  },
+  "globalIdsAdded": 0,
+  "globalIdsInOriginal": 24,
+  "globalIdsKept": 24,
+  "propertyChanges": [
+    {
+      "GlobalId": "3ZYW59sxj8lei475l7EhLU",
+      "after": {
+        "empty": false,
+        "type": "IfcLabel",
+        "value": "REI 60"
+      },
+      "before": {
+        "empty": true,
+        "type": "IfcLabel",
+        "value": ""
+      },
+      "element": "#45",
+      "property": "Pset_WallCommon.FireRating"
+    }
+  ]
+}

@@ -94,6 +94,13 @@ No internal hostnames or infrastructure details on public pages. Reward amounts 
 Pages serves at https://developerdojo.org. Protected CI variables: `GITHUB_APP_ID`,
 `GITHUB_APP_INSTALLATION_ID`, `GITHUB_APP_PRIVATE_KEY_B64`.
 
+A green `publish_github_pages` job means the build is live, not only pushed: the job waits until
+https://developerdojo.org/build.json reports its commit and pipeline (`scripts/wait-for-live-build.mjs`,
+up to 20 minutes). When it times out, open the "Deploy static site to GitHub Pages" run for that
+`gh-pages` commit on GitHub, use **Re-run failed jobs** (it re-runs only the `deploy` job, on the
+artifact the `upload` job made), then retry the GitLab job. `curl https://developerdojo.org/build.json`
+shows which build is live at any time.
+
 ### Checking the live site
 
 Public traffic goes Cloudflare (proxied, edge certificate `CN=developerdojo.org`) to GitHub Pages. Two
@@ -112,8 +119,9 @@ things mislead a check from a fleet machine:
 
 - **GitHub's Pages settings say `source: master`; that is expected.** The repository uses
   `build_type: workflow`, so the branch setting is ignored and `pages.yml` on `gh-pages` deploys. The
-  real health signals are the latest `publish_github_pages` job on GitLab and the "Deploy static site to
-  GitHub Pages" run on GitHub (`gh api repos/Curiosity-Corp/developerdojo/actions/runs`).
+  real health signals are `/build.json` on the live site, the latest `publish_github_pages` job on
+  GitLab and the "Deploy static site to GitHub Pages" run on GitHub
+  (`gh api repos/Curiosity-Corp/developerdojo/actions/runs`).
 
 ### Production e2e
 

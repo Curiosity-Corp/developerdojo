@@ -1,0 +1,9 @@
+title: "Design tokens"
+provider: "Penpot"
+url: "https://help.penpot.app/user-guide/design-systems/design-tokens/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [brand-web-design, creative-media]
+summary: "Penpot's guide to design tokens: named values for colour, type, spacing and more, grouped in sets and themes, and imported or exported as JSON in the W3C Design Tokens Community Group draft format. Importing a token file replaces the file's existing global token set."
+verifiedOn: 2026-11-20

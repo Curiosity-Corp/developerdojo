@@ -22,8 +22,20 @@ export { fixtureDimensions, fixtureStackRecipes, newField };
 
 type Metadata = KataCatalogEntryInput['metadata'];
 
+/**
+ * Route slugs of the shared foundation family. They were fixture-fixfnd-00N until the worked migration in
+ * #82 renamed the family's routes (src/data/taxonomy-moves.json): the kata IDs stayed, the old routes
+ * redirect, and tests/kata-taxonomy-migration.test.ts proves it. Every other fixture keeps its ID as slug.
+ */
+export const FOUNDATION_FIXTURE_SLUGS: Readonly<Record<string, string>> = {
+  'FIXFND-001': 'foundation-define-outcome',
+  'FIXFND-002': 'foundation-compare-stack',
+  'FIXFND-003': 'foundation-check-sources',
+};
+
 function fixture(metadata: Metadata): KataCatalogEntryInput {
-  return { href: `/katas/fixture-${metadata.id.toLowerCase()}`, linkLabel: `${metadata.title} (fixture)`, metadata };
+  const slug = FOUNDATION_FIXTURE_SLUGS[metadata.id] ?? metadata.id.toLowerCase();
+  return { href: `/katas/fixture-${slug}`, linkLabel: `${metadata.title} (fixture)`, metadata };
 }
 
 /**

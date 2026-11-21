@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pocket Garden</title>
+<style>
+  :root {
+    --bg: #f3f7ef;
+    --card: #ffffff;
+    --text: #1f2d1f;
+    --muted: #4d5f4d;
+    --green: #2f6b3a;
+    --green-dark: #1f4a28;
+    --border: #c9d8c5;
+    --focus: #0b57d0;
+    --sun: #b45f06;
+    --shade: #1d5a74;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 16px 48px;
+  }
+  h1 { margin: 0 0 4px; font-size: 2rem; }
+  .intro { margin: 0 0 8px; color: var(--muted); }
+  .note {
+    display: inline-block;
+    margin: 0 0 20px;
+    padding: 6px 12px;
+    background: #fff8e1;
+    border: 1px solid #e6d28a;
+    border-radius: 8px;
+    font-size: 0.95rem;
+  }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+    border: 0;
+    padding: 0;
+  }
+  .filters legend {
+    font-weight: 600;
+    margin-bottom: 8px;
+    padding: 0;
+  }
+  button {
+    font: inherit;
+    cursor: pointer;
+    min-height: 44px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 2px solid var(--green);
+    background: #fff;
+    color: var(--green-dark);
+    font-weight: 600;
+  }
+  button:hover { background: #e8f2e6; }
+  button:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+  }
+  button:active { transform: translateY(1px); }
+  .filters button[aria-pressed="true"] {
+    background: var(--green);
+    color: #fff;
+  }
+  .status {
+    margin: 12px 0 16px;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .card[hidden] { display: none; }
+  .card.planted { border-color: var(--green); box-shadow: 0 0 0 2px #cfe5cc; }
+  .card h2 { margin: 0; font-size: 1.3rem; }
+  .emoji { font-size: 2rem; line-height: 1; }
+  .tag {
+    align-self: flex-start;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+  }
+  .tag.sun { background: var(--sun); }
+  .tag.shade { background: var(--shade); }
+  .card p { margin: 0; color: var(--muted); }
+  .plant-btn { margin-top: auto; border-radius: 10px; width: 100%; }
+  .plant-btn[aria-pressed="true"] {
+    background: var(--green);
+    color: #fff;
+  }
+  .plant-btn[aria-pressed="true"]:hover { background: var(--green-dark); }
+  .plant-btn[aria-pressed="true"]::before { content: "\2713\00a0"; }
+  @media (prefers-reduced-motion: reduce) {
+    button:active { transform: none; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>Pocket Garden</h1>
+  <p class="intro">Pick plants for your garden and mark the ones you've planted.</p>
+  <p class="note">Your choices reset when you reload the page.</p>
+
+  <fieldset class="filters" id="filters">
+    <legend>Filter plants</legend>
+    <button type="button" data-filter="all" aria-pressed="true">All plants</button>
+    <button type="button" data-filter="sun" aria-pressed="false">Loves sun</button>
+    <button type="button" data-filter="shade" aria-pressed="false">Likes shade</button>
+  </fieldset>
+
+  <p class="status" id="status" role="status" aria-live="polite"></p>
+
+  <section class="grid" aria-label="Plants">
+    <article class="card" data-light="sun">
+      <span class="emoji" aria-hidden="true">🌿</span>
+      <h2>Basil</h2>
+      <span class="tag sun">Loves sun</span>
+      <p>A fragrant herb that thrives in warm, bright spots.</p>
+      <button type="button" class="plant-btn" aria-pressed="false" data-name="Basil">Mark as planted</button>
+    </article>
+
+    <article class="card" data-light="sun">
+      <span class="emoji" aria-hidden="true">🌻</span>
+      <h2>Sunflower</h2>
+      <span class="tag sun">Loves sun</span>
+      <p>A tall, cheerful bloom that follows full sunlight.</p>
+      <button type="button" class="plant-btn" aria-pressed="false" data-name="Sunflower">Mark as planted</button>
+    </article>
+
+    <article class="card" data-light="shade">
+      <span class="emoji" aria-hidden="true">🍃</span>
+      <h2>Mint</h2>
+      <span class="tag shade">Likes shade</span>
+      <p>A hardy, refreshing herb that is happy in cooler, shadier corners.</p>
+      <button type="button" class="plant-btn" aria-pressed="false" data-name="Mint">Mark as planted</button>
+    </article>
+  </section>
+</main>
+
+<script>
+  (function () {
+    var filterButtons = document.querySelectorAll("#filters button");
+    var cards = document.querySelectorAll(".card");
+    var status = document.getElementById("status");
+    var filterNames = { all: "All plants", sun: "Loves sun", shade: "Likes shade" };
+
+    function applyFilter(filter) {
+      var shown = 0;
+      cards.forEach(function (card) {
+        var match = filter === "all" || card.dataset.light === filter;
+        card.hidden = !match;
+        if (match) shown++;
+      });
+      filterButtons.forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.dataset.filter === filter));
+      });
+      status.textContent = "Showing " + shown + " of " + cards.length +
+        " plants (" + filterNames[filter] + ").";
+    }
+
+    filterButtons.forEach(function (b) {
+      b.addEventListener("click", function () { applyFilter(b.dataset.filter); });
+    });
+
+    document.querySelectorAll(".plant-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var planted = btn.getAttribute("aria-pressed") !== "true";
+        btn.setAttribute("aria-pressed", String(planted));
+        btn.textContent = planted ? "Planted" : "Mark as planted";
+        btn.closest(".card").classList.toggle("planted", planted);
+      });
+    });
+
+    applyFilter("all");
+  })();
+</script>
+</body>
+</html>

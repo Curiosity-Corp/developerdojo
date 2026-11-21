@@ -255,12 +255,14 @@ export function resolveArenaRecords(files: readonly ArenaRecordFile[], context: 
     ids.set(record.id, slug);
   }
 
+  // Record pages come from a dynamic route, so a link to another record is served when that record exists.
+  const recordPages = new Set(parsed.map(({ slug }) => `/arena/evidence/${slug}`));
   const resolved: ResolvedArenaRecord[] = [];
   for (const { slug, record } of parsed) {
     const where = `${slug}.yaml`;
     if (!context.fields.includes(record.domain.fieldId)) problems.push(`${where}: domain.fieldId ${record.domain.fieldId} is not a field`);
     const paths = [...record.sources.map((source) => source.href), ...record.task.inputs.flatMap((input) => input.href ?? [])].filter((href) => href.startsWith('/'));
-    for (const path of paths) if (!context.exists(path)) problems.push(`${where}: ${path} is not served by the site`);
+    for (const path of paths) if (!context.exists(path) && !recordPages.has(path.replace(/[#?].*$/, '').replace(/\/$/, ''))) problems.push(`${where}: ${path} is not served by the site`);
     if (record.supersedes) {
       const older = parsed.find((item) => item.record.id === record.supersedes);
       if (!older) problems.push(`${where}: supersedes ${record.supersedes}, which does not exist`);

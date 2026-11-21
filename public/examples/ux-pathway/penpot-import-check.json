@@ -1,0 +1,100 @@
+{
+  "checkedOn": "2026-11-20",
+  "penpotVersion": "2.18.7",
+  "file": "pocket-invoice.penpot",
+  "fileSha256": "5a235ad0d849abeb7a8d250219450bbf6cfa7e53b7fd479330aabd865c57818e",
+  "method": "Imported with the import-binfile API into a local, self-hosted Penpot; each page opened in the workspace; the prototypes clicked through in View mode with Playwright (Chromium).",
+  "notChecked": [
+    "Writing to Penpot through a plugin or the MCP server: the file is generated offline with @penpot/library and imported.",
+    "Penpot cloud (design.penpot.app): only a self-hosted instance was used.",
+    "Editing by a person: the check opens, lays out and clicks the file; it does not edit it.",
+    "Export to other formats (SVG, PDF, PNG) from Penpot."
+  ],
+  "checks": [
+    {
+      "name": "import",
+      "pass": true,
+      "detail": "imported as a new file"
+    },
+    {
+      "name": "pages",
+      "pass": true,
+      "detail": "01 Sitemap and flow | 02 Low fidelity (390 px) | 03 Tokens and components | 04 High fidelity (390 px and 1280 px)"
+    },
+    {
+      "name": "boards-02",
+      "pass": true,
+      "detail": "11 state boards"
+    },
+    {
+      "name": "interactions-02",
+      "pass": true,
+      "detail": "19 interactions cover all 19 transitions"
+    },
+    {
+      "name": "flow-02",
+      "pass": true,
+      "detail": "Low fidelity: send the first invoice starts at signup: Create your workspace"
+    },
+    {
+      "name": "boards-04",
+      "pass": true,
+      "detail": "11 state boards"
+    },
+    {
+      "name": "interactions-04",
+      "pass": true,
+      "detail": "19 interactions cover all 19 transitions"
+    },
+    {
+      "name": "flow-04",
+      "pass": true,
+      "detail": "High fidelity: send the first invoice starts at signup: Create your workspace"
+    },
+    {
+      "name": "components",
+      "pass": true,
+      "detail": "Button / Link, Button / Primary, Button / Secondary, Content / Summary list, Feedback / Dialog, Feedback / Error summary, Field / Default, Field / Error"
+    },
+    {
+      "name": "library-colours",
+      "pass": true,
+      "detail": "16 colours"
+    },
+    {
+      "name": "library-typographies",
+      "pass": true,
+      "detail": "5 type styles"
+    },
+    {
+      "name": "tokens",
+      "pass": true,
+      "detail": "sets core, semantic; 54 of 54 tokens; themes Mode/Light"
+    },
+    {
+      "name": "text-layout-02",
+      "pass": true,
+      "detail": "92 of 94 text layers laid out and saved after opening the page in the workspace"
+    },
+    {
+      "name": "text-layout-04",
+      "pass": true,
+      "detail": "133 of 136 text layers laid out and saved after opening the page in the workspace"
+    },
+    {
+      "name": "prototype-walk-02",
+      "pass": true,
+      "detail": "22 clicks in View mode, every transition reached: sign-in > signup > signup-error > invoices-empty > invoice-new > discard-dialog > invoice-new > discard-dialog > invoices-empty > invoice-new > invoice-new-error > discard-dialog > invoice-new-error > invoice-review > invoice-new > invoice-review > send-error > invoice-new > invoice-review > invoice-sent > invoices-list > invoice-new"
+    },
+    {
+      "name": "prototype-walk-04",
+      "pass": true,
+      "detail": "22 clicks in View mode, every transition reached: sign-in > signup > signup-error > invoices-empty > invoice-new > discard-dialog > invoice-new > discard-dialog > invoices-empty > invoice-new > invoice-new-error > discard-dialog > invoice-new-error > invoice-review > invoice-new > invoice-review > send-error > invoice-new > invoice-review > invoice-sent > invoices-list > invoice-new"
+    },
+    {
+      "name": "no-page-errors",
+      "pass": true,
+      "detail": "no uncaught errors in the Penpot UI"
+    }
+  ]
+}

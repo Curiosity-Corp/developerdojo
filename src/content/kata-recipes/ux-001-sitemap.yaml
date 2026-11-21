@@ -1,0 +1,203 @@
+# UX pathway (M9): a draft recipe. The worked example, its Penpot file and its checks are on /katas/ux-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given; not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: UX pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/91
+review:
+  unavailable: Built and checked by the Dojo maintainers; no independent review yet.
+summary: Map every screen and state of a small SaaS flow, including errors, empty states, a dialog and the way back, before you draw a single screen.
+metadata:
+  id: UX-001
+  title: Map a sitemap with branches and error states
+  layer: specialization
+  professionalReviewRequired: false
+  outcomeIds:
+    - map-user-flow
+  artifactTypes:
+    - sitemap
+  domainIds:
+    - ux
+  capabilityIds:
+    - map-flows
+    - design-interaction
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - penpot-and-browser
+    - assistant-and-browser
+  pathwayIds:
+    - personas-and-journeys
+    - brand-website-and-mockups
+  constraintIds:
+    - fictional-data
+    - no-personal-data
+    - no-paid-tools
+  externalResources:
+    - penpot/prototyping
+    - gov-uk/making-prototypes
+  verificationEvidence:
+    - description: Every state is reachable from the start and every error state has a way back, checked against the flow table
+      method: self-check
+    - description: A partner walks the sitemap from the start and names any state they cannot reach or leave
+      method: peer-review
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces the Pocket Invoice sitemap and finds all 11 states and 19 transitions in the example file
+    - stage: adapt
+      criterion: Adds one new state (for example, a failed sign-in) with its way in and its way out
+    - stage: demonstrate
+      criterion: Maps an unseen flow in the UX Randori with no unreachable or dead-end state
+  standards: []
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: Pocket Invoice as an editable Penpot file, a token file and a working, accessible page."
+  href: /katas/ux-pathway
+  provenance:
+    creator: Developer Dojo maintainers
+    source: Generated from the Pocket Invoice flow and tokens with Penpot’s official library
+    license: MIT
+    date: "2026-11-20"
+brief:
+  goal: A sitemap of Pocket Invoice that shows every screen state, every way between them, and how a user recovers from each error.
+  audience: Anyone starting UX work, including people who have never drawn a sitemap.
+  inputs:
+    - name: Pocket Invoice flow (11 states, 19 transitions)
+      source: The UX pathway page and page 01 of pocket-invoice.penpot
+      terms: Dojo content, MIT licence
+    - name: Prototyping in Penpot
+      source: penpot/prototyping
+      terms: Read on the publisher’s site under its terms
+  doneWhen:
+    - Every state has at least one way in, and only the start state has none from outside
+    - Every error state has a way back to a state the user can complete
+    - Empty, error, success and dialog states are drawn, not only the happy path
+    - Each arrow is numbered and listed with what causes it
+stack:
+  components:
+    - part: tool
+      name: Penpot (self-hosted or penpot.app)
+      version: 2.18 (the example file was checked on a self-hosted 2.18.7)
+      permissions: Edit one practice project of your own
+      cost: "Penpot Professional plan: $0, up to 8 members and 10 GB, no file limits (penpot.app/pricing, checked 2026-11-20). Self-hosting is free under MPL-2.0; you pay for your own server."
+    - part: harness
+      name: Any chat assistant in a browser
+      version:
+        unavailable: Not fixed; any assistant can draft the text, and its version changes the wording, not the checks
+      permissions: Reads only what you paste into it; it never touches the design file
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+    - part: instructions
+      name: The prompts on this page
+      version: Draft, 2026-11-20
+      permissions: None
+      cost: None
+    - part: data
+      name: Pocket Invoice, an invented invoicing app
+      version: "Flow spec of 2026-11-20: 11 states, 19 transitions"
+      permissions: Fictional; no real company, person or customer
+      cost: None
+  rationale: Penpot is open source, runs in a browser, can be self-hosted and has a free plan with no file limits, so every learner can open the same editable file. The assistant only drafts text you check; the design work and the checks stay with you.
+  alternatives:
+    - name: Figma
+      tradeoff: Widely used. The free Starter plan allows unlimited drafts but is limited elsewhere (for example 20 MCP tool calls a month); Professional seats cost $3 to $16 a month and there is no self-hosting (figma.com/pricing, checked 2026-11-20). The example file is Penpot-only and has not been tried in Figma.
+      tested: false
+    - name: Penpot MCP server with an agent
+      tradeoff: "Lets an agent edit the open page directly, but uses a personal key with no permission scopes. Not run for this pathway: no native write by an agent was verified."
+      tested: false
+agents:
+  roles:
+    - role: Drafting assistant
+      responsibility: Lists states and transitions for the flow you describe, and flags any state with no way in or out.
+      reviewGate: You compare every line with the flow and the done-when list before it goes into Penpot.
+    - role: Reviewer
+      responsibility: Walks the finished sitemap from the start state and lists unreachable states and dead ends.
+      dependsOn:
+        - Drafting assistant
+      reviewGate: A finding counts only when the reviewer can point to the board, layer or line it is about.
+setup:
+  steps:
+    - "Open Penpot in a browser: sign up at penpot.app, or use your own self-hosted instance."
+    - Download pocket-invoice.penpot from the UX pathway page and import it (Projects, then Import .penpot).
+    - Open each of the four pages once in the workspace before you use View mode, so Penpot lays out the text.
+  auth: Your own Penpot account. The chat assistant needs no access to Penpot.
+  smokeTest:
+    action: Open page 01 Sitemap and flow in the imported file.
+    expected: One board shows 11 state boxes, numbered arrows and a legend of 19 transitions.
+    result: passed
+    evidence: /examples/ux-pathway/penpot-import-check.json (checks import, pages, text-layout-02 and text-layout-04)
+    date: "2026-11-20"
+prompts:
+  - id: list-states
+    title: List the states
+    purpose: Gets a first list of states and transitions you can check against the brief.
+    text: |-
+      I am mapping a small invoicing app for freelancers. A user signs up, sees an empty list of invoices, writes an invoice, checks it, sends it and sees it in the list.
+      1. List every screen state, including empty states, form errors, a failed send and a confirmation dialog.
+      2. For each state, list how a user gets in and how they get out.
+      3. Mark any state with no way in or no way out.
+      Use no real company, person or customer data.
+  - id: walk-sitemap
+    title: Walk the sitemap
+    purpose: Has an assistant check your finished table for gaps.
+    text: |-
+      Here is my sitemap as a table of transitions: from state, to state, cause.
+      Starting from the first state, list any state that cannot be reached, any state a user cannot leave, and any error state with no way back.
+      Do not invent states that are not in my table.
+exercise:
+  title: Making prototypes (GOV.UK Service Manual)
+  resourceId: gov-uk/making-prototypes
+  terms: Read on the publisher’s site. GOV.UK guidance is published under the Open Government Licence v3.0 unless it says otherwise.
+execution:
+  steps:
+    - actor: Learner
+      action: Read the brief and open page 01 of the example file.
+      handoff: Describe your own flow to the drafting assistant.
+    - actor: Drafting assistant
+      action: List states and transitions with the first prompt.
+      handoff: You check the list and draw the sitemap.
+    - actor: Learner
+      action: "Draw the sitemap in Penpot: one box per state, one numbered arrow per transition, error paths dashed."
+      handoff: The table of transitions goes to the reviewer.
+    - actor: Reviewer
+      action: Walk the sitemap with the second prompt and list gaps.
+      handoff: You fix each gap and note what changed.
+verification:
+  checks:
+    - action: Every state in the example sitemap is reachable from the start, and every error has a way back
+      expected: 11 states, 19 transitions, no unreachable state and no dead end
+      result: passed
+      evidence: /examples/ux-pathway/penpot-import-check.json (prototype-walk-02 reaches every transition from the start board)
+      date: "2026-11-20"
+    - action: Your own sitemap passes the same walk
+      expected: No unreachable state and no dead end
+      result: not-run
+adaptation:
+  variations:
+    - change: The product becomes a school trip permission form for parents.
+      effect: The flow needs a state for a second parent, and errors must be written for people reading on a phone in a hurry.
+    - change: Users must be able to save and come back later.
+      effect: Add a saved-draft state with its own way in from the list, and decide what happens to an expired draft.
+randori:
+  challenge: "See the UX Randori recipe: map an unseen flow with a constraint you learn only after you start."
+  constraints:
+    - Fictional data only
+    - Every error state has a way back
+  evaluation: A partner walks your sitemap and finds no unreachable state or dead end.
+maintenance:
+  cadence: Every six months, or when Penpot changes its file format or token import
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers, and no learner has run it yet."
+    - Penpot plans, versions and features change; check penpot.app/pricing and help.penpot.app before you rely on a limit.
+    - The example file was checked on a self-hosted Penpot 2.18.7. Penpot cloud (penpot.app) was not checked.
+downloads:
+  - filename: sitemap-checklist.md
+    description: The sitemap checks as a list you can tick off.
+    content: |
+      # Sitemap checks
+
+      - [ ] Every state has a way in (except the start)
+      - [ ] Every state has a way out
+      - [ ] Every error state leads back to a state the user can complete
+      - [ ] Empty, error, success and dialog states are drawn
+      - [ ] Every arrow is numbered and listed with its cause

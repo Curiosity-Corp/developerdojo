@@ -203,6 +203,8 @@ and how much time it needs.
 
 Start with the [Sensei contribution worksheets](https://developerdojo.org/sensei/contribute) to record the learner outcome, sources, permissions, what actually ran, verification and open questions. In the GitLab issue form, maintainers can choose the **Kata_improvement** or **Benchmark_correction** template. Follow the same branch, merge-request and CI workflow as other changes. Record a real reviewer and outcome only after the review happens; do not treat a completed form as an approval or a credential.
 
+To add or rename a field, kata family, relationship or kata route, follow [docs/kata-taxonomy.md](docs/kata-taxonomy.md). A published identifier never disappears: a rename is a move in `src/data/taxonomy-moves.json` (a moved kata page redirects), and `npm run taxonomy:lock` records new identifiers. The `test` and `build` jobs fail and say what to do when one is missing.
+
 Do not put learner names, private work, credentials or other restricted material in an issue or public merge request. Keep mentoring feedback in an agreed private location. In a safety-critical or regulated field, identify any qualified review and approvals needed for the intended use.
 
 ## Reading the pipeline

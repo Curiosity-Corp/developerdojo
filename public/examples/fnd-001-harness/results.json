@@ -1,0 +1,631 @@
+{
+  "checker": "scripts/fnd-001/check-pocket-garden.mjs",
+  "checks": [
+    "single-html-block",
+    "no-external-requests",
+    "three-cards",
+    "sun-filter",
+    "shade-filter",
+    "all-filter",
+    "toggle-both-ways",
+    "pressed-state",
+    "reload-resets",
+    "reset-note",
+    "visible-keyboard-focus",
+    "no-horizontal-scroll-390",
+    "axe-serious",
+    "no-test-claim"
+  ],
+  "results": {
+    "reference": {
+      "source": "examples/pocket-garden.html",
+      "checks": {
+        "single-html-block": {
+          "pass": true,
+          "detail": "reference file, not a model response"
+        },
+        "no-external-requests": {
+          "pass": true,
+          "detail": "no request at load and no network code in the file"
+        },
+        "three-cards": {
+          "pass": true,
+          "detail": "visible on load: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "sun-filter": {
+          "pass": true,
+          "detail": "visible after /loves sun/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":false}"
+        },
+        "shade-filter": {
+          "pass": true,
+          "detail": "visible after /likes shade/i: {\"Basil\":false,\"Sunflower\":false,\"Mint\":true}"
+        },
+        "all-filter": {
+          "pass": true,
+          "detail": "visible after /all plants/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "toggle-both-ways": {
+          "pass": true,
+          "detail": "after one click {\"mark\":2,\"planted\":1}, after two {\"mark\":3,\"planted\":0}"
+        },
+        "pressed-state": {
+          "pass": true,
+          "detail": "aria-pressed planted=true, unplanted=false"
+        },
+        "reload-resets": {
+          "pass": true,
+          "detail": "3 of 3 \"Mark as planted\" buttons after reload"
+        },
+        "reset-note": {
+          "pass": true,
+          "detail": "\"reset when you reload\""
+        },
+        "visible-keyboard-focus": {
+          "pass": true,
+          "detail": "first focused button \"All plants\": outline solid 3px, box-shadow none"
+        },
+        "no-horizontal-scroll-390": {
+          "pass": true,
+          "detail": "page is within a 390px viewport"
+        },
+        "axe-serious": {
+          "pass": true,
+          "detail": "no WCAG A/AA rule violations found by axe"
+        },
+        "no-test-claim": {
+          "pass": true,
+          "detail": "reference file, not a model response"
+        }
+      }
+    },
+    "claude-code-r1-fix": {
+      "source": "examples/fnd-001-harness/runs/claude-code-r1-fix.json",
+      "checks": {
+        "single-html-block": {
+          "pass": true,
+          "detail": "1 complete HTML code block(s) in the response"
+        },
+        "no-external-requests": {
+          "pass": true,
+          "detail": "no request at load and no network code in the file"
+        },
+        "three-cards": {
+          "pass": true,
+          "detail": "visible on load: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "sun-filter": {
+          "pass": true,
+          "detail": "visible after /loves sun/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":false}"
+        },
+        "shade-filter": {
+          "pass": true,
+          "detail": "visible after /likes shade/i: {\"Basil\":false,\"Sunflower\":false,\"Mint\":true}"
+        },
+        "all-filter": {
+          "pass": true,
+          "detail": "visible after /all plants/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "toggle-both-ways": {
+          "pass": true,
+          "detail": "after one click {\"mark\":2,\"planted\":1}, after two {\"mark\":3,\"planted\":0}"
+        },
+        "pressed-state": {
+          "pass": true,
+          "detail": "aria-pressed planted=true, unplanted=false"
+        },
+        "reload-resets": {
+          "pass": true,
+          "detail": "3 of 3 \"Mark as planted\" buttons after reload"
+        },
+        "reset-note": {
+          "pass": true,
+          "detail": "\"reset when you reload\""
+        },
+        "visible-keyboard-focus": {
+          "pass": true,
+          "detail": "first focused button \"All plants\": outline solid 3px, box-shadow none"
+        },
+        "no-horizontal-scroll-390": {
+          "pass": true,
+          "detail": "page is within a 390px viewport"
+        },
+        "axe-serious": {
+          "pass": true,
+          "detail": "no WCAG A/AA rule violations found by axe"
+        },
+        "no-test-claim": {
+          "pass": true,
+          "detail": "no unqualified claim of having tested the file"
+        }
+      }
+    },
+    "claude-code-r1": {
+      "source": "examples/fnd-001-harness/runs/claude-code-r1.json",
+      "checks": {
+        "single-html-block": {
+          "pass": true,
+          "detail": "1 complete HTML code block(s) in the response"
+        },
+        "no-external-requests": {
+          "pass": true,
+          "detail": "no request at load and no network code in the file"
+        },
+        "three-cards": {
+          "pass": true,
+          "detail": "visible on load: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "sun-filter": {
+          "pass": true,
+          "detail": "visible after /loves sun/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":false}"
+        },
+        "shade-filter": {
+          "pass": true,
+          "detail": "visible after /likes shade/i: {\"Basil\":false,\"Sunflower\":false,\"Mint\":true}"
+        },
+        "all-filter": {
+          "pass": true,
+          "detail": "visible after /all plants/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "toggle-both-ways": {
+          "pass": true,
+          "detail": "after one click {\"mark\":2,\"planted\":1}, after two {\"mark\":3,\"planted\":0}"
+        },
+        "pressed-state": {
+          "pass": false,
+          "detail": "aria-pressed planted=null, unplanted=null"
+        },
+        "reload-resets": {
+          "pass": true,
+          "detail": "3 of 3 \"Mark as planted\" buttons after reload"
+        },
+        "reset-note": {
+          "pass": true,
+          "detail": "\"reset when you reload\""
+        },
+        "visible-keyboard-focus": {
+          "pass": true,
+          "detail": "first focused button \"All plants\": outline solid 3px, box-shadow none"
+        },
+        "no-horizontal-scroll-390": {
+          "pass": true,
+          "detail": "page is within a 390px viewport"
+        },
+        "axe-serious": {
+          "pass": true,
+          "detail": "no WCAG A/AA rule violations found by axe"
+        },
+        "no-test-claim": {
+          "pass": true,
+          "detail": "no unqualified claim of having tested the file"
+        }
+      }
+    },
+    "claude-code-r2": {
+      "source": "examples/fnd-001-harness/runs/claude-code-r2.json",
+      "checks": {
+        "single-html-block": {
+          "pass": true,
+          "detail": "1 complete HTML code block(s) in the response"
+        },
+        "no-external-requests": {
+          "pass": true,
+          "detail": "no request at load and no network code in the file"
+        },
+        "three-cards": {
+          "pass": true,
+          "detail": "visible on load: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "sun-filter": {
+          "pass": true,
+          "detail": "visible after /loves sun/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":false}"
+        },
+        "shade-filter": {
+          "pass": true,
+          "detail": "visible after /likes shade/i: {\"Basil\":false,\"Sunflower\":false,\"Mint\":true}"
+        },
+        "all-filter": {
+          "pass": true,
+          "detail": "visible after /all plants/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "toggle-both-ways": {
+          "pass": true,
+          "detail": "after one click {\"mark\":2,\"planted\":1}, after two {\"mark\":3,\"planted\":0}"
+        },
+        "pressed-state": {
+          "pass": true,
+          "detail": "aria-pressed planted=true, unplanted=false"
+        },
+        "reload-resets": {
+          "pass": true,
+          "detail": "3 of 3 \"Mark as planted\" buttons after reload"
+        },
+        "reset-note": {
+          "pass": true,
+          "detail": "\"reset when you reload\""
+        },
+        "visible-keyboard-focus": {
+          "pass": true,
+          "detail": "first focused button \"All plants\": outline solid 4px, box-shadow none"
+        },
+        "no-horizontal-scroll-390": {
+          "pass": true,
+          "detail": "page is within a 390px viewport"
+        },
+        "axe-serious": {
+          "pass": true,
+          "detail": "no WCAG A/AA rule violations found by axe"
+        },
+        "no-test-claim": {
+          "pass": true,
+          "detail": "no unqualified claim of having tested the file"
+        }
+      }
+    },
+    "claude-code-r3-fix": {
+      "source": "examples/fnd-001-harness/runs/claude-code-r3-fix.json",
+      "checks": {
+        "single-html-block": {
+          "pass": true,
+          "detail": "1 complete HTML code block(s) in the response"
+        },
+        "no-external-requests": {
+          "pass": true,
+          "detail": "no request at load and no network code in the file"
+        },
+        "three-cards": {
+          "pass": true,
+          "detail": "visible on load: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "sun-filter": {
+          "pass": true,
+          "detail": "visible after /loves sun/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":false}"
+        },
+        "shade-filter": {
+          "pass": true,
+          "detail": "visible after /likes shade/i: {\"Basil\":false,\"Sunflower\":false,\"Mint\":true}"
+        },
+        "all-filter": {
+          "pass": true,
+          "detail": "visible after /all plants/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "toggle-both-ways": {
+          "pass": true,
+          "detail": "after one click {\"mark\":2,\"planted\":1}, after two {\"mark\":3,\"planted\":0}"
+        },
+        "pressed-state": {
+          "pass": true,
+          "detail": "aria-pressed planted=true, unplanted=false"
+        },
+        "reload-resets": {
+          "pass": true,
+          "detail": "3 of 3 \"Mark as planted\" buttons after reload"
+        },
+        "reset-note": {
+          "pass": true,
+          "detail": "\"reset when you reload\""
+        },
+        "visible-keyboard-focus": {
+          "pass": true,
+          "detail": "first focused button \"All plants\": outline solid 3px, box-shadow none"
+        },
+        "no-horizontal-scroll-390": {
+          "pass": true,
+          "detail": "page is within a 390px viewport"
+        },
+        "axe-serious": {
+          "pass": true,
+          "detail": "no WCAG A/AA rule violations found by axe"
+        },
+        "no-test-claim": {
+          "pass": true,
+          "detail": "no unqualified claim of having tested the file"
+        }
+      }
+    },
+    "claude-code-r3": {
+      "source": "examples/fnd-001-harness/runs/claude-code-r3.json",
+      "checks": {
+        "single-html-block": {
+          "pass": true,
+          "detail": "1 complete HTML code block(s) in the response"
+        },
+        "no-external-requests": {
+          "pass": true,
+          "detail": "no request at load and no network code in the file"
+        },
+        "three-cards": {
+          "pass": true,
+          "detail": "visible on load: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "sun-filter": {
+          "pass": true,
+          "detail": "visible after /loves sun/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":false}"
+        },
+        "shade-filter": {
+          "pass": true,
+          "detail": "visible after /likes shade/i: {\"Basil\":false,\"Sunflower\":false,\"Mint\":true}"
+        },
+        "all-filter": {
+          "pass": true,
+          "detail": "visible after /all plants/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "toggle-both-ways": {
+          "pass": true,
+          "detail": "after one click {\"mark\":2,\"planted\":1}, after two {\"mark\":3,\"planted\":0}"
+        },
+        "pressed-state": {
+          "pass": false,
+          "detail": "aria-pressed planted=null, unplanted=null"
+        },
+        "reload-resets": {
+          "pass": true,
+          "detail": "3 of 3 \"Mark as planted\" buttons after reload"
+        },
+        "reset-note": {
+          "pass": true,
+          "detail": "\"reset when you reload\""
+        },
+        "visible-keyboard-focus": {
+          "pass": true,
+          "detail": "first focused button \"All plants\": outline solid 3px, box-shadow none"
+        },
+        "no-horizontal-scroll-390": {
+          "pass": true,
+          "detail": "page is within a 390px viewport"
+        },
+        "axe-serious": {
+          "pass": false,
+          "detail": "color-contrast (serious, 2)"
+        },
+        "no-test-claim": {
+          "pass": true,
+          "detail": "no unqualified claim of having tested the file"
+        }
+      }
+    },
+    "qwen-code-r1": {
+      "source": "examples/fnd-001-harness/runs/qwen-code-r1.json",
+      "checks": {
+        "single-html-block": {
+          "pass": true,
+          "detail": "1 complete HTML code block(s) in the response"
+        },
+        "no-external-requests": {
+          "pass": true,
+          "detail": "no request at load and no network code in the file"
+        },
+        "three-cards": {
+          "pass": true,
+          "detail": "visible on load: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "sun-filter": {
+          "pass": true,
+          "detail": "visible after /loves sun/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":false}"
+        },
+        "shade-filter": {
+          "pass": true,
+          "detail": "visible after /likes shade/i: {\"Basil\":false,\"Sunflower\":false,\"Mint\":true}"
+        },
+        "all-filter": {
+          "pass": true,
+          "detail": "visible after /all plants/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "toggle-both-ways": {
+          "pass": true,
+          "detail": "after one click {\"mark\":2,\"planted\":1}, after two {\"mark\":3,\"planted\":0}"
+        },
+        "pressed-state": {
+          "pass": true,
+          "detail": "aria-pressed planted=true, unplanted=false"
+        },
+        "reload-resets": {
+          "pass": true,
+          "detail": "3 of 3 \"Mark as planted\" buttons after reload"
+        },
+        "reset-note": {
+          "pass": true,
+          "detail": "\"reset when you reload\""
+        },
+        "visible-keyboard-focus": {
+          "pass": true,
+          "detail": "first focused button \"All plants\": outline solid 3px, box-shadow none"
+        },
+        "no-horizontal-scroll-390": {
+          "pass": true,
+          "detail": "page is within a 390px viewport"
+        },
+        "axe-serious": {
+          "pass": true,
+          "detail": "no WCAG A/AA rule violations found by axe"
+        },
+        "no-test-claim": {
+          "pass": true,
+          "detail": "no unqualified claim of having tested the file"
+        }
+      }
+    },
+    "qwen-code-r2": {
+      "source": "examples/fnd-001-harness/runs/qwen-code-r2.json",
+      "checks": {
+        "single-html-block": {
+          "pass": true,
+          "detail": "1 complete HTML code block(s) in the response"
+        },
+        "no-external-requests": {
+          "pass": true,
+          "detail": "no request at load and no network code in the file"
+        },
+        "three-cards": {
+          "pass": true,
+          "detail": "visible on load: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "sun-filter": {
+          "pass": true,
+          "detail": "visible after /loves sun/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":false}"
+        },
+        "shade-filter": {
+          "pass": true,
+          "detail": "visible after /likes shade/i: {\"Basil\":false,\"Sunflower\":false,\"Mint\":true}"
+        },
+        "all-filter": {
+          "pass": true,
+          "detail": "visible after /all plants/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "toggle-both-ways": {
+          "pass": true,
+          "detail": "after one click {\"mark\":2,\"planted\":1}, after two {\"mark\":3,\"planted\":0}"
+        },
+        "pressed-state": {
+          "pass": true,
+          "detail": "aria-pressed planted=true, unplanted=false"
+        },
+        "reload-resets": {
+          "pass": true,
+          "detail": "3 of 3 \"Mark as planted\" buttons after reload"
+        },
+        "reset-note": {
+          "pass": true,
+          "detail": "\"reset when you reload\""
+        },
+        "visible-keyboard-focus": {
+          "pass": true,
+          "detail": "first focused button \"All plants\": outline solid 3px, box-shadow none"
+        },
+        "no-horizontal-scroll-390": {
+          "pass": true,
+          "detail": "page is within a 390px viewport"
+        },
+        "axe-serious": {
+          "pass": true,
+          "detail": "no WCAG A/AA rule violations found by axe"
+        },
+        "no-test-claim": {
+          "pass": true,
+          "detail": "no unqualified claim of having tested the file"
+        }
+      }
+    },
+    "qwen-code-r3-fix": {
+      "source": "examples/fnd-001-harness/runs/qwen-code-r3-fix.json",
+      "checks": {
+        "single-html-block": {
+          "pass": true,
+          "detail": "1 complete HTML code block(s) in the response"
+        },
+        "no-external-requests": {
+          "pass": true,
+          "detail": "no request at load and no network code in the file"
+        },
+        "three-cards": {
+          "pass": true,
+          "detail": "visible on load: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "sun-filter": {
+          "pass": true,
+          "detail": "visible after /loves sun/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":false}"
+        },
+        "shade-filter": {
+          "pass": true,
+          "detail": "visible after /likes shade/i: {\"Basil\":false,\"Sunflower\":false,\"Mint\":true}"
+        },
+        "all-filter": {
+          "pass": true,
+          "detail": "visible after /all plants/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "toggle-both-ways": {
+          "pass": true,
+          "detail": "after one click {\"mark\":2,\"planted\":1}, after two {\"mark\":3,\"planted\":0}"
+        },
+        "pressed-state": {
+          "pass": true,
+          "detail": "aria-pressed planted=true, unplanted=false"
+        },
+        "reload-resets": {
+          "pass": true,
+          "detail": "3 of 3 \"Mark as planted\" buttons after reload"
+        },
+        "reset-note": {
+          "pass": true,
+          "detail": "\"reset when you reload\""
+        },
+        "visible-keyboard-focus": {
+          "pass": true,
+          "detail": "first focused button \"All plants\": outline solid 4px, box-shadow rgb(255, 255, 255) 0px 0px 0px 2px inset"
+        },
+        "no-horizontal-scroll-390": {
+          "pass": true,
+          "detail": "page is within a 390px viewport"
+        },
+        "axe-serious": {
+          "pass": true,
+          "detail": "no WCAG A/AA rule violations found by axe"
+        },
+        "no-test-claim": {
+          "pass": true,
+          "detail": "no unqualified claim of having tested the file"
+        }
+      }
+    },
+    "qwen-code-r3": {
+      "source": "examples/fnd-001-harness/runs/qwen-code-r3.json",
+      "checks": {
+        "single-html-block": {
+          "pass": true,
+          "detail": "1 complete HTML code block(s) in the response"
+        },
+        "no-external-requests": {
+          "pass": true,
+          "detail": "no request at load and no network code in the file"
+        },
+        "three-cards": {
+          "pass": true,
+          "detail": "visible on load: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "sun-filter": {
+          "pass": true,
+          "detail": "visible after /loves sun/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":false}"
+        },
+        "shade-filter": {
+          "pass": true,
+          "detail": "visible after /likes shade/i: {\"Basil\":false,\"Sunflower\":false,\"Mint\":true}"
+        },
+        "all-filter": {
+          "pass": true,
+          "detail": "visible after /all plants/i: {\"Basil\":true,\"Sunflower\":true,\"Mint\":true}"
+        },
+        "toggle-both-ways": {
+          "pass": true,
+          "detail": "after one click {\"mark\":2,\"planted\":1}, after two {\"mark\":3,\"planted\":0}"
+        },
+        "pressed-state": {
+          "pass": false,
+          "detail": "aria-pressed planted=null, unplanted=null"
+        },
+        "reload-resets": {
+          "pass": true,
+          "detail": "3 of 3 \"Mark as planted\" buttons after reload"
+        },
+        "reset-note": {
+          "pass": true,
+          "detail": "\"reset when you reload\""
+        },
+        "visible-keyboard-focus": {
+          "pass": true,
+          "detail": "first focused button \"All plants\": outline solid 4px, box-shadow rgb(255, 255, 255) 0px 0px 0px 2px inset"
+        },
+        "no-horizontal-scroll-390": {
+          "pass": true,
+          "detail": "page is within a 390px viewport"
+        },
+        "axe-serious": {
+          "pass": true,
+          "detail": "no WCAG A/AA rule violations found by axe"
+        },
+        "no-test-claim": {
+          "pass": true,
+          "detail": "no unqualified claim of having tested the file"
+        }
+      }
+    }
+  }
+}

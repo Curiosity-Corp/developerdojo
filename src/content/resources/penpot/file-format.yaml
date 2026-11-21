@@ -1,0 +1,9 @@
+title: "Penpot file format"
+provider: "Penpot"
+url: "https://help.penpot.app/user-guide/export-import/penpot-file-format/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [brand-web-design, open-source]
+summary: "Penpot describes its .penpot export: a ZIP archive of JSON files for pages, shapes, components, colours, typographies and tokens, which another Penpot instance can import."
+verifiedOn: 2026-11-20

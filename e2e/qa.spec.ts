@@ -114,6 +114,13 @@ const REFLOW_ROUTES = [
   '/library/case-study-danhup-epics-and-roadmap/',
   '/library/catalogue-trailmug-full-example/',
   '/challenges/build-a-real-mvp/',
+  // Kata recipe template (long resource IDs once overflowed it at 195 px), the UX pathway and its working example (#91).
+  '/katas/fixture-fixux-001/',
+  '/katas/ux-pathway/',
+  '/examples/pocket-invoice/',
+  // The BIM pathway and its longest recipe page (#92).
+  '/katas/bim-pathway/',
+  '/katas/bim-003-ids-check/',
 ];
 
 test.describe('reflow: no sideways scroll on a narrow phone', () => {

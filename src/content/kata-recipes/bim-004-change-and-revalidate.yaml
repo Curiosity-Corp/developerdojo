@@ -1,0 +1,213 @@
+# BIM pathway (M10, #92): a draft recipe. The worked example, files and CI check results are on /katas/bim-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job bim_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: BIM pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/92
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent or professional review yet.
+summary: Fix the failed requirement with an IfcOpenShell edit, keep every GlobalId, then rerun the IDS, schema and geometry checks on the edited copy.
+metadata:
+  id: BIM-004
+  title: Change the model and check it again
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - revise-and-revalidate-model
+  artifactTypes:
+    - edited-model
+    - ids-report
+  domainIds:
+    - architecture-bim
+  capabilityIds:
+    - edit-model
+    - validate-information
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - ifcopenshell-and-python
+  constraintIds:
+    - licensed-sample-only
+    - no-paid-tools
+    - offline-capable
+  externalResources:
+    - buildingsmart/ids
+    - ifcopenshell/ifctester
+    - ifcopenshell/validation
+    - ifcopenshell/geometry-processing
+  crossFieldTransfers:
+    - construction
+  standards:
+    - name: Industry Foundation Classes (IFC)
+      version: IFC4 ADD2 TC1 (ISO 16739-1:2018), as declared by the sample file
+      applicability: The buildingSMART practice sample and copies of it only
+      reviewScope: "What the listed checks test: the schema the file declares, its entities and relationships, and the IDS requirements. No claim about any real building."
+    - name: Information Delivery Specification (IDS)
+      version: "1.0"
+      applicability: The practice requirements and Randori cards written for this pathway
+      reviewScope: Whether each requirement in the IDS file holds for each applicable element. The requirements are invented for practice; meeting them says nothing about a real project's requirements.
+      sourceResourceId: buildingsmart/ids
+  verificationEvidence:
+    - description: An edited IFC copy with exactly one changed property and every GlobalId kept, matching the Dojo's CI output
+      method: automated-check
+      standards:
+        - Industry Foundation Classes (IFC)
+    - description: The IDS, schema and geometry checks rerun on the edited copy, reported separately
+      method: automated-check
+      standards:
+        - Information Delivery Specification (IDS)
+        - Industry Foundation Classes (IFC)
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces the edit and gets 6 of 6 IDS passes, no schema issues and all shapes built
+    - stage: adapt
+      criterion: Makes a different edit and proves with a diff of properties that nothing else changed
+    - stage: demonstrate
+      criterion: Writes a short change record that a model author could review, naming what was checked and who must still approve it
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: buildingSMART’s wall-with-opening-and-window sample, a practice IDS, an edited copy and every check result, computed by the site’s CI."
+  href: /katas/bim-pathway
+  provenance:
+    creator: buildingSMART International (sample model); Developer Dojo maintainers (IDS, edit and checks)
+    source: buildingSMART Certification-datasets, pinned commit 80d976a9b193a26a8e928c3e79bff67af1de68a8; checks from /examples/bim-pathway/tools/bim_pathway.py
+    license: Sample model CC BY 4.0 (buildingSMART International); IDS files, script and outputs MIT
+    date: "2026-11-21"
+brief:
+  goal: An edited copy of the sample that meets every practice requirement, with a change record and fresh checks.
+  audience: Learners who finished BIM-003.
+  inputs:
+    - name: wall-with-opening-and-window.ifc
+      source: buildingsmart/ifc-wall-example (copy on /examples/bim-pathway/)
+      terms: CC BY 4.0, buildingSMART International. Your edited copy must credit the source and say it was changed.
+    - name: practice-requirements.ids
+      source: /examples/bim-pathway/practice-requirements.ids
+      terms: Dojo content, MIT licence
+  doneWhen:
+    - The edited copy changes Pset_WallCommon.FireRating on the wall and nothing else
+    - Every GlobalId in the original is still in the copy
+    - The IDS check gives 6 passed, 0 failed
+    - The schema check and the geometry check are rerun and reported on their own
+    - The change record says the label is a practice placeholder, not a fire assessment
+stack:
+  components:
+    - part: tool
+      name: IfcOpenShell
+      version: 0.9.0.post1
+      permissions: Reads the IFC copy you open; writes only the file your script saves
+      cost: Free (LGPL-3.0-or-later)
+    - part: tool
+      name: IfcTester
+      version: 0.9.0
+      permissions: Reads the IDS file and the IFC copy; writes only the report you ask for
+      cost: Free (LGPL-3.0-or-later)
+    - part: runtime
+      name: Python in a virtual environment
+      version: "3.12"
+      permissions: Runs on your own machine; network only to install the pinned packages
+      cost: Free
+    - part: data
+      name: buildingSMART wall-with-opening-and-window sample (IFC4)
+      version: "Certification-datasets commit 80d976a, SHA-256 73b0e45d…097832"
+      permissions: Read a copy; the licence allows changes with credit
+      cost: Free (CC BY 4.0)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may draft a script or explain an entity, and every claim it makes is checked against the file
+      permissions: Reads what you paste in; if it runs commands, give it only the copy of the model
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: IfcOpenShell and IfcTester are open source, run offline once installed and implement the buildingSMART IFC and IDS standards, so every learner can rerun the same checks on the same file and get the same output. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A desktop BIM authoring tool (for example Bonsai for Blender, or a commercial tool)
+      tradeoff: Shows the model visually and edits it by hand, but results depend on the tool and its export settings. Not tried for this pathway.
+      tested: false
+    - name: A web IFC viewer
+      tradeoff: Lets you look at the geometry in a browser without installing anything, but a viewer is not a validator. No viewer was checked for this pathway.
+      tested: false
+agents:
+  roles:
+    - role: Coding agent
+      responsibility: Drafts the edit with ifcopenshell.api and the commands to rerun the checks.
+      reviewGate: It works on a copy, and you read the diff of properties before you accept it.
+    - role: Learner as reviewer
+      responsibility: Reruns all three checks and writes the change record.
+      dependsOn:
+        - Coding agent
+      reviewGate: The record names what changed, the checks and their results, and who would have to approve a real change.
+setup:
+  steps:
+    - "Create a virtual environment with Python 3.12: python3.12 -m venv .venv"
+    - "Install the pinned packages: .venv/bin/pip install --require-hashes -r /examples/bim-pathway/tools/requirements.txt, or pip install ifcopenshell==0.9.0.post1 ifctester==0.9.0"
+    - Download the sample model and the practice IDS from /katas/bim-pathway into a new, empty folder. Work on copies; keep the original.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: .venv/bin/python -I -c \"import ifcopenshell; print(ifcopenshell.open('wall-with-opening-and-window.ifc').schema)\""
+    expected: IFC4
+    result: passed
+    evidence: /examples/bim-pathway/generated/original/inspection.json (schema)
+    date: "2026-11-21"
+prompts:
+  - id: scoped-edit
+    title: Ask for a scoped edit
+    purpose: Keep an agent's change small and checkable.
+    text: |-
+      Using ifcopenshell 0.9 and ifcopenshell.api.pset.edit_pset, write a script that opens <copy.ifc>,
+      sets Pset_WallCommon.FireRating to the label in my brief on the wall with GlobalId 3ZYW59sxj8lei475l7EhLU,
+      and writes a new file. Do not change any other entity, and do not create new GlobalIds.
+      Then print every property that differs between the two files, so I can check the change.
+exercise:
+  title: IfcTester
+  resourceId: ifcopenshell/ifctester
+  terms: Documentation under the IfcOpenShell project's terms; the software is LGPL-3.0-or-later.
+execution:
+  steps:
+    - actor: Coding agent
+      action: Writes the edit script and runs it on a copy.
+      handoff: You read the property diff.
+    - actor: Learner
+      action: Rerun the IDS, schema and geometry checks on the edited copy and compare with the CI output.
+    - actor: Learner
+      action: Write the change record.
+verification:
+  checks:
+    - action: Apply the pathway edit and compare properties
+      expected: One change, Pset_WallCommon.FireRating on #45 from an empty label to "REI 60"; 24 of 24 GlobalIds kept; none added
+      result: passed
+      evidence: /examples/bim-pathway/generated/change.json and /examples/bim-pathway/generated/wall-with-opening-and-window.edited.ifc, rebuilt byte for byte by CI on every pipeline
+      date: "2026-11-21"
+    - action: Rerun the IDS check on the edited copy
+      expected: 6 passed, 0 failed
+      result: passed
+      evidence: /examples/bim-pathway/generated/edited/ids.json
+      date: "2026-11-21"
+    - action: Rerun the schema and geometry checks on the edited copy
+      expected: No schema issues; the three shapes build with the same volumes as before
+      result: passed
+      evidence: /examples/bim-pathway/generated/edited/schema.json and /examples/bim-pathway/generated/edited/geometry.json
+      date: "2026-11-21"
+    - action: Your own edited copy passes the same three checks
+      expected: Same results; your copy may differ in its header
+      result: not-run
+  failures:
+    - observed: The edited file differs from the original on almost every line
+      correction: IfcOpenShell rewrites the file in its own layout and drops comments. Compare entities and properties, not text lines; change.json is that comparison.
+adaptation:
+  variations:
+    - change: Fill AcousticRating as well
+      effect: No requirement asks for it, so the IDS result does not change. Say why you changed it, or leave it.
+randori:
+  challenge: See the BIM Randori recipe, BIM-R01.
+  constraints:
+    - One requirement, one scoped change
+  evaluation: The property diff shows only the intended change.
+maintenance:
+  cadence: Every six months, when IfcOpenShell or IfcTester releases a new minor version, or when buildingSMART revises IFC or IDS
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - The sample is a three-element test file, not a building. Nothing learned from it is evidence about a real project.
+    - No model, property value or check result here is professionally reviewed or approved. A real project needs the qualified people its contract and jurisdiction name.
+    - Information (IDS), schema and geometry checks are separate outcomes. Passing one says nothing about the others, and there is no combined score.
+    - The label "REI 60" is a placeholder chosen to satisfy a practice pattern. It is not a fire rating; only a qualified fire engineer can set one for a real wall.
+    - The edited file is an adaptation of buildingSMART’s CC BY 4.0 sample. Its header says it was changed by the Dojo.

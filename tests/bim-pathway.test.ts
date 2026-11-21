@@ -1,0 +1,124 @@
+import { createHash } from 'node:crypto';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
+import { parse as parseYaml } from 'yaml';
+import { describe, expect, it } from 'vitest';
+import { armoryEntries } from '../src/data/armory';
+
+// The BIM pathway (#92). /examples/bim-pathway/tools/bim_pathway.py computes everything under generated/, and the CI job
+// bim_pathway recomputes it and fails on any difference. These tests pin what the pages and recipes claim about it.
+
+const EX = 'public/examples/bim-pathway';
+const GEN = join(EX, 'generated');
+const json = <T = Record<string, unknown>>(path: string): T => JSON.parse(readFileSync(join(GEN, path), 'utf8')) as T;
+const sha256 = (path: string) => createHash('sha256').update(readFileSync(path)).digest('hex');
+
+interface Requirement { label: string; failures: { element: string; reason: string }[] }
+interface Spec { identifier: string; status: 'pass' | 'fail'; requirements: Requirement[] }
+interface IdsResult { passed: number; failed: number; specifications: Spec[] }
+interface Geometry { allBuilt: boolean; elements: { id: number; class: string; built: boolean; volume_m3: number }[] }
+
+const PINNED_SAMPLE = '73b0e45d931d5dc13bfee5fdc7bd80f796526445458b2de74c4168d209097832';
+
+describe('BIM pathway files', () => {
+  const manifest = json<{ inputs: Record<string, string>; edited: Record<string, string>; tools: Record<string, string> }>('manifest.json');
+
+  it('serves the pinned buildingSMART sample, unchanged, with its licence', () => {
+    expect(sha256(join(EX, 'wall-with-opening-and-window.ifc'))).toBe(PINNED_SAMPLE);
+    expect(readFileSync(join(EX, 'LICENSE-buildingSMART.txt'), 'utf8')).toMatch(/Creative Commons Attribution 4\.0/);
+  });
+
+  it('records the hash of every input and of the edited copy', () => {
+    for (const [name, hash] of Object.entries(manifest.inputs)) expect(sha256(join(EX, name)), name).toBe(hash);
+    for (const [name, hash] of Object.entries(manifest.edited)) expect(sha256(join(GEN, name)), name).toBe(hash);
+  });
+
+  it('pins the tool versions the requirements file installs', () => {
+    const requirements = readFileSync('public/examples/bim-pathway/tools/requirements.txt', 'utf8');
+    expect(requirements).toContain(`ifcopenshell==${manifest.tools.ifcopenshell}`);
+    expect(requirements).toContain(`ifctester==${manifest.tools.ifctester}`);
+    expect(requirements).toMatch(/--hash=sha256:/);
+  });
+
+  it('declares both IDS files as IDS 1.0', () => {
+    for (const name of ['practice-requirements.ids', 'randori-cards.ids']) {
+      expect(readFileSync(join(EX, name), 'utf8')).toContain('http://standards.buildingsmart.org/IDS/1.0/ids.xsd');
+    }
+  });
+});
+
+describe('BIM pathway results', () => {
+  it('fails only REQ-03 on the original, on the wall, because FireRating is empty', () => {
+    const ids = json<IdsResult>('original/ids.json');
+    expect([ids.passed, ids.failed]).toEqual([5, 1]);
+    const failed = ids.specifications.filter((spec) => spec.status === 'fail');
+    expect(failed.map((spec) => spec.identifier)).toEqual(['REQ-03']);
+    expect(failed[0]?.requirements[0]?.failures.map((failure) => failure.element)).toEqual(['#45']);
+  });
+
+  it('passes all six requirements on the edited copy', () => {
+    const ids = json<IdsResult>('edited/ids.json');
+    expect([ids.passed, ids.failed]).toEqual([6, 0]);
+    expect(ids.specifications.map((spec) => spec.identifier)).toEqual(['REQ-01', 'REQ-02', 'REQ-03', 'REQ-04', 'REQ-05', 'REQ-06']);
+  });
+
+  it('reports the schema and geometry separately, and both hold on both models', () => {
+    for (const key of ['original', 'edited']) {
+      expect(json<{ valid: boolean; issues: unknown[] }>(`${key}/schema.json`)).toMatchObject({ valid: true, issues: [] });
+      const geometry = json<Geometry>(`${key}/geometry.json`);
+      expect(geometry.allBuilt).toBe(true);
+      expect(geometry.elements.find((element) => element.class === 'IfcWall')?.volume_m3).toBe(1.5);
+    }
+  });
+
+  it('changes exactly one property and keeps every GlobalId', () => {
+    const change = json<{ propertyChanges: { element: string; property: string; before: { value: string }; after: { value: string } }[]; globalIdsKept: number; globalIdsInOriginal: number; globalIdsAdded: number }>('change.json');
+    expect(change.propertyChanges).toHaveLength(1);
+    expect(change.propertyChanges[0]).toMatchObject({ element: '#45', property: 'Pset_WallCommon.FireRating', before: { value: '' }, after: { value: 'REI 60' } });
+    expect(change.globalIdsKept).toBe(change.globalIdsInOriginal);
+    expect(change.globalIdsAdded).toBe(0);
+  });
+
+  it('gives the Randori cards the results BIM-R01 states', () => {
+    const randori = json<IdsResult>('randori/ids.json');
+    expect(Object.fromEntries(randori.specifications.map((spec) => [spec.identifier, spec.status]))).toEqual({ 'CARD-A': 'fail', 'CARD-B': 'pass', 'CARD-C': 'pass' });
+  });
+
+  it('matches the property counts and empty values the recipes cite', () => {
+    type Psets = Record<string, { properties: Record<string, { empty: boolean }> }>;
+    const properties = json<Record<string, { propertySets: Psets }>>('original/properties.json');
+    const count = (id: string) => Object.values(properties[id]?.propertySets ?? {}).reduce((sum, pset) => sum + Object.keys(pset.properties).length, 0);
+    expect(count('#45')).toBe(10);
+    expect(count('#102')).toBe(9);
+    const wall = properties['#45']?.propertySets.Pset_WallCommon?.properties ?? {};
+    expect(Object.entries(wall).filter(([, value]) => value.empty).map(([name]) => name).sort()).toEqual(['AcousticRating', 'FireRating', 'Reference', 'SurfaceSpreadOfFlame']);
+  });
+});
+
+describe('BIM pathway evidence links', () => {
+  const recipes = readdirSync('src/content/kata-recipes').filter((file) => file.startsWith('bim-'));
+
+  it('has five recipes, and every evidence path they cite is a published file', () => {
+    expect(recipes).toHaveLength(5);
+    for (const file of recipes) {
+      const text = readFileSync(join('src/content/kata-recipes', file), 'utf8');
+      parseYaml(text);
+      const paths = [...text.matchAll(/\/examples\/bim-pathway\/[\w./-]+/g)].map((match) => match[0].replace(/[.,]$/, ''));
+      expect(paths.length, file).toBeGreaterThan(0);
+      for (const path of paths) expect(existsSync(join('public', path)), `${file}: ${path}`).toBe(true);
+    }
+  });
+
+  it('keeps the Armory smoke-test evidence in step with the generated results', () => {
+    for (const id of ['ifcopenshell', 'ifctester']) {
+      const entry = armoryEntries.find((candidate) => candidate.id === id);
+      const smokeTest = entry?.smokeTest;
+      expect(smokeTest && 'result' in smokeTest ? smokeTest.result : undefined, id).toBe('passed');
+    }
+    const tester = JSON.parse(readFileSync('public/examples/armory/ifctester.json', 'utf8')) as Record<string, unknown>;
+    expect(JSON.stringify(tester)).toContain('REQ-03');
+    const editEvidence = readFileSync('public/examples/armory/ifcopenshell-edit-validate.json', 'utf8');
+    const edited = Object.values(json<{ edited: Record<string, string> }>('manifest.json').edited)[0] ?? 'missing';
+    expect(editEvidence).toContain(edited);
+  });
+});
