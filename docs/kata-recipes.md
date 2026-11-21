@@ -129,7 +129,7 @@ reviewed or works.
 
 ## Fixtures
 
-`fixture-fixux-001.yaml`, `fixture-fixfnd-001.yaml` and `fixture-fixfnd-002.yaml` render three of the #81
+`fixture-fixux-001.yaml`, `fixture-foundation-define-outcome.yaml` and `fixture-foundation-compare-stack.yaml` render three of the #81
 sector fixtures, so the template can be seen and tested. Their metadata must equal the matching entries
 in `tests/fixtures/kata-sectors.ts`, which a test checks. Fixture pages carry a visible fixture notice, are
 `noindex` and are left out of site search. Do not copy their content into a real kata.

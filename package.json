@@ -17,7 +17,8 @@
     "test:e2e": "playwright test",
     "check:links": "node scripts/check-links.mjs dist",
     "check:external-links": "node scripts/check-external-links.mjs",
-    "stale-resources": "node scripts/list-stale-resources.mjs"
+    "stale-resources": "node scripts/list-stale-resources.mjs",
+    "taxonomy:lock": "TAXONOMY_LOCK_WRITE=1 vitest run tests/taxonomy-identifiers.test.ts"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

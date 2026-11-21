@@ -82,7 +82,7 @@ describe('the recipe records in src/content/kata-recipes', () => {
 
   it('link a specialization and its foundations both ways', () => {
     const ux = byId(resolved, 'FIXUX-001');
-    expect(ux?.foundations.map((link) => link.href)).toEqual(['/katas/fixture-fixfnd-001', '/katas/fixture-fixfnd-002']);
+    expect(ux?.foundations.map((link) => link.href)).toEqual(['/katas/fixture-foundation-define-outcome', '/katas/fixture-foundation-compare-stack']);
     for (const id of ['FIXFND-001', 'FIXFND-002']) {
       expect(byId(resolved, id)?.usedBy.map((link) => link.href), id).toContain('/katas/fixture-fixux-001');
     }

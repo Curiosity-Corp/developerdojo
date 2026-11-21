@@ -5,7 +5,7 @@ import { expect, test, type Page } from '@playwright/test';
 // Runs in both Playwright projects: desktop (1440 px) and mobile (Pixel 7, 390 px).
 
 const UX = '/katas/fixture-fixux-001/';
-const FOUNDATION = '/katas/fixture-fixfnd-001/';
+const FOUNDATION = '/katas/fixture-foundation-define-outcome/';
 const SECTIONS = [
   'The outcome', 'Showcase and provenance', 'Brief, inputs and constraints', 'Stack, permissions and cost', 'Why this stack',
   'Agents and review gates', 'Setup and smoke test', 'Prompts', 'Practice exercise', 'Execution and handoffs',
@@ -93,7 +93,7 @@ test('foundation, field, belt and review links go both ways', async ({ page }) =
   await page.goto(UX);
   const connections = section(page, 'Connections');
   await connections.getByRole('link', { name: 'Define the finished outcome and how it will be checked' }).click();
-  await expect(page).toHaveURL(/\/katas\/fixture-fixfnd-001\/?$/);
+  await expect(page).toHaveURL(/\/katas\/fixture-foundation-define-outcome\/?$/);
   await expect(section(page, 'Connections').getByRole('link', { name: 'Design an accessible onboarding journey' })).toHaveAttribute('href', '/katas/fixture-fixux-001');
 
   await page.goto(UX);
