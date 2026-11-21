@@ -1,0 +1,78 @@
+# Arena record (#89). Format and rules: docs/arena-evidence.md.
+# An attributed external result: the numbers are as published, each with the link it was read from.
+id: ARN-002
+title: "SWE-agent paper: same model, different agent interface"
+question: In the SWE-agent authors' 2024 experiment, how many SWE-bench Lite tasks did a shell-only agent and SWE-agent resolve with the same model?
+kind: external-benchmark
+date: 2024-11-11
+domain:
+  fieldId: software
+  outcome: A patch that resolves a real software issue in an open-source Python repository.
+  measure: Percent of the 300 SWE-bench Lite tasks resolved, meaning the patch passes the benchmark's associated tests.
+review:
+  lastChecked: 2026-11-20
+  staleAfter: 2027-11-20
+task:
+  summary: Each of 300 SWE-bench Lite tasks gives the agent a software issue and its repository; the agent proposes a patch, which the benchmark's tests judge.
+  inputs:
+    - name: SWE-bench Lite dataset (300 tasks)
+      href: 'https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite'
+rubric:
+  name: SWE-bench resolved rate (the benchmark's associated tests)
+method:
+  design: The authors ran both agent setups with GPT-4 Turbo on the same 300 tasks and report the share resolved in Table 1 of the paper. Developer Dojo did not run this experiment.
+  repetitions: { unavailable: The Dojo has not re-checked how many runs per task the authors made; read the paper's methods. }
+  reproduce:
+    - Read the paper's methods and Table 1, then open the pinned SWE-agent result list and count the entries in its resolved array (54).
+    - To run it yourself, follow the benchmark's evaluation guide and the SWE-agent documentation in an isolated environment. The 2024 model and software versions may no longer be available, so record your own versions rather than assuming you reproduced the paper.
+arms:
+  - id: shell-only
+    label: Shell-only agent
+    stack:
+      - { part: model, name: GPT-4 Turbo, version: gpt-4-1106-preview }
+      - { part: harness, name: Shell-only baseline agent described in the paper, version: { unavailable: The paper describes the setup but gives it no release version. } }
+      - { part: tool, name: An interactive Linux shell with standard commands, version: { unavailable: Not versioned in the paper. } }
+      - { part: instructions, name: The baseline's prompts as described in the paper, version: { unavailable: Not versioned in the paper. } }
+    permissions: { unavailable: The paper runs agents in task containers; the Dojo has not reviewed their exact permissions. }
+    reported:
+      outcome: { metric: SWE-bench Lite tasks resolved, value: 33, of: 300, source: 'https://arxiv.org/html/2405.15793v3#S4' }
+      cost: { unavailable: "Not carried into this record; the paper reports its own cost metric, which the Dojo has not re-checked." }
+      time: { unavailable: Not reported per task in the cited table. }
+  - id: swe-agent
+    label: SWE-agent
+    stack:
+      - { part: model, name: GPT-4 Turbo, version: gpt-4-1106-preview }
+      - { part: harness, name: SWE-agent, version: { unavailable: 'The paper experiment predates a pinned release; the archived submission is labelled 2024-04-02.' } }
+      - { part: tool, name: 'Agent-computer interface: file viewer, search and an editor with linting, on top of a shell', version: { unavailable: Not versioned in the paper. } }
+      - { part: instructions, name: SWE-agent prompts with a demonstration and history management, version: { unavailable: Not versioned in the paper. } }
+    permissions: { unavailable: The paper runs agents in task containers; the Dojo has not reviewed their exact permissions. }
+    reported:
+      outcome: { metric: SWE-bench Lite tasks resolved, value: 54, of: 300, source: 'https://raw.githubusercontent.com/SWE-bench/experiments/e6dd51f9e0e002faf7d542da5f63a923f01ef400/evaluation/lite/20240402_sweagent_gpt4/results/results.json' }
+      cost: { unavailable: "Not carried into this record; the paper reports its own cost metric, which the Dojo has not re-checked." }
+      time: { unavailable: Not reported per task in the cited table. }
+comparisons:
+  - status: measured
+    variable: full-stack
+    control: shell-only
+    variant: swe-agent
+    change: SWE-agent replaces the bare shell with specialized file viewing, search and editing commands, and its own prompts and history handling.
+    heldConstant:
+      - "The model (GPT-4 Turbo)"
+      - "The 300 Lite tasks"
+      - "The benchmark's tests"
+    confounders:
+      - The harness, tools and prompts changed together, so the result cannot be attributed to any one of them.
+      - The issues and their fixes are public and may appear in model training data.
+      - Tests can miss valid solutions or accept incomplete ones.
+    reading: In the authors' 2024 experiment SWE-agent resolved 54 of 300 tasks (18%) and the shell-only agent 33 (11%), a 7 percentage-point difference on this benchmark with that model. It is a historical result about one benchmark, not a measurement by the Dojo or a guide to current tools.
+limitations:
+  - Not run by Developer Dojo; the numbers are the authors'.
+  - One benchmark of Python repository issues; nothing here covers design, data or other fields.
+  - Models and agent software have changed since 2024.
+scope: A dated, attributed result about two agent setups on SWE-bench Lite in 2024. It is not a current ranking of agents or models.
+sources:
+  - { title: 'SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering (paper, version 3, Table 1)', href: 'https://arxiv.org/html/2405.15793v3#S4', kind: primary-publication }
+  - { title: Pinned SWE-agent result list (resolved task IDs), href: 'https://raw.githubusercontent.com/SWE-bench/experiments/e6dd51f9e0e002faf7d542da5f63a923f01ef400/evaluation/lite/20240402_sweagent_gpt4/results/results.json', kind: primary-publication }
+  - { title: SWE-bench Lite dataset, href: 'https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite', kind: dataset }
+  - { title: SWE-agent source, href: 'https://github.com/SWE-agent/SWE-agent', kind: documentation }
+  - { title: 'Exercise: check this result yourself', href: /katas/arena-evidence, kind: exercise }

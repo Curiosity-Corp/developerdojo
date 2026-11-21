@@ -1,0 +1,102 @@
+---
+/**
+ * Arena evidence index (#89): every Arena record, newest first, kept in two groups so a Dojo
+ * experiment is never mistaken for someone else's published result. There is deliberately no
+ * combined score, sort by result or ranking: each record answers one question on one task.
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { loadArenaRecords } from '../../../lib/arena-content';
+import { COMPARISON_LABELS, type ResolvedArenaRecord } from '../../../lib/arena-records';
+import { fields } from '../../../lib/fields';
+import { formatDate } from '../../../lib/labels';
+
+const records = loadArenaRecords();
+const fieldName = new Map(fields.map((field) => [field.id, field.name]));
+const isoDay = (date: string) => formatDate(new Date(`${date}T00:00:00Z`));
+const groups: { id: string; title: string; intro: string; empty: string; items: ResolvedArenaRecord[] }[] = [
+  {
+    id: 'dojo', title: 'Dojo experiments',
+    intro: 'Run by the Dojo. Every run file and check result is published, and the numbers on each page are computed from those files when the site is built.',
+    empty: 'No Dojo experiment is published yet.',
+    items: records.filter((item) => item.record.kind === 'dojo-experiment'),
+  },
+  {
+    id: 'external', title: 'Published external results',
+    intro: 'Results that other people published, with a link to each number. The Dojo did not run them. They are kept as dated snapshots, not as a current leaderboard.',
+    empty: 'No external result is recorded yet.',
+    items: records.filter((item) => item.record.kind === 'external-benchmark'),
+  },
+];
+---
+
+<BaseLayout title="Arena evidence records" description="Dated, reproducible comparisons of models, harnesses, instructions and complete stacks, with versions, methods, sources and limitations.">
+  <PageHero compact eyebrow="The Arena · evidence" title="Arena evidence records" subtitle="Each record compares stacks on one task with one rubric, on one date. Read what changed, what stayed fixed, what was measured and what could not be." />
+  <section class="section">
+    <div class="container narrow">
+      <Breadcrumbs items={[{ label: 'The Arena', href: '/arena' }, { label: 'Evidence records' }]} />
+      <h2 id="how">How to read a record</h2>
+      <ul class="rules">
+        <li><strong>One change at a time.</strong> A model, harness, instructions, skill, tool or delegation comparison changes only that part, and the build rejects a record whose stacks differ elsewhere. A full-stack comparison changes several parts and is never read as the effect of one.</li>
+        <li><strong>Two kinds of measure.</strong> System metrics (reliability, repeatability, checks completed, time, cost, permissions) are shared across fields. The domain outcome is scored by that field's own rubric, and scores from different fields are not comparable.</li>
+        <li><strong>Unknown is not zero.</strong> A cost, time or version that was not reported says "Not available" and why.</li>
+        <li><strong>No general ranking.</strong> A result holds for its task, rubric, versions and date. Records past their review date are marked stale, and a re-run is published as a new record that supersedes the old one.</li>
+      </ul>
+    </div>
+  </section>
+  {groups.map((group) => (
+    <section class="section group" aria-labelledby={group.id}>
+      <div class="container narrow">
+        <h2 id={group.id}>{group.title}</h2>
+        <p>{group.intro}</p>
+        {group.items.length === 0 ? <p class="empty" data-empty>{group.empty}</p> : (
+          <ul class="records">
+            {group.items.map((item) => {
+              const { record } = item;
+              const measured = record.comparisons.filter((comparison) => comparison.status === 'measured');
+              const proposed = record.comparisons.length - measured.length;
+              return (
+                <li class="record" data-arena-record={record.id}>
+                  <h3><a href={item.href}>{record.title}</a></h3>
+                  <p class="meta">{record.id} · {isoDay(record.date)} · {fieldName.get(record.domain.fieldId) ?? record.domain.fieldId}</p>
+                  <p>{record.question}</p>
+                  <ul class="labels" aria-label="Status">
+                    {record.kind === 'external-benchmark' && <li class="label snapshot">Historical snapshot</li>}
+                    {item.stale && <li class="label stale">Stale: review due</li>}
+                    {item.supersededBy && <li class="label superseded">Superseded by {item.supersededBy.id}</li>}
+                    {measured.map((comparison) => <li class="label">{COMPARISON_LABELS[comparison.variable]} comparison</li>)}
+                    {proposed > 0 && <li class="label proposed">{proposed} proposed, not run</li>}
+                  </ul>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
+    </section>
+  ))}
+  <section class="section next">
+    <div class="container narrow">
+      <h2>Make your own record</h2>
+      <p>Run two stacks on the same task, keep every run and record unknowns as unknown. The run card summarizes repeated runs without turning a missing cost into zero.</p>
+      <p><a href="/katas/arena-run-card">Make a run record</a> · <a href="/katas/arena-evidence">Check a published result yourself</a> · <a href="/arena">Return to the Arena</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 68rem; }
+  .rules li + li, .records > li + li { margin-top: var(--space-3); }
+  .group:nth-of-type(odd), .next { background: var(--paper-raised); }
+  .records { list-style: none; margin: var(--space-4) 0 0; padding: 0; }
+  .record { padding: var(--space-4); background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); }
+  .record h3 { margin: 0 0 var(--space-2); font-size: var(--text-xl); }
+  .record p { margin: 0 0 var(--space-2); }
+  .meta { color: var(--ink-muted); font-size: var(--text-sm); }
+  .labels { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; margin: var(--space-3) 0 0; padding: 0; }
+  .label { padding: .15rem .6rem; border: 1px solid var(--line-strong); border-radius: 1rem; font-size: var(--text-sm); }
+  .stale, .superseded { font-weight: 700; border-style: dashed; }
+  .proposed, .snapshot { border-style: dashed; }
+  .empty { padding: var(--space-3) var(--space-4); background: var(--paper-sunk); border: 1px dashed var(--line-strong); border-radius: var(--radius); }
+</style>
