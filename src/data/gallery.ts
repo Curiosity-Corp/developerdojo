@@ -17,6 +17,8 @@ export const galleryOutcomeLabels: Record<string, string> = {
   'read-property-sets': 'Read the property sets of a building model',
   'check-information-requirements': 'Check a model against information requirements',
   'revise-and-revalidate-model': 'Change a building model and check it again',
+  'export-and-check-mesh': 'Build a 3D mesh from a building model and check its shape',
+  'trace-quantities': 'Trace quantities to the model objects they come from',
   'inspect-3d': 'Inspect a 3D scene',
   'compare-instructions': 'Compare two instructions',
   'inspect-source': 'Check a source before trusting it',

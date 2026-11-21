@@ -1,0 +1,227 @@
+{
+  "authoredQuantitySets": 0,
+  "checked": "Quantities read from the IFC attributes, profiles and material layers (parametric), each with its source entities, GlobalIds, unit, method and assumption. Where the built geometry gives the same quantity, the two routes must agree within 0.000001, or the script writes nothing. These are practice quantities for a test file: not a takeoff for cost, procurement or construction.",
+  "crossChecks": [
+    {
+      "agree": true,
+      "check": "Wall thickness: material layers (Q-02) and body profile width",
+      "first": 0.3,
+      "second": 0.3,
+      "unit": "m"
+    },
+    {
+      "agree": true,
+      "check": "Wall net volume: parametric (Q-06) and the built shape (ifcopenshell.geom)",
+      "first": 1.5,
+      "second": 1.5,
+      "unit": "m³"
+    },
+    {
+      "agree": true,
+      "check": "Wall net face area: parametric (Q-09) and the built mesh face looking along -Y",
+      "first": 5.0,
+      "second": 5.0,
+      "unit": "m²"
+    },
+    {
+      "agree": true,
+      "check": "Wall net face area: parametric (Q-09) and the built mesh face looking along +Y",
+      "first": 5.0,
+      "second": 5.0,
+      "unit": "m²"
+    }
+  ],
+  "quantities": [
+    {
+      "GlobalIds": [
+        "3ZYW59sxj8lei475l7EhLU"
+      ],
+      "assumption": "The axis runs the full length of the wall body.",
+      "element": "#45",
+      "id": "Q-01",
+      "method": "parametric: distance between the two points of the wall axis polyline",
+      "quantity": "Wall length",
+      "sources": [
+        "#66=IfcShapeRepresentation",
+        "#67=IfcPolyline"
+      ],
+      "unit": "m",
+      "value": 3.0
+    },
+    {
+      "GlobalIds": [
+        "3ZYW59sxj8lei475l7EhLU"
+      ],
+      "assumption": "Must equal the body profile width (0.3 m); checked below.",
+      "element": "#45",
+      "id": "Q-02",
+      "method": "parametric: sum of the material layer thicknesses",
+      "quantity": "Wall thickness",
+      "sources": [
+        "#61=IfcMaterialLayerSetUsage",
+        "#62=IfcMaterialLayerSet",
+        "#63=IfcMaterialLayer"
+      ],
+      "unit": "m",
+      "value": 0.3
+    },
+    {
+      "GlobalIds": [
+        "3ZYW59sxj8lei475l7EhLU"
+      ],
+      "assumption": "Extruded straight up (checked), so the extrusion depth is the height.",
+      "element": "#45",
+      "id": "Q-03",
+      "method": "parametric: extrusion depth of the body",
+      "quantity": "Wall height",
+      "sources": [
+        "#71=IfcExtrudedAreaSolid"
+      ],
+      "unit": "m",
+      "value": 2.0
+    },
+    {
+      "GlobalIds": [
+        "3ZYW59sxj8lei475l7EhLU"
+      ],
+      "assumption": "Before the opening is subtracted.",
+      "element": "#45",
+      "id": "Q-04",
+      "method": "parametric: profile area (shoelace) × extrusion depth",
+      "quantity": "Wall gross volume",
+      "sources": [
+        "#71=IfcExtrudedAreaSolid",
+        "#72=IfcArbitraryClosedProfileDef",
+        "#73=IfcPolyline"
+      ],
+      "unit": "m³",
+      "value": 1.8
+    },
+    {
+      "GlobalIds": [
+        "2bJiss68D6hvLKV8O1xmqJ",
+        "3ZYW59sxj8lei475l7EhLU"
+      ],
+      "assumption": "Assumed to lie wholly inside the wall body; the net-volume cross-check against the built shape confirms it for this file.",
+      "element": "#80",
+      "id": "Q-05",
+      "method": "parametric: profile area (shoelace) × extrusion depth",
+      "quantity": "Opening volume",
+      "sources": [
+        "#87=IfcExtrudedAreaSolid",
+        "#88=IfcArbitraryClosedProfileDef",
+        "#89=IfcPolyline",
+        "#85=IfcRelVoidsElement"
+      ],
+      "unit": "m³",
+      "value": 0.3
+    },
+    {
+      "GlobalIds": [
+        "3ZYW59sxj8lei475l7EhLU",
+        "2bJiss68D6hvLKV8O1xmqJ"
+      ],
+      "assumption": "One opening; no other voids.",
+      "element": "#45",
+      "id": "Q-06",
+      "method": "parametric: Q-04 − Q-05",
+      "quantity": "Wall net volume",
+      "sources": [
+        "#71=IfcExtrudedAreaSolid",
+        "#87=IfcExtrudedAreaSolid",
+        "#85=IfcRelVoidsElement"
+      ],
+      "unit": "m³",
+      "value": 1.5
+    },
+    {
+      "GlobalIds": [
+        "3ZYW59sxj8lei475l7EhLU"
+      ],
+      "assumption": "One broad face; edges and the opposite face not counted.",
+      "element": "#45",
+      "id": "Q-07",
+      "method": "parametric: Q-01 × Q-03",
+      "quantity": "Wall gross face area, one side",
+      "sources": [
+        "#67=IfcPolyline",
+        "#71=IfcExtrudedAreaSolid"
+      ],
+      "unit": "m²",
+      "value": 6.0
+    },
+    {
+      "GlobalIds": [
+        "2bJiss68D6hvLKV8O1xmqJ"
+      ],
+      "assumption": "The opening passes right through the wall (checked: its depth equals the wall thickness), so it is deducted once from each face.",
+      "element": "#80",
+      "id": "Q-08",
+      "method": "parametric: opening profile width along the wall × opening extrusion depth",
+      "quantity": "Opening face area",
+      "sources": [
+        "#87=IfcExtrudedAreaSolid",
+        "#89=IfcPolyline"
+      ],
+      "unit": "m²",
+      "value": 1.0
+    },
+    {
+      "GlobalIds": [
+        "3ZYW59sxj8lei475l7EhLU",
+        "2bJiss68D6hvLKV8O1xmqJ"
+      ],
+      "assumption": "No reveals, waste or other adjustments.",
+      "element": "#45",
+      "id": "Q-09",
+      "method": "parametric: Q-07 − Q-08",
+      "quantity": "Wall net face area, one side",
+      "sources": [
+        "#67=IfcPolyline",
+        "#71=IfcExtrudedAreaSolid",
+        "#87=IfcExtrudedAreaSolid",
+        "#85=IfcRelVoidsElement"
+      ],
+      "unit": "m²",
+      "value": 5.0
+    },
+    {
+      "GlobalIds": [
+        "0tA4DSHd50le6Ov9Yu0I9X",
+        "2bJiss68D6hvLKV8O1xmqJ"
+      ],
+      "assumption": "Overall size as the author declared it, not measured from geometry.",
+      "element": "#102",
+      "id": "Q-10",
+      "method": "parametric: OverallWidth × OverallHeight attributes",
+      "quantity": "Window area (overall)",
+      "sources": [
+        "#102=IfcWindow",
+        "#112=IfcRelFillsElement"
+      ],
+      "unit": "m²",
+      "value": 1.0
+    },
+    {
+      "GlobalIds": [
+        "0tA4DSHd50le6Ov9Yu0I9X"
+      ],
+      "assumption": "The window has no separate glass geometry, so this is an estimate from a declared property, not a measurement.",
+      "element": "#102",
+      "id": "Q-11",
+      "method": "estimate: Q-10 × Pset_WindowCommon.GlazingAreaFraction",
+      "quantity": "Glazing area (estimate)",
+      "sources": [
+        "#121=IfcPropertySingleValue"
+      ],
+      "unit": "m²",
+      "value": 0.7
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "length": "m",
+    "modelLengthUnitToMetre": 0.001,
+    "volume": "m³"
+  }
+}

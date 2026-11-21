@@ -60,6 +60,36 @@ No schema issues reported.
 | #80 IfcOpeningElement | yes | 0.3 | [1.0, 0.0, 0.5] to [2.0, 0.3, 1.5] |
 | #102 IfcWindow | yes | 0.2 | [1.0, 0.05, 0.5] to [2.0, 0.25, 1.5] |
 
+## 3D geometry (BIM-005), original sample
+
+| Object | Triangles | Closed | Through holes | Area (m²) | Volume (m³) | IfcOpenShell volume (m³) |
+| --- | --- | --- | --- | --- | --- | --- |
+| IfcWall_3ZYW59sxj8lei475l7EhLU | 32 | yes | 1 | 14.2 | 1.5 | 1.5 |
+| IfcWindow_0tA4DSHd50le6Ov9Yu0I9X | 12 | yes | 0 | 2.8 | 0.2 | 0.2 |
+
+## Quantities traced to source objects (BIM-006), original sample
+
+| Id | Quantity | Value | Unit | Method |
+| --- | --- | --- | --- | --- |
+| Q-01 | Wall length | 3.0 | m | parametric: distance between the two points of the wall axis polyline |
+| Q-02 | Wall thickness | 0.3 | m | parametric: sum of the material layer thicknesses |
+| Q-03 | Wall height | 2.0 | m | parametric: extrusion depth of the body |
+| Q-04 | Wall gross volume | 1.8 | m³ | parametric: profile area (shoelace) × extrusion depth |
+| Q-05 | Opening volume | 0.3 | m³ | parametric: profile area (shoelace) × extrusion depth |
+| Q-06 | Wall net volume | 1.5 | m³ | parametric: Q-04 − Q-05 |
+| Q-07 | Wall gross face area, one side | 6.0 | m² | parametric: Q-01 × Q-03 |
+| Q-08 | Opening face area | 1.0 | m² | parametric: opening profile width along the wall × opening extrusion depth |
+| Q-09 | Wall net face area, one side | 5.0 | m² | parametric: Q-07 − Q-08 |
+| Q-10 | Window area (overall) | 1.0 | m² | parametric: OverallWidth × OverallHeight attributes |
+| Q-11 | Glazing area (estimate) | 0.7 | m² | estimate: Q-10 × Pset_WindowCommon.GlazingAreaFraction |
+
+| Cross-check | First | Second | Agree |
+| --- | --- | --- | --- |
+| Wall thickness: material layers (Q-02) and body profile width | 0.3 | 0.3 | yes |
+| Wall net volume: parametric (Q-06) and the built shape (ifcopenshell.geom) | 1.5 | 1.5 | yes |
+| Wall net face area: parametric (Q-09) and the built mesh face looking along -Y | 5.0 | 5.0 | yes |
+| Wall net face area: parametric (Q-09) and the built mesh face looking along +Y | 5.0 | 5.0 | yes |
+
 ## Randori cards, checked against the edited copy
 
 | Card | Result |
