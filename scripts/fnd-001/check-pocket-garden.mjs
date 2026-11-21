@@ -2,15 +2,24 @@
 // behaviour the brief asks for. It never reads the model's own checklist or claims, except the
 // "claims" check, which flags unqualified statements of having tested the file.
 //
-// CLI (writes the recorded results the FND-001 record and the e2e test rely on):
-//   node scripts/fnd-001/check-pocket-garden.mjs
+// CLI (writes the recorded results the Arena records and the e2e test rely on):
+//   node scripts/fnd-001/check-pocket-garden.mjs                    the FND-001 runs (public/examples/fnd-001)
+//   node scripts/fnd-001/check-pocket-garden.mjs fnd-001-harness    the harness comparison (#89)
 // The e2e test e2e/fnd-001-evidence.spec.ts re-runs these checks in CI and fails if any recorded
 // result differs from what the checker finds.
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import AxeBuilder from '@axe-core/playwright';
 
-export const EVIDENCE_DIR = fileURLToPath(new URL('../../public/examples/fnd-001/', import.meta.url));
+/** Every evidence set this checker writes results for: a folder under public/examples with runs/ and results.json. */
+export const EVIDENCE_SETS = ['fnd-001', 'fnd-001-harness'];
+/** The folder of one evidence set, with a trailing separator. */
+export function evidenceDir(set = 'fnd-001') {
+  if (!EVIDENCE_SETS.includes(set)) throw new Error(`unknown evidence set "${set}"; use one of ${EVIDENCE_SETS.join(', ')}`);
+  return fileURLToPath(new URL(`../../public/examples/${set}/`, import.meta.url));
+}
+export const EVIDENCE_DIR = evidenceDir('fnd-001');
 export const REFERENCE_FILE = fileURLToPath(new URL('../../src/data/pocket-garden.html', import.meta.url));
 export const ORIGIN = 'https://pocket-garden.fnd-001.invalid';
 export const PLANTS = ['Basil', 'Sunflower', 'Mint'];
@@ -196,30 +205,32 @@ export async function checkPocketGarden(page, html, response) {
   return results;
 }
 
-/** Every artifact the record checks: the reference, then each run in a stable order. */
-export function listArtifacts() {
-  const runs = readdirSync(new URL('runs/', pathToFileURL(EVIDENCE_DIR))).filter((f) => f.endsWith('.json')).sort();
+/** Every artifact an evidence set checks: the reference, then each run in a stable order. */
+export function listArtifacts(set = 'fnd-001') {
+  const dir = evidenceDir(set);
+  const runs = readdirSync(join(dir, 'runs')).filter((f) => f.endsWith('.json')).sort();
   const artifacts = [{ id: 'reference', source: 'examples/pocket-garden.html', html: readFileSync(REFERENCE_FILE, 'utf8'), response: undefined }];
   for (const name of runs) {
-    const run = JSON.parse(readFileSync(new URL(`runs/${name}`, pathToFileURL(EVIDENCE_DIR)), 'utf8'));
+    const run = JSON.parse(readFileSync(join(dir, 'runs', name), 'utf8'));
     const blocks = extractHtmlBlocks(run.response);
-    artifacts.push({ id: name.replace(/\.json$/, ''), source: `examples/fnd-001/runs/${name}`, html: blocks[0] ?? '', response: run.response });
+    artifacts.push({ id: name.replace(/\.json$/, ''), source: `examples/${set}/runs/${name}`, html: blocks[0] ?? '', response: run.response });
   }
   return artifacts;
 }
 
-async function main() {
+async function main(set) {
+  const dir = evidenceDir(set);
   const { chromium } = await import('@playwright/test');
   const browser = await chromium.launch();
   const results = {};
   try {
-    for (const artifact of listArtifacts()) {
+    for (const artifact of listArtifacts(set)) {
       const context = await browser.newContext();
       const page = await context.newPage();
       try {
         const checks = await checkPocketGarden(page, artifact.html, artifact.response);
         results[artifact.id] = { source: artifact.source, checks };
-        if (artifact.id !== 'reference') writeFileSync(new URL(`runs/${artifact.id}.html`, pathToFileURL(EVIDENCE_DIR)), artifact.html.endsWith('\n') ? artifact.html : artifact.html + '\n');
+        if (artifact.id !== 'reference') writeFileSync(join(dir, 'runs', `${artifact.id}.html`), artifact.html.endsWith('\n') ? artifact.html : artifact.html + '\n');
         const passed = Object.values(checks).filter((c) => c.pass).length;
         console.log(`${artifact.id}: ${passed}/${CHECKS.length}`);
       } finally {
@@ -229,9 +240,9 @@ async function main() {
   } finally {
     await browser.close();
   }
-  writeFileSync(new URL('results.json', pathToFileURL(EVIDENCE_DIR)), JSON.stringify({ checker: 'scripts/fnd-001/check-pocket-garden.mjs', checks: CHECKS, results }, null, 2) + '\n');
+  writeFileSync(join(dir, 'results.json'), JSON.stringify({ checker: 'scripts/fnd-001/check-pocket-garden.mjs', checks: CHECKS, results }, null, 2) + '\n');
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  main().catch((error) => { console.error(error); process.exit(1); });
+  main(process.argv[2] ?? 'fnd-001').catch((error) => { console.error(error); process.exit(1); });
 }

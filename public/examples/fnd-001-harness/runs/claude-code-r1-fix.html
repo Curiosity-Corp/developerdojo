@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pocket Garden</title>
+<style>
+  :root {
+    --bg: #f3f7ee;
+    --ink: #1f2d1f;
+    --muted: #4a5b4a;
+    --card: #ffffff;
+    --line: #c9d8c0;
+    --green: #2f6b3a;
+    --green-dark: #1f4d29;
+    --green-press: #163a1e;
+    --sun: #b45f06;
+    --shade: #35577a;
+    --focus: #0b57d0;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  h1 { margin: 0 0 .25rem; font-size: clamp(1.8rem, 5vw, 2.5rem); }
+  .lead { margin: 0 0 .75rem; color: var(--muted); }
+
+  .notice {
+    display: inline-block;
+    margin: 0 0 1.25rem;
+    padding: .5rem .75rem;
+    background: #fff8e1;
+    border: 1px solid #e6c75a;
+    border-radius: 8px;
+    font-size: .95rem;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin: 0 0 .75rem;
+    padding: 0;
+    border: 0;
+  }
+  .filters legend {
+    padding: 0;
+    margin-bottom: .5rem;
+    font-weight: 600;
+  }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+    min-height: 44px;
+    padding: .5rem 1rem;
+    border-radius: 999px;
+    border: 2px solid var(--green);
+    background: #fff;
+    color: var(--green-dark);
+    font-weight: 600;
+    transition: background-color .15s, color .15s, transform .05s;
+  }
+  button:hover { background: #e6f0e0; }
+  button:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+  }
+  button:active { transform: translateY(1px) scale(.98); background: #cfe2c6; }
+
+  .filters button[aria-pressed="true"] {
+    background: var(--green);
+    color: #fff;
+  }
+  .filters button[aria-pressed="true"]:hover { background: var(--green-dark); }
+  .filters button[aria-pressed="true"]:active { background: var(--green-press); }
+
+  .status { margin: 0 0 1rem; color: var(--muted); min-height: 1.5em; }
+
+  .grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .card {
+    background: var(--card);
+    border: 2px solid var(--line);
+    border-radius: 14px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+  .card[hidden] { display: none; }
+  .card.is-planted { border-color: var(--green); background: #f4fbf1; }
+
+  .icon { font-size: 2.5rem; line-height: 1; }
+  .card h2 { margin: 0; font-size: 1.3rem; }
+  .card p { margin: 0; color: var(--muted); }
+
+  .tag {
+    align-self: flex-start;
+    padding: .15rem .6rem;
+    border-radius: 999px;
+    font-size: .85rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .tag.sun { background: var(--sun); }
+  .tag.shade { background: var(--shade); }
+
+  .plant-btn { margin-top: auto; width: 100%; border-radius: 10px; }
+  .plant-btn.planted {
+    background: var(--green);
+    color: #fff;
+  }
+  .plant-btn.planted:hover { background: var(--green-dark); }
+  .plant-btn.planted:active { background: var(--green-press); }
+
+  @media (prefers-reduced-motion: reduce) {
+    button { transition: none; }
+    button:active { transform: none; }
+  }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Pocket Garden</h1>
+    <p class="lead">Pick a spot for your plants and mark what you've planted.</p>
+    <p class="notice"><strong>Note:</strong> your choices reset when you reload this page.</p>
+
+    <fieldset class="filters" id="filters">
+      <legend>Filter plants</legend>
+      <button type="button" data-filter="all" aria-pressed="true">All plants</button>
+      <button type="button" data-filter="sun" aria-pressed="false">Loves sun</button>
+      <button type="button" data-filter="shade" aria-pressed="false">Likes shade</button>
+    </fieldset>
+
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+
+    <ul class="grid" id="grid">
+      <li class="card" data-light="sun">
+        <span class="icon" aria-hidden="true">🌿</span>
+        <h2 id="name-basil">Basil</h2>
+        <span class="tag sun">Loves sun</span>
+        <p>Needs warm, bright days. Pinch the tips to keep it bushy.</p>
+        <button type="button" class="plant-btn" aria-pressed="false" aria-describedby="name-basil">Mark as planted</button>
+      </li>
+      <li class="card" data-light="sun">
+        <span class="icon" aria-hidden="true">🌻</span>
+        <h2 id="name-sunflower">Sunflower</h2>
+        <span class="tag sun">Loves sun</span>
+        <p>Grows tall in full sun. Give it space and a sturdy support.</p>
+        <button type="button" class="plant-btn" aria-pressed="false" aria-describedby="name-sunflower">Mark as planted</button>
+      </li>
+      <li class="card" data-light="shade">
+        <span class="icon" aria-hidden="true">🍃</span>
+        <h2 id="name-mint">Mint</h2>
+        <span class="tag shade">Likes shade</span>
+        <p>Happy in cool, shaded corners. Keep it in a pot so it can't spread.</p>
+        <button type="button" class="plant-btn" aria-pressed="false" aria-describedby="name-mint">Mark as planted</button>
+      </li>
+    </ul>
+  </main>
+
+<script>
+(function () {
+  var filterButtons = document.querySelectorAll('#filters button');
+  var cards = document.querySelectorAll('.card');
+  var status = document.getElementById('status');
+  var labels = { all: 'all plants', sun: 'plants that love sun', shade: 'plants that like shade' };
+
+  function applyFilter(name) {
+    var shown = 0;
+    cards.forEach(function (card) {
+      var match = name === 'all' || card.dataset.light === name;
+      card.hidden = !match;
+      if (match) shown++;
+    });
+    filterButtons.forEach(function (btn) {
+      btn.setAttribute('aria-pressed', String(btn.dataset.filter === name));
+    });
+    status.textContent = 'Showing ' + shown + ' of ' + cards.length + ' — ' + labels[name] + '.';
+  }
+
+  filterButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () { applyFilter(btn.dataset.filter); });
+  });
+
+  cards.forEach(function (card) {
+    var btn = card.querySelector('.plant-btn');
+    btn.addEventListener('click', function () {
+      var planted = !card.classList.contains('is-planted');
+      card.classList.toggle('is-planted', planted);
+      btn.classList.toggle('planted', planted);
+      btn.setAttribute('aria-pressed', String(planted));
+      btn.textContent = planted ? 'Planted' : 'Mark as planted';
+    });
+  });
+
+  applyFilter('all');
+})();
+</script>
+</body>
+</html>
