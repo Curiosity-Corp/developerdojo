@@ -1,0 +1,101 @@
+{
+  "counts": {
+    "IfcOpeningElement": 1,
+    "IfcWall": 1,
+    "IfcWindow": 1
+  },
+  "elements": [
+    {
+      "GlobalId": "3ZYW59sxj8lei475l7EhLU",
+      "Name": "Wall for Test Example",
+      "class": "IfcWall",
+      "container": "#38=IfcBuildingStorey",
+      "id": 45,
+      "type": null
+    },
+    {
+      "GlobalId": "2bJiss68D6hvLKV8O1xmqJ",
+      "Name": "Opening Element for Test Example",
+      "class": "IfcOpeningElement",
+      "container": "#38=IfcBuildingStorey",
+      "id": 80,
+      "type": null
+    },
+    {
+      "GlobalId": "0tA4DSHd50le6Ov9Yu0I9X",
+      "Name": "Window for Test Example",
+      "class": "IfcWindow",
+      "container": "#38=IfcBuildingStorey",
+      "id": 102,
+      "type": "#107=IfcWindowType"
+    }
+  ],
+  "relationships": {
+    "fills": [
+      {
+        "filledBy": "#102",
+        "opening": "#80"
+      }
+    ],
+    "voids": [
+      {
+        "opening": "#80",
+        "wall": "#45"
+      }
+    ]
+  },
+  "schema": "IFC4",
+  "spatialTree": {
+    "GlobalId": "28hypXUBvBefc20SI8kfA$",
+    "Name": "Default Project",
+    "children": [
+      {
+        "GlobalId": "1cwlDi_hLEvPsClAelBNnz",
+        "Name": "Default Site",
+        "children": [
+          {
+            "GlobalId": "0AqAhXVxvCy9m0OX1nxY1A",
+            "Name": "Default Building",
+            "children": [
+              {
+                "GlobalId": "2GNgSHJ5j9BRUjqT$7tE8w",
+                "Name": "Default Building Storey",
+                "class": "IfcBuildingStorey",
+                "contains": [
+                  {
+                    "GlobalId": "3ZYW59sxj8lei475l7EhLU",
+                    "Name": "Wall for Test Example",
+                    "class": "IfcWall",
+                    "id": 45
+                  },
+                  {
+                    "GlobalId": "0tA4DSHd50le6Ov9Yu0I9X",
+                    "Name": "Window for Test Example",
+                    "class": "IfcWindow",
+                    "id": 102
+                  }
+                ],
+                "id": 38
+              }
+            ],
+            "class": "IfcBuilding",
+            "id": 34
+          }
+        ],
+        "class": "IfcSite",
+        "id": 31
+      }
+    ],
+    "class": "IfcProject",
+    "id": 1
+  },
+  "units": {
+    "AREAUNIT": "SQUARE_METRE",
+    "LENGTHUNIT": "MILLIMETRE",
+    "PLANEANGLEUNIT": "DEGREE",
+    "VOLUMEUNIT": "CUBIC_METRE"
+  },
+  "viewDefinition": [
+    "ViewDefinition [ReferenceView_V1.2]"
+  ]
+}

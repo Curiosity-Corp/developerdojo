@@ -114,6 +114,8 @@ const REFLOW_ROUTES = [
   '/library/case-study-danhup-epics-and-roadmap/',
   '/library/catalogue-trailmug-full-example/',
   '/challenges/build-a-real-mvp/',
+  '/katas/bim-pathway/',
+  '/katas/bim-003-ids-check/',
 ];
 
 test.describe('reflow: no sideways scroll on a narrow phone', () => {

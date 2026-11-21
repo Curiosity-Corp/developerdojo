@@ -88,6 +88,36 @@ build:
       - search-index.sha256
     expire_in: 7 days
 
+# Blocking: the BIM pathway (#92). Installs the pinned IfcOpenShell and IfcTester by hash, reruns the edit and
+# every check on the published IFC and IDS files, and fails if any output differs from
+# public/examples/bim-pathway/generated, so the results on /katas/bim-pathway are what CI computed.
+bim_pathway:
+  stage: validate
+  image: python:3.12-slim
+  needs: []
+  rules:
+    - !reference [.skip-in-production-e2e, rules]
+    - when: on_success
+  variables:
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.pip"
+    PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  cache:
+    key:
+      files:
+        - public/examples/bim-pathway/tools/requirements.txt
+    paths:
+      - .pip/
+  script:
+    - python -m venv /tmp/bim-venv
+    - /tmp/bim-venv/bin/pip install --require-hashes -r public/examples/bim-pathway/tools/requirements.txt
+    - /tmp/bim-venv/bin/python -I public/examples/bim-pathway/tools/bim_pathway.py public/examples/bim-pathway bim-pathway-out
+    - diff -r bim-pathway-out public/examples/bim-pathway/generated
+  artifacts:
+    when: always
+    paths:
+      - bim-pathway-out
+    expire_in: 30 days
+
 # Blocking: dist/ link check. Every internal href/src/srcset in the built pages must resolve.
 links:
   extends: .node
@@ -184,7 +214,7 @@ e2e:production:
 # Internal GitLab Pages preview of the built site.
 pages:
   stage: deploy
-  needs: [check, test, build, e2e, links]
+  needs: [check, test, bim_pathway, build, e2e, links]
   interruptible: false
   script:
     - sha256sum -c search-index.sha256
@@ -204,7 +234,7 @@ pages:
 # event lists evaluated at build time) always reaches GitHub Pages.
 publish_github_pages:
   stage: deploy
-  needs: [check, test, build, e2e, links]
+  needs: [check, test, bim_pathway, build, e2e, links]
   interruptible: false
   resource_group: github-pages-release
   variables:

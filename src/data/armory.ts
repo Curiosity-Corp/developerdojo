@@ -12,6 +12,9 @@ import type { ArmoryEntryInput, ArmoryStackRecipeInput } from '../lib/armory';
 
 const CHECKED = '2026-11-20';
 const NEXT = '2027-02-20';
+/** The BIM pathway checks (#92) re-ran IfcOpenShell and added IfcTester a day later. */
+const BIM_CHECKED = '2026-11-21';
+const BIM_NEXT = '2027-02-20';
 const docsOnly = (what: string) => ({ lastVerified: CHECKED, checked: `Documentation review: ${what}. Not installed or run for the Dojo.`, nextReview: NEXT });
 const notRun = (why: string) => ({ unavailable: `Not run for the Dojo: ${why}` });
 
@@ -368,18 +371,19 @@ export const armoryEntries: ArmoryEntryInput[] = [
     },
     operations: [
       { action: 'read', description: 'Opened the buildingSMART sample and reported schema IFC4 with one wall, opening, window and storey.', evidence: 'smoke-test' },
-      { action: 'validate', description: 'ifcopenshell.validate checks a model against its schema.', evidence: 'documented' },
-      { action: 'edit', description: 'The API can create and edit entities and write a new file.', evidence: 'documented' },
+      { action: 'validate', description: 'ifcopenshell.validate checked the sample and an edited copy against the IFC4 schema (EXPRESS rules off) and reported no issues.', evidence: 'smoke-test' },
+      { action: 'edit', description: 'ifcopenshell.api.pset.edit_pset changed one property and wrote a new file that kept every GlobalId (BIM pathway, BIM-004).', evidence: 'smoke-test' },
+      { action: 'generate', description: 'ifcopenshell.geom built the wall, opening and window shapes; the wall measured 1.5 m3 after the opening was cut.', evidence: 'smoke-test' },
     ],
     setup: ['Create a virtual environment.', 'Install the pinned version: python -m pip install ifcopenshell==0.9.0.post1.', 'Open a copy of the model, never the only copy.'],
     smokeTest: {
-      date: CHECKED,
-      environment: 'Linux, Python 3.12.15, throwaway uv environment, the pinned buildingSMART sample (SHA-256 recorded).',
-      action: 'Open the sample, report the schema and count walls, openings, windows, storeys and property sets.',
-      expected: 'IFC4, one wall, one opening, one window and one storey.',
-      observed: 'IFC4; 1 wall ("Wall for Test Example"), 1 opening, 1 window (1000 by 1000), 1 storey, 2 property sets.',
+      date: BIM_CHECKED,
+      environment: 'Linux, Python 3.12, throwaway uv environments, the pinned buildingSMART sample (SHA-256 recorded). The edit and validation run is repeated by CI (job bim_pathway) on every pipeline.',
+      action: 'Open the sample and count its elements; then edit one property, write a copy, validate both files against the schema and build every shape.',
+      expected: 'IFC4, one wall, one opening, one window and one storey; one changed property, every GlobalId kept, no schema issues, every shape built.',
+      observed: 'IFC4; 1 wall, 1 opening, 1 window (1000 by 1000), 1 storey, 2 property sets. Pset_WallCommon.FireRating changed from an empty label to "REI 60"; 24 of 24 GlobalIds kept; 0 schema issues; wall 1.5 m3, opening 0.3 m3, window 0.2 m3.',
       result: 'passed',
-      evidence: ['/examples/armory/ifcopenshell.json'],
+      evidence: ['/examples/armory/ifcopenshell.json', '/examples/armory/ifcopenshell-edit-validate.json'],
     },
     securityReview: {
       date: CHECKED, scope: 'provenance',
@@ -389,9 +393,63 @@ export const armoryEntries: ArmoryEntryInput[] = [
     },
     limitations: [
       'Reading a model is not proof that it is correct, safe or compliant; professional review applies to real projects.',
-      'Only reading was tested.',
+      'Tested on one tiny sample: reading, one property edit, schema validation without EXPRESS rules and shape building. Larger models, other schemas and EXPRESS rule checks were not tried.',
     ],
-    review: { lastVerified: CHECKED, checked: 'Installation guide, PyPI metadata and the smoke test.', nextReview: NEXT },
+    review: { lastVerified: BIM_CHECKED, checked: 'Installation guide, validation and geometry documentation, PyPI metadata and both smoke tests.', nextReview: BIM_NEXT },
+  },
+  {
+    id: 'ifctester', name: 'IfcTester', kind: 'library', ecosystems: ['cad-bim'],
+    summary: 'Part of IfcOpenShell: reads buildingSMART IDS files and checks an IFC model against their requirements, from Python or the command line.',
+    maintainer: { name: 'IfcOpenShell project', status: 'official' },
+    executable: true,
+    sources: [
+      { label: 'IfcTester documentation', role: 'documentation', resourceId: 'ifcopenshell/ifctester' },
+      { label: 'PyPI release 0.9.0', role: 'package', url: 'https://pypi.org/project/ifctester/0.9.0/' },
+      { label: 'Source repository (src/ifctester)', role: 'repository', url: 'https://github.com/IfcOpenShell/IfcOpenShell' },
+      { label: 'IDS standard (buildingSMART)', role: 'documentation', resourceId: 'buildingsmart/ids' },
+    ],
+    version: { value: '0.9.0', checkedOn: BIM_CHECKED, how: 'PyPI JSON API (wheel uploaded 2026-09-29); ifctester.__version__ reported 0.9.0 in the smoke test.' },
+    license: 'LGPL-3.0-or-later (PyPI classifier). The sample model is CC BY 4.0; the practice IDS is Dojo material under MIT.',
+    platforms: 'Pure Python wheel; needs IfcOpenShell, which has wheels for Linux, macOS and Windows. Tested on Linux with Python 3.12.',
+    cost: 'Free.',
+    auth: 'None.',
+    compatibility: [
+      { harness: 'Python 3.12 script, run by hand, by CI or by an agent that runs commands', platform: 'Linux', evidence: 'smoke-test' },
+    ],
+    permissions: {
+      read: 'Reads the IDS file and the IFC model you pass it.',
+      write: 'Writes only the report files your script asks for.',
+      execute: 'Runs inside Python with IfcOpenShell\'s native code.',
+      network: 'None for checking. pip or uv downloads it and its dependencies (including Flask and a BCF client it does not need for checking).',
+      minimal: 'Install it in a throwaway virtual environment and give the script read-only copies of the model and the IDS.',
+    },
+    operations: [
+      { action: 'read', description: 'Opened the practice IDS with XML schema validation on (IDS 1.0).', evidence: 'smoke-test' },
+      { action: 'validate', description: 'Checked the buildingSMART sample against six IDS specifications: five passed, REQ-03 failed on an empty FireRating label.', evidence: 'smoke-test' },
+      { action: 'generate', description: 'Wrote the results with its JSON reporter; it also documents HTML, ODS and BCF reporters.', evidence: 'smoke-test' },
+    ],
+    setup: ['Create a virtual environment.', 'Install the pinned versions: python -m pip install ifcopenshell==0.9.0.post1 ifctester==0.9.0 (or use /examples/bim-pathway/tools/requirements.txt with --require-hashes).', 'Run it on copies of the model and the IDS.'],
+    smokeTest: {
+      date: BIM_CHECKED,
+      environment: 'Linux, Python 3.12, throwaway uv environment; repeated by CI (job bim_pathway) on every pipeline.',
+      action: 'Open practice-requirements.ids, validate the pinned buildingSMART sample against it and report each specification.',
+      expected: 'A valid IDS 1.0 file; REQ-03 fails because the sample stores an empty FireRating label; the other five pass.',
+      observed: '5 passed, 1 failed: REQ-03, "#45: The property set does not contain the required property". IfcTester 0.9.0 reports an empty label as a missing property.',
+      result: 'passed',
+      evidence: ['/examples/armory/ifctester.json'],
+    },
+    securityReview: {
+      date: BIM_CHECKED, scope: 'provenance',
+      checked: 'PyPI project, classifiers, dependency list and the IfcOpenShell source repository.',
+      findings: ['Pulls Flask, a BCF client and requests as dependencies, which a plain IDS check does not use; install it in its own environment.'],
+      notChecked: 'No source audit; wheel signatures were not verified.',
+    },
+    limitations: [
+      'An IDS check proves only that the information asked for is present and well formed. It says nothing about geometry, design quality, safety or compliance.',
+      'IfcTester 0.9.0 does not keep the IDS identifier attribute in its reports; the Dojo script reads identifiers from the XML.',
+      'Only IDS 1.0 and an IFC4 model were tried.',
+    ],
+    review: { lastVerified: BIM_CHECKED, checked: 'IfcTester documentation, PyPI metadata and the smoke test.', nextReview: BIM_NEXT },
   },
 
   // ---- Candidates: real, source-checked, not listed until the gaps are closed ---------------------
@@ -812,6 +870,17 @@ export const armoryStackRecipes: ArmoryStackRecipeInput[] = [
     components: [
       { entryId: 'git', role: 'Records, compares and restores changes' },
       { learnerChoice: 'Node.js, a current LTS release', kind: 'cli', role: 'Runs the project\'s scripts and checks' },
+    ],
+  },
+  {
+    id: 'ifcopenshell-and-python',
+    title: 'IfcOpenShell, IfcTester and Python',
+    summary: 'The BIM pathway stack: open-source Python libraries that read, edit and check IFC models against IDS requirements, run on your own machine or in CI.',
+    components: [
+      { entryId: 'ifcopenshell', role: 'Reads and edits the IFC model, validates it against the schema and builds its geometry' },
+      { entryId: 'ifctester', role: 'Checks the model against the requirements in an IDS file' },
+      { learnerChoice: 'Python 3.12 in a virtual environment', kind: 'cli', role: 'Runs the pinned libraries and the pathway script' },
+      { learnerChoice: 'A text editor that shows XML', kind: 'application', role: 'Reads and edits the IDS file' },
     ],
   },
 ];

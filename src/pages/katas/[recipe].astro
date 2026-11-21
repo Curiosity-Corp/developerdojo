@@ -420,6 +420,10 @@ const isoDay = (date: string) => formatDate(new Date(`${date}T00:00:00Z`));
     gap: var(--space-6);
     align-items: start;
   }
+  /* Resource IDs and site names (penpot/prototyping, penpot.app/pricing) have no break points; let them wrap at 195 px. */
+  .main {
+    overflow-wrap: anywhere;
+  }
   .side {
     display: none;
   }

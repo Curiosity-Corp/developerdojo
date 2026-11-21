@@ -1,0 +1,203 @@
+# BIM pathway (M10, #92): a draft recipe. The worked example, files and CI check results are on /katas/bim-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job bim_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: BIM pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/92
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent or professional review yet.
+summary: Read a practice IDS file, run it against the sample with IfcTester, and explain the one requirement that fails.
+metadata:
+  id: BIM-003
+  title: Check a model against IDS requirements
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - check-information-requirements
+  artifactTypes:
+    - ids-report
+  domainIds:
+    - architecture-bim
+  capabilityIds:
+    - validate-information
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - ifcopenshell-and-python
+  constraintIds:
+    - licensed-sample-only
+    - no-paid-tools
+    - offline-capable
+  externalResources:
+    - buildingsmart/ids
+    - ifcopenshell/ifctester
+  crossFieldTransfers:
+    - construction
+  standards:
+    - name: Industry Foundation Classes (IFC)
+      version: IFC4 ADD2 TC1 (ISO 16739-1:2018), as declared by the sample file
+      applicability: The buildingSMART practice sample and copies of it only
+      reviewScope: "What the listed checks test: the schema the file declares, its entities and relationships, and the IDS requirements. No claim about any real building."
+    - name: Information Delivery Specification (IDS)
+      version: "1.0"
+      applicability: The practice requirements and Randori cards written for this pathway
+      reviewScope: Whether each requirement in the IDS file holds for each applicable element. The requirements are invented for practice; meeting them says nothing about a real project's requirements.
+      sourceResourceId: buildingsmart/ids
+  verificationEvidence:
+    - description: An IDS report for the sample that matches the Dojo's CI output (5 pass, REQ-03 fails)
+      method: automated-check
+      standards:
+        - Information Delivery Specification (IDS)
+    - description: The learner states, for the failed requirement, which element fails, which property and why
+      method: self-check
+      standards:
+        - Information Delivery Specification (IDS)
+  beltCriteria:
+    - stage: practice
+      criterion: Runs the practice IDS, gets 5 passed and 1 failed, and explains REQ-03
+    - stage: adapt
+      criterion: Writes one new IDS specification and shows it pass and fail on purpose
+    - stage: demonstrate
+      criterion: Explains to a reviewer what an IDS pass does and does not prove, separately from schema and geometry
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: buildingSMART’s wall-with-opening-and-window sample, a practice IDS, an edited copy and every check result, computed by the site’s CI."
+  href: /katas/bim-pathway
+  provenance:
+    creator: buildingSMART International (sample model); Developer Dojo maintainers (IDS, edit and checks)
+    source: buildingSMART Certification-datasets, pinned commit 80d976a9b193a26a8e928c3e79bff67af1de68a8; checks from /examples/bim-pathway/tools/bim_pathway.py
+    license: Sample model CC BY 4.0 (buildingSMART International); IDS files, script and outputs MIT
+    date: "2026-11-21"
+brief:
+  goal: An IDS report for the sample, and a one-paragraph explanation of each failure in plain words.
+  audience: Learners who finished BIM-002.
+  inputs:
+    - name: wall-with-opening-and-window.ifc
+      source: buildingsmart/ifc-wall-example (copy on /examples/bim-pathway/)
+      terms: CC BY 4.0, buildingSMART International
+    - name: practice-requirements.ids
+      source: /examples/bim-pathway/practice-requirements.ids
+      terms: Dojo content, MIT licence. Invented requirements for practice.
+  doneWhen:
+    - The IDS file opens with XML schema validation on
+    - Your report matches /examples/bim-pathway/generated/original/ids.json
+    - You explain why REQ-03 fails even though FireRating exists in the file
+    - You state separately what the schema check and the geometry check found, without merging them into one score
+stack:
+  components:
+    - part: tool
+      name: IfcOpenShell
+      version: 0.9.0.post1
+      permissions: Reads the IFC copy you open; writes only the file your script saves
+      cost: Free (LGPL-3.0-or-later)
+    - part: tool
+      name: IfcTester
+      version: 0.9.0
+      permissions: Reads the IDS file and the IFC copy; writes only the report you ask for
+      cost: Free (LGPL-3.0-or-later)
+    - part: runtime
+      name: Python in a virtual environment
+      version: "3.12"
+      permissions: Runs on your own machine; network only to install the pinned packages
+      cost: Free
+    - part: data
+      name: buildingSMART wall-with-opening-and-window sample (IFC4)
+      version: "Certification-datasets commit 80d976a, SHA-256 73b0e45d…097832"
+      permissions: Read a copy; the licence allows changes with credit
+      cost: Free (CC BY 4.0)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may draft a script or explain an entity, and every claim it makes is checked against the file
+      permissions: Reads what you paste in; if it runs commands, give it only the copy of the model
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: IfcOpenShell and IfcTester are open source, run offline once installed and implement the buildingSMART IFC and IDS standards, so every learner can rerun the same checks on the same file and get the same output. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A desktop BIM authoring tool (for example Bonsai for Blender, or a commercial tool)
+      tradeoff: Shows the model visually and edits it by hand, but results depend on the tool and its export settings. Not tried for this pathway.
+      tested: false
+    - name: A web IFC viewer
+      tradeoff: Lets you look at the geometry in a browser without installing anything, but a viewer is not a validator. No viewer was checked for this pathway.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Translates one IDS specification into plain words.
+      reviewGate: You compare its wording with the XML facet by facet.
+    - role: Learner as reviewer
+      responsibility: Runs IfcTester and reads the failure.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A failure is explained only when you can point to the element and the property in the file.
+setup:
+  steps:
+    - "Create a virtual environment with Python 3.12: python3.12 -m venv .venv"
+    - "Install the pinned packages: .venv/bin/pip install --require-hashes -r /examples/bim-pathway/tools/requirements.txt, or pip install ifcopenshell==0.9.0.post1 ifctester==0.9.0"
+    - Download the sample model and the practice IDS from /katas/bim-pathway into a new, empty folder. Work on copies; keep the original.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: .venv/bin/python -I -c \"import ifcopenshell; print(ifcopenshell.open('wall-with-opening-and-window.ifc').schema)\""
+    expected: IFC4
+    result: passed
+    evidence: /examples/bim-pathway/generated/original/inspection.json (schema)
+    date: "2026-11-21"
+prompts:
+  - id: explain-ids
+    title: Read an IDS specification aloud
+    purpose: Check you read applicability and requirements the right way round.
+    text: |-
+      Here is one <ids:specification> from an IDS 1.0 file. Say in two sentences:
+      1. which elements it applies to (applicability), and
+      2. what each of those elements must have (requirements), including any data type or value pattern.
+      Do not guess at facets that are not in the XML.
+exercise:
+  title: Information Delivery Specification (IDS)
+  resourceId: buildingsmart/ids
+  terms: buildingSMART publishes the standard openly; read the repository's own licence before you reuse its files.
+execution:
+  steps:
+    - actor: Learner
+      action: Read the six specifications in practice-requirements.ids.
+    - actor: Explaining assistant
+      action: Restates each one in plain words.
+      handoff: You check the restatement against the XML.
+    - actor: Learner
+      action: "Run IfcTester (python -m ifctester practice-requirements.ids wall-with-opening-and-window.ifc, or the pathway script) and compare with the CI report."
+verification:
+  checks:
+    - action: Validate the sample against the practice IDS with IfcTester 0.9.0
+      expected: 5 passed, 1 failed. REQ-03 fails on the wall (#45) because Pset_WallCommon.FireRating holds an empty label, which IfcTester reports as a missing property
+      result: passed
+      evidence: /examples/bim-pathway/generated/original/ids.json and /examples/bim-pathway/generated/original/ids-ifctester.json, recomputed by CI on every pipeline
+      date: "2026-11-21"
+    - action: Check the sample against the IFC4 schema and build its geometry, as separate checks
+      expected: No schema issues; all three shapes build (wall 1.5 m3 after the opening is cut)
+      result: passed
+      evidence: /examples/bim-pathway/generated/original/schema.json and /examples/bim-pathway/generated/original/geometry.json
+      date: "2026-11-21"
+    - action: Your IDS report matches the CI output
+      expected: Same results per specification
+      result: not-run
+  failures:
+    - observed: "IfcTester says the property set does not contain FireRating, but the file has it"
+      correction: The property exists with an empty IfcLabel. IfcTester 0.9.0 treats an empty value as missing, which is what REQ-03 needs to catch.
+adaptation:
+  variations:
+    - change: Make REQ-03 optional (cardinality optional)
+      effect: The wall then passes while the label stays empty. Decide with the brief's author whether that is what they meant.
+randori:
+  challenge: See the BIM Randori recipe, BIM-R01.
+  constraints:
+    - Report information, schema and geometry separately
+  evaluation: Each outcome is reported on its own.
+maintenance:
+  cadence: Every six months, when IfcOpenShell or IfcTester releases a new minor version, or when buildingSMART revises IFC or IDS
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - The sample is a three-element test file, not a building. Nothing learned from it is evidence about a real project.
+    - No model, property value or check result here is professionally reviewed or approved. A real project needs the qualified people its contract and jurisdiction name.
+    - Information (IDS), schema and geometry checks are separate outcomes. Passing one says nothing about the others, and there is no combined score.
+    - The practice IDS is invented. A real project takes its IDS from its own client or exchange requirements.
+    - IfcTester 0.9.0 does not keep the IDS identifier attribute in its reports; the pathway script reads it from the XML.

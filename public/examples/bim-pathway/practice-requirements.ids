@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Practice information requirements for the Developer Dojo BIM pathway (BIM-003, BIM-004).
+     Invented for teaching. Not a client, regulatory or professional requirement. MIT licence. -->
+<ids:ids xmlns:ids="http://standards.buildingsmart.org/IDS" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://standards.buildingsmart.org/IDS http://standards.buildingsmart.org/IDS/1.0/ids.xsd">
+  <ids:info>
+    <ids:title>Developer Dojo practice requirements: wall and window</ids:title>
+    <ids:copyright>Developer Dojo, MIT licence</ids:copyright>
+    <ids:version>1.0.0</ids:version>
+    <ids:description>Six information requirements for the buildingSMART wall-with-opening-and-window sample. For practice only.</ids:description>
+    <ids:date>2026-11-21</ids:date>
+    <ids:purpose>Teaching: check information in an IFC model against written requirements</ids:purpose>
+    <ids:milestone>Practice</ids:milestone>
+  </ids:info>
+  <ids:specifications>
+    <ids:specification name="Walls say whether they are external" ifcVersion="IFC4" identifier="REQ-01" description="Every wall states IsExternal in Pset_WallCommon as a true or false value." instructions="Set Pset_WallCommon.IsExternal on every wall.">
+      <ids:applicability minOccurs="1" maxOccurs="unbounded">
+        <ids:entity><ids:name><ids:simpleValue>IFCWALL</ids:simpleValue></ids:name></ids:entity>
+      </ids:applicability>
+      <ids:requirements>
+        <ids:property dataType="IFCBOOLEAN">
+          <ids:propertySet><ids:simpleValue>Pset_WallCommon</ids:simpleValue></ids:propertySet>
+          <ids:baseName><ids:simpleValue>IsExternal</ids:simpleValue></ids:baseName>
+        </ids:property>
+      </ids:requirements>
+    </ids:specification>
+    <ids:specification name="Walls say whether they are load bearing" ifcVersion="IFC4" identifier="REQ-02" description="Every wall states LoadBearing in Pset_WallCommon as a true or false value." instructions="Set Pset_WallCommon.LoadBearing on every wall.">
+      <ids:applicability minOccurs="1" maxOccurs="unbounded">
+        <ids:entity><ids:name><ids:simpleValue>IFCWALL</ids:simpleValue></ids:name></ids:entity>
+      </ids:applicability>
+      <ids:requirements>
+        <ids:property dataType="IFCBOOLEAN">
+          <ids:propertySet><ids:simpleValue>Pset_WallCommon</ids:simpleValue></ids:propertySet>
+          <ids:baseName><ids:simpleValue>LoadBearing</ids:simpleValue></ids:baseName>
+        </ids:property>
+      </ids:requirements>
+    </ids:specification>
+    <ids:specification name="Walls carry a fire rating label in the practice format" ifcVersion="IFC4" identifier="REQ-03" description="Every wall has Pset_WallCommon.FireRating written as REI followed by minutes, for example REI 60. The format is a practice rule; the value is not a fire assessment." instructions="Write the label given in the practice brief. Only a qualified fire engineer can decide a real rating.">
+      <ids:applicability minOccurs="1" maxOccurs="unbounded">
+        <ids:entity><ids:name><ids:simpleValue>IFCWALL</ids:simpleValue></ids:name></ids:entity>
+      </ids:applicability>
+      <ids:requirements>
+        <ids:property dataType="IFCLABEL">
+          <ids:propertySet><ids:simpleValue>Pset_WallCommon</ids:simpleValue></ids:propertySet>
+          <ids:baseName><ids:simpleValue>FireRating</ids:simpleValue></ids:baseName>
+          <ids:value>
+            <xs:restriction base="xs:string">
+              <xs:pattern value="REI [0-9]{2,3}"/>
+            </xs:restriction>
+          </ids:value>
+        </ids:property>
+      </ids:requirements>
+    </ids:specification>
+    <ids:specification name="Windows have an overall width and height" ifcVersion="IFC4" identifier="REQ-04" description="Every window has values in its OverallWidth and OverallHeight attributes." instructions="Fill both attributes, in the project length unit.">
+      <ids:applicability minOccurs="1" maxOccurs="unbounded">
+        <ids:entity><ids:name><ids:simpleValue>IFCWINDOW</ids:simpleValue></ids:name></ids:entity>
+      </ids:applicability>
+      <ids:requirements>
+        <ids:attribute><ids:name><ids:simpleValue>OverallWidth</ids:simpleValue></ids:name></ids:attribute>
+        <ids:attribute><ids:name><ids:simpleValue>OverallHeight</ids:simpleValue></ids:name></ids:attribute>
+      </ids:requirements>
+    </ids:specification>
+    <ids:specification name="Walls and windows are placed in a building storey" ifcVersion="IFC4" identifier="REQ-05" description="Every wall and window is contained in an IfcBuildingStorey." instructions="Assign each wall and window to its storey.">
+      <ids:applicability minOccurs="1" maxOccurs="unbounded">
+        <ids:entity>
+          <ids:name>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="IFCWALL"/>
+              <xs:enumeration value="IFCWINDOW"/>
+            </xs:restriction>
+          </ids:name>
+        </ids:entity>
+      </ids:applicability>
+      <ids:requirements>
+        <ids:partOf relation="IFCRELCONTAINEDINSPATIALSTRUCTURE">
+          <ids:entity><ids:name><ids:simpleValue>IFCBUILDINGSTOREY</ids:simpleValue></ids:name></ids:entity>
+        </ids:partOf>
+      </ids:requirements>
+    </ids:specification>
+    <ids:specification name="Windows state their thermal transmittance" ifcVersion="IFC4" identifier="REQ-06" description="Every window has Pset_WindowCommon.ThermalTransmittance as a thermal transmittance measure." instructions="Copy the value from the product data; do not estimate it.">
+      <ids:applicability minOccurs="1" maxOccurs="unbounded">
+        <ids:entity><ids:name><ids:simpleValue>IFCWINDOW</ids:simpleValue></ids:name></ids:entity>
+      </ids:applicability>
+      <ids:requirements>
+        <ids:property dataType="IFCTHERMALTRANSMITTANCEMEASURE">
+          <ids:propertySet><ids:simpleValue>Pset_WindowCommon</ids:simpleValue></ids:propertySet>
+          <ids:baseName><ids:simpleValue>ThermalTransmittance</ids:simpleValue></ids:baseName>
+        </ids:property>
+      </ids:requirements>
+    </ids:specification>
+  </ids:specifications>
+</ids:ids>

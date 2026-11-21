@@ -6,11 +6,11 @@ import type { KataCatalogEntryInput, KataReferences } from '../lib/kata-catalog'
  * slugs) from the content collections. Add an ID here before a kata refers to it.
  */
 export const kataDimensions: Omit<KataReferences, 'fields' | 'resources' | 'pathways'> = {
-  outcomes: ['compare-instructions', 'inspect-source', 'design-journey', 'read-model', 'estimate-energy', 'customize-software', 'clean-data', 'inspect-3d'],
-  artifacts: ['comparison-record', 'source-review', 'prototype', 'model-evidence', 'energy-estimate', 'patch-and-catalog', 'data-report', 'spatial-observation'],
-  capabilities: ['verify-evidence', 'manage-context', 'design-interaction', 'inspect-model', 'calculate', 'maintain-source', 'analyze-data', 'inspect-spatial'],
+  outcomes: ['compare-instructions', 'inspect-source', 'design-journey', 'read-model', 'estimate-energy', 'customize-software', 'clean-data', 'inspect-3d', 'read-property-sets', 'check-information-requirements', 'revise-and-revalidate-model'],
+  artifacts: ['comparison-record', 'source-review', 'prototype', 'model-evidence', 'energy-estimate', 'patch-and-catalog', 'data-report', 'spatial-observation', 'property-table', 'ids-report', 'edited-model'],
+  capabilities: ['verify-evidence', 'manage-context', 'design-interaction', 'inspect-model', 'calculate', 'maintain-source', 'analyze-data', 'inspect-spatial', 'validate-information', 'edit-model'],
   constraints: ['fictional-data', 'no-personal-data', 'no-paid-tools', 'offline-capable', 'licensed-sample-only'],
-  stackRecipes: ['assistant-and-browser', 'git-and-node'],
+  stackRecipes: ['assistant-and-browser', 'git-and-node', 'ifcopenshell-and-python'],
 };
 
 /**
