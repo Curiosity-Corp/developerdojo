@@ -27,7 +27,14 @@ renderer code (#86); a gap in what the record can say goes as a note on #81, not
   - `/fields#<field>` lists every recipe whose `domainIds` or `crossFieldTransfers` name the field;
   - `/belts` lists recipes with `beltCriteria`;
   - `/belt-review` lists recipes whose `verificationEvidence` includes a peer, Sensei or professional review;
-  - each foundation recipe lists the recipes and catalog katas that name it in `foundationKataIds` ("Used by").
+  - each foundation recipe lists the recipes and catalog katas that name it in `foundationKataIds` ("Used by");
+  - each Arena record whose `kataId` is the recipe's `metadata.id` links back to the recipe page.
+- "Controlled comparisons" on the recipe page: every comparison in the Arena records (`src/content/arena/`)
+  with the recipe's `metadata.id` as `kataId`, built by `kataComparisons` in `src/lib/kata-comparisons.ts`.
+  Measured rows show the measures the Arena resolver computes from the run files; a proposed row shows only
+  while no record has measured that variable for the kata; a superseded record is left out. Never type a
+  measured number into a recipe: add or supersede an Arena record instead ([arena-evidence.md](arena-evidence.md)).
+  The section is absent when no record names the kata.
 
 ## The record
 
@@ -82,7 +89,7 @@ prompts:                      # each one gets its own copy button
   - { id: draft-brief, title: ..., purpose: ..., text: ... }
 exercise:                     # or { unavailable: ... }
   title: ...
-  resourceId: publisher/resource   # or href: https://...; one of the two
+  resourceId: publisher/resource   # or href: https://... or a page on this site (/katas/...); one of the two
   terms: The licence or terms of use, in plain words
 execution:                    # or { unavailable: ... }
   steps: [{ actor: ..., action: ..., handoff: ... }]

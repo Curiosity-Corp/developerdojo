@@ -103,7 +103,8 @@ const prompt = z.strictObject({
 const exercise = z.strictObject({
   title: text,
   resourceId: resourceId.optional(),
-  href: httpsUrl.optional(),
+  /** An external exercise (https) or a page on this site (/katas/...). */
+  href: z.union([httpsUrl, z.string().regex(/^\/[a-z0-9/._-]*$/)]).optional(),
   terms: text,
 }).refine((value) => value.resourceId !== undefined || value.href !== undefined, { message: 'an exercise needs a resourceId or an href' });
 

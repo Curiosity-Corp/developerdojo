@@ -1,12 +1,10 @@
 import { galleryEntries, galleryOutcomeLabels } from '../data/gallery';
 import { kataCatalog, kataDimensions } from '../data/kata-catalog';
-import { fnd001Metadata } from '../data/kata-recipes/fnd-001';
 import { loadContent } from './content';
 import { fields } from './fields';
 import { galleryKatas, resolveGallery, type ResolvedGallery } from './gallery';
 import { loadKataRecipes } from './kata-recipe-content';
 import { validateKataCatalog } from './kata-catalog';
-import { kataMetadataSchema } from './kata-schema';
 
 let cached: Promise<ResolvedGallery> | undefined;
 
@@ -19,8 +17,8 @@ export function loadGallery(): Promise<ResolvedGallery> {
       pathways: tracks.map((track) => track.id), ...kataDimensions,
     });
     return resolveGallery(galleryEntries, {
-      // FND-001 (#84) is a validated record without a page yet (tests/fnd-001-record.test.ts).
-      katas: galleryKatas(catalog, recipes, [kataMetadataSchema.parse(fnd001Metadata)]),
+      // Every kata the gallery names has a page: a catalog page or a recipe (FND-001 is a recipe, #84).
+      katas: galleryKatas(catalog, recipes, []),
       fields,
       // tests/gallery.test.ts checks these labels cover exactly the outcome vocabulary (galleryOutcomeIds).
       outcomes: Object.entries(galleryOutcomeLabels).map(([id, label]) => ({ id, label })),

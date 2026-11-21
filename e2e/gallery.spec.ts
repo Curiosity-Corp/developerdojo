@@ -41,7 +41,7 @@ test('native artifacts, rendered previews and planned outcomes are told apart', 
   await expect(page.locator('[data-outcome-group="compare-instructions"]').getByRole('link', { name: 'Compare AI instructions' })).toHaveAttribute('href', '/katas/compare-instructions');
 });
 
-test('the FND-001 entry links its real evidence and says its recipe page is not published', async ({ page, request }) => {
+test('the FND-001 entry links its real evidence and its draft recipe page', async ({ page, request }) => {
   await page.goto(GALLERY);
   const fnd = card(page, 'fnd-001-stack-comparison');
   await expect(fnd.locator('.badge.foundation')).toBeVisible();
@@ -50,8 +50,8 @@ test('the FND-001 entry links its real evidence and says its recipe page is not 
     expect(href).toBeTruthy();
     expect((await request.get(href ?? '')).status(), name).toBe(200);
   }
-  await expect(fnd.locator('[data-step="recipe"] [data-unavailable]')).toContainText('Not available yet.');
-  await expect(fnd.locator('[data-step="recipe"]').getByRole('link')).toHaveAttribute('href', '/katas/stack-workbench');
+  await expect(fnd.locator('[data-step="recipe"] [data-unavailable]')).toHaveCount(0);
+  await expect(fnd.locator('[data-step="recipe"]').getByRole('link')).toHaveAttribute('href', /\/katas\/fnd-001-stack-comparison\/?$/);
   await expect(fnd.locator('[data-step="belt"]')).toContainText('Demonstrate:');
 });
 

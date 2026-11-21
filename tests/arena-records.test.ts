@@ -2,7 +2,6 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { fnd001Recipe } from '../src/data/kata-recipes/fnd-001';
 import { arenaRecordSchema, changedParts, type ArenaRecordInput } from '../src/lib/arena-record';
 import { arenaFileContext, arenaRecordFiles } from '../src/lib/arena-content';
 import { ArenaRecordError, exportArenaRecord, proportion, resolveArenaRecords, type ArenaContext, type ArenaRecordFile, type ArmMeasurement } from '../src/lib/arena-records';
@@ -45,20 +44,6 @@ describe('published Arena records', () => {
     expect(byId('ARN-002').record.kind).toBe('external-benchmark');
     expect(Object.values(byId('ARN-002').arms).every((arm) => arm.kind === 'reported')).toBe(true);
     expect(Object.values(byId('ARN-001').arms).every((arm) => arm.kind === 'measured')).toBe(true);
-  });
-
-  it('compute the FND-001 numbers the kata record states (#84), from the run files', () => {
-    for (const row of fnd001Recipe.comparisonMatrix) {
-      if (row.status !== 'verified') continue;
-      for (const side of ['control', 'variant'] as const) {
-        const arm = byId('ARN-001').record.arms.find((item) => JSON.stringify(item.runs) === JSON.stringify(row.runs[side]));
-        expect(arm, `${row.variable} ${side}`).toBeDefined();
-        const value = measured('ARN-001', arm?.id ?? '');
-        const claimed = row.result[side];
-        expect([value.passingAll.count, value.runs, value.checksPassed, value.checksAttempted, value.meanSeconds, value.totalCostUsd])
-          .toEqual([claimed.runsPassingAll, claimed.runs, claimed.checksPassed, claimed.checksAttempted, claimed.meanSeconds, claimed.costUsd]);
-      }
-    }
   });
 
   it('report the correction round and the one failing check', () => {

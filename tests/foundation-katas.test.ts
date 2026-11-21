@@ -1,5 +1,6 @@
-import { existsSync, readdirSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { parse as parseYaml } from 'yaml';
 import { describe, expect, it } from 'vitest';
 import { kataCatalog, kataDimensions } from '../src/data/kata-catalog';
 import { KATA_DIRECTORY } from '../src/data/kata-directory';
@@ -24,16 +25,9 @@ const refs: KataReferences = {
   constraints: merge('constraints'), stackRecipes: merge('stackRecipes'),
 };
 
-/**
- * TEST STAND-IN, NOT THE FND-001 RECORD. FND-001 is #84's record and is not on this branch. This stub
- * exists only so validateKataCatalog can resolve the family's dependency on it; it carries no content
- * and is never exported. Once #84's record merges, validate the family against it instead.
- */
-const sharedFoundationStandIn: KataCatalogEntryInput = {
-  href: '/katas/test-stand-in-fnd-001', linkLabel: 'Test stand-in for FND-001',
-  metadata: { id: SHARED_FOUNDATION_ID, title: 'Test stand-in', layer: 'foundation', professionalReviewRequired: false,
-    outcomeIds: ['compare-instructions'], artifactTypes: ['comparison-record'], capabilityIds: ['verify-evidence'] },
-};
+/** The real shared foundation: FND-001's recipe (#84). */
+const fnd001 = parseYaml(readFileSync('src/content/kata-recipes/fnd-001-stack-comparison.yaml', 'utf8')) as { metadata: KataCatalogEntryInput['metadata'] };
+const sharedFoundation: KataCatalogEntryInput = { href: '/katas/fnd-001-stack-comparison', linkLabel: fnd001.metadata.title, metadata: fnd001.metadata };
 const asEntry = (kata: StagedFoundationKata): KataCatalogEntryInput => ({ href: kata.plannedHref, linkLabel: kata.metadata.title, metadata: kata.metadata });
 const problems = (entries: unknown): readonly string[] => {
   try { validateKataCatalog(entries, refs); return []; }
@@ -43,7 +37,8 @@ const pageFor = (href: string): string => join('src/pages', `${href}.astro`);
 
 describe('staged foundation family (#85): contract', () => {
   it('validates against the real registries and the shared foundation', () => {
-    expect(problems([sharedFoundationStandIn, ...stagedFoundationKatas.map(asEntry)])).toEqual([]);
+    expect(sharedFoundation.metadata.id).toBe(SHARED_FOUNDATION_ID);
+    expect(problems([sharedFoundation, ...stagedFoundationKatas.map(asEntry)])).toEqual([]);
   });
 
   it('fails validation without the shared foundation, so the dependency is real', () => {

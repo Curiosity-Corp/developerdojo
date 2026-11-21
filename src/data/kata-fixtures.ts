@@ -34,11 +34,11 @@ export const newField = { id: 'maritime', name: 'Maritime and ports', examples: 
 
 /** Fixture vocabulary, added the same way an editor extends kataDimensions in src/data/kata-catalog.ts. */
 export const fixtureDimensions = {
-  outcomes: ['acceptance-brief', 'stack-comparison', 'source-clearance', 'usable-onboarding', 'usability-evidence', 'quantity-takeoff',
+  outcomes: ['acceptance-brief', 'source-clearance', 'usable-onboarding', 'usability-evidence', 'quantity-takeoff',
     'traceable-batch-record', 'variant-report', 'cell-cycle-evidence', 'field-data-report', 'reconciled-ledger', 'port-call-check'],
   artifacts: ['acceptance-brief', 'comparison-matrix', 'provenance-record', 'interactive-prototype', 'usability-findings', 'quantity-schedule',
     'batch-record', 'pipeline-report', 'simulation-log', 'cleaned-dataset', 'reconciliation-report', 'schedule-check'],
-  capabilities: ['define-acceptance', 'compare-stacks', 'check-provenance', 'test-usability', 'automate-protocol', 'build-pipeline',
+  capabilities: ['define-acceptance', 'check-provenance', 'test-usability', 'automate-protocol', 'build-pipeline',
     'simulate-robot', 'reconcile-records'],
   constraints: ['simulation-only', 'public-reference-data-only', 'keyboard-only'],
 } as const;

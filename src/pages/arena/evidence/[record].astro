@@ -18,6 +18,7 @@ import { COMPARISON_LABELS, KIND_LABELS, formatProportion, formatUsd, proportion
 import { fields } from '../../../lib/fields';
 import { formatDate } from '../../../lib/labels';
 import { humanize } from '../../../lib/kata-recipes';
+import { loadKataRecipes } from '../../../lib/kata-recipe-content';
 
 export function getStaticPaths() {
   return loadArenaRecords().map((item) => ({ params: { record: item.slug }, props: { item } }));
@@ -37,6 +38,8 @@ const afterCorrection = (value: ArmMeasurement) => proportion(value.passingAll.c
 const runLinks = (id: string) => (arm(id)?.runs ?? []).map((run) => ({ run, json: `${record.evidence?.dir}/runs/${run}.json`, html: `${record.evidence?.dir}/runs/${run}.html` }));
 const variables = [...new Set(record.comparisons.map((comparison) => COMPARISON_LABELS[comparison.variable]))].join(', ');
 const repetitions = record.method.repetitions;
+// The kata recipe this experiment belongs to, when one has a page.
+const kata = record.kataId ? (await loadKataRecipes()).find((resolved) => resolved.recipe.metadata.id === record.kataId) : undefined;
 ---
 
 <BaseLayout title={record.title} description={record.question}>
@@ -54,6 +57,7 @@ const repetitions = record.method.repetitions;
           ? <p data-stale><strong>Stale.</strong> Its review date passed on {isoDay(record.review.staleAfter)}. Models, tools and prices change; re-run or re-check it before relying on it.</p>
           : <p data-review>Last checked {isoDay(record.review.lastChecked)}; marked stale after {isoDay(record.review.staleAfter)}.</p>}
         <p>Compares: {variables}. Field: {fieldName}. This is not a general ranking; see the scope below.</p>
+        {kata && <p data-kata-link>Part of the kata <a href={kata.href}>{kata.recipe.metadata.title}</a> ({kata.recipe.metadata.id}), where you can run it yourself.</p>}
       </div>
 
       <h2 id="task">Task and rubric</h2>
