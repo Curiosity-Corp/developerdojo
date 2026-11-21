@@ -14,7 +14,7 @@ The technical field lists are in [docs/content-model.md](docs/content-model.md).
   files there, and open a **merge request** (MR). An MR is a request to put your change into the real site.
 - When you open the MR, GitLab runs **checks** automatically (the *pipeline*). Green means the page builds,
   the links work and the page is accessible. Red means something needs fixing. The page tells you what.
-- When the MR is green, you press **Merge**. A few minutes later the change is live at https://developerdojo.org.
+- When the MR is green, you press **Merge**. Usually 20 to 45 minutes later the change is live at https://developerdojo.org.
 
 ## What you need
 
@@ -55,7 +55,7 @@ These steps are the same for every kind of change.
    plain sentences about what changed and why. If it finishes a GitLab issue, add the line `Closes #12`
    (use the issue's number). Click **Create merge request**.
 9. **Watch the pipeline.** On the MR page, find the **Pipeline** box. Wait until it shows a green tick
-   (about 10 minutes). If it shows a red cross, see [When the pipeline is red](#when-the-pipeline-is-red).
+   (often 15 to 20 minutes). If it shows a red cross, see [When the pipeline is red](#when-the-pipeline-is-red).
 10. **Merge.** When the pipeline is green, press **Merge**. On this project the button may say
     **Add to merge train** or **Set to auto-merge**: that is the same thing. If the button is grey, the
     pipeline is still running; wait.
@@ -66,9 +66,10 @@ These steps are the same for every kind of change.
     but clash together (for example, two files for the same resource URL) cannot both reach `master`.
     If yours drops out of the train, read the red job, fix forward on your branch, and merge again.
 11. **See it live.** After the merge, a new pipeline runs on `master` and ends with a job called
-    `publish_github_pages`. When that job has a green tick (about 10 to 15 minutes in total), open
-    https://developerdojo.org and look at your page. If you still see the old text, do a hard refresh
-    (`Ctrl+Shift+R`, on a Mac `Cmd+Shift+R`).
+    `publish_github_pages`. That pipeline usually takes 20 to 45 minutes. The job turns green only once
+    the live site serves your build, so when it has a green tick, open https://developerdojo.org and look
+    at your page. If you still see the old text, do a hard refresh (`Ctrl+Shift+R`, on a Mac
+    `Cmd+Shift+R`). If the job is red, see step 6 of [section 9 of the maintainer handbook](docs/handbook.md#9-what-to-do-when-a-pipeline-is-red).
 
 > **Preview.** There is no live preview website for an MR. Use the Markdown preview in the Web IDE while you
 > write. The green pipeline proves the page builds, its links work and it passes the accessibility checks.
