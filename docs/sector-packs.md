@@ -15,7 +15,7 @@ A pack adds a field's practice. It never copies a foundation: every pack kata bu
 | --- | --- | --- | --- | --- |
 | Pack record | `src/data/sector-packs.ts` | `ux` | `bim` | `agriculture` |
 | Pathway page | `src/pages/katas/<field>-pathway.astro` | `ux-pathway` | `bim-pathway` | `agriculture-pathway` |
-| Recipe pages (practice katas) | `src/content/kata-recipes/<prefix>-00N-*.yaml` | UX-001 to UX-005 | BIM-001 to BIM-004 | AGR-001 to AGR-003 |
+| Recipe pages (practice katas) | `src/content/kata-recipes/<prefix>-00N-*.yaml` | UX-001 to UX-005 | BIM-001 to BIM-006 | AGR-001 to AGR-003 |
 | Randori | `src/content/kata-recipes/<prefix>-r01-randori.yaml` | UX-R01 | BIM-R01 | AGR-R01 |
 | Inputs, script, outputs, README | `public/examples/<field>-pathway/` | Penpot file and tokens | buildingSMART IFC, IDS | NOAA weather record |
 | CI check | `.gitlab-ci.yml` | `test`, `e2e` | `bim_pathway` | `agriculture_pathway` |

@@ -1,0 +1,199 @@
+# BIM pathway (M10, #92): a draft recipe. The worked example, files and CI check results are on /katas/bim-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job bim_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: BIM pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/92
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent or professional review yet.
+summary: Turn the IFC elements into a triangle mesh with IfcOpenShell, check the mesh from its triangles alone, and name what the mesh no longer knows.
+metadata:
+  id: BIM-005
+  title: Build a 3D mesh and check its shape
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - export-and-check-mesh
+  artifactTypes:
+    - mesh-file
+  domainIds:
+    - architecture-bim
+    - 3d
+  capabilityIds:
+    - process-geometry
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - ifcopenshell-and-python
+  constraintIds:
+    - licensed-sample-only
+    - no-paid-tools
+    - offline-capable
+  externalResources:
+    - ifcopenshell/geometry-processing
+    - loc/wavefront-obj
+  crossFieldTransfers:
+    - construction
+  standards:
+    - name: Industry Foundation Classes (IFC)
+      version: IFC4 ADD2 TC1 (ISO 16739-1:2018), as declared by the sample file
+      applicability: The buildingSMART practice sample and copies of it only
+      reviewScope: "What the listed checks test: the shapes and attributes in the sample file. No claim about any real building."
+  verificationEvidence:
+    - description: An OBJ mesh of the wall and the window, and a mesh check per object that matches the Dojo's CI output
+      method: automated-check
+      standards:
+        - Industry Foundation Classes (IFC)
+    - description: The learner lists what the mesh lost compared with the IFC model, and why a mesh check is not a design check
+      method: self-check
+      standards:
+        - Industry Foundation Classes (IFC)
+  beltCriteria:
+    - stage: practice
+      criterion: Builds the two meshes, gets both closed with the same volumes as IfcOpenShell, and explains why the wall has one through hole
+    - stage: adapt
+      criterion: Exports the edited copy from BIM-004 and shows with the mesh check that its geometry did not change
+    - stage: demonstrate
+      criterion: Writes a short note for a model author on what a mesh check can and cannot tell them, naming who must review a real model
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: buildingSMART’s wall-with-opening-and-window sample tessellated to an OBJ, with a mesh check per object computed by the site’s CI."
+  href: /katas/bim-pathway
+  provenance:
+    creator: buildingSMART International (sample model); Developer Dojo maintainers (mesh export and checks)
+    source: buildingSMART Certification-datasets, pinned commit 80d976a9b193a26a8e928c3e79bff67af1de68a8; mesh from /examples/bim-pathway/tools/bim_pathway.py
+    license: Sample model CC BY 4.0 (buildingSMART International); the OBJ is an adaptation under the same licence; script and checks MIT
+    date: "2026-11-21"
+brief:
+  goal: A triangle mesh of the sample's physical elements, a check of each mesh, and a short list of what the mesh lost.
+  audience: Learners who finished BIM-001 and BIM-003.
+  inputs:
+    - name: wall-with-opening-and-window.ifc
+      source: buildingsmart/ifc-wall-example (copy on /examples/bim-pathway/)
+      terms: CC BY 4.0, buildingSMART International. A mesh made from it is an adaptation and must credit the source.
+  doneWhen:
+    - The wall and the window are tessellated in world coordinates, in metres, with the opening cut from the wall
+    - Each mesh is closed (every edge in exactly two triangles) and consistently oriented
+    - Each mesh's enclosed volume equals the volume IfcOpenShell reports for the same element
+    - The note says what the mesh lost (classes, properties, materials, relationships) and that a closed mesh is not a checked design
+stack:
+  components:
+    - part: tool
+      name: IfcOpenShell (geometry built with OpenCASCADE)
+      version: 0.9.0.post1
+      permissions: Reads the IFC copy you open; writes only the files your script saves
+      cost: Free (LGPL-3.0-or-later)
+    - part: runtime
+      name: Python in a virtual environment, with NumPy
+      version: "3.12"
+      permissions: Runs on your own machine; network only to install the pinned packages
+      cost: Free
+    - part: data
+      name: buildingSMART wall-with-opening-and-window sample (IFC4)
+      version: "Certification-datasets commit 80d976a, SHA-256 73b0e45d…097832"
+      permissions: Read a copy; the licence allows changes with credit
+      cost: Free (CC BY 4.0)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may draft a script or explain an entity, and every number it gives is checked against the file
+      permissions: Reads what you paste in; if it runs commands, give it only the copy of the model
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The 3D shape and the building information are separate capabilities. IfcOpenShell builds the shape from the IFC geometry, and the mesh check uses only the triangles, so it shows what a viewer or game engine would get and what it would not. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A desktop BIM or 3D tool (for example Bonsai for Blender) to export the mesh
+      tradeoff: Visual and quick, but the result depends on the tool's export settings. Not tried for this pathway.
+      tested: false
+    - name: glTF instead of OBJ
+      tradeoff: glTF is the usual format for web viewers and can carry more structure; OBJ is plain text you can read line by line. glTF export was not tried for this pathway.
+      tested: false
+agents:
+  roles:
+    - role: Coding agent
+      responsibility: Drafts the tessellation and the mesh check with ifcopenshell.geom and NumPy.
+      reviewGate: Its numbers are compared with the CI output before you accept them.
+    - role: Learner as reviewer
+      responsibility: Runs the check, compares it with the CI output and writes the note on what the mesh lost.
+      dependsOn:
+        - Coding agent
+      reviewGate: The note names what was checked, what was not, and who reviews a real model.
+setup:
+  steps:
+    - "Create a virtual environment with Python 3.12: python3.12 -m venv .venv"
+    - "Install the pinned packages: .venv/bin/pip install --require-hashes -r /examples/bim-pathway/tools/requirements.txt"
+    - Download the sample model from /katas/bim-pathway into a new, empty folder. Work on copies; keep the original.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: .venv/bin/python -I -c \"import ifcopenshell.geom; print(ifcopenshell.geom.settings())\""
+    expected: A settings object is printed, so the geometry engine loads
+    result: not-run
+prompts:
+  - id: mesh-check
+    title: Ask for a mesh and a check you can read
+    purpose: Keep the 3D export separate from the BIM information, and make the check explainable.
+    text: |-
+      Using ifcopenshell 0.9 with use-world-coords on, build the shape of every IfcWall and IfcWindow in <copy.ifc>,
+      convert the vertices to metres, and write them to one OBJ with one object per element named by its class and GlobalId.
+      Then, from the triangles alone, report for each object: vertices, edges, triangles, whether every edge is used by
+      exactly two triangles, the Euler characteristic, the surface area and the enclosed volume. Compare the volume with
+      ifcopenshell.util.shape.get_volume. Do not claim the model is correct or buildable.
+exercise:
+  title: Geometry processing with IfcOpenShell
+  resourceId: ifcopenshell/geometry-processing
+  terms: Documentation under the IfcOpenShell project's terms; the software is LGPL-3.0-or-later.
+execution:
+  steps:
+    - actor: Coding agent
+      action: Writes the export and check script and runs it on a copy.
+      handoff: You compare its numbers with the CI output.
+    - actor: Learner
+      action: Opens the OBJ as text, finds the two objects, and explains why the wall has one through hole.
+    - actor: Learner
+      action: Writes the note on what the mesh lost.
+verification:
+  checks:
+    - action: Tessellate the wall and the window and write the OBJ
+      expected: One OBJ with two objects, named IfcWall_3ZYW59sxj8lei475l7EhLU and IfcWindow_0tA4DSHd50le6Ov9Yu0I9X; the opening is not exported because it is a void
+      result: passed
+      evidence: /examples/bim-pathway/generated/mesh/wall-with-opening-and-window.obj, rebuilt byte for byte by CI on every pipeline
+      date: "2026-11-21"
+    - action: Check each mesh from its triangles
+      expected: Both closed and consistently oriented; the wall has one through hole (Euler characteristic 0), the window none (Euler characteristic 2)
+      result: passed
+      evidence: /examples/bim-pathway/generated/mesh/mesh-checks.json
+      date: "2026-11-21"
+    - action: Compare each enclosed volume with IfcOpenShell's volume
+      expected: Wall 1.5 m³ and window 0.2 m³ by both routes
+      result: passed
+      evidence: /examples/bim-pathway/generated/mesh/mesh-checks.json
+      date: "2026-11-21"
+    - action: Open the OBJ in a 3D viewer and look at it
+      expected: One wall with a square hole and one window panel inside the hole
+      result: not-run
+    - action: Your own mesh passes the same checks
+      expected: Same counts and measures; your vertex order may differ
+      result: not-run
+  failures:
+    - observed: The volumes are a billion times too big
+      correction: The sample's length unit is the millimetre. Multiply each coordinate by the unit scale (0.001) before you measure.
+    - observed: Edges are used by one triangle only, so the mesh looks open
+      correction: Some exporters repeat a vertex for each face. Weld vertices with the same coordinates before you count edges.
+adaptation:
+  variations:
+    - change: Export the edited copy from BIM-004 instead
+      effect: The mesh is the same, because the edit changed one property and no geometry. That is the point of keeping shape and information apart.
+randori:
+  challenge: See the BIM Randori recipe, BIM-R01.
+  constraints:
+    - Keep the 3D export and the information checks as separate results
+  evaluation: The note names what the mesh lost and who reviews a real model.
+maintenance:
+  cadence: Every six months, when IfcOpenShell releases a new minor version, or when buildingSMART revises IFC
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - The sample is a three-element test file, not a building. Nothing learned from it is evidence about a real project.
+    - No model, mesh or check result here is professionally reviewed or approved. A real project needs the qualified people its contract and jurisdiction name.
+    - A closed mesh shows the shape can be processed. It is not a clash, tolerance, structural or constructability check.
+    - The OBJ keeps geometry and object names only. It is not BIM, and it must not replace the IFC model as the record of the design.

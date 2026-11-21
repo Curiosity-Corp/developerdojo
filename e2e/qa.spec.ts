@@ -121,6 +121,7 @@ const REFLOW_ROUTES = [
   // The BIM pathway and its longest recipe page (#92).
   '/katas/bim-pathway/',
   '/katas/bim-003-ids-check/',
+  '/katas/bim-006-quantity-trace/',
   // The agriculture pathway and its widest recipe page (#93).
   '/katas/agriculture-pathway/',
   '/katas/agr-003-irrigation-need/',

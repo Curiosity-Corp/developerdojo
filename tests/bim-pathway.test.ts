@@ -16,6 +16,8 @@ const sha256 = (path: string) => createHash('sha256').update(readFileSync(path))
 interface Requirement { label: string; failures: { element: string; reason: string }[] }
 interface Spec { identifier: string; status: 'pass' | 'fail'; requirements: Requirement[] }
 interface IdsResult { passed: number; failed: number; specifications: Spec[] }
+interface MeshElement { class: string; triangles: number; closed: boolean; consistentlyOriented: boolean; eulerCharacteristic: number; throughHoles: number | null; enclosedVolume_m3: number | null; ifcopenshellVolume_m3: number; volumesAgree: boolean }
+interface Quantity { id: string; value: number | null; unit: string; sources: string[]; GlobalIds: string[]; method: string; assumption: string }
 interface Geometry { allBuilt: boolean; elements: { id: number; class: string; built: boolean; volume_m3: number }[] }
 
 const PINNED_SAMPLE = '73b0e45d931d5dc13bfee5fdc7bd80f796526445458b2de74c4168d209097832';
@@ -95,11 +97,43 @@ describe('BIM pathway results', () => {
   });
 });
 
+describe('BIM pathway 3D mesh and quantities (BIM-005, BIM-006)', () => {
+  it('exports the wall and the window as closed meshes whose volumes match IfcOpenShell', () => {
+    const mesh = json<{ elements: MeshElement[]; excluded: string[]; allClosed: boolean; allVolumesAgree: boolean }>('mesh/mesh-checks.json');
+    expect(mesh.elements.map((element) => element.class)).toEqual(['IfcWall', 'IfcWindow']);
+    expect(mesh.excluded).toEqual(['#80=IfcOpeningElement']);
+    expect([mesh.allClosed, mesh.allVolumesAgree]).toEqual([true, true]);
+    const [wall, window] = mesh.elements;
+    expect(wall).toMatchObject({ consistentlyOriented: true, eulerCharacteristic: 0, throughHoles: 1, enclosedVolume_m3: 1.5 });
+    expect(window).toMatchObject({ consistentlyOriented: true, eulerCharacteristic: 2, throughHoles: 0, enclosedVolume_m3: 0.2 });
+    const obj = readFileSync(join(GEN, 'mesh/wall-with-opening-and-window.obj'), 'utf8');
+    expect(obj.match(/^o .+$/gm)).toEqual(['o IfcWall_3ZYW59sxj8lei475l7EhLU', 'o IfcWindow_0tA4DSHd50le6Ov9Yu0I9X']);
+    expect(obj.match(/^f /gm)?.length).toBe(mesh.elements.reduce((sum, element) => sum + element.triangles, 0));
+  });
+
+  it('gives the quantities the BIM-006 recipe quotes, each traced to sources', () => {
+    const data = json<{ quantities: Quantity[]; crossChecks: { agree: boolean }[]; authoredQuantitySets: number }>('quantities/quantities.json');
+    const value = Object.fromEntries(data.quantities.map((row) => [row.id, row.value]));
+    expect(value).toEqual({ 'Q-01': 3, 'Q-02': 0.3, 'Q-03': 2, 'Q-04': 1.8, 'Q-05': 0.3, 'Q-06': 1.5, 'Q-07': 6, 'Q-08': 1, 'Q-09': 5, 'Q-10': 1, 'Q-11': 0.7 });
+    for (const row of data.quantities) {
+      expect(row.sources.length, row.id).toBeGreaterThan(0);
+      expect(row.GlobalIds.length, row.id).toBeGreaterThan(0);
+      expect(row.method, row.id).not.toBe('');
+      expect(row.assumption, row.id).not.toBe('');
+    }
+    expect(data.crossChecks).toHaveLength(4);
+    expect(data.crossChecks.every((check) => check.agree)).toBe(true);
+    expect(data.authoredQuantitySets).toBe(0);
+    const csv = readFileSync(join(GEN, 'quantities/quantities.csv'), 'utf8').trim().split('\n');
+    expect(csv).toHaveLength(data.quantities.length + 1);
+  });
+});
+
 describe('BIM pathway evidence links', () => {
   const recipes = readdirSync('src/content/kata-recipes').filter((file) => file.startsWith('bim-'));
 
-  it('has five recipes, and every evidence path they cite is a published file', () => {
-    expect(recipes).toHaveLength(5);
+  it('has seven recipes, and every evidence path they cite is a published file', () => {
+    expect(recipes).toHaveLength(7);
     for (const file of recipes) {
       const text = readFileSync(join('src/content/kata-recipes', file), 'utf8');
       parseYaml(text);

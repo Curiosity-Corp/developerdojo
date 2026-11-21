@@ -10,11 +10,16 @@ test('the BIM pathway shows the three outcomes separately and serves its files',
   await expect(page.getByRole('heading', { name: 'Schema' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Geometry' })).toBeVisible();
   await expect(page.locator('[data-change]')).toContainText('24 of 24 GlobalIds kept, 0 added');
-  for (const id of ['bim-001-inspect-model', 'bim-002-property-sets', 'bim-003-ids-check', 'bim-004-change-and-revalidate', 'bim-r01-randori']) {
+  await expect(page.locator('[data-mesh]')).toHaveCount(2);
+  await expect(page.locator('[data-quantity]')).toHaveCount(11);
+  await expect(page.locator('[data-quantity="Q-09"]')).toContainText('5 m²');
+  await expect(page.locator('[data-cross-check]')).toHaveCount(4);
+  await expect(page.locator('[data-staged]').first()).toContainText('Proposed');
+  for (const id of ['bim-001-inspect-model', 'bim-002-property-sets', 'bim-003-ids-check', 'bim-004-change-and-revalidate', 'bim-005-mesh-geometry', 'bim-006-quantity-trace', 'bim-r01-randori']) {
     await expect(page.locator(`a[href="/katas/${id}"]`).first()).toBeVisible();
   }
   const files = await page.locator('a[href^="/examples/bim-pathway/"]').evaluateAll((links) => [...new Set(links.map((link) => link.getAttribute('href') ?? ''))]);
-  expect(files.length).toBeGreaterThanOrEqual(8);
+  expect(files.length).toBeGreaterThanOrEqual(12);
   for (const href of files) expect((await request.get(href)).status(), href).toBe(200);
 });
 

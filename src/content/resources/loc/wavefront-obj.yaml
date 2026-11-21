@@ -1,0 +1,9 @@
+title: "Wavefront OBJ File Format"
+provider: "Library of Congress"
+url: "https://www.loc.gov/preservation/digital/formats/fdd/fdd000507.shtml"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [cad-3d-bim]
+summary: "The Library of Congress format description of Wavefront OBJ: a plain-text format for the surface geometry of one or more objects, with optional normals, texture coordinates and groups. It carries no building information such as classes, properties or relationships."
+verifiedOn: 2026-11-21

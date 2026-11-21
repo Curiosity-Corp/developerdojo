@@ -1,0 +1,202 @@
+# BIM pathway (M10, #92): a draft recipe. The worked example, files and CI check results are on /katas/bim-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job bim_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: BIM pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/92
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent or professional review yet.
+summary: Compute wall, opening and window quantities from the IFC model, trace each one to its source entities, unit and assumption, and cross-check it against the built geometry.
+metadata:
+  id: BIM-006
+  title: Trace quantities to the model objects
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - trace-quantities
+  artifactTypes:
+    - quantity-table
+  domainIds:
+    - architecture-bim
+    - construction
+  capabilityIds:
+    - take-off-quantities
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - ifcopenshell-and-python
+  constraintIds:
+    - licensed-sample-only
+    - no-paid-tools
+    - offline-capable
+  externalResources:
+    - buildingsmart/ifc-wall-example
+    - ifcopenshell/geometry-processing
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: Industry Foundation Classes (IFC)
+      version: IFC4 ADD2 TC1 (ISO 16739-1:2018), as declared by the sample file
+      applicability: The buildingSMART practice sample and copies of it only
+      reviewScope: "What the listed checks test: the shapes and attributes in the sample file. No claim about any real building."
+  verificationEvidence:
+    - description: A quantity table in which every row names its source entities, GlobalIds, unit, method and assumption, matching the Dojo's CI output
+      method: automated-check
+      standards:
+        - Industry Foundation Classes (IFC)
+    - description: Cross-checks in which the parametric and geometric routes agree for wall thickness, net volume and both net face areas
+      method: automated-check
+      standards:
+        - Industry Foundation Classes (IFC)
+    - description: The learner marks which quantity is an estimate and which is unavailable, and names who checks a real takeoff
+      method: self-check
+      standards:
+        - Industry Foundation Classes (IFC)
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces the eleven quantities and the four cross-checks, and says which quantity is only an estimate
+    - stage: adapt
+      criterion: Adds one quantity (for example the wall's top area) with its own source entities and a second route that agrees
+    - stage: demonstrate
+      criterion: Hands the table to a partner, who traces any row back to the IFC entities without help
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: eleven quantities from buildingSMART’s wall-with-opening-and-window sample, each traced to its source entities, with cross-checks computed by the site’s CI."
+  href: /katas/bim-pathway
+  provenance:
+    creator: buildingSMART International (sample model); Developer Dojo maintainers (quantities and checks)
+    source: buildingSMART Certification-datasets, pinned commit 80d976a9b193a26a8e928c3e79bff67af1de68a8; quantities from /examples/bim-pathway/tools/bim_pathway.py
+    license: Sample model CC BY 4.0 (buildingSMART International); script, table and checks MIT
+    date: "2026-11-21"
+brief:
+  goal: A quantity table for the sample in which any number can be traced back to the IFC entities it came from.
+  audience: Learners who finished BIM-001 to BIM-003. The hand-worked exercise /katas/ifc-quantity-trace is a gentle first step.
+  inputs:
+    - name: wall-with-opening-and-window.ifc
+      source: buildingsmart/ifc-wall-example (copy on /examples/bim-pathway/)
+      terms: CC BY 4.0, buildingSMART International. Credit the source in your table.
+  doneWhen:
+    - Every row has a value or the word unavailable, a unit, a method, its source entities with their GlobalIds, and an assumption
+    - Lengths are converted from millimetres to metres before anything is multiplied
+    - The wall thickness, net volume and both net face areas agree by the parametric and the geometric route
+    - The glazing area is labelled an estimate, because the window has no separate glass geometry
+    - The table says it is a practice takeoff on a test file, not a cost, procurement or construction quantity
+stack:
+  components:
+    - part: tool
+      name: IfcOpenShell (geometry built with OpenCASCADE)
+      version: 0.9.0.post1
+      permissions: Reads the IFC copy you open; writes only the files your script saves
+      cost: Free (LGPL-3.0-or-later)
+    - part: runtime
+      name: Python in a virtual environment, with NumPy
+      version: "3.12"
+      permissions: Runs on your own machine; network only to install the pinned packages
+      cost: Free
+    - part: data
+      name: buildingSMART wall-with-opening-and-window sample (IFC4)
+      version: "Certification-datasets commit 80d976a, SHA-256 73b0e45d…097832"
+      permissions: Read a copy; the licence allows changes with credit
+      cost: Free (CC BY 4.0)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may draft a script or explain an entity, and every number it gives is checked against the file
+      permissions: Reads what you paste in; if it runs commands, give it only the copy of the model
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: A quantity is only useful if someone can check where it came from. Reading the numbers from the IFC parameters and measuring the built shape are independent routes, so agreement between them is evidence, and disagreement stops the script. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: Authored quantity sets (IfcElementQuantity, for example Qto_WallBaseQuantities)
+      tradeoff: Many authoring tools write quantities into the model. The sample has none, so there was nothing to compare; when a model has them, they are a third route to check, not a source to trust blindly.
+      tested: false
+    - name: A desktop takeoff tool
+      tradeoff: Faster on a large model, but each tool has its own measurement rules and they are often hidden. Not tried for this pathway.
+      tested: false
+agents:
+  roles:
+    - role: Coding agent
+      responsibility: Drafts the script that reads the parameters, measures the shape and writes the table.
+      reviewGate: Every row it writes must name its source entities; a row without them is rejected.
+    - role: Learner as reviewer
+      responsibility: Traces three rows back to the IFC file by hand and checks the cross-checks.
+      dependsOn:
+        - Coding agent
+      reviewGate: The table names its assumptions and who must check a real takeoff.
+setup:
+  steps:
+    - "Create a virtual environment with Python 3.12: python3.12 -m venv .venv"
+    - "Install the pinned packages: .venv/bin/pip install --require-hashes -r /examples/bim-pathway/tools/requirements.txt"
+    - Download the sample model from /katas/bim-pathway into a new, empty folder. Work on copies; keep the original.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: .venv/bin/python -I -c \"import ifcopenshell, ifcopenshell.util.unit as u; m = ifcopenshell.open('wall-with-opening-and-window.ifc'); print(u.calculate_unit_scale(m))\""
+    expected: "0.001"
+    result: not-run
+prompts:
+  - id: traced-takeoff
+    title: Ask for quantities you can trace
+    purpose: Make every number carry its source, unit and assumption, and give it a second route.
+    text: |-
+      Using ifcopenshell 0.9, read from <copy.ifc> the wall's axis length, material layer thickness, body profile and
+      extrusion depth, the opening's profile and depth, and the window's OverallWidth and OverallHeight. Convert to metres.
+      Write a CSV with one row per quantity: id, element, quantity, value, unit, method, source entity ids, GlobalIds,
+      assumption. Then build the wall shape with ifcopenshell.geom and check that its volume and each broad face area
+      equal the values you computed from the parameters. Stop with an error if they do not. Mark any value you could not
+      compute as unavailable, never zero. Do not call the result a cost estimate or a construction quantity.
+exercise:
+  title: IFC wall with opening and window sample
+  resourceId: buildingsmart/ifc-wall-example
+  terms: CC BY 4.0, buildingSMART International Ltd.
+execution:
+  steps:
+    - actor: Coding agent
+      action: Writes the quantity script and runs it on a copy.
+      handoff: You trace three rows back to the IFC file by hand.
+    - actor: Learner
+      action: Checks the cross-checks and marks which rows are estimates.
+    - actor: Learner
+      action: Writes who would have to check a real takeoff before anyone priced or ordered from it.
+verification:
+  checks:
+    - action: Compute the quantities with their sources
+      expected: Wall length 3 m, thickness 0.3 m, height 2 m, gross volume 1.8 m³, opening volume 0.3 m³, net volume 1.5 m³, gross face 6 m², opening face 1 m², net face 5 m², window 1 m², glazing estimate 0.7 m²
+      result: passed
+      evidence: /examples/bim-pathway/generated/quantities/quantities.csv and /examples/bim-pathway/generated/quantities/quantities.json, recomputed by CI on every pipeline
+      date: "2026-11-21"
+    - action: Cross-check the parametric route against the built geometry
+      expected: All four cross-checks agree within 0.000001
+      result: passed
+      evidence: /examples/bim-pathway/generated/quantities/quantities.json (crossChecks)
+      date: "2026-11-21"
+    - action: Look for authored quantity sets to compare with
+      expected: None in the sample, so the comparison is unavailable
+      result: passed
+      evidence: /examples/bim-pathway/generated/quantities/quantities.json (authoredQuantitySets)
+      date: "2026-11-21"
+    - action: Your own table passes the same cross-checks
+      expected: Same values; your column order may differ
+      result: not-run
+  failures:
+    - observed: The wall volume is 1,800,000,000
+      correction: That is cubic millimetres. Convert each length to metres first, using the model's length unit (millimetre here).
+    - observed: The net face area is 4 m², not 5 m²
+      correction: The opening was deducted from both faces and the result added up as one face. The opening passes right through, so deduct it once from each face and report one face.
+adaptation:
+  variations:
+    - change: Use the wall's material layer thickness to check the profile width
+      effect: Both give 0.3 m here. On a real model they can differ, and the difference is a question for the model author, not something to average away.
+randori:
+  challenge: See the BIM Randori recipe, BIM-R01.
+  constraints:
+    - Every number keeps its source and assumption
+  evaluation: A partner can trace any row back to the IFC file.
+maintenance:
+  cadence: Every six months, when IfcOpenShell releases a new minor version, or when buildingSMART revises IFC
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - The sample is a three-element test file, not a building. Nothing learned from it is evidence about a real project.
+    - No quantity here is professionally reviewed or approved. A real takeoff needs the qualified people its contract and jurisdiction name, for example a quantity surveyor or cost estimator, and the measurement rules the contract sets.
+    - These are practice quantities. They are not a cost estimate, a bill of quantities or an order, and no cost or schedule is derived from them.
+    - The glazing area is an estimate from a declared property, not a measurement.

@@ -13,6 +13,8 @@ import originalGeometry from '../../../public/examples/bim-pathway/generated/ori
 import editedGeometry from '../../../public/examples/bim-pathway/generated/edited/geometry.json';
 import change from '../../../public/examples/bim-pathway/generated/change.json';
 import randori from '../../../public/examples/bim-pathway/generated/randori/ids.json';
+import meshChecks from '../../../public/examples/bim-pathway/generated/mesh/mesh-checks.json';
+import quantities from '../../../public/examples/bim-pathway/generated/quantities/quantities.json';
 
 const EX = '/examples/bim-pathway';
 const GEN = `${EX}/generated`;
@@ -21,11 +23,22 @@ const steps = [
   { id: 'BIM-002', href: '/katas/bim-002-property-sets', title: 'Read the property sets', does: 'Every property on the wall and window, with its type, and the ones that are empty.' },
   { id: 'BIM-003', href: '/katas/bim-003-ids-check', title: 'Check the model against IDS requirements', does: 'Run six practice requirements with IfcTester and explain the one that fails.' },
   { id: 'BIM-004', href: '/katas/bim-004-change-and-revalidate', title: 'Change the model and check it again', does: 'One scoped edit, every GlobalId kept, then IDS, schema and geometry checks rerun on the copy.' },
+  { id: 'BIM-005', href: '/katas/bim-005-mesh-geometry', title: 'Build a 3D mesh and check its shape', does: 'Tessellate the wall and window to an OBJ and check each mesh from its triangles alone: closed, oriented, holes, area and volume.' },
+  { id: 'BIM-006', href: '/katas/bim-006-quantity-trace', title: 'Trace quantities to the model objects', does: 'Eleven quantities, each with its source entities, unit, method and assumption, cross-checked against the built geometry.' },
   { id: 'BIM-R01', href: '/katas/bim-r01-randori', title: 'BIM Randori: an unseen requirement change', does: 'A partner reveals one new requirement after you start; meet it without breaking the others.' },
 ];
 const pairs = originalIds.specifications.map((spec, index) => ({ spec, after: editedIds.specifications[index] }));
 const geometryRows = originalGeometry.elements.map((element, index) => ({ element, after: editedGeometry.elements[index] }));
 const edit = change.propertyChanges[0];
+const quantityValue = (value: number | null) => (value === null ? 'unavailable' : String(value));
+const staged = [
+  { title: 'Coordination and clashes', why: 'A clash check and a BCF issue register need a multi-discipline open model; this sample has one wall and one window, so nothing can clash.' },
+  { title: 'Cost', why: 'Pricing the quantities needs unit rates from a source that may be reused and the measurement rules a contract sets. Neither has been chosen.' },
+  { title: 'Construction sequence (4D)', why: 'Linking model objects to a schedule needs a sequence source. None has been chosen.' },
+  { title: 'Full schema rules and outside validation', why: 'EXPRESS where-rules and buildingSMART’s validation service have not been run.' },
+  { title: 'Authoring tools and viewers', why: 'No round trip through a BIM authoring tool, and no viewer has opened the OBJ.' },
+  { title: 'Civil works and digital twins', why: 'Out of scope for a single-wall sample.' },
+];
 const statusLabel = (status: string) => (status === 'pass' ? 'Pass' : 'Fail');
 const sources = {
   sample: 'https://github.com/buildingSMART/Certification-datasets/blob/80d976a9b193a26a8e928c3e79bff67af1de68a8/IFC%204.0.2.1%20%28IFC%204%20ADD2%20TC1%29/ISO%20Spec%20-%20ReferenceView_V1.2/wall-with-opening-and-window.ifc',
@@ -40,7 +53,7 @@ const sources = {
 };
 ---
 <BaseLayout title="BIM pathway: from an IFC file to checked, edited building information" description="Follow a BIM pathway on a real, openly licensed IFC model: inspect it, read its property sets, check it against IDS requirements, change it and check it again, with every result computed in CI.">
-  <PageHero compact eyebrow="Architecture and BIM · Pathway" title="From an IFC file to checked information" accent="." subtitle="Five katas on one small, openly licensed building model. Each step has a real file you can open and a check result that CI computes on every pipeline." ctas={[
+  <PageHero compact eyebrow="Architecture and BIM · Pathway" title="From an IFC file to checked information" accent="." subtitle="Seven katas on one small, openly licensed building model. Each step has a real file you can open and a check result that CI computes on every pipeline." ctas={[
     { label: 'Start with BIM-001', href: '/katas/bim-001-inspect-model', icon: 'play' },
     { label: 'Download the model', href: `${EX}/wall-with-opening-and-window.ifc`, variant: 'ghost', icon: 'arrow-right' },
   ]} />
@@ -77,7 +90,7 @@ const sources = {
 
   <section class="section" aria-labelledby="steps-title"><div class="container narrow">
     <p class="eyebrow">03 / The steps</p>
-    <h2 id="steps-title">Five katas, in order</h2>
+    <h2 id="steps-title">Seven katas, in order</h2>
     <p>Each kata has a brief, prompts, checks and the evidence for the checks the Dojo has run. They are drafts: the Dojo built the example and CI checks it, and no learner has run them yet. Do the foundations first: <a href="/katas/compare-instructions">Compare AI instructions</a> and <a href="/katas/context-trap">Spot a context trap</a>. If you have not read an IFC file before, <a href="/katas/inspect-ifc">Find the story in a building model</a> walks through the same sample by hand.</p>
     <ol class="steps">
       {steps.map((step) => <li><a href={step.href}><span class="step-id">{step.id}</span> {step.title}</a><p>{step.does}</p></li>)}
@@ -123,8 +136,47 @@ const sources = {
     <p>Checked against the edited copy: {randori.specifications.map((s) => `${s.identifier} ${s.status}`).join(', ')}. <a href={`${EX}/randori-cards.ids`}>The cards (IDS)</a> are for the partner; see <a href="/katas/bim-r01-randori">BIM-R01</a>.</p>
   </div></section>
 
+  <section class="section" aria-labelledby="shape-title"><div class="container narrow">
+    <p class="eyebrow">05 / Shape and quantities</p>
+    <h2 id="shape-title">A mesh is not the model, and a quantity needs its source</h2>
+    <p>3D geometry, building information and quantities are separate capabilities. BIM-005 keeps only the shape; BIM-006 keeps the shape’s numbers and where each one came from. Both run on the original sample, and CI recomputes both on every pipeline.</p>
+
+    <h3 id="mesh-title">3D mesh (BIM-005)</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="mesh-caption">
+      <table>
+        <caption id="mesh-caption">Mesh checks from the triangles alone, in metres</caption>
+        <thead><tr><th scope="col">Object</th><th scope="col">Triangles</th><th scope="col">Closed</th><th scope="col">Through holes</th><th scope="col">Surface m²</th><th scope="col">Volume m³ (mesh, IfcOpenShell)</th></tr></thead>
+        <tbody>
+          {meshChecks.elements.map((element) => <tr data-mesh={element.class}><td>#{element.id} {element.class}</td><td>{element.triangles}</td><td>{element.closed ? 'yes' : 'no'}</td><td>{element.throughHoles ?? 'unavailable'}</td><td>{element.surfaceArea_m2}</td><td>{element.enclosedVolume_m3 ?? 'unavailable'}, {element.ifcopenshellVolume_m3}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>The opening is not exported: it is a void, not an object. The OBJ keeps no {meshChecks.lost.slice(0, 3).join(', ')} or relationships; the object names are its only link back to the model. <a href={`${GEN}/mesh/wall-with-opening-and-window.obj`} download>The mesh (OBJ, CC BY 4.0 adaptation)</a> · <a href={`${GEN}/mesh/mesh-checks.json`}>mesh checks (JSON)</a>.</p>
+
+    <h3 id="quantities-title">Quantities traced to source objects (BIM-006)</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="quantities-caption">
+      <table>
+        <caption id="quantities-caption">Practice quantities for the original sample, with their sources</caption>
+        <thead><tr><th scope="col">Id</th><th scope="col">Quantity</th><th scope="col">Value</th><th scope="col">Method</th><th scope="col">Source entities</th></tr></thead>
+        <tbody>
+          {quantities.quantities.map((row) => <tr data-quantity={row.id}><th scope="row">{row.id}</th><td>{row.quantity}</td><td>{quantityValue(row.value)} {row.unit}</td><td>{row.method}</td><td><code>{row.sources.join(' ')}</code></td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="cross-caption">
+      <table>
+        <caption id="cross-caption">Two routes to the same quantity: IFC parameters and the built geometry</caption>
+        <thead><tr><th scope="col">Cross-check</th><th scope="col">Parameters</th><th scope="col">Geometry</th><th scope="col">Agree</th></tr></thead>
+        <tbody>
+          {quantities.crossChecks.map((check) => <tr data-cross-check><td>{check.check}</td><td>{check.first} {check.unit}</td><td>{check.second} {check.unit}</td><td>{check.agree ? 'yes' : 'no'}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>The sample has {quantities.authoredQuantitySets} authored quantity sets, so there was nothing from the model author to compare with. The glazing area is an estimate from a declared property, not a measurement. These are practice quantities on a test file: not a takeoff for cost, procurement or construction. Each row’s assumption is in <a href={`${GEN}/quantities/quantities.csv`} download>the table (CSV)</a> · <a href={`${GEN}/quantities/quantities.json`}>with the cross-checks (JSON)</a>. To work one quantity by hand first, try <a href="/katas/ifc-quantity-trace">Trace a wall quantity</a>.</p>
+  </div></section>
+
   <section class="section" aria-labelledby="tools-title"><div class="container narrow">
-    <p class="eyebrow">05 / The tools</p>
+    <p class="eyebrow">06 / The tools</p>
     <h2 id="tools-title">Open tools, pinned versions</h2>
     <div class="table-wrap" tabindex="0" role="region" aria-labelledby="tools-caption">
       <table>
@@ -134,6 +186,7 @@ const sources = {
           <tr><th scope="row">IfcOpenShell</th><td>{manifest.tools.ifcopenshell}</td><td>LGPL-3.0-or-later</td><td><a href={sources.pypiIfcopenshell}>PyPI</a>, <a href={sources.validate}>validation</a>, <a href={sources.geometry}>geometry</a></td></tr>
           <tr><th scope="row">IfcTester</th><td>{manifest.tools.ifctester}</td><td>LGPL-3.0-or-later</td><td><a href={sources.pypiIfctester}>PyPI</a>, <a href={sources.ifctester}>documentation</a></td></tr>
           <tr><th scope="row">Python</th><td>{manifest.tools.python}</td><td>PSF</td><td>CI image python:3.12-slim</td></tr>
+          <tr><th scope="row">Wavefront OBJ</th><td>Plain-text mesh</td><td>Open format</td><td><a href="https://www.loc.gov/preservation/digital/formats/fdd/fdd000507.shtml">Library of Congress format description</a></td></tr>
           <tr><th scope="row">IDS (buildingSMART)</th><td>1.0</td><td>Open standard</td><td><a href={sources.ids}>repository</a>, <a href={sources.idsXsd}>schema</a></td></tr>
           <tr><th scope="row">IFC (buildingSMART)</th><td>IFC4 (as the sample declares)</td><td>Open standard</td><td>Declared in the file’s FILE_SCHEMA</td></tr>
         </tbody>
@@ -142,13 +195,23 @@ const sources = {
     <p>The Armory lists <a href="/armory/registry#ifcopenshell">IfcOpenShell</a> and <a href="/armory/registry#ifctester">IfcTester</a> with their smoke tests, and the stack recipe <a href="/armory/registry#recipe-ifcopenshell-and-python">IfcOpenShell, IfcTester and Python</a>.</p>
   </div></section>
 
-  <SectorPackEvidence pack="bim" eyebrow="06 / What is checked" facts={{ modelSha: manifest.inputs['wall-with-opening-and-window.ifc'].slice(0, 12) }} />
+  <SectorPackEvidence pack="bim" eyebrow="07 / What is checked" facts={{ modelSha: manifest.inputs['wall-with-opening-and-window.ifc'].slice(0, 12), meshObjects: String(meshChecks.elements.length), quantityRows: String(quantities.quantities.length), crossChecks: String(quantities.crossChecks.length) }} />
+
+  <section class="section" aria-labelledby="staged-title"><div class="container narrow">
+    <p class="eyebrow">08 / Staged</p>
+    <h2 id="staged-title">Proposed, not built yet</h2>
+    <p>These parts of a built-environment pathway are proposed. Nothing below has been run, and no result is shown for any of them.</p>
+    <ul class="staged">
+      {staged.map((item) => <li data-staged><strong>{item.title}</strong> <span class="badge">Proposed</span><br />{item.why}</li>)}
+    </ul>
+    <p class="note">No model, mesh, quantity or check on this page is professionally reviewed or approved, and none is fit for construction. A real project needs the qualified reviewers its contract and jurisdiction name, for example an architect, an engineer, a quantity surveyor or a BIM manager, and their approval before anyone builds, prices or orders from it.</p>
+  </div></section>
 
   <section class="section" aria-labelledby="credits-title"><div class="container narrow">
-    <p class="eyebrow">07 / Credits</p>
+    <p class="eyebrow">09 / Credits</p>
     <h2 id="credits-title">Credits and terms</h2>
     <ul>
-      <li>Model: <a href={sources.sample}>wall-with-opening-and-window.ifc</a>, © buildingSMART International Ltd., from the Certification-datasets repository at a pinned commit, <a href={sources.licence}>licensed CC BY 4.0</a>. The edited copy is an adaptation: one property changed and the file header rewritten by the Dojo.</li>
+      <li>Model: <a href={sources.sample}>wall-with-opening-and-window.ifc</a>, © buildingSMART International Ltd., from the Certification-datasets repository at a pinned commit, <a href={sources.licence}>licensed CC BY 4.0</a>. The edited copy is an adaptation: one property changed and the file header rewritten by the Dojo. The OBJ mesh is an adaptation too: the geometry only, tessellated by the Dojo’s script.</li>
       <li>The IDS files, the pathway script and its outputs: Developer Dojo, MIT licence.</li>
       <li>IfcOpenShell and IfcTester: the IfcOpenShell project, LGPL-3.0-or-later.</li>
     </ul>
@@ -171,5 +234,7 @@ const sources = {
   .steps li { padding: var(--space-4, 1rem); background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); }
   .steps a { font-weight: 800; }
   .steps p { margin: .25rem 0 0; }
+  .staged { display: grid; gap: var(--space-3, .75rem); }
+  .badge { display: inline-block; padding: 0 .5rem; border: 1px solid var(--line); border-radius: var(--radius); font-size: .85em; font-weight: 700; }
   .step-id { display: inline-block; min-width: 4.5rem; color: var(--rust-text); }
 </style>
