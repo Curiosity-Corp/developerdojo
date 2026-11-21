@@ -60,8 +60,10 @@ from there to the public in this order:
 7. **A nightly pipeline** runs on `master` at about 02:00 UTC, so lists that depend on today's date (events)
    stay current without anyone changing a file.
 
-Time from Merge to live: usually 10 to 15 minutes. If the page still shows old text, do a hard refresh
-(`Ctrl+Shift+R`, on a Mac `Cmd+Shift+R`) and wait five more minutes before worrying.
+Time from Merge to live: usually 20 to 45 minutes (the `master` pipeline runs every check again, then
+publishes). The `publish_github_pages` job turns green only once https://developerdojo.org serves the new
+build, so a green tick means it is live. If the page still shows old text, do a hard refresh
+(`Ctrl+Shift+R`, on a Mac `Cmd+Shift+R`).
 
 What you will see in GitLab:
 
@@ -303,6 +305,11 @@ Steps:
 6. **Red only on `publish_github_pages`** (the build and tests are green): press Retry. If it fails again
    the problem is the publishing credentials or GitHub, not the content. Do not change files. Ask a project
    Owner with the job link. The site stays up: visitors see the last published version.
+   **Red after about 20 minutes of "waiting for the live build":** GitHub received the files but its own
+   deploy step did not finish. Do not change files. Ask a project Owner: on GitHub, in the repository's
+   Actions tab, they open the latest "Deploy static site to GitHub Pages" run and press **Re-run failed
+   jobs** (it re-runs only the deploy, on the files already uploaded). When that run is green, press Retry
+   on `publish_github_pages` in GitLab.
 7. **Red on a scheduled pipeline** is the weekly link check (section 6). It is not a broken site.
 8. **Two jobs red at once, and fixing one breaks the other:** do not undo anything. Ask a developer to ship
    one combined fix in one MR.
