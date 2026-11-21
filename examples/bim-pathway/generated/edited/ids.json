@@ -1,0 +1,124 @@
+{
+  "failed": 0,
+  "ids": "practice-requirements.ids",
+  "passed": 6,
+  "specifications": [
+    {
+      "applicable": 1,
+      "applicableFail": 0,
+      "applicablePass": 1,
+      "identifier": "REQ-01",
+      "name": "Walls say whether they are external",
+      "requirements": [
+        {
+          "description": "IsExternal data shall be provided in the dataset Pset_WallCommon",
+          "facet": "Property",
+          "fail": 0,
+          "failures": [],
+          "label": "Pset_WallCommon.IsExternal",
+          "pass": 1
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "applicable": 1,
+      "applicableFail": 0,
+      "applicablePass": 1,
+      "identifier": "REQ-02",
+      "name": "Walls say whether they are load bearing",
+      "requirements": [
+        {
+          "description": "LoadBearing data shall be provided in the dataset Pset_WallCommon",
+          "facet": "Property",
+          "fail": 0,
+          "failures": [],
+          "label": "Pset_WallCommon.LoadBearing",
+          "pass": 1
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "applicable": 1,
+      "applicableFail": 0,
+      "applicablePass": 1,
+      "identifier": "REQ-03",
+      "name": "Walls carry a fire rating label in the practice format",
+      "requirements": [
+        {
+          "description": "FireRating data shall be {'pattern': 'REI [0-9]{2,3}'} and in the dataset Pset_WallCommon",
+          "facet": "Property",
+          "fail": 0,
+          "failures": [],
+          "label": "Pset_WallCommon.FireRating",
+          "pass": 1
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "applicable": 1,
+      "applicableFail": 0,
+      "applicablePass": 1,
+      "identifier": "REQ-04",
+      "name": "Windows have an overall width and height",
+      "requirements": [
+        {
+          "description": "The OverallWidth shall be provided",
+          "facet": "Attribute",
+          "fail": 0,
+          "failures": [],
+          "label": "OverallWidth",
+          "pass": 1
+        },
+        {
+          "description": "The OverallHeight shall be provided",
+          "facet": "Attribute",
+          "fail": 0,
+          "failures": [],
+          "label": "OverallHeight",
+          "pass": 1
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "applicable": 2,
+      "applicableFail": 0,
+      "applicablePass": 2,
+      "identifier": "REQ-05",
+      "name": "Walls and windows are placed in a building storey",
+      "requirements": [
+        {
+          "description": "An element must have an IFCRELCONTAINEDINSPATIALSTRUCTURE relationship with an IFCBUILDINGSTOREY",
+          "facet": "PartOf",
+          "fail": 0,
+          "failures": [],
+          "label": "IFCRELCONTAINEDINSPATIALSTRUCTURE",
+          "pass": 2
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "applicable": 1,
+      "applicableFail": 0,
+      "applicablePass": 1,
+      "identifier": "REQ-06",
+      "name": "Windows state their thermal transmittance",
+      "requirements": [
+        {
+          "description": "ThermalTransmittance data shall be provided in the dataset Pset_WindowCommon",
+          "facet": "Property",
+          "fail": 0,
+          "failures": [],
+          "label": "Pset_WindowCommon.ThermalTransmittance",
+          "pass": 1
+        }
+      ],
+      "status": "pass"
+    }
+  ],
+  "title": "Developer Dojo practice requirements: wall and window"
+}

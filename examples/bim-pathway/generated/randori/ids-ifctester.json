@@ -1,0 +1,249 @@
+{
+  "filename": null,
+  "filepath": null,
+  "hide_skipped": false,
+  "percent_checks_pass": 66,
+  "percent_requirements_pass": 66,
+  "percent_specifications_pass": 66,
+  "specifications": [
+    {
+      "applicability": [
+        "All IFCWINDOW data"
+      ],
+      "applicable_entities": [
+        {
+          "class": "IfcWindow",
+          "description": "Description of Window",
+          "element": "#102=IfcWindow('0tA4DSHd50le6Ov9Yu0I9X',#2,'Window for Test Example','Description of Window',$,#103,#106,$,1000.,1000.,$,$,$)",
+          "element_type": "#107=IfcWindowType('0Ps4H3X0nAxfqkHNemLE6f',#2,'Window for Test Example','Description of Window Type',$,$,$,$,$,.WINDOW.,.SINGLE_PANEL.,$,$)",
+          "global_id": "0tA4DSHd50le6Ov9Yu0I9X",
+          "id": 102,
+          "name": "Window for Test Example",
+          "predefined_type": "WINDOW",
+          "tag": null
+        }
+      ],
+      "cardinality": "required",
+      "description": "Every window has Pset_WindowCommon.FireRating in the practice format, for example REI 30.",
+      "instructions": "The label comes from the practice brief. It is not a fire assessment.",
+      "is_ifc_version": true,
+      "is_skipped": false,
+      "name": "Card A: windows carry a fire rating label too",
+      "percent_applicable_pass": 0,
+      "percent_checks_pass": 0,
+      "requirements": [
+        {
+          "description": "FireRating data shall be {'pattern': 'REI [0-9]{2,3}'} and in the dataset Pset_WindowCommon",
+          "facet_type": "Property",
+          "failed_entities": [
+            {
+              "class": "IfcWindow",
+              "description": "Description of Window",
+              "element": "#102=IfcWindow('0tA4DSHd50le6Ov9Yu0I9X',#2,'Window for Test Example','Description of Window',$,#103,#106,$,1000.,1000.,$,$,$)",
+              "element_type": "#107=IfcWindowType('0Ps4H3X0nAxfqkHNemLE6f',#2,'Window for Test Example','Description of Window Type',$,$,$,$,$,.WINDOW.,.SINGLE_PANEL.,$,$)",
+              "global_id": "0tA4DSHd50le6Ov9Yu0I9X",
+              "id": 102,
+              "name": "Window for Test Example",
+              "predefined_type": "WINDOW",
+              "reason": "The property set does not contain the required property",
+              "tag": null
+            }
+          ],
+          "label": "Pset_WindowCommon.FireRating",
+          "metadata": {
+            "@cardinality": "required",
+            "@dataType": "IFCLABEL",
+            "baseName": {
+              "simpleValue": "FireRating"
+            },
+            "propertySet": {
+              "simpleValue": "Pset_WindowCommon"
+            },
+            "value": {
+              "xs:restriction": [
+                {
+                  "@base": "xs:string",
+                  "xs:pattern": [
+                    {
+                      "@value": "REI [0-9]{2,3}"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "passed_entities": [],
+          "percent_pass": 0,
+          "status": false,
+          "total_applicable": 1,
+          "total_fail": 1,
+          "total_pass": 0,
+          "value": "{'pattern': 'REI [0-9]{2,3}'}"
+        }
+      ],
+      "status": false,
+      "total_applicable": 1,
+      "total_applicable_fail": 1,
+      "total_applicable_pass": 0,
+      "total_checks": 1,
+      "total_checks_fail": 1,
+      "total_checks_pass": 0
+    },
+    {
+      "applicability": [
+        "All IFCWALL data"
+      ],
+      "applicable_entities": [
+        {
+          "class": "IfcWall",
+          "description": "Description of Wall",
+          "element": "#45=IfcWall('3ZYW59sxj8lei475l7EhLU',#2,'Wall for Test Example','Description of Wall',$,#46,#48,$,$)",
+          "element_type": null,
+          "global_id": "3ZYW59sxj8lei475l7EhLU",
+          "id": 45,
+          "name": "Wall for Test Example",
+          "predefined_type": null,
+          "tag": null
+        }
+      ],
+      "cardinality": "required",
+      "description": "Every wall has a material assigned.",
+      "instructions": "Prove it from the model; do not assume it.",
+      "is_ifc_version": true,
+      "is_skipped": false,
+      "name": "Card B: every wall has a material",
+      "percent_applicable_pass": 100,
+      "percent_checks_pass": 100,
+      "requirements": [
+        {
+          "description": "Shall have a material",
+          "facet_type": "Material",
+          "failed_entities": [],
+          "label": "Name / Category",
+          "metadata": {
+            "@cardinality": "required"
+          },
+          "passed_entities": [
+            {
+              "class": "IfcWall",
+              "description": "Description of Wall",
+              "element": "#45=IfcWall('3ZYW59sxj8lei475l7EhLU',#2,'Wall for Test Example','Description of Wall',$,#46,#48,$,$)",
+              "element_type": null,
+              "global_id": "3ZYW59sxj8lei475l7EhLU",
+              "id": 45,
+              "name": "Wall for Test Example",
+              "predefined_type": null,
+              "tag": null
+            }
+          ],
+          "percent_pass": 100,
+          "status": true,
+          "total_applicable": 1,
+          "total_fail": 0,
+          "total_pass": 1,
+          "value": ""
+        }
+      ],
+      "status": true,
+      "total_applicable": 1,
+      "total_applicable_fail": 0,
+      "total_applicable_pass": 1,
+      "total_checks": 1,
+      "total_checks_fail": 0,
+      "total_checks_pass": 1
+    },
+    {
+      "applicability": [
+        "All IFCWALL data"
+      ],
+      "applicable_entities": [
+        {
+          "class": "IfcWall",
+          "description": "Description of Wall",
+          "element": "#45=IfcWall('3ZYW59sxj8lei475l7EhLU',#2,'Wall for Test Example','Description of Wall',$,#46,#48,$,$)",
+          "element_type": null,
+          "global_id": "3ZYW59sxj8lei475l7EhLU",
+          "id": 45,
+          "name": "Wall for Test Example",
+          "predefined_type": null,
+          "tag": null
+        }
+      ],
+      "cardinality": "required",
+      "description": "Every wall has Pset_WallCommon.ThermalTransmittance of 0.30 W/(m2 K) or less. IDS values are in SI units.",
+      "instructions": "Check the unit before you compare the number.",
+      "is_ifc_version": true,
+      "is_skipped": false,
+      "name": "Card C: wall thermal transmittance at most 0.30 W/(m2 K)",
+      "percent_applicable_pass": 100,
+      "percent_checks_pass": 100,
+      "requirements": [
+        {
+          "description": "ThermalTransmittance data shall be {'maxInclusive': '0.30'} and in the dataset Pset_WallCommon",
+          "facet_type": "Property",
+          "failed_entities": [],
+          "label": "Pset_WallCommon.ThermalTransmittance",
+          "metadata": {
+            "@cardinality": "required",
+            "@dataType": "IFCTHERMALTRANSMITTANCEMEASURE",
+            "baseName": {
+              "simpleValue": "ThermalTransmittance"
+            },
+            "propertySet": {
+              "simpleValue": "Pset_WallCommon"
+            },
+            "value": {
+              "xs:restriction": [
+                {
+                  "@base": "xs:double",
+                  "xs:maxInclusive": [
+                    {
+                      "@value": "0.30"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "passed_entities": [
+            {
+              "class": "IfcWall",
+              "description": "Description of Wall",
+              "element": "#45=IfcWall('3ZYW59sxj8lei475l7EhLU',#2,'Wall for Test Example','Description of Wall',$,#46,#48,$,$)",
+              "element_type": null,
+              "global_id": "3ZYW59sxj8lei475l7EhLU",
+              "id": 45,
+              "name": "Wall for Test Example",
+              "predefined_type": null,
+              "tag": null
+            }
+          ],
+          "percent_pass": 100,
+          "status": true,
+          "total_applicable": 1,
+          "total_fail": 0,
+          "total_pass": 1,
+          "value": "{'maxInclusive': '0.30'}"
+        }
+      ],
+      "status": true,
+      "total_applicable": 1,
+      "total_applicable_fail": 0,
+      "total_applicable_pass": 1,
+      "total_checks": 1,
+      "total_checks_fail": 0,
+      "total_checks_pass": 1
+    }
+  ],
+  "status": false,
+  "title": "Developer Dojo BIM Randori cards",
+  "total_checks": 3,
+  "total_checks_fail": 1,
+  "total_checks_pass": 2,
+  "total_requirements": 3,
+  "total_requirements_fail": 1,
+  "total_requirements_pass": 2,
+  "total_specifications": 3,
+  "total_specifications_fail": 1,
+  "total_specifications_pass": 2
+}

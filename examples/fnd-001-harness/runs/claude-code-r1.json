@@ -1,0 +1,59 @@
+{
+  "cell": "claude-code",
+  "repetition": 1,
+  "startedAt": "2026-11-21T01:11:48Z",
+  "harness": "Claude Code 2.1.330 (Claude Code)",
+  "requestedModel": "anthropic/claude-sonnet-5.5",
+  "effort": "high",
+  "prompt": "prompts/A.txt",
+  "flags": "-p --model <model> --effort high --setting-sources \"\" --strict-mcp-config --tools \"\" --no-session-persistence --output-format json",
+  "modelsUsed": [
+    "anthropic/claude-sonnet-5.5"
+  ],
+  "isError": false,
+  "subtype": "success",
+  "numTurns": 1,
+  "durationMs": 24843,
+  "harnessReportedDurationMs": 24533,
+  "costUsd": 0.0459215,
+  "costBasis": "billed by the upstream (OpenRouter usage.cost)",
+  "harnessReportedCostUsd": 0.0459215,
+  "endpoint": "OpenRouter Anthropic Messages API, provider pinned to amazon-bedrock, through the recording relay",
+  "requests": [
+    {
+      "status": 200,
+      "userAgent": "claude-cli/2.1.330 (external, sdk-cli)",
+      "anthropicBeta": "claude-code-20250219,interleaved-thinking-2025-05-14,context-management-2025-06-27,per-turn-control-2026-07-01,mid-conversation-tool-changes-2026-07-01,thinking-token-count-2026-05-13,effort-2025-11-24",
+      "provider": "amazon-bedrock",
+      "sent": {
+        "model": "anthropic/claude-sonnet-5.5",
+        "maxTokens": 128000,
+        "thinking": {
+          "type": "adaptive",
+          "display": "omitted"
+        },
+        "outputConfig": {
+          "effort": "high"
+        },
+        "temperature": null,
+        "stream": true,
+        "systemChars": 5520,
+        "systemSha256": "72875cfa75b8d9f1bd944d02b8c8014b25204715f4288f5a4d4d767df09c8dee",
+        "tools": [],
+        "messages": 2,
+        "firstUserTextSha256": "2f68f616481ab4b12c9ee6ce40a5d1a5853ccc6f458135821ae2815bd82bb06c"
+      },
+      "servedModel": "anthropic/claude-sonnet-5.5",
+      "stopReason": "end_turn",
+      "usage": {
+        "inputTokens": 2,
+        "cacheCreationInputTokens": 2415,
+        "cacheReadInputTokens": 0,
+        "outputTokens": 3988,
+        "thinkingTokens": 764,
+        "costUsd": 0.0459215
+      }
+    }
+  ],
+  "response": "```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>Pocket Garden</title>\n<style>\n  :root {\n    --bg: #f3f7ee;\n    --ink: #1f2d1f;\n    --muted: #4a5b4a;\n    --card: #ffffff;\n    --line: #c9d8c0;\n    --green: #2f6b3a;\n    --green-dark: #1f4d29;\n    --green-press: #163a1e;\n    --sun: #b45f06;\n    --shade: #35577a;\n    --focus: #0b57d0;\n  }\n\n  * { box-sizing: border-box; }\n\n  body {\n    margin: 0;\n    font-family: system-ui, -apple-system, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif;\n    background: var(--bg);\n    color: var(--ink);\n    line-height: 1.5;\n  }\n\n  .wrap {\n    max-width: 960px;\n    margin: 0 auto;\n    padding: 1.5rem 1rem 3rem;\n  }\n\n  h1 { margin: 0 0 .25rem; font-size: clamp(1.8rem, 5vw, 2.5rem); }\n  .lead { margin: 0 0 .75rem; color: var(--muted); }\n\n  .notice {\n    display: inline-block;\n    margin: 0 0 1.25rem;\n    padding: .5rem .75rem;\n    background: #fff8e1;\n    border: 1px solid #e6c75a;\n    border-radius: 8px;\n    font-size: .95rem;\n  }\n\n  .filters {\n    display: flex;\n    flex-wrap: wrap;\n    gap: .5rem;\n    margin: 0 0 .75rem;\n    padding: 0;\n    border: 0;\n  }\n  .filters legend {\n    padding: 0;\n    margin-bottom: .5rem;\n    font-weight: 600;\n  }\n\n  button {\n    font: inherit;\n    cursor: pointer;\n    min-height: 44px;\n    padding: .5rem 1rem;\n    border-radius: 999px;\n    border: 2px solid var(--green);\n    background: #fff;\n    color: var(--green-dark);\n    font-weight: 600;\n    transition: background-color .15s, color .15s, transform .05s;\n  }\n  button:hover { background: #e6f0e0; }\n  button:focus-visible {\n    outline: 3px solid var(--focus);\n    outline-offset: 3px;\n  }\n  button:active { transform: translateY(1px) scale(.98); background: #cfe2c6; }\n\n  .filters button[aria-pressed=\"true\"] {\n    background: var(--green);\n    color: #fff;\n  }\n  .filters button[aria-pressed=\"true\"]:hover { background: var(--green-dark); }\n  .filters button[aria-pressed=\"true\"]:active { background: var(--green-press); }\n\n  .status { margin: 0 0 1rem; color: var(--muted); min-height: 1.5em; }\n\n  .grid {\n    display: grid;\n    gap: 1rem;\n    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));\n    list-style: none;\n    margin: 0;\n    padding: 0;\n  }\n\n  .card {\n    background: var(--card);\n    border: 2px solid var(--line);\n    border-radius: 14px;\n    padding: 1rem;\n    display: flex;\n    flex-direction: column;\n    gap: .5rem;\n  }\n  .card[hidden] { display: none; }\n  .card.is-planted { border-color: var(--green); background: #f4fbf1; }\n\n  .icon { font-size: 2.5rem; line-height: 1; }\n  .card h2 { margin: 0; font-size: 1.3rem; }\n  .card p { margin: 0; color: var(--muted); }\n\n  .tag {\n    align-self: flex-start;\n    padding: .15rem .6rem;\n    border-radius: 999px;\n    font-size: .85rem;\n    font-weight: 700;\n    color: #fff;\n  }\n  .tag.sun { background: var(--sun); }\n  .tag.shade { background: var(--shade); }\n\n  .plant-btn { margin-top: auto; width: 100%; border-radius: 10px; }\n  .plant-btn.planted {\n    background: var(--green);\n    color: #fff;\n  }\n  .plant-btn.planted:hover { background: var(--green-dark); }\n  .plant-btn.planted:active { background: var(--green-press); }\n\n  @media (prefers-reduced-motion: reduce) {\n    button { transition: none; }\n    button:active { transform: none; }\n  }\n</style>\n</head>\n<body>\n  <main class=\"wrap\">\n    <h1>Pocket Garden</h1>\n    <p class=\"lead\">Pick a spot for your plants and mark what you've planted.</p>\n    <p class=\"notice\"><strong>Note:</strong> your choices reset when you reload this page.</p>\n\n    <fieldset class=\"filters\" id=\"filters\">\n      <legend>Filter plants</legend>\n      <button type=\"button\" data-filter=\"all\" aria-pressed=\"true\">All plants</button>\n      <button type=\"button\" data-filter=\"sun\" aria-pressed=\"false\">Loves sun</button>\n      <button type=\"button\" data-filter=\"shade\" aria-pressed=\"false\">Likes shade</button>\n    </fieldset>\n\n    <p class=\"status\" id=\"status\" role=\"status\" aria-live=\"polite\"></p>\n\n    <ul class=\"grid\" id=\"grid\">\n      <li class=\"card\" data-light=\"sun\">\n        <span class=\"icon\" aria-hidden=\"true\">🌿</span>\n        <h2 id=\"name-basil\">Basil</h2>\n        <span class=\"tag sun\">Loves sun</span>\n        <p>Needs warm, bright days. Pinch the tips to keep it bushy.</p>\n        <button type=\"button\" class=\"plant-btn\" aria-describedby=\"name-basil\">Mark as planted</button>\n      </li>\n      <li class=\"card\" data-light=\"sun\">\n        <span class=\"icon\" aria-hidden=\"true\">🌻</span>\n        <h2 id=\"name-sunflower\">Sunflower</h2>\n        <span class=\"tag sun\">Loves sun</span>\n        <p>Grows tall in full sun. Give it space and a sturdy support.</p>\n        <button type=\"button\" class=\"plant-btn\" aria-describedby=\"name-sunflower\">Mark as planted</button>\n      </li>\n      <li class=\"card\" data-light=\"shade\">\n        <span class=\"icon\" aria-hidden=\"true\">🍃</span>\n        <h2 id=\"name-mint\">Mint</h2>\n        <span class=\"tag shade\">Likes shade</span>\n        <p>Happy in cool, shaded corners. Keep it in a pot so it can't spread.</p>\n        <button type=\"button\" class=\"plant-btn\" aria-describedby=\"name-mint\">Mark as planted</button>\n      </li>\n    </ul>\n  </main>\n\n<script>\n(function () {\n  var filterButtons = document.querySelectorAll('#filters button');\n  var cards = document.querySelectorAll('.card');\n  var status = document.getElementById('status');\n  var labels = { all: 'all plants', sun: 'plants that love sun', shade: 'plants that like shade' };\n\n  function applyFilter(name) {\n    var shown = 0;\n    cards.forEach(function (card) {\n      var match = name === 'all' || card.dataset.light === name;\n      card.hidden = !match;\n      if (match) shown++;\n    });\n    filterButtons.forEach(function (btn) {\n      btn.setAttribute('aria-pressed', String(btn.dataset.filter === name));\n    });\n    status.textContent = 'Showing ' + shown + ' of ' + cards.length + ' — ' + labels[name] + '.';\n  }\n\n  filterButtons.forEach(function (btn) {\n    btn.addEventListener('click', function () { applyFilter(btn.dataset.filter); });\n  });\n\n  cards.forEach(function (card) {\n    var btn = card.querySelector('.plant-btn');\n    btn.addEventListener('click', function () {\n      var planted = !card.classList.contains('is-planted');\n      card.classList.toggle('is-planted', planted);\n      btn.classList.toggle('planted', planted);\n      btn.textContent = planted ? 'Planted' : 'Mark as planted';\n    });\n  });\n\n  applyFilter('all');\n})();\n</script>\n</body>\n</html>\n```\n\n**Checklist** (based on reading the code; I have not run or tested it in a browser)\n\n- [x] Single file, with CSS and JS inline. No external libraries, images, fonts, network requests or server.\n- [x] Three cards: Basil and Sunflower are tagged \"Loves sun\", and Mint is tagged \"Likes shade\".\n- [x] Filters for All plants, Loves sun and Likes shade, using `aria-pressed` to show the active one.\n- [x] Each card's button toggles between \"Mark as planted\" and \"Planted\".\n- [x] Buttons have visible text labels. Each is tied to its plant name via `aria-describedby`.\n- [x] Keyboard focus shows a 3px outline (`:focus-visible`).\n- [x] Hover and pressed (`:active`) styles, plus a filled green \"Planted\" state.\n- [x] A visible note says choices reset on reload (state lives only in memory).\n- [x] Responsive grid, with a reduced-motion rule.\n- [ ] Not yet verified: rendering across browsers and screen sizes, and screen reader behavior. Please try it before relying on it."
+}

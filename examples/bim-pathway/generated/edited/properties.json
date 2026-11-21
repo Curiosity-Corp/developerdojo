@@ -1,0 +1,144 @@
+{
+  "#102": {
+    "GlobalId": "0tA4DSHd50le6Ov9Yu0I9X",
+    "Name": "Window for Test Example",
+    "attributes": {
+      "OverallHeight": 1000.0,
+      "OverallWidth": 1000.0,
+      "PredefinedType": null
+    },
+    "class": "IfcWindow",
+    "id": 102,
+    "material": "#96=IfcMaterialConstituentSet",
+    "propertySets": {
+      "Pset_WindowCommon": {
+        "id": 113,
+        "properties": {
+          "AcousticRating": {
+            "empty": true,
+            "type": "IfcLabel",
+            "value": ""
+          },
+          "FireRating": {
+            "empty": true,
+            "type": "IfcLabel",
+            "value": ""
+          },
+          "GlazingAreaFraction": {
+            "empty": false,
+            "type": "IfcPositiveRatioMeasure",
+            "value": 0.7
+          },
+          "Infiltration": {
+            "empty": false,
+            "type": "IfcVolumetricFlowRateMeasure",
+            "value": 0.3
+          },
+          "IsExternal": {
+            "empty": false,
+            "type": "IfcBoolean",
+            "value": true
+          },
+          "Reference": {
+            "empty": true,
+            "type": "IfcIdentifier",
+            "value": ""
+          },
+          "SecurityRating": {
+            "empty": true,
+            "type": "IfcLabel",
+            "value": ""
+          },
+          "SmokeStop": {
+            "empty": false,
+            "type": "IfcBoolean",
+            "value": false
+          },
+          "ThermalTransmittance": {
+            "empty": false,
+            "type": "IfcThermalTransmittanceMeasure",
+            "value": 0.24
+          }
+        }
+      }
+    }
+  },
+  "#45": {
+    "GlobalId": "3ZYW59sxj8lei475l7EhLU",
+    "Name": "Wall for Test Example",
+    "attributes": {
+      "PredefinedType": null
+    },
+    "class": "IfcWall",
+    "id": 45,
+    "material": "#61=IfcMaterialLayerSetUsage",
+    "propertySets": {
+      "Pset_WallCommon": {
+        "id": 49,
+        "properties": {
+          "AcousticRating": {
+            "empty": true,
+            "type": "IfcLabel",
+            "value": ""
+          },
+          "Combustible": {
+            "empty": false,
+            "type": "IfcBoolean",
+            "value": false
+          },
+          "Compartmentation": {
+            "empty": false,
+            "type": "IfcBoolean",
+            "value": false
+          },
+          "ExtendToStructure": {
+            "empty": false,
+            "type": "IfcBoolean",
+            "value": false
+          },
+          "FireRating": {
+            "empty": false,
+            "type": "IfcLabel",
+            "value": "REI 60"
+          },
+          "IsExternal": {
+            "empty": false,
+            "type": "IfcBoolean",
+            "value": true
+          },
+          "LoadBearing": {
+            "empty": false,
+            "type": "IfcBoolean",
+            "value": false
+          },
+          "Reference": {
+            "empty": true,
+            "type": "IfcIdentifier",
+            "value": ""
+          },
+          "SurfaceSpreadOfFlame": {
+            "empty": true,
+            "type": "IfcLabel",
+            "value": ""
+          },
+          "ThermalTransmittance": {
+            "empty": false,
+            "type": "IfcThermalTransmittanceMeasure",
+            "value": 0.24
+          }
+        }
+      }
+    }
+  },
+  "#80": {
+    "GlobalId": "2bJiss68D6hvLKV8O1xmqJ",
+    "Name": "Opening Element for Test Example",
+    "attributes": {
+      "PredefinedType": "OPENING"
+    },
+    "class": "IfcOpeningElement",
+    "id": 80,
+    "material": null,
+    "propertySets": {}
+  }
+}

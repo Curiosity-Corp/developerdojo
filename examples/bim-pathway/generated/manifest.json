@@ -1,0 +1,15 @@
+{
+  "edited": {
+    "wall-with-opening-and-window.edited.ifc": "96251185f3618ee8ededb98a68bc3d7f9ed445a421c457cb7d9a46f19fe084cc"
+  },
+  "inputs": {
+    "practice-requirements.ids": "e75f56f72966594e73b8dc0439642290b78532bcb7de1d6bdd1409b0db24ac61",
+    "randori-cards.ids": "02071c6bfd8fa8198e83d608e49859d3c705e2b8c8f468e3afba30c6dfb60951",
+    "wall-with-opening-and-window.ifc": "73b0e45d931d5dc13bfee5fdc7bd80f796526445458b2de74c4168d209097832"
+  },
+  "tools": {
+    "ifcopenshell": "0.9.0.post1",
+    "ifctester": "0.9.0",
+    "python": "3.12"
+  }
+}

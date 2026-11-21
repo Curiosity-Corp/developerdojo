@@ -1,3 +1,11 @@
+# Written to .github/workflows/pages.yml on the GitHub gh-pages branch by
+# Curiosity-Corp/developerdojo .gitlab/ci/publish-github-pages.sh on every release. Change it there.
+#
+# Two jobs, as in GitHub's Pages starter workflows: upload, then deploy (developerdojo#128). With the
+# upload and the deploy in one job, deploy-pages could look up the artifact before the upload was
+# visible ("No artifacts named github-pages were found"), and re-running that job uploaded a second
+# artifact, which deploy-pages refuses ("Multiple artifacts named github-pages"). Now the artifact is
+# final when the deploy job starts, and "Re-run failed jobs" re-runs only the deploy, on that artifact.
 name: Deploy static site to GitHub Pages
 
 on:
@@ -7,28 +15,35 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
+# One deployment at a time; a newer push waits instead of cancelling a deployment in progress.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
-  deploy:
+  upload:
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Configure Pages
+        uses: actions/configure-pages@v6
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: .
+
+  deploy:
+    needs: upload
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-      - name: Upload site artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: .
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

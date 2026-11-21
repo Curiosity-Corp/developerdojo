@@ -1,0 +1,48 @@
+{
+  "entry": "ifcopenshell",
+  "date": "2026-11-21",
+  "package": "ifcopenshell==0.9.0.post1 (PyPI wheel)",
+  "environment": "Linux; Python 3.12.12 in a throwaway uv virtual environment (uv pip install ifcopenshell==0.9.0.post1 ifctester==0.9.0), python -I.",
+  "input": {
+    "file": "wall-with-opening-and-window.ifc",
+    "license": "CC BY 4.0 (buildingSMART Certification-datasets)",
+    "sha256": "73b0e45d931d5dc13bfee5fdc7bd80f796526445458b2de74c4168d209097832"
+  },
+  "script": "/examples/bim-pathway/tools/bim_pathway.py: edits one property with ifcopenshell.api.pset.edit_pset, writes a new file, validates both files against the IFC4 schema with ifcopenshell.validate (EXPRESS rules off) and builds every body shape with ifcopenshell.geom.",
+  "expected": "One property changes (Pset_WallCommon.FireRating from an empty label to \"REI 60\"), every GlobalId is kept, the schema check reports no issues and all three shapes build, the wall at 1.5 m3 after the opening is cut.",
+  "output": {
+    "ifcopenshell": "0.9.0.post1",
+    "propertyChanges": [
+      {
+        "element": "#45",
+        "property": "Pset_WallCommon.FireRating",
+        "before": "",
+        "after": "REI 60"
+      }
+    ],
+    "globalIdsKept": "24 of 24",
+    "editedSha256": "96251185f3618ee8ededb98a68bc3d7f9ed445a421c457cb7d9a46f19fe084cc",
+    "schemaIssues": 0,
+    "geometry": [
+      {
+        "element": "#45",
+        "class": "IfcWall",
+        "built": true,
+        "volume_m3": 1.5
+      },
+      {
+        "element": "#80",
+        "class": "IfcOpeningElement",
+        "built": true,
+        "volume_m3": 0.3
+      },
+      {
+        "element": "#102",
+        "class": "IfcWindow",
+        "built": true,
+        "volume_m3": 0.2
+      }
+    ]
+  },
+  "fullOutput": "/examples/bim-pathway/generated/"
+}
