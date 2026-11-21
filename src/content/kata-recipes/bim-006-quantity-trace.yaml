@@ -35,7 +35,7 @@ metadata:
     - buildingsmart/ifc-wall-example
     - ifcopenshell/geometry-processing
   crossFieldTransfers:
-    - construction
+    - data
   standards:
     - name: Industry Foundation Classes (IFC)
       version: IFC4 ADD2 TC1 (ISO 16739-1:2018), as declared by the sample file
