@@ -18,7 +18,7 @@ prerequisites:
 
 **Example only.** An AI agent drafted this page from the Week 1 brief to show the shape of the work. In the story, the fictional learner **Noor** wrote everything below herself. You write your own.
 
-Compare the same week elsewhere: [Week 1](/library/week-1-see-the-whole-product), the [TrailMug brief](/library/template-product-brief), the [TrailMug repository map](/library/template-repository-map) and the real-product [map and integrations case study](/library/case-study-danhup-map-and-integrations).
+Compare the same week elsewhere: [Week 1](/library/week-1-see-the-whole-product), the [TrailMug brief](/library/template-product-brief), the [TrailMug repository map](/library/template-repository-map) and the Placefern [map and integrations case study](/library/case-study-map-and-integrations).
 
 ## Step 1: The product brief (Noor's work)
 

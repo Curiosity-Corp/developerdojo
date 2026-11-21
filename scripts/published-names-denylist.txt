@@ -1,0 +1,30 @@
+# Names that must never appear in published content (developerdojo#129).
+#
+# The check in scripts/published-names.mjs fails the pipeline when any of these names appears in a file
+# name or in the text of what the site publishes: the built site (dist) and the sources it is built from.
+# This file lives outside every published directory and is never copied into the site.
+#
+# One name per line, in lower case. Write a name as separate words to match every spacing: "acme widget"
+# matches "AcmeWidget", "Acme Widget", "acme-widget", "acme_widget" and "acme.widget", in any letter case.
+# Write it as one word to match only the joined spelling, when its spaced form is ordinary vocabulary:
+# "acmewidget" matches "AcmeWidget" but not "acme widget".
+# Only distinctive names belong here: a name that is also an everyday word would block ordinary prose.
+# Add a name when it must stay private; never remove one to make a page pass. Change the page instead.
+
+dan hup
+kassova
+wire mark
+hyper void
+droid ops inc
+dream wave
+dream limited
+focus apiary
+hard magic
+white lab
+skoll
+focus pass
+focushive
+focuscell
+ninja hive
+instar lab
+om labs

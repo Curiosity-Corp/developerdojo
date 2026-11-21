@@ -87,7 +87,7 @@ Do not copy text from these places without checking the rules in section 11.
 
 | Material | Where | Notes |
 | --- | --- | --- |
-| The Master Developer program: program guide, teaching deck with speaker notes, rubric and weekly checklist, learning path, worked example (DanHup), catalogue guide, eight blank workbooks | The program SharePoint folder: **NinjaHive > Shared Documents > General > Developer Dojo - Master Developer Program** | Two one-page overviews there are marked "internal draft": do not publish them as they are |
+| The Master Developer program: program guide, teaching deck with speaker notes, rubric and weekly checklist, learning path, worked example (a real client product: publish only as the fictional Placefern case study, never its name), catalogue guide, eight blank workbooks | The program SharePoint folder: **NinjaHive > Shared Documents > General > Developer Dojo - Master Developer Program** | Two one-page overviews there are marked "internal draft": do not publish them as they are |
 | Frameworks: UBF, STAR, SHIFT, ORBITAL, ANDROID Ops, DROID Ops, Launch Sequence, Mission Control | GitLab / GitHub project **WorldEnterpriseGroup/dot-github**, branch `gh-pages`: `Frameworks/`, `Frameworks/Short/`, `Frameworks/More Info/`, `supernova.md`, `research/` | The texts are business-strategy writing. We rewrite them in plain words for developers. Two files are never public (section 11) |
 | PHANTOMS, the family of starting stacks | **Curiosity-Corp/phantoms** (public mirror on GitHub) | PHANTOMS is a family, not one fixed stack; teach the pattern. Internal variants are described, not linked |
 | Curiosity learning guides and coaching material | **Curiosity-Corp** group; index in Curiosity-Corp/overview `REPOSITORY-INDEX.md` | On 2026-11-03 several guide repositories held only a title. Read the [source map](source-map.md) before planning work from them |
@@ -380,6 +380,11 @@ Not on the site, not in an issue that could be copied to the site, not in a less
 - Made-up things: events, dates, viewer counts, testimonials, statistics, courses, course durations, prices.
   If you cannot open it, do not write it.
 - Pictures, text or video you do not have the right to use.
+
+The build enforces the names part of this list: `scripts/check-published-names.mjs` fails the `build` job when a name
+from `scripts/published-names-denylist.txt` (client and unit names) appears in a path or text of the built
+site, and `tests/published-names.test.ts` runs the same check on `src` and `public`. When it fails, change the
+page; add a name to the list when it must stay private; never take a name off the list to make a page pass.
 
 When unsure: leave it out and ask (section 12). A missing paragraph costs nothing; a leaked one cannot be
 taken back.

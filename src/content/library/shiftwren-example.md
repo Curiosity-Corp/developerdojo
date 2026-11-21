@@ -6,7 +6,7 @@ order: 0
 level: foundation
 duration: "20 min"
 outcomes:
-  - "Know what the Shiftwren example is and how it differs from TrailMug and the real-product case study."
+  - "Know what the Shiftwren example is and how it differs from TrailMug and the Placefern case study."
   - "Find the Shiftwren page, the blank template and the other examples for each week."
   - "Use the example to check your own work without copying it."
 prerequisites:
@@ -18,7 +18,7 @@ prerequisites:
 
 ## Why a second example
 
-[TrailMug](/library/templates-overview) is a physical product: reusable cups. The [real-product case study](/library/case-study-danhup-the-product-on-one-page) shows the method on a product with real findings. Many learners build something else: a software service, a tool that other businesses use, or a community project. Shiftwren is a worked example for them. Its customer is not its user, it holds personal data, and it has no physical parts.
+[TrailMug](/library/templates-overview) is a physical product: reusable cups. The [Placefern case study](/library/case-study-the-product-on-one-page) shows the method on a fictional job-matching service with rough edges: missing parts, unowned parts and a switched-off feature. Many learners build something else: a software service, a tool that other businesses use, or a community project. Shiftwren is a worked example for them. Its customer is not its user, it holds personal data, and it has no physical parts.
 
 ## The product
 
@@ -36,12 +36,12 @@ prerequisites:
 
 | Week | Shiftwren page | Blank templates it fills | Compare with |
 |---|---|---|---|
-| 1 | [The whole product](/library/shiftwren-week-1-the-whole-product) | [Product brief](/library/template-product-brief), [repository map](/library/template-repository-map), [integrations register](/library/template-integrations-register) | [Week 1](/library/week-1-see-the-whole-product); real product: [map and integrations](/library/case-study-danhup-map-and-integrations) |
-| 2 | [The people](/library/shiftwren-week-2-the-people) | [Personas](/library/template-personas), [touch points and journeys](/library/template-journeys) | [Week 2](/library/week-2-know-the-people); real product: [people and journeys](/library/case-study-danhup-people-and-journeys) |
-| 3 | [From problems to epics](/library/shiftwren-week-3-problems-to-epics) | [Epic roadmap](/library/template-epic-roadmap) | [Week 3](/library/week-3-problems-to-epics); real product: [epics and roadmap](/library/case-study-danhup-epics-and-roadmap) |
-| 4 | [Defend the roadmap](/library/shiftwren-week-4-defend-the-roadmap) | Epic roadmap: grid and milestones | [Week 4](/library/week-4-defend-the-roadmap); the same real-product page |
+| 1 | [The whole product](/library/shiftwren-week-1-the-whole-product) | [Product brief](/library/template-product-brief), [repository map](/library/template-repository-map), [integrations register](/library/template-integrations-register) | [Week 1](/library/week-1-see-the-whole-product); Placefern: [map and integrations](/library/case-study-map-and-integrations) |
+| 2 | [The people](/library/shiftwren-week-2-the-people) | [Personas](/library/template-personas), [touch points and journeys](/library/template-journeys) | [Week 2](/library/week-2-know-the-people); Placefern: [people and journeys](/library/case-study-people-and-journeys) |
+| 3 | [From problems to epics](/library/shiftwren-week-3-problems-to-epics) | [Epic roadmap](/library/template-epic-roadmap) | [Week 3](/library/week-3-problems-to-epics); Placefern: [epics and roadmap](/library/case-study-epics-and-roadmap) |
+| 4 | [Defend the roadmap](/library/shiftwren-week-4-defend-the-roadmap) | Epic roadmap: grid and milestones | [Week 4](/library/week-4-defend-the-roadmap); the same Placefern page |
 | 5 | [Brand, website and mockups](/library/shiftwren-week-5-brand-website-and-mockups) | No blank workbook. A brand sheet shape | [Week 5](/library/week-5-brand-website-mockups); TrailMug: [name and promise](/library/tracks/brand-website-and-mockups/01-name-and-promise) |
-| 6 | [Catalogue and demo](/library/shiftwren-week-6-catalogue-and-demo) | [Catalogue entry](/library/template-catalogue-entry) | [Week 6](/library/week-6-catalogue-demo-package); TrailMug: [full catalogue](/library/catalogue-trailmug-full-example); real product: [decision, catalogue and change](/library/case-study-danhup-decision-catalogue-change) |
+| 6 | [Catalogue and demo](/library/shiftwren-week-6-catalogue-and-demo) | [Catalogue entry](/library/template-catalogue-entry) | [Week 6](/library/week-6-catalogue-demo-package); TrailMug: [full catalogue](/library/catalogue-trailmug-full-example); Placefern: [decision, catalogue and change](/library/case-study-decision-catalogue-change) |
 
 Each Shiftwren page fills every field of its blank template, so you can see what a finished one looks like. The TrailMug examples are on the template pages and in the week pages.
 

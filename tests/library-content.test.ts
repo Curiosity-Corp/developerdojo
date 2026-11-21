@@ -20,7 +20,10 @@ const slugs = new Set([
   ...trackSlugs.map((slug) => `tracks/${slug}`),
 ]);
 
-/** Public-site scrub gate: nothing internal may reach the Library. */
+/**
+ * Public-site scrub gate: nothing internal may reach the Library. Client and unit names are gated for the whole
+ * published site by scripts/published-names-denylist.txt (tests/published-names.test.ts and the build job).
+ */
 const BANNED: RegExp[] = [
   /focuscell/i,
   /pages\.developerdojo/i,
@@ -32,7 +35,6 @@ const BANNED: RegExp[] = [
   /hyperindex/i,
   /defectdojo\.focuscell/i,
   /harbor\.focuscell/i,
-  /\bdanhup\b/i,
   /om-labs/i,
   /focusapiary/i,
   /service account/i,
@@ -40,24 +42,13 @@ const BANNED: RegExp[] = [
   /planner access/i,
 ];
 
-/**
- * Narrow allowlist: the worked-example case study is about a real product and may name it.
- * Every other pattern still applies to these files, and every other file is fully gated.
- */
-const ALLOWED: Array<{ file: RegExp; pattern: RegExp }> = [{ file: /^case-study-danhup-[a-z0-9-]+\.md$/, pattern: /\bdanhup\b/i }];
-const isAllowed = (file: string, pattern: RegExp): boolean =>
-  ALLOWED.some((rule) => rule.file.test(file) && rule.pattern.source === pattern.source);
-
 describe('library content scrub', () => {
   for (const file of files) {
     if (file === 'laptop-k8s-training-guide.md') continue; // contributed guide, outside this gate
     const body = readFileSync(join(dir, file), 'utf8');
-    // A link to a case-study page is allowed anywhere: the URL carries the example's name, the prose may not.
-    const scanned = body.replace(/\]\(\/library\/case-study-danhup-[a-z0-9-]+\/?(?:#[^)]*)?\)/g, '](/library/case-study)');
     it(`${file} has no internal references`, () => {
       for (const pattern of BANNED) {
-        if (isAllowed(file, pattern)) continue;
-        expect(pattern.test(scanned), `${file} matches ${pattern}`).toBe(false);
+        expect(pattern.test(body), `${file} matches ${pattern}`).toBe(false);
       }
     });
     it(`${file} only links to library pages that exist`, () => {

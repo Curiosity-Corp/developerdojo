@@ -19,7 +19,7 @@ prerequisites:
 
 **Who wrote the roadmap.** In the story, the fictional learner **Noor** wrote the epics, the roadmap and the milestones below. A person writes yours. An agent only broke one approved milestone into issues, and that is disclosed in the last part. **Example only.** The page itself was drafted with an AI agent to illustrate the shape. You write your own roadmap.
 
-Compare: [Week 4](/library/week-4-defend-the-roadmap), the [TrailMug epic template page](/library/template-epic-roadmap) and the real-product [epics, roadmap and milestones case study](/library/case-study-danhup-epics-and-roadmap).
+Compare: [Week 4](/library/week-4-defend-the-roadmap), the [TrailMug epic template page](/library/template-epic-roadmap) and the Placefern [epics, roadmap and milestones case study](/library/case-study-epics-and-roadmap).
 
 ## Step 1: What changed after the review
 

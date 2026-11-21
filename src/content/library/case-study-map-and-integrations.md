@@ -1,6 +1,6 @@
 ---
-title: "Case study: DanHup repository map and integrations register"
-description: "Templates 3 and 4 filled in for DanHup, row by row, with commentary on the findings: NOT FOUND parts, unowned parts and a switched-off CRM."
+title: "Case study: Placefern repository map and integrations register"
+description: "Templates 3 and 4 filled in for Placefern, row by row, with commentary on the findings: NOT FOUND parts, unowned parts and a switched-off CRM."
 section: "Case study"
 order: 2
 level: core
@@ -18,16 +18,16 @@ resources:
   - backstage/software-catalog
   - google-sre/embracing-risk
 prerequisites:
-  - case-study-danhup-the-product-on-one-page
+  - case-study-the-product-on-one-page
   - template-repository-map
   - template-integrations-register
 ---
 
-This is page 2 of the DanHup case study. It shows templates 3 ([repository map](/library/template-repository-map)) and 4 ([integrations register](/library/template-integrations-register)) filled in. **EXAMPLE ONLY: your product needs your own thinking. Do not copy this.** The map was built from files seen on 28 October 2026. For this public version, internal host names, private tool names and people have been removed or described by their job.
+This is page 2 of the Placefern case study. It shows templates 3 ([repository map](/library/template-repository-map)) and 4 ([integrations register](/library/template-integrations-register)) filled in. **EXAMPLE ONLY: your product needs your own thinking. Do not copy this.** Placefern is fictional: each row is written as if read from the product's files, to show the shape of a filled map. Outside tools are described by their job.
 
 ## Why it matters
 
-The map and the register are the two Week 1 tools. They turn "I know the app" into "I know the product". In DanHup, the most useful rows are not the ones that describe something that works. They are the rows that say NOT FOUND, NOBODY or OFF. Each one is an honest sentence that a team can act on.
+The map and the register are the two Week 1 tools. They turn "I know the app" into "I know the product". In Placefern, the most useful rows are not the ones that describe something that works. They are the rows that say NOT FOUND, NOBODY or OFF. Each one is an honest sentence that a team can act on.
 
 ## Key ideas
 
@@ -245,7 +245,7 @@ The map and the register are the two Week 1 tools. They turn "I know the app" in
 - **If it stops:** No new leads captured
 - **Status:** Live
 
-### LinkedIn sign-in link
+### Professional-network profile link
 
 - **What it does for us:** Optional profile link
 - **Function:** Marketing
@@ -289,7 +289,7 @@ Note what the register does **not** contain: any secret. The login column shows 
 | Function | Reading |
 |---|---|
 | Sales | Mail platform and CRM; the CRM is off, so sales is thin |
-| Marketing | Email capture and a LinkedIn link, and the email-capture service has no owner |
+| Marketing | Email capture and a professional-network profile link, and the email-capture service has no owner |
 | Finance | **Empty.** The payment gateway row is NOT FOUND |
 | Support | One assistant; no ticket tool found |
 | Operations | Approval cards only; no ops home |
@@ -340,4 +340,4 @@ Note what the register does **not** contain: any secret. The login column shows 
 
 ## Further learning
 
-Continue with [people, touch points and journeys](/library/case-study-danhup-people-and-journeys). For the full four-layer catalogue of a fictional product, see the [catalogue framework](/library/catalogue-framework-overview) and the [full TrailMug example](/library/catalogue-trailmug-full-example). Go back to [page 1](/library/case-study-danhup-the-product-on-one-page) for the product on one page.
+Continue with [people, touch points and journeys](/library/case-study-people-and-journeys). For the full four-layer catalogue of a fictional product, see the [catalogue framework](/library/catalogue-framework-overview) and the [full TrailMug example](/library/catalogue-trailmug-full-example). Go back to [page 1](/library/case-study-the-product-on-one-page) for the product on one page.

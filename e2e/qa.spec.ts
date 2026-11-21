@@ -111,7 +111,7 @@ const REFLOW_ROUTES = [
   '/library/template-personas/',
   '/library/resources/',
   '/library/tracks/frameworks/24-running-android-ops-in-gitlab/',
-  '/library/case-study-danhup-epics-and-roadmap/',
+  '/library/case-study-epics-and-roadmap/',
   '/library/catalogue-trailmug-full-example/',
   '/challenges/build-a-real-mvp/',
   // Kata recipe template (long resource IDs once overflowed it at 195 px), the UX pathway and its working example (#91).
