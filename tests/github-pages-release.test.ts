@@ -42,7 +42,8 @@ describe('release script', () => {
   const script = readFileSync('.gitlab/ci/publish-github-pages.sh', 'utf8');
 
   it('waits for the live build after pushing, also when there was nothing to push', () => {
-    const wait = script.indexOf('scripts/wait-for-live-build.mjs');
+    const wait = script.indexOf('node "$CI_PROJECT_DIR/scripts/wait-for-live-build.mjs"');
+    expect(wait, 'the release script runs wait-for-live-build').toBeGreaterThan(-1);
     expect(wait).toBeGreaterThan(script.indexOf('git -C "$work" push origin'));
     expect(wait).toBeGreaterThan(script.indexOf('nothing to push'));
     expect(script).not.toMatch(/nothing to push\."\s*\n\s*exit 0/);
