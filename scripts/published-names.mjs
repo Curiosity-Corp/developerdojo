@@ -42,16 +42,45 @@ export function parseDenylist(text) {
   return names;
 }
 
+/** Files are read this many at a time; the order of findings does not depend on it. */
+const READ_CONCURRENCY = 16;
+/** Before and after a name there must be no letter or digit, so a name is not found inside a longer word. */
+const NOT_AFTER_WORD = '(?<![\\p{L}\\p{N}])';
+const NOT_BEFORE_WORD = '(?![\\p{L}\\p{N}])';
+
+/** A name's body: between its words any run of spaces, hyphens, underscores or dots (or nothing) matches. */
+function nameBody(name) {
+  return name.split(' ').join('[\\s._-]*');
+}
+
 /**
- * One case-insensitive pattern per name. Between its words any run of spaces, hyphens, underscores or dots
- * (or nothing) matches; before and after it there must be no letter or digit, so a name is not found
- * inside a longer word.
+ * One case-insensitive pattern per name, used to say which name matched and on which line.
+ * Names are lower-case letters, digits and single spaces (parseDenylist), so they need no escaping.
  */
 export function compileDenylist(names) {
   return names.map((name) => ({
     name,
-    pattern: new RegExp(`(?<![\\p{L}\\p{N}])${name.split(' ').join('[\\s._-]*')}(?![\\p{L}\\p{N}])`, 'iu'),
+    pattern: new RegExp(`${NOT_AFTER_WORD}${nameBody(name)}${NOT_BEFORE_WORD}`, 'iu'),
   }));
+}
+
+/**
+ * One pattern that matches wherever any of the names matches: the boundaries are shared and the bodies are
+ * alternatives, and the regex engine backtracks into every alternative before it gives up at a position,
+ * so it matches a text exactly when at least one per-name pattern does. Run over a whole text it can only
+ * match more than the per-line patterns (a name split across a line break), never less, which makes it a
+ * sound filter: a text it does not match holds no name. Built from the names, as compileDenylist builds each
+ * per-name pattern, once per matcher list.
+ */
+const anyNamePatterns = new WeakMap();
+function anyNamePattern(matchers) {
+  let pattern = anyNamePatterns.get(matchers);
+  if (pattern === undefined) {
+    const bodies = matchers.map(({ name }) => nameBody(name)).join('|');
+    pattern = new RegExp(`${NOT_AFTER_WORD}(?:${bodies})${NOT_BEFORE_WORD}`, 'iu');
+    anyNamePatterns.set(matchers, pattern);
+  }
+  return pattern;
 }
 
 export async function loadDenylist(path = DENYLIST_PATH) {
@@ -66,8 +95,13 @@ export async function loadDenylist(path = DENYLIST_PATH) {
   return compileDenylist(names);
 }
 
-/** Every denylisted name in a text, each with the 1-based line of its first match. */
+/**
+ * Every denylisted name in a text, each with the 1-based line of its first match. One pass of the combined
+ * pattern clears a clean text (nearly every file); only a text it matches gets the exact per-name, per-line
+ * search, so the result is the same as searching every name on every line.
+ */
 export function findNames(text, matchers) {
+  if (matchers.length === 0 || !anyNamePattern(matchers).test(text)) return [];
   const found = [];
   const lines = text.split(/\r?\n/);
   for (const { name, pattern } of matchers) {
@@ -94,29 +128,42 @@ async function filesUnder(dir) {
   return out;
 }
 
+/** The findings for one file: its path relative to the scanned directory, then its text if it is a text file. */
+async function scanFile(dir, file, matchers) {
+  const findings = [];
+  const shown = relative(process.cwd(), file).split(sep).join('/');
+  const relativePath = relative(dir, file).split(sep).join('/');
+  for (const { name } of findNames(relativePath, matchers)) findings.push({ file: shown, name, where: 'path' });
+  const dot = file.lastIndexOf('.');
+  if (dot === -1 || !TEXT_EXTENSIONS.has(file.slice(dot).toLowerCase())) return findings;
+  let text;
+  try {
+    text = await readFile(file, 'utf8');
+  } catch (error) {
+    throw new Error(`Cannot read ${file}: ${error.message}`);
+  }
+  for (const { name, line } of findNames(text, matchers)) findings.push({ file: shown, name, where: `line ${line}` });
+  return findings;
+}
+
 /**
  * Scan directories: every file path (relative to the directory, so a route slug counts) and the text of
- * every text file. Returns one finding per file, name and place.
+ * every text file. Returns one finding per file, name and place, in directory-walk order.
  */
 export async function scanDirectories(dirs, matchers) {
-  const findings = [];
-  let scanned = 0;
+  const jobs = [];
   for (const dir of dirs) {
-    for (const file of await filesUnder(dir)) {
-      scanned += 1;
-      const shown = relative(process.cwd(), file).split(sep).join('/');
-      const relativePath = relative(dir, file).split(sep).join('/');
-      for (const { name } of findNames(relativePath, matchers)) findings.push({ file: shown, name, where: 'path' });
-      const dot = file.lastIndexOf('.');
-      if (dot === -1 || !TEXT_EXTENSIONS.has(file.slice(dot).toLowerCase())) continue;
-      let text;
-      try {
-        text = await readFile(file, 'utf8');
-      } catch (error) {
-        throw new Error(`Cannot read ${file}: ${error.message}`);
-      }
-      for (const { name, line } of findNames(text, matchers)) findings.push({ file: shown, name, where: `line ${line}` });
+    for (const file of await filesUnder(dir)) jobs.push({ dir, file });
+  }
+  const perFile = new Array(jobs.length);
+  let next = 0;
+  async function worker() {
+    while (next < jobs.length) {
+      const index = next;
+      next += 1;
+      perFile[index] = await scanFile(jobs[index].dir, jobs[index].file, matchers);
     }
   }
-  return { scanned, findings };
+  await Promise.all(Array.from({ length: Math.min(READ_CONCURRENCY, jobs.length) }, worker));
+  return { scanned: jobs.length, findings: perFile.flat() };
 }

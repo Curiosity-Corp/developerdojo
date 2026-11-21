@@ -35,6 +35,20 @@ describe('published-name matcher', () => {
     expect(names('zorblaxian acmewidgetry preacme widget')).toEqual([]);
   });
 
+  it('finds every name when names overlap in the text', () => {
+    const overlapping = compileDenylist(['acme', 'acme widget', 'widget co']);
+    expect(findNames('Acme Widget Co', overlapping).map((f) => f.name)).toEqual(['acme', 'acme widget', 'widget co']);
+  });
+
+  it('does not join a name across a line break', () => {
+    expect(names('acme\nwidget')).toEqual([]);
+    expect(names('acme\nacme widget')).toEqual(['acme widget']);
+  });
+
+  it('finds nothing with an empty matcher list', () => {
+    expect(findNames('zorblax', [])).toEqual([]);
+  });
+
   it('reports the line of the first match', () => {
     expect(findNames('one\ntwo\nZorblax three\nzorblax', matchers)).toEqual([{ name: 'zorblax', line: 3 }]);
   });
