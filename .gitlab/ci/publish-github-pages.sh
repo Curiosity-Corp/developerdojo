@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-# Publish the BUILT site (dist/) to GitHub Curiosity-Corp/developerdojo branch gh-pages.
-# Never publishes the source tree. Authenticates as the focusapiary-mirror-sync GitHub App
-# (short-lived installation token); the private key never leaves CI variables.
+# Publish the BUILT site (dist/) to GitHub Curiosity-Corp/developerdojo branch gh-pages, then wait
+# until https://developerdojo.org serves it (dist/build.json, scripts/wait-for-live-build.mjs): a push
+# alone does not prove the GitHub Pages deploy ran (developerdojo#128). Never publishes the source
+# tree. Authenticates as the focusapiary-mirror-sync GitHub App (short-lived installation token); the
+# private key never leaves CI variables.
 set -euo pipefail
 
 : "${GITHUB_APP_ID:?GITHUB_APP_ID must be a protected CI variable}"
@@ -9,6 +11,8 @@ set -euo pipefail
 : "${GITHUB_APP_PRIVATE_KEY_B64:?GITHUB_APP_PRIVATE_KEY_B64 must be a protected, masked CI variable}"
 : "${GITHUB_PAGES_REPOSITORY:?}"
 : "${CI_COMMIT_SHA:?}"
+: "${CI_PIPELINE_ID:?}"
+live_marker_url="${GITHUB_PAGES_LIVE_MARKER_URL:-https://developerdojo.org/build.json}"
 dist="${CI_PROJECT_DIR:?}/dist"
 branch="gh-pages"
 
@@ -16,6 +20,11 @@ branch="gh-pages"
 [ -f "$dist/index.html" ] || { echo "dist/index.html missing: build artifact not present." >&2; exit 1; }
 [ "$(cat "$dist/CNAME")" = "developerdojo.org" ] || { echo "dist/CNAME must be developerdojo.org." >&2; exit 1; }
 [ -f "$dist/.nojekyll" ] || { echo "dist/.nojekyll missing." >&2; exit 1; }
+expected_marker="{\"commit\":\"$CI_COMMIT_SHA\",\"pipeline\":\"$CI_PIPELINE_ID\"}"
+[ "$(cat "$dist/build.json")" = "$expected_marker" ] || {
+  echo "dist/build.json must be $expected_marker (src/pages/build.json.ts); found: $(head -c 200 "$dist/build.json" 2>/dev/null || echo 'no file')." >&2
+  exit 1
+}
 if find "$dist" -type l -print -quit | grep -q .; then echo "Refusing an artifact containing symlinks." >&2; exit 1; fi
 
 key="$(mktemp)"; chmod 600 "$key"
@@ -61,11 +70,18 @@ mkdir -p "$work/.github/workflows"
 cp "$CI_PROJECT_DIR/.gitlab/ci/gh-pages-workflow.yml" "$work/.github/workflows/pages.yml"
 git -C "$work" add -A
 if git -C "$work" diff --cached --quiet && git -C "$work" rev-parse --verify -q HEAD >/dev/null; then
-  echo "gh-pages already matches this build; nothing to publish."
-  exit 0
+  # A retry of this job after its push landed: the deploy may still have failed, so wait below anyway.
+  echo "gh-pages already matches this build; nothing to push."
+else
+  git -C "$work" -c user.name='Developer Dojo release' -c user.email='release@developerdojo.org' \
+    commit --quiet -m "Publish built site from ${CI_COMMIT_SHA}" -m "Source: https://${CI_SERVER_HOST}/${CI_PROJECT_PATH}/-/commit/${CI_COMMIT_SHA} (pipeline ${CI_PIPELINE_ID})"
+  # Plain push (fast-forward only): fails if gh-pages changed underneath us, never force-updates.
+  git -C "$work" push origin "HEAD:refs/heads/$branch"
+  echo "Published $(git -C "$work" rev-parse --short HEAD) to ${GITHUB_PAGES_REPOSITORY}:${branch}"
 fi
-git -C "$work" -c user.name='Developer Dojo release' -c user.email='release@developerdojo.org' \
-  commit --quiet -m "Publish built site from ${CI_COMMIT_SHA}" -m "Source: https://${CI_SERVER_HOST}/${CI_PROJECT_PATH}/-/commit/${CI_COMMIT_SHA} (pipeline ${CI_PIPELINE_ID})"
-# Plain push (fast-forward only): fails if gh-pages changed underneath us, never force-updates.
-git -C "$work" push origin "HEAD:refs/heads/$branch"
-echo "Published $(git -C "$work" rev-parse --short HEAD) to ${GITHUB_PAGES_REPOSITORY}:${branch}"
+
+# The release is done when a customer gets it. On a timeout, read the "Deploy static site to GitHub
+# Pages" run for this gh-pages commit (github.com/${GITHUB_PAGES_REPOSITORY}/actions); "Re-run failed
+# jobs" there re-runs only its deploy job, then retry this job.
+node "$CI_PROJECT_DIR/scripts/wait-for-live-build.mjs" "$live_marker_url" \
+  --commit "$CI_COMMIT_SHA" --pipeline "$CI_PIPELINE_ID" --timeout-seconds 1200 --interval-seconds 15
