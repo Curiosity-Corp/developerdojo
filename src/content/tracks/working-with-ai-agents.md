@@ -48,7 +48,7 @@ Take a problem you chose, write it as a one-page spec with acceptance criteria, 
 
 The jobs that stay are named in [People write epics](/library/people-write-epics): who the customer is, what the product is and is not, which problem comes first, and why. People write epics and roadmaps. AI never does.
 
-## The ten lessons
+## The lessons
 
 | # | Lesson | What you learn |
 |---|---|---|
@@ -62,8 +62,9 @@ The jobs that stay are named in [People write epics](/library/people-write-epics
 | 8 | Evals and testing AI work | Test sets, scoring, baselines, regressions |
 | 9 | Safety, security and trust | Least privilege, prompt injection, sandboxes, approval points |
 | 10 | Disclosure and ownership | Honest disclosure, licences, and decisions that stay human |
+| 11 | Small models: the middle ground | Choosing between a rule, small models and a large LLM, with measured numbers |
 
-Lessons 1 to 3 give the mental model and the briefing skills. Lessons 4 to 6 teach you to specify, direct and take your first steps in orchestration. Lessons 7 to 9 teach you to verify, measure and control risk. Lesson 10 closes with accountability.
+Lessons 1 to 3 give the mental model and the briefing skills. Lessons 4 to 6 teach you to specify, direct and take your first steps in orchestration. Lessons 7 to 9 teach you to verify, measure and control risk. Lesson 10 closes the core track with accountability. Lesson 11 is an extra: how to pick the smallest model that does the job.
 
 ## The ladder: use, delegate, orchestrate, govern
 

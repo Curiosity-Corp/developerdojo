@@ -1,0 +1,36 @@
+---
+/**
+ * A recipe section or value that is not available (#86). It always says "Not available" and why, so a
+ * missing showcase, run or review can never read as checked.
+ * Props: reason (from the record's `unavailable`), inline? (a single value inside a table or list)
+ */
+interface Props {
+  reason: string;
+  inline?: boolean;
+}
+const { reason, inline = false } = Astro.props;
+---
+
+{
+  inline ? (
+    <span class="unavailable inline" data-unavailable><strong>Not available.</strong> {reason}</span>
+  ) : (
+    <p class="unavailable" data-unavailable><strong>Not available.</strong> {reason}</p>
+  )
+}
+
+<style>
+  .unavailable {
+    color: var(--ink);
+  }
+  p.unavailable {
+    margin: 0 0 var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    background: var(--paper-sunk);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius);
+  }
+  .inline strong {
+    font-weight: 700;
+  }
+</style>

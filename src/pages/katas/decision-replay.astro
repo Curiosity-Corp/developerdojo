@@ -1,4 +1,5 @@
 ---
+import { pocketGardenFrameDoc } from '../../data/pocket-garden';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 ---
@@ -8,7 +9,7 @@ import PageHero from '../../components/PageHero.astro';
     <div class="container content">
       <h2>First, try the result</h2>
       <p>Pocket Garden is a real working example created for the Dojo with AI assistance. The decisions below are a fictional learning scenario, not a recording of how it was built.</p>
-      <iframe title="Pocket Garden working example" src="/examples/pocket-garden.html" loading="lazy" sandbox="allow-scripts"></iframe>
+      <iframe title="Pocket Garden working example" srcdoc={pocketGardenFrameDoc} loading="lazy" sandbox="allow-scripts"></iframe>
       <p>This page is the complete text version; no audio or video is needed. Choose what you would do first, then open each explanation. Your choices stay on this page and are not sent or saved.</p>
       <div class="decisions">
         <article>

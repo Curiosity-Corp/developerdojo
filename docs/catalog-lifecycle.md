@@ -14,14 +14,14 @@ The published catalog is a set of learning starting points, not a promise that a
 
 The role taking responsibility for each item and its next review should be recorded in its tracking issue or MR. If specialist review is needed but unavailable, keep the affected claim unverified and assign or escalate the issue rather than inventing an approval. Coordinate PHANTOMS-dependent changes through issue #64.
 
-The Armory starter registry currently has one shared documentation date. Update that date only after every entry's stated documentation and linked license information have been checked. A partial review belongs in an issue or MR and must not reset the shared date. Use entry-level dates if the registry is later maintained independently per entry.
+Each Armory registry entry has its own `review.lastVerified` and `nextReview` dates (see `docs/armory-registry.md`). Update an entry's date only after its sources, version, licence and permissions have been checked again; re-run its smoke test when the version changed.
 
 ## States and response
 
 These are descriptions for a maintainer to use in an issue or visible notice; they do not assert an automated check passed.
 
 - **Checked:** cite what was checked, by whom and when, and what was outside the check. A working URL alone does not verify a product's permissions or safety.
-- **Review due:** the check is older than its cadence, missing, or a relevant change is reported. Keep the last actual check date and tell learners to consult the source. The Armory registry displays this after 90 days using the visitor's clock; without JavaScript it still shows the date and a reminder. The quarterly `stale_resources` job covers resource YAML files, not the Armory.
+- **Review due:** the check is older than its cadence, missing, or a relevant change is reported. Keep the last actual check date and tell learners to consult the source. The Armory registry shows "review due" on an entry after its `nextReview` date using the visitor's clock; without JavaScript it still shows the checked date and a reminder. The quarterly `stale_resources` job covers resource YAML files, not the Armory.
 - **Unavailable or unsafe to recommend:** a source is gone, access has materially changed, or a significant unresolved concern makes its instructions unsuitable. Clearly explain the limitation, remove or disable unsafe instructions as appropriate, and offer a verified alternative if one exists. Do not represent an unverified substitute as equivalent.
 
 ## Handling a change

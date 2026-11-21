@@ -1,0 +1,61 @@
+---
+/**
+ * Links back from a field, belt or review page to the kata recipes that name it (#86).
+ * Fixtures are labelled as fixtures in the link text, so they can never pass for a real kata.
+ * Renders nothing when the list is empty.
+ * Props: recipes, title, intro?, headingLevel? (2 or 3, default 2), id? (for the heading)
+ */
+import type { ResolvedRecipe } from '../lib/kata-recipes';
+import { STATUS_LABELS } from '../lib/kata-recipes';
+
+interface Props {
+  recipes: readonly ResolvedRecipe[];
+  title: string;
+  intro?: string;
+  headingLevel?: 2 | 3;
+  id?: string;
+}
+const { recipes, title, intro, headingLevel = 2, id } = Astro.props;
+const Heading = headingLevel === 2 ? 'h2' : 'h3';
+---
+
+{
+  recipes.length > 0 && (
+    <div class="recipe-links" data-recipe-links>
+      <Heading id={id}>{title}</Heading>
+      {intro && <p>{intro}</p>}
+      <ul>
+        {recipes.map((item) => (
+          <li>
+            <a href={item.href}>{item.recipe.metadata.title}{item.recipe.status === 'fixture' && ' (fixture)'}</a>
+            {item.recipe.status !== 'fixture' && <span class="status"> · {STATUS_LABELS[item.recipe.status]}</span>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+<style>
+  .recipe-links {
+    margin-top: var(--space-3);
+  }
+  .recipe-links :is(h2, h3) {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-lg);
+  }
+  .recipe-links p {
+    margin: 0 0 var(--space-2);
+  }
+  ul {
+    margin: 0;
+    padding-left: var(--space-5);
+  }
+  a {
+    font-weight: 700;
+  }
+  .status {
+    color: var(--ink-muted);
+    font-size: var(--text-sm);
+  }
+</style>

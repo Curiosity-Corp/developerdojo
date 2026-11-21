@@ -1,4 +1,5 @@
 ---
+import { pocketGardenFrameDoc } from '../data/pocket-garden';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHeader from '../components/SectionHeader.astro';
@@ -152,7 +153,7 @@ const bar = [
           </div>
           <div class="example-window">
             <p>Try the example</p>
-            <iframe src="/examples/pocket-garden.html" title="Pocket Garden working prototype example" loading="lazy" sandbox="allow-scripts"></iframe>
+            <iframe srcdoc={pocketGardenFrameDoc} title="Pocket Garden working prototype example" loading="lazy" sandbox="allow-scripts"></iframe>
           </div>
         </article>
         <article class="showcase-card brief-card" aria-labelledby="room-showcase-title">

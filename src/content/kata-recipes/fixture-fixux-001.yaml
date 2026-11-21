@@ -1,0 +1,184 @@
+# FIXTURE (#86): an example of the recipe template, built from the !149 sector fixture FIXUX-001
+# (tests/fixtures/kata-sectors.ts; tests/kata-recipes.test.ts keeps the two metadata blocks equal).
+# Nobody has run this kata. Every check is not-run, and the page says so.
+status: fixture
+notice: This is a fixture. It shows how a kata recipe page is laid out. Nobody has run it, reviewed it or published it, and it is not a kata to follow.
+maintainer:
+  role: Kata template maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/86
+review:
+  unavailable: A fixture is never verified. No check of this recipe has been performed.
+summary: Design a keyboard-accessible onboarding journey for a fictional SaaS product, test it with three people and fix one finding.
+metadata:
+  id: FIXUX-001
+  title: Design an accessible onboarding journey
+  layer: specialization
+  outcomeIds: [usable-onboarding]
+  artifactTypes: [interactive-prototype, usability-findings]
+  domainIds: [ux, software]
+  capabilityIds: [design-interaction, test-usability]
+  foundationKataIds: [FIXFND-001, FIXFND-002]
+  stackRecipeIds: [browser-prototype, penpot-design-file]
+  pathwayIds: [personas-and-journeys, product-discovery]
+  constraintIds: [keyboard-only, fictional-data]
+  externalResources: [penpot/prototyping, nngroup/customer-journey-mapping]
+  standards:
+    - name: Web Content Accessibility Guidelines (WCAG)
+      version: '2.2'
+      applicability: Web content and prototypes a learner builds in practice
+      reviewScope: Level A and AA success criteria on the practice prototype only; no conformance claim for any product
+      sourceResourceId: w3c/wcag-quickref
+  professionalReviewRequired: false
+  verificationEvidence:
+    - description: Findings from three moderated sessions, with what each participant tried
+      method: peer-review
+    - description: Keyboard and contrast checks on every onboarding step
+      method: automated-check
+      standards: [Web Content Accessibility Guidelines (WCAG)]
+  beltCriteria:
+    - stage: demonstrate
+      criterion: Fixes one finding and shows the before and after
+  crossFieldTransfers: [health, public-service]
+showcase:
+  unavailable: No learner has made this outcome yet, so there is no authentic example to show.
+brief:
+  goal: A new user of a fictional invoicing app reaches their first sent invoice using only the keyboard.
+  audience: Freelancers who have never used the app, including people who navigate without a mouse.
+  inputs:
+    - name: Fictional product description
+      source: Written in the prompt below; no real company or customer
+      terms: Fictional, free to reuse
+    - name: Journey mapping method
+      source: nngroup/customer-journey-mapping
+      terms: Read on the publisher's site under its terms
+  doneWhen:
+    - Every onboarding step can be reached and completed with the keyboard alone
+    - Three moderated sessions are written up, with what each participant tried
+    - One finding is fixed and the before and after are shown
+stack:
+  components:
+    - part: harness
+      name: Any chat assistant in a browser
+      version:
+        unavailable: Not recorded; the fixture has never been run
+      permissions: Reads only what you paste into the chat
+      cost:
+        unavailable: Not measured
+    - part: instructions
+      name: The two prompts on this page
+      version: Fixture text, 2026-11-20
+      permissions: None
+      cost: None
+    - part: tool
+      name: Penpot
+      version:
+        unavailable: Not recorded; the fixture has never been run
+      permissions: Read and write one practice project
+      cost:
+        unavailable: Not checked for this fixture; see the publisher's current plans
+  rationale: A browser prototype and an open-source design tool keep the exercise free of installs and licences, and both can be tested with a keyboard.
+  alternatives:
+    - name: Figma through an MCP server
+      tradeoff: Brings design context into an agent, but needs an account and has not been run for the Dojo.
+      tested: false
+agents:
+  roles:
+    - role: Designer
+      responsibility: Drafts the journey map and the prototype screens from the brief.
+      reviewGate: The learner checks every step against the done-when list before testing.
+    - role: Note taker
+      responsibility: Turns the learner's session notes into findings, one per observed problem.
+      dependsOn: [Designer]
+      reviewGate: The learner compares each finding with their own notes; nothing a participant did not do is added.
+setup:
+  steps:
+    - Open a new chat in the assistant you use.
+    - Open Penpot in a browser and create an empty practice project.
+    - Paste the first prompt and keep the answer next to the project.
+  auth: Sign in to Penpot with your own account. The chat assistant needs no extra access.
+  smokeTest:
+    action: Tab through the first prototype screen from the address bar.
+    expected: Focus reaches every control in reading order and is always visible.
+    result: not-run
+prompts:
+  - id: journey-draft
+    title: Draft the journey
+    purpose: Gets a first journey map and screen list you can check.
+    text: |-
+      I am designing onboarding for a fictional invoicing app for freelancers.
+      Goal: a new user sends their first invoice using only the keyboard.
+      1. Map the journey as stages, with what the user does, thinks and could get stuck on.
+      2. List the screens a prototype needs, and the keyboard path through each.
+      3. Mark every place where focus order or focus visibility could fail.
+      Use no real company, person or customer data.
+  - id: findings
+    title: Turn session notes into findings
+    purpose: Keeps findings tied to what participants actually did.
+    text: |-
+      Here are my notes from three moderated sessions on my prototype.
+      Write one finding per observed problem: what the participant tried, what happened, and the screen.
+      Do not add anything that is not in my notes. Mark any finding that only one participant hit.
+exercise:
+  title: Moderated usability testing
+  resourceId: gov-uk/moderated-usability-testing
+  terms: Read on the publisher's site. GOV.UK guidance is published under the Open Government Licence v3.0 unless it says otherwise.
+execution:
+  steps:
+    - actor: Designer
+      action: Draft the journey and screen list with the first prompt.
+      handoff: The learner checks the draft and builds the prototype.
+    - actor: Learner
+      action: Run three moderated sessions with keyboard-only navigation.
+      handoff: Session notes go to the note taker.
+    - actor: Note taker
+      action: Write findings from the notes with the second prompt.
+      handoff: The learner fixes one finding and records the before and after.
+verification:
+  checks:
+    - action: Keyboard-only pass through every onboarding step
+      expected: Every control is reachable and operable; focus is always visible
+      result: not-run
+    - action: Contrast check of text and focus indicators against WCAG 2.2 AA
+      expected: No failure on any step
+      result: not-run
+adaptation:
+  variations:
+    - change: The product becomes a patient appointment booking service.
+      effect: Health data rules apply; the prototype must use fictional patients only, and the findings need a privacy review.
+    - change: Participants use a screen reader.
+      effect: Headings, labels and live announcements need checking as well as focus order.
+randori:
+  challenge: Design onboarding for a public benefit application you have not seen before.
+  constraints:
+    - Plain language at a reading age of about nine
+    - Keyboard and screen reader use
+  evaluation: A reviewer tries the journey without help and records where they stopped.
+maintenance:
+  cadence: Not reviewed; fixtures change only with the template
+  caveats:
+    - This fixture exists to test the template. Do not treat its steps as checked guidance.
+    - Product names, versions and plans change; check every tool's current documentation before use.
+downloads:
+  - filename: agents.md
+    description: Instructions for the two agent roles, to put in an AGENTS.md or a project's custom instructions.
+    content: |-
+      # Onboarding journey: agent roles (fixture)
+
+      This file belongs to a fixture recipe. Nobody has run it.
+
+      ## Designer
+      - Draft the journey map and screens from the brief.
+      - Use fictional data only.
+      - Mark every possible focus-order or focus-visibility problem.
+
+      ## Note taker
+      - Write one finding per observed problem, from the learner's notes only.
+      - Never add behaviour the notes do not show.
+  - filename: done-when.md
+    description: The done-when checklist as a Markdown file you can tick off in your own notes.
+    content: |-
+      # Done when (fixture)
+
+      - [ ] Every onboarding step works with the keyboard alone
+      - [ ] Three moderated sessions are written up
+      - [ ] One finding is fixed, with the before and after

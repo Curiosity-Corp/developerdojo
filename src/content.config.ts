@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { librarySchema, resourceSchema, trackSchema } from './lib/schemas';
+import { kataRecipeSchema } from './lib/kata-recipe';
 
 // Lessons and program pages. Track lessons live in src/content/library/tracks/<track-slug>/.
 const library = defineCollection({
@@ -21,4 +22,11 @@ const resources = defineCollection({
   schema: resourceSchema,
 });
 
-export const collections = { library, tracks, resources };
+// Operational kata recipes (#86): src/content/kata-recipes/<slug>.yaml, rendered at /katas/<slug>.
+// Relationships are checked by src/lib/kata-recipes.ts; see docs/kata-recipes.md.
+const kataRecipes = defineCollection({
+  loader: glob({ pattern: '*.yaml', base: './src/content/kata-recipes' }),
+  schema: kataRecipeSchema,
+});
+
+export const collections = { library, tracks, resources, kataRecipes };

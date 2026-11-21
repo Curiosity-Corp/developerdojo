@@ -1,5 +1,6 @@
 # developerdojo.org pipeline.
 #   Merge requests: check, test, build, e2e.
+#   PRODUCTION_E2E=true (ship-window schedules, hand runs): e2e:production only, against the live site.
 #   master and the nightly schedule (02:00 UTC, so date-filtered event lists stay current):
 #                   the same gates, then GitLab Pages internal preview and the publish of the BUILT
 #                   site (dist, with CNAME + .nojekyll) to GitHub Curiosity-Corp/developerdojo gh-pages.
@@ -16,6 +17,9 @@ workflow:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     # Pushes to master AND the nightly pipeline schedule (a schedule runs on master as a branch pipeline).
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    # A production e2e run started by hand on any branch: Run pipeline (web) or the API / glab ci run
+    # (api), with PRODUCTION_E2E=true.
+    - if: '$CI_PIPELINE_SOURCE =~ /^(web|api)$/ && $PRODUCTION_E2E == "true"'
 
 stages:
   - validate
@@ -33,7 +37,17 @@ variables:
   npm_config_cache: "$CI_PROJECT_DIR/.npm"
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
 
+# A production e2e pipeline (PRODUCTION_E2E=true: the ship-window schedules, or a hand run) runs
+# e2e:production and nothing else: no build, no Pages, no publish. Every other job starts its rules here.
+.skip-in-production-e2e:
+  rules:
+    - if: '$PRODUCTION_E2E == "true"'
+      when: never
+
 .node:
+  rules:
+    - !reference [.skip-in-production-e2e, rules]
+    - when: on_success
   cache:
     key:
       files:
@@ -91,6 +105,7 @@ external_links:
   stage: e2e
   needs: [build]
   rules:
+    - !reference [.skip-in-production-e2e, rules]
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $LINK_CHECK == "true"'
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: manual
@@ -110,6 +125,7 @@ stale_resources:
   stage: e2e
   needs: []
   rules:
+    - !reference [.skip-in-production-e2e, rules]
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE != "schedule"'
       when: manual
       allow_failure: true
@@ -137,6 +153,34 @@ e2e:
       - test-results
     expire_in: 7 days
 
+# Production e2e (hypervoid/admiral#123): the read-only production subset of the suite (playwright.config.ts
+# PRODUCTION_SPECS) against https://developerdojo.org at desktop and mobile width, after each ship window.
+# Pipeline schedules on master set PRODUCTION_E2E=true at 08:10, 14:10 and 20:10 UTC (the 07:00, 13:00 and
+# 19:00 windows plus 70 minutes; scripts/ensure-production-e2e-schedules.sh keeps them). A hand run is
+# "Run pipeline" on any branch with PRODUCTION_E2E=true. scripts/production-e2e.mjs checks that the pod
+# reaches the public site (not the Ziti ingress), runs the suite, and posts pass or fail with the landing
+# page screenshot on Curiosity-Corp/overview#6 when the masked CI variable CURIOSITY_OVERVIEW_NOTE_TOKEN is
+# set (Azure Key Vault omlab-secrets: curiosity-overview-note-token). The note and report are artifacts.
+e2e:production:
+  extends: .node
+  stage: e2e
+  needs: []
+  interruptible: false
+  rules:
+    - if: '$PRODUCTION_E2E == "true"'
+  variables:
+    E2E_BASE_URL: https://developerdojo.org
+    PRODUCTION_E2E_SITE: developerdojo.org
+  script:
+    - node scripts/production-e2e.mjs -- npx playwright test --reporter=list,json,html
+  artifacts:
+    when: always
+    paths:
+      - production-e2e
+      - playwright-report
+      - test-results
+    expire_in: 30 days
+
 # Internal GitLab Pages preview of the built site.
 pages:
   stage: deploy
@@ -149,6 +193,7 @@ pages:
     paths:
       - public
   rules:
+    - !reference [.skip-in-production-e2e, rules]
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_COMMIT_REF_PROTECTED == "true"'
 
 # Public release: the built artifact only, to GitHub gh-pages. The pages.yml workflow on that branch
@@ -171,6 +216,7 @@ publish_github_pages:
     name: production
     url: https://developerdojo.org
   rules:
+    - !reference [.skip-in-production-e2e, rules]
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_COMMIT_REF_PROTECTED == "true"'
 
 # Optional diagnostic for #113. Full axe scans under two temporary CSS treatments; never replaces e2e.
@@ -181,6 +227,7 @@ catalog_a11y_profile:
   needs: [build]
   timeout: 1h
   rules:
+    - !reference [.skip-in-production-e2e, rules]
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" || $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
       when: manual
       allow_failure: true
@@ -199,6 +246,7 @@ event_initialization_profile:
   needs: []
   timeout: 1h
   rules:
+    - !reference [.skip-in-production-e2e, rules]
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" || $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
       when: manual
       allow_failure: true

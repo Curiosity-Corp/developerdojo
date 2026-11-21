@@ -1,4 +1,7 @@
-/** Site sections connect the new practice model to resources that already exist. */
+/**
+ * Site sections connect the new practice model to resources that already exist. Each renders at /<slug>
+ * through src/pages/[dojoSection].astro. The Gallery has its own page (src/pages/gallery.astro, #87).
+ */
 export interface DojoSection {
   slug: string;
   eyebrow: string;
@@ -14,20 +17,6 @@ export interface DojoSection {
 }
 
 export const dojoSections: DojoSection[] = [
-  {
-    slug: 'gallery', eyebrow: 'See the outcome', title: 'The Gallery',
-    description: 'Explore the outcomes a developer can create and the evidence behind them.',
-    introTitle: 'Try a result, then make your own',
-    intro: 'Start with working examples, including Dojo exercises and a credited creator’s interactive 3D room. Follow a kata to make your own and check the result.',
-    steps: [
-      { title: 'A clickable mini app', description: 'Try the Pocket Garden example, then ask an assistant to create a prototype you can test and remix.', href: '/katas/first-prototype', link: 'Make a clickable prototype' },
-      { title: 'An interactive 3D room', description: 'Explore Wes Bos’s reconstructed office and work backward through its capture and agent workflow.', href: '/katas/scan-a-room', link: 'Explore the room' },
-      { title: 'A UX journey', description: 'Try a working prototype, trace its states and develop an editable design of your own.', href: '/katas/ux-journey', link: 'Design a user journey' },
-      { title: 'An idea becomes a plan', description: 'See a complete example brief and use a ready-to-copy prompt to develop your own idea.', href: '/katas/spark-ideas', link: 'Turn an idea into a plan' },
-      { title: 'Look behind the result', description: 'Check inputs, instructions, tools and evidence. These starter examples are not a complete benchmark or verified replay of the same stack.' },
-    ],
-    nextTitle: 'Make something today', next: 'Choose a starter kata, try its example and make the result your own.', nextHref: '/katas', nextLabel: 'Explore katas',
-  },
   {
     slug: 'stack-lab', eyebrow: 'Universal foundations', title: 'The Stack Lab',
     description: 'Learn how harnesses, models, instructions, context, tools, agents and verification shape an outcome.',
@@ -53,7 +42,7 @@ export const dojoSections: DojoSection[] = [
       { title: 'Check permissions and trust', description: 'Read the source and permissions of a skill or integration before using it; consider what it can read, write or execute.', href: '/library/tracks/working-with-ai-agents/09-safety-security-and-trust', link: 'Safety, security and trust' },
       { title: 'Test access', description: 'Check the actual version, compatibility and permitted operations in your own environment. An integration name alone does not prove it can create or edit an artifact.' },
     ],
-    nextTitle: 'Explore the starter registry', next: 'Inspect source, compatibility, licensing, permissions and verification guidance for a first collection of harnesses, skills, MCP servers and CLIs. Documentation review is not a security audit or proof of a working installation.', nextHref: '/armory/registry', nextLabel: 'Open the registry',
+    nextTitle: 'Explore the registry', next: 'Compare harnesses, models, skills, MCP servers, CLIs and libraries by source, version, licence, permissions and a recorded smoke test. Entries that are not tested yet are shown apart, with what is missing. A smoke test is not a security audit.', nextHref: '/armory/registry', nextLabel: 'Open the registry',
   },
   {
     slug: 'arena', eyebrow: 'Compare with evidence', title: 'The Arena',
@@ -64,6 +53,7 @@ export const dojoSections: DojoSection[] = [
       { title: 'Record the configuration', description: 'Keep the task, inputs, harness and model versions, instructions, tools, permissions and date with each experiment.' },
       { title: 'Run a first experiment', description: 'Use the same sample data with two instructions, then score the outputs against an independently checkable answer.', href: '/katas/compare-instructions', link: 'Compare instructions' },
       { title: 'Inspect published evidence', description: 'Read a dated external study, check its arithmetic and learn what its findings do and do not establish.', href: '/katas/arena-evidence', link: 'Explore an agent experiment' },
+      { title: 'Read the evidence records', description: 'Dated comparisons with stacks, versions, methods, measured results, sources and limitations, from a Dojo-run experiment and a published study.', href: '/arena/evidence', link: 'Open the evidence records' },
       { title: 'Repeat and record', description: 'Summarize your own repeated runs while keeping unknown costs and unassessed checks distinct from zero.', href: '/katas/arena-run-card', link: 'Make a run record' },
       { title: 'Use a relevant rubric', description: 'Measure the outcome for its field as well as system qualities such as reliability, cost where measurable, and completion of checks.' },
       { title: 'Report limitations', description: 'Keep failures, repetitions and uncertainty visible. Do not treat a single result or another provider’s score as a universal ranking.', href: '/library/tracks/working-with-ai-agents/08-evals-and-testing-ai-work', link: 'Learn about evaluations' },

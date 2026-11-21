@@ -59,6 +59,7 @@ src/
                    frontmatter: title, description, section, order, plus optional track, level, duration, ...
     tracks/        track overviews (<slug>.md)
     resources/     external learning resources (<publisher>/<resource>.yaml)
+    arena/         Arena evidence records (<slug>.yaml; docs/arena-evidence.md)
   data/          events.json, challenges.json, certificates.json, plus typed kata/workshop data (*.ts)
   lib/           nav, ranks, schemas, data loaders, image lookup, custom icons, kata catalog
   styles/        tokens.css (light + dark design tokens), global.css
@@ -113,6 +114,13 @@ things mislead a check from a fleet machine:
   `build_type: workflow`, so the branch setting is ignored and `pages.yml` on `gh-pages` deploys. The
   real health signals are the latest `publish_github_pages` job on GitLab and the "Deploy static site to
   GitHub Pages" run on GitHub (`gh api repos/Curiosity-Corp/developerdojo/actions/runs`).
+
+### Production e2e
+
+Job `e2e:production` (hypervoid/admiral#123) runs the read-only production subset of the Playwright suite against https://developerdojo.org at desktop and mobile width. The subset is `PRODUCTION_SPECS` in `playwright.config.ts`: routes, navigation, menus, and the landing page with its images and console. Setting `E2E_BASE_URL` points the suite at that URL and turns off the local server.
+
+- Three pipeline schedules on master set `PRODUCTION_E2E=true` at 08:10, 14:10 and 20:10 UTC, after the 07:00, 13:00 and 19:00 ship windows. `bash scripts/ensure-production-e2e-schedules.sh` creates or updates them, and is safe to re-run. A production e2e pipeline runs that job and nothing else: no build, no publish. For a hand run, use **Run pipeline** on any branch with `PRODUCTION_E2E=true`.
+- `scripts/production-e2e.mjs` first checks that the pod resolves the site to a public address, not the Ziti ingress described above. It then runs the suite and writes `production-e2e/note.md` with pass or fail and the full-page landing screenshot. When the masked CI variable `CURIOSITY_OVERVIEW_NOTE_TOKEN` is set (Azure Key Vault `omlab-secrets`: `curiosity-overview-note-token`), it also posts that note on Curiosity-Corp/overview#6. A red result is the unit's first job.
 
 ## License
 

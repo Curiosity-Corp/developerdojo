@@ -6,10 +6,16 @@ import { fields } from '../lib/fields';
 import { loadContent } from '../lib/content';
 import { validateKataCatalog } from '../lib/kata-catalog';
 import { kataCatalog, kataDimensions } from '../data/kata-catalog';
+import KataRecipeLinks from '../components/KataRecipeLinks.astro';
+import { loadKataRecipes } from '../lib/kata-recipe-content';
 
-const { resources } = await loadContent();
+const recipes = await loadKataRecipes();
+const recipesFor = (fieldId: string) => recipes.filter(({ recipe }) => recipe.metadata.domainIds.includes(fieldId) || recipe.metadata.crossFieldTransfers.includes(fieldId));
+
+const { resources, tracks } = await loadContent();
 const validatedKatas = validateKataCatalog(kataCatalog, {
-  fields: fields.map((field) => field.id), resources: resources.map((resource) => resource.id), ...kataDimensions,
+  fields: fields.map((field) => field.id), resources: resources.map((resource) => resource.id),
+  pathways: tracks.map((track) => track.id), ...kataDimensions,
 });
 const foundations = new Map(validatedKatas.filter((kata) => kata.metadata.layer === 'foundation').map((kata) => [kata.metadata.id, kata]));
 const practice: Record<string, { href: string; label: string }> = {
@@ -39,6 +45,7 @@ const practice: Record<string, { href: string; label: string }> = {
                 })}
               </div>
             ))}
+            <KataRecipeLinks recipes={recipesFor(field.id)} title={`Kata recipes for ${field.name}`} headingLevel={3} />
           </li>
         ))}
       </ul>
