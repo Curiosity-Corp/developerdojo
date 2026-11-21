@@ -4,7 +4,7 @@ import { expect, test, type Page } from '@playwright/test';
 // The Gallery (#87). Runs in both Playwright projects: desktop (1440 px) and mobile (Pixel 7, 390 px).
 
 const GALLERY = '/gallery';
-const ENTRIES = ['fnd-001-stack-comparison', 'pocket-garden-prototype', 'ifc-wall-quantity-trace', 'reconstructed-3d-office'];
+const ENTRIES = ['fnd-001-stack-comparison', 'pocket-garden-prototype', 'ifc-wall-quantity-trace', 'reconstructed-3d-office', 'pocket-invoice-penpot-file'];
 
 async function setTheme(page: Page, theme: 'light' | 'dark'): Promise<void> {
   await page.emulateMedia({ colorScheme: theme });
@@ -63,6 +63,16 @@ test('a learner moves from a finished artifact to its recipe page', async ({ pag
   await expect(page).toHaveURL(/\/katas\/inspect-ifc\/?$/);
 });
 
+test('a draft recipe artifact links its recipe page and its import evidence', async ({ page, request }) => {
+  await page.goto(GALLERY);
+  const penpot = card(page, 'pocket-invoice-penpot-file');
+  await expect(penpot.locator('[data-step="recipe"]').getByRole('link')).toHaveAttribute('href', /\/katas\/ux-002-low-fidelity\/?$/);
+  for (const name of ['Download the Penpot file', 'Download the design tokens (JSON)', 'Use the working page']) {
+    const href = await penpot.getByRole('link', { name, exact: true }).getAttribute('href');
+    expect((await request.get(href ?? '')).status(), name).toBe(200);
+  }
+});
+
 test('outcome and field filters compose and never hide the shared foundation', async ({ page }) => {
   await page.goto(GALLERY);
   const outcome = page.getByLabel('Outcome', { exact: true });
@@ -72,7 +82,7 @@ test('outcome and field filters compose and never hide the shared foundation', a
 
   await field.selectOption('architecture-bim');
   expect(await visibleIds(page)).toEqual(['fnd-001-stack-comparison', 'ifc-wall-quantity-trace']);
-  await expect(status).toHaveText('Showing 2 of 4 artifacts.');
+  await expect(status).toHaveText('Showing 2 of 5 artifacts.');
   await expect(empty).toBeHidden();
   await expect(page).toHaveURL(/field=architecture-bim/);
 
@@ -95,7 +105,7 @@ test('outcome and field filters compose and never hide the shared foundation', a
   await expect(page.locator('[data-shared-foundations]')).toBeVisible();
 
   await page.getByRole('button', { name: 'Show everything' }).click();
-  await expect(status).toHaveText('Showing all 4 artifacts.');
+  await expect(status).toHaveText('Showing all 5 artifacts.');
   expect(await visibleIds(page)).toEqual(ENTRIES);
 });
 

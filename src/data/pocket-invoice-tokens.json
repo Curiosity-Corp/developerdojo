@@ -1,0 +1,292 @@
+{
+  "core": {
+    "color": {
+      "neutral": {
+        "0": {
+          "$value": "#ffffff",
+          "$type": "color",
+          "$description": "White"
+        },
+        "50": {
+          "$value": "#f5f7fa",
+          "$type": "color"
+        },
+        "200": {
+          "$value": "#d0d5dd",
+          "$type": "color"
+        },
+        "500": {
+          "$value": "#667085",
+          "$type": "color"
+        },
+        "700": {
+          "$value": "#344054",
+          "$type": "color"
+        },
+        "900": {
+          "$value": "#101828",
+          "$type": "color"
+        }
+      },
+      "blue": {
+        "700": {
+          "$value": "#175cd3",
+          "$type": "color"
+        },
+        "900": {
+          "$value": "#194185",
+          "$type": "color"
+        }
+      },
+      "red": {
+        "50": {
+          "$value": "#fef3f2",
+          "$type": "color"
+        },
+        "700": {
+          "$value": "#b42318",
+          "$type": "color"
+        }
+      },
+      "green": {
+        "50": {
+          "$value": "#ecfdf3",
+          "$type": "color"
+        },
+        "700": {
+          "$value": "#067647",
+          "$type": "color"
+        }
+      }
+    },
+    "spacing": {
+      "1": {
+        "$value": "4",
+        "$type": "spacing"
+      },
+      "2": {
+        "$value": "8",
+        "$type": "spacing"
+      },
+      "3": {
+        "$value": "12",
+        "$type": "spacing"
+      },
+      "4": {
+        "$value": "16",
+        "$type": "spacing"
+      },
+      "6": {
+        "$value": "24",
+        "$type": "spacing"
+      },
+      "8": {
+        "$value": "32",
+        "$type": "spacing"
+      },
+      "12": {
+        "$value": "48",
+        "$type": "spacing"
+      }
+    },
+    "radius": {
+      "s": {
+        "$value": "4",
+        "$type": "borderRadius"
+      },
+      "m": {
+        "$value": "8",
+        "$type": "borderRadius"
+      }
+    },
+    "border-width": {
+      "thin": {
+        "$value": "1",
+        "$type": "borderWidth"
+      },
+      "thick": {
+        "$value": "2",
+        "$type": "borderWidth"
+      },
+      "bar": {
+        "$value": "5",
+        "$type": "borderWidth"
+      }
+    },
+    "font": {
+      "family": {
+        "base": {
+          "$value": "Source Sans Pro",
+          "$type": "fontFamilies"
+        }
+      },
+      "size": {
+        "s": {
+          "$value": "16",
+          "$type": "fontSizes"
+        },
+        "m": {
+          "$value": "19",
+          "$type": "fontSizes"
+        },
+        "l": {
+          "$value": "24",
+          "$type": "fontSizes"
+        },
+        "xl": {
+          "$value": "32",
+          "$type": "fontSizes"
+        }
+      },
+      "weight": {
+        "regular": {
+          "$value": "400",
+          "$type": "fontWeights"
+        },
+        "bold": {
+          "$value": "700",
+          "$type": "fontWeights"
+        }
+      }
+    },
+    "size": {
+      "control": {
+        "$value": "48",
+        "$type": "sizing",
+        "$description": "Minimum height of buttons and inputs; above the 24 px target size in WCAG 2.2 (2.5.8)."
+      }
+    }
+  },
+  "semantic": {
+    "color": {
+      "text": {
+        "default": {
+          "$value": "{color.neutral.900}",
+          "$type": "color"
+        },
+        "muted": {
+          "$value": "{color.neutral.700}",
+          "$type": "color"
+        },
+        "inverse": {
+          "$value": "{color.neutral.0}",
+          "$type": "color"
+        },
+        "link": {
+          "$value": "{color.blue.700}",
+          "$type": "color"
+        },
+        "error": {
+          "$value": "{color.red.700}",
+          "$type": "color"
+        },
+        "success": {
+          "$value": "{color.green.700}",
+          "$type": "color"
+        }
+      },
+      "surface": {
+        "page": {
+          "$value": "{color.neutral.50}",
+          "$type": "color"
+        },
+        "card": {
+          "$value": "{color.neutral.0}",
+          "$type": "color"
+        },
+        "error": {
+          "$value": "{color.red.50}",
+          "$type": "color"
+        },
+        "success": {
+          "$value": "{color.green.50}",
+          "$type": "color"
+        }
+      },
+      "border": {
+        "input": {
+          "$value": "{color.neutral.500}",
+          "$type": "color",
+          "$description": "At least 3:1 against card and page surfaces (WCAG 1.4.11)."
+        },
+        "subtle": {
+          "$value": "{color.neutral.200}",
+          "$type": "color",
+          "$description": "Decoration only; never the only boundary of a control."
+        },
+        "error": {
+          "$value": "{color.red.700}",
+          "$type": "color"
+        }
+      },
+      "action": {
+        "primary": {
+          "$value": "{color.blue.700}",
+          "$type": "color"
+        },
+        "primary-hover": {
+          "$value": "{color.blue.900}",
+          "$type": "color"
+        }
+      },
+      "focus": {
+        "ring": {
+          "$value": "{color.blue.900}",
+          "$type": "color"
+        }
+      }
+    },
+    "space": {
+      "inset": {
+        "$value": "{spacing.4}",
+        "$type": "spacing"
+      },
+      "page": {
+        "$value": "{spacing.6}",
+        "$type": "spacing"
+      },
+      "stack": {
+        "$value": "{spacing.6}",
+        "$type": "spacing"
+      },
+      "stack-tight": {
+        "$value": "{spacing.2}",
+        "$type": "spacing"
+      }
+    },
+    "radius": {
+      "control": {
+        "$value": "{radius.s}",
+        "$type": "borderRadius"
+      },
+      "card": {
+        "$value": "{radius.m}",
+        "$type": "borderRadius"
+      }
+    }
+  },
+  "$themes": [
+    {
+      "name": "Light",
+      "group": "Mode",
+      "description": "The only theme in this example.",
+      "selectedTokenSets": {
+        "core": "enabled",
+        "semantic": "enabled"
+      }
+    }
+  ],
+  "$metadata": {
+    "tokenSetOrder": [
+      "core",
+      "semantic"
+    ],
+    "activeThemes": [
+      "Mode/Light"
+    ],
+    "activeSets": [
+      "core",
+      "semantic"
+    ]
+  }
+}

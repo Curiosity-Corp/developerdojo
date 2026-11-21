@@ -268,8 +268,11 @@ const fieldCount = withEntries(gallery.byField);
   }
   .filters div {
     display: grid;
+    /* A select is as wide as its longest option; let the column shrink so long outcome names never widen the page. */
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-1);
     min-width: min(100%, 16rem);
+    max-width: 100%;
   }
   .filters label {
     font-weight: 700;

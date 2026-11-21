@@ -20,6 +20,11 @@ export const galleryOutcomeLabels: Record<string, string> = {
   'estimate-energy': 'Estimate energy use',
   'customize-software': 'Customize open-source software',
   'clean-data': 'Rescue and report on messy data',
+  'map-user-flow': 'Map a product flow with its error states',
+  'connect-wireframes': 'Wire low-fidelity screens into a prototype',
+  'define-design-tokens': 'Define design tokens',
+  'build-components': 'Build a component library from tokens',
+  'implement-and-qa-screens': 'Build screens and check their accessibility',
 };
 
 /** The outcome vocabulary the gallery browses: the editorial outcomes plus FND-001's. */
@@ -157,5 +162,39 @@ export const galleryEntries: GalleryEntryInput[] = [
     fieldIds: ['3d'],
     kataId: 'PRACTICE-008',
     exercise: { title: 'Explore a 3D room', href: '/katas/scan-a-room' },
+  },
+  {
+    id: 'pocket-invoice-penpot-file',
+    title: 'Pocket Invoice, an editable Penpot file from sitemap to high fidelity',
+    summary: 'A Penpot file for an invented invoicing app: a sitemap with every error state, wired low- and high-fidelity screens for all 11 states, design tokens and 8 components. A working page built from the same flow and tokens sits next to it.',
+    form: 'native',
+    artifact: {
+      format: 'Penpot file (.penpot, a ZIP of JSON) and a design token file (JSON)',
+      files: [
+        { label: 'Download the Penpot file', href: '/examples/ux-pathway/pocket-invoice.penpot' },
+        { label: 'Download the design tokens (JSON)', href: '/examples/ux-pathway/pocket-invoice-tokens.json' },
+        { label: 'Use the working page', href: '/examples/pocket-invoice/' },
+      ],
+    },
+    provenance: {
+      creator: 'Developer Dojo maintainers',
+      madeWith: 'Generated from the Pocket Invoice flow and token file with Penpot\'s official library, @penpot/library 1.3.0, by a script written with an AI coding assistant. The generator is published with the site source.',
+      source: 'An invented product and fictional data. The error summary follows the GOV.UK Design System pattern (Open Government Licence v3.0); no GOV.UK text or code is copied.',
+      rights: 'Dojo material under the MIT licence.',
+      rightsHref: '/examples/ux-pathway/README.md',
+      created: '2026-11-20',
+    },
+    verification: {
+      method: 'automated-check',
+      date: '2026-11-20',
+      checked: 'Imported into a self-hosted Penpot 2.18.7: 4 pages, 11 state boards per wireframe page, 8 components, 16 colours, 5 typographies and all 54 tokens, and a 22-click View mode walk of both prototypes reached all 19 transitions. Every pipeline rebuilds the file and fails if it differs from the published copy or loses a board, an interaction or a token.',
+      notChecked: 'Penpot cloud, editing by a person, export to other formats, and writing through a plugin or the MCP server. No usability sessions have been run.',
+      evidenceHref: '/examples/ux-pathway/penpot-import-check.json',
+      nextCheck: '2027-05-20',
+    },
+    outcomeIds: ['connect-wireframes'],
+    fieldIds: ['ux'],
+    kataId: 'UX-002',
+    exercise: { title: 'Draw low-fidelity screens and wire the flow', href: '/katas/ux-002-low-fidelity' },
   },
 ];

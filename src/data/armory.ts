@@ -814,4 +814,13 @@ export const armoryStackRecipes: ArmoryStackRecipeInput[] = [
       { learnerChoice: 'Node.js, a current LTS release', kind: 'cli', role: 'Runs the project\'s scripts and checks' },
     ],
   },
+  {
+    id: 'penpot-and-browser',
+    title: 'Penpot and a browser',
+    summary: 'The UX pathway stack: Penpot, an open-source design tool that runs in the browser (penpot.app or self-hosted), and a browser to try the prototype and the built page.',
+    components: [
+      { learnerChoice: 'Penpot: a penpot.app account (the Professional plan is $0) or your own self-hosted instance', kind: 'application', role: 'Holds the editable sitemap, wireframes, tokens, components and prototype' },
+      { learnerChoice: 'A current web browser', kind: 'application', role: 'Runs Penpot and opens the built page so you can check it yourself' },
+    ],
+  },
 ];
