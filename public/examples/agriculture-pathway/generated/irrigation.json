@@ -1,0 +1,92 @@
+{
+  "crop": "Maize (grain)",
+  "planting": "2023-04-01",
+  "harvest": "2023-08-28",
+  "seasonDays": 150,
+  "kc": {
+    "initial": 0.3,
+    "mid": 1.2,
+    "end": 0.35
+  },
+  "stages": [
+    {
+      "stage": "initial",
+      "from": "2023-04-01",
+      "to": "2023-04-30"
+    },
+    {
+      "stage": "development",
+      "from": "2023-05-01",
+      "to": "2023-06-09"
+    },
+    {
+      "stage": "mid",
+      "from": "2023-06-10",
+      "to": "2023-07-29"
+    },
+    {
+      "stage": "late",
+      "from": "2023-07-30",
+      "to": "2023-08-28"
+    }
+  ],
+  "months": [
+    {
+      "month": "2023-04",
+      "seasonDays": 30,
+      "daysUnavailable": 0,
+      "et0_mm": 125.6,
+      "etc_mm": 37.7,
+      "rain_mm": 0.0,
+      "effectiveRain_mm": 0.0,
+      "irrigationNeed_mm": 37.7
+    },
+    {
+      "month": "2023-05",
+      "seasonDays": 31,
+      "daysUnavailable": 0,
+      "et0_mm": 158.9,
+      "etc_mm": 109.1,
+      "rain_mm": 8.9,
+      "effectiveRain_mm": 0.0,
+      "irrigationNeed_mm": 109.1
+    },
+    {
+      "month": "2023-06",
+      "seasonDays": 30,
+      "daysUnavailable": 0,
+      "et0_mm": 167.8,
+      "etc_mm": 196.8,
+      "rain_mm": 0.0,
+      "effectiveRain_mm": 0.0,
+      "irrigationNeed_mm": 196.8
+    },
+    {
+      "month": "2023-07",
+      "seasonDays": 31,
+      "daysUnavailable": 0,
+      "et0_mm": 217.8,
+      "etc_mm": 260.7,
+      "rain_mm": 0.0,
+      "effectiveRain_mm": 0.0,
+      "irrigationNeed_mm": 260.7
+    },
+    {
+      "month": "2023-08",
+      "seasonDays": 28,
+      "daysUnavailable": 0,
+      "et0_mm": 165.2,
+      "etc_mm": 122.5,
+      "rain_mm": 4.9,
+      "effectiveRain_mm": 0.0,
+      "irrigationNeed_mm": 122.5
+    }
+  ],
+  "season": {
+    "et0_mm": 835.3,
+    "etc_mm": 726.8,
+    "rain_mm": 13.8,
+    "effectiveRain_mm": 0.0,
+    "irrigationNeed_mm": 726.8
+  }
+}

@@ -1,5 +1,9 @@
 {
   "kata-id": [
+    "AGR-001",
+    "AGR-002",
+    "AGR-003",
+    "AGR-R01",
     "BIM-001",
     "BIM-002",
     "BIM-003",
@@ -34,6 +38,11 @@
     "UX-R01"
   ],
   "kata-route": [
+    "/katas/agr-001-inspect-weather-record",
+    "/katas/agr-002-reference-et",
+    "/katas/agr-003-irrigation-need",
+    "/katas/agr-r01-randori",
+    "/katas/agriculture-pathway",
     "/katas/arena-evidence",
     "/katas/arena-run-card",
     "/katas/bim-001-inspect-model",
@@ -120,10 +129,13 @@
     "design-journey",
     "equip-capability",
     "estimate-energy",
+    "estimate-irrigation-need",
+    "estimate-reference-et",
     "govern-run",
     "implement-and-qa-screens",
     "inspect-3d",
     "inspect-source",
+    "inspect-weather-record",
     "map-user-flow",
     "read-model",
     "read-property-sets",
@@ -141,7 +153,9 @@
     "delegation-record",
     "edited-model",
     "energy-estimate",
+    "et-series",
     "ids-report",
+    "irrigation-estimate",
     "mission-record",
     "model-evidence",
     "patch-and-catalog",
@@ -155,6 +169,7 @@
     "spatial-observation",
     "stack-record",
     "token-file",
+    "weather-inspection",
     "wireframe-set"
   ],
   "capability": [
@@ -194,6 +209,7 @@
     "cli-agent-harness",
     "git-and-node",
     "ifcopenshell-and-python",
-    "penpot-and-browser"
+    "penpot-and-browser",
+    "python-standard-library"
   ]
 }

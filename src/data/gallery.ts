@@ -28,6 +28,9 @@ export const galleryOutcomeLabels: Record<string, string> = {
   'define-design-tokens': 'Define design tokens',
   'build-components': 'Build a component library from tokens',
   'implement-and-qa-screens': 'Build screens and check their accessibility',
+  'inspect-weather-record': 'Inspect a daily weather record',
+  'estimate-reference-et': 'Estimate reference evapotranspiration',
+  'estimate-irrigation-need': 'Estimate a crop’s irrigation need',
 };
 
 /** The outcome vocabulary the gallery browses: the editorial outcomes plus FND-001's. */
@@ -233,5 +236,39 @@ export const galleryEntries: GalleryEntryInput[] = [
     fieldIds: ['ux'],
     kataId: 'UX-002',
     exercise: { title: 'Draw low-fidelity screens and wire the flow', href: '/katas/ux-002-low-fidelity' },
+  },
+  {
+    id: 'agriculture-irrigation-estimate',
+    title: 'A maize irrigation estimate from a real weather record',
+    summary: 'The AGR-003 worked example. A year of NOAA daily weather from a California station becomes FAO-56 reference evapotranspiration and a maize crop water and irrigation estimate, after the script reproduces FAO’s own worked examples.',
+    form: 'native',
+    artifact: {
+      format: 'Monthly irrigation estimate (JSON), daily reference evapotranspiration (CSV) and a one-page summary (Markdown)',
+      files: [
+        { label: 'Read the results summary', href: '/examples/agriculture-pathway/generated/summary.md' },
+        { label: 'Download the irrigation estimate (JSON)', href: '/examples/agriculture-pathway/generated/irrigation.json' },
+        { label: 'Download the daily evapotranspiration (CSV)', href: '/examples/agriculture-pathway/generated/et0-daily.csv' },
+      ],
+    },
+    provenance: {
+      creator: 'Developer Dojo maintainers (script and results); US National Weather Service via NOAA NCEI (weather record)',
+      madeWith: 'A Python 3.12 script with no packages, published next to the results, using the equations of FAO Irrigation and Drainage Paper 56.',
+      source: 'The 2023 GHCN-Daily record of the Fresno Yosemite International station (USW00093193), as NOAA’s data service returned it.',
+      rights: 'The weather record is a US federal government work, not under copyright in the US. The script and results are Dojo material under the MIT licence.',
+      rightsHref: '/examples/agriculture-pathway/README.md',
+      created: '2026-11-21',
+    },
+    verification: {
+      method: 'automated-check',
+      date: '2026-11-21',
+      checked: 'Every pipeline reruns the script, which first reproduces 13 published values from FAO’s worked examples, and fails if any output differs from the published files.',
+      notChecked: 'Humidity, radiation and wind are estimated from temperature, not measured. FAO table crop values, not adjusted for this site. No real field, soil or irrigation system, no learner and no agronomist or irrigation engineer review.',
+      evidenceHref: '/katas/agriculture-pathway',
+      nextCheck: QUARTERLY,
+    },
+    outcomeIds: ['estimate-irrigation-need'],
+    fieldIds: ['agriculture'],
+    kataId: 'AGR-003',
+    exercise: { title: 'Follow the agriculture pathway', href: '/katas/agriculture-pathway' },
   },
 ];

@@ -1,0 +1,157 @@
+import { checkSectorPacks, sectorPackSchema, type SectorPack, type SectorPackInput } from '../lib/sector-pack';
+
+/**
+ * Sector packs (#93): one record per sector pathway. docs/sector-packs.md is the guide and the checklist for adding
+ * one. The build validates every record against the recipes, pages, gallery, Armory and files
+ * (src/lib/kata-recipe-content.ts); tests/sector-packs.test.ts also checks the CI jobs and the input hashes.
+ *
+ * Verified lines say what a check did. {placeholders} are filled from numbers the pathway page reads from the CI
+ * output, so no number here is typed by hand.
+ */
+export const sectorPackInputs: SectorPackInput[] = [
+  {
+    id: 'ux',
+    title: 'SaaS UX: from sitemap to a tested screen',
+    fieldIds: ['ux'],
+    pathway: '/katas/ux-pathway',
+    kataIds: ['UX-001', 'UX-002', 'UX-003', 'UX-004', 'UX-005'],
+    randoriKataId: 'UX-R01',
+    foundationKataIds: ['PRACTICE-001', 'PRACTICE-002'],
+    examples: { dir: '/examples/ux-pathway', readme: '/examples/ux-pathway/README.md' },
+    inputs: { none: 'Pocket Invoice is invented for practice. Its flow, tokens, Penpot file and screenshots are Dojo material under the MIT licence, generated from src/data.' },
+    checks: [
+      { name: 'The Penpot file is rebuilt from the flow and tokens, and every token colour pair meets its contrast ratio', ciJob: 'test', runs: 'tests/pocket-invoice.test.ts', outputs: ['/examples/ux-pathway/pocket-invoice.penpot', '/examples/ux-pathway/pocket-invoice-tokens.json'] },
+      { name: 'The working example is driven through every state with axe, reflow and focus checks', ciJob: 'e2e', runs: 'e2e/ux-pathway.spec.ts', outputs: ['/examples/ux-pathway/qa-report.md'] },
+    ],
+    verified: [
+      { text: 'The .penpot file imports into a self-hosted Penpot 2.18.7 with 4 pages, 11 state boards on each wireframe page, 8 components, 16 colours, 5 typographies and all {tokenCount} tokens.', evidence: '/examples/ux-pathway/penpot-import-check.json' },
+      'In Penpot View mode, a scripted browser clicked through all {transitionCount} transitions on both the low- and high-fidelity pages without an error.',
+      'The file is generated from the same flow and tokens as the working example; the site’s tests rebuild it on every pipeline and fail if it differs from the published copy.',
+      'Every text and control colour in the tokens meets its contrast ratio (4.5:1 for text, 3:1 for borders and focus), computed on every pipeline.',
+      { text: 'The working example is driven through every state in the site’s browser tests, with axe checks for WCAG A and AA, reflow at 320 px, and keyboard and dialog focus.', evidence: '/examples/ux-pathway/qa-report.md' },
+    ],
+    notVerified: [
+      'Penpot cloud (penpot.app): the file was checked on a self-hosted instance only.',
+      'Editing by a person: the checks open and click the file; nobody has redesigned it in Penpot yet.',
+      'Export from Penpot to SVG, PDF or PNG.',
+      'Writing to Penpot through a plugin or the MCP server. Browser tests do not prove native write access.',
+      'Figma: the file is Penpot-only and was not tried in Figma.',
+      'Use by real learners or by people who use assistive technology: no usability sessions have been run.',
+    ],
+    professionalReview: { required: false, limit: 'Not required for this invented practice product, and none was done. The automated checks are not an accessibility audit, and nothing here is a conformance statement for a real product.' },
+    armory: { stackRecipeIds: ['penpot-and-browser'], entryIds: [] },
+    galleryEntryIds: ['pocket-invoice-penpot-file'],
+    sourcesCheckedOn: '2026-11-21',
+    trackingIssue: 91,
+  },
+  {
+    id: 'bim',
+    title: 'Architecture and BIM: from an IFC file to checked information',
+    fieldIds: ['architecture-bim', 'construction'],
+    pathway: '/katas/bim-pathway',
+    kataIds: ['BIM-001', 'BIM-002', 'BIM-003', 'BIM-004'],
+    randoriKataId: 'BIM-R01',
+    foundationKataIds: ['PRACTICE-001', 'PRACTICE-002'],
+    examples: { dir: '/examples/bim-pathway', readme: '/examples/bim-pathway/README.md' },
+    inputs: [
+      {
+        name: 'wall-with-opening-and-window.ifc (IFC4)',
+        path: '/examples/bim-pathway/wall-with-opening-and-window.ifc',
+        source: 'https://github.com/buildingSMART/Certification-datasets/blob/80d976a9b193a26a8e928c3e79bff67af1de68a8/IFC%204.0.2.1%20%28IFC%204%20ADD2%20TC1%29/ISO%20Spec%20-%20ReferenceView_V1.2/wall-with-opening-and-window.ifc',
+        terms: 'CC BY 4.0, © buildingSMART International Ltd.',
+        sha256: '73b0e45d931d5dc13bfee5fdc7bd80f796526445458b2de74c4168d209097832',
+      },
+    ],
+    checks: [
+      {
+        name: 'Inspection, property sets, IDS, schema and geometry on the original and the edited copy, and the Randori cards',
+        ciJob: 'bim_pathway',
+        runs: 'public/examples/bim-pathway/tools/bim_pathway.py',
+        outputs: ['/examples/bim-pathway/generated/manifest.json', '/examples/bim-pathway/generated/summary.md', '/examples/bim-pathway/generated/wall-with-opening-and-window.edited.ifc'],
+      },
+    ],
+    verified: [
+      'The model is the pinned buildingSMART file, unchanged (SHA-256 {modelSha}…, checked by the site’s tests).',
+      'Both IDS files open with XML schema validation on, as IDS 1.0.',
+      { text: 'On every pipeline, CI installs the pinned packages by hash, reruns the inspection, property, IDS, schema and geometry checks on the original and the edited copy and the Randori cards, rebuilds the edited file, and fails if any output differs from the files on this page.', evidence: '/examples/bim-pathway/generated/summary.md' },
+      { text: 'The edit changes one property and keeps every GlobalId.', evidence: '/examples/bim-pathway/generated/change.json' },
+    ],
+    notVerified: [
+      'Any real building, design value or project requirement. The requirements are invented for practice, and the sample is a test file.',
+      'EXPRESS where-rules and buildingSMART’s own validation service: the schema check ran with EXPRESS rules off.',
+      'Clash detection, tolerances, quantities for cost, or construction sequence.',
+      'Opening the files in a BIM authoring tool or a web IFC viewer, and round trips through other tools.',
+      'Use by real learners: no learner has run these katas yet.',
+    ],
+    professionalReview: { required: true, limit: 'None. Nothing here has professional, regulatory or construction approval of any kind, and a real project needs the qualified reviewers its contract and jurisdiction name.' },
+    armory: { stackRecipeIds: ['ifcopenshell-and-python'], entryIds: ['ifcopenshell', 'ifctester'] },
+    galleryEntryIds: ['bim-pathway-edited-model'],
+    sourcesCheckedOn: '2026-11-21',
+    trackingIssue: 92,
+  },
+  {
+    id: 'agriculture',
+    title: 'Agriculture: from a weather record to a checked irrigation estimate',
+    fieldIds: ['agriculture'],
+    pathway: '/katas/agriculture-pathway',
+    kataIds: ['AGR-001', 'AGR-002', 'AGR-003'],
+    randoriKataId: 'AGR-R01',
+    foundationKataIds: ['PRACTICE-001', 'PRACTICE-002'],
+    examples: { dir: '/examples/agriculture-pathway', readme: '/examples/agriculture-pathway/README.md' },
+    inputs: [
+      {
+        name: 'Daily weather record, Fresno Yosemite International (GHCN-Daily USW00093193), 2023',
+        path: '/examples/agriculture-pathway/inputs/noaa-ghcnd-USW00093193-2023.csv',
+        source: 'https://www.ncei.noaa.gov/access/services/data/v1?dataset=daily-summaries&stations=USW00093193&startDate=2023-01-01&endDate=2023-12-31&dataTypes=PRCP,TMAX,TMIN&units=metric&format=csv&includeStationLocation=1&includeAttributes=true',
+        terms: 'A US National Weather Service record from NOAA NCEI GHCN-Daily; works of the US federal government are not under copyright in the US (17 U.S.C. 105). NCEI asks for a citation and gives no warranty.',
+        sha256: 'abde499065220574370762a23f9acc7a60b76c0951a02da95b770bc003b3b9a7',
+      },
+    ],
+    checks: [
+      {
+        name: 'FAO worked examples, the record inspection, daily and monthly reference evapotranspiration, the maize irrigation estimate and the Randori cards',
+        ciJob: 'agriculture_pathway',
+        runs: 'public/examples/agriculture-pathway/tools/agri_pathway.py',
+        outputs: [
+          '/examples/agriculture-pathway/generated/reference-checks.json',
+          '/examples/agriculture-pathway/generated/inspection.json',
+          '/examples/agriculture-pathway/generated/et0-daily.csv',
+          '/examples/agriculture-pathway/generated/et0-monthly.json',
+          '/examples/agriculture-pathway/generated/irrigation.json',
+          '/examples/agriculture-pathway/generated/randori/cards.json',
+          '/examples/agriculture-pathway/generated/manifest.json',
+          '/examples/agriculture-pathway/generated/summary.md',
+        ],
+      },
+    ],
+    verified: [
+      'The weather record is the file NOAA’s data service returned for the query on this page, unchanged (SHA-256 {recordSha}…, checked by the site’s tests).',
+      { text: 'The script reproduces {referenceChecks} published values from FAO’s own worked examples (FAO-56 Examples 8 and 18, and the effective-rainfall answers in FAO Training Manual 3) and refuses to write any result if one differs.', evidence: '/examples/agriculture-pathway/generated/reference-checks.json' },
+      { text: 'The record has {days} days, {missing} missing temperature or rain values and {qualityFlags} quality flags, as the inspection counts them.', evidence: '/examples/agriculture-pathway/generated/inspection.json' },
+      { text: 'On every pipeline, CI reruns the script with Python 3.12 and fails if any output differs from the files on this page.', evidence: '/examples/agriculture-pathway/generated/summary.md' },
+    ],
+    notVerified: [
+      'Measured evapotranspiration. Humidity, radiation and wind are estimated from temperature as FAO-56 describes for missing data; no station that measures them was compared.',
+      'Any real field, soil, irrigation system or crop. The crop coefficients and stage lengths are FAO’s general table values, not adjusted for this climate, and nothing here was grown.',
+      'Soil water balance, irrigation efficiency, leaching, salinity and rainfall runoff: the estimate is the net crop water need only.',
+      'Whether the station record is homogeneous: NOAA says GHCN-Daily is not homogenized and was not managed to climate-monitoring standards.',
+      'Use by real learners: no learner has run these katas yet.',
+    ],
+    professionalReview: { required: true, limit: 'None. Nothing here is an irrigation recommendation or has been reviewed by an agronomist, irrigation engineer or water authority; real water use needs the qualified people and local rules that apply to it.' },
+    armory: { stackRecipeIds: ['python-standard-library'], entryIds: [] },
+    galleryEntryIds: ['agriculture-irrigation-estimate'],
+    sourcesCheckedOn: '2026-11-21',
+    trackingIssue: 93,
+  },
+];
+
+/** The packs, validated for shape. Cross-references are checked by the build and the tests. */
+export const sectorPacks: SectorPack[] = sectorPackInputs.map((input) => sectorPackSchema.parse(input));
+
+export function sectorPack(id: string): SectorPack {
+  const pack = sectorPacks.find((candidate) => candidate.id === id);
+  if (!pack) throw new Error('No sector pack ' + id + ' in src/data/sector-packs.ts');
+  return pack;
+}
+
+export { checkSectorPacks };

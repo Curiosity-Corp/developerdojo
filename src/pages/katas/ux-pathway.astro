@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
+import SectorPackEvidence from '../../components/SectorPackEvidence.astro';
 import { PRODUCT, SCREENS, STATES, TRANSITIONS, START_STATE, stateById } from '../../data/pocket-invoice';
 import tokenFile from '../../data/pocket-invoice-tokens.json';
 import { flattenTokens } from '../../lib/design-tokens';
@@ -115,27 +116,7 @@ const sources = {
     </div>
   </div></section>
 
-  <section class="section" aria-labelledby="evidence-title"><div class="container narrow">
-    <p class="eyebrow">05 / What is checked</p>
-    <h2 id="evidence-title">Verified, and not verified</h2>
-    <h3>Verified</h3>
-    <ul>
-      <li>The .penpot file imports into a self-hosted Penpot 2.18.7 with 4 pages, 11 state boards on each wireframe page, 8 components, 16 colours, 5 typographies and all {tokenCount} tokens (<a href="/examples/ux-pathway/penpot-import-check.json">import check</a>).</li>
-      <li>In Penpot View mode, a scripted browser clicked through all {TRANSITIONS.length} transitions on both the low- and high-fidelity pages without an error.</li>
-      <li>The file is generated from the same flow and tokens as the working example; the site’s tests rebuild it on every pipeline and fail if it differs from the published copy.</li>
-      <li>Every text and control colour in the tokens meets its contrast ratio (4.5:1 for text, 3:1 for borders and focus), computed on every pipeline.</li>
-      <li>The working example is driven through every state in the site’s browser tests, with axe checks for WCAG A and AA, reflow at 320 px, and keyboard and dialog focus.</li>
-    </ul>
-    <h3>Not verified</h3>
-    <ul>
-      <li>Penpot cloud (penpot.app): the file was checked on a self-hosted instance only.</li>
-      <li>Editing by a person: the checks open and click the file; nobody has redesigned it in Penpot yet.</li>
-      <li>Export from Penpot to SVG, PDF or PNG.</li>
-      <li>Writing to Penpot through a plugin or the MCP server. Browser tests do not prove native write access.</li>
-      <li>Figma: the file is Penpot-only and was not tried in Figma.</li>
-      <li>Use by real learners or by people who use assistive technology: no usability sessions have been run.</li>
-    </ul>
-  </div></section>
+  <SectorPackEvidence pack="ux" eyebrow="05 / What is checked" facts={{ tokenCount, transitionCount: TRANSITIONS.length }} />
 
   <section class="section" aria-labelledby="credits-title"><div class="container narrow">
     <p class="eyebrow">06 / Credits</p>
