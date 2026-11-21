@@ -1,0 +1,110 @@
+[
+  {
+    "month": "2023-01",
+    "days": 31,
+    "daysUnavailable": 0,
+    "et0_pm_mm": 41.0,
+    "et0_hargreaves_mm": 40.7,
+    "hargreavesOverPm": 0.99,
+    "rain_mm": 100.3
+  },
+  {
+    "month": "2023-02",
+    "days": 28,
+    "daysUnavailable": 0,
+    "et0_pm_mm": 53.7,
+    "et0_hargreaves_mm": 53.7,
+    "hargreavesOverPm": 1.0,
+    "rain_mm": 108.2
+  },
+  {
+    "month": "2023-03",
+    "days": 31,
+    "daysUnavailable": 0,
+    "et0_pm_mm": 68.9,
+    "et0_hargreaves_mm": 74.3,
+    "hargreavesOverPm": 1.08,
+    "rain_mm": 101.7
+  },
+  {
+    "month": "2023-04",
+    "days": 30,
+    "daysUnavailable": 0,
+    "et0_pm_mm": 125.6,
+    "et0_hargreaves_mm": 134.3,
+    "hargreavesOverPm": 1.07,
+    "rain_mm": 0.0
+  },
+  {
+    "month": "2023-05",
+    "days": 31,
+    "daysUnavailable": 0,
+    "et0_pm_mm": 158.9,
+    "et0_hargreaves_mm": 172.6,
+    "hargreavesOverPm": 1.09,
+    "rain_mm": 8.9
+  },
+  {
+    "month": "2023-06",
+    "days": 30,
+    "daysUnavailable": 0,
+    "et0_pm_mm": 167.8,
+    "et0_hargreaves_mm": 183.4,
+    "hargreavesOverPm": 1.09,
+    "rain_mm": 0.0
+  },
+  {
+    "month": "2023-07",
+    "days": 31,
+    "daysUnavailable": 0,
+    "et0_pm_mm": 217.8,
+    "et0_hargreaves_mm": 233.2,
+    "hargreavesOverPm": 1.07,
+    "rain_mm": 0.0
+  },
+  {
+    "month": "2023-08",
+    "days": 31,
+    "daysUnavailable": 0,
+    "et0_pm_mm": 183.1,
+    "et0_hargreaves_mm": 194.5,
+    "hargreavesOverPm": 1.06,
+    "rain_mm": 4.9
+  },
+  {
+    "month": "2023-09",
+    "days": 30,
+    "daysUnavailable": 0,
+    "et0_pm_mm": 131.5,
+    "et0_hargreaves_mm": 137.4,
+    "hargreavesOverPm": 1.04,
+    "rain_mm": 0.0
+  },
+  {
+    "month": "2023-10",
+    "days": 31,
+    "daysUnavailable": 0,
+    "et0_pm_mm": 101.0,
+    "et0_hargreaves_mm": 100.8,
+    "hargreavesOverPm": 1.0,
+    "rain_mm": 0.0
+  },
+  {
+    "month": "2023-11",
+    "days": 30,
+    "daysUnavailable": 0,
+    "et0_pm_mm": 65.0,
+    "et0_hargreaves_mm": 61.6,
+    "hargreavesOverPm": 0.95,
+    "rain_mm": 5.3
+  },
+  {
+    "month": "2023-12",
+    "days": 31,
+    "daysUnavailable": 0,
+    "et0_pm_mm": 46.4,
+    "et0_hargreaves_mm": 44.0,
+    "hargreavesOverPm": 0.95,
+    "rain_mm": 17.3
+  }
+]

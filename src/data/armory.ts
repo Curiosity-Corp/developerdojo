@@ -892,4 +892,13 @@ export const armoryStackRecipes: ArmoryStackRecipeInput[] = [
       { learnerChoice: 'A text editor that shows XML', kind: 'application', role: 'Reads and edits the IDS file' },
     ],
   },
+  {
+    id: 'python-standard-library',
+    title: 'Python and its standard library',
+    summary: 'The agriculture pathway stack: one Python script that needs no packages, so it runs offline on any machine with Python 3.12 or later, and a spreadsheet to look at the CSV results.',
+    components: [
+      { learnerChoice: 'Python 3.12 or later, with no extra packages', kind: 'cli', role: 'Runs the pathway script: reads the weather record, checks FAO’s worked examples and computes every result' },
+      { learnerChoice: 'Any spreadsheet app or a text editor', kind: 'application', role: 'Opens the input record and the CSV and JSON results so you can check a day or a month yourself' },
+    ],
+  },
 ];

@@ -121,6 +121,9 @@ const REFLOW_ROUTES = [
   // The BIM pathway and its longest recipe page (#92).
   '/katas/bim-pathway/',
   '/katas/bim-003-ids-check/',
+  // The agriculture pathway and its widest recipe page (#93).
+  '/katas/agriculture-pathway/',
+  '/katas/agr-003-irrigation-need/',
 ];
 
 test.describe('reflow: no sideways scroll on a narrow phone', () => {

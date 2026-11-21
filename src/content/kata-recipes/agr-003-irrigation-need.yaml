@@ -1,0 +1,197 @@
+# Agriculture pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/agriculture-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job agriculture_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Agriculture pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent, agronomic or engineering review yet.
+summary: "Turn reference evapotranspiration into a maize crop's water need with FAO-56 crop coefficients by growth stage, subtract effective rain with FAO's simple monthly formula, and report the net irrigation need by month."
+metadata:
+  id: AGR-003
+  title: "Estimate a crop's net irrigation need from crop coefficients and effective rain"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - estimate-irrigation-need
+  artifactTypes:
+    - irrigation-estimate
+  domainIds:
+    - agriculture
+  capabilityIds:
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - noaa/ghcn-daily
+    - fao/crop-evapotranspiration-56
+    - fao/irrigation-water-needs
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: FAO Irrigation and Drainage Paper 56 (Crop evapotranspiration)
+      version: "1998"
+      applicability: Table 11 stage lengths and Table 12 crop coefficients for maize (grain), used without climate adjustment for practice
+      reviewScope: "What the listed checks test: that the Kc curve and monthly sums follow the tables and equations. No claim about any real field or crop."
+      sourceResourceId: fao/crop-evapotranspiration-56
+    - name: FAO Training Manual 3 (Irrigation Water Needs)
+      version: "1986"
+      applicability: The section 4.2 effective-rainfall formula, applied per calendar month
+      reviewScope: "What the listed checks test: that the code reproduces the manual's worked answers. The formula is a rough rule; it is not a soil water balance."
+      sourceResourceId: fao/irrigation-water-needs
+  verificationEvidence:
+    - description: Code that reproduces the six effective-rainfall answers in FAO Training Manual 3
+      method: automated-check
+      standards:
+        - FAO Training Manual 3 (Irrigation Water Needs)
+    - description: A monthly table of ETc, rain, effective rain and net irrigation need that matches the Dojo's CI output
+      method: automated-check
+      standards:
+        - FAO Irrigation and Drainage Paper 56 (Crop evapotranspiration)
+    - description: A Sensei or partner checks that the learner states what the net need leaves out
+      method: sensei-review
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces the monthly irrigation table for maize and explains why effective rain is zero every month
+    - stage: adapt
+      criterion: Estimates another crop from FAO-56 Tables 11 and 12, naming the rows used
+    - stage: demonstrate
+      criterion: Explains to a reviewer why the net need is not the water to order, listing what a real estimate adds
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: one year of NOAA daily weather for a California station, FAO-56 reference evapotranspiration and a maize irrigation estimate, every number computed by the site’s CI."
+  href: /katas/agriculture-pathway
+  provenance:
+    creator: NOAA National Centers for Environmental Information (weather record); Developer Dojo maintainers (script and results)
+    source: NOAA GHCN-Daily station USW00093193, 2023; method from FAO Irrigation and Drainage Paper 56; results from /examples/agriculture-pathway/tools/agri_pathway.py
+    license: Weather record is a US government work (no US copyright, 17 U.S.C. 105); script and outputs MIT
+    date: "2026-11-21"
+brief:
+  goal: A monthly net irrigation need for maize planted on 1 April 2023, with every coefficient traced to FAO's tables.
+  audience: Learners who finished AGR-002.
+  inputs:
+    - name: et0-daily.csv
+      source: Your AGR-002 output, or /examples/agriculture-pathway/generated/et0-daily.csv
+      terms: Dojo output, MIT licence
+    - name: FAO-56 Tables 11 and 12, and FAO Training Manual 3 section 4.2
+      source: fao/crop-evapotranspiration-56 and fao/irrigation-water-needs
+      terms: © FAO; use the published numbers, do not copy the text
+  doneWhen:
+    - You state the stage lengths (30, 40, 50 and 30 days) and Kc values (0.30, 1.20 and 0.35) and the table rows they come from
+    - Your effective-rainfall function reproduces the manual's six answers
+    - Your monthly table matches /examples/agriculture-pathway/generated/irrigation.json
+    - You list what the net need leaves out
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: Daily ET0 from AGR-002
+      version: "2023, SHA-256 abde4990…b3b9a7"
+      permissions: Read a copy
+      cost: Free (US government work)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain an equation or draft code, and every number it gives is checked against FAO's worked examples
+      permissions: Reads what you paste in; give it a copy of the record only
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library is enough for these equations, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A ready-made evapotranspiration package or FAO's ETo Calculator
+      tradeoff: Faster, but hides the equations this pathway is about. Not tried for this pathway, so its numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains the crop coefficient curve and the effective-rainfall rule, and drafts the Python for each.
+      reviewGate: Its code must reproduce FAO's worked example before you use it on the record.
+    - role: Learner as reviewer
+      responsibility: Compares each result with FAO's published values and with the Dojo's CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A number stays only if you can say which equation and which input produced it.
+setup:
+  steps:
+    - Use the folder and Python from AGR-001.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/agri_pathway.py . out (from the folder that holds inputs/ and tools/)"
+    expected: out/reference-checks.json reports 13 passed and 0 failed
+    result: passed
+    evidence: /examples/agriculture-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+    date: "2026-11-21"
+prompts:
+  - id: what-is-left-out
+    title: What does this number leave out?
+    purpose: Practise stating the limits of an estimate before anyone uses it.
+    text: |-
+      I estimated a crop's net irrigation need as crop evapotranspiration minus effective rain, by month: <paste your table>.
+      List what this number does not include that a person planning real irrigation would need, such as system efficiency or soil water.
+      For each, say whether FAO-56 or FAO Training Manual 3 covers it and where. Do not give me an irrigation schedule.
+exercise:
+  title: Irrigation Water Management, Training Manual No. 3, Irrigation Water Needs
+  resourceId: fao/irrigation-water-needs
+  terms: © FAO. Free to read online; cite it and read FAO's terms before copying text or figures.
+execution:
+  steps:
+    - actor: Learner
+      action: Build the daily Kc curve from the stage lengths and table values, and multiply by ET0.
+    - actor: Explaining assistant
+      action: Explains the effective-rainfall rule and drafts a function for it.
+      handoff: You check it against the manual's answers.
+    - actor: Learner
+      action: Sum by month, subtract effective rain, and compare with the CI output.
+verification:
+  checks:
+    - action: Run the pathway script's effective-rainfall checks
+      expected: 35 mm gives 11, 90 gives 47, 116 gives 68, 5 gives 0, 260 gives 183 and 75 gives 35; all pass
+      result: passed
+      evidence: /examples/agriculture-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+      date: "2026-11-21"
+    - action: Compute the maize season
+      expected: Harvest 2023-08-28 after 150 days; ETc 726.8 mm; rain 13.8 mm; effective rain 0 mm; net irrigation need 726.8 mm, of which July 260.7 mm
+      result: passed
+      evidence: /examples/agriculture-pathway/generated/irrigation.json
+      date: "2026-11-21"
+    - action: Your own table matches the CI output
+      expected: Same monthly values to 0.1 mm
+      result: not-run
+  failures:
+    - observed: Effective rain is zero in May although 8.9 mm fell
+      correction: The rule gives 0.6 × 8.9 − 10, which is below zero, so it is floored at zero. Small monthly rain is assumed lost to evaporation and runoff.
+adaptation:
+  variations:
+    - change: Use another crop from Tables 11 and 12
+      effect: Name the row and region you chose; the table values are general and FAO says to adjust Kc mid and end for climate.
+randori:
+  challenge: See the agriculture Randori recipe, AGR-R01.
+  constraints:
+    - Trace every coefficient to a table row
+  evaluation: The monthly table matches the CI output for the same inputs.
+maintenance:
+  cadence: Every six months, or when FAO revises Paper 56
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - Nothing here is an irrigation recommendation. No agronomist, irrigation engineer or water authority has reviewed it, and real water use needs the qualified people and local rules that apply to it.
+    - Humidity, radiation and wind are estimated from temperature, as FAO-56 describes for missing data. The results are estimates, not measurements.
+    - NOAA says GHCN-Daily is not homogenized. One station and one year say nothing about a trend.
+    - The net irrigation need leaves out system efficiency, soil water storage, leaching and salinity. It is not the amount of water to order or apply.
