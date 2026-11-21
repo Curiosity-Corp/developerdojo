@@ -1,6 +1,6 @@
 ---
-title: "Case study: DanHup people, touch points and journeys"
-description: "Templates 1 and 2 filled in for DanHup with honesty about what the evidence supports: roles, a persona in progress, eight touch points and two journeys."
+title: "Case study: Placefern people, touch points and journeys"
+description: "Templates 1 and 2 filled in for Placefern with honesty about what the evidence supports: roles, a persona in progress, eight touch points and two journeys."
 section: "Case study"
 order: 3
 level: core
@@ -18,14 +18,14 @@ resources:
   - gov-uk/service-manual-user-research
   - ixdf/personas
 prerequisites:
-  - case-study-danhup-the-product-on-one-page
+  - case-study-the-product-on-one-page
   - template-personas
   - template-journeys
 ---
 
-This is page 3 of the DanHup case study. It shows template 1 ([personas and demographics](/library/template-personas)) and template 2 ([touch points and journey maps](/library/template-journeys)). **EXAMPLE ONLY. Your product needs your own thinking.**
+This is page 3 of the Placefern case study. It shows template 1 ([personas and demographics](/library/template-personas)) and template 2 ([touch points and journey maps](/library/template-journeys)). **EXAMPLE ONLY. Your product needs your own thinking.**
 
-A warning first. The source evidence for DanHup names roles but does not include interviews, quotes or demographics. The case study does not invent them. That is the right behaviour, and this page shows what an honest, thin persona file looks like. The touch points come from real files. The journeys below are built from the app's own documented stages, and the parts that are inferred are marked **(inferred)**.
+A warning first. The source evidence for Placefern names roles but does not include interviews, quotes or demographics. The case study does not invent them. That is the right behaviour, and this page shows what an honest, thin persona file looks like. The touch points come from the product's files. The journeys below are built from the app's own documented stages, and the parts that are inferred are marked **(inferred)**.
 
 ## Why it matters
 
@@ -35,7 +35,7 @@ A learner who has no evidence faces a temptation: write a smooth persona anyway.
 
 - **Role is not persona.** A role says what a person does in the product. A persona adds goals, fears, quotes and evidence.
 - **Inferred means guessed from a clue.** Mark it, and plan to replace it with evidence.
-- **Two journeys.** The user journey and the customer journey are two stories. In DanHup the candidate is both a user and a beneficiary, and the employer is a customer (inferred).
+- **Two journeys.** The user journey and the customer journey are two stories. In Placefern the candidate is both a user and a beneficiary, and the employer is a customer (inferred).
 - **A broken hand-off is a candidate epic.**
 
 ## Step 1: Template 1 filled, the demographics summary
@@ -66,7 +66,7 @@ A learner who has no evidence faces a temptation: write a smooth persona anyway.
 | Fears and frustrations | Safety of automated outreach. The app has safety rails and human approval at every send, which hints at this fear (inferred). |
 | How they find the product | Not known. The only public entry is a landing page with a "notify me" form. |
 | What they pay or give | Their own model-provider key is stored encrypted. Money: nothing today. Data: mail and calendar access. |
-| Tools they already use | Mail and calendar platform, a chat platform, LinkedIn |
+| Tools they already use | Mail and calendar platform, a chat platform, a professional-network site |
 | A real quote | **None collected yet.** Do not invent one. |
 | Evidence | The app's journey pages and overview. No interviews yet. |
 | Which journey step hurts them most | Not known. Step 7, approve, depends on one person being online (T6). |
@@ -177,4 +177,4 @@ Persona: the employer or hiring manager (**inferred** from one line of website c
 
 ## Further learning
 
-Continue with [epics, roadmap and milestones](/library/case-study-danhup-epics-and-roadmap). Review [Deck 6](/library/deck-06-personas-touch-points-journeys) for the teaching behind these templates.
+Continue with [epics, roadmap and milestones](/library/case-study-epics-and-roadmap). Review [Deck 6](/library/deck-06-personas-touch-points-journeys) for the teaching behind these templates.

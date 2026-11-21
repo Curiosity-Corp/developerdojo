@@ -1,12 +1,12 @@
 ---
-title: "Case study: DanHup, the product on one page"
-description: "A worked example of Week 1 to Week 4 thinking on a real product, DanHup: the one-page map, the people, the gaps and the epics that come from the gaps, with commentary."
+title: "Case study: Placefern, the product on one page"
+description: "A worked example of Week 1 to Week 4 thinking on a fictional product, Placefern: the one-page map, the people, the gaps and the epics that come from the gaps, with commentary."
 section: "Case study"
 order: 1
 level: core
 duration: "60 min to read, then 30 min to compare with your own product"
 outcomes:
-  - "See what good whole-product work looks like on a real product."
+  - "See what good whole-product work looks like on a product with rough edges."
   - "Read a one-page product map and spot findings: things missing, unowned or switched off."
   - "Follow the line from evidence to gaps to epics to an ordered roadmap."
   - "Know what an example cannot do for you."
@@ -22,27 +22,27 @@ prerequisites:
   - week-1-see-the-whole-product
 ---
 
-This case study is part of a set of five pages. Together they show the program's eight templates filled in for one real product, **DanHup**. This first page is the guide: the product on one page, the people, the gaps and the first epics. The other four pages show the filled templates in detail:
+This case study is part of a set of five pages. Together they show the program's eight templates filled in for one fictional product, **Placefern**. This first page is the guide: the product on one page, the people, the gaps and the first epics. The other four pages show the filled templates in detail:
 
 1. This page: the product on one page.
-2. [The repository map and the integrations register](/library/case-study-danhup-map-and-integrations)
-3. [People, touch points and journeys](/library/case-study-danhup-people-and-journeys)
-4. [Epics, roadmap and milestones](/library/case-study-danhup-epics-and-roadmap)
-5. [Decision record, catalogue entry and change record](/library/case-study-danhup-decision-catalogue-change)
+2. [The repository map and the integrations register](/library/case-study-map-and-integrations)
+3. [People, touch points and journeys](/library/case-study-people-and-journeys)
+4. [Epics, roadmap and milestones](/library/case-study-epics-and-roadmap)
+5. [Decision record, catalogue entry and change record](/library/case-study-decision-catalogue-change)
 
 ## EXAMPLE ONLY
 
-This is the DanHup product. **Your own product needs your own thinking. Do not copy it.** Use it to see the shape of good work. If you copy a case study, you learn nothing, and you get a weak roadmap that you cannot defend.
+This is the Placefern product. **Your own product needs your own thinking. Do not copy it.** Use it to see the shape of good work. If you copy a case study, you learn nothing, and you get a weak roadmap that you cannot defend.
 
-## How the case study was made, and what was removed
+## How the case study was made
 
-DanHup is an AI-driven candidate placement product. We mapped it as the first example for this program. We checked the real files on 28 October 2026. For this public version we removed everything that is not needed to learn from it: internal host names, the names of private tools and networks, client contacts, prices, and the names of real people. Where a real internal tool did a job, we describe the job ("a sign-in service", "a private network layer"). Findings are kept, because finding what is missing is part of the job.
+Placefern is a made-up product: an AI-assisted job-matching service, written for this program. Its name, its files and its findings are invented. It describes no real company, product or person. The evidence column names the kind of file where each fact would live in a product like this, so you can see what an evidence-backed row looks like. Outside tools are described by their job ("a sign-in service", "a private network layer"). The findings are the point, because finding what is missing is part of the job.
 
-The first two pages (this one and the map and integrations page) use real findings. The people and journeys page uses the roles and touch points found in the evidence, and marks the rest as inferred. The epics page and the last page are **illustrations** of the format, drafted from the evidence. Where the evidence stops, the page says so. We never write that something exists because we expect it.
+The first two pages (this one and the map and integrations page) show findings as a learner would write them from evidence. The people and journeys page uses the roles and touch points that the evidence names, and marks the rest as inferred. The epics page and the last page are **illustrations** of the format, drafted from the earlier pages. Where the evidence stops, the page says so. Nothing is written as existing because someone expects it.
 
 ## Why it matters
 
-Most people learn what good looks like from a finished example. But a finished example hides the rough edges. This case study keeps them. You will see a product with many tasks and one epic, parts nobody owns, a switch that is off, a payment system that does not exist, and a landing page that still has leftover template text. Real products look like this. The Master Developer's job begins there.
+Most people learn what good looks like from a finished example. But a finished example hides the rough edges. This case study keeps them. You will see a product with many tasks and one epic, parts nobody owns, a switch that is off, a payment system that does not exist, and a landing page that still has leftover template text. These are the rough edges a polished example hides. The Master Developer's job begins there.
 
 ## Key ideas
 
@@ -54,20 +54,20 @@ Most people learn what good looks like from a finished example. But a finished e
 
 ## Step 1: The product on one page
 
-DanHup has two sides. **Employers** want to post jobs. **Candidates** want help finding and winning jobs. The public website attracts people. The private app does the work. Cloud services handle email. Other systems provide sign-in, network access, AI and CRM.
+Placefern has two sides. **Employers** want to post jobs. **Candidates** want help finding and winning jobs. The public website attracts people. The private app does the work. Cloud services handle email. Other systems provide sign-in, network access, AI and CRM.
 
 | Layer | What exists today | Evidence |
 |---|---|---|
 | Reach: the public website | One landing page, built from a bought template, with an email "notify me" form. The domain is set by a CNAME file. A static page host is likely but not proven. | The site repository: an index page, a CNAME file, a small script folder |
 | Use: the private app | A private, multi-user portal. It is reached only through a private network layer, checked by a gateway and a sign-in service. People who plan the product can see issues and boards, not code. | The app's README and deployment files |
 | Run: cloud services | A fleet of workflow apps in one cloud resource group classify and flag recruiter mail and call the app. No front door service and no function apps were found. | The infrastructure runbook |
-| Connect: integrations | Mail, calendar and chat platform, an internal AI assistant, a model provider, a LinkedIn link, an email-capture service, a sign-in service, a secrets vault. | The identity and integrations document |
+| Connect: integrations | Mail, calendar and chat platform, an internal AI assistant, a model provider, a professional-network profile link, an email-capture service, a sign-in service, a secrets vault. | The identity and integrations document |
 | Sell: CRM | A customer-record mirror exists in code but is **switched off**. | The CRM activation document |
 | Money: payments | **NOT FOUND.** No pricing or tiers exist. | Searched all repositories |
 | Operate: operations | No dedicated repository. Pieces exist: an ops dashboard page, a failure-modes page and the workflow infrastructure repository. | The app's journey folder and the infrastructure repository |
-| Plan: GitLab | The product group has **one** epic, called "DanHup-App". The app project has a large number of open issues and many milestones. | GitLab |
+| Plan: GitLab | The product group has **one** epic, called "Placefern-App". The app project has a large number of open issues and many milestones. | GitLab |
 
-**Commentary.** Look at the last row. The project has many milestones and issues, and agents are good at those. But there is one epic. Nobody has yet drawn the whole-product roadmap. That is the Master Developer's job. Also look at the evidence column. Each row names a real file or place. Learners often write rows from memory. A row with no evidence is a guess.
+**Commentary.** Look at the last row. The project has many milestones and issues, and agents are good at those. But there is one epic. Nobody has yet drawn the whole-product roadmap. That is the Master Developer's job. Also look at the evidence column. Each row names a file or place. Learners often write rows from memory. A row with no evidence is a guess.
 
 ## Step 2: The people
 
@@ -103,7 +103,7 @@ The app documents its own flow in ten stages: 0 intake, 1 classify, 2 flag, 3 di
 | Field | Epic 1 |
 |---|---|
 | Title | Website visitor becomes a registered user |
-| Problem | Visitors cannot see what DanHup does for them or how to start. The page still has template text. |
+| Problem | Visitors cannot see what Placefern does for them or how to start. The page still has template text. |
 | Outcome | A hiring manager can read the offer, start, and reach the app sign-up in one session. |
 | Measure | Share of visitors who reach sign-up |
 | In scope | Website copy, a clear call to action, the hand-off link to the app |
@@ -148,7 +148,7 @@ The app documents its own flow in ten stages: 0 intake, 1 classify, 2 flag, 3 di
 - [ ] I read all five case-study pages.
 - [ ] I can name three findings and why they matter.
 - [ ] I can explain the order of the four epics in one sentence each.
-- [ ] I know the difference between a real finding and an illustration.
+- [ ] I know the difference between a finding backed by evidence and an illustration.
 - [ ] I will write my own work from my own evidence.
 
 ## The 2030 Product Development Manager lens
@@ -162,4 +162,4 @@ The app documents its own flow in ten stages: 0 intake, 1 classify, 2 flag, 3 di
 
 ## Further learning
 
-Continue with [the repository map and the integrations register](/library/case-study-danhup-map-and-integrations). Read [Week 1](/library/week-1-see-the-whole-product) for how to make your own, and the [templates overview](/library/templates-overview) for all eight blank templates.
+Continue with [the repository map and the integrations register](/library/case-study-map-and-integrations). Read [Week 1](/library/week-1-see-the-whole-product) for how to make your own, and the [templates overview](/library/templates-overview) for all eight blank templates.

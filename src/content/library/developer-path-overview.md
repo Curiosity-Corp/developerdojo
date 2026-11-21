@@ -73,7 +73,7 @@ Every week has one goal and one output you can show your Sensei. The full table,
 Three examples show the same method. Compare your work with them, and never copy them.
 
 - **TrailMug**, a fictional reusable-cup scheme. It appears on the [template pages](/library/templates-overview) and in the [full catalogue](/library/catalogue-trailmug-full-example).
-- **A real-product case study** in five pages. Start with [the product on one page](/library/case-study-danhup-the-product-on-one-page).
+- **Placefern**, a fictional job-matching service with rough edges, in a five-page case study. Start with [the product on one page](/library/case-study-the-product-on-one-page).
 - **Shiftwren**, a fictional software service for volunteer-run food pantries, with one page for each of the six weeks. Start with the [Shiftwren example](/library/shiftwren-example). It suits you if you build a service, a business tool or a community project.
 
 ## The program guide

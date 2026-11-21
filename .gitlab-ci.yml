@@ -78,6 +78,8 @@ build:
     - test -f dist/index.html
     - test "$(cat dist/CNAME)" = "developerdojo.org"
     - test -f dist/.nojekyll
+    # Published-name gate (#129): no denylisted client or unit name in any published path or text.
+    - node scripts/check-published-names.mjs dist
     # Keep a producer-side fingerprint outside dist. Downstream jobs can tell
     # whether the validated Pagefind metadata survived artifact transfer.
     - test -s dist/pagefind/pagefind-entry.json

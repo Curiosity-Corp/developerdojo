@@ -19,7 +19,7 @@ prerequisites:
 
 **Who wrote these epics.** In the story, the fictional learner **Noor** wrote every epic below by hand. This is her work, and a person must write yours: [people write epics](/library/people-write-epics). **Example only.** The page itself was drafted with an AI agent to illustrate the shape. Your epics are different: you write them, and an agent never does.
 
-Compare: [Week 3](/library/week-3-problems-to-epics), the [TrailMug epic template page](/library/template-epic-roadmap) and the real-product [epics and roadmap case study](/library/case-study-danhup-epics-and-roadmap).
+Compare: [Week 3](/library/week-3-problems-to-epics), the [TrailMug epic template page](/library/template-epic-roadmap) and the Placefern [epics and roadmap case study](/library/case-study-epics-and-roadmap).
 
 ## Step 1: Start from the gaps
 

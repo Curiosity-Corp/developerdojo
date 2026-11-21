@@ -17,7 +17,7 @@ prerequisites:
 
 **Example only.** An AI agent drafted this page to show the shape of the work. In the story, the fictional learner **Noor** wrote everything herself.
 
-Compare: [Week 2](/library/week-2-know-the-people), the [TrailMug personas](/library/template-personas), the [TrailMug journeys](/library/template-journeys) and the real-product [people and journeys case study](/library/case-study-danhup-people-and-journeys).
+Compare: [Week 2](/library/week-2-know-the-people), the [TrailMug personas](/library/template-personas), the [TrailMug journeys](/library/template-journeys) and the Placefern [people and journeys case study](/library/case-study-people-and-journeys).
 
 ## Step 1: Demographics summary
 

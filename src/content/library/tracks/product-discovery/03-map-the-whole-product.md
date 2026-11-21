@@ -69,7 +69,7 @@ Honesty is the heart of the map. Every item gets one of three marks:
 - **Planned.** Someone has decided to build it and a human owns it.
 - **Not found.** You looked and there is nothing. Often this is the most valuable finding.
 
-Never mark something as existing because you expect it to. The Dojo's own worked example of a real product found that several things people assume (a payment gateway, a separate ops repo) were not there. Finding what is missing is part of the job.
+Never mark something as existing because you expect it to. The Dojo's [Placefern case study](/library/case-study-map-and-integrations) shows a product where several things people assume (a payment gateway, a separate ops repo) are not there. Finding what is missing is part of the job.
 
 ### Rented systems are part of your product
 

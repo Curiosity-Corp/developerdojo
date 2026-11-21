@@ -29,7 +29,7 @@ Parent epic **&1** "developerdojo.org v2". Milestone due dates are in each epic.
 
 | Epic | Milestone due | What it delivers | State |
 | --- | --- | --- | --- |
-| **&2** Full Master Developer program on the site | 2026-11-24 | Program guide, learning path, teaching deck as lessons, rubric and weekly checklist, catalogue framework, worked example (DanHup), eight templates | Deck and rubric lessons done. Program guide, catalogue framework and worked example in progress. Templates in review |
+| **&2** Full Master Developer program on the site | 2026-11-24 | Program guide, learning path, teaching deck as lessons, rubric and weekly checklist, catalogue framework, worked example (the fictional Placefern case study), eight templates | Deck and rubric lessons done. Program guide, catalogue framework and worked example in progress. Templates in review |
 | **&3** Learning platform foundation | 2026-11-24 | Tracks, resources, richer lesson pages, site search, editor guide, site-wide positioning | Content model, lesson pages, search and the editor guide done. Positioning copy in review |
 | **&4** Skill tracks: product craft | 2026-11-24 | Six product tracks with long lessons and resources | Delivered |
 | **&5** Skill tracks: AI agents, engineering and platform | 2026-11-24 | Working with AI agents and seven engineering tracks | In progress |

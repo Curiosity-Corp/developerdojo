@@ -1,6 +1,6 @@
 ---
-title: "Case study: DanHup epics, roadmap and milestones"
-description: "Template 5 filled in for DanHup: four ordered epics drafted from evidence, the seven-question quality check applied, a roadmap grid and illustrative milestones."
+title: "Case study: Placefern epics, roadmap and milestones"
+description: "Template 5 filled in for Placefern: four ordered epics drafted from evidence, the seven-question quality check applied, a roadmap grid and illustrative milestones."
 section: "Case study"
 order: 4
 level: core
@@ -18,11 +18,11 @@ resources:
   - atlassian/epics-stories-initiatives
   - svpg/alternative-to-roadmaps
 prerequisites:
-  - case-study-danhup-people-and-journeys
+  - case-study-people-and-journeys
   - template-epic-roadmap
 ---
 
-This is page 4 of the DanHup case study. It shows template 5, the [epic roadmap](/library/template-epic-roadmap), filled in. **EXAMPLE ONLY.** These epics illustrate the **shape**. They were drafted from the evidence on the earlier pages to show the format. A learner must write and defend their own, and a real DanHup epic would be written by the DanHup product manager. The milestones on this page are also illustrations. They are clearly marked, and they were not part of the original evidence.
+This is page 4 of the Placefern case study. It shows template 5, the [epic roadmap](/library/template-epic-roadmap), filled in. **EXAMPLE ONLY.** These epics illustrate the **shape**. They were drafted from the evidence on the earlier pages to show the format. A learner must write and defend their own, and in a real team the product manager writes the epics. The milestones on this page are also illustrations. They are clearly marked, and they were not part of the evidence on the earlier pages.
 
 ## Why it matters
 
@@ -43,7 +43,7 @@ Remember the rule of the program: the human writes the epics. If you ask an agen
 | Field | Epic 1 | Epic 2 |
 |---|---|---|
 | Title | Website visitor becomes a registered user | Safe, visible operations |
-| Problem | Visitors cannot see what DanHup does for them or how to start. The page still has template text. | Operations knowledge is spread over several places and no repository owns it. |
+| Problem | Visitors cannot see what Placefern does for them or how to start. The page still has template text. | Operations knowledge is spread over several places and no repository owns it. |
 | Outcome | A hiring manager can read the offer, start, and reach the app sign-up in one session. | One ops home: dashboard, failure modes, cost limits and an owner. |
 | Measure | Share of visitors who reach sign-up | Time to find the cause of a failure |
 | In scope | Website copy, a clear call to action, the hand-off link to the app | Ops documents and dashboard, runbooks for the workflow fleet |
@@ -103,7 +103,7 @@ A milestone is a slice that ships in one to four weeks. After a milestone is app
 
 | Milestone | Dates | What ships | Ready for agents? |
 |---|---|---|---|
-| E1-M1 Message and offer | 2026-11-02 to 2026-11-13 | New landing copy that says in plain words what DanHup does and for whom; template text removed | Yes |
+| E1-M1 Message and offer | 2026-11-02 to 2026-11-13 | New landing copy that says in plain words what Placefern does and for whom; template text removed | Yes |
 | E1-M2 The hand-off | 2026-11-16 to 2026-11-27 | The "Create Job Posting" button leads to a working sign-up path, checked by clicking it | No, needs the sign-up decision first |
 | E1-M3 Capture and follow up | 2026-11-30 to 2026-12-11 | The notify-me form sends a first reply and records the visitor | Yes |
 | E1-M4 Measure | 2026-12-14 to 2026-12-18 | A simple count of visitors who reach sign-up, visible to the planner | Yes |
@@ -155,4 +155,4 @@ Create each epic in the product group. Paste the title, the description (problem
 
 ## Further learning
 
-Continue with [the decision record, catalogue entry and change record](/library/case-study-danhup-decision-catalogue-change). Read [Deck 7](/library/deck-07-writing-an-epic) and [Week 3](/library/week-3-problems-to-epics) to write your own.
+Continue with [the decision record, catalogue entry and change record](/library/case-study-decision-catalogue-change). Read [Deck 7](/library/deck-07-writing-an-epic) and [Week 3](/library/week-3-problems-to-epics) to write your own.

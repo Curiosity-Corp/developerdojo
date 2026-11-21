@@ -1,6 +1,6 @@
 ---
-title: "Case study: DanHup decision record, catalogue entry and change record"
-description: "Templates 6, 7 and 8 shown for DanHup as clearly labelled illustrations: a draft decision record, a catalogue entry and a change record for the first epic, with commentary and no invented facts."
+title: "Case study: Placefern decision record, catalogue entry and change record"
+description: "Templates 6, 7 and 8 shown for Placefern as clearly labelled illustrations: a draft decision record, a catalogue entry and a change record for the first epic, with commentary and no invented facts."
 section: "Case study"
 order: 5
 level: core
@@ -18,15 +18,15 @@ resources:
   - atlassian/service-catalog
   - gitlab/merge-requests
 prerequisites:
-  - case-study-danhup-epics-and-roadmap
+  - case-study-epics-and-roadmap
   - template-decision-record
   - template-catalogue-entry
   - template-change-record
 ---
 
-This is page 5, the last page of the DanHup case study. It shows templates 6 ([decision record](/library/template-decision-record)), 7 ([catalogue entry](/library/template-catalogue-entry)) and 8 ([change record](/library/template-change-record)).
+This is page 5, the last page of the Placefern case study. It shows templates 6 ([decision record](/library/template-decision-record)), 7 ([catalogue entry](/library/template-catalogue-entry)) and 8 ([change record](/library/template-change-record)).
 
-**EXAMPLE ONLY, AND ALL OF IT IS ILLUSTRATION.** The source evidence for DanHup contains no decision record, no catalogue entry and no change record. So the pages below are **drafts written to show the format**, built on the first epic from page 4. Nothing here says that DanHup made these decisions. Where a real fact would be needed, for example a licence, a version or a date, the page writes **to be filled from the real file** instead of inventing it.
+**EXAMPLE ONLY, AND ALL OF IT IS ILLUSTRATION.** The source evidence for Placefern contains no decision record, no catalogue entry and no change record. So the pages below are **drafts written to show the format**, built on the first epic from page 4. Nothing here says that Placefern made these decisions. Where a real fact would be needed, for example a licence, a version or a date, the page writes **to be filled from the real file** instead of inventing it.
 
 ## Why it matters
 
@@ -49,7 +49,7 @@ The first epic needs a simple count of visitors who reach sign-up (milestone E1-
 | ADR number and short title | ADR-0001: How to count visitors who reach sign-up (illustration) |
 | Status | **Proposed.** Nobody has decided. |
 | Date | To be filled when decided |
-| Deciders (human names) | The DanHup product manager and the engineering owner of the app (roles only; names stay in the private repository) |
+| Deciders (human names) | The Placefern product manager and the engineering owner of the app (roles only; names stay in the private repository) |
 | Ladder rung | Not yet chosen. Options: (b) use as it is, (b+) use with configuration, (c) build on, (d) fork, or REJECT |
 | Catalogue entity (slug) | The site, once the entry in Step 2 exists |
 | GitLab issue and MR links | To be added when the issue exists |
@@ -74,12 +74,12 @@ The first epic needs a simple count of visitors who reach sign-up (milestone E1-
 
 ## Step 2: Template 7, a catalogue entry
 
-The catalogue entry below describes one part of DanHup that the repository map already shows: the public site. Every field comes from page 2, or says so.
+The catalogue entry below describes one part of Placefern that the repository map already shows: the public site. Every field comes from page 2, or says so.
 
 | Field | Entry | Where it comes from |
 |---|---|---|
-| id | danhup-site | Chosen here, lowercase with hyphens |
-| name | DanHup public site | Page 2, repository map row 1 |
+| id | placefern-site | Chosen here, lowercase with hyphens |
+| name | Placefern public site | Page 2, repository map row 1 |
 | kind | service | The site is a running part of the product |
 | owner | **Not named.** The map says the owner is not named. Write a role once someone accepts it. | Page 2 |
 | tier | To be decided. Interim tag: tier-N | Nobody has set it |
@@ -114,10 +114,10 @@ This record describes milestone E1-M3 from page 4: the notify-me form sends a fi
 |---|---|
 | Summary | The notify-me form sends a short first reply and records the visitor in the email-capture service. |
 | Type and label | normal, label change::normal |
-| Service(s) from the catalogue | danhup-site |
+| Service(s) from the catalogue | placefern-site |
 | Tracker issue | To be added when the issue exists |
 | Change owner (human) | The marketing owner of the site (role; no one is named yet, which is itself a finding) |
-| Risk decision made by (human) | The DanHup product manager (role) |
+| Risk decision made by (human) | The Placefern product manager (role) |
 
 | Risk question | Entry |
 |---|---|
@@ -199,4 +199,4 @@ This record describes milestone E1-M3 from page 4: the notify-me form sends a fi
 
 ## Further learning
 
-Return to [page 1 of the case study](/library/case-study-danhup-the-product-on-one-page) and compare it to your own work. Then read [Week 4](/library/week-4-defend-the-roadmap) for how to defend a roadmap, and the [templates overview](/library/templates-overview) for the blank versions.
+Return to [page 1 of the case study](/library/case-study-the-product-on-one-page) and compare it to your own work. Then read [Week 4](/library/week-4-defend-the-roadmap) for how to defend a roadmap, and the [templates overview](/library/templates-overview) for the blank versions.

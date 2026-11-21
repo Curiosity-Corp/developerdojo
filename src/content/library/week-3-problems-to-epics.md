@@ -97,7 +97,7 @@ This is the epic review. Your Sensei asks hard questions and you answer without 
 
 ### Skill tracks that match
 
-[What an epic is](/library/tracks/roadmapping-and-epics/01-what-an-epic-is), [Write an epic yourself](/library/tracks/roadmapping-and-epics/02-write-an-epic-yourself) and [Order the epics](/library/tracks/roadmapping-and-epics/03-order-the-epics). For a worked example see the [epics and roadmap case study](/library/case-study-danhup-epics-and-roadmap).
+[What an epic is](/library/tracks/roadmapping-and-epics/01-what-an-epic-is), [Write an epic yourself](/library/tracks/roadmapping-and-epics/02-write-an-epic-yourself) and [Order the epics](/library/tracks/roadmapping-and-epics/03-order-the-epics). For a worked example see the [epics and roadmap case study](/library/case-study-epics-and-roadmap).
 
 A second worked example, for a software service rather than a physical product, is [Shiftwren week 3: from problems to epics](/library/shiftwren-week-3-problems-to-epics).
 
