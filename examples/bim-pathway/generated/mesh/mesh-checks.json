@@ -1,0 +1,79 @@
+{
+  "allClosed": true,
+  "allVolumesAgree": true,
+  "checked": "Each physical element is tessellated with ifcopenshell.geom (world coordinates, openings subtracted) and written to one OBJ. The mesh checks use the triangles alone: closed (every edge in exactly two triangles), consistently oriented (each edge once in each direction), Euler characteristic, surface area, enclosed volume and bounding box. The enclosed volume is compared with IfcOpenShell's own volume. No viewer, clash, tolerance or constructability check.",
+  "elements": [
+    {
+      "GlobalId": "3ZYW59sxj8lei475l7EhLU",
+      "bbox_m": {
+        "max": [
+          3.0,
+          0.3,
+          2.0
+        ],
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "class": "IfcWall",
+      "closed": true,
+      "consistentlyOriented": true,
+      "edges": 48,
+      "enclosedVolume_m3": 1.5,
+      "eulerCharacteristic": 0,
+      "id": 45,
+      "ifcopenshellVolume_m3": 1.5,
+      "object": "IfcWall_3ZYW59sxj8lei475l7EhLU",
+      "surfaceArea_m2": 14.2,
+      "throughHoles": 1,
+      "triangles": 32,
+      "vertices": 16,
+      "volumesAgree": true
+    },
+    {
+      "GlobalId": "0tA4DSHd50le6Ov9Yu0I9X",
+      "bbox_m": {
+        "max": [
+          2.0,
+          0.25,
+          1.5
+        ],
+        "min": [
+          1.0,
+          0.05,
+          0.5
+        ]
+      },
+      "class": "IfcWindow",
+      "closed": true,
+      "consistentlyOriented": true,
+      "edges": 18,
+      "enclosedVolume_m3": 0.2,
+      "eulerCharacteristic": 2,
+      "id": 102,
+      "ifcopenshellVolume_m3": 0.2,
+      "object": "IfcWindow_0tA4DSHd50le6Ov9Yu0I9X",
+      "surfaceArea_m2": 2.8,
+      "throughHoles": 0,
+      "triangles": 12,
+      "vertices": 8,
+      "volumesAgree": true
+    }
+  ],
+  "excluded": [
+    "#80=IfcOpeningElement"
+  ],
+  "excludedWhy": "An IfcOpeningElement is a void subtracted from its wall, not a physical object.",
+  "file": "wall-with-opening-and-window.obj",
+  "lost": [
+    "IFC classes and predefined types",
+    "property sets",
+    "materials",
+    "spatial containment",
+    "void and fill relationships",
+    "GlobalIds, except in the object names"
+  ],
+  "units": "metre"
+}
