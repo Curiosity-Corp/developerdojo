@@ -18,10 +18,16 @@ export const sectorPackInputs: SectorPackInput[] = [
     randoriKataId: 'UX-R01',
     foundationKataIds: ['PRACTICE-001', 'PRACTICE-002'],
     examples: { dir: '/examples/ux-pathway', readme: '/examples/ux-pathway/README.md' },
-    inputs: { none: 'Pocket Invoice is invented for practice. Its flow, tokens, Penpot file and screenshots are Dojo material under the MIT licence, generated from src/data.' },
+    inputs: { none: 'Pocket Invoice is invented for practice. Its flow file, contrast pairs, tokens, Penpot file, drawings and screenshots are Dojo material under the MIT licence, generated from src/data.' },
     checks: [
       { name: 'The Penpot file is rebuilt from the flow and tokens, and every token colour pair meets its contrast ratio', ciJob: 'test', runs: 'tests/pocket-invoice.test.ts', outputs: ['/examples/ux-pathway/pocket-invoice.penpot', '/examples/ux-pathway/pocket-invoice-tokens.json'] },
-      { name: 'The working example is driven through every state with axe, reflow and focus checks', ciJob: 'e2e', runs: 'e2e/ux-pathway.spec.ts', outputs: ['/examples/ux-pathway/qa-report.md'] },
+      { name: 'The working example is driven through every state with axe, reflow and focus checks, and the clickable prototype through every transition', ciJob: 'e2e', runs: 'e2e/ux-pathway.spec.ts', outputs: ['/examples/ux-pathway/qa-report.md'] },
+      {
+        name: 'The flow file is redrawn as a sitemap, a one-canvas journey and one low-fidelity screen per state, and rechecked for reachability, dead ends, error recovery, dialogs, button wiring and token contrast',
+        ciJob: 'ux_pathway',
+        runs: 'public/examples/ux-pathway/tools/ux_pathway.mjs',
+        outputs: ['/examples/ux-pathway/generated/sitemap.svg', '/examples/ux-pathway/generated/journey.svg', '/examples/ux-pathway/generated/flow-checks.json', '/examples/ux-pathway/generated/manifest.json', '/examples/ux-pathway/generated/summary.md'],
+      },
     ],
     verified: [
       { text: 'The .penpot file imports into a self-hosted Penpot 2.18.7 with 4 pages, 11 state boards on each wireframe page, 8 components, 16 colours, 5 typographies and all {tokenCount} tokens.', evidence: '/examples/ux-pathway/penpot-import-check.json' },
@@ -29,11 +35,14 @@ export const sectorPackInputs: SectorPackInput[] = [
       'The file is generated from the same flow and tokens as the working example; the site’s tests rebuild it on every pipeline and fail if it differs from the published copy.',
       'Every text and control colour in the tokens meets its contrast ratio (4.5:1 for text, 3:1 for borders and focus), computed on every pipeline.',
       { text: 'The working example is driven through every state in the site’s browser tests, with axe checks for WCAG A and AA, reflow at 320 px, and keyboard and dialog focus.', evidence: '/examples/ux-pathway/qa-report.md' },
+      { text: 'On every pipeline, CI reruns the flow script, redraws the sitemap, the journey and all {stateCount} low-fidelity screens as SVG, reruns its {flowCheckCount} checks ({flowChecksPassed} passed, {contrastPairCount} colour pairs among them), and fails if any file differs from the ones on this page.', evidence: '/examples/ux-pathway/generated/summary.md' },
+      'The site’s browser tests click through all {transitionCount} transitions of the low-fidelity prototype, including the dialog, Escape and the browser’s Back button, with axe checks for WCAG A and AA.',
     ],
     notVerified: [
       'Penpot cloud (penpot.app): the file was checked on a self-hosted instance only.',
       'Editing by a person: the checks open and click the file; nobody has redesigned it in Penpot yet.',
       'Export from Penpot to SVG, PDF or PNG.',
+      'Opening the SVG drawings in Penpot or Figma: both vendors document SVG as a way to move designs between tools, but nobody has tried it with these files.',
       'Writing to Penpot through a plugin or the MCP server. Browser tests do not prove native write access.',
       'Figma: the file is Penpot-only and was not tried in Figma.',
       'Use by real learners or by people who use assistive technology: no usability sessions have been run.',

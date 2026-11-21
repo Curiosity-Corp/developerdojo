@@ -118,6 +118,7 @@ const REFLOW_ROUTES = [
   '/katas/fixture-fixux-001/',
   '/katas/ux-pathway/',
   '/examples/pocket-invoice/',
+  '/examples/pocket-invoice-prototype/',
   // The BIM pathway and its longest recipe page (#92).
   '/katas/bim-pathway/',
   '/katas/bim-003-ids-check/',

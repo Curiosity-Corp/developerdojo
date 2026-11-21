@@ -169,8 +169,16 @@ verification:
       result: passed
       evidence: /examples/ux-pathway/penpot-import-check.json (prototype-walk-02 reaches every transition from the start board)
       date: "2026-11-20"
+    - action: Rerun the flow script on the example flow file (inputs/pocket-invoice-flow.json) and redraw the sitemap as SVG
+      expected: "11 states, 19 transitions: every state reachable, no dead end, every error recovers, every dialog closes; the redrawn sitemap.svg equals the published one"
+      result: passed
+      evidence: /examples/ux-pathway/generated/flow-checks.json and /examples/ux-pathway/generated/sitemap.svg, rerun and compared by the ux_pathway CI job on every pipeline
+      date: "2026-11-21"
     - action: Your own sitemap passes the same walk
       expected: No unreachable state and no dead end
+      result: not-run
+    - action: Write your own flow as a JSON file in the same shape and run the flow script on it
+      expected: Every check in flow-checks.json passes and the sitemap and journey show every transition
       result: not-run
 adaptation:
   variations:

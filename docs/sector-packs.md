@@ -18,7 +18,7 @@ A pack adds a field's practice. It never copies a foundation: every pack kata bu
 | Recipe pages (practice katas) | `src/content/kata-recipes/<prefix>-00N-*.yaml` | UX-001 to UX-005 | BIM-001 to BIM-004 | AGR-001 to AGR-003 |
 | Randori | `src/content/kata-recipes/<prefix>-r01-randori.yaml` | UX-R01 | BIM-R01 | AGR-R01 |
 | Inputs, script, outputs, README | `public/examples/<field>-pathway/` | Penpot file and tokens | buildingSMART IFC, IDS | NOAA weather record |
-| CI check | `.gitlab-ci.yml` | `test`, `e2e` | `bim_pathway` | `agriculture_pathway` |
+| CI check | `.gitlab-ci.yml` | `ux_pathway`, `test`, `e2e` | `bim_pathway` | `agriculture_pathway` |
 | Verified / not verified | pack record, rendered by `src/components/SectorPackEvidence.astro` | section 05 | section 06 | section 06 |
 | Armory | `armoryStackRecipes` (and entries) in `src/data/armory.ts` | `penpot-and-browser` | `ifcopenshell-and-python` | `python-standard-library` |
 | Gallery entry | `src/data/gallery.ts` | `pocket-invoice-penpot-file` | `bim-pathway-edited-model` | `agriculture-irrigation-estimate` |
@@ -73,7 +73,7 @@ pack check job.
 3. **Write the script.** Put it in `public/examples/<field>-pathway/tools/`. Pin every dependency by hash, or use
    only the standard library. Write `generated/` deterministically, with a manifest of versions and input hashes.
    Report a missing measurement as unavailable (null), never as zero.
-4. **Add the CI job.** Copy `agriculture_pathway` (no packages) or `bim_pathway` (pinned packages): rerun the script
+4. **Add the CI job.** Copy `ux_pathway` (Node, no packages), `agriculture_pathway` (Python, no packages) or `bim_pathway` (pinned packages): rerun the script
    and `diff -r` its output against `generated/`. Add the job to the `needs` of `pages` and
    `publish_github_pages`. Generate the published files with the same Python minor version as the CI image.
 5. **Add vocabulary and the stack.** New outcomes, artifacts and the stack recipe go in `kataDimensions`

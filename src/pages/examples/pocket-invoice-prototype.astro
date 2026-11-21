@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PrototypeBoard from '../../components/PrototypeBoard.astro';
+import { PRODUCT, STATES, TRANSITIONS, START_STATE, type FlowState } from '../../data/pocket-invoice';
+
+// UX-002 (#91): a clickable low-fidelity prototype of the Pocket Invoice flow, built in the site's own stack. Every
+// screen, link and number comes from src/data/pocket-invoice.ts, the flow the Penpot file, the SVG wireframes and
+// the working example are made from. Links change the state through the URL hash, so the browser's Back button is a
+// back path too, and the discard dialog opens as a native modal dialog over the form. e2e/ux-pathway.spec.ts walks
+// every transition.
+const numbered = TRANSITIONS.map((transition, index) => ({ ...transition, n: index + 1 }));
+const kindLabel: Record<string, string> = { screen: 'Screen', error: 'Error', empty: 'Empty state', overlay: 'Dialog', success: 'Success', boundary: 'Outside this flow' };
+const screens = STATES.filter((state) => state.kind !== 'overlay');
+const dialogs = STATES.filter((state) => state.kind === 'overlay');
+const closeOf = (state: FlowState) => {
+  const found = numbered.find((t) => t.from === state.id && t.kind === 'overlay-close');
+  if (!found) throw new Error('Pocket Invoice prototype: the dialog ' + state.id + ' has no close transition');
+  return found;
+};
+---
+<BaseLayout title="Pocket Invoice: a clickable low-fidelity prototype" description="Click through every state of a small SaaS flow in greyscale: errors, an empty state, a dialog and the way back, each link numbered as on the sitemap.">
+  <section class="section intro" aria-labelledby="proto-title"><div class="container narrow">
+    <p class="eyebrow">UX-002 · Clickable prototype</p>
+    <h1 id="proto-title">{PRODUCT.name}, in low fidelity</h1>
+    <p>One greyscale screen for each state of the UX pathway’s example flow. Each link moves to the state it leads to, and the number beside it is that transition’s number on the sitemap. Cancel opens a dialog over the form, Escape closes it, and your browser’s Back button goes back one step. Links in a dashed box reach states that no button causes, such as the error after a bad entry.</p>
+    <p>This is a prototype, so you cannot type anything. The <a href="/examples/pocket-invoice/">working example</a> is the built version, and the <a href="/katas/ux-pathway">UX pathway</a> has the same screens as SVG files.</p>
+    <p class="progress" aria-live="polite">Transitions tried: <strong data-visited-count>0</strong> of {numbered.length}.</p>
+  </div></section>
+
+  <div class="container narrow">
+    <div class="proto" data-prototype data-start={START_STATE} data-current-state={START_STATE}>
+      {screens.map((state) => (
+        <section class="board" id={'proto-' + state.id} data-prototype-state={state.id} aria-labelledby={'proto-h-' + state.id} hidden={state.id !== START_STATE}>
+          <PrototypeBoard state={state} transitions={numbered} productName={PRODUCT.name} kindLabel={kindLabel[state.kind] ?? state.kind} />
+        </section>
+      ))}
+      {dialogs.map((state) => (
+        <dialog class="board dialog" id={'proto-' + state.id} data-prototype-state={state.id} data-close-to={closeOf(state).to} data-close-transition={closeOf(state).n} aria-labelledby={'proto-h-' + state.id}>
+          <PrototypeBoard state={state} transitions={numbered} productName={PRODUCT.name} kindLabel={kindLabel[state.kind] ?? state.kind} />
+        </dialog>
+      ))}
+    </div>
+    <noscript>
+      <p>The prototype needs JavaScript to move between screens. Without it, every screen is shown below in flow order.</p>
+      <style>.proto .board[hidden] { display: block; }</style>
+    </noscript>
+    <p class="back"><a href={'#proto-' + START_STATE}>Back to the first screen</a> · <a href="/katas/ux-002-low-fidelity">The UX-002 recipe</a> · <a href="/katas/ux-pathway">The UX pathway</a></p>
+  </div>
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 68rem; }
+  .eyebrow { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .intro { padding-bottom: 1rem; }
+  .progress { font-weight: 700; }
+  .proto { display: grid; gap: 1.5rem; justify-items: start; }
+  .board { box-sizing: border-box; width: 100%; max-width: 24.375rem; padding: 1rem; background: #fff; color: #212121; border: 2px solid #9e9e9e; border-radius: 8px; }
+  .dialog { max-width: min(22rem, calc(100% - 2rem)); border: 2px solid #212121; }
+  .dialog::backdrop { background: rgb(33 33 33 / .55); }
+  .back { margin-block: 2rem; }
+</style>
+
+<script>
+  // Moves between the states of the prototype. The URL hash names the state (#proto-<state id>), so links, a
+  // reload and the browser's Back and Forward buttons all work; a dialog opens as a modal over the current screen.
+  const root = document.querySelector<HTMLElement>('[data-prototype]');
+  const counter = document.querySelector<HTMLElement>('[data-visited-count]');
+  if (!root || !counter) throw new Error('Pocket Invoice prototype: the container or the counter is missing');
+  const proto: HTMLElement = root;
+  const count: HTMLElement = counter;
+  const boards = new Map([...proto.querySelectorAll<HTMLElement>('[data-prototype-state]')].map((board) => [board.dataset['prototypeState'] ?? '', board]));
+  const start = proto.dataset['start'] ?? '';
+  const visited = new Set<string>();
+  let pending: string | undefined;
+  let screen: string | undefined;
+
+  const stateFromHash = (): string => {
+    const id = decodeURIComponent(location.hash.replace(/^#proto-/, ''));
+    return boards.has(id) ? id : start;
+  };
+
+  function showScreen(id: string, moveFocus: boolean): void {
+    for (const [other, board] of boards) {
+      if (board instanceof HTMLDialogElement) { if (board.open) board.close(); }
+      else board.hidden = other !== id;
+    }
+    screen = id;
+    if (moveFocus) boards.get(id)?.querySelector<HTMLElement>('h2')?.focus();
+  }
+
+  function show(id: string, moveFocus: boolean): void {
+    const board = boards.get(id);
+    if (!board) return;
+    if (board instanceof HTMLDialogElement) {
+      // Opened by a reload or a shared link: put the screen it belongs to underneath first.
+      if (!screen || screen === start) showScreen(board.dataset['closeTo'] ?? start, false);
+      if (!board.open) board.showModal();
+    } else {
+      showScreen(id, moveFocus);
+    }
+    proto.dataset['currentState'] = id;
+    if (pending) visited.add(pending);
+    pending = undefined;
+    count.textContent = String(visited.size);
+  }
+
+  proto.addEventListener('click', (event) => {
+    const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[data-transition]') : null;
+    if (link) pending = link.dataset['transition'];
+  });
+  for (const [id, board] of boards) {
+    if (!(board instanceof HTMLDialogElement)) continue;
+    // Escape closes the dialog: that is the dialog's close transition, so follow it. A close caused by moving to
+    // another state (a link, or Back) leaves the hash elsewhere and is ignored here.
+    board.addEventListener('close', () => {
+      if (stateFromHash() !== id) return;
+      pending = board.dataset['closeTransition'];
+      location.hash = 'proto-' + (board.dataset['closeTo'] ?? start);
+    });
+  }
+  window.addEventListener('hashchange', () => show(stateFromHash(), true));
+  show(stateFromHash(), false);
+</script>

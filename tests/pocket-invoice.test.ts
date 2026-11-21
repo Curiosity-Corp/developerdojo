@@ -76,18 +76,13 @@ describe('the Pocket Invoice design tokens', () => {
   });
 
   it('meets 4.5:1 for text and 3:1 for borders and focus on the surfaces they sit on', () => {
-    const text: [string, string][] = [
-      ['color.text.default', 'color.surface.page'], ['color.text.default', 'color.surface.card'], ['color.text.muted', 'color.surface.page'],
-      ['color.text.link', 'color.surface.card'], ['color.text.link', 'color.surface.page'], ['color.text.error', 'color.surface.error'],
-      ['color.text.error', 'color.surface.card'], ['color.text.success', 'color.surface.success'], ['color.text.inverse', 'color.action.primary'],
-      ['color.text.inverse', 'color.action.primary-hover'], ['color.text.default', 'color.surface.error'], ['color.text.default', 'color.surface.success'],
-    ];
-    for (const [fg, bg] of text) expect(contrastRatio(value(fg), value(bg)), fg + ' on ' + bg).toBeGreaterThanOrEqual(4.5);
-    const ui: [string, string][] = [
-      ['color.border.input', 'color.surface.page'], ['color.border.input', 'color.surface.card'], ['color.border.error', 'color.surface.card'],
-      ['color.focus.ring', 'color.surface.page'], ['color.focus.ring', 'color.surface.card'], ['color.action.primary', 'color.surface.card'],
-    ];
-    for (const [fg, bg] of ui) expect(contrastRatio(value(fg), value(bg)), fg + ' on ' + bg).toBeGreaterThanOrEqual(3);
+    // One list of pairs, read by this test and by the UX pathway's flow script (public/examples/ux-pathway/tools).
+    const { groups } = JSON.parse(readFileSync(PUBLIC + 'inputs/contrast-pairs.json', 'utf8')) as { groups: { name: string; minimum: number; pairs: [string, string][] }[] };
+    expect(groups.map((group) => [group.name, group.minimum])).toEqual([['text', 4.5], ['ui', 3]]);
+    expect(groups.map((group) => group.pairs.length)).toEqual([12, 6]);
+    for (const group of groups) {
+      for (const [fg, bg] of group.pairs) expect(contrastRatio(value(fg), value(bg)), fg + ' on ' + bg).toBeGreaterThanOrEqual(group.minimum);
+    }
   });
 
   it('publishes an exact copy of the token source', () => {
