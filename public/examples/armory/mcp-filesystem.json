@@ -1,0 +1,171 @@
+{
+  "entry": "mcp-filesystem",
+  "date": "2026-11-20",
+  "package": "@modelcontextprotocol/server-filesystem@2.4.0",
+  "environment": "Linux, Node.js 24.22.3; server started with npx in a clean environment (HOME set to an empty folder, no other variables); one allowed directory, a disposable sandbox holding notes.txt.",
+  "command": "npx -y @modelcontextprotocol/server-filesystem@2.4.0 <sandbox>",
+  "client": "A minimal MCP stdio client: initialize, tools/list, then the tool calls below in order.",
+  "expected": "Reads, creates and edits inside the sandbox succeed; reading a file outside the sandbox is refused.",
+  "sandboxAfter": {
+    "notes.txt": "Pocket Garden notes\nBasil: full sun\n",
+    "created.txt": "Created by the smoke test\n"
+  },
+  "transcript": {
+    "startedAt": "2026-11-20T23:21:00.085Z",
+    "steps": [
+      {
+        "call": {
+          "name": "list_allowed_directories",
+          "arguments": {}
+        },
+        "isError": false,
+        "text": "Allowed directories:\n<sandbox>"
+      },
+      {
+        "call": {
+          "name": "list_directory",
+          "arguments": {
+            "path": "<sandbox>"
+          }
+        },
+        "isError": false,
+        "text": "[FILE] notes.txt"
+      },
+      {
+        "call": {
+          "name": "read_text_file",
+          "arguments": {
+            "path": "<sandbox>/notes.txt"
+          }
+        },
+        "isError": false,
+        "text": "Pocket Garden notes\nBasil: sun\n"
+      },
+      {
+        "call": {
+          "name": "write_file",
+          "arguments": {
+            "path": "<sandbox>/created.txt",
+            "content": "Created by the smoke test\n"
+          }
+        },
+        "isError": false,
+        "text": "Successfully wrote to <sandbox>/created.txt"
+      },
+      {
+        "call": {
+          "name": "edit_file",
+          "arguments": {
+            "path": "<sandbox>/notes.txt",
+            "edits": [
+              {
+                "oldText": "Basil: sun",
+                "newText": "Basil: full sun"
+              }
+            ]
+          }
+        },
+        "isError": false,
+        "text": "```diff\nIndex: <sandbox>/notes.txt\n===================================================================\n--- <sandbox>/notes.txt\toriginal\n+++ <sandbox>/notes.txt\tmodified\n@@ -1,2 +1,2 @@\n Pocket Garden notes\n-Basil: sun\n+Basil: full sun\n```\n\n"
+      },
+      {
+        "call": {
+          "name": "read_text_file",
+          "arguments": {
+            "path": "/etc/hostname"
+          }
+        },
+        "isError": true,
+        "text": "Access denied - path outside allowed directories: /etc/hostname not in <sandbox>"
+      }
+    ],
+    "server": {
+      "name": "secure-filesystem-server",
+      "version": "2.4.0"
+    },
+    "protocolVersion": "2025-06-18",
+    "tools": [
+      {
+        "name": "read_file",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "read_text_file",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "read_media_file",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "read_multiple_files",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "write_file",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "append_file",
+        "readOnlyHint": false,
+        "destructiveHint": false
+      },
+      {
+        "name": "edit_file",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "create_directory",
+        "readOnlyHint": false,
+        "destructiveHint": false
+      },
+      {
+        "name": "list_directory",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "list_directory_with_sizes",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "directory_tree",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "move_file",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "copy_file",
+        "readOnlyHint": false,
+        "destructiveHint": false
+      },
+      {
+        "name": "search_files",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "get_file_info",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "list_allowed_directories",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      }
+    ],
+    "stderrTail": "Secure MCP Filesystem Server running on stdio\nEffective allowed directories (from the command line):\n  <sandbox>\nClient does not support MCP Roots, using allowed directories set from server args: [ '<sandbox>' ]\nEffective allowed directories (from the command line):\n  <sandbox>\n"
+  }
+}

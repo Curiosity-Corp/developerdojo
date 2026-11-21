@@ -1,0 +1,185 @@
+{
+  "entry": "playwright-mcp",
+  "date": "2026-11-20",
+  "package": "@playwright/mcp@0.0.86",
+  "environment": "Linux, Node.js 24.22.3; headless Chromium (Playwright build 1255) from the local Playwright browser cache; isolated (in-memory) browser profile; clean environment.",
+  "command": "npx -y @playwright/mcp@0.0.86 --headless --isolated --browser chromium",
+  "client": "A minimal MCP stdio client: initialize, tools/list, then the tool calls below in order. The page is an inline data: URL with one toggle button, so no site was contacted.",
+  "expected": "The page opens, the click changes the button to \"Planted\" and the snapshot reports it as pressed.",
+  "sideEffects": "The server wrote page snapshots (.yml) into a .playwright-mcp folder in its working directory.",
+  "transcript": {
+    "startedAt": "2026-11-20T23:21:40.945Z",
+    "steps": [
+      {
+        "call": {
+          "name": "browser_navigate",
+          "arguments": {
+            "url": "data:text/html,<title>Smoke</title><h1>Pocket Garden</h1><button aria-pressed=\"false\" onclick=\"this.textContent='Planted';this.setAttribute('aria-pressed','true')\">Mark as planted</button>"
+          }
+        },
+        "isError": false,
+        "text": "### Ran Playwright code\n```js\nawait page.goto('data:text/html,<title>Smoke</title><h1>Pocket Garden</h1><button aria-pressed=\"false\" onclick=\"this.textContent=\\'Planted\\';this.setAttribute(\\'aria-pressed\\',\\'true\\')\">Mark as planted</button>');\n```\n### Page\n- Page URL: data:text/html,<title>Smoke</title><h1>Pocket Garden</h1><button aria-pressed=\"false\" onclick=\"this.textContent='Planted';this.setAttribute('aria-pressed','true')\">Mark as planted</button>\n- Page Title: Smoke\n### Snapshot\n- [Snapshot](.playwright-mcp/page-2026-11-20T23-21-42-486Z.yml)"
+      },
+      {
+        "call": {
+          "name": "browser_click",
+          "arguments": {
+            "element": "Mark as planted button",
+            "target": "e3"
+          }
+        },
+        "isError": false,
+        "text": "### Ran Playwright code\n```js\nawait page.getByRole('button', { name: 'Mark as planted' }).click();\n```\n### Page\n- Page URL: data:text/html,<title>Smoke</title><h1>Pocket Garden</h1><button aria-pressed=\"false\" onclick=\"this.textContent='Planted';this.setAttribute('aria-pressed','true')\">Mark as planted</button>\n- Page Title: Smoke\n### Snapshot\n- [Snapshot](.playwright-mcp/page-2026-11-20T23-21-43-054Z.yml)"
+      },
+      {
+        "call": {
+          "name": "browser_snapshot",
+          "arguments": {}
+        },
+        "isError": false,
+        "text": "### Page\n- Page URL: data:text/html,<title>Smoke</title><h1>Pocket Garden</h1><button aria-pressed=\"false\" onclick=\"this.textContent='Planted';this.setAttribute('aria-pressed','true')\">Mark as planted</button>\n- Page Title: Smoke\n### Snapshot\n```yaml\n- generic [ref=e1]:\n  - heading \"Pocket Garden\" [level=1] [ref=e2]\n  - button \"Planted\" [active] [pressed] [ref=e4]\n```"
+      },
+      {
+        "call": {
+          "name": "browser_close",
+          "arguments": {}
+        },
+        "isError": false,
+        "text": "### Result\nNo open tabs. Navigate to a URL to create one.\n### Ran Playwright code\n```js\nawait browser.close();\n```"
+      }
+    ],
+    "server": {
+      "name": "Playwright",
+      "version": "1.66.0-alpha-2026-11-18"
+    },
+    "protocolVersion": "2025-06-18",
+    "tools": [
+      {
+        "name": "browser_close",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "browser_resize",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "browser_console_messages",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "browser_handle_dialog",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "browser_emulate_media",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "browser_evaluate",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "browser_file_upload",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "browser_drop",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "browser_find",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "browser_fill_form",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "browser_press_key",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "browser_type",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "browser_navigate",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "browser_navigate_back",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "browser_network_requests",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "browser_network_request",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "browser_run_code_unsafe",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "browser_take_screenshot",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "browser_snapshot",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "browser_click",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "browser_drag",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "browser_hover",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "browser_select_option",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "browser_tabs",
+        "readOnlyHint": false,
+        "destructiveHint": true
+      },
+      {
+        "name": "browser_wait_for",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      }
+    ],
+    "stderrTail": ""
+  }
+}
