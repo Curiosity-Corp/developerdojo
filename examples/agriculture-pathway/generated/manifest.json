@@ -1,0 +1,25 @@
+{
+  "script": "tools/agri_pathway.py",
+  "python": "3.12",
+  "inputs": {
+    "inputs/noaa-ghcnd-USW00093193-2023.csv": "abde499065220574370762a23f9acc7a60b76c0951a02da95b770bc003b3b9a7"
+  },
+  "method": {
+    "reference": "FAO-56 Penman-Monteith (eq. 6), daily, with the chapter 3 estimates for missing data",
+    "humidity": "dewpoint = Tmin - 0.0 degrees C (eq. 48)",
+    "radiation": "Hargreaves radiation formula, kRs = 0.16 (interior), limited to clear-sky Rso (eqs. 50, 37)",
+    "wind": "u2 = 2.0 m/s (no wind in the record)",
+    "comparison": "Hargreaves ET0 (eq. 52)",
+    "crop": "FAO-56 Table 11 stage lengths and Table 12 Kc for maize (grain), Kc curve as FAO-56 eq. 66, no climate adjustment of Kc mid",
+    "effectiveRain": "FAO Training Manual 3, section 4.2, on in-season rain per calendar month"
+  },
+  "outputs": [
+    "et0-daily.csv",
+    "et0-monthly.json",
+    "inspection.json",
+    "irrigation.json",
+    "randori/cards.json",
+    "reference-checks.json",
+    "summary.md"
+  ]
+}

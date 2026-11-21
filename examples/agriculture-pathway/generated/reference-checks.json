@@ -1,0 +1,110 @@
+{
+  "passed": 13,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "EX8-dr",
+      "source": "FAO-56 Example 8 (3 September, 20 degrees S)",
+      "quantity": "inverse relative distance Earth-Sun dr (eq. 23)",
+      "published": 0.985,
+      "computed": 0.985,
+      "status": "pass"
+    },
+    {
+      "id": "EX8-delta",
+      "source": "FAO-56 Example 8 (3 September, 20 degrees S)",
+      "quantity": "solar declination, rad (eq. 24)",
+      "published": 0.12,
+      "computed": 0.12,
+      "status": "pass"
+    },
+    {
+      "id": "EX8-ws",
+      "source": "FAO-56 Example 8 (3 September, 20 degrees S)",
+      "quantity": "sunset hour angle, rad (eq. 25)",
+      "published": 1.527,
+      "computed": 1.527,
+      "status": "pass"
+    },
+    {
+      "id": "EX8-Ra",
+      "source": "FAO-56 Example 8 (3 September, 20 degrees S)",
+      "quantity": "extraterrestrial radiation Ra, MJ m-2 day-1 (eq. 21)",
+      "published": 32.2,
+      "computed": 32.2,
+      "status": "pass"
+    },
+    {
+      "id": "EX18-Ra",
+      "source": "FAO-56 Example 18 (Uccle, Brussels, 6 July)",
+      "quantity": "extraterrestrial radiation Ra, MJ m-2 day-1 (eq. 21)",
+      "published": 41.09,
+      "computed": 41.09,
+      "status": "pass"
+    },
+    {
+      "id": "EX18-ea",
+      "source": "FAO-56 Example 18 (Uccle, Brussels, 6 July)",
+      "quantity": "actual vapour pressure ea, kPa (eq. 17)",
+      "published": 1.409,
+      "computed": 1.409,
+      "status": "pass"
+    },
+    {
+      "id": "EX18-ET0",
+      "source": "FAO-56 Example 18 (Uccle, Brussels, 6 July)",
+      "quantity": "grass reference evapotranspiration ET0, mm/day (eq. 6)",
+      "published": 3.9,
+      "computed": 3.9,
+      "status": "pass"
+    },
+    {
+      "id": "TM3-Pe-35",
+      "source": "FAO Training Manual 3, section 4.2 question",
+      "quantity": "effective rainfall for 35 mm/month",
+      "published": 11,
+      "computed": 11.0,
+      "status": "pass"
+    },
+    {
+      "id": "TM3-Pe-90",
+      "source": "FAO Training Manual 3, section 4.2 question",
+      "quantity": "effective rainfall for 90 mm/month",
+      "published": 47,
+      "computed": 47.0,
+      "status": "pass"
+    },
+    {
+      "id": "TM3-Pe-116",
+      "source": "FAO Training Manual 3, section 4.2 question",
+      "quantity": "effective rainfall for 116 mm/month",
+      "published": 68,
+      "computed": 68.0,
+      "status": "pass"
+    },
+    {
+      "id": "TM3-Pe-5",
+      "source": "FAO Training Manual 3, section 4.2 question",
+      "quantity": "effective rainfall for 5 mm/month",
+      "published": 0,
+      "computed": 0.0,
+      "status": "pass"
+    },
+    {
+      "id": "TM3-Pe-260",
+      "source": "FAO Training Manual 3, section 4.2 question",
+      "quantity": "effective rainfall for 260 mm/month",
+      "published": 183,
+      "computed": 183.0,
+      "status": "pass"
+    },
+    {
+      "id": "TM3-Pe-75",
+      "source": "FAO Training Manual 3, section 4.2 question",
+      "quantity": "effective rainfall for 75 mm/month",
+      "published": 35,
+      "computed": 35.0,
+      "status": "pass"
+    }
+  ]
+}
