@@ -135,7 +135,9 @@ setup:
   smokeTest:
     action: Press Tab from the address bar and submit the empty sign-up form with Enter.
     expected: Focus moves to the error summary, which links to both fields.
-    result: not-run
+    result: passed
+    evidence: /examples/ux-pathway/qa-report.md (row signup-error, both projects)
+    date: "2026-11-20"
 prompts:
   - id: implement-state
     title: Implement one state
@@ -162,7 +164,9 @@ verification:
   checks:
     - action: "Run the site’s browser checks on the example page: every state, axe in light and dark, reflow at 320 px, keyboard and dialog focus"
       expected: No serious or critical WCAG A or AA issue in any state; no sideways scroll; focus lands as described
-      result: not-run
+      result: passed
+      evidence: /examples/ux-pathway/qa-report.md (11 of 11 states, desktop and mobile)
+      date: "2026-11-20"
     - action: Keyboard-only pass of your own page
       expected: Every state reachable; focus always visible
       result: not-run

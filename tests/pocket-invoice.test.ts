@@ -95,6 +95,19 @@ describe('the Pocket Invoice design tokens', () => {
   });
 });
 
+describe('the published QA report', () => {
+  it('covers every state in both browser projects, with no axe finding and no sideways scroll', () => {
+    const report = readFileSync(PUBLIC + 'qa-report.md', 'utf8');
+    for (const project of ['Desktop project', 'Mobile project']) expect(report).toContain('## ' + project);
+    expect(report.match(new RegExp('States checked: ' + STATES.length + ' of ' + STATES.length, 'g'))).toHaveLength(2);
+    for (const state of STATES) {
+      const rows = report.split('\n').filter((line) => line.includes('(' + state.id + ') |'));
+      expect(rows, state.id).toHaveLength(2);
+      for (const row of rows) expect(row, state.id).toMatch(/\| none \| none \| no sideways scroll \|/);
+    }
+  });
+});
+
 describe('the published Penpot file', () => {
   const entries = readZip(published);
   const json = (pattern: RegExp) => entries.filter((entry) => pattern.test(entry.name)).map((entry) => decode(entry.data));

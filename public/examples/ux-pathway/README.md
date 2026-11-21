@@ -8,6 +8,7 @@ invoicing app for practice: no real company, person or customer.
 | pocket-invoice.penpot | Editable Penpot file (format v3, a ZIP of JSON). Four pages: sitemap and flow, low fidelity, tokens and components, high fidelity. |
 | pocket-invoice-tokens.json | Design tokens in the W3C Design Tokens Community Group draft format, as Penpot imports them: sets core and semantic, theme Mode / Light. |
 | penpot-import-check.json | What was checked when the file was imported into Penpot, the result of each check, and what was not checked. |
+| qa-report.md | The accessibility and responsive QA report for every state of the working page, copied from one run of the site's browser tests. |
 | screens/ | Screenshots from Penpot View mode, taken by that check. |
 
 ## Open the file in Penpot
