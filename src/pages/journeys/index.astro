@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { loadJourneys } from '../../lib/journey-content';
+
+const journeys = await loadJourneys();
+---
+
+<BaseLayout title="Journeys from Ignite Curiosity" description="Optional journeys that connect Ignite Curiosity's robotics and biotechnology programs to Developer Dojo tracks and katas, with no account needed.">
+  <PageHero compact eyebrow="Journeys" title="Journeys from Ignite Curiosity" subtitle="Our sibling Ignite Curiosity helps people discover what interests them. Developer Dojo helps them develop it. These journeys connect the two, step by step. They are optional: start at either site, with no account." />
+  <section class="section">
+    <div class="container content">
+      <ul class="journeys">
+        {journeys.map((journey) => (
+          <li>
+            <h2><a href={`/journeys/${journey.id}`}>{journey.title}</a></h2>
+            <p>{journey.summary}</p>
+          </li>
+        ))}
+      </ul>
+      <p>Your progress stays in this browser, and we send nothing about you to either site. <a href="https://ignitecuriosity.org/" rel="noopener noreferrer" referrerpolicy="no-referrer">Explore Ignite Curiosity</a> · <a href="/library/tracks">All tracks</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .content {
+    max-width: 52rem;
+    overflow-wrap: anywhere;
+  }
+  .journeys {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    padding: 0;
+    margin: 0 0 var(--space-5);
+    list-style: none;
+  }
+  .journeys li {
+    padding: var(--space-4) var(--space-5);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--tone-rust);
+    border-radius: var(--radius);
+  }
+  @media (max-width: 30rem) {
+    .journeys li {
+      padding-inline: var(--space-3);
+    }
+  }
+  .journeys h2 {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-xl);
+  }
+  .journeys p {
+    margin: 0;
+  }
+</style>

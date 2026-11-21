@@ -54,7 +54,8 @@ const otherGroups = groups.filter((entry) => !CORE_GROUPS.includes(entry.group))
             <p class="core-intro">
               Four practical tracks that end in a capstone you can show: robots that map, navigate and learn, and code
               that reads biological data and runs experiments. Everything runs in simulation or on public data. Every
-              track uses the shared modules in {sharedFocusTrack.title}, listed last in this block.
+              track uses the shared modules in {sharedFocusTrack.title}, listed last in this block. Coming from Ignite Curiosity's robotics or biotechnology programs?
+              <a href="/journeys">Follow a journey</a> that pairs each of their steps with a track or kata.
             </p>
             {coreGroups.map((entry) => <TrackGroupList {...entry} headingLevel="h3" />)}
           </section>

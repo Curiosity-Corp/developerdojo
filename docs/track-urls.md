@@ -21,6 +21,9 @@ Lesson URLs follow the usual form `/library/tracks/<track>/<NN>-<lesson-slug>/` 
 [content-model.md](content-model.md)). Link other sites to the **track** URL, not to a lesson: lessons may be split
 or reordered as the tracks grow, tracks may not.
 
+The optional journeys from Ignite Curiosity (`/journeys/robotics/`, `/journeys/biotechnology/`) link these tracks
+by slug and are checked at build time: see [journeys.md](journeys.md).
+
 ## Where the list lives in code
 
 - `src/lib/core-focuses.ts` names the two focuses and their track slugs. The home page and `/library/tracks` read it.

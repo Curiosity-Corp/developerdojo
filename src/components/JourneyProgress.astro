@@ -1,0 +1,56 @@
+---
+/**
+ * "n of m lessons done on this device" for one track named in a journey (#83). Reads the lessons the learner
+ * marked done (dojo:lessons, src/lib/lesson-progress.ts) and never writes anything: a journey keeps no state of
+ * its own, so following one needs no account and changes nothing on the device. Hidden without JavaScript.
+ * Props: lessonIds (every lesson id of the track), title (the track title, for the accessible name).
+ */
+interface Props {
+  lessonIds: string[];
+  title: string;
+}
+const { lessonIds, title } = Astro.props;
+---
+
+{
+  lessonIds.length > 0 && (
+    <p class="journey-progress js-only" data-journey-progress data-lesson-ids={JSON.stringify(lessonIds)} data-track-title={title} data-pagefind-ignore />
+  )
+}
+
+<script>
+  import { LESSON_PROGRESS_NAME, LESSON_PROGRESS_VERSION, countLessonsDone, emptyLessonProgress, parseLessonProgress } from '../lib/lesson-progress';
+  import { createStore, storageKey } from '../lib/storage';
+
+  const nodes = [...document.querySelectorAll<HTMLElement>('[data-journey-progress]')];
+  if (nodes.length > 0) {
+    const store = createStore();
+    const idsOf = (node: HTMLElement): string[] => {
+      try {
+        const parsed: unknown = JSON.parse(node.dataset['lessonIds'] ?? '[]');
+        return Array.isArray(parsed) ? parsed.filter((id): id is string => typeof id === 'string') : [];
+      } catch {
+        return [];
+      }
+    };
+    const render = (): void => {
+      const progress = store.load(LESSON_PROGRESS_NAME, { version: LESSON_PROGRESS_VERSION, validate: parseLessonProgress }) ?? emptyLessonProgress();
+      for (const node of nodes) {
+        const ids = idsOf(node);
+        node.textContent = `${countLessonsDone(progress, ids)} of ${ids.length} lessons done on this device`;
+      }
+    };
+    window.addEventListener('storage', (event) => {
+      if (event.key === storageKey(LESSON_PROGRESS_NAME)) render();
+    });
+    render();
+  }
+</script>
+
+<style>
+  .journey-progress {
+    margin: var(--space-1) 0 0;
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+  }
+</style>
