@@ -14,6 +14,7 @@ It changes no program rule. The decision record for the kata and belt program is
 | Catalog records that link real pages | `kataCatalog` in `src/data/kata-catalog.ts` | editors |
 | Fields (domains) | `src/lib/fields.ts` | editors |
 | Learning pathways | track slugs, `src/content/tracks/<slug>.md` | track editors ([content-model.md](content-model.md#tracks)) |
+| Ignite Curiosity journeys (refer to locked identifiers only) | `src/data/ignite-journeys.ts`, checked by `src/lib/journeys.ts` | journey editors ([journeys.md](journeys.md), #83) |
 | External resources | `src/content/resources/<publisher>/<resource>.yaml` | catalog maintainers (#23, [content-model.md](content-model.md#resources)) |
 | Kata pages | `src/pages/katas/<slug>.astro`, listed in `src/data/kata-directory.ts` | kata maintainers |
 | Kata recipes (operational pages) | `src/content/kata-recipes/<slug>.yaml`, rendered at `/katas/<slug>` | kata maintainers ([kata-recipes.md](kata-recipes.md)) |

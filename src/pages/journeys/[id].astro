@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import JourneyProgress from '../../components/JourneyProgress.astro';
+import { loadContent, lessonsOfTrack } from '../../lib/content';
+import { loadJourneys } from '../../lib/journey-content';
+import { SPARK_LABELS, type ResolvedRef } from '../../lib/journeys';
+
+export async function getStaticPaths() {
+  const [journeys, { lessons }] = await Promise.all([loadJourneys(), loadContent()]);
+  const lessonIds = (track: string) => lessonsOfTrack(lessons, track).map((lesson) => lesson.id);
+  return journeys.map((journey) => {
+    const tracks = [...journey.steps.flatMap((step) => step.refs), ...journey.foundations].flatMap((ref) => (ref.track ? [ref.track] : []));
+    return {
+      params: { id: journey.id },
+      props: { journey, lessonsByTrack: Object.fromEntries(tracks.map((track) => [track, lessonIds(track)])) },
+    };
+  });
+}
+
+const { journey, lessonsByTrack } = Astro.props;
+const kindLabel = (ref: ResolvedRef) => (ref.kind === 'track' ? 'Track' : 'Kata');
+---
+
+<BaseLayout title={journey.title} description={journey.summary}>
+  <PageHero compact eyebrow="Journey from Ignite Curiosity" title={journey.title} subtitle={journey.summary} />
+
+  <section class="section section--tight" aria-labelledby="optional-title">
+    <div class="container content">
+      <h2 id="optional-title">Optional, and yours</h2>
+      <ul class="facts">
+        <li>No account and no sign-up. Every page on this journey opens directly, and you do not need to finish anything on Ignite Curiosity first.</li>
+        <li>Your progress stays in this browser. The counts below read the lessons you marked done on this device, and this page saves nothing of its own.</li>
+        <li>We send nothing about you to Ignite Curiosity. Links to its site carry no tracking code and no referrer.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="steps-title">
+    <div class="container content">
+      <div id="steps-title">
+        <SectionHeader eyebrow="Step by step" title="The SPARK steps, with Dojo practice" intro={`Ignite Curiosity's ${journey.ignite.program.toLowerCase()} follows its SPARK steps: Seek, Play, Apply, Research, Know. Beside each step is Dojo practice that fits it.`} />
+      </div>
+      <ol class="spark-steps">
+        {journey.steps.map((step) => (
+          <li class="spark-step" data-spark={step.spark}>
+            <h3>{SPARK_LABELS[step.spark]}</h3>
+            <p><strong>On Ignite Curiosity:</strong> {step.ignite}</p>
+            <p><strong>In the Dojo:</strong> {step.dojo}</p>
+            <ul class="refs">
+              {step.refs.map((ref) => (
+                <li>
+                  <span class="kind">{kindLabel(ref)}</span> <a href={ref.href}>{ref.title}</a>
+                  {ref.track && <JourneyProgress lessonIds={lessonsByTrack[ref.track] ?? []} title={ref.title} />}
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="foundations-title">
+    <div class="container content">
+      <h2 id="foundations-title">Foundations for every step</h2>
+      <p>If you use an AI assistant at any step, these short katas help you check what it gives you. They apply in any field.</p>
+      <ul class="refs">
+        {journey.foundations.map((ref) => <li><span class="kind">{kindLabel(ref)}</span> <a href={ref.href}>{ref.title}</a></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--tight source" aria-labelledby="source-title">
+    <div class="container content">
+      <h2 id="source-title">Where this journey comes from</h2>
+      <p>
+        The steps above follow the <a href={journey.ignite.url} rel="noopener noreferrer" referrerpolicy="no-referrer">{journey.ignite.program} on Ignite Curiosity</a>,
+        as its page read on {journey.ignite.checkedOn}. {journey.ignite.status} Its page is the source for the program; check it there for what is current.
+      </p>
+      <p>On that day, its page linked to these Dojo tracks, so you can make the journey in either direction:</p>
+      <ul class="refs">
+        {journey.linksBack.map((ref) => <li><a href={ref.href}>{ref.title}</a></li>)}
+      </ul>
+      <h3>Who looks after what</h3>
+      <ul class="facts">
+        <li>Ignite Curiosity runs its programs, clubs, challenges and mentor sign-ups, and the forms on its own site. Its site has its own privacy practices: read them there before you sign up for anything.</li>
+        <li>Developer Dojo runs the tracks, katas and this page. Nothing here asks for your name, age or email.</li>
+        <li>Developer Dojo does not count who follows a link to or from Ignite Curiosity. Referral numbers are unavailable, because we do not measure them.</li>
+      </ul>
+      <p><a href="/journeys">All journeys</a> · <a href="/library/tracks">All tracks</a> · <a href="/katas">All katas</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .content {
+    max-width: 52rem;
+    overflow-wrap: anywhere;
+  }
+  .facts {
+    display: grid;
+    gap: var(--space-2);
+    padding-left: var(--space-5);
+  }
+  .spark-steps {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    padding: 0;
+    margin: var(--space-5) 0 0;
+    list-style: none;
+  }
+  .spark-step {
+    padding: var(--space-4) var(--space-5);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--tone-rust);
+    border-radius: var(--radius);
+  }
+  @media (max-width: 30rem) {
+    .spark-step {
+      padding-inline: var(--space-3);
+    }
+  }
+  .spark-step h3 {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-xl);
+  }
+  .spark-step p {
+    margin: 0 0 var(--space-2);
+  }
+  .refs {
+    display: grid;
+    gap: var(--space-2);
+    padding-left: var(--space-5);
+    margin: var(--space-2) 0 0;
+  }
+  .refs a {
+    font-weight: 700;
+  }
+  .kind {
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+  }
+  .source {
+    background: var(--paper-raised);
+  }
+</style>
