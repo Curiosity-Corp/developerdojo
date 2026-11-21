@@ -55,7 +55,7 @@ These steps are the same for every kind of change.
    plain sentences about what changed and why. If it finishes a GitLab issue, add the line `Closes #12`
    (use the issue's number). Click **Create merge request**.
 9. **Watch the pipeline.** On the MR page, find the **Pipeline** box. Wait until it shows a green tick
-   (about 10 minutes). If it shows a red cross, see [When the pipeline is red](#when-the-pipeline-is-red).
+   (often 15 to 20 minutes). If it shows a red cross, see [When the pipeline is red](#when-the-pipeline-is-red).
 10. **Merge.** When the pipeline is green, press **Merge**. On this project the button may say
     **Add to merge train** or **Set to auto-merge**: that is the same thing. If the button is grey, the
     pipeline is still running; wait.
@@ -66,9 +66,10 @@ These steps are the same for every kind of change.
     but clash together (for example, two files for the same resource URL) cannot both reach `master`.
     If yours drops out of the train, read the red job, fix forward on your branch, and merge again.
 11. **See it live.** After the merge, a new pipeline runs on `master` and ends with a job called
-    `publish_github_pages`. When that job has a green tick (about 10 to 15 minutes in total), open
-    https://developerdojo.org and look at your page. If you still see the old text, do a hard refresh
-    (`Ctrl+Shift+R`, on a Mac `Cmd+Shift+R`).
+    `publish_github_pages`. That pipeline usually takes 20 to 45 minutes. When the job has a green tick,
+    wait about five more minutes, then open https://developerdojo.org and look at your page. If you still
+    see the old text, do a hard refresh (`Ctrl+Shift+R`, on a Mac `Cmd+Shift+R`). Still old an hour after
+    the green tick? See step 6 of [section 9 of the maintainer handbook](docs/handbook.md#9-what-to-do-when-a-pipeline-is-red).
 
 > **Preview.** There is no live preview website for an MR. Use the Markdown preview in the Web IDE while you
 > write. The green pipeline proves the page builds, its links work and it passes the accessibility checks.

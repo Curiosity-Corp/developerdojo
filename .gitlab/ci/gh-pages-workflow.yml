@@ -14,12 +14,17 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+# Two GitHub-side races seen on 2026-11-21 (the site stayed on the old build while GitLab was green):
+#   1. deploy-pages listed 0 artifacts a moment after the upload finished;
+#   2. "Re-run failed jobs" then found 2 artifacts with the same name and refused.
+# So each attempt uploads under its own name, and the deploy is tried a second time after a pause.
+# tests/gh-pages-workflow.test.ts keeps both guards in place.
 jobs:
   deploy:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment_retry.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -29,6 +34,19 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
+          name: github-pages-${{ github.run_attempt }}
       - name: Deploy to GitHub Pages
         id: deployment
+        continue-on-error: true
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-${{ github.run_attempt }}
+      - name: Wait before retrying the deploy
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 30
+      - name: Deploy to GitHub Pages (retry)
+        id: deployment_retry
+        if: steps.deployment.outcome == 'failure'
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-${{ github.run_attempt }}
