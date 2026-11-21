@@ -1,0 +1,214 @@
+---
+/**
+ * One gallery entry (#87): the artifact, its provenance, rights and dated check, then the path from the
+ * finished artifact to the recipe, exercise, QA evidence, belt criteria and shared foundations.
+ * data-outcomes, data-fields and data-foundation drive the filters on /gallery.
+ * Props: item (a ResolvedGalleryEntry), outcomeLabels and fieldNames (ID to label).
+ */
+import { CHECK_LABELS, FORM_LABELS, formatCheckDate, type ResolvedGalleryEntry } from '../lib/gallery';
+import { BELT_STAGES } from '../lib/kata-schema';
+
+interface Props {
+  item: ResolvedGalleryEntry;
+  outcomeLabels: ReadonlyMap<string, string>;
+  fieldNames: ReadonlyMap<string, string>;
+}
+const { item, outcomeLabels, fieldNames } = Astro.props;
+const { entry, kata, recipe, foundations, isFoundation, checkDue } = item;
+const external = (href: string) => href.startsWith('https://');
+const METHOD_LABELS: Record<string, string> = {
+  'automated-check': 'Automated check', 'self-check': 'Self-check', 'peer-review': 'Peer review',
+  'sensei-review': 'Sensei review', 'professional-review': 'Professional review',
+};
+const STAGE_LABELS: Record<(typeof BELT_STAGES)[number], string> = { practice: 'Practice', adapt: 'Adapt', demonstrate: 'Demonstrate' };
+const titleId = `${entry.id}-title`;
+---
+
+<article class="entry" id={entry.id} aria-labelledby={titleId} data-gallery-entry data-outcomes={entry.outcomeIds.join(' ')} data-fields={entry.fieldIds.join(' ')} data-foundation={isFoundation ? 'true' : 'false'}>
+  <ul class="badges" aria-label="Status">
+    <li class={`badge ${entry.form}`} data-form={entry.form}>{FORM_LABELS[entry.form]}</li>
+    <li class="badge verified" data-check={entry.verification.method}>Verified: {CHECK_LABELS[entry.verification.method]}, {formatCheckDate(entry.verification.date)}</li>
+    {isFoundation && <li class="badge foundation">Shared foundation for every field</li>}
+    {checkDue && <li class="badge due">Re-check overdue</li>}
+  </ul>
+  <h3 id={titleId}>{entry.title}</h3>
+  <p>{entry.summary}</p>
+  <ul class="files">
+    {entry.artifact.files.map((item) => (
+      <li><a href={item.href}>{item.label}{external(item.href) && <span aria-hidden="true"> ↗</span>}</a></li>
+    ))}
+  </ul>
+  <dl class="facts">
+    <dt>Artifact</dt>
+    <dd>{entry.artifact.format}. {entry.form === 'native' ? 'The actual file, served here. Open it, inspect it and edit a copy.' : 'It lives with its creator. The Dojo links to it and does not hold a copy.'}</dd>
+    <dt>Made by</dt>
+    <dd>{entry.provenance.creator}, {formatCheckDate(entry.provenance.created)}. {entry.provenance.madeWith}</dd>
+    <dt>Source</dt>
+    <dd>{entry.provenance.source}</dd>
+    <dt>Rights</dt>
+    <dd>{entry.provenance.rights}{entry.provenance.rightsHref && <> <a href={entry.provenance.rightsHref}>Read the terms{external(entry.provenance.rightsHref) && <span aria-hidden="true"> ↗</span>}</a></>}</dd>
+    <dt>Checked</dt>
+    <dd data-verified-on={entry.verification.date}>
+      {entry.verification.checked}
+      {entry.verification.evidenceHref && <> <a href={entry.verification.evidenceHref}>See the evidence</a></>}
+    </dd>
+    <dt>Not checked</dt>
+    <dd>{entry.verification.notChecked}</dd>
+    <dt>Outcome</dt>
+    <dd>{entry.outcomeIds.map((id) => outcomeLabels.get(id) ?? id).join('; ')}</dd>
+    <dt>Fields</dt>
+    <dd>{entry.fieldIds.map((id, index) => <>{index > 0 && ', '}<a href={`/fields#${id}`}>{fieldNames.get(id) ?? id}</a></>)}</dd>
+  </dl>
+  <h4>Make your own</h4>
+  <ol class="path">
+    <li data-step="recipe">
+      <span class="step">Recipe</span>
+      {recipe.kind === 'unavailable'
+        ? <span data-unavailable>Not available yet. {recipe.reason} <a href={recipe.instead.href}>{recipe.instead.label}</a></span>
+        : <a href={recipe.href}>{recipe.title}</a>}
+    </li>
+    <li data-step="exercise"><span class="step">Exercise</span> <a href={entry.exercise.href}>{entry.exercise.title}</a></li>
+    <li data-step="qa">
+      <span class="step">QA</span>
+      {kata.metadata.verificationEvidence.length > 0 ? (
+        <ul>{kata.metadata.verificationEvidence.map((evidence) => <li><strong>{METHOD_LABELS[evidence.method]}:</strong> {evidence.description}</li>)}</ul>
+      ) : (
+        <span data-not-recorded>Not recorded for this kata yet. Check your version the way this artifact was checked, above.</span>
+      )}
+      {kata.metadata.professionalReviewRequired && <p class="boundary">Real-world use of this outcome needs review by a qualified professional. Practice here does not replace it.</p>}
+    </li>
+    <li data-step="belt">
+      <span class="step">Belt</span>
+      {kata.metadata.beltCriteria.length > 0 ? (
+        <ul>{kata.metadata.beltCriteria.map((criterion) => <li><strong>{STAGE_LABELS[criterion.stage]}:</strong> {criterion.criterion}</li>)}</ul>
+      ) : (
+        <span data-not-recorded>Not mapped to belt stages yet. <a href="/belts">See the belt stages</a></span>
+      )}
+    </li>
+    <li data-step="foundations">
+      <span class="step">Foundations</span>
+      {isFoundation && foundations.length === 0 ? (
+        <span>This is a shared foundation itself: every field builds on it.</span>
+      ) : foundations.length > 0 ? (
+        <span>{foundations.map((foundation, index) => <>{index > 0 && ', '}{foundation.href ? <a href={foundation.href}>{foundation.title}</a> : <span>{foundation.title} (page not published yet)</span>}</>)}</span>
+      ) : (
+        <span data-not-recorded>No foundation recorded.</span>
+      )}
+    </li>
+  </ol>
+</article>
+
+<style>
+  .entry {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    min-width: 0;
+    padding: var(--space-4);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    scroll-margin-top: calc(var(--header-h) + var(--space-4));
+  }
+  .entry[hidden] {
+    display: none;
+  }
+  h3 {
+    margin: 0;
+    font-size: var(--text-xl);
+  }
+  h4 {
+    margin: var(--space-2) 0 0;
+    font-size: var(--text-lg);
+  }
+  p {
+    margin: 0;
+  }
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .badge {
+    padding: 0.1rem var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--ink);
+    background: var(--paper-sunk);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+  }
+  .badge.native {
+    border-color: var(--olive-text);
+    color: var(--olive-text);
+  }
+  .badge.preview {
+    border-color: var(--gold-text);
+    color: var(--gold-text);
+  }
+  .badge.due {
+    border-color: var(--rust-text);
+    color: var(--rust-text);
+  }
+  .files {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .files a {
+    font-weight: 700;
+  }
+  .facts {
+    display: grid;
+    grid-template-columns: minmax(6.5rem, max-content) minmax(0, 1fr);
+    gap: var(--space-2) var(--space-3);
+    margin: 0;
+    font-size: var(--text-sm);
+  }
+  .facts dt {
+    font-weight: 700;
+  }
+  .facts dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 30rem) {
+    .facts {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .facts dd {
+      margin-bottom: var(--space-2);
+    }
+  }
+  .path {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding-left: var(--space-5);
+  }
+  .path ul {
+    margin: var(--space-1) 0 0;
+    padding-left: var(--space-4);
+  }
+  .step {
+    font-weight: 700;
+  }
+  .step::after {
+    content: ': ';
+  }
+  .boundary {
+    margin-top: var(--space-1);
+    color: var(--ink-muted);
+    font-size: var(--text-sm);
+  }
+  [data-not-recorded],
+  [data-unavailable] {
+    color: var(--ink-muted);
+  }
+</style>

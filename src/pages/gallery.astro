@@ -1,0 +1,349 @@
+---
+/**
+ * The Gallery (#87): finished artifacts that exist, each with provenance, rights and a dated check, linked
+ * to the kata that teaches it. Browse by outcome or by field; both lists are static, so they work without
+ * JavaScript. The filters are an enhancement: they compose (outcome AND field), and a field filter never
+ * hides a shared-foundation entry. Outcomes and fields without a verified example say so.
+ * Records: src/data/gallery.ts. Guide: docs/gallery.md.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import GalleryCard from '../components/GalleryCard.astro';
+import { loadGallery } from '../lib/gallery-content';
+import { CHECK_LABELS, FORM_LABELS, type GalleryGroup } from '../lib/gallery';
+
+const gallery = await loadGallery();
+const outcomeLabels = new Map(gallery.byOutcome.map((group) => [group.id, group.label]));
+const fieldNames = new Map(gallery.byField.map((group) => [group.id, group.label]));
+const titles = new Map(gallery.entries.map(({ entry }) => [entry.id, entry.title]));
+const withEntries = (groups: readonly GalleryGroup[]) => groups.filter((group) => group.entryIds.length > 0).length;
+const outcomeCount = withEntries(gallery.byOutcome);
+const fieldCount = withEntries(gallery.byField);
+---
+
+<BaseLayout title="The Gallery" description="Finished artifacts with their provenance, rights and checks, and the kata that teaches you to make your own. Browse by outcome or by field.">
+  <PageHero compact eyebrow="See the outcome" title="The Gallery" subtitle="Finished work you can open: who made it, under what terms, when it was last checked and the kata that teaches you to make your own." />
+
+  <section class="section" aria-labelledby="reading">
+    <div class="container wide">
+      <h2 id="reading">What is shown here</h2>
+      <p class="intro">{`Only artifacts that exist and have been checked appear. So far that is ${gallery.entries.length} artifacts, covering ${outcomeCount} of ${gallery.byOutcome.length} outcomes and ${fieldCount} of ${gallery.byField.length} fields. The rest are listed below as planned, not as launched.`}</p>
+      <dl class="legend">
+        <div><dt><span class="badge native">{FORM_LABELS.native}</span></dt><dd>The actual file, served by the Dojo. Open it, inspect it and edit a copy.</dd></div>
+        <div><dt><span class="badge preview">{FORM_LABELS.preview}</span></dt><dd>The work lives with its creator. The Dojo links to their version and holds no copy.</dd></div>
+        <div><dt><span class="badge planned">Planned</span></dt><dd>An outcome or field with no verified example yet. Practice may already exist.</dd></div>
+        <div><dt>{CHECK_LABELS['automated-check']}</dt><dd>Every site build re-checks the artifact itself and fails if a recorded result changes.</dd></div>
+        <div><dt>{CHECK_LABELS['source-check']}</dt><dd>A maintainer opened the creator’s artifact and its terms on the date shown. Nothing was rebuilt.</dd></div>
+      </dl>
+      <p class="note">A check covers only what it lists; each entry also says what was not checked. Nothing here is a professional approval or a certification.</p>
+    </div>
+  </section>
+
+  <section class="section foundations" aria-labelledby="foundations">
+    <div class="container wide">
+      <h2 id="foundations">Shared foundations</h2>
+      <p>Every artifact below rests on these. They apply in every field, so the filters never hide them.</p>
+      <ul class="foundation-list" data-shared-foundations>
+        {gallery.sharedFoundations.map((foundation) => (
+          <li>{foundation.href ? <a href={foundation.href}>{foundation.title}</a> : <span>{foundation.title} <span class="muted">(page not published yet)</span></span>}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="artifacts">
+    <div class="container wide">
+      <h2 id="artifacts">Verified artifacts</h2>
+      <form class="filters" data-gallery-filters hidden aria-label="Filter the artifacts">
+        <div>
+          <label for="filter-outcome">Outcome</label>
+          <select id="filter-outcome" name="outcome">
+            <option value="">All outcomes</option>
+            {gallery.byOutcome.map((group) => <option value={group.id}>{group.label} ({group.entryIds.length})</option>)}
+          </select>
+        </div>
+        <div>
+          <label for="filter-field">Field</label>
+          <select id="filter-field" name="field">
+            <option value="">All fields</option>
+            {gallery.byField.map((group) => <option value={group.id}>{group.label} ({group.entryIds.length})</option>)}
+          </select>
+        </div>
+        <button type="reset">Show everything</button>
+      </form>
+      <p class="status" role="status" data-gallery-status></p>
+      <p class="empty" data-gallery-empty hidden><span class="badge planned">Planned</span> <span data-gallery-empty-text></span> See <a href="#by-outcome">outcomes</a> and <a href="#by-field">fields</a> for practice you can start now.</p>
+      <div class="entries">
+        {gallery.entries.map((item) => <GalleryCard item={item} outcomeLabels={outcomeLabels} fieldNames={fieldNames} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section browse" aria-labelledby="by-outcome">
+    <div class="container wide">
+      <h2 id="by-outcome">Browse by outcome</h2>
+      <p class="intro">What you can make. One outcome can appear in several fields.</p>
+      <ul class="groups">
+        {gallery.byOutcome.map((group) => (
+          <li id={`outcome-${group.id}`} data-outcome-group={group.id} data-planned={group.entryIds.length === 0 ? 'true' : 'false'}>
+            <h3>{group.label}</h3>
+            {group.entryIds.length > 0 ? (
+              <ul>{group.entryIds.map((id) => <li><a href={`#${id}`}>{titles.get(id)}</a></li>)}</ul>
+            ) : (
+              <p><span class="badge planned">Planned</span> No verified example yet.</p>
+            )}
+            {group.practice.length > 0 && <p class="practice">Practise it: {group.practice.map((kata, index) => <>{index > 0 && ', '}<a href={kata.href}>{kata.title}</a></>)}</p>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section browse" aria-labelledby="by-field">
+    <div class="container wide">
+      <h2 id="by-field">Browse by field</h2>
+      <p class="intro">Where the work belongs. Most fields have no verified example yet; the shared foundations apply in all of them.</p>
+      <ul class="groups">
+        {gallery.byField.map((group) => (
+          <li id={`field-${group.id}`} data-field-group={group.id} data-planned={group.entryIds.length === 0 ? 'true' : 'false'}>
+            <h3>{group.label}</h3>
+            {group.entryIds.length > 0 ? (
+              <ul>{group.entryIds.map((id) => <li><a href={`#${id}`}>{titles.get(id)}</a></li>)}</ul>
+            ) : (
+              <p><span class="badge planned">Planned</span> No verified example in this field yet.</p>
+            )}
+            {group.practice.length > 0 && <p class="practice">Practise it: {group.practice.map((kata, index) => <>{index > 0 && ', '}<a href={kata.href}>{kata.title}</a></>)}</p>}
+            <p class="practice"><a href={`/fields#${group.id}`}>About this field</a></p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section next" aria-labelledby="next">
+    <div class="container wide">
+      <h2 id="next">Make something today</h2>
+      <p class="intro">Choose a kata, try its example and make the result your own. Check it the way these artifacts were checked.</p>
+      <p><a href="/katas">Explore katas →</a> · <a href="/katas/recipes">Kata recipes</a> · <a href="/fields">Fields</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Progressive enhancement: without JavaScript the form stays hidden and every artifact is listed.
+  const form = document.querySelector<HTMLFormElement>('[data-gallery-filters]');
+  const outcome = document.querySelector<HTMLSelectElement>('#filter-outcome');
+  const field = document.querySelector<HTMLSelectElement>('#filter-field');
+  const status = document.querySelector<HTMLElement>('[data-gallery-status]');
+  const empty = document.querySelector<HTMLElement>('[data-gallery-empty]');
+  const emptyText = document.querySelector<HTMLElement>('[data-gallery-empty-text]');
+  const cards = [...document.querySelectorAll<HTMLElement>('[data-gallery-entry]')];
+
+  const label = (select: HTMLSelectElement): string => (select.selectedOptions[0]?.textContent ?? '').replace(/ \(\d+\)$/, '');
+  const hasOption = (select: HTMLSelectElement, value: string | null): value is string =>
+    value !== null && [...select.options].some((option) => option.value === value);
+
+  function apply(updateUrl: boolean): void {
+    if (!outcome || !field || !status || !empty || !emptyText) return;
+    let shown = 0;
+    let ownMatches = 0;
+    for (const card of cards) {
+      const outcomes = (card.dataset['outcomes'] ?? '').split(' ');
+      const fields = (card.dataset['fields'] ?? '').split(' ');
+      const inField = !field.value || fields.includes(field.value);
+      // A shared foundation serves every field, so the field filter never hides it.
+      const match = (!outcome.value || outcomes.includes(outcome.value)) && (inField || card.dataset['foundation'] === 'true');
+      card.hidden = !match;
+      if (match) shown += 1;
+      if (match && inField) ownMatches += 1;
+    }
+    const filtered = Boolean(outcome.value || field.value);
+    status.textContent = filtered ? `Showing ${shown} of ${cards.length} artifacts.` : `Showing all ${cards.length} artifacts.`;
+    empty.hidden = !filtered || ownMatches > 0;
+    if (filtered && ownMatches === 0) {
+      const parts = [outcome.value && `“${label(outcome)}”`, field.value && `in ${label(field)}`].filter(Boolean).join(' ');
+      emptyText.textContent = `No verified example ${parts} yet.${shown > 0 ? ' The shared foundation still applies.' : ''}`;
+    }
+    if (updateUrl) {
+      const url = new URL(window.location.href);
+      for (const [key, select] of [['outcome', outcome], ['field', field]] as const) {
+        if (select.value) url.searchParams.set(key, select.value);
+        else url.searchParams.delete(key);
+      }
+      history.replaceState(null, '', url);
+    }
+  }
+
+  if (form && outcome && field) {
+    const params = new URLSearchParams(window.location.search);
+    const fromUrl = { outcome: params.get('outcome'), field: params.get('field') };
+    if (hasOption(outcome, fromUrl.outcome)) outcome.value = fromUrl.outcome;
+    if (hasOption(field, fromUrl.field)) field.value = fromUrl.field;
+    form.hidden = false;
+    form.addEventListener('change', () => apply(true));
+    form.addEventListener('reset', () => setTimeout(() => apply(true)));
+    form.addEventListener('submit', (event) => event.preventDefault());
+    apply(false);
+  }
+</script>
+
+<style>
+  .wide {
+    max-width: 72rem;
+  }
+  .wide > h2 {
+    margin: 0 0 var(--space-2);
+  }
+  .intro {
+    max-width: 72ch;
+    margin: 0 0 var(--space-3);
+  }
+  .legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: var(--space-3);
+    margin: var(--space-4) 0;
+  }
+  .legend div {
+    padding: var(--space-3);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .legend dt {
+    font-weight: 700;
+  }
+  .legend dd {
+    margin: var(--space-1) 0 0;
+  }
+  .note,
+  .muted {
+    color: var(--ink-muted);
+  }
+  .badge {
+    display: inline-block;
+    padding: 0.1rem var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--ink);
+    background: var(--paper-sunk);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+  }
+  .badge.native {
+    border-color: var(--olive-text);
+    color: var(--olive-text);
+  }
+  .badge.preview {
+    border-color: var(--gold-text);
+    color: var(--gold-text);
+  }
+  .badge.planned {
+    border-style: dashed;
+    color: var(--ink-muted);
+  }
+  .foundations {
+    background: var(--paper-raised);
+  }
+  .foundation-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    margin: var(--space-3) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .foundation-list a {
+    font-weight: 700;
+  }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--space-3) var(--space-4);
+    margin: var(--space-4) 0 var(--space-2);
+  }
+  .filters[hidden] {
+    display: none;
+  }
+  .filters div {
+    display: grid;
+    gap: var(--space-1);
+    min-width: min(100%, 16rem);
+  }
+  .filters label {
+    font-weight: 700;
+  }
+  .filters select,
+  .filters button {
+    min-height: 2.75rem;
+    max-width: 100%;
+    padding: var(--space-2) var(--space-3);
+    font: inherit;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+  }
+  .filters button {
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .status {
+    margin: 0 0 var(--space-3);
+    color: var(--ink-muted);
+  }
+  .empty {
+    margin: 0 0 var(--space-4);
+    padding: var(--space-3);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius);
+  }
+  .empty[hidden] {
+    display: none;
+  }
+  .entries {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 30rem), 1fr));
+    gap: var(--space-4);
+  }
+  .groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: var(--space-3);
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .groups > li {
+    padding: var(--space-3) var(--space-4);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    scroll-margin-top: calc(var(--header-h) + var(--space-4));
+  }
+  .groups > li[data-planned='true'] {
+    border-style: dashed;
+  }
+  .groups h3 {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-lg);
+  }
+  .groups ul {
+    margin: 0 0 var(--space-2);
+    padding-left: var(--space-4);
+  }
+  .groups p {
+    margin: 0 0 var(--space-2);
+  }
+  .groups a,
+  .next a {
+    font-weight: 700;
+  }
+  .practice {
+    font-size: var(--text-sm);
+  }
+  .next {
+    background: var(--paper-raised);
+  }
+</style>
