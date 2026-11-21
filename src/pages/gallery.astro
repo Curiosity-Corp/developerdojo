@@ -268,6 +268,8 @@ const fieldCount = withEntries(gallery.byField);
   }
   .filters div {
     display: grid;
+    /* A zero-minimum track lets max-width: 100% hold a select whose longest option is wider than a phone. */
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-1);
     min-width: min(100%, 16rem);
   }
