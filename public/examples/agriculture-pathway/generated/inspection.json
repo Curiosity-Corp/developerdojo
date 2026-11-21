@@ -1,0 +1,56 @@
+{
+  "station": {
+    "id": "USW00093193",
+    "latitude": 36.77999,
+    "longitude": -119.72016,
+    "elevation_m": 101.9
+  },
+  "first": "2023-01-01",
+  "last": "2023-12-31",
+  "daysExpected": 365,
+  "rows": 365,
+  "missingDates": [],
+  "duplicateDates": [],
+  "tminAboveTmax": [],
+  "elements": {
+    "PRCP": {
+      "unit": "mm",
+      "values": 365,
+      "missing": 0,
+      "min": 0.0,
+      "max": 54.9,
+      "measurementFlags": {
+        "T": 23
+      },
+      "qualityFlags": {},
+      "sourceFlags": {
+        "W": 365
+      },
+      "total": 346.6
+    },
+    "TMAX": {
+      "unit": "degrees C",
+      "values": 365,
+      "missing": 0,
+      "min": 7.8,
+      "max": 42.8,
+      "measurementFlags": {},
+      "qualityFlags": {},
+      "sourceFlags": {
+        "W": 365
+      }
+    },
+    "TMIN": {
+      "unit": "degrees C",
+      "values": 365,
+      "missing": 0,
+      "min": -0.5,
+      "max": 27.2,
+      "measurementFlags": {},
+      "qualityFlags": {},
+      "sourceFlags": {
+        "W": 365
+      }
+    }
+  }
+}

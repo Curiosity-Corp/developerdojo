@@ -1,0 +1,173 @@
+# Agriculture pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/agriculture-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job agriculture_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Agriculture pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent, agronomic or engineering review yet.
+summary: "Open a year of real daily weather from NOAA and write down what it holds before you use it: station, dates, units, missing values, and every measurement, quality and source flag."
+metadata:
+  id: AGR-001
+  title: "Inspect a daily weather record: dates, units, gaps and flags"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - inspect-weather-record
+  artifactTypes:
+    - weather-inspection
+  domainIds:
+    - agriculture
+  capabilityIds:
+    - analyze-data
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - noaa/ghcn-daily
+    - fao/crop-evapotranspiration-56
+    - fao/irrigation-water-needs
+  crossFieldTransfers:
+    - data
+  verificationEvidence:
+    - description: An inspection record (station, dates, units, missing values and flags per element) that matches the Dojo's CI output for the same file
+      method: automated-check
+    - description: Each claim in the record points to a column, row or flag in the CSV
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces the inspection for the record and explains what the trace flag T means for rain totals
+    - stage: adapt
+      criterion: Downloads another GHCN-Daily station-year and inspects it the same way, recording any gaps as unavailable
+    - stage: demonstrate
+      criterion: Explains to a reviewer which uses the record supports and which it does not, citing NOAA's own limits
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: one year of NOAA daily weather for a California station, FAO-56 reference evapotranspiration and a maize irrigation estimate, every number computed by the site’s CI."
+  href: /katas/agriculture-pathway
+  provenance:
+    creator: NOAA National Centers for Environmental Information (weather record); Developer Dojo maintainers (script and results)
+    source: NOAA GHCN-Daily station USW00093193, 2023; method from FAO Irrigation and Drainage Paper 56; results from /examples/agriculture-pathway/tools/agri_pathway.py
+    license: Weather record is a US government work (no US copyright, 17 U.S.C. 105); script and outputs MIT
+    date: "2026-11-21"
+brief:
+  goal: An inspection record of the weather file, with every claim traced to a column, row or flag.
+  audience: Learners who have done the foundations and want to treat weather data as evidence rather than as a chart.
+  inputs:
+    - name: noaa-ghcnd-USW00093193-2023.csv
+      source: noaa/ghcn-daily (copy on /examples/agriculture-pathway/inputs/)
+      terms: US government work from NOAA NCEI; cite the dataset as NCEI asks
+  doneWhen:
+    - You name the station, its coordinates and elevation, and the first and last date
+    - You count the days expected and present, and list any missing dates as unavailable, never as zero
+    - For each element you give the unit, the count, the range and every flag with its count
+    - Your counts match /examples/agriculture-pathway/generated/inspection.json
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: NOAA GHCN-Daily record, station USW00093193
+      version: "2023, SHA-256 abde4990…b3b9a7"
+      permissions: Read a copy
+      cost: Free (US government work)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain an equation or draft code, and every number it gives is checked against FAO's worked examples
+      permissions: Reads what you paste in; give it a copy of the record only
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library is enough for these equations, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A ready-made evapotranspiration package or FAO's ETo Calculator
+      tradeoff: Faster, but hides the equations this pathway is about. Not tried for this pathway, so its numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains a GHCN-Daily column or flag you paste in, and drafts the Python to count it.
+      reviewGate: You check the explanation against NOAA's documentation and run the code on the file.
+    - role: Learner as reviewer
+      responsibility: Compares the record with the file and with the Dojo's CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A claim stays only if it cites a column, row or flag.
+setup:
+  steps:
+    - Install Python 3.12 or later. Nothing else is needed.
+    - Download the record and the pathway script from /katas/agriculture-pathway into a new, empty folder. Work on copies; keep the original.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/agri_pathway.py . out (from the folder that holds inputs/ and tools/)"
+    expected: "13 reference checks pass and out/inspection.json reports 365 rows"
+    result: passed
+    evidence: /examples/agriculture-pathway/generated/inspection.json, recomputed by CI on every pipeline
+    date: "2026-11-21"
+prompts:
+  - id: explain-flags
+    title: Explain the flags
+    purpose: Learn what each attribute on a GHCN-Daily value means, without trusting the explanation blindly.
+    text: |-
+      Here are three rows from a NOAA GHCN-Daily CSV, with their attribute columns: <paste the header and three rows>.
+      Explain what each part of an attribute value means (measurement, quality, source and time), naming NOAA's documentation as your source.
+      Then give me Python, standard library only, that counts each flag by element, so I can check you against the file.
+      If you are not sure what a flag means, say so.
+exercise:
+  title: Global Historical Climatology Network - Daily (GHCN-Daily)
+  resourceId: noaa/ghcn-daily
+  terms: US government work from NOAA NCEI; NCEI asks for a citation and gives no warranty.
+execution:
+  steps:
+    - actor: Learner
+      action: Open the CSV in a text editor or spreadsheet and find the station columns, the dates and the attribute columns.
+    - actor: Explaining assistant
+      action: Drafts a script that counts values, gaps and flags per element.
+      handoff: You run it and compare the output with the file.
+    - actor: Learner
+      action: Write the inspection record and compare it with the CI output.
+verification:
+  checks:
+    - action: Inspect the record with the pathway script
+      expected: Station USW00093193, 2023-01-01 to 2023-12-31, 365 rows, no missing dates, no missing values, no quality flags, 23 rain values flagged T (trace), rain total 346.6 mm
+      result: passed
+      evidence: /examples/agriculture-pathway/generated/inspection.json, recomputed by CI on every pipeline
+      date: "2026-11-21"
+    - action: Your own inspection record matches the CI output
+      expected: Same station, dates, counts, ranges and flags
+      result: not-run
+  failures:
+    - observed: A trace of rain is recorded as 0 mm
+      correction: That is how NOAA records it; the T flag says some rain fell but too little to measure. Count trace days separately; do not treat them as missing.
+adaptation:
+  variations:
+    - change: Use another station or year
+      effect: Expect gaps and quality flags. Report each gap as unavailable and decide, before computing, how a result handles it.
+randori:
+  challenge: See the agriculture Randori recipe, AGR-R01.
+  constraints:
+    - Every claim cites the file
+  evaluation: The record matches the CI output for the same file.
+maintenance:
+  cadence: Every six months, or when NOAA changes the GHCN-Daily format or terms
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - Nothing here is an irrigation recommendation. No agronomist, irrigation engineer or water authority has reviewed it, and real water use needs the qualified people and local rules that apply to it.
+    - Humidity, radiation and wind are estimated from temperature, as FAO-56 describes for missing data. The results are estimates, not measurements.
+    - NOAA says GHCN-Daily is not homogenized. One station and one year say nothing about a trend.

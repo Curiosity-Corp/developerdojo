@@ -1,0 +1,38 @@
+{
+  "A": {
+    "title": "The grower harvests the grain wet: use Kc end 0.60, the other end of the Table 12 range",
+    "season": {
+      "et0_mm": 835.3,
+      "etc_mm": 749.3,
+      "rain_mm": 13.8,
+      "effectiveRain_mm": 0.0,
+      "irrigationNeed_mm": 749.3
+    },
+    "harvest": "2023-08-28",
+    "changeInIrrigationNeed_mm": 22.5
+  },
+  "B": {
+    "title": "The site is arid: estimate dewpoint as Tmin minus 2 degrees C (FAO-56, eq. 48 note)",
+    "season": {
+      "et0_mm": 868.6,
+      "etc_mm": 753.7,
+      "rain_mm": 13.8,
+      "effectiveRain_mm": 0.0,
+      "irrigationNeed_mm": 753.7
+    },
+    "harvest": "2023-08-28",
+    "changeInIrrigationNeed_mm": 26.9
+  },
+  "C": {
+    "title": "Planting moves to 1 May 2023, same stage lengths",
+    "season": {
+      "et0_mm": 848.8,
+      "etc_mm": 724.4,
+      "rain_mm": 13.8,
+      "effectiveRain_mm": 0.0,
+      "irrigationNeed_mm": 724.4
+    },
+    "harvest": "2023-09-27",
+    "changeInIrrigationNeed_mm": -2.4
+  }
+}

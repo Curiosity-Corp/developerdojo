@@ -3,6 +3,9 @@ import { kataCatalog } from '../data/kata-catalog';
 import { loadContent } from './content';
 import { fields } from './fields';
 import { resolveRecipes, type ResolvedRecipe } from './kata-recipes';
+import { sectorPackInputs } from '../data/sector-packs';
+import { assertSectorPacks } from './sector-pack';
+import { sectorPackReferences } from './sector-pack-references';
 import { assertIdentifiers } from './taxonomy-identifiers';
 import { identifierLedger, identifierLock, liveIdentifiers } from './taxonomy-sources';
 
@@ -15,7 +18,8 @@ let cached: Promise<ResolvedRecipe[]> | undefined;
 
 /**
  * Loads and validates every recipe once per build. An invalid record or reference fails the build, and
- * so does a published taxonomy identifier that disappeared without a move or retirement (#82).
+ * so does a published taxonomy identifier that disappeared without a move or retirement (#82), and a sector
+ * pack whose recipes, pages, gallery entries, Armory records or files do not exist or disagree (#93).
  */
 export function loadKataRecipes(): Promise<ResolvedRecipe[]> {
   cached ??= (async () => {
@@ -28,6 +32,7 @@ export function loadKataRecipes(): Promise<ResolvedRecipe[]> {
     });
     const live = liveIdentifiers({ recipes: resolved.map((item) => ({ slug: item.slug, id: item.recipe.metadata.id })), handWrittenSlugs: handWritten });
     assertIdentifiers(live, identifierLock, identifierLedger);
+    assertSectorPacks(sectorPackInputs, sectorPackReferences(resolved.map((item) => ({ slug: item.slug, status: item.recipe.status, metadata: item.recipe.metadata })), handWritten));
     return resolved;
   })();
   return cached;

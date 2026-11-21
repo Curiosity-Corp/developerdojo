@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
+import SectorPackEvidence from '../../components/SectorPackEvidence.astro';
 // Every number on this page is read from the files CI recomputes (/examples/bim-pathway/tools/bim_pathway.py, job bim_pathway).
 import manifest from '../../../public/examples/bim-pathway/generated/manifest.json';
 import inspection from '../../../public/examples/bim-pathway/generated/original/inspection.json';
@@ -141,26 +142,7 @@ const sources = {
     <p>The Armory lists <a href="/armory/registry#ifcopenshell">IfcOpenShell</a> and <a href="/armory/registry#ifctester">IfcTester</a> with their smoke tests, and the stack recipe <a href="/armory/registry#recipe-ifcopenshell-and-python">IfcOpenShell, IfcTester and Python</a>.</p>
   </div></section>
 
-  <section class="section" aria-labelledby="evidence-title"><div class="container narrow">
-    <p class="eyebrow">06 / What is checked</p>
-    <h2 id="evidence-title">Verified, and not verified</h2>
-    <h3>Verified</h3>
-    <ul>
-      <li>The model is the pinned buildingSMART file, unchanged (SHA-256 <code>{manifest.inputs['wall-with-opening-and-window.ifc'].slice(0, 12)}…</code>, checked by the site’s tests).</li>
-      <li>Both IDS files open with XML schema validation on, as IDS 1.0.</li>
-      <li>On every pipeline, CI installs the pinned packages by hash, reruns the inspection, property, IDS, schema and geometry checks on the original and the edited copy and the Randori cards, rebuilds the edited file, and fails if any output differs from the files on this page.</li>
-      <li>The edit changes one property and keeps every GlobalId.</li>
-    </ul>
-    <h3>Not verified</h3>
-    <ul>
-      <li>Any real building, design value or project requirement. The requirements are invented for practice, and the sample is a test file.</li>
-      <li>Professional, regulatory or construction approval of any kind. Nothing here is approved, and a real project needs the qualified reviewers its contract and jurisdiction name.</li>
-      <li>EXPRESS where-rules and buildingSMART’s own validation service: the schema check ran with EXPRESS rules off.</li>
-      <li>Clash detection, tolerances, quantities for cost, or construction sequence.</li>
-      <li>Opening the files in a BIM authoring tool or a web IFC viewer, and round trips through other tools.</li>
-      <li>Use by real learners: no learner has run these katas yet.</li>
-    </ul>
-  </div></section>
+  <SectorPackEvidence pack="bim" eyebrow="06 / What is checked" facts={{ modelSha: manifest.inputs['wall-with-opening-and-window.ifc'].slice(0, 12) }} />
 
   <section class="section" aria-labelledby="credits-title"><div class="container narrow">
     <p class="eyebrow">07 / Credits</p>

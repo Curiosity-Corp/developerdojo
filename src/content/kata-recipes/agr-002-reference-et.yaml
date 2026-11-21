@@ -1,0 +1,188 @@
+# Agriculture pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/agriculture-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job agriculture_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Agriculture pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent, agronomic or engineering review yet.
+summary: "Reproduce FAO's worked examples for extraterrestrial radiation and Penman-Monteith reference evapotranspiration, then compute daily ET0 for a real year from temperature alone and compare it with the Hargreaves equation."
+metadata:
+  id: AGR-002
+  title: "Estimate reference evapotranspiration with FAO-56 from temperature data"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - estimate-reference-et
+  artifactTypes:
+    - et-series
+  domainIds:
+    - agriculture
+  capabilityIds:
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - noaa/ghcn-daily
+    - fao/crop-evapotranspiration-56
+    - fao/irrigation-water-needs
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: FAO Irrigation and Drainage Paper 56 (Crop evapotranspiration)
+      version: "1998"
+      applicability: The reference evapotranspiration method and its missing-data estimates, used on one station-year for practice
+      reviewScope: "What the listed checks test: that the code reproduces FAO's worked examples to the published precision. No claim about measured evapotranspiration at any site."
+      sourceResourceId: fao/crop-evapotranspiration-56
+  verificationEvidence:
+    - description: Code that reproduces FAO-56 Examples 8 and 18 to the published precision
+      method: automated-check
+      standards:
+        - FAO Irrigation and Drainage Paper 56 (Crop evapotranspiration)
+    - description: A monthly ET0 table for the record that matches the Dojo's CI output, with any unavailable day counted and not filled with zero
+      method: automated-check
+    - description: A short note on where Penman-Monteith and Hargreaves disagree, and why neither is a measurement
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces Examples 8 and 18 and the monthly ET0 table for the record
+    - stage: adapt
+      criterion: Computes ET0 for another station-year and explains each missing-data estimate used
+    - stage: demonstrate
+      criterion: Explains to a reviewer which inputs the estimate most depends on and how a measured humidity or wind would change it
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: one year of NOAA daily weather for a California station, FAO-56 reference evapotranspiration and a maize irrigation estimate, every number computed by the site’s CI."
+  href: /katas/agriculture-pathway
+  provenance:
+    creator: NOAA National Centers for Environmental Information (weather record); Developer Dojo maintainers (script and results)
+    source: NOAA GHCN-Daily station USW00093193, 2023; method from FAO Irrigation and Drainage Paper 56; results from /examples/agriculture-pathway/tools/agri_pathway.py
+    license: Weather record is a US government work (no US copyright, 17 U.S.C. 105); script and outputs MIT
+    date: "2026-11-21"
+brief:
+  goal: A daily reference evapotranspiration series for the record, from code that first reproduces FAO's worked examples.
+  audience: Learners who finished AGR-001 and want to turn weather into a water estimate they can check.
+  inputs:
+    - name: noaa-ghcnd-USW00093193-2023.csv
+      source: noaa/ghcn-daily (copy on /examples/agriculture-pathway/inputs/)
+      terms: US government work from NOAA NCEI; cite the dataset as NCEI asks
+    - name: FAO-56 Examples 8 and 18
+      source: fao/crop-evapotranspiration-56
+      terms: © FAO; use the published numbers as a check, do not copy the text
+  doneWhen:
+    - Your code gives Ra 32.2 MJ m-2 day-1 for Example 8 and ET0 3.9 mm/day for Example 18
+    - You state each estimate you used for missing humidity, radiation and wind, with its FAO-56 equation number
+    - Your monthly Penman-Monteith and Hargreaves totals match /examples/agriculture-pathway/generated/et0-monthly.json
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: NOAA GHCN-Daily record, station USW00093193
+      version: "2023, SHA-256 abde4990…b3b9a7"
+      permissions: Read a copy
+      cost: Free (US government work)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain an equation or draft code, and every number it gives is checked against FAO's worked examples
+      permissions: Reads what you paste in; give it a copy of the record only
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library is enough for these equations, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A ready-made evapotranspiration package or FAO's ETo Calculator
+      tradeoff: Faster, but hides the equations this pathway is about. Not tried for this pathway, so its numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains one FAO-56 equation at a time and drafts the Python for it.
+      reviewGate: Its code must reproduce FAO's worked example before you use it on the record.
+    - role: Learner as reviewer
+      responsibility: Compares each result with FAO's published values and with the Dojo's CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A number stays only if you can say which equation and which input produced it.
+setup:
+  steps:
+    - Use the folder and Python from AGR-001.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/agri_pathway.py . out (from the folder that holds inputs/ and tools/)"
+    expected: out/reference-checks.json reports 13 passed and 0 failed
+    result: passed
+    evidence: /examples/agriculture-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+    date: "2026-11-21"
+prompts:
+  - id: one-equation
+    title: One equation, one check
+    purpose: Build the method from parts you have each checked, instead of trusting a whole formula at once.
+    text: |-
+      I am implementing FAO-56 reference evapotranspiration in Python, standard library only.
+      Explain only equation <number> and its inputs and units, then write a function for it.
+      Then tell me which value in FAO-56 Example <8 or 18> I can use to check the function. Do not invent a published value; if you do not know it, say so.
+exercise:
+  title: Crop evapotranspiration (FAO Irrigation and Drainage Paper 56)
+  resourceId: fao/crop-evapotranspiration-56
+  terms: © FAO. Free to read online; cite it and read FAO's terms before copying text or figures.
+execution:
+  steps:
+    - actor: Learner
+      action: Implement and check Ra (Example 8), then actual vapour pressure and ET0 (Example 18).
+    - actor: Explaining assistant
+      action: Explains the chapter 3 estimates for missing humidity, radiation and wind.
+      handoff: You decide which to use and write down why.
+    - actor: Learner
+      action: Run the method on every day of the record and compare the monthly totals with Hargreaves and with the CI output.
+verification:
+  checks:
+    - action: Run the pathway script's reference checks
+      expected: Example 8 dr 0.985, declination 0.120, sunset hour angle 1.527, Ra 32.2; Example 18 Ra 41.09, ea 1.409, ET0 3.9; all pass
+      result: passed
+      evidence: /examples/agriculture-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+      date: "2026-11-21"
+    - action: Compute monthly ET0 for the record
+      expected: Penman-Monteith with missing-data estimates gives 125.6 mm in April and 217.8 mm in July; Hargreaves over Penman-Monteith is 0.99 in January and 1.07 in April; no unavailable days
+      result: passed
+      evidence: /examples/agriculture-pathway/generated/et0-monthly.json
+      date: "2026-11-21"
+    - action: Your own monthly table matches the CI output
+      expected: Same totals to 0.1 mm
+      result: not-run
+  failures:
+    - observed: Example 8 gives the wrong Ra
+      correction: The latitude goes in radians and is negative in the southern hemisphere; Example 8 is at 20 degrees south.
+adaptation:
+  variations:
+    - change: Use a station that measures humidity or wind
+      effect: Replace the estimate with the measurement and record how much ET0 changes; that difference is the error the estimate carried.
+randori:
+  challenge: See the agriculture Randori recipe, AGR-R01.
+  constraints:
+    - Reproduce FAO's examples before you use the code on the record
+  evaluation: The monthly table matches the CI output for the same record.
+maintenance:
+  cadence: Every six months, or when FAO revises Paper 56
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - Nothing here is an irrigation recommendation. No agronomist, irrigation engineer or water authority has reviewed it, and real water use needs the qualified people and local rules that apply to it.
+    - Humidity, radiation and wind are estimated from temperature, as FAO-56 describes for missing data. The results are estimates, not measurements.
+    - NOAA says GHCN-Daily is not homogenized. One station and one year say nothing about a trend.

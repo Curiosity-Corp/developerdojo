@@ -1,0 +1,37 @@
+---
+import { sectorPack } from '../data/sector-packs';
+import { fillEvidence, type EvidenceItem } from '../lib/sector-pack';
+
+// The "Verified, and not verified" section every sector pathway shows (#93, docs/sector-packs.md). The lists live
+// in the pack record; numbers the page computes from CI output are passed as facts and fill {placeholders}.
+interface Props {
+  pack: string;
+  eyebrow: string;
+  facts?: Record<string, string | number>;
+}
+const { pack: packId, eyebrow, facts = {} } = Astro.props;
+const pack = sectorPack(packId);
+const line = (item: EvidenceItem) => (typeof item === 'string' ? { text: fillEvidence(item, facts, pack.id) } : { text: fillEvidence(item.text, facts, pack.id), evidence: item.evidence });
+const verified = pack.verified.map(line);
+const notVerified = pack.notVerified.map(line);
+---
+<section class="section" aria-labelledby="evidence-title" data-sector-pack={pack.id}><div class="container narrow">
+  <p class="eyebrow">{eyebrow}</p>
+  <h2 id="evidence-title">Verified, and not verified</h2>
+  <h3>Verified</h3>
+  <ul data-evidence="verified">
+    {verified.map((item) => <li>{item.text}{item.evidence && <> (<a href={item.evidence}>evidence</a>)</>}</li>)}
+  </ul>
+  <h3>Not verified</h3>
+  <ul data-evidence="not-verified">
+    {notVerified.map((item) => <li>{item.text}{item.evidence && <> (<a href={item.evidence}>evidence</a>)</>}</li>)}
+  </ul>
+  <p class="review" data-professional-review={pack.professionalReview.required ? 'required' : 'not-required'}><strong>Professional review:</strong> {pack.professionalReview.limit}</p>
+</div></section>
+
+<style>
+  .eyebrow { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .narrow { max-width: 68rem; }
+  li, p { overflow-wrap: anywhere; }
+  .review { padding: var(--space-4, 1rem); background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); }
+</style>

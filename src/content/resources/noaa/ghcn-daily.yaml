@@ -1,0 +1,9 @@
+title: "Global Historical Climatology Network - Daily (GHCN-Daily)"
+provider: "NOAA National Centers for Environmental Information"
+url: "https://www.ncei.noaa.gov/products/land-based-station/global-historical-climatology-network-daily"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [data-analytics]
+summary: "NOAA's archive of daily station weather: maximum and minimum temperature, rain and more, with measurement, quality and source flags for every value. Not homogenized, so check a station's record before you trust a trend from it."
+verifiedOn: 2026-11-21

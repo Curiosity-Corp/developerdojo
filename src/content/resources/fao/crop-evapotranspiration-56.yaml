@@ -1,0 +1,9 @@
+title: "Crop evapotranspiration (FAO Irrigation and Drainage Paper 56)"
+provider: "Food and Agriculture Organization of the United Nations"
+url: "https://www.fao.org/4/x0490e/x0490e00.htm"
+cost: "free"
+format: "book"
+level: "advanced"
+skills: [data-analytics]
+summary: "The reference method for reference evapotranspiration (FAO Penman-Monteith), how to estimate missing humidity, radiation and wind, and crop coefficients by growth stage, with worked examples you can reproduce."
+verifiedOn: 2026-11-21
