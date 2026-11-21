@@ -116,7 +116,7 @@ test('outcome and field filters compose and never hide the shared foundation', a
   await expect(page.locator('[data-shared-foundations]')).toBeVisible();
 
   await page.getByRole('button', { name: 'Show everything' }).click();
-  await expect(status).toHaveText('Showing all 5 artifacts.');
+  await expect(status).toHaveText('Showing all 6 artifacts.');
   expect(await visibleIds(page)).toEqual(ENTRIES);
 });
 

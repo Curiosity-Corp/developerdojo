@@ -74,6 +74,9 @@ async function writeReport(rows: Row[], testInfo: TestInfo): Promise<void> {
 }
 
 test('every Pocket Invoice state works, by keyboard, with no serious axe finding', async ({ page }, testInfo) => {
+  // Twelve states, each with an axe scan in both themes: 37 s alone on mobile in CI, and past the 60 s default on the
+  // desktop project when the runner's CPU is shared with the rest of the suite. Every state is still checked.
+  test.slow();
   const rows: Row[] = [];
   const app = page.locator('[data-pocket-invoice]');
   const focused = (name: string | RegExp) => expect(page.locator(':focus')).toHaveAccessibleName(name);
