@@ -55,6 +55,24 @@ const problems = (input: readonly RecipeRecord[], ctx: RecipeContext = context):
 };
 const withRecord = (slug: string, data: unknown) => [...records, { slug, data }];
 
+// Astro's content loader reads YAML 1.1, where an unquoted 2026-11-20 is a timestamp, not text, and the schema
+// rejects it. The yaml package reads YAML 1.2 by default, so parse the files the way Astro does too.
+describe('recipe files as the Astro content loader reads them', () => {
+  it('quote every date, so it stays text', () => {
+    for (const file of readdirSync(RECIPES).filter((name) => name.endsWith('.yaml'))) {
+      const strict = parseYaml(readFileSync(join(RECIPES, file), 'utf8'), { version: '1.1' }) as unknown;
+      const dates: string[] = [];
+      const walk = (value: unknown, path: string): void => {
+        if (value instanceof Date) dates.push(path);
+        else if (Array.isArray(value)) value.forEach((item, index) => walk(item, `${path}.${index}`));
+        else if (typeof value === 'object' && value !== null) for (const [key, item] of Object.entries(value)) walk(item, `${path}.${key}`);
+      };
+      walk(strict, file);
+      expect(dates, `${file}: quote these dates, for example "2026-11-20"`).toEqual([]);
+    }
+  });
+});
+
 describe('the recipe records in src/content/kata-recipes', () => {
   const resolved = resolveRecipes(records, context);
 

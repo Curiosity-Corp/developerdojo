@@ -1,0 +1,476 @@
+# FND-001 (#84): the first operational harness-stack kata. Format: docs/kata-recipes.md.
+# The measured comparisons on the page come from the Arena records with kataId FND-001 (src/content/arena/), computed
+# from the published run files at build time. Nothing measured is typed here. tests/fnd-001-record.test.ts checks this
+# record against the evidence in public/examples/fnd-001 and public/examples/fnd-001-harness.
+status: draft
+notice: >-
+  Draft. Every comparison marked measured was run, and every check result was recorded, on the date shown. Comparisons
+  marked proposed were designed but not run, and have no results. No maintainer has been named and no independent
+  review has taken place yet.
+maintainer:
+  role: Foundation kata maintainer (not yet assigned)
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/84
+review:
+  lastVerified: "2026-11-21"
+  checked: >-
+    The independent browser checker scored the reference and every recorded run and correction (ARN-001 on
+    20 November 2026, ARN-003 on 21 November 2026), and CI repeats those checks in every pipeline. Not checked: the
+    proposed comparisons, the phone path and the transfer challenge, which nobody has recorded running, and no peer has
+    reviewed the record.
+  nextReview: "2027-02-20"
+summary: >-
+  Start from a working prototype. Have an AI assistant rebuild it from a fixed brief, score the result with an
+  independent rubric, then change exactly one part of the stack and compare.
+metadata:
+  id: FND-001
+  title: Build a working prototype, then change one stack variable
+  layer: foundation
+  professionalReviewRequired: false
+  outcomeIds: [stack-comparison]
+  artifactTypes: [prototype, comparison-record]
+  capabilityIds: [verify-evidence, compare-stacks]
+  stackRecipeIds: [assistant-and-browser, claude-code-print-no-tools]
+  pathwayIds: [working-with-ai-agents]
+  constraintIds: [fictional-data, no-personal-data]
+  externalResources:
+    - anthropic/claude-code-headless
+    - anthropic/claude-code-settings
+    - anthropic/claude-code-costs
+    - anthropic/define-success-criteria
+    - anthropic/demystifying-evals
+    - w3c/wcag-quickref
+  standards:
+    - name: Web Content Accessibility Guidelines (WCAG)
+      version: "2.2"
+      applicability: The single-file practice prototype the learner's stack produces.
+      reviewScope: >-
+        Only what the rubric tests: axe rules tagged WCAG A and AA (serious and critical results), visible keyboard
+        focus and an exposed pressed state. No conformance claim for the prototype or any product.
+      sourceResourceId: w3c/wcag-quickref
+  verificationEvidence:
+    - description: >-
+        Every response is scored by an independent browser checker that never reads the assistant's own checklist.
+        CI re-runs it on the stored responses and fails if a recorded result changes.
+      method: automated-check
+      standards: [Web Content Accessibility Guidelines (WCAG)]
+    - description: >-
+        The learner records harness, model, versions, settings, every check result, time and cost (or "not shown")
+        for each run, before reading the other arm.
+      method: self-check
+    - description: A second person reads the learner's record and repeats at least two checks on the saved HTML.
+      method: peer-review
+  beltCriteria:
+    - stage: practice
+      criterion: >-
+        Runs the smoke test and the baseline, records harness, model and versions (or "not shown"), and scores the
+        saved HTML against every rubric check.
+    - stage: adapt
+      criterion: >-
+        Changes exactly one variable, keeps the rest as stable as the tools allow, repeats each arm at least three
+        times and names the confounders it could not remove.
+    - stage: demonstrate
+      criterion: >-
+        Completes the unseen transfer challenge: writes the observable checks before prompting, runs a controlled
+        comparison and reports failures and corrections without overstating the result.
+  crossFieldTransfers: [ux, media, 3d, architecture-bim, data]
+showcase:
+  summary: >-
+    Pocket Garden, the Dojo's working single-file prototype: three plant cards, sun and shade filters, and a planted
+    toggle that resets on reload. It passes all 14 rubric checks, and CI checks it again in every pipeline. It is the
+    target the comparison aims at, not a result of it.
+  href: /examples/pocket-garden.html
+  provenance:
+    creator: Developer Dojo maintainers, with AI assistance (the harness and model that made it were not recorded)
+    source: The "Make a clickable prototype" kata
+    license: MIT, this site's licence (copy at /examples/pocket-garden-license.txt). The plant data is fictional.
+    date: "2026-11-06"
+brief:
+  goal: >-
+    A working single-file web prototype (Pocket Garden), rebuilt by an AI assistant from a fixed brief and scored by
+    an independent rubric, plus a comparison record that shows what changed when exactly one part of the stack changed.
+  audience: >-
+    Anyone who works with an AI assistant or coding agent and wants to know whether a change to their setup (harness,
+    model, instructions, a skill, a tool or agent roles) actually helps.
+  inputs:
+    - name: Prompt A, the task brief
+      source: /examples/fnd-001/prompts/A.txt, the same text as prompt A in the stack workbench
+      terms: Dojo material under the MIT licence
+    - name: Prompt B, the brief plus a self-review request (the instructions variant)
+      source: /examples/fnd-001/prompts/B.txt
+      terms: Dojo material under the MIT licence
+    - name: The reference page, the finished outcome to aim at
+      source: /examples/pocket-garden.html
+      terms: Dojo material under the MIT licence; the plant data is fictional
+    - name: The recorded runs and check results
+      source: /examples/fnd-001 (instructions and model) and /examples/fnd-001-harness (harness)
+      terms: Dojo material under the MIT licence; the model responses are kept unedited as evidence
+  doneWhen:
+    - Your saved HTML is scored against all 14 checks, by hand or with a checker, and every result is written down.
+    - >-
+      You changed exactly one part of the stack, ran each arm at least three times, and recorded versions, time and
+      cost, writing "not shown" where your tool hides them.
+    - Your record names the confounders you could not remove and says what the result does not show.
+    - You completed the unseen transfer challenge, with checks you wrote before prompting.
+stack:
+  components:
+    - part: harness
+      name: Claude Code in print mode (claude -p)
+      version: 2.1.329 (the harness comparison also used 2.1.330)
+      permissions: No built-in tools and no MCP servers, so the model has no file, shell or network access.
+      cost: Not billed on its own; usage is billed through the model account or plan.
+    - part: model
+      name: Claude Sonnet 5.5 at effort high
+      version: claude-sonnet-5-5
+      permissions: Text only. It receives the prompt and returns an answer.
+      cost: >-
+        Reported per run by the CLI at list prices; the measured totals are in the comparisons below. A subscription
+        bills differently and was not measured.
+    - part: instructions
+      name: >-
+        Prompt A and the default Claude Code system prompt; no CLAUDE.md, memory, settings files, output style or
+        appended system prompt
+      version: /examples/fnd-001/prompts/A.txt
+      permissions: None. The instructions grant nothing.
+      cost: Counted in the model's input tokens.
+    - part: context
+      name: A new, empty folder per run and no saved session
+      version: none loaded
+      permissions: Nothing to read, and no tool to read it with.
+      cost: Counted in the model's input tokens.
+    - part: tool
+      name: None granted
+      version: none
+      permissions: None.
+      cost: None.
+    - part: runtime
+      name: Independent checker (Chromium driven by Playwright, with axe-core)
+      version: Playwright 1.64.1, axe-core 4.14.0
+      permissions: Opens only the saved HTML and blocks every other request.
+      cost: No charge.
+  rationale: >-
+    Print mode with no tools and no inherited configuration is the smallest stack a learner can rebuild exactly. It
+    removes the hidden variables (memory, skills, MCP servers, project instructions) that make two chat sessions hard
+    to compare.
+  alternatives:
+    - name: Phone or browser chat app (the starting path in the stack workbench)
+      tradeoff: Easiest to reach, but versions, hidden settings and cost are usually not shown.
+      tested: false
+    - name: Interactive CLI session with tools
+      tradeoff: >-
+        The agent could open and test its own file, which changes what is being compared (see the proposed tool
+        comparison).
+      tested: false
+    - name: Qwen Code 0.28.0, another CLI harness, on the same model through the same endpoint
+      tradeoff: >-
+        Measured as the harness comparison (ARN-003). It adds its own hidden system prompt, so do not mix harnesses
+        inside any other comparison.
+      tested: true
+agents:
+  roles:
+    - role: Builder
+      responsibility: One assistant session per run writes the complete HTML from the prompt.
+      reviewGate: Nothing counts until the Checker has scored the saved HTML.
+    - role: Checker
+      responsibility: >-
+        Loads the saved HTML in a browser and scores the 14 checks, at desktop width and at 390 px. It never reads the
+        Builder's checklist. In the Dojo runs this was a deterministic script, not a model.
+      dependsOn: [Builder]
+      reviewGate: >-
+        A failed check sends the file back to a fresh Builder session once, with the Checker's observations; the
+        corrected file is scored again.
+    - role: Reviewer
+      responsibility: >-
+        The learner, and if possible a peer, read the results, decide whether a difference is real and name the
+        confounders.
+      dependsOn: [Checker]
+      reviewGate: Repeats at least two checks on the saved HTML before the record is shared.
+setup:
+  steps:
+    - >-
+      Phone or browser path: open any assistant you can use, start a fresh chat, paste prompt A and save the complete
+      answer. Paste the HTML into the preview in the stack workbench. Record the versions and the cost as "not shown"
+      if the app hides them.
+    - >-
+      CLI path: install Claude Code from the official quickstart (https://code.claude.com/docs/en/quickstart) and sign
+      in. Read your plan and the cost guidance first. Record the output of claude --version.
+    - >-
+      For each run, open a new empty folder and send the prompt file on standard input: claude -p --model
+      claude-sonnet-5-5 --effort high --setting-sources "" --strict-mcp-config --tools "" --no-session-persistence
+      --output-format json < A.txt
+    - >-
+      Save each answer unedited. Copy the one HTML code block into a file, open it in a desktop browser and score it
+      with the check sheet (download below).
+  auth: >-
+    Sign in to your own assistant account or Claude Code plan. The Dojo gives no access. No key or token belongs in a
+    prompt, a record or a shared file.
+  smokeTest:
+    action: Open the reference page (/examples/pocket-garden.html) and score it with the check sheet before you score any run.
+    expected: All 14 checks pass. If one fails, fix how you are checking before you read any run.
+    result: passed
+    evidence: >-
+      Reference entry in /examples/fnd-001/results.json: 14 of 14 checks passed with the independent checker, which CI
+      re-runs in every pipeline.
+    date: "2026-11-20"
+prompts:
+  - id: brief-a
+    title: Prompt A, the task brief (baseline)
+    purpose: The control. Send it unchanged, in a fresh session, for every baseline run.
+    text: |-
+      You are my prototype developer. Create one complete, responsive HTML file called Pocket Garden, with CSS and JavaScript inside the file. Do not use external libraries, images, fonts, network requests or a server. Do not read or change files or run commands for this task.
+
+      Show three plant cards: Basil and Sunflower like sun; Mint likes shade. Provide filters for All plants, Loves sun and Likes shade. Each card has a button that toggles between “Mark as planted” and “Planted”. Buttons need clear labels, visible keyboard focus and pressed states. Say that choices reset on reload.
+
+      Return the complete HTML in one code block, followed by a short checklist. Do not claim you ran or tested anything unless you actually did.
+  - id: brief-b
+    title: Prompt B, the brief plus a self-review request (instructions variant)
+    purpose: The instructions variant. Only the last paragraph differs from prompt A.
+    text: |-
+      You are my prototype developer. Create one complete, responsive HTML file called Pocket Garden, with CSS and JavaScript inside the file. Do not use external libraries, images, fonts, network requests or a server. Do not read or change files or run commands for this task.
+
+      Show three plant cards: Basil and Sunflower like sun; Mint likes shade. Provide filters for All plants, Loves sun and Likes shade. Each card has a button that toggles between “Mark as planted” and “Planted”. Buttons need clear labels, visible keyboard focus and pressed states. Say that choices reset on reload.
+
+      Return the complete HTML in one code block, followed by a short checklist. Do not claim you ran or tested anything unless you actually did.
+
+      Before answering, compare the requested filters, toggle and reload behavior against your draft. Identify any uncertainty in the checklist; do not present a mental review as an observed test.
+  - id: correction
+    title: Correction prompt, one round per failed run
+    purpose: >-
+      Send it to a fresh session of the same stack, with the failed checks and the run's own HTML filled in. Then score
+      the corrected file again.
+    text: |-
+      Here is a Pocket Garden HTML file you made earlier. An independent browser check found these problems:
+      - <check ID>: <what the check observed>
+
+      Fix only these problems and keep everything else the same. Return the complete corrected HTML in one code block, followed by one sentence saying what you changed. Do not claim you ran or tested anything unless you actually did.
+
+      ```html
+      <the complete HTML of the run that failed>
+      ```
+exercise:
+  title: Make a clickable prototype (Pocket Garden)
+  href: /katas/first-prototype
+  terms: >-
+    Dojo material under this site's MIT licence, with fictional plant data. Running it needs your own access to an
+    assistant: provider accounts, usage limits and terms apply, and the Dojo grants none.
+execution:
+  steps:
+    - actor: Builder
+      action: >-
+        Runs the prompt in a fresh session, three repetitions per arm. Repetition r of every arm starts at the same
+        moment, so time of day and service load fall on all arms alike.
+      handoff: The complete answer, saved unedited as a run file.
+    - actor: Checker
+      action: Copies out the one HTML code block and scores all 14 checks at desktop width and at 390 px.
+      handoff: One result per check per run.
+    - actor: Builder
+      action: >-
+        For each run that failed a check, one correction round in a fresh session, with the run's HTML and the
+        Checker's observations (the correction prompt).
+      handoff: The corrected file, scored again by the Checker.
+    - actor: Reviewer
+      action: >-
+        Compares the arms on the shared measures (runs passing every check, time, and cost or "not shown") and writes
+        the reading with its confounders.
+      handoff: The comparison record.
+verification:
+  checks:
+    - action: "The response holds exactly one complete HTML code block."
+      expected: "Pass. It fails when: no block, or several."
+      result: passed
+      evidence: "Reference page, check single-html-block, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
+      date: "2026-11-20"
+    - action: "No request leaves the page at load, and the file has no network code or remote asset."
+      expected: "Pass. It fails when: any request, or fetch, XMLHttpRequest, or a remote src or href in the file."
+      result: passed
+      evidence: "Reference page, check no-external-requests, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
+      date: "2026-11-20"
+    - action: "Basil, Sunflower and Mint are visible on load."
+      expected: "Pass. It fails when: a plant is missing or hidden."
+      result: passed
+      evidence: "Reference page, check three-cards, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
+      date: "2026-11-20"
+    - action: "\"Loves sun\" shows Basil and Sunflower only."
+      expected: "Pass. It fails when: mint shows, a sun plant hides, or the control is missing."
+      result: passed
+      evidence: "Reference page, check sun-filter, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
+      date: "2026-11-20"
+    - action: "\"Likes shade\" shows Mint only."
+      expected: "Pass. It fails when: a sun plant shows, Mint hides, or the control is missing."
+      result: passed
+      evidence: "Reference page, check shade-filter, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
+      date: "2026-11-20"
+    - action: "\"All plants\" shows all three again."
+      expected: "Pass. It fails when: any plant stays hidden."
+      result: passed
+      evidence: "Reference page, check all-filter, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
+      date: "2026-11-20"
+    - action: "A \"Mark as planted\" button becomes \"Planted\" and switches back."
+      expected: "Pass. It fails when: the label does not change both ways."
+      result: passed
+      evidence: "Reference page, check toggle-both-ways, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
+      date: "2026-11-20"
+    - action: "The plant button exposes its state to assistive technology (aria-pressed true, then false)."
+      expected: "Pass. It fails when: no aria-pressed, or it does not follow the state."
+      result: passed
+      evidence: "Reference page, check pressed-state, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
+      date: "2026-11-20"
+    - action: "After a reload, all three buttons say \"Mark as planted\" again."
+      expected: "Pass. It fails when: a choice survives the reload."
+      result: passed
+      evidence: "Reference page, check reload-resets, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
+      date: "2026-11-20"
+    - action: "The page tells the user that choices reset on reload."
+      expected: "Pass. It fails when: no visible note."
+      result: passed
+      evidence: "Reference page, check reset-note, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
+      date: "2026-11-20"
+    - action: "The first button reached with Tab has a visible outline or focus shadow."
+      expected: "Pass. It fails when: no visible focus style."
+      result: passed
+      evidence: "Reference page, check visible-keyboard-focus, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
+      date: "2026-11-20"
+    - action: "At a 390 px wide viewport the page does not scroll sideways."
+      expected: "Pass. It fails when: the page is wider than the viewport."
+      result: passed
+      evidence: "Reference page, check no-horizontal-scroll-390, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
+      date: "2026-11-20"
+    - action: "axe finds no serious or critical WCAG A or AA rule violation."
+      expected: "Pass. It fails when: any serious or critical violation."
+      result: passed
+      evidence: "Reference page, check axe-serious, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
+      date: "2026-11-20"
+    - action: "The prose outside the code does not claim the assistant ran or tested the file (a heuristic; read the matches)."
+      expected: "Pass. It fails when: an unqualified \"I tested\", \"I ran\" or \"I verified\"."
+      result: passed
+      evidence: "Reference page, check no-test-claim, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
+      date: "2026-11-20"
+  failures:
+    - observed: >-
+        Instructions and model comparison (ARN-001): pressed-state failed in three of nine first runs (baseline-r2,
+        instructions-r1 and instructions-r3). The plant buttons changed their label but exposed no aria-pressed. No
+        other check failed.
+      correction: >-
+        One correction round each, in a fresh session with the checker's observation. All three corrected files passed
+        every check.
+    - observed: >-
+        Harness comparison (ARN-003): pressed-state failed in claude-code-r1, claude-code-r3 and qwen-code-r3, and
+        claude-code-r3 also failed axe-serious (colour contrast).
+      correction: >-
+        One correction round each, in a fresh process of the same harness. All three corrected files passed every
+        check.
+adaptation:
+  variations:
+    - change: Software (run by the Dojo, this recipe).
+      effect: A single-file web prototype scored by an independent browser checker; the controlled comparisons above.
+    - change: Visual or document (proposed, not run by the Dojo).
+      effect: >-
+        Generate a one-page event poster from a fixed brief, check its text, contrast ratio and print size against
+        written criteria, and change only the model.
+    - change: 3D or BIM (proposed, not run by the Dojo).
+      effect: >-
+        Ask an assistant to list the walls and their types in the buildingSMART sample IFC file used in the "Investigate
+        a real IFC model" kata, check the list against the file, and change only the instructions.
+    - change: A phone or browser app instead of the CLI (proposed, not run by the Dojo).
+      effect: >-
+        Use the same prompts and check sheet, and record versions and cost as "not shown" where the app hides them.
+        This is a harness change, so do not mix it into another comparison.
+randori:
+  challenge: >-
+    Unseen challenge: a one-file "Tool Library" page lists five shared tools (two power tools, three hand tools),
+    filters them by type, and lets the user mark a tool "Borrowed" and back. A borrowed tool shows who has it, using a
+    name typed into a field that must have a visible label.
+  constraints:
+    - Write at least eight observable checks before you prompt.
+    - Change one variable you have not changed before, with three runs per arm.
+    - Fictional names and data only.
+    - Not run by the Dojo, so there is no reference answer. Your checks are the rubric.
+  evaluation: >-
+    A reviewer reads your checks, repeats at least two of them on your saved HTML, and confirms that your record
+    reports failures and corrections without overstating the result. The changed data, the form field and the extra
+    state mean a stack tuned to Pocket Garden can fail it.
+maintenance:
+  cadence: >-
+    Quarterly, and whenever Claude Code changes major version or its print-mode flags change, a model named here is
+    retired or renamed, a rubric check stops passing on the reference, or a learner reports a different smoke-test
+    result.
+  caveats:
+    - Model behaviour, prices and CLI flags change. These results are from 20 and 21 November 2026; run them again before you rely on them.
+    - Three runs per arm on one small task are observations to repeat, not effects, and not a ranking of models, prompts or harnesses.
+    - >-
+      Costs are list prices reported by the CLI (ARN-001) or what the endpoint billed (ARN-003), not an invoice. A
+      subscription bills differently and was not measured.
+    - The accessibility checks are practice checks, not a WCAG conformance claim for any page.
+    - >-
+      The brief asks for both a changing label and a pressed state, which the WAI-ARIA button pattern
+      (https://www.w3.org/WAI/ARIA/apg/patterns/button/) advises against combining. Every pressed-state failure was on
+      that check, so question the brief in your reflection.
+downloads:
+  - filename: fnd-001-check-sheet.md
+    description: The 14 checks, with how to check each one by hand and a column per run.
+    content: |-
+      # Pocket Garden check sheet (FND-001)
+
+      Score every saved answer against all 14 checks before you read the other arm. Write pass, fail or "not checked". Never leave a cell blank, and never count "not checked" as a pass.
+
+      Check the reference page (/examples/pocket-garden.html) first. It passes all 14 checks. If it fails one on your setup, fix how you are checking before you score any run.
+
+      | # | Check | What passes | It fails when | How to check by hand | Run 1 | Run 2 | Run 3 |
+      | --- | --- | --- | --- | --- | --- | --- | --- |
+      | 1 | single-html-block | The response holds exactly one complete HTML code block. | No block, or several. | Count the code blocks in the answer. |  |  |  |
+      | 2 | no-external-requests | No request leaves the page at load, and the file has no network code or remote asset. | Any request, or fetch, XMLHttpRequest, or a remote src or href in the file. | Open the browser network panel and reload; search the file for http, fetch and XMLHttpRequest. |  |  |  |
+      | 3 | three-cards | Basil, Sunflower and Mint are visible on load. | A plant is missing or hidden. | Look at the page as it loads. |  |  |  |
+      | 4 | sun-filter | "Loves sun" shows Basil and Sunflower only. | Mint shows, a sun plant hides, or the control is missing. | Choose "Loves sun". |  |  |  |
+      | 5 | shade-filter | "Likes shade" shows Mint only. | A sun plant shows, Mint hides, or the control is missing. | Choose "Likes shade". |  |  |  |
+      | 6 | all-filter | "All plants" shows all three again. | Any plant stays hidden. | Choose "All plants" after another filter. |  |  |  |
+      | 7 | toggle-both-ways | A "Mark as planted" button becomes "Planted" and switches back. | The label does not change both ways. | Press one plant button twice. |  |  |  |
+      | 8 | pressed-state | The plant button exposes its state to assistive technology (aria-pressed true, then false). | No aria-pressed, or it does not follow the state. | Inspect the button in the developer tools (or the accessibility tree) before and after pressing it. |  |  |  |
+      | 9 | reload-resets | After a reload, all three buttons say "Mark as planted" again. | A choice survives the reload. | Mark a plant, then reload. |  |  |  |
+      | 10 | reset-note | The page tells the user that choices reset on reload. | No visible note. | Read the page. |  |  |  |
+      | 11 | visible-keyboard-focus | The first button reached with Tab has a visible outline or focus shadow. | No visible focus style. | Press Tab from the top of the page. |  |  |  |
+      | 12 | no-horizontal-scroll-390 | At a 390 px wide viewport the page does not scroll sideways. | The page is wider than the viewport. | Use the responsive mode of the developer tools at 390 px wide. |  |  |  |
+      | 13 | axe-serious | axe finds no serious or critical WCAG A or AA rule violation. | Any serious or critical violation. | Run an accessibility scanner built on axe-core, such as the axe DevTools browser extension. |  |  |  |
+      | 14 | no-test-claim | The prose outside the code does not claim the assistant ran or tested the file (a heuristic; read the matches). | An unqualified "I tested", "I ran" or "I verified". | Read the text around the code block. |  |  |  |
+
+      Notes:
+
+      - Check at a desktop width and at 390 px wide.
+      - no-test-claim is a heuristic. Read the sentence and decide; write down why.
+      - The accessibility checks are practice checks, not a WCAG conformance claim.
+  - filename: comparison-record.md
+    description: A blank comparison record. Write "not shown" for anything your tool hides, never 0.
+    content: |-
+      # FND-001 comparison record
+
+      Fill in one record per comparison. Write "not shown" for anything your tool hides. A missing cost or time is "not shown", never 0.
+
+      ## The change
+
+      - Variable changed (one of: harness, model, instructions, skill, tool, agent roles):
+      - Control:
+      - Variant:
+      - Held constant:
+      - Confounders you could not remove:
+
+      ## Stack, per arm
+
+      | Part | Control | Variant |
+      | --- | --- | --- |
+      | Harness and version |  |  |
+      | Model and version |  |  |
+      | Effort or reasoning setting |  |  |
+      | Instructions (prompt file, system prompt, memory) |  |  |
+      | Context (files, history, attachments) |  |  |
+      | Skills, tools, MCP servers, plugins |  |  |
+      | Permissions |  |  |
+
+      ## Runs (at least three per arm, started together)
+
+      | Run | Arm | Date and time | Checks passed (of 14) | Failed checks | Time | Cost and its basis | Correction made? | Passed after correction? |
+      | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+      |  |  |  |  |  |  |  |  |  |
+
+      ## Reading
+
+      - What happened on this task, with these versions, on this date:
+      - What it does not show:
+      - Who repeated at least two checks on the saved HTML, and what they found:

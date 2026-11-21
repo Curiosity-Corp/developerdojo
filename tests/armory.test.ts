@@ -193,4 +193,10 @@ describe('armory registry: rules', () => {
     expect(usage.entries.get('git')?.map((kata) => kata.id)).toEqual(['PRACTICE-006']);
     expect(usage.recipes.get('assistant-and-browser')?.length).toBe(8);
   });
+
+  it('lists the FND-001 comparison stack only through listed Armory entries', () => {
+    const recipe = real.recipes.find(({ recipe }) => recipe.id === 'claude-code-print-no-tools');
+    expect(recipe?.recipe.components.flatMap((component) => ('entryId' in component ? [component.entryId] : []))).toEqual(['claude-code', 'claude-sonnet-5-5']);
+    expect(recipe?.listed).toBe(true);
+  });
 });

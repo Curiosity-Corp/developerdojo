@@ -87,6 +87,13 @@ sizes and SHA-256 hashes, never text, and the served model, token usage and bill
 A source or input link may point to another record's page (`/arena/evidence/<slug>`); it is accepted only
 when that record exists.
 
+## Link a record to its kata
+
+Set `kataId` to the kata's `metadata.id` when the experiment belongs to a kata recipe. The record page then
+links to the recipe, and the recipe page lists the record's comparisons under "Controlled comparisons"
+(`src/lib/kata-comparisons.ts`, [kata-recipes.md](kata-recipes.md#where-a-recipe-appears)). FND-001's recipe,
+`src/content/kata-recipes/fnd-001-stack-comparison.yaml`, shows ARN-001 and ARN-003 this way.
+
 ## Public-page rules
 
 Records render on the public site. Do not put internal hostnames, repository paths, issue links, client or

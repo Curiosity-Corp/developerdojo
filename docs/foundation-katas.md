@@ -1,6 +1,6 @@
 # Staged foundation katas (FND-002 to FND-010)
 
-The universal foundation family (#85) is recorded in `src/data/foundation-katas.ts` on the kata contract (#81, [kata-metadata.md](kata-metadata.md)). Every record is **staged**: it has no page, no execution record, no maintainer and no review, so it is not in `kataCatalog` or `KATA_DIRECTORY`, and `tests/foundation-katas.test.ts` fails if that changes. The shared foundation every record depends on, FND-001, is #84's record.
+The universal foundation family (#85) is recorded in `src/data/foundation-katas.ts` on the kata contract (#81, [kata-metadata.md](kata-metadata.md)). Every record is **staged**: it has no page, no execution record, no maintainer and no review, so it is not in `kataCatalog` or `KATA_DIRECTORY`, and `tests/foundation-katas.test.ts` fails if that changes. The shared foundation every record depends on, FND-001, is the draft recipe `src/content/kata-recipes/fnd-001-stack-comparison.yaml` (#84), and `tests/foundation-katas.test.ts` validates the family against it.
 
 This file changes no program rule. The decision record in #80 is untouched.
 

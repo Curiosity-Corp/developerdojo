@@ -20,6 +20,9 @@ import { newField, fixtureStackRecipes } from '../../data/kata-fixtures';
 import { STATUS_LABELS, humanize } from '../../lib/kata-recipes';
 import { isUnavailable } from '../../lib/kata-recipe';
 import { formatDate } from '../../lib/labels';
+import { loadArenaRecords } from '../../lib/arena-content';
+import { formatProportion, formatUsd } from '../../lib/arena-records';
+import { kataComparisons, type ComparisonArm } from '../../lib/kata-comparisons';
 
 export async function getStaticPaths() {
   const recipes = await loadKataRecipes();
@@ -69,6 +72,7 @@ const allSections: [string, string][] = [
   ['exercise', 'Practice exercise'],
   ['execution', 'Execution and handoffs'],
   ['verification', 'Tests, failures and corrections'],
+  ['comparisons', 'Controlled comparisons'],
   ['adaptation', 'Adapt it'],
   ['randori', 'Unseen Randori'],
   ['belt', 'Belt evidence'],
@@ -76,7 +80,14 @@ const allSections: [string, string][] = [
   ['downloads', 'Downloads'],
   ['maintenance', 'Maintenance and caveats'],
 ];
-const sections = allSections.filter(([slug]) => slug !== 'downloads' || recipe.downloads.length > 0);
+// Measured comparisons come from the Arena records naming this kata, computed from their run files (src/lib/kata-comparisons.ts).
+const comparisons = kataComparisons(metadata.id, loadArenaRecords());
+const sections = allSections.filter(([slug]) => (slug !== 'downloads' || recipe.downloads.length > 0) && (slug !== 'comparisons' || comparisons.length > 0));
+const costText = (arm: ComparisonArm) => {
+  const value = arm.measured;
+  if (!value || value.totalCostUsd === null) return undefined;
+  return `${formatUsd(value.totalCostUsd)} (${value.costBasis === 'list' ? 'list price, not an invoice' : value.costBasis})`;
+};
 const headings = sections.map(([slug, text]) => ({ depth: 2, slug, text }));
 const title = (slug: string) => sections.find(([id]) => id === slug)?.[1] ?? slug;
 
@@ -299,6 +310,45 @@ const isoDay = (date: string) => formatDate(new Date(`${date}T00:00:00Z`));
             </>
           )}
         </section>
+
+        {comparisons.length > 0 && (
+          <section aria-labelledby="comparisons">
+            <h2 id="comparisons">{title('comparisons')}</h2>
+            <p>Each comparison changed one part of the stack and kept the rest as stable as the tools allow. Measured numbers are computed from the published run files when the site is built. A proposed comparison was designed but not run and has no results. With three runs per arm, read the counts, not a winner.</p>
+            <ul class="cards">
+              {comparisons.map((row) => (
+                <li data-comparison-variable={row.variable} data-comparison-status={row.status}>
+                  <h3>{row.label}: {row.status === 'measured' ? `${row.control.label} against ${row.variant.label}` : 'proposed, not run'}</h3>
+                  <p><strong>Change:</strong> {row.change}</p>
+                  {row.status === 'measured' ? (
+                    <>
+                      {row.control.measured && row.variant.measured ? (
+                        <div class="table-wrap" role="region" aria-label={`${row.label} comparison measures`} tabindex="0">
+                          <table>
+                            <caption class="visually-hidden">{row.label} comparison: shared measures per arm</caption>
+                            <thead><tr><th scope="col">Measure</th><th scope="col">{row.control.label}</th><th scope="col">{row.variant.label}</th></tr></thead>
+                            <tbody>
+                              <tr><th scope="row">Runs passing every check, first attempt</th>{[row.control, row.variant].map((arm) => <td>{arm.measured && formatProportion(arm.measured.passingAll)}</td>)}</tr>
+                              <tr><th scope="row">After one correction round</th>{[row.control, row.variant].map((arm) => <td>{arm.measured && formatProportion(arm.measured.afterCorrection)}</td>)}</tr>
+                              <tr><th scope="row">Mean time per run</th>{[row.control, row.variant].map((arm) => <td>{arm.measured === undefined || arm.measured.meanSeconds === null ? <RecipeUnavailable inline reason="Not reported for every run." /> : `${arm.measured.meanSeconds} s`}</td>)}</tr>
+                              <tr><th scope="row">Cost of first attempts</th>{[row.control, row.variant].map((arm) => <td>{costText(arm) ?? <RecipeUnavailable inline reason="Not reported for every run." />}</td>)}</tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      ) : <RecipeUnavailable reason="These arms were not measured from Dojo run files, so there are no shared measures to show." />}
+                      <p><strong>What it shows:</strong> {row.reading}</p>
+                    </>
+                  ) : (
+                    <p data-proposed><strong>Proposed, not run. No results.</strong> {row.whyNotRun}</p>
+                  )}
+                  <p>
+                    <a href={row.recordHref}>Evidence record {row.recordId}</a>, dated <time datetime={row.recordDate}>{isoDay(row.recordDate)}</time>{row.stale && <strong class="due"> Stale: re-run or re-check it before relying on it.</strong>}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         <section aria-labelledby="adaptation">
           <h2 id="adaptation">{title('adaptation')}</h2>

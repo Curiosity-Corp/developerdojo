@@ -32,10 +32,10 @@ Identifiers are promises. Saved progress, outside links, other katas and search 
 
 | Kind | Form | Comes from | May it change? |
 | --- | --- | --- | --- |
-| `kata-id` | `PREFIX-001`, Randori `PREFIX-R01` (`kataId` in `src/lib/kata-schema.ts`) | `kataCatalog`, recipe `metadata.id`, staged foundation records, FND-001 | **Never.** A kata that changes keeps its ID. One that ends is retired, and its ID is never reused. |
+| `kata-id` | `PREFIX-001`, Randori `PREFIX-R01` (`kataId` in `src/lib/kata-schema.ts`) | `kataCatalog`, recipe `metadata.id`, staged foundation records | **Never.** A kata that changes keeps its ID. One that ends is retired, and its ID is never reused. |
 | `kata-route` | `/katas/<lower-case-slug>` | hand-written pages in `src/pages/katas/`, recipe file names in `src/content/kata-recipes/` | Yes, with a move. The old route becomes a redirect. A route can never be retired without a destination. |
 | `field` | lower-case slug | `src/lib/fields.ts` | Yes, with a move or a retirement |
-| `outcome`, `artifact`, `capability`, `constraint`, `stack-recipe` | lower-case slug (`dimensionId`) | `kataDimensions`, plus the vocabulary reserved by the staged foundation family and FND-001 | Yes, with a move or a retirement |
+| `outcome`, `artifact`, `capability`, `constraint`, `stack-recipe` | lower-case slug (`dimensionId`) | `kataDimensions`, plus the vocabulary reserved by the staged foundation family | Yes, with a move or a retirement |
 
 Pathways (track slugs) and resources (`publisher/resource`) have their own rules: tracks never move ([track-urls.md](track-urls.md)), and resources follow [catalog-lifecycle.md](catalog-lifecycle.md). Fixture-only vocabulary (`src/data/kata-fixtures.ts`) is not locked, because no real kata may use it.
 

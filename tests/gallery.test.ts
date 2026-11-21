@@ -4,7 +4,6 @@ import { parse as parseYaml } from 'yaml';
 import { describe, expect, it } from 'vitest';
 import { galleryEntries, galleryOutcomeIds, galleryOutcomeLabels } from '../src/data/gallery';
 import { kataCatalog, kataDimensions } from '../src/data/kata-catalog';
-import { fnd001Metadata } from '../src/data/kata-recipes/fnd-001';
 import { fields } from '../src/lib/fields';
 import { GalleryError, galleryKatas, resolveGallery, type GalleryContext, type GalleryEntryInput } from '../src/lib/gallery';
 import { validateKataCatalog } from '../src/lib/kata-catalog';
@@ -30,7 +29,7 @@ const recipes = resolveRecipes(
 const catalog = validateKataCatalog(kataCatalog, { fields: fieldIds, resources, pathways, ...kataDimensions });
 
 const context: GalleryContext = {
-  katas: galleryKatas(catalog, recipes, [kataMetadataSchema.parse(fnd001Metadata)]),
+  katas: galleryKatas(catalog, recipes, []),
   fields,
   outcomes: Object.entries(galleryOutcomeLabels).map(([id, label]) => ({ id, label })),
   today: '2026-11-21',
@@ -77,7 +76,8 @@ describe('gallery records', () => {
     const fnd = gallery.entries.find(({ kata }) => kata.id === 'FND-001');
     expect(fnd).toBeDefined();
     expect(fnd?.isFoundation).toBe(true);
-    expect(fnd?.recipe.kind).toBe('unavailable');
+    // FND-001's recipe page (#84) is a draft, so the gallery links it by name and the page says it is a draft.
+    expect(fnd?.recipe).toEqual({ kind: 'recipe', href: '/katas/fnd-001-stack-comparison', title: 'Build a working prototype, then change one stack variable' });
     expect(fnd?.entry.artifact.files.map((file) => file.href)).toContain('/examples/fnd-001/results.json');
     // The title counts the stored runs; keep it true to the evidence folder.
     const runs = readdirSync('public/examples/fnd-001/runs').filter((file) => file.endsWith('.json'));
@@ -185,10 +185,13 @@ describe('gallery validation rejects', () => {
   });
 
   it('a missing or needless recipe notice', () => {
+    // A kata without a page: FND-001 as a bare record, as it was before its recipe existed.
+    const fnd = recipes.find(({ recipe }) => recipe.metadata.id === 'FND-001');
+    if (!fnd) throw new Error('no FND-001 recipe');
+    const pageless = { ...context, katas: galleryKatas(catalog, recipes.filter((item) => item !== fnd), [kataMetadataSchema.parse(fnd.recipe.metadata)]) };
     const entries = clone();
-    delete byId(entries, 'fnd-001-stack-comparison').recipeUnavailable;
     byId(entries, 'pocket-garden-prototype').recipeUnavailable = { reason: 'x', instead: { label: 'y', href: '/katas' } };
-    const found = problems(entries).join('\n');
+    const found = problems(entries, pageless).join('\n');
     expect(found).toMatch(/FND-001 has no page yet/);
     expect(found).toMatch(/PRACTICE-003 has a page/);
   });

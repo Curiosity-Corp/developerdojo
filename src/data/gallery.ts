@@ -1,5 +1,4 @@
 import { kataDimensions } from './kata-catalog';
-import { fnd001Dimensions } from './kata-recipes/fnd-001';
 import type { GalleryEntryInput } from '../lib/gallery';
 
 /**
@@ -35,8 +34,8 @@ export const galleryOutcomeLabels: Record<string, string> = {
   'estimate-irrigation-need': 'Estimate a crop’s irrigation need',
 };
 
-/** The outcome vocabulary the gallery browses: the editorial outcomes plus FND-001's. */
-export const galleryOutcomeIds: readonly string[] = [...kataDimensions.outcomes, ...fnd001Dimensions.outcomes];
+/** The outcome vocabulary the gallery browses. */
+export const galleryOutcomeIds: readonly string[] = kataDimensions.outcomes;
 
 const QUARTERLY = '2027-02-20';
 
@@ -66,17 +65,13 @@ export const galleryEntries: GalleryEntryInput[] = [
       method: 'automated-check',
       date: '2026-11-20',
       checked: 'Every pipeline re-runs the browser checker on all twelve stored responses and the reference, and fails if any recorded result changes. The counts, times and costs in the record are recomputed from the run files. Negative controls show the checker fails broken files.',
-      notChecked: 'Three runs per arm on one task, one date and one harness version: observations to repeat, not a benchmark. Costs are list prices reported by the tool, not an invoice. The harness, skill, tool and delegation comparisons were designed but not run.',
+      notChecked: 'Three runs per arm on one task, one date and one harness version: observations to repeat, not a benchmark. Costs are list prices reported by the tool, not an invoice. The harness comparison is a separate record with its own runs; the skill, tool and delegation comparisons were designed but not run.',
       evidenceHref: '/examples/fnd-001/README.md',
       nextCheck: QUARTERLY,
     },
     outcomeIds: ['stack-comparison'],
     fieldIds: ['software'],
     kataId: 'FND-001',
-    recipeUnavailable: {
-      reason: 'The FND-001 recipe page is not published yet. The evidence notes give its setup, smoke test and checks.',
-      instead: { label: 'Practise the same task in the stack workbench', href: '/katas/stack-workbench' },
-    },
     exercise: { title: 'Make a clickable prototype', href: '/katas/first-prototype' },
   },
   {
