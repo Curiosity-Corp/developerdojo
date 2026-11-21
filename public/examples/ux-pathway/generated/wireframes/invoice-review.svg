@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" role="img" aria-labelledby="title desc" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+<title id="title">Check the invoice (invoice-review), low fidelity, 390 px</title>
+<desc id="desc">One look at everything before it goes to the client, with a way to change any of it. Numbered circles are the transition numbers on the sitemap.</desc>
+<rect x="0" y="0" width="390" height="844" fill="#ffffff"/>
+<rect x="0" y="0" width="390" height="56" fill="#e0e0e0"/>
+<text x="24" y="35" font-size="16" font-weight="700" fill="#212121">Pocket Invoice</text>
+<text x="366" y="35" font-size="14" fill="#424242" text-anchor="end">Screen</text>
+<text x="24" y="111" font-size="24" font-weight="700" fill="#212121">Check the invoice</text>
+<text x="24" y="157" font-size="16" font-weight="700" fill="#212121">Client</text>
+<text x="152" y="157" font-size="16" fill="#424242">Harbour Bakery</text>
+<line x1="24" y1="172" x2="366" y2="172" stroke="#9e9e9e" stroke-width="1"/>
+<text x="24" y="197" font-size="16" font-weight="700" fill="#212121">Send to</text>
+<text x="152" y="197" font-size="16" fill="#424242">accounts@harbour-bakery.example</text>
+<line x1="24" y1="212" x2="366" y2="212" stroke="#9e9e9e" stroke-width="1"/>
+<text x="24" y="237" font-size="16" font-weight="700" fill="#212121">Work</text>
+<text x="152" y="237" font-size="16" fill="#424242">Menu redesign, two rounds</text>
+<text x="152" y="261" font-size="16" fill="#424242">of changes</text>
+<line x1="24" y1="276" x2="366" y2="276" stroke="#9e9e9e" stroke-width="1"/>
+<text x="24" y="301" font-size="16" font-weight="700" fill="#212121">Amount</text>
+<text x="152" y="301" font-size="16" fill="#424242">$480.00</text>
+<line x1="24" y1="316" x2="366" y2="316" stroke="#9e9e9e" stroke-width="1"/>
+<text x="24" y="341" font-size="16" font-weight="700" fill="#212121">Due</text>
+<text x="152" y="341" font-size="16" fill="#424242">In 30 days</text>
+<line x1="24" y1="356" x2="366" y2="356" stroke="#9e9e9e" stroke-width="1"/>
+<g data-to="invoice-sent" data-transition="15"><rect x="24" y="380" width="156" height="48" rx="4" fill="#424242"/><text x="102" y="410" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">Send invoice</text><circle cx="200" cy="404" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="200" y="408" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">15</text></g>
+<g data-to="invoice-new" data-transition="14"><rect x="24" y="444" width="174" height="48" rx="4" fill="#e0e0e0" stroke="#616161" stroke-width="2"/><text x="111" y="474" font-size="16" font-weight="700" fill="#212121" text-anchor="middle">Change details</text><circle cx="218" cy="468" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="218" y="472" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">14</text></g>
+<rect x="24" y="508" width="342" height="116" fill="none" stroke="#616161" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="40" y="534" font-size="14" font-weight="700" fill="#212121">Prototype only: no button causes these</text>
+<circle cx="52" cy="560" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="52" y="564" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">16</text>
+<text x="72" y="565" font-size="14" fill="#424242">Send invoice to an address that cannot</text>
+<text x="72" y="585" font-size="14" fill="#424242">receive mail (in the example, any</text>
+<text x="72" y="605" font-size="14" fill="#424242">address ending in .invalid)</text>
+<rect x="1" y="1" width="388" height="842" fill="none" stroke="#9e9e9e" stroke-width="2"/>
+</svg>

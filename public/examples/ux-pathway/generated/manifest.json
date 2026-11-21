@@ -1,0 +1,80 @@
+{
+  "generator": "tools/ux_pathway.mjs",
+  "inputs": {
+    "inputs/pocket-invoice-flow.json": "dce94d018bb521e02ebee599cee41e300d0adc0712a041b3aac27cd9180a2882",
+    "inputs/contrast-pairs.json": "536220ae89b3c892fac3fa4902c6278f1d0b50643e75be315ebda0a18e3695f1",
+    "pocket-invoice-tokens.json": "9855e7ba68d906fc9bb761bb9da20dd720511214810ab028c477a46736d55a4b"
+  },
+  "outputs": [
+    "flow-checks.json",
+    "journey.svg",
+    "manifest.json",
+    "sitemap.svg",
+    "summary.md",
+    "wireframes/discard-dialog.svg",
+    "wireframes/invoice-new-error.svg",
+    "wireframes/invoice-new.svg",
+    "wireframes/invoice-review.svg",
+    "wireframes/invoice-sent.svg",
+    "wireframes/invoices-empty.svg",
+    "wireframes/invoices-list.svg",
+    "wireframes/send-error.svg",
+    "wireframes/sign-in.svg",
+    "wireframes/signup-error.svg",
+    "wireframes/signup.svg"
+  ],
+  "drawings": {
+    "wireframes/signup.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "wireframes/signup-error.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "wireframes/sign-in.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "wireframes/invoices-empty.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "wireframes/invoice-new.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "wireframes/invoice-new-error.svg": {
+      "width": 390,
+      "height": 908
+    },
+    "wireframes/discard-dialog.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "wireframes/invoice-review.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "wireframes/send-error.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "wireframes/invoice-sent.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "wireframes/invoices-list.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "sitemap.svg": {
+      "width": 1888,
+      "height": 710
+    },
+    "journey.svg": {
+      "width": 2122,
+      "height": 1808
+    }
+  }
+}

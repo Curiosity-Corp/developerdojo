@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="908" viewBox="0 0 390 908" role="img" aria-labelledby="title desc" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+<title id="title">New invoice: fix two problems (invoice-new-error), low fidelity, 390 px</title>
+<desc id="desc">Validation errors on the main task, with the summary linked to each field. Numbered circles are the transition numbers on the sitemap.</desc>
+<rect x="0" y="0" width="390" height="908" fill="#ffffff"/>
+<rect x="0" y="0" width="390" height="56" fill="#e0e0e0"/>
+<text x="24" y="35" font-size="16" font-weight="700" fill="#212121">Pocket Invoice</text>
+<text x="366" y="35" font-size="14" fill="#424242" text-anchor="end">Error</text>
+<rect x="26" y="90" width="338" height="116" fill="#ffffff" stroke="#212121" stroke-width="4"/>
+<text x="44" y="126" font-size="19" font-weight="700" fill="#212121">There is a problem</text>
+<text x="44" y="157" font-size="16" fill="#212121" text-decoration="underline">Enter the client name</text>
+<text x="44" y="185" font-size="16" fill="#212121" text-decoration="underline">Enter an amount greater than 0</text>
+<text x="24" y="255" font-size="24" font-weight="700" fill="#212121">New invoice</text>
+<text x="40" y="293" font-size="16" font-weight="700" fill="#212121">Client name</text>
+<text x="40" y="321" font-size="16" font-weight="700" fill="#212121">Error: Enter the client name</text>
+<rect x="40" y="332" width="326" height="48" fill="#ffffff" stroke="#212121" stroke-width="4"/>
+<rect x="24" y="276" width="4" height="104" fill="#212121"/>
+<text x="24" y="421" font-size="16" font-weight="700" fill="#212121">Client email</text>
+<rect x="24" y="432" width="342" height="48" fill="#ffffff" stroke="#616161" stroke-width="2"/>
+<text x="36" y="462" font-size="16" fill="#424242">accounts@harbour-bakery.example</text>
+<text x="24" y="521" font-size="16" font-weight="700" fill="#212121">What the work was</text>
+<rect x="24" y="532" width="342" height="48" fill="#ffffff" stroke="#616161" stroke-width="2"/>
+<text x="36" y="562" font-size="16" fill="#424242">Menu redesign, two rounds of changes</text>
+<text x="40" y="621" font-size="16" font-weight="700" fill="#212121">Amount in US dollars</text>
+<text x="40" y="647" font-size="14" fill="#616161">For example, 480.00</text>
+<text x="40" y="673" font-size="16" font-weight="700" fill="#212121">Error: Enter an amount greater than 0</text>
+<rect x="40" y="684" width="326" height="48" fill="#ffffff" stroke="#212121" stroke-width="4"/>
+<text x="52" y="714" font-size="16" fill="#424242">0</text>
+<rect x="24" y="604" width="4" height="128" fill="#212121"/>
+<g data-to="invoice-review" data-transition="9"><rect x="24" y="756" width="165" height="48" rx="4" fill="#424242"/><text x="106" y="786" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">Check invoice</text><circle cx="209" cy="780" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="209" y="784" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">9</text></g>
+<g data-to="discard-dialog" data-transition="11"><rect x="24" y="820" width="102" height="48" rx="4" fill="#e0e0e0" stroke="#616161" stroke-width="2"/><text x="75" y="850" font-size="16" font-weight="700" fill="#212121" text-anchor="middle">Cancel</text><circle cx="146" cy="844" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="146" y="848" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">11</text></g>
+<rect x="1" y="1" width="388" height="906" fill="none" stroke="#9e9e9e" stroke-width="2"/>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" role="img" aria-labelledby="title desc" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+<title id="title">Invoices: one sent (invoices-list), low fidelity, 390 px</title>
+<desc id="desc">The same screen as the empty state, now with the result of the journey in it. Numbered circles are the transition numbers on the sitemap.</desc>
+<rect x="0" y="0" width="390" height="844" fill="#ffffff"/>
+<rect x="0" y="0" width="390" height="56" fill="#e0e0e0"/>
+<text x="24" y="35" font-size="16" font-weight="700" fill="#212121">Pocket Invoice</text>
+<text x="366" y="35" font-size="14" fill="#424242" text-anchor="end">Screen</text>
+<text x="24" y="111" font-size="24" font-weight="700" fill="#212121">Invoices</text>
+<text x="24" y="152" font-size="14" font-weight="700" fill="#212121">Number</text>
+<text x="109" y="152" font-size="14" font-weight="700" fill="#212121">Client</text>
+<text x="194" y="152" font-size="14" font-weight="700" fill="#212121">Amount</text>
+<text x="279" y="152" font-size="14" font-weight="700" fill="#212121">Status</text>
+<line x1="24" y1="164" x2="366" y2="164" stroke="#212121" stroke-width="2"/>
+<text x="24" y="188" font-size="14" fill="#424242">INV-0001</text>
+<text x="109" y="188" font-size="14" fill="#424242">Harbour Bakery</text>
+<text x="194" y="188" font-size="14" fill="#424242">$480.00</text>
+<text x="279" y="188" font-size="14" fill="#424242">Sent</text>
+<line x1="24" y1="200" x2="366" y2="200" stroke="#9e9e9e" stroke-width="1"/>
+<g data-to="invoice-new" data-transition="19"><rect x="24" y="224" width="174" height="48" rx="4" fill="#424242"/><text x="111" y="254" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">Create invoice</text><circle cx="218" cy="248" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="218" y="252" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">19</text></g>
+<rect x="1" y="1" width="388" height="842" fill="none" stroke="#9e9e9e" stroke-width="2"/>
+</svg>

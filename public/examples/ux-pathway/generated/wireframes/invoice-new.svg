@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" role="img" aria-labelledby="title desc" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+<title id="title">New invoice (invoice-new), low fidelity, 390 px</title>
+<desc id="desc">The main task: the details a client needs to pay. Numbered circles are the transition numbers on the sitemap.</desc>
+<rect x="0" y="0" width="390" height="844" fill="#ffffff"/>
+<rect x="0" y="0" width="390" height="56" fill="#e0e0e0"/>
+<text x="24" y="35" font-size="16" font-weight="700" fill="#212121">Pocket Invoice</text>
+<text x="366" y="35" font-size="14" fill="#424242" text-anchor="end">Screen</text>
+<text x="24" y="111" font-size="24" font-weight="700" fill="#212121">New invoice</text>
+<text x="24" y="149" font-size="16" font-weight="700" fill="#212121">Client name</text>
+<rect x="24" y="160" width="342" height="48" fill="#ffffff" stroke="#616161" stroke-width="2"/>
+<text x="36" y="190" font-size="16" fill="#424242">Harbour Bakery</text>
+<text x="24" y="249" font-size="16" font-weight="700" fill="#212121">Client email</text>
+<rect x="24" y="260" width="342" height="48" fill="#ffffff" stroke="#616161" stroke-width="2"/>
+<text x="36" y="290" font-size="16" fill="#424242">accounts@harbour-bakery.example</text>
+<text x="24" y="349" font-size="16" font-weight="700" fill="#212121">What the work was</text>
+<rect x="24" y="360" width="342" height="48" fill="#ffffff" stroke="#616161" stroke-width="2"/>
+<text x="36" y="390" font-size="16" fill="#424242">Menu redesign, two rounds of changes</text>
+<text x="24" y="449" font-size="16" font-weight="700" fill="#212121">Amount in US dollars</text>
+<text x="24" y="475" font-size="14" fill="#616161">For example, 480.00</text>
+<rect x="24" y="484" width="342" height="48" fill="#ffffff" stroke="#616161" stroke-width="2"/>
+<text x="36" y="514" font-size="16" fill="#424242">480.00</text>
+<g data-to="invoice-review" data-transition="7"><rect x="24" y="556" width="165" height="48" rx="4" fill="#424242"/><text x="106" y="586" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">Check invoice</text><circle cx="209" cy="580" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="209" y="584" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">7</text></g>
+<g data-to="discard-dialog" data-transition="10"><rect x="24" y="620" width="102" height="48" rx="4" fill="#e0e0e0" stroke="#616161" stroke-width="2"/><text x="75" y="650" font-size="16" font-weight="700" fill="#212121" text-anchor="middle">Cancel</text><circle cx="146" cy="644" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="146" y="648" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">10</text></g>
+<rect x="24" y="684" width="342" height="96" fill="none" stroke="#616161" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="40" y="710" font-size="14" font-weight="700" fill="#212121">Prototype only: no button causes these</text>
+<circle cx="52" cy="736" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="52" y="740" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">8</text>
+<text x="72" y="741" font-size="14" fill="#424242">Check invoice with no client name or an</text>
+<text x="72" y="761" font-size="14" fill="#424242">amount of 0 or less</text>
+<rect x="1" y="1" width="388" height="842" fill="none" stroke="#9e9e9e" stroke-width="2"/>
+</svg>
