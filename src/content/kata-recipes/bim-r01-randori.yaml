@@ -1,0 +1,176 @@
+# BIM pathway (M10, #92): a draft recipe. The worked example, files and CI check results are on /katas/bim-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job bim_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: BIM pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/92
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent or professional review yet.
+summary: Start from the edited model; a partner reveals one new requirement card after you begin. Check, fix and recheck without breaking what already passed.
+metadata:
+  id: BIM-R01
+  title: "BIM Randori: an unseen requirement change"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - revise-and-revalidate-model
+  artifactTypes:
+    - ids-report
+    - edited-model
+  domainIds:
+    - architecture-bim
+  capabilityIds:
+    - validate-information
+    - edit-model
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - ifcopenshell-and-python
+  constraintIds:
+    - licensed-sample-only
+    - no-paid-tools
+    - offline-capable
+  externalResources:
+    - buildingsmart/ids
+    - ifcopenshell/ifctester
+  crossFieldTransfers:
+    - construction
+  standards:
+    - name: Industry Foundation Classes (IFC)
+      version: IFC4 ADD2 TC1 (ISO 16739-1:2018), as declared by the sample file
+      applicability: The buildingSMART practice sample and copies of it only
+      reviewScope: "What the listed checks test: the schema the file declares, its entities and relationships, and the IDS requirements. No claim about any real building."
+    - name: Information Delivery Specification (IDS)
+      version: "1.0"
+      applicability: The practice requirements and Randori cards written for this pathway
+      reviewScope: Whether each requirement in the IDS file holds for each applicable element. The requirements are invented for practice; meeting them says nothing about a real project's requirements.
+      sourceResourceId: buildingsmart/ids
+  verificationEvidence:
+    - description: For the card drawn, an IDS report before and after the learner's change, and all six practice requirements still passing
+      method: automated-check
+      standards:
+        - Information Delivery Specification (IDS)
+    - description: A Sensei or partner checks that the learner proved the card from the model instead of assuming it
+      method: sensei-review
+  beltCriteria:
+    - stage: practice
+      criterion: Handles card B or C by proving from the model that it already passes
+    - stage: adapt
+      criterion: Handles card A with a scoped edit and keeps the six practice requirements passing
+    - stage: demonstrate
+      criterion: Writes a fourth card for a partner and predicts its result before running it
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: buildingSMART’s wall-with-opening-and-window sample, a practice IDS, an edited copy and every check result, computed by the site’s CI."
+  href: /katas/bim-pathway
+  provenance:
+    creator: buildingSMART International (sample model); Developer Dojo maintainers (IDS, edit and checks)
+    source: buildingSMART Certification-datasets, pinned commit 80d976a9b193a26a8e928c3e79bff67af1de68a8; checks from /examples/bim-pathway/tools/bim_pathway.py
+    license: Sample model CC BY 4.0 (buildingSMART International); IDS files, script and outputs MIT
+    date: "2026-11-21"
+brief:
+  goal: Meet one requirement you did not see in advance, with evidence, without breaking the requirements that already pass.
+  audience: Learners who finished BIM-004, working with a partner or Sensei.
+  inputs:
+    - name: wall-with-opening-and-window.edited.ifc
+      source: /examples/bim-pathway/generated/wall-with-opening-and-window.edited.ifc
+      terms: CC BY 4.0 adaptation of buildingSMART International's sample
+    - name: randori-cards.ids
+      source: /examples/bim-pathway/randori-cards.ids (the partner keeps it; the learner sees only the drawn card)
+      terms: Dojo content, MIT licence
+  doneWhen:
+    - The drawn card's specification passes on your copy, or you show it already passed and why
+    - All six practice requirements still pass
+    - Schema and geometry are rechecked and reported separately
+stack:
+  components:
+    - part: tool
+      name: IfcOpenShell and IfcTester
+      version: 0.9.0.post1 and 0.9.0
+      permissions: Read and write your own copy only
+      cost: Free (LGPL-3.0-or-later)
+    - part: data
+      name: The edited sample from BIM-004 and the Randori cards
+      version: "2026-11-21"
+      permissions: Practice copies
+      cost: Free
+  rationale: Same stack as BIM-001 to BIM-004, so the only new thing is the requirement.
+  alternatives:
+    - name: Draw a stack card instead of a requirement card
+      tradeoff: "The partner can say: no Python, use another open IDS checker. That tests whether your evidence holds when the tool changes. Not tried for this pathway."
+      tested: false
+agents:
+  roles:
+    - role: Partner or Sensei
+      responsibility: Draws one card after the learner starts and keeps the others hidden.
+      reviewGate: Asks for the before and after report for the card and the six practice requirements.
+    - role: Learner
+      responsibility: Reads the card, predicts the result, checks, changes only what is needed and rechecks.
+      dependsOn:
+        - Partner or Sensei
+      reviewGate: The prediction is written down before the check runs.
+setup:
+  steps:
+    - Use the environment from BIM-004.
+    - The partner downloads randori-cards.ids and keeps it; the learner downloads only the edited model.
+  auth: None.
+  smokeTest:
+    action: Check the edited copy against all three cards
+    expected: Card A fails (window FireRating is an empty label); cards B and C pass
+    result: passed
+    evidence: /examples/bim-pathway/generated/randori/ids.json, recomputed by CI on every pipeline
+    date: "2026-11-21"
+prompts:
+  - id: predict-first
+    title: Predict before you check
+    purpose: Make the learner commit to a reading of the model before the tool answers.
+    text: |-
+      Here is a new requirement for my IFC model: <paste the card>.
+      Do not run anything yet. Tell me which elements it applies to, which property or relationship it needs,
+      and where in the model I should look to predict whether it passes. Then I will check.
+exercise:
+  title: Information Delivery Specification (IDS)
+  resourceId: buildingsmart/ids
+  terms: buildingSMART publishes the standard openly; read the repository's own licence before you reuse its files.
+execution:
+  steps:
+    - actor: Partner or Sensei
+      action: Waits until the learner has started, then reveals one card.
+      handoff: The learner writes a prediction.
+    - actor: Learner
+      action: Checks the card, makes the smallest change if it fails, and reruns the card and the six practice requirements.
+    - actor: Partner or Sensei
+      action: Reviews the before and after reports.
+verification:
+  checks:
+    - action: Check the three cards against the edited copy with the pathway script
+      expected: CARD-A fails on the window (#102), CARD-B passes, CARD-C passes (0.24 W/(m2 K) is at most 0.30)
+      result: passed
+      evidence: /examples/bim-pathway/generated/randori/ids.json
+      date: "2026-11-21"
+    - action: A learner meets a drawn card and keeps the six practice requirements passing
+      expected: Before and after reports, with the prediction written first
+      result: not-run
+  failures:
+    - observed: Card C compared with the wrong unit
+      correction: IDS values are in SI units. The sample declares no thermal transmittance unit, so its value is already in W/(m2 K).
+adaptation:
+  variations:
+    - change: The partner draws two cards
+      effect: Fix one at a time and rerun everything after each, so you know which change fixed what.
+randori:
+  challenge: Meet one requirement card you have not seen, revealed after you start, on the edited sample.
+  constraints:
+    - Write your prediction before you check
+    - Change only what the card needs
+    - Keep all six practice requirements passing
+    - Report information, schema and geometry separately
+  evaluation: The card passes or is shown to pass, the six practice requirements still pass, and the partner agrees the evidence comes from the model.
+maintenance:
+  cadence: Every six months, when IfcOpenShell or IfcTester releases a new minor version, or when buildingSMART revises IFC or IDS
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - The sample is a three-element test file, not a building. Nothing learned from it is evidence about a real project.
+    - No model, property value or check result here is professionally reviewed or approved. A real project needs the qualified people its contract and jurisdiction name.
+    - Information (IDS), schema and geometry checks are separate outcomes. Passing one says nothing about the others, and there is no combined score.
+    - The cards are invented practice requirements, not a client brief.

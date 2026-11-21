@@ -1,0 +1,9 @@
+title: "Geometry processing with IfcOpenShell"
+provider: "IfcOpenShell"
+url: "https://docs.ifcopenshell.org/ifcopenshell-python/geometry_processing.html"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [cad-3d-bim]
+summary: "How IfcOpenShell turns IFC shape representations into meshes you can measure: settings, world coordinates, openings and units. Building a shape shows it can be processed, not that it is buildable or free of clashes."
+verifiedOn: 2026-11-21

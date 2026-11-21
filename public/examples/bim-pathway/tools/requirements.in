@@ -1,0 +1,3 @@
+# Inputs for requirements.txt (compiled with hashes: see /examples/bim-pathway/tools/README.md).
+ifcopenshell==0.9.0.post1
+ifctester==0.9.0

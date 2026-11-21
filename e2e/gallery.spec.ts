@@ -4,7 +4,7 @@ import { expect, test, type Page } from '@playwright/test';
 // The Gallery (#87). Runs in both Playwright projects: desktop (1440 px) and mobile (Pixel 7, 390 px).
 
 const GALLERY = '/gallery';
-const ENTRIES = ['fnd-001-stack-comparison', 'pocket-garden-prototype', 'ifc-wall-quantity-trace', 'reconstructed-3d-office', 'pocket-invoice-penpot-file'];
+const ENTRIES = ['fnd-001-stack-comparison', 'pocket-garden-prototype', 'ifc-wall-quantity-trace', 'bim-pathway-edited-model', 'reconstructed-3d-office', 'pocket-invoice-penpot-file'];
 
 async function setTheme(page: Page, theme: 'light' | 'dark'): Promise<void> {
   await page.emulateMedia({ colorScheme: theme });
@@ -73,6 +73,17 @@ test('a draft recipe artifact links its recipe page and its import evidence', as
   }
 });
 
+test('the BIM pathway entry leads to its recipe and its CI-computed files', async ({ page, request }) => {
+  await page.goto(`${GALLERY}?outcome=revise-and-revalidate-model`);
+  expect(await visibleIds(page)).toEqual(['bim-pathway-edited-model']);
+  const bim = card(page, 'bim-pathway-edited-model');
+  for (const link of await bim.locator('a[href^="/examples/bim-pathway/"]').all()) {
+    const href = await link.getAttribute('href');
+    expect((await request.get(href ?? '')).status(), href ?? '').toBe(200);
+  }
+  await expect(bim.locator('[data-step="recipe"]').getByRole('link')).toHaveAttribute('href', '/katas/bim-004-change-and-revalidate');
+});
+
 test('outcome and field filters compose and never hide the shared foundation', async ({ page }) => {
   await page.goto(GALLERY);
   const outcome = page.getByLabel('Outcome', { exact: true });
@@ -81,8 +92,8 @@ test('outcome and field filters compose and never hide the shared foundation', a
   const empty = page.locator('[data-gallery-empty]');
 
   await field.selectOption('architecture-bim');
-  expect(await visibleIds(page)).toEqual(['fnd-001-stack-comparison', 'ifc-wall-quantity-trace']);
-  await expect(status).toHaveText('Showing 2 of 5 artifacts.');
+  expect(await visibleIds(page)).toEqual(['fnd-001-stack-comparison', 'ifc-wall-quantity-trace', 'bim-pathway-edited-model']);
+  await expect(status).toHaveText('Showing 3 of 6 artifacts.');
   await expect(empty).toBeHidden();
   await expect(page).toHaveURL(/field=architecture-bim/);
 

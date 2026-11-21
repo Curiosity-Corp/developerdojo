@@ -1,0 +1,68 @@
+{
+  "failed": 1,
+  "ids": "randori-cards.ids",
+  "passed": 2,
+  "specifications": [
+    {
+      "applicable": 1,
+      "applicableFail": 1,
+      "applicablePass": 0,
+      "identifier": "CARD-A",
+      "name": "Card A: windows carry a fire rating label too",
+      "requirements": [
+        {
+          "description": "FireRating data shall be {'pattern': 'REI [0-9]{2,3}'} and in the dataset Pset_WindowCommon",
+          "facet": "Property",
+          "fail": 1,
+          "failures": [
+            {
+              "GlobalId": "0tA4DSHd50le6Ov9Yu0I9X",
+              "element": "#102",
+              "reason": "The property set does not contain the required property"
+            }
+          ],
+          "label": "Pset_WindowCommon.FireRating",
+          "pass": 0
+        }
+      ],
+      "status": "fail"
+    },
+    {
+      "applicable": 1,
+      "applicableFail": 0,
+      "applicablePass": 1,
+      "identifier": "CARD-B",
+      "name": "Card B: every wall has a material",
+      "requirements": [
+        {
+          "description": "Shall have a material",
+          "facet": "Material",
+          "fail": 0,
+          "failures": [],
+          "label": "Name / Category",
+          "pass": 1
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "applicable": 1,
+      "applicableFail": 0,
+      "applicablePass": 1,
+      "identifier": "CARD-C",
+      "name": "Card C: wall thermal transmittance at most 0.30 W/(m2 K)",
+      "requirements": [
+        {
+          "description": "ThermalTransmittance data shall be {'maxInclusive': '0.30'} and in the dataset Pset_WallCommon",
+          "facet": "Property",
+          "fail": 0,
+          "failures": [],
+          "label": "Pset_WallCommon.ThermalTransmittance",
+          "pass": 1
+        }
+      ],
+      "status": "pass"
+    }
+  ],
+  "title": "Developer Dojo BIM Randori cards"
+}

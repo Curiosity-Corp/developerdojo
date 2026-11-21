@@ -1,0 +1,183 @@
+# BIM pathway (M10, #92): a draft recipe. The worked example, files and CI check results are on /katas/bim-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job bim_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: BIM pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/92
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent or professional review yet.
+summary: List every property set on the wall and window with its values and types, and mark the properties that exist but hold no value.
+metadata:
+  id: BIM-002
+  title: Read the property sets and find what is missing
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - read-property-sets
+  artifactTypes:
+    - property-table
+  domainIds:
+    - architecture-bim
+  capabilityIds:
+    - inspect-model
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - ifcopenshell-and-python
+  constraintIds:
+    - licensed-sample-only
+    - no-paid-tools
+    - offline-capable
+  externalResources:
+    - buildingsmart/ifc-wall-example
+  crossFieldTransfers:
+    - construction
+  standards:
+    - name: Industry Foundation Classes (IFC)
+      version: IFC4 ADD2 TC1 (ISO 16739-1:2018), as declared by the sample file
+      applicability: The buildingSMART practice sample and copies of it only
+      reviewScope: "What the listed checks test: the schema the file declares, its entities and relationships. No claim about any real building."
+  verificationEvidence:
+    - description: A property table for the wall and window that matches the Dojo's CI output, with empty values marked
+      method: automated-check
+      standards:
+        - Industry Foundation Classes (IFC)
+    - description: The learner explains why an empty label is not the same as a recorded value
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Lists Pset_WallCommon and Pset_WindowCommon with types and marks the empty labels
+    - stage: adapt
+      criterion: Finds the empty properties in another openly licensed model
+    - stage: demonstrate
+      criterion: Turns a property table into a short list of questions for the model's author
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: buildingSMART’s wall-with-opening-and-window sample, a practice IDS, an edited copy and every check result, computed by the site’s CI."
+  href: /katas/bim-pathway
+  provenance:
+    creator: buildingSMART International (sample model); Developer Dojo maintainers (IDS, edit and checks)
+    source: buildingSMART Certification-datasets, pinned commit 80d976a9b193a26a8e928c3e79bff67af1de68a8; checks from /examples/bim-pathway/tools/bim_pathway.py
+    license: Sample model CC BY 4.0 (buildingSMART International); IDS files, script and outputs MIT
+    date: "2026-11-21"
+brief:
+  goal: A table of every property on the wall and window, with its value, its IFC type and whether it is empty.
+  audience: Learners who finished BIM-001.
+  inputs:
+    - name: wall-with-opening-and-window.ifc
+      source: buildingsmart/ifc-wall-example (copy on /examples/bim-pathway/)
+      terms: CC BY 4.0, buildingSMART International
+  doneWhen:
+    - Every property in Pset_WallCommon and Pset_WindowCommon is listed with its IFC type
+    - Empty labels are marked as empty, not as values
+    - Your table matches /examples/bim-pathway/generated/original/properties.json
+stack:
+  components:
+    - part: tool
+      name: IfcOpenShell
+      version: 0.9.0.post1
+      permissions: Reads the IFC copy you open; writes only the file your script saves
+      cost: Free (LGPL-3.0-or-later)
+    - part: tool
+      name: IfcTester
+      version: 0.9.0
+      permissions: Reads the IDS file and the IFC copy; writes only the report you ask for
+      cost: Free (LGPL-3.0-or-later)
+    - part: runtime
+      name: Python in a virtual environment
+      version: "3.12"
+      permissions: Runs on your own machine; network only to install the pinned packages
+      cost: Free
+    - part: data
+      name: buildingSMART wall-with-opening-and-window sample (IFC4)
+      version: "Certification-datasets commit 80d976a, SHA-256 73b0e45d…097832"
+      permissions: Read a copy; the licence allows changes with credit
+      cost: Free (CC BY 4.0)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may draft a script or explain an entity, and every claim it makes is checked against the file
+      permissions: Reads what you paste in; if it runs commands, give it only the copy of the model
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: IfcOpenShell and IfcTester are open source, run offline once installed and implement the buildingSMART IFC and IDS standards, so every learner can rerun the same checks on the same file and get the same output. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A desktop BIM authoring tool (for example Bonsai for Blender, or a commercial tool)
+      tradeoff: Shows the model visually and edits it by hand, but results depend on the tool and its export settings. Not tried for this pathway.
+      tested: false
+    - name: A web IFC viewer
+      tradeoff: Lets you look at the geometry in a browser without installing anything, but a viewer is not a validator. No viewer was checked for this pathway.
+      tested: false
+agents:
+  roles:
+    - role: Drafting assistant
+      responsibility: Drafts a script that prints each property set as a table.
+      reviewGate: You check three values by hand in the file before you trust the script.
+    - role: Learner as reviewer
+      responsibility: Decides which empty properties matter for the brief.
+      dependsOn:
+        - Drafting assistant
+      reviewGate: Every empty property in the table is either explained or turned into a question for the author.
+setup:
+  steps:
+    - "Create a virtual environment with Python 3.12: python3.12 -m venv .venv"
+    - "Install the pinned packages: .venv/bin/pip install --require-hashes -r /examples/bim-pathway/tools/requirements.txt, or pip install ifcopenshell==0.9.0.post1 ifctester==0.9.0"
+    - Download the sample model and the practice IDS from /katas/bim-pathway into a new, empty folder. Work on copies; keep the original.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: .venv/bin/python -I -c \"import ifcopenshell; print(ifcopenshell.open('wall-with-opening-and-window.ifc').schema)\""
+    expected: IFC4
+    result: passed
+    evidence: /examples/bim-pathway/generated/original/inspection.json (schema)
+    date: "2026-11-21"
+prompts:
+  - id: property-table
+    title: Draft a property table script
+    purpose: Get a starting script, then check it against the file.
+    text: |-
+      Write Python using ifcopenshell 0.9 that opens an IFC file and, for every IfcElement, prints each property set,
+      each property name, its value and its IFC value type (for example IfcLabel or IfcBoolean).
+      Mark a property whose value is an empty string as EMPTY.
+      Use ifcopenshell.util.element.get_psets where it helps, and tell me which values it may convert.
+exercise:
+  title: IFC wall with opening and window sample
+  resourceId: buildingsmart/ifc-wall-example
+  terms: CC BY 4.0, buildingSMART International.
+execution:
+  steps:
+    - actor: Drafting assistant
+      action: Drafts the property table script.
+      handoff: You run it on your copy.
+    - actor: Learner
+      action: Check three values by hand (entity lines #49 to #59 and #113 to #122) and mark the empty labels.
+verification:
+  checks:
+    - action: Read the properties of the sample with the pathway script
+      expected: Pset_WallCommon has 10 properties, Pset_WindowCommon has 9; FireRating, AcousticRating, Reference and SurfaceSpreadOfFlame on the wall are empty labels; the wall's ThermalTransmittance is 0.24
+      result: passed
+      evidence: /examples/bim-pathway/generated/original/properties.json, recomputed by CI on every pipeline
+      date: "2026-11-21"
+    - action: Your property table matches the CI output
+      expected: Same properties, types and empty markers
+      result: not-run
+  failures:
+    - observed: A script prints FireRating as a value, so it looks filled in
+      correction: The value is an empty IfcLabel. Print the raw value and its type, and treat an empty string as missing.
+adaptation:
+  variations:
+    - change: Add the window type's property sets
+      effect: Properties can sit on the type (IfcWindowType) as well as the occurrence; say which one wins when both exist.
+randori:
+  challenge: See the BIM Randori recipe, BIM-R01.
+  constraints:
+    - Empty is not a value
+  evaluation: The table matches the CI output.
+maintenance:
+  cadence: Every six months, when IfcOpenShell or IfcTester releases a new minor version, or when buildingSMART revises IFC or IDS
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - The sample is a three-element test file, not a building. Nothing learned from it is evidence about a real project.
+    - No model, property value or check result here is professionally reviewed or approved. A real project needs the qualified people its contract and jurisdiction name.
+    - Information (IDS), schema and geometry checks are separate outcomes. Passing one says nothing about the others, and there is no combined score.
+    - Property values in a sample model are test data. A thermal transmittance or rating in this file is not a product or design value.

@@ -1,0 +1,9 @@
+title: "Validating IFC models with IfcOpenShell"
+provider: "IfcOpenShell"
+url: "https://docs.ifcopenshell.org/ifcopenshell-python/validation.html"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [cad-3d-bim]
+summary: "How ifcopenshell.validate checks an IFC file against its schema: attribute types, cardinalities and inverses, with EXPRESS rules as an option. Schema validity is not proof that the information or the geometry is right."
+verifiedOn: 2026-11-21

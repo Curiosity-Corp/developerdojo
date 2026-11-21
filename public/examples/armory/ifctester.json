@@ -1,0 +1,68 @@
+{
+  "entry": "ifctester",
+  "date": "2026-11-21",
+  "package": "ifctester==0.9.0 (PyPI wheel), with ifcopenshell==0.9.0.post1",
+  "environment": "Linux; Python 3.12.12 in a throwaway uv virtual environment (uv pip install ifcopenshell==0.9.0.post1 ifctester==0.9.0), python -I.",
+  "inputs": {
+    "model": {
+      "file": "wall-with-opening-and-window.ifc",
+      "source": "buildingSMART Certification-datasets, pinned commit 80d976a9b193a26a8e928c3e79bff67af1de68a8",
+      "license": "CC BY 4.0",
+      "sha256": "73b0e45d931d5dc13bfee5fdc7bd80f796526445458b2de74c4168d209097832"
+    },
+    "ids": {
+      "file": "practice-requirements.ids",
+      "source": "Developer Dojo, /examples/bim-pathway/practice-requirements.ids",
+      "license": "MIT",
+      "sha256": "e75f56f72966594e73b8dc0439642290b78532bcb7de1d6bdd1409b0db24ac61"
+    }
+  },
+  "script": "/examples/bim-pathway/tools/bim_pathway.py: opens the IDS with XML schema validation on, validates the model against it and reports each specification. CI reruns the same script and fails if its output differs from /examples/bim-pathway/generated/.",
+  "expected": "The IDS is valid IDS 1.0. REQ-03 (wall FireRating in the practice format) fails because the sample stores an empty label; the other five specifications pass.",
+  "output": {
+    "ifctester": "0.9.0",
+    "passed": 5,
+    "failed": 1,
+    "specifications": [
+      {
+        "identifier": "REQ-01",
+        "status": "pass",
+        "applicable": 1,
+        "failures": []
+      },
+      {
+        "identifier": "REQ-02",
+        "status": "pass",
+        "applicable": 1,
+        "failures": []
+      },
+      {
+        "identifier": "REQ-03",
+        "status": "fail",
+        "applicable": 1,
+        "failures": [
+          "#45: The property set does not contain the required property"
+        ]
+      },
+      {
+        "identifier": "REQ-04",
+        "status": "pass",
+        "applicable": 1,
+        "failures": []
+      },
+      {
+        "identifier": "REQ-05",
+        "status": "pass",
+        "applicable": 2,
+        "failures": []
+      },
+      {
+        "identifier": "REQ-06",
+        "status": "pass",
+        "applicable": 1,
+        "failures": []
+      }
+    ]
+  },
+  "fullOutput": "/examples/bim-pathway/generated/original/ids.json"
+}

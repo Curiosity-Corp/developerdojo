@@ -1,0 +1,70 @@
+{
+  "allBuilt": true,
+  "checked": "Each element with a representation is built with ifcopenshell.geom in world coordinates, openings subtracted. Volume and bounding box converted from the model length unit to metres. No clash, tolerance or constructability check.",
+  "elements": [
+    {
+      "GlobalId": "3ZYW59sxj8lei475l7EhLU",
+      "bbox_m": {
+        "max": [
+          3.0,
+          0.3,
+          2.0
+        ],
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "built": true,
+      "class": "IfcWall",
+      "faces": 32,
+      "id": 45,
+      "vertices": 16,
+      "volume_m3": 1.5
+    },
+    {
+      "GlobalId": "2bJiss68D6hvLKV8O1xmqJ",
+      "bbox_m": {
+        "max": [
+          2.0,
+          0.3,
+          1.5
+        ],
+        "min": [
+          1.0,
+          0.0,
+          0.5
+        ]
+      },
+      "built": true,
+      "class": "IfcOpeningElement",
+      "faces": 12,
+      "id": 80,
+      "vertices": 8,
+      "volume_m3": 0.3
+    },
+    {
+      "GlobalId": "0tA4DSHd50le6Ov9Yu0I9X",
+      "bbox_m": {
+        "max": [
+          2.0,
+          0.25,
+          1.5
+        ],
+        "min": [
+          1.0,
+          0.05,
+          0.5
+        ]
+      },
+      "built": true,
+      "class": "IfcWindow",
+      "faces": 12,
+      "id": 102,
+      "vertices": 8,
+      "volume_m3": 0.2
+    }
+  ],
+  "lengthUnitToMetre": 0.001
+}

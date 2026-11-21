@@ -1,0 +1,9 @@
+title: "Information Delivery Specification (IDS)"
+provider: "buildingSMART International"
+url: "https://github.com/buildingSMART/IDS"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [cad-3d-bim]
+summary: "buildingSMART's computer-readable XML standard for stating which information an IFC model must contain: the repository holds the schema (version 1.0 is published at standards.buildingsmart.org/IDS/1.0/ids.xsd), the user manual and the implementers' documentation. An IDS check covers information requirements only; it is not a geometry check, a design review or an approval."
+verifiedOn: 2026-11-21

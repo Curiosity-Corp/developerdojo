@@ -118,6 +118,9 @@ const REFLOW_ROUTES = [
   '/katas/fixture-fixux-001/',
   '/katas/ux-pathway/',
   '/examples/pocket-invoice/',
+  // The BIM pathway and its longest recipe page (#92).
+  '/katas/bim-pathway/',
+  '/katas/bim-003-ids-check/',
 ];
 
 test.describe('reflow: no sideways scroll on a narrow phone', () => {

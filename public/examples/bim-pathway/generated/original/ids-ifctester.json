@@ -1,0 +1,502 @@
+{
+  "filename": null,
+  "filepath": null,
+  "hide_skipped": false,
+  "percent_checks_pass": 87,
+  "percent_requirements_pass": 85,
+  "percent_specifications_pass": 83,
+  "specifications": [
+    {
+      "applicability": [
+        "All IFCWALL data"
+      ],
+      "applicable_entities": [
+        {
+          "class": "IfcWall",
+          "description": "Description of Wall",
+          "element": "#45=IfcWall('3ZYW59sxj8lei475l7EhLU',#2,'Wall for Test Example','Description of Wall',$,#46,#48,$,$)",
+          "element_type": null,
+          "global_id": "3ZYW59sxj8lei475l7EhLU",
+          "id": 45,
+          "name": "Wall for Test Example",
+          "predefined_type": null,
+          "tag": null
+        }
+      ],
+      "cardinality": "required",
+      "description": "Every wall states IsExternal in Pset_WallCommon as a true or false value.",
+      "instructions": "Set Pset_WallCommon.IsExternal on every wall.",
+      "is_ifc_version": true,
+      "is_skipped": false,
+      "name": "Walls say whether they are external",
+      "percent_applicable_pass": 100,
+      "percent_checks_pass": 100,
+      "requirements": [
+        {
+          "description": "IsExternal data shall be provided in the dataset Pset_WallCommon",
+          "facet_type": "Property",
+          "failed_entities": [],
+          "label": "Pset_WallCommon.IsExternal",
+          "metadata": {
+            "@cardinality": "required",
+            "@dataType": "IFCBOOLEAN",
+            "baseName": {
+              "simpleValue": "IsExternal"
+            },
+            "propertySet": {
+              "simpleValue": "Pset_WallCommon"
+            }
+          },
+          "passed_entities": [
+            {
+              "class": "IfcWall",
+              "description": "Description of Wall",
+              "element": "#45=IfcWall('3ZYW59sxj8lei475l7EhLU',#2,'Wall for Test Example','Description of Wall',$,#46,#48,$,$)",
+              "element_type": null,
+              "global_id": "3ZYW59sxj8lei475l7EhLU",
+              "id": 45,
+              "name": "Wall for Test Example",
+              "predefined_type": null,
+              "tag": null
+            }
+          ],
+          "percent_pass": 100,
+          "status": true,
+          "total_applicable": 1,
+          "total_fail": 0,
+          "total_pass": 1,
+          "value": ""
+        }
+      ],
+      "status": true,
+      "total_applicable": 1,
+      "total_applicable_fail": 0,
+      "total_applicable_pass": 1,
+      "total_checks": 1,
+      "total_checks_fail": 0,
+      "total_checks_pass": 1
+    },
+    {
+      "applicability": [
+        "All IFCWALL data"
+      ],
+      "applicable_entities": [
+        {
+          "class": "IfcWall",
+          "description": "Description of Wall",
+          "element": "#45=IfcWall('3ZYW59sxj8lei475l7EhLU',#2,'Wall for Test Example','Description of Wall',$,#46,#48,$,$)",
+          "element_type": null,
+          "global_id": "3ZYW59sxj8lei475l7EhLU",
+          "id": 45,
+          "name": "Wall for Test Example",
+          "predefined_type": null,
+          "tag": null
+        }
+      ],
+      "cardinality": "required",
+      "description": "Every wall states LoadBearing in Pset_WallCommon as a true or false value.",
+      "instructions": "Set Pset_WallCommon.LoadBearing on every wall.",
+      "is_ifc_version": true,
+      "is_skipped": false,
+      "name": "Walls say whether they are load bearing",
+      "percent_applicable_pass": 100,
+      "percent_checks_pass": 100,
+      "requirements": [
+        {
+          "description": "LoadBearing data shall be provided in the dataset Pset_WallCommon",
+          "facet_type": "Property",
+          "failed_entities": [],
+          "label": "Pset_WallCommon.LoadBearing",
+          "metadata": {
+            "@cardinality": "required",
+            "@dataType": "IFCBOOLEAN",
+            "baseName": {
+              "simpleValue": "LoadBearing"
+            },
+            "propertySet": {
+              "simpleValue": "Pset_WallCommon"
+            }
+          },
+          "passed_entities": [
+            {
+              "class": "IfcWall",
+              "description": "Description of Wall",
+              "element": "#45=IfcWall('3ZYW59sxj8lei475l7EhLU',#2,'Wall for Test Example','Description of Wall',$,#46,#48,$,$)",
+              "element_type": null,
+              "global_id": "3ZYW59sxj8lei475l7EhLU",
+              "id": 45,
+              "name": "Wall for Test Example",
+              "predefined_type": null,
+              "tag": null
+            }
+          ],
+          "percent_pass": 100,
+          "status": true,
+          "total_applicable": 1,
+          "total_fail": 0,
+          "total_pass": 1,
+          "value": ""
+        }
+      ],
+      "status": true,
+      "total_applicable": 1,
+      "total_applicable_fail": 0,
+      "total_applicable_pass": 1,
+      "total_checks": 1,
+      "total_checks_fail": 0,
+      "total_checks_pass": 1
+    },
+    {
+      "applicability": [
+        "All IFCWALL data"
+      ],
+      "applicable_entities": [
+        {
+          "class": "IfcWall",
+          "description": "Description of Wall",
+          "element": "#45=IfcWall('3ZYW59sxj8lei475l7EhLU',#2,'Wall for Test Example','Description of Wall',$,#46,#48,$,$)",
+          "element_type": null,
+          "global_id": "3ZYW59sxj8lei475l7EhLU",
+          "id": 45,
+          "name": "Wall for Test Example",
+          "predefined_type": null,
+          "tag": null
+        }
+      ],
+      "cardinality": "required",
+      "description": "Every wall has Pset_WallCommon.FireRating written as REI followed by minutes, for example REI 60. The format is a practice rule; the value is not a fire assessment.",
+      "instructions": "Write the label given in the practice brief. Only a qualified fire engineer can decide a real rating.",
+      "is_ifc_version": true,
+      "is_skipped": false,
+      "name": "Walls carry a fire rating label in the practice format",
+      "percent_applicable_pass": 0,
+      "percent_checks_pass": 0,
+      "requirements": [
+        {
+          "description": "FireRating data shall be {'pattern': 'REI [0-9]{2,3}'} and in the dataset Pset_WallCommon",
+          "facet_type": "Property",
+          "failed_entities": [
+            {
+              "class": "IfcWall",
+              "description": "Description of Wall",
+              "element": "#45=IfcWall('3ZYW59sxj8lei475l7EhLU',#2,'Wall for Test Example','Description of Wall',$,#46,#48,$,$)",
+              "element_type": null,
+              "global_id": "3ZYW59sxj8lei475l7EhLU",
+              "id": 45,
+              "name": "Wall for Test Example",
+              "predefined_type": null,
+              "reason": "The property set does not contain the required property",
+              "tag": null
+            }
+          ],
+          "label": "Pset_WallCommon.FireRating",
+          "metadata": {
+            "@cardinality": "required",
+            "@dataType": "IFCLABEL",
+            "baseName": {
+              "simpleValue": "FireRating"
+            },
+            "propertySet": {
+              "simpleValue": "Pset_WallCommon"
+            },
+            "value": {
+              "xs:restriction": [
+                {
+                  "@base": "xs:string",
+                  "xs:pattern": [
+                    {
+                      "@value": "REI [0-9]{2,3}"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "passed_entities": [],
+          "percent_pass": 0,
+          "status": false,
+          "total_applicable": 1,
+          "total_fail": 1,
+          "total_pass": 0,
+          "value": "{'pattern': 'REI [0-9]{2,3}'}"
+        }
+      ],
+      "status": false,
+      "total_applicable": 1,
+      "total_applicable_fail": 1,
+      "total_applicable_pass": 0,
+      "total_checks": 1,
+      "total_checks_fail": 1,
+      "total_checks_pass": 0
+    },
+    {
+      "applicability": [
+        "All IFCWINDOW data"
+      ],
+      "applicable_entities": [
+        {
+          "class": "IfcWindow",
+          "description": "Description of Window",
+          "element": "#102=IfcWindow('0tA4DSHd50le6Ov9Yu0I9X',#2,'Window for Test Example','Description of Window',$,#103,#106,$,1000.,1000.,$,$,$)",
+          "element_type": "#107=IfcWindowType('0Ps4H3X0nAxfqkHNemLE6f',#2,'Window for Test Example','Description of Window Type',$,$,$,$,$,.WINDOW.,.SINGLE_PANEL.,$,$)",
+          "global_id": "0tA4DSHd50le6Ov9Yu0I9X",
+          "id": 102,
+          "name": "Window for Test Example",
+          "predefined_type": "WINDOW",
+          "tag": null
+        }
+      ],
+      "cardinality": "required",
+      "description": "Every window has values in its OverallWidth and OverallHeight attributes.",
+      "instructions": "Fill both attributes, in the project length unit.",
+      "is_ifc_version": true,
+      "is_skipped": false,
+      "name": "Windows have an overall width and height",
+      "percent_applicable_pass": 100,
+      "percent_checks_pass": 100,
+      "requirements": [
+        {
+          "description": "The OverallWidth shall be provided",
+          "facet_type": "Attribute",
+          "failed_entities": [],
+          "label": "OverallWidth",
+          "metadata": {
+            "@cardinality": "required",
+            "name": {
+              "simpleValue": "OverallWidth"
+            }
+          },
+          "passed_entities": [
+            {
+              "class": "IfcWindow",
+              "description": "Description of Window",
+              "element": "#102=IfcWindow('0tA4DSHd50le6Ov9Yu0I9X',#2,'Window for Test Example','Description of Window',$,#103,#106,$,1000.,1000.,$,$,$)",
+              "element_type": "#107=IfcWindowType('0Ps4H3X0nAxfqkHNemLE6f',#2,'Window for Test Example','Description of Window Type',$,$,$,$,$,.WINDOW.,.SINGLE_PANEL.,$,$)",
+              "global_id": "0tA4DSHd50le6Ov9Yu0I9X",
+              "id": 102,
+              "name": "Window for Test Example",
+              "predefined_type": "WINDOW",
+              "tag": null
+            }
+          ],
+          "percent_pass": 100,
+          "status": true,
+          "total_applicable": 1,
+          "total_fail": 0,
+          "total_pass": 1,
+          "value": ""
+        },
+        {
+          "description": "The OverallHeight shall be provided",
+          "facet_type": "Attribute",
+          "failed_entities": [],
+          "label": "OverallHeight",
+          "metadata": {
+            "@cardinality": "required",
+            "name": {
+              "simpleValue": "OverallHeight"
+            }
+          },
+          "passed_entities": [
+            {
+              "class": "IfcWindow",
+              "description": "Description of Window",
+              "element": "#102=IfcWindow('0tA4DSHd50le6Ov9Yu0I9X',#2,'Window for Test Example','Description of Window',$,#103,#106,$,1000.,1000.,$,$,$)",
+              "element_type": "#107=IfcWindowType('0Ps4H3X0nAxfqkHNemLE6f',#2,'Window for Test Example','Description of Window Type',$,$,$,$,$,.WINDOW.,.SINGLE_PANEL.,$,$)",
+              "global_id": "0tA4DSHd50le6Ov9Yu0I9X",
+              "id": 102,
+              "name": "Window for Test Example",
+              "predefined_type": "WINDOW",
+              "tag": null
+            }
+          ],
+          "percent_pass": 100,
+          "status": true,
+          "total_applicable": 1,
+          "total_fail": 0,
+          "total_pass": 1,
+          "value": ""
+        }
+      ],
+      "status": true,
+      "total_applicable": 1,
+      "total_applicable_fail": 0,
+      "total_applicable_pass": 1,
+      "total_checks": 2,
+      "total_checks_fail": 0,
+      "total_checks_pass": 2
+    },
+    {
+      "applicability": [
+        "All {'enumeration': ['IFCWALL', 'IFCWINDOW']} data"
+      ],
+      "applicable_entities": [
+        {
+          "class": "IfcWall",
+          "description": "Description of Wall",
+          "element": "#45=IfcWall('3ZYW59sxj8lei475l7EhLU',#2,'Wall for Test Example','Description of Wall',$,#46,#48,$,$)",
+          "element_type": null,
+          "global_id": "3ZYW59sxj8lei475l7EhLU",
+          "id": 45,
+          "name": "Wall for Test Example",
+          "predefined_type": null,
+          "tag": null
+        },
+        {
+          "class": "IfcWindow",
+          "description": "Description of Window",
+          "element": "#102=IfcWindow('0tA4DSHd50le6Ov9Yu0I9X',#2,'Window for Test Example','Description of Window',$,#103,#106,$,1000.,1000.,$,$,$)",
+          "element_type": "#107=IfcWindowType('0Ps4H3X0nAxfqkHNemLE6f',#2,'Window for Test Example','Description of Window Type',$,$,$,$,$,.WINDOW.,.SINGLE_PANEL.,$,$)",
+          "global_id": "0tA4DSHd50le6Ov9Yu0I9X",
+          "id": 102,
+          "name": "Window for Test Example",
+          "predefined_type": "WINDOW",
+          "tag": null
+        }
+      ],
+      "cardinality": "required",
+      "description": "Every wall and window is contained in an IfcBuildingStorey.",
+      "instructions": "Assign each wall and window to its storey.",
+      "is_ifc_version": true,
+      "is_skipped": false,
+      "name": "Walls and windows are placed in a building storey",
+      "percent_applicable_pass": 100,
+      "percent_checks_pass": 100,
+      "requirements": [
+        {
+          "description": "An element must have an IFCRELCONTAINEDINSPATIALSTRUCTURE relationship with an IFCBUILDINGSTOREY",
+          "facet_type": "PartOf",
+          "failed_entities": [],
+          "label": "IFCRELCONTAINEDINSPATIALSTRUCTURE",
+          "metadata": {
+            "@cardinality": "required",
+            "@relation": "IFCRELCONTAINEDINSPATIALSTRUCTURE",
+            "entity": {
+              "name": {
+                "simpleValue": "IFCBUILDINGSTOREY"
+              }
+            }
+          },
+          "passed_entities": [
+            {
+              "class": "IfcWall",
+              "description": "Description of Wall",
+              "element": "#45=IfcWall('3ZYW59sxj8lei475l7EhLU',#2,'Wall for Test Example','Description of Wall',$,#46,#48,$,$)",
+              "element_type": null,
+              "global_id": "3ZYW59sxj8lei475l7EhLU",
+              "id": 45,
+              "name": "Wall for Test Example",
+              "predefined_type": null,
+              "tag": null
+            },
+            {
+              "class": "IfcWindow",
+              "description": "Description of Window",
+              "element": "#102=IfcWindow('0tA4DSHd50le6Ov9Yu0I9X',#2,'Window for Test Example','Description of Window',$,#103,#106,$,1000.,1000.,$,$,$)",
+              "element_type": "#107=IfcWindowType('0Ps4H3X0nAxfqkHNemLE6f',#2,'Window for Test Example','Description of Window Type',$,$,$,$,$,.WINDOW.,.SINGLE_PANEL.,$,$)",
+              "global_id": "0tA4DSHd50le6Ov9Yu0I9X",
+              "id": 102,
+              "name": "Window for Test Example",
+              "predefined_type": "WINDOW",
+              "tag": null
+            }
+          ],
+          "percent_pass": 100,
+          "status": true,
+          "total_applicable": 2,
+          "total_fail": 0,
+          "total_pass": 2,
+          "value": "IFCBUILDINGSTOREY"
+        }
+      ],
+      "status": true,
+      "total_applicable": 2,
+      "total_applicable_fail": 0,
+      "total_applicable_pass": 2,
+      "total_checks": 2,
+      "total_checks_fail": 0,
+      "total_checks_pass": 2
+    },
+    {
+      "applicability": [
+        "All IFCWINDOW data"
+      ],
+      "applicable_entities": [
+        {
+          "class": "IfcWindow",
+          "description": "Description of Window",
+          "element": "#102=IfcWindow('0tA4DSHd50le6Ov9Yu0I9X',#2,'Window for Test Example','Description of Window',$,#103,#106,$,1000.,1000.,$,$,$)",
+          "element_type": "#107=IfcWindowType('0Ps4H3X0nAxfqkHNemLE6f',#2,'Window for Test Example','Description of Window Type',$,$,$,$,$,.WINDOW.,.SINGLE_PANEL.,$,$)",
+          "global_id": "0tA4DSHd50le6Ov9Yu0I9X",
+          "id": 102,
+          "name": "Window for Test Example",
+          "predefined_type": "WINDOW",
+          "tag": null
+        }
+      ],
+      "cardinality": "required",
+      "description": "Every window has Pset_WindowCommon.ThermalTransmittance as a thermal transmittance measure.",
+      "instructions": "Copy the value from the product data; do not estimate it.",
+      "is_ifc_version": true,
+      "is_skipped": false,
+      "name": "Windows state their thermal transmittance",
+      "percent_applicable_pass": 100,
+      "percent_checks_pass": 100,
+      "requirements": [
+        {
+          "description": "ThermalTransmittance data shall be provided in the dataset Pset_WindowCommon",
+          "facet_type": "Property",
+          "failed_entities": [],
+          "label": "Pset_WindowCommon.ThermalTransmittance",
+          "metadata": {
+            "@cardinality": "required",
+            "@dataType": "IFCTHERMALTRANSMITTANCEMEASURE",
+            "baseName": {
+              "simpleValue": "ThermalTransmittance"
+            },
+            "propertySet": {
+              "simpleValue": "Pset_WindowCommon"
+            }
+          },
+          "passed_entities": [
+            {
+              "class": "IfcWindow",
+              "description": "Description of Window",
+              "element": "#102=IfcWindow('0tA4DSHd50le6Ov9Yu0I9X',#2,'Window for Test Example','Description of Window',$,#103,#106,$,1000.,1000.,$,$,$)",
+              "element_type": "#107=IfcWindowType('0Ps4H3X0nAxfqkHNemLE6f',#2,'Window for Test Example','Description of Window Type',$,$,$,$,$,.WINDOW.,.SINGLE_PANEL.,$,$)",
+              "global_id": "0tA4DSHd50le6Ov9Yu0I9X",
+              "id": 102,
+              "name": "Window for Test Example",
+              "predefined_type": "WINDOW",
+              "tag": null
+            }
+          ],
+          "percent_pass": 100,
+          "status": true,
+          "total_applicable": 1,
+          "total_fail": 0,
+          "total_pass": 1,
+          "value": ""
+        }
+      ],
+      "status": true,
+      "total_applicable": 1,
+      "total_applicable_fail": 0,
+      "total_applicable_pass": 1,
+      "total_checks": 1,
+      "total_checks_fail": 0,
+      "total_checks_pass": 1
+    }
+  ],
+  "status": false,
+  "title": "Developer Dojo practice requirements: wall and window",
+  "total_checks": 8,
+  "total_checks_fail": 1,
+  "total_checks_pass": 7,
+  "total_requirements": 7,
+  "total_requirements_fail": 1,
+  "total_requirements_pass": 6,
+  "total_specifications": 6,
+  "total_specifications_fail": 1,
+  "total_specifications_pass": 5
+}

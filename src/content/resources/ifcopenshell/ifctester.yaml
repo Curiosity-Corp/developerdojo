@@ -1,0 +1,9 @@
+title: "IfcTester"
+provider: "IfcOpenShell"
+url: "https://docs.ifcopenshell.org/ifctester.html"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [cad-3d-bim]
+summary: "Documentation for IfcTester, IfcOpenShell's library and command-line tool that reads IDS files and checks IFC models against them, with console, JSON, HTML, ODS and BCF reports. LGPL-3.0-or-later."
+verifiedOn: 2026-11-21

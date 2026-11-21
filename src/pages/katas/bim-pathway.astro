@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+// Every number on this page is read from the files CI recomputes (/examples/bim-pathway/tools/bim_pathway.py, job bim_pathway).
+import manifest from '../../../public/examples/bim-pathway/generated/manifest.json';
+import inspection from '../../../public/examples/bim-pathway/generated/original/inspection.json';
+import originalIds from '../../../public/examples/bim-pathway/generated/original/ids.json';
+import editedIds from '../../../public/examples/bim-pathway/generated/edited/ids.json';
+import originalSchema from '../../../public/examples/bim-pathway/generated/original/schema.json';
+import editedSchema from '../../../public/examples/bim-pathway/generated/edited/schema.json';
+import originalGeometry from '../../../public/examples/bim-pathway/generated/original/geometry.json';
+import editedGeometry from '../../../public/examples/bim-pathway/generated/edited/geometry.json';
+import change from '../../../public/examples/bim-pathway/generated/change.json';
+import randori from '../../../public/examples/bim-pathway/generated/randori/ids.json';
+
+const EX = '/examples/bim-pathway';
+const GEN = `${EX}/generated`;
+const steps = [
+  { id: 'BIM-001', href: '/katas/bim-001-inspect-model', title: 'Inspect an IFC model', does: 'Schema, units, the spatial tree, every element and how the opening and window relate to the wall.' },
+  { id: 'BIM-002', href: '/katas/bim-002-property-sets', title: 'Read the property sets', does: 'Every property on the wall and window, with its type, and the ones that are empty.' },
+  { id: 'BIM-003', href: '/katas/bim-003-ids-check', title: 'Check the model against IDS requirements', does: 'Run six practice requirements with IfcTester and explain the one that fails.' },
+  { id: 'BIM-004', href: '/katas/bim-004-change-and-revalidate', title: 'Change the model and check it again', does: 'One scoped edit, every GlobalId kept, then IDS, schema and geometry checks rerun on the copy.' },
+  { id: 'BIM-R01', href: '/katas/bim-r01-randori', title: 'BIM Randori: an unseen requirement change', does: 'A partner reveals one new requirement after you start; meet it without breaking the others.' },
+];
+const pairs = originalIds.specifications.map((spec, index) => ({ spec, after: editedIds.specifications[index] }));
+const geometryRows = originalGeometry.elements.map((element, index) => ({ element, after: editedGeometry.elements[index] }));
+const edit = change.propertyChanges[0];
+const statusLabel = (status: string) => (status === 'pass' ? 'Pass' : 'Fail');
+const sources = {
+  sample: 'https://github.com/buildingSMART/Certification-datasets/blob/80d976a9b193a26a8e928c3e79bff67af1de68a8/IFC%204.0.2.1%20%28IFC%204%20ADD2%20TC1%29/ISO%20Spec%20-%20ReferenceView_V1.2/wall-with-opening-and-window.ifc',
+  licence: 'https://github.com/buildingSMART/Certification-datasets/blob/80d976a9b193a26a8e928c3e79bff67af1de68a8/LICENSE',
+  ids: 'https://github.com/buildingSMART/IDS',
+  idsXsd: 'https://standards.buildingsmart.org/IDS/1.0/ids.xsd',
+  ifctester: 'https://docs.ifcopenshell.org/ifctester.html',
+  validate: 'https://docs.ifcopenshell.org/ifcopenshell-python/validation.html',
+  geometry: 'https://docs.ifcopenshell.org/ifcopenshell-python/geometry_processing.html',
+  pypiIfcopenshell: 'https://pypi.org/project/ifcopenshell/0.9.0.post1/',
+  pypiIfctester: 'https://pypi.org/project/ifctester/0.9.0/',
+};
+---
+<BaseLayout title="BIM pathway: from an IFC file to checked, edited building information" description="Follow a BIM pathway on a real, openly licensed IFC model: inspect it, read its property sets, check it against IDS requirements, change it and check it again, with every result computed in CI.">
+  <PageHero compact eyebrow="Architecture and BIM · Pathway" title="From an IFC file to checked information" accent="." subtitle="Five katas on one small, openly licensed building model. Each step has a real file you can open and a check result that CI computes on every pipeline." ctas={[
+    { label: 'Start with BIM-001', href: '/katas/bim-001-inspect-model', icon: 'play' },
+    { label: 'Download the model', href: `${EX}/wall-with-opening-and-window.ifc`, variant: 'ghost', icon: 'arrow-right' },
+  ]} />
+
+  <section class="section" aria-labelledby="outcome-title"><div class="container narrow">
+    <p class="eyebrow">01 / The files</p>
+    <h2 id="outcome-title">One wall, one opening, one window</h2>
+    <p>The model is buildingSMART’s <strong>wall-with-opening-and-window</strong> test file: schema {inspection.schema}, lengths in {inspection.units.LENGTHUNIT.toLowerCase()}. It is tiny on purpose, so every entity can be read and every check can be followed by hand. It is a test file, not a building.</p>
+    <ul class="links">
+      <li><a href={`${EX}/wall-with-opening-and-window.ifc`} download>The original model</a> (IFC, CC BY 4.0, buildingSMART International), unchanged.</li>
+      <li><a href={`${EX}/practice-requirements.ids`} download>The practice requirements</a> (IDS 1.0 XML): six requirements written for this pathway.</li>
+      <li><a href={`${GEN}/wall-with-opening-and-window.edited.ifc`} download>The edited copy</a> (IFC, CC BY 4.0 adaptation): the BIM-004 change, rebuilt byte for byte by CI.</li>
+      <li><a href={`${GEN}/summary.md`}>The check summary</a> (Markdown) and every result as JSON under <a href={`${GEN}/manifest.json`}>the manifest</a>, with tool versions and file hashes.</li>
+      <li><a href={`${EX}/tools/bim_pathway.py`}>The pathway script</a> (Python, MIT) and <a href={`${EX}/tools/requirements.txt`}>its pinned packages</a>, so you can rerun every check yourself.</li>
+      <li><a href={`${EX}/README.md`}>README</a>: licences, how to rerun the checks, and what they do not cover.</li>
+    </ul>
+    <p class="note">Mesh is not BIM. The <a href="/katas/scan-a-room">3D room scan</a> is a surface you can look at; this model is data with types, properties and relationships you can query and check.</p>
+  </div></section>
+
+  <section class="section" aria-labelledby="model-title"><div class="container narrow">
+    <p class="eyebrow">02 / What is in the model</p>
+    <h2 id="model-title">{inspection.elements.length} elements in one storey</h2>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="elements-caption">
+      <table>
+        <caption id="elements-caption">Elements, from the CI inspection of the original file</caption>
+        <thead><tr><th scope="col">Entity</th><th scope="col">Class</th><th scope="col">Name</th><th scope="col">GlobalId</th></tr></thead>
+        <tbody>
+          {inspection.elements.map((element) => <tr><td>#{element.id}</td><td>{element.class}</td><td>{element.Name}</td><td><code>{element.GlobalId}</code></td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>The opening {inspection.relationships.voids.map((r) => `${r.opening} voids the wall ${r.wall}`).join(', ')}, and the window {inspection.relationships.fills.map((r) => `${r.filledBy} fills the opening ${r.opening}`).join(', ')}. <a href={`${GEN}/original/inspection.json`}>Full inspection (JSON)</a> · <a href={`${GEN}/original/properties.json`}>property sets (JSON)</a>.</p>
+  </div></section>
+
+  <section class="section" aria-labelledby="steps-title"><div class="container narrow">
+    <p class="eyebrow">03 / The steps</p>
+    <h2 id="steps-title">Five katas, in order</h2>
+    <p>Each kata has a brief, prompts, checks and the evidence for the checks the Dojo has run. They are drafts: the Dojo built the example and CI checks it, and no learner has run them yet. Do the foundations first: <a href="/katas/compare-instructions">Compare AI instructions</a> and <a href="/katas/context-trap">Spot a context trap</a>. If you have not read an IFC file before, <a href="/katas/inspect-ifc">Find the story in a building model</a> walks through the same sample by hand.</p>
+    <ol class="steps">
+      {steps.map((step) => <li><a href={step.href}><span class="step-id">{step.id}</span> {step.title}</a><p>{step.does}</p></li>)}
+    </ol>
+  </div></section>
+
+  <section class="section" aria-labelledby="checks-title"><div class="container narrow">
+    <p class="eyebrow">04 / The checks</p>
+    <h2 id="checks-title">Three separate outcomes, no combined score</h2>
+    <p>Information, schema and geometry answer different questions. A model can pass one and fail another, so each is reported on its own. These results come from CI: the pipeline reruns <code>/examples/bim-pathway/tools/bim_pathway.py</code> and fails if any output differs from the published files.</p>
+
+    <h3 id="ids-title">Information: IDS requirements</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="ids-caption">
+      <table>
+        <caption id="ids-caption">Practice IDS results: original sample and edited copy</caption>
+        <thead><tr><th scope="col">Requirement</th><th scope="col">Original</th><th scope="col">Edited</th></tr></thead>
+        <tbody>
+          {pairs.map(({ spec, after }) => <tr><th scope="row">{spec.identifier} {spec.name}</th><td data-ids-original={spec.identifier}>{statusLabel(spec.status)}</td><td data-ids-edited={after?.identifier}>{after ? statusLabel(after.status) : 'Not checked'}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>Original: <strong>{originalIds.passed} passed, {originalIds.failed} failed</strong>. Edited: <strong>{editedIds.passed} passed, {editedIds.failed} failed</strong>. REQ-03 failed on the original because the wall’s FireRating is an empty label; IfcTester reports an empty value as a missing property.</p>
+
+    <h3 id="change-title">The change (BIM-004)</h3>
+    <p data-change>{edit?.element} {edit?.property}: “{edit?.before?.value}” to “{edit?.after?.value}”. {change.globalIdsKept} of {change.globalIdsInOriginal} GlobalIds kept, {change.globalIdsAdded} added. “REI 60” is a practice placeholder that meets the practice pattern; it is not a fire rating. <a href={`${GEN}/change.json`}>Change record (JSON)</a>.</p>
+
+    <h3 id="schema-title">Schema</h3>
+    <p>IFC4 schema check with ifcopenshell.validate (EXPRESS rules off): original {originalSchema.issues.length} issues, edited {editedSchema.issues.length} issues. <a href={`${GEN}/edited/schema.json`}>Result (JSON)</a>.</p>
+
+    <h3 id="geometry-title">Geometry</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="geometry-caption">
+      <table>
+        <caption id="geometry-caption">Shapes built with ifcopenshell.geom, openings cut, in metres</caption>
+        <thead><tr><th scope="col">Element</th><th scope="col">Built (original, edited)</th><th scope="col">Volume m³</th><th scope="col">Bounding box</th></tr></thead>
+        <tbody>
+          {geometryRows.map(({ element, after }) => <tr><td>#{element.id} {element.class}</td><td>{element.built ? 'yes' : 'no'}, {after?.built ? 'yes' : 'no'}</td><td>{element.volume_m3}</td><td>{element.bbox_m ? `${element.bbox_m.min.join(', ')} to ${element.bbox_m.max.join(', ')}` : 'none'}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>The wall is 3 × 0.3 × 2 m less the 1 × 0.3 × 1 m opening: 1.5 m³. Building a shape shows it can be processed; it is not a clash, tolerance or constructability check.</p>
+
+    <h3 id="randori-title">Randori cards</h3>
+    <p>Checked against the edited copy: {randori.specifications.map((s) => `${s.identifier} ${s.status}`).join(', ')}. <a href={`${EX}/randori-cards.ids`}>The cards (IDS)</a> are for the partner; see <a href="/katas/bim-r01-randori">BIM-R01</a>.</p>
+  </div></section>
+
+  <section class="section" aria-labelledby="tools-title"><div class="container narrow">
+    <p class="eyebrow">05 / The tools</p>
+    <h2 id="tools-title">Open tools, pinned versions</h2>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="tools-caption">
+      <table>
+        <caption id="tools-caption">What the checks use, from each publisher’s own pages (checked 21 November 2026)</caption>
+        <thead><tr><th scope="col">Tool or standard</th><th scope="col">Version</th><th scope="col">Licence</th><th scope="col">Source</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">IfcOpenShell</th><td>{manifest.tools.ifcopenshell}</td><td>LGPL-3.0-or-later</td><td><a href={sources.pypiIfcopenshell}>PyPI</a>, <a href={sources.validate}>validation</a>, <a href={sources.geometry}>geometry</a></td></tr>
+          <tr><th scope="row">IfcTester</th><td>{manifest.tools.ifctester}</td><td>LGPL-3.0-or-later</td><td><a href={sources.pypiIfctester}>PyPI</a>, <a href={sources.ifctester}>documentation</a></td></tr>
+          <tr><th scope="row">Python</th><td>{manifest.tools.python}</td><td>PSF</td><td>CI image python:3.12-slim</td></tr>
+          <tr><th scope="row">IDS (buildingSMART)</th><td>1.0</td><td>Open standard</td><td><a href={sources.ids}>repository</a>, <a href={sources.idsXsd}>schema</a></td></tr>
+          <tr><th scope="row">IFC (buildingSMART)</th><td>IFC4 (as the sample declares)</td><td>Open standard</td><td>Declared in the file’s FILE_SCHEMA</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The Armory lists <a href="/armory/registry#ifcopenshell">IfcOpenShell</a> and <a href="/armory/registry#ifctester">IfcTester</a> with their smoke tests, and the stack recipe <a href="/armory/registry#recipe-ifcopenshell-and-python">IfcOpenShell, IfcTester and Python</a>.</p>
+  </div></section>
+
+  <section class="section" aria-labelledby="evidence-title"><div class="container narrow">
+    <p class="eyebrow">06 / What is checked</p>
+    <h2 id="evidence-title">Verified, and not verified</h2>
+    <h3>Verified</h3>
+    <ul>
+      <li>The model is the pinned buildingSMART file, unchanged (SHA-256 <code>{manifest.inputs['wall-with-opening-and-window.ifc'].slice(0, 12)}…</code>, checked by the site’s tests).</li>
+      <li>Both IDS files open with XML schema validation on, as IDS 1.0.</li>
+      <li>On every pipeline, CI installs the pinned packages by hash, reruns the inspection, property, IDS, schema and geometry checks on the original and the edited copy and the Randori cards, rebuilds the edited file, and fails if any output differs from the files on this page.</li>
+      <li>The edit changes one property and keeps every GlobalId.</li>
+    </ul>
+    <h3>Not verified</h3>
+    <ul>
+      <li>Any real building, design value or project requirement. The requirements are invented for practice, and the sample is a test file.</li>
+      <li>Professional, regulatory or construction approval of any kind. Nothing here is approved, and a real project needs the qualified reviewers its contract and jurisdiction name.</li>
+      <li>EXPRESS where-rules and buildingSMART’s own validation service: the schema check ran with EXPRESS rules off.</li>
+      <li>Clash detection, tolerances, quantities for cost, or construction sequence.</li>
+      <li>Opening the files in a BIM authoring tool or a web IFC viewer, and round trips through other tools.</li>
+      <li>Use by real learners: no learner has run these katas yet.</li>
+    </ul>
+  </div></section>
+
+  <section class="section" aria-labelledby="credits-title"><div class="container narrow">
+    <p class="eyebrow">07 / Credits</p>
+    <h2 id="credits-title">Credits and terms</h2>
+    <ul>
+      <li>Model: <a href={sources.sample}>wall-with-opening-and-window.ifc</a>, © buildingSMART International Ltd., from the Certification-datasets repository at a pinned commit, <a href={sources.licence}>licensed CC BY 4.0</a>. The edited copy is an adaptation: one property changed and the file header rewritten by the Dojo.</li>
+      <li>The IDS files, the pathway script and its outputs: Developer Dojo, MIT licence.</li>
+      <li>IfcOpenShell and IfcTester: the IfcOpenShell project, LGPL-3.0-or-later.</li>
+    </ul>
+  </div></section>
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 68rem; }
+  .eyebrow { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .links li { margin-bottom: var(--space-2, .5rem); }
+  .note { color: var(--ink-muted); }
+  .table-wrap { overflow-x: auto; margin-block: var(--space-6, 1.5rem); }
+  .table-wrap:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  table { width: 100%; border-collapse: collapse; }
+  caption { text-align: left; font-weight: 800; margin-bottom: var(--space-2, .5rem); }
+  th, td { text-align: left; vertical-align: top; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+  code { overflow-wrap: anywhere; }
+  p { overflow-wrap: anywhere; }
+  .steps { padding-left: 0; list-style: none; display: grid; gap: var(--space-4, 1rem); }
+  .steps li { padding: var(--space-4, 1rem); background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); }
+  .steps a { font-weight: 800; }
+  .steps p { margin: .25rem 0 0; }
+  .step-id { display: inline-block; min-width: 4.5rem; color: var(--rust-text); }
+</style>
