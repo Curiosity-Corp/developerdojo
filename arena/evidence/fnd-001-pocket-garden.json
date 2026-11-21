@@ -1,0 +1,717 @@
+{
+  "format": "developerdojo-arena-record/1",
+  "builtOn": "2026-11-21",
+  "status": {
+    "stale": false,
+    "supersededBy": null,
+    "kind": "dojo-experiment"
+  },
+  "record": {
+    "id": "ARN-001",
+    "title": "Pocket Garden prototype: change the instructions, then the model",
+    "question": "On one small prototype task, what changes when only the instructions change, or only the model?",
+    "kind": "dojo-experiment",
+    "date": "2026-11-20",
+    "kataId": "FND-001",
+    "domain": {
+      "fieldId": "software",
+      "outcome": "A working single-file web prototype (Pocket Garden) built from a fixed brief.",
+      "measure": "Fourteen functional, accessibility and honesty checks made by an independent browser checker that never reads the assistant's own checklist."
+    },
+    "review": {
+      "lastChecked": "2026-11-20",
+      "staleAfter": "2027-02-20"
+    },
+    "task": {
+      "summary": "Build Pocket Garden, a one-file page with three plant cards, sun and shade filters, and a \"Mark as planted\" toggle that resets on reload, from a fixed brief. No files, data or context beyond the prompt.",
+      "inputs": [
+        {
+          "name": "Prompt A, the task brief",
+          "href": "/examples/fnd-001/prompts/A.txt"
+        },
+        {
+          "name": "Prompt B, the brief plus a request to compare the draft against it and list uncertainty",
+          "href": "/examples/fnd-001/prompts/B.txt"
+        },
+        {
+          "name": "The Dojo's reference page, which passes every check (a target, not a result)",
+          "href": "/examples/pocket-garden.html"
+        }
+      ]
+    },
+    "rubric": {
+      "name": "Pocket Garden checks",
+      "checks": [
+        {
+          "id": "single-html-block",
+          "checks": "The response holds exactly one complete HTML code block."
+        },
+        {
+          "id": "no-external-requests",
+          "checks": "No request leaves the page at load, and the file has no network code or remote asset."
+        },
+        {
+          "id": "three-cards",
+          "checks": "Basil, Sunflower and Mint are visible on load."
+        },
+        {
+          "id": "sun-filter",
+          "checks": "\"Loves sun\" shows Basil and Sunflower only."
+        },
+        {
+          "id": "shade-filter",
+          "checks": "\"Likes shade\" shows Mint only."
+        },
+        {
+          "id": "all-filter",
+          "checks": "\"All plants\" shows all three again."
+        },
+        {
+          "id": "toggle-both-ways",
+          "checks": "A \"Mark as planted\" button becomes \"Planted\" and switches back."
+        },
+        {
+          "id": "pressed-state",
+          "checks": "The plant button exposes its state to assistive technology (aria-pressed true, then false)."
+        },
+        {
+          "id": "reload-resets",
+          "checks": "After a reload, all three buttons say \"Mark as planted\" again."
+        },
+        {
+          "id": "reset-note",
+          "checks": "The page tells the user that choices reset on reload."
+        },
+        {
+          "id": "visible-keyboard-focus",
+          "checks": "The first button reached with Tab has a visible outline or focus shadow."
+        },
+        {
+          "id": "no-horizontal-scroll-390",
+          "checks": "At a 390 px wide viewport the page does not scroll sideways."
+        },
+        {
+          "id": "axe-serious",
+          "checks": "axe finds no serious or critical WCAG A/AA rule violation."
+        },
+        {
+          "id": "no-test-claim",
+          "checks": "The prose outside the code does not claim the assistant ran or tested the file (a heuristic; read the matches)."
+        }
+      ]
+    },
+    "method": {
+      "design": "Three arms, three repetitions each. Repetition r of every arm started at the same moment, so time of day and service load fell on all arms alike. Each run was a new CLI process in a new, empty folder. Every saved response was checked by the same browser checker; a run that failed a check got one correction round in a fresh session, checked again.",
+      "repetitions": 3,
+      "reproduce": [
+        "Install Claude Code from its official quickstart and sign in. The recorded runs used version 2.1.329; a different version is a different stack, so record yours.",
+        "For each run, open a new empty folder and send the prompt file on standard input: claude -p --model <model> --effort high --setting-sources \"\" --strict-mcp-config --tools \"\" --no-session-persistence --output-format json < A.txt",
+        "Use claude-sonnet-5-5 with prompt A (baseline), claude-sonnet-5-5 with prompt B (instructions) and claude-haiku-5-5 with prompt A (model). Start repetition r of every arm together, three repetitions each.",
+        "Save each JSON answer, extract the one HTML code block and check it against every check below in a browser at desktop width and at 390 px, including an axe scan for WCAG A and AA.",
+        "Compare your record with the published run files and results.json. Models are sampled and change, so a different number is a new observation, not a failed reproduction."
+      ]
+    },
+    "evidence": {
+      "dir": "/examples/fnd-001"
+    },
+    "arms": [
+      {
+        "id": "baseline",
+        "label": "Baseline (Sonnet, prompt A)",
+        "stack": [
+          {
+            "part": "harness",
+            "name": "Claude Code in print mode",
+            "version": "2.1.329"
+          },
+          {
+            "part": "model",
+            "name": "Claude Sonnet 5.5 at high effort",
+            "version": "claude-sonnet-5-5"
+          },
+          {
+            "part": "instructions",
+            "name": "Prompt A (task brief)",
+            "version": "/examples/fnd-001/prompts/A.txt"
+          },
+          {
+            "part": "context",
+            "name": "Empty folder; no settings files, memory, project instructions or saved session",
+            "version": "none loaded"
+          },
+          {
+            "part": "tool",
+            "name": "No built-in tools and no MCP servers",
+            "version": "none granted"
+          }
+        ],
+        "permissions": "No tools, so no file, shell or network access for the model. The process environment was cleared except the home folder, the command path and the CLI's configuration folder.",
+        "runs": [
+          "baseline-r1",
+          "baseline-r2",
+          "baseline-r3"
+        ]
+      },
+      {
+        "id": "instructions",
+        "label": "Instructions variant (Sonnet, prompt B)",
+        "stack": [
+          {
+            "part": "harness",
+            "name": "Claude Code in print mode",
+            "version": "2.1.329"
+          },
+          {
+            "part": "model",
+            "name": "Claude Sonnet 5.5 at high effort",
+            "version": "claude-sonnet-5-5"
+          },
+          {
+            "part": "instructions",
+            "name": "Prompt B (brief plus self-review request)",
+            "version": "/examples/fnd-001/prompts/B.txt"
+          },
+          {
+            "part": "context",
+            "name": "Empty folder; no settings files, memory, project instructions or saved session",
+            "version": "none loaded"
+          },
+          {
+            "part": "tool",
+            "name": "No built-in tools and no MCP servers",
+            "version": "none granted"
+          }
+        ],
+        "permissions": "No tools, so no file, shell or network access for the model. The process environment was cleared except the home folder, the command path and the CLI's configuration folder.",
+        "runs": [
+          "instructions-r1",
+          "instructions-r2",
+          "instructions-r3"
+        ]
+      },
+      {
+        "id": "model",
+        "label": "Model variant (Haiku, prompt A)",
+        "stack": [
+          {
+            "part": "harness",
+            "name": "Claude Code in print mode",
+            "version": "2.1.329"
+          },
+          {
+            "part": "model",
+            "name": "Claude Haiku 5.5 at high effort",
+            "version": "claude-haiku-5-5"
+          },
+          {
+            "part": "instructions",
+            "name": "Prompt A (task brief)",
+            "version": "/examples/fnd-001/prompts/A.txt"
+          },
+          {
+            "part": "context",
+            "name": "Empty folder; no settings files, memory, project instructions or saved session",
+            "version": "none loaded"
+          },
+          {
+            "part": "tool",
+            "name": "No built-in tools and no MCP servers",
+            "version": "none granted"
+          }
+        ],
+        "permissions": "No tools, so no file, shell or network access for the model. The process environment was cleared except the home folder, the command path and the CLI's configuration folder.",
+        "runs": [
+          "model-r1",
+          "model-r2",
+          "model-r3"
+        ]
+      }
+    ],
+    "comparisons": [
+      {
+        "status": "measured",
+        "variable": "instructions",
+        "control": "baseline",
+        "variant": "instructions",
+        "change": "Prompt B adds a request to compare the draft against the brief and list uncertainty.",
+        "heldConstant": [
+          "Harness and version",
+          "Model and effort",
+          "CLI flags",
+          "Empty context and no tools",
+          "Start time of each repetition"
+        ],
+        "confounders": [
+          "Sampling: the same prompt gives different files on each run.",
+          "Three runs per arm cannot detect a small effect.",
+          "The self-review is unobservable: only the final file is checked."
+        ],
+        "reading": "No improvement was seen. Every failure in both arms was the same check (pressed-state). One failure in three runs against two in three is well within run-to-run variation, so this does not show that the self-review request makes results worse either."
+      },
+      {
+        "status": "measured",
+        "variable": "model",
+        "control": "baseline",
+        "variant": "model",
+        "change": "claude-haiku-5-5 instead of claude-sonnet-5-5, both with prompt A.",
+        "heldConstant": [
+          "Harness and version",
+          "Prompt A and the effort setting",
+          "CLI flags",
+          "Empty context and no tools",
+          "Start time of each repetition"
+        ],
+        "confounders": [
+          "Sampling, as above.",
+          "The effort setting \"high\" may not mean the same amount of reasoning on both models.",
+          "The rubric tests a small, well-known task; it says nothing about harder work."
+        ],
+        "reading": "On this task and rubric the smaller model passed every check in all three runs, at about a twelfth of the list cost and in about the same time. Three runs on one small task are an observation to repeat, not a benchmark."
+      },
+      {
+        "status": "proposed",
+        "variable": "harness",
+        "control": "baseline",
+        "change": "The same prompt and model in another harness, such as a phone or browser chat app or another CLI.",
+        "heldConstant": [
+          "Prompt A",
+          "The model, where the app lets you choose it",
+          "A fresh session with no attachments"
+        ],
+        "confounders": [
+          "Apps add their own system prompts, memory and tools, often hidden.",
+          "Model version and cost are often not shown."
+        ],
+        "whyNotRun": "Not run by the Dojo. A chat app run cannot be recorded with versions and cost the way the CLI run is; a learner can run it and record \"not shown\" honestly."
+      },
+      {
+        "status": "proposed",
+        "variable": "skill",
+        "control": "baseline",
+        "change": "Add one reviewed skill, for example an accessibility checklist for toggle buttons, to the baseline session.",
+        "heldConstant": [
+          "Harness, model and prompt A",
+          "All other flags"
+        ],
+        "confounders": [
+          "The skill must be reviewed and pinned by version; an unreviewed skill is untrusted context.",
+          "A skill aimed at the one check that failed would overfit this rubric; test it on an unseen task too."
+        ],
+        "whyNotRun": "Not run. No skill has been reviewed for this exercise yet."
+      },
+      {
+        "status": "proposed",
+        "variable": "tool",
+        "control": "baseline",
+        "change": "Let the builder open its own file in a browser, for example through an authorized Playwright MCP server, before answering.",
+        "heldConstant": [
+          "Harness, model, prompt A and empty context; only the tool permission changes"
+        ],
+        "confounders": [
+          "The agent then tests its own work; keep the independent checker separate.",
+          "More turns, time and cost: measure them.",
+          "It needs an explicit, reviewed permission set."
+        ],
+        "whyNotRun": "Not run. No browser tool has been authorized and reviewed for this exercise."
+      },
+      {
+        "status": "proposed",
+        "variable": "delegation",
+        "control": "baseline",
+        "change": "A builder agent plus a separate reviewer agent that reads the brief and the file and sends back findings once.",
+        "heldConstant": [
+          "Harness, model and prompt A for the builder"
+        ],
+        "confounders": [
+          "Delegation adds a correction round; compare it with a single agent that also gets one correction round.",
+          "On a three-card page the extra role may cost more than it finds."
+        ],
+        "whyNotRun": "Not run. The delegate-and-review kata teaches the pattern by hand; no recorded delegation run exists."
+      }
+    ],
+    "limitations": [
+      "Three runs per arm, one task, one date and one harness version.",
+      "Costs are list-price figures reported by the CLI, not an invoice; a subscription bills differently and was not measured.",
+      "The checker tests only the fourteen listed behaviours. The accessibility checks are not a WCAG conformance claim for any page.",
+      "The no-test-claim check is a text heuristic; read its matches in the results file.",
+      "The brief asks for both a changing label and a pressed state, which the WAI-ARIA button pattern advises against combining. All three failures were on that check."
+    ],
+    "scope": "What happened on this one small prototype task, with this rubric and these versions, on 2026-11-20. It is not a ranking of models, prompts or harnesses, and it says nothing about harder or different work.",
+    "sources": [
+      {
+        "title": "Checker results for the reference and every run",
+        "href": "/examples/fnd-001/results.json",
+        "kind": "evidence-file"
+      },
+      {
+        "title": "Prompt A (task brief)",
+        "href": "/examples/fnd-001/prompts/A.txt",
+        "kind": "evidence-file"
+      },
+      {
+        "title": "Prompt B (instructions variant)",
+        "href": "/examples/fnd-001/prompts/B.txt",
+        "kind": "evidence-file"
+      },
+      {
+        "title": "The practice kata this task comes from",
+        "href": "/katas/first-prototype",
+        "kind": "exercise"
+      },
+      {
+        "title": "Run Claude Code programmatically (print mode and flags)",
+        "href": "https://code.claude.com/docs/en/headless",
+        "kind": "documentation"
+      },
+      {
+        "title": "Claude Code cost reporting",
+        "href": "https://code.claude.com/docs/en/costs",
+        "kind": "documentation"
+      },
+      {
+        "title": "WAI-ARIA Authoring Practices button pattern",
+        "href": "https://www.w3.org/WAI/ARIA/apg/patterns/button/",
+        "kind": "documentation"
+      }
+    ]
+  },
+  "measurements": {
+    "baseline": {
+      "kind": "measured",
+      "runs": 3,
+      "completed": {
+        "count": 3,
+        "of": 3,
+        "low": 0.43850296436068037,
+        "high": 1
+      },
+      "fullyChecked": {
+        "count": 3,
+        "of": 3,
+        "low": 0.43850296436068037,
+        "high": 1
+      },
+      "passingAll": {
+        "count": 2,
+        "of": 3,
+        "low": 0.2076595988078242,
+        "high": 0.9385080559790691
+      },
+      "checksPassed": 41,
+      "checksAttempted": 42,
+      "meanSeconds": 29.1,
+      "totalCostUsd": 0.166,
+      "costBasis": "list",
+      "corrections": {
+        "needed": 1,
+        "made": 1,
+        "passingAll": 1,
+        "totalCostUsd": 0.0573
+      },
+      "perCheck": [
+        {
+          "id": "single-html-block",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "no-external-requests",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "three-cards",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "sun-filter",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "shade-filter",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "all-filter",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "toggle-both-ways",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "pressed-state",
+          "passed": 2,
+          "of": 3
+        },
+        {
+          "id": "reload-resets",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "reset-note",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "visible-keyboard-focus",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "no-horizontal-scroll-390",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "axe-serious",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "no-test-claim",
+          "passed": 3,
+          "of": 3
+        }
+      ],
+      "observed": {
+        "harness": "Claude Code 2.1.329 (Claude Code)",
+        "model": "claude-sonnet-5-5",
+        "effort": "high",
+        "prompt": "/examples/fnd-001/prompts/A.txt",
+        "flags": "-p --setting-sources \"\" --strict-mcp-config --tools \"\" --no-session-persistence --output-format json"
+      }
+    },
+    "instructions": {
+      "kind": "measured",
+      "runs": 3,
+      "completed": {
+        "count": 3,
+        "of": 3,
+        "low": 0.43850296436068037,
+        "high": 1
+      },
+      "fullyChecked": {
+        "count": 3,
+        "of": 3,
+        "low": 0.43850296436068037,
+        "high": 1
+      },
+      "passingAll": {
+        "count": 1,
+        "of": 3,
+        "low": 0.06149194402093078,
+        "high": 0.7923404011921757
+      },
+      "checksPassed": 40,
+      "checksAttempted": 42,
+      "meanSeconds": 30.7,
+      "totalCostUsd": 0.1649,
+      "costBasis": "list",
+      "corrections": {
+        "needed": 2,
+        "made": 2,
+        "passingAll": 2,
+        "totalCostUsd": 0.101
+      },
+      "perCheck": [
+        {
+          "id": "single-html-block",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "no-external-requests",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "three-cards",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "sun-filter",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "shade-filter",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "all-filter",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "toggle-both-ways",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "pressed-state",
+          "passed": 1,
+          "of": 3
+        },
+        {
+          "id": "reload-resets",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "reset-note",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "visible-keyboard-focus",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "no-horizontal-scroll-390",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "axe-serious",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "no-test-claim",
+          "passed": 3,
+          "of": 3
+        }
+      ],
+      "observed": {
+        "harness": "Claude Code 2.1.329 (Claude Code)",
+        "model": "claude-sonnet-5-5",
+        "effort": "high",
+        "prompt": "/examples/fnd-001/prompts/B.txt",
+        "flags": "-p --setting-sources \"\" --strict-mcp-config --tools \"\" --no-session-persistence --output-format json"
+      }
+    },
+    "model": {
+      "kind": "measured",
+      "runs": 3,
+      "completed": {
+        "count": 3,
+        "of": 3,
+        "low": 0.43850296436068037,
+        "high": 1
+      },
+      "fullyChecked": {
+        "count": 3,
+        "of": 3,
+        "low": 0.43850296436068037,
+        "high": 1
+      },
+      "passingAll": {
+        "count": 3,
+        "of": 3,
+        "low": 0.43850296436068037,
+        "high": 1
+      },
+      "checksPassed": 42,
+      "checksAttempted": 42,
+      "meanSeconds": 29.9,
+      "totalCostUsd": 0.0142,
+      "costBasis": "list",
+      "corrections": {
+        "needed": 0,
+        "made": 0,
+        "passingAll": 0,
+        "totalCostUsd": 0
+      },
+      "perCheck": [
+        {
+          "id": "single-html-block",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "no-external-requests",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "three-cards",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "sun-filter",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "shade-filter",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "all-filter",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "toggle-both-ways",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "pressed-state",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "reload-resets",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "reset-note",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "visible-keyboard-focus",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "no-horizontal-scroll-390",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "axe-serious",
+          "passed": 3,
+          "of": 3
+        },
+        {
+          "id": "no-test-claim",
+          "passed": 3,
+          "of": 3
+        }
+      ],
+      "observed": {
+        "harness": "Claude Code 2.1.329 (Claude Code)",
+        "model": "claude-haiku-5-5",
+        "effort": "high",
+        "prompt": "/examples/fnd-001/prompts/A.txt",
+        "flags": "-p --setting-sources \"\" --strict-mcp-config --tools \"\" --no-session-persistence --output-format json"
+      }
+    }
+  },
+  "note": "Measurements are computed from the published run files at build time. Proportions carry 95% Wilson intervals. A null cost or time means it was not reported, never zero."
+}

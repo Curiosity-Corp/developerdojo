@@ -1,0 +1,41 @@
+{
+  "entry": "ifcopenshell",
+  "date": "2026-11-20",
+  "package": "ifcopenshell==0.9.0.post1 (PyPI wheel)",
+  "environment": "Linux; Python 3.12.15 in a throwaway uv environment (uv run --isolated --with ifcopenshell==0.9.0.post1, python -I).",
+  "input": {
+    "file": "wall-with-opening-and-window.ifc",
+    "source": "https://github.com/buildingSMART/Certification-datasets/blob/80d976a9b193a26a8e928c3e79bff67af1de68a8/IFC%204.0.2.1%20%28IFC%204%20ADD2%20TC1%29/ISO%20Spec%20-%20ReferenceView_V1.2/wall-with-opening-and-window.ifc",
+    "license": "CC BY 4.0 (buildingSMART Certification-datasets)",
+    "bytes": 12492,
+    "sha256": "73b0e45d931d5dc13bfee5fdc7bd80f796526445458b2de74c4168d209097832"
+  },
+  "script": "Opens the file, reports the schema, counts walls, openings, windows, storeys and property sets, and lists each wall and window.",
+  "expected": "Schema IFC4 with one wall, one opening, one window and one storey, matching the sample used on the IFC kata.",
+  "output": {
+    "ifcopenshell": "0.9.0.post1",
+    "schema": "IFC4",
+    "counts": {
+      "IfcWall": 1,
+      "IfcOpeningElement": 1,
+      "IfcWindow": 1,
+      "IfcBuildingStorey": 1,
+      "IfcPropertySet": 2
+    },
+    "walls": [
+      {
+        "id": 45,
+        "GlobalId": "3ZYW59sxj8lei475l7EhLU",
+        "Name": "Wall for Test Example"
+      }
+    ],
+    "windows": [
+      {
+        "id": 102,
+        "Name": "Window for Test Example",
+        "OverallHeight": 1000,
+        "OverallWidth": 1000
+      }
+    ]
+  }
+}
