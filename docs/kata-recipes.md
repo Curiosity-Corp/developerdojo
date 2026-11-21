@@ -115,6 +115,8 @@ downloads:                    # optional; plain text only
 with the file name and the path inside the record:
 
 - Unknown or misspelled keys, missing required sections, empty text.
+- An unquoted date. Write `date: "2026-11-20"`: Astro's loader reads an unquoted date as a timestamp and
+  rejects the record (`tests/kata-recipes.test.ts` reads the files the same way).
 - A check (`smokeTest` or `verification.checks`) marked `passed` or `failed` without `evidence` and `date`.
 - Status rules:
   - `fixture` is for `FIX*` IDs and `fixture-*` file names only, and every one of those is a fixture;

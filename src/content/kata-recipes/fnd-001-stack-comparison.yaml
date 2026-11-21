@@ -11,13 +11,13 @@ maintainer:
   role: Foundation kata maintainer (not yet assigned)
 trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/84
 review:
-  lastVerified: 2026-11-21
+  lastVerified: "2026-11-21"
   checked: >-
     The independent browser checker scored the reference and every recorded run and correction (ARN-001 on
     20 November 2026, ARN-003 on 21 November 2026), and CI repeats those checks in every pipeline. Not checked: the
     proposed comparisons, the phone path and the transfer challenge, which nobody has recorded running, and no peer has
     reviewed the record.
-  nextReview: 2027-02-20
+  nextReview: "2027-02-20"
 summary: >-
   Start from a working prototype. Have an AI assistant rebuild it from a fixed brief, score the result with an
   independent rubric, then change exactly one part of the stack and compare.
@@ -83,7 +83,7 @@ showcase:
     creator: Developer Dojo maintainers, with AI assistance (the harness and model that made it were not recorded)
     source: The "Make a clickable prototype" kata
     license: MIT, this site's licence (copy at /examples/pocket-garden-license.txt). The plant data is fictional.
-    date: 2026-11-06
+    date: "2026-11-06"
 brief:
   goal: >-
     A working single-file web prototype (Pocket Garden), rebuilt by an AI assistant from a fixed brief and scored by
@@ -210,7 +210,7 @@ setup:
     evidence: >-
       Reference entry in /examples/fnd-001/results.json: 14 of 14 checks passed with the independent checker, which CI
       re-runs in every pipeline.
-    date: 2026-11-20
+    date: "2026-11-20"
 prompts:
   - id: brief-a
     title: Prompt A, the task brief (baseline)
@@ -278,72 +278,72 @@ verification:
       expected: "Pass. It fails when: no block, or several."
       result: passed
       evidence: "Reference page, check single-html-block, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
-      date: 2026-11-20
+      date: "2026-11-20"
     - action: "No request leaves the page at load, and the file has no network code or remote asset."
       expected: "Pass. It fails when: any request, or fetch, XMLHttpRequest, or a remote src or href in the file."
       result: passed
       evidence: "Reference page, check no-external-requests, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
-      date: 2026-11-20
+      date: "2026-11-20"
     - action: "Basil, Sunflower and Mint are visible on load."
       expected: "Pass. It fails when: a plant is missing or hidden."
       result: passed
       evidence: "Reference page, check three-cards, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
-      date: 2026-11-20
+      date: "2026-11-20"
     - action: "\"Loves sun\" shows Basil and Sunflower only."
       expected: "Pass. It fails when: mint shows, a sun plant hides, or the control is missing."
       result: passed
       evidence: "Reference page, check sun-filter, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
-      date: 2026-11-20
+      date: "2026-11-20"
     - action: "\"Likes shade\" shows Mint only."
       expected: "Pass. It fails when: a sun plant shows, Mint hides, or the control is missing."
       result: passed
       evidence: "Reference page, check shade-filter, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
-      date: 2026-11-20
+      date: "2026-11-20"
     - action: "\"All plants\" shows all three again."
       expected: "Pass. It fails when: any plant stays hidden."
       result: passed
       evidence: "Reference page, check all-filter, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
-      date: 2026-11-20
+      date: "2026-11-20"
     - action: "A \"Mark as planted\" button becomes \"Planted\" and switches back."
       expected: "Pass. It fails when: the label does not change both ways."
       result: passed
       evidence: "Reference page, check toggle-both-ways, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
-      date: 2026-11-20
+      date: "2026-11-20"
     - action: "The plant button exposes its state to assistive technology (aria-pressed true, then false)."
       expected: "Pass. It fails when: no aria-pressed, or it does not follow the state."
       result: passed
       evidence: "Reference page, check pressed-state, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
-      date: 2026-11-20
+      date: "2026-11-20"
     - action: "After a reload, all three buttons say \"Mark as planted\" again."
       expected: "Pass. It fails when: a choice survives the reload."
       result: passed
       evidence: "Reference page, check reload-resets, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
-      date: 2026-11-20
+      date: "2026-11-20"
     - action: "The page tells the user that choices reset on reload."
       expected: "Pass. It fails when: no visible note."
       result: passed
       evidence: "Reference page, check reset-note, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
-      date: 2026-11-20
+      date: "2026-11-20"
     - action: "The first button reached with Tab has a visible outline or focus shadow."
       expected: "Pass. It fails when: no visible focus style."
       result: passed
       evidence: "Reference page, check visible-keyboard-focus, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
-      date: 2026-11-20
+      date: "2026-11-20"
     - action: "At a 390 px wide viewport the page does not scroll sideways."
       expected: "Pass. It fails when: the page is wider than the viewport."
       result: passed
       evidence: "Reference page, check no-horizontal-scroll-390, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
-      date: 2026-11-20
+      date: "2026-11-20"
     - action: "axe finds no serious or critical WCAG A or AA rule violation."
       expected: "Pass. It fails when: any serious or critical violation."
       result: passed
       evidence: "Reference page, check axe-serious, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
-      date: 2026-11-20
+      date: "2026-11-20"
     - action: "The prose outside the code does not claim the assistant ran or tested the file (a heuristic; read the matches)."
       expected: "Pass. It fails when: an unqualified \"I tested\", \"I ran\" or \"I verified\"."
       result: passed
       evidence: "Reference page, check no-test-claim, in /examples/fnd-001/results.json. CI re-runs the independent checker on it in every pipeline."
-      date: 2026-11-20
+      date: "2026-11-20"
   failures:
     - observed: >-
         Instructions and model comparison (ARN-001): pressed-state failed in three of nine first runs (baseline-r2,
