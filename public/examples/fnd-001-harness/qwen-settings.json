@@ -1,0 +1,25 @@
+{
+  "security": {
+    "auth": {
+      "selectedType": "anthropic"
+    }
+  },
+  "model": {
+    "name": "set by the runner"
+  },
+  "modelProviders": {
+    "anthropic": [
+      {
+        "id": "set by the runner",
+        "name": "set by the runner",
+        "envKey": "ANTHROPIC_API_KEY",
+        "baseUrl": "set by the runner",
+        "generationConfig": {
+          "reasoning": {
+            "effort": "high"
+          }
+        }
+      }
+    ]
+  }
+}

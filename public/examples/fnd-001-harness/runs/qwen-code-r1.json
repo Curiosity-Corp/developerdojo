@@ -1,0 +1,59 @@
+{
+  "cell": "qwen-code",
+  "repetition": 1,
+  "startedAt": "2026-11-21T01:11:48Z",
+  "harness": "Qwen Code 0.28.0",
+  "requestedModel": "anthropic/claude-sonnet-5.5",
+  "effort": "high",
+  "prompt": "prompts/A.txt",
+  "flags": "--safe-mode --chat-recording false --exclude-tools <every built-in tool> --output-format json; settings: qwen-settings.json (auth type anthropic, reasoning effort high)",
+  "modelsUsed": [
+    "anthropic/claude-sonnet-5.5"
+  ],
+  "isError": false,
+  "subtype": "success",
+  "numTurns": 1,
+  "durationMs": 17270,
+  "harnessReportedDurationMs": 16730,
+  "costUsd": 0.0313751,
+  "costBasis": "billed by the upstream (OpenRouter usage.cost)",
+  "harnessReportedCostUsd": null,
+  "endpoint": "OpenRouter Anthropic Messages API, provider pinned to amazon-bedrock, through the recording relay",
+  "requests": [
+    {
+      "status": 200,
+      "userAgent": "claude-cli/0.28.0 (external, cli)",
+      "anthropicBeta": "interleaved-thinking-2025-05-14,effort-2025-11-24",
+      "provider": "amazon-bedrock",
+      "sent": {
+        "model": "anthropic/claude-sonnet-5.5",
+        "maxTokens": 64000,
+        "thinking": {
+          "type": "adaptive",
+          "display": "summarized"
+        },
+        "outputConfig": {
+          "effort": "high"
+        },
+        "temperature": null,
+        "stream": true,
+        "systemChars": 12820,
+        "systemSha256": "a13fd8d1825b046ba7729f1ad4fa77a312554d82a666a2f492ad0ca3a114435c",
+        "tools": [],
+        "messages": 1,
+        "firstUserTextSha256": "7194ab8b153569ab48f9b81fa0b7c9068b81b8238d69bb75566d303263bcf0b0"
+      },
+      "servedModel": "anthropic/claude-sonnet-5.5",
+      "stopReason": "end_turn",
+      "usage": {
+        "inputTokens": 4,
+        "cacheCreationInputTokens": 400,
+        "cacheReadInputTokens": 3971,
+        "outputTokens": 2997,
+        "thinkingTokens": 0,
+        "costUsd": 0.0313751
+      }
+    }
+  ],
+  "response": "```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>Pocket Garden</title>\n<style>\n  :root {\n    --bg: #f3f7ef;\n    --card: #ffffff;\n    --text: #1f2d1f;\n    --muted: #4d5f4d;\n    --green: #2f6b3a;\n    --green-dark: #1f4a28;\n    --border: #c9d8c5;\n    --focus: #0b57d0;\n    --sun: #b45f06;\n    --shade: #1d5a74;\n  }\n  * { box-sizing: border-box; }\n  body {\n    margin: 0;\n    font-family: system-ui, -apple-system, \"Segoe UI\", Roboto, Arial, sans-serif;\n    background: var(--bg);\n    color: var(--text);\n    line-height: 1.5;\n  }\n  .wrap {\n    max-width: 960px;\n    margin: 0 auto;\n    padding: 24px 16px 48px;\n  }\n  h1 { margin: 0 0 4px; font-size: 2rem; }\n  .intro { margin: 0 0 8px; color: var(--muted); }\n  .note {\n    display: inline-block;\n    margin: 0 0 20px;\n    padding: 6px 12px;\n    background: #fff8e1;\n    border: 1px solid #e6d28a;\n    border-radius: 8px;\n    font-size: 0.95rem;\n  }\n  .filters {\n    display: flex;\n    flex-wrap: wrap;\n    gap: 8px;\n    margin-bottom: 8px;\n    border: 0;\n    padding: 0;\n  }\n  .filters legend {\n    font-weight: 600;\n    margin-bottom: 8px;\n    padding: 0;\n  }\n  button {\n    font: inherit;\n    cursor: pointer;\n    min-height: 44px;\n    padding: 8px 16px;\n    border-radius: 999px;\n    border: 2px solid var(--green);\n    background: #fff;\n    color: var(--green-dark);\n    font-weight: 600;\n  }\n  button:hover { background: #e8f2e6; }\n  button:focus-visible {\n    outline: 3px solid var(--focus);\n    outline-offset: 3px;\n  }\n  button:active { transform: translateY(1px); }\n  .filters button[aria-pressed=\"true\"] {\n    background: var(--green);\n    color: #fff;\n  }\n  .status {\n    margin: 12px 0 16px;\n    color: var(--muted);\n    font-size: 0.95rem;\n  }\n  .grid {\n    display: grid;\n    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));\n    gap: 16px;\n  }\n  .card {\n    background: var(--card);\n    border: 1px solid var(--border);\n    border-radius: 14px;\n    padding: 18px;\n    display: flex;\n    flex-direction: column;\n    gap: 10px;\n  }\n  .card[hidden] { display: none; }\n  .card.planted { border-color: var(--green); box-shadow: 0 0 0 2px #cfe5cc; }\n  .card h2 { margin: 0; font-size: 1.3rem; }\n  .emoji { font-size: 2rem; line-height: 1; }\n  .tag {\n    align-self: flex-start;\n    padding: 2px 10px;\n    border-radius: 999px;\n    font-size: 0.85rem;\n    font-weight: 600;\n    color: #fff;\n  }\n  .tag.sun { background: var(--sun); }\n  .tag.shade { background: var(--shade); }\n  .card p { margin: 0; color: var(--muted); }\n  .plant-btn { margin-top: auto; border-radius: 10px; width: 100%; }\n  .plant-btn[aria-pressed=\"true\"] {\n    background: var(--green);\n    color: #fff;\n  }\n  .plant-btn[aria-pressed=\"true\"]:hover { background: var(--green-dark); }\n  .plant-btn[aria-pressed=\"true\"]::before { content: \"\\2713\\00a0\"; }\n  @media (prefers-reduced-motion: reduce) {\n    button:active { transform: none; }\n  }\n</style>\n</head>\n<body>\n<main class=\"wrap\">\n  <h1>Pocket Garden</h1>\n  <p class=\"intro\">Pick plants for your garden and mark the ones you've planted.</p>\n  <p class=\"note\">Your choices reset when you reload the page.</p>\n\n  <fieldset class=\"filters\" id=\"filters\">\n    <legend>Filter plants</legend>\n    <button type=\"button\" data-filter=\"all\" aria-pressed=\"true\">All plants</button>\n    <button type=\"button\" data-filter=\"sun\" aria-pressed=\"false\">Loves sun</button>\n    <button type=\"button\" data-filter=\"shade\" aria-pressed=\"false\">Likes shade</button>\n  </fieldset>\n\n  <p class=\"status\" id=\"status\" role=\"status\" aria-live=\"polite\"></p>\n\n  <section class=\"grid\" aria-label=\"Plants\">\n    <article class=\"card\" data-light=\"sun\">\n      <span class=\"emoji\" aria-hidden=\"true\">🌿</span>\n      <h2>Basil</h2>\n      <span class=\"tag sun\">Loves sun</span>\n      <p>A fragrant herb that thrives in warm, bright spots.</p>\n      <button type=\"button\" class=\"plant-btn\" aria-pressed=\"false\" data-name=\"Basil\">Mark as planted</button>\n    </article>\n\n    <article class=\"card\" data-light=\"sun\">\n      <span class=\"emoji\" aria-hidden=\"true\">🌻</span>\n      <h2>Sunflower</h2>\n      <span class=\"tag sun\">Loves sun</span>\n      <p>A tall, cheerful bloom that follows full sunlight.</p>\n      <button type=\"button\" class=\"plant-btn\" aria-pressed=\"false\" data-name=\"Sunflower\">Mark as planted</button>\n    </article>\n\n    <article class=\"card\" data-light=\"shade\">\n      <span class=\"emoji\" aria-hidden=\"true\">🍃</span>\n      <h2>Mint</h2>\n      <span class=\"tag shade\">Likes shade</span>\n      <p>A hardy, refreshing herb that is happy in cooler, shadier corners.</p>\n      <button type=\"button\" class=\"plant-btn\" aria-pressed=\"false\" data-name=\"Mint\">Mark as planted</button>\n    </article>\n  </section>\n</main>\n\n<script>\n  (function () {\n    var filterButtons = document.querySelectorAll(\"#filters button\");\n    var cards = document.querySelectorAll(\".card\");\n    var status = document.getElementById(\"status\");\n    var filterNames = { all: \"All plants\", sun: \"Loves sun\", shade: \"Likes shade\" };\n\n    function applyFilter(filter) {\n      var shown = 0;\n      cards.forEach(function (card) {\n        var match = filter === \"all\" || card.dataset.light === filter;\n        card.hidden = !match;\n        if (match) shown++;\n      });\n      filterButtons.forEach(function (b) {\n        b.setAttribute(\"aria-pressed\", String(b.dataset.filter === filter));\n      });\n      status.textContent = \"Showing \" + shown + \" of \" + cards.length +\n        \" plants (\" + filterNames[filter] + \").\";\n    }\n\n    filterButtons.forEach(function (b) {\n      b.addEventListener(\"click\", function () { applyFilter(b.dataset.filter); });\n    });\n\n    document.querySelectorAll(\".plant-btn\").forEach(function (btn) {\n      btn.addEventListener(\"click\", function () {\n        var planted = btn.getAttribute(\"aria-pressed\") !== \"true\";\n        btn.setAttribute(\"aria-pressed\", String(planted));\n        btn.textContent = planted ? \"Planted\" : \"Mark as planted\";\n        btn.closest(\".card\").classList.toggle(\"planted\", planted);\n      });\n    });\n\n    applyFilter(\"all\");\n  })();\n</script>\n</body>\n</html>\n```\n\n**Checklist** (I did not run or test this in a browser; these reflect what the code is written to do):\n\n- [x] Single HTML file with inline CSS and JS; no external libraries, images, fonts, or network requests\n- [x] Three cards: Basil (sun), Sunflower (sun), Mint (shade)\n- [x] Filters: All plants, Loves sun, Likes shade, with `aria-pressed` state and a live status message\n- [x] Each card button toggles \"Mark as planted\" ↔ \"Planted\" using `aria-pressed`, plus a visual checkmark and color change\n- [x] Visible keyboard focus (`:focus-visible` outline), hover and active states\n- [x] Responsive grid via `auto-fit`; 44px minimum button height\n- [x] Notice that choices reset on reload (no storage is used)\n- [ ] Not verified: actual rendering, screen reader behavior, and color contrast in real browsers"
+}

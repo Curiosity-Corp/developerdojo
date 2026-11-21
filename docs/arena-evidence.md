@@ -75,6 +75,18 @@ happened on this task, with this rubric and these versions, and what it does not
 are kept. `<evidence.dir>/results.json` is the checker output: `checks` (ordered IDs, which must equal the
 record's `rubric.checks`) and `results.<run>.checks.<check>.pass`.
 
+Runners: `scripts/fnd-001/run-comparison.sh` (instructions and model comparisons, `public/examples/fnd-001`)
+and `scripts/fnd-001/run-harness-comparison.sh` (harness comparison ARN-003, `public/examples/fnd-001-harness`).
+The harness runner sends both harnesses through `scripts/fnd-001/relay.mjs`, a local recording relay that
+holds the API key and pins the serving provider; `scripts/fnd-001/harness-run-file.mjs` turns the harness
+output and the relay log into a run file with the extra fields `requests[]` (what each request sent, as
+sizes and SHA-256 hashes, never text, and the served model, token usage and billed cost),
+`harnessReportedDurationMs`, `harnessReportedCostUsd` and `endpoint`. Check an evidence set with
+`node scripts/fnd-001/check-pocket-garden.mjs <set>` (`fnd-001` or `fnd-001-harness`).
+
+A source or input link may point to another record's page (`/arena/evidence/<slug>`); it is accepted only
+when that record exists.
+
 ## Public-page rules
 
 Records render on the public site. Do not put internal hostnames, repository paths, issue links, client or

@@ -1,25 +1,29 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { expect, test } from '@playwright/test';
-import { checkPocketGarden, EVIDENCE_DIR, listArtifacts, REFERENCE_FILE, type CheckResults } from '../scripts/fnd-001/check-pocket-garden.mjs';
+import { checkPocketGarden, EVIDENCE_SETS, evidenceDir, listArtifacts, REFERENCE_FILE, type CheckResults } from '../scripts/fnd-001/check-pocket-garden.mjs';
 
-// FND-001 (#84): the recorded check results are evidence, so CI re-runs the independent checker on
-// every stored response and fails if any result or detail differs from public/examples/fnd-001/results.json.
+// FND-001 (#84) and its harness comparison (#89): the recorded check results are evidence, so CI re-runs the
+// independent checker on every stored response of every evidence set and fails if any result or detail differs
+// from that set's results.json (public/examples/<set>/results.json).
 // It needs no server: the checker serves each file to the page itself and blocks every other request.
 
 type Recorded = { results: Record<string, { checks: CheckResults }> };
-const recorded = JSON.parse(readFileSync(join(EVIDENCE_DIR, 'results.json'), 'utf8')) as Recorded;
+const recordedFor = (set: string) => JSON.parse(readFileSync(join(evidenceDir(set), 'results.json'), 'utf8')) as Recorded;
 const reference = readFileSync(REFERENCE_FILE, 'utf8');
 
 test.describe('FND-001 evidence', () => {
   // The checker sets its own desktop and 390 px viewports, so one browser project is enough.
   test.skip(({ isMobile }) => isMobile, 'the checker sets its own viewports');
 
-  for (const artifact of listArtifacts()) {
-    test(`recorded checks hold for ${artifact.id}`, async ({ page }) => {
-      expect(recorded.results[artifact.id], `results.json has no entry for ${artifact.id}; run node scripts/fnd-001/check-pocket-garden.mjs`).toBeDefined();
-      expect(await checkPocketGarden(page, artifact.html, artifact.response)).toEqual(recorded.results[artifact.id]?.checks);
-    });
+  for (const set of EVIDENCE_SETS) {
+    const recorded = recordedFor(set);
+    for (const artifact of listArtifacts(set)) {
+      test(`recorded checks hold for ${set} ${artifact.id}`, async ({ page }) => {
+        expect(recorded.results[artifact.id], `${set}/results.json has no entry for ${artifact.id}; run node scripts/fnd-001/check-pocket-garden.mjs ${set}`).toBeDefined();
+        expect(await checkPocketGarden(page, artifact.html, artifact.response)).toEqual(recorded.results[artifact.id]?.checks);
+      });
+    }
   }
 
   // Negative controls: a checker that passes everything would make the record meaningless.
