@@ -57,7 +57,7 @@ showcase:
     creator: Developer Dojo maintainers
     source: Generated from the Pocket Invoice flow and tokens with Penpot’s official library
     license: MIT
-    date: "2026-11-21"
+    date: "2026-11-20"
 brief:
   goal: Greyscale 390 px screens for every Pocket Invoice state, wired so a person can click from sign-up to a sent invoice and through every error.
   audience: Learners who have a sitemap and want to test it before choosing colours or type.
@@ -79,7 +79,7 @@ stack:
       name: Penpot (self-hosted or penpot.app)
       version: 2.18 (the example file was checked on a self-hosted 2.18.7)
       permissions: Edit one practice project of your own
-      cost: "Penpot Professional plan: $0, up to 8 members and 10 GB, no file limits (penpot.app/pricing, checked 2026-11-21). Self-hosting is free under MPL-2.0; you pay for your own server."
+      cost: "Penpot Professional plan: $0, up to 8 members and 10 GB, no file limits (penpot.app/pricing, checked 2026-11-20). Self-hosting is free under MPL-2.0; you pay for your own server."
     - part: harness
       name: Any chat assistant in a browser
       version:
@@ -89,18 +89,18 @@ stack:
         unavailable: Depends on your assistant and plan; not measured
     - part: instructions
       name: The prompts on this page
-      version: Draft, 2026-11-21
+      version: Draft, 2026-11-20
       permissions: None
       cost: None
     - part: data
       name: Pocket Invoice, an invented invoicing app
-      version: "Flow spec of 2026-11-21: 11 states, 19 transitions"
+      version: "Flow spec of 2026-11-20: 11 states, 19 transitions"
       permissions: Fictional; no real company, person or customer
       cost: None
   rationale: Penpot is open source, runs in a browser, can be self-hosted and has a free plan with no file limits, so every learner can open the same editable file. The assistant only drafts text you check; the design work and the checks stay with you.
   alternatives:
     - name: Figma
-      tradeoff: Widely used. The free Starter plan allows unlimited drafts but is limited elsewhere (for example 20 MCP tool calls a month); Professional seats cost $3 to $16 a month and there is no self-hosting (figma.com/pricing, checked 2026-11-21). The example file is Penpot-only and has not been tried in Figma.
+      tradeoff: Widely used. The free Starter plan allows unlimited drafts but is limited elsewhere (for example 20 MCP tool calls a month); Professional seats cost $3 to $16 a month and there is no self-hosting (figma.com/pricing, checked 2026-11-20). The example file is Penpot-only and has not been tried in Figma.
       tested: false
     - name: Penpot MCP server with an agent
       tradeoff: "Lets an agent edit the open page directly, but uses a personal key with no permission scopes. Not run for this pathway: no native write by an agent was verified."
@@ -126,7 +126,7 @@ setup:
     expected: The prototype moves to the sign-up error state.
     result: passed
     evidence: /examples/ux-pathway/penpot-import-check.json (checks import, pages, text-layout-02 and text-layout-04)
-    date: "2026-11-21"
+    date: "2026-11-20"
 prompts:
   - id: screen-words
     title: Write the screen words
@@ -157,7 +157,7 @@ verification:
       expected: Every one of the 19 transitions lands on the right board, with no page error
       result: passed
       evidence: /examples/ux-pathway/penpot-import-check.json (interactions-02, flow-02 and prototype-walk-02; screenshots in /examples/ux-pathway/screens/)
-      date: "2026-11-21"
+      date: "2026-11-20"
     - action: A partner clicks through your own prototype without help
       expected: They finish the happy path and one error path
       result: not-run

@@ -207,7 +207,8 @@ try {
   await walkPrototype(page, data, fileId, '04', 'high');
   check('no-page-errors', errors.length === 0, errors.length ? errors.join(' | ') : 'no uncaught errors in the Penpot UI');
   const record = {
-    checkedOn: new Date().toISOString().slice(0, 10),
+    // The local calendar day, the same convention as every other date on the site (not the UTC day).
+    checkedOn: new Date().toLocaleDateString('en-CA'),
     penpotVersion: version,
     file: 'pocket-invoice.penpot',
     /** Ties this record to one exact file; tests/pocket-invoice.test.ts compares it with the published copy. */

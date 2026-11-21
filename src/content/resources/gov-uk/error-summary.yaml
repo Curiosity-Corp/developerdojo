@@ -6,4 +6,4 @@ format: "docs"
 level: "beginner"
 skills: [brand-web-design]
 summary: "The GOV.UK Design System's tested pattern for form errors: a summary at the top of the page that takes focus and links to each field, with the same wording as the message next to the field. Published under the Open Government Licence v3.0."
-verifiedOn: 2026-11-21
+verifiedOn: 2026-11-20
