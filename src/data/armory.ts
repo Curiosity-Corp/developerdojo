@@ -901,4 +901,14 @@ export const armoryStackRecipes: ArmoryStackRecipeInput[] = [
       { learnerChoice: 'Any spreadsheet app or a text editor', kind: 'application', role: 'Opens the input record and the CSV and JSON results so you can check a day or a month yourself' },
     ],
   },
+  {
+    id: 'claude-code-print-no-tools',
+    title: 'Claude Code in print mode, with no tools',
+    summary: 'The FND-001 comparison stack: one non-interactive Claude Code call per run, with every tool turned off, so the only thing the agent can do is answer; a separate browser check scores what it wrote.',
+    components: [
+      { entryId: 'claude-code', role: 'Runs the brief once in print mode, with no tools, and saves the answer' },
+      { entryId: 'claude-sonnet-5-5', role: 'Writes the page from the brief' },
+      { learnerChoice: 'Playwright with axe-core, or any browser check you can repeat', kind: 'library', role: 'Opens each saved page and runs the same checks on every run' },
+    ],
+  },
 ];
