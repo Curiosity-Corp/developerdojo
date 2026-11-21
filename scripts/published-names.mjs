@@ -65,19 +65,23 @@ export function compileDenylist(names) {
 }
 
 /**
- * One pattern that matches wherever any of the names matches: the boundaries are shared and the bodies are
- * alternatives, and the regex engine backtracks into every alternative before it gives up at a position,
- * so it matches a text exactly when at least one per-name pattern does. Run over a whole text it can only
- * match more than the per-line patterns (a name split across a line break), never less, which makes it a
- * sound filter: a text it does not match holds no name. Built from the names, as compileDenylist builds each
- * per-name pattern, once per matcher list.
+ * A filter that matches every text in which any per-name pattern matches, and possibly a few more:
+ * - the name bodies are alternatives, and the engine backtracks into every alternative before it gives up
+ *   at a position, so the alternation matches wherever one of the bodies does;
+ * - it keeps the trailing boundary but drops the leading one, which only widens what it matches;
+ * - it runs over the whole text, where \s also crosses line breaks, which again only widens it.
+ * So a text it does not match holds no name. It keeps the same 'iu' flags as the per-name patterns: without
+ * 'u', case folding differs (for example the long s and the Kelvin sign) and the filter could miss a name.
+ * Dropping the leading lookbehind halved the filter's time on the CI runner (417 ms to 201 ms over the
+ * published sources, pipeline 159616). Built from the names, as compileDenylist builds each per-name
+ * pattern, once per matcher list.
  */
 const anyNamePatterns = new WeakMap();
 function anyNamePattern(matchers) {
   let pattern = anyNamePatterns.get(matchers);
   if (pattern === undefined) {
     const bodies = matchers.map(({ name }) => nameBody(name)).join('|');
-    pattern = new RegExp(`${NOT_AFTER_WORD}(?:${bodies})${NOT_BEFORE_WORD}`, 'iu');
+    pattern = new RegExp(`(?:${bodies})${NOT_BEFORE_WORD}`, 'iu');
     anyNamePatterns.set(matchers, pattern);
   }
   return pattern;
