@@ -1,0 +1,181 @@
+# UX pathway (M9): a draft recipe. The worked example, its Penpot file and its checks are on /katas/ux-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given; not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: UX pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/91
+review:
+  unavailable: Built and checked by the Dojo maintainers; no independent review yet.
+summary: Turn the sitemap into greyscale screens at phone size, wired into a clickable prototype that reaches every state, errors included.
+metadata:
+  id: UX-002
+  title: Draw low-fidelity screens and wire the flow
+  layer: specialization
+  professionalReviewRequired: false
+  outcomeIds:
+    - connect-wireframes
+  artifactTypes:
+    - wireframe-set
+    - prototype
+  domainIds:
+    - ux
+  capabilityIds:
+    - design-interaction
+    - map-flows
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - penpot-and-browser
+    - assistant-and-browser
+  pathwayIds:
+    - personas-and-journeys
+    - brand-website-and-mockups
+  constraintIds:
+    - fictional-data
+    - no-personal-data
+    - no-paid-tools
+  externalResources:
+    - penpot/prototyping
+  verificationEvidence:
+    - description: A click-through in Penpot View mode reaches every transition in the sitemap
+      method: self-check
+    - description: A partner who has not seen the sitemap completes the happy path and one error path in View mode
+      method: peer-review
+  beltCriteria:
+    - stage: practice
+      criterion: Clicks through page 02 of the example file and reaches every state
+    - stage: adapt
+      criterion: Adds the screen for a new state and wires it both ways
+    - stage: demonstrate
+      criterion: Builds low-fidelity screens for the Randori flow that a partner can click through without help
+  standards: []
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: Pocket Invoice as an editable Penpot file, a token file and a working, accessible page."
+  href: /katas/ux-pathway
+  provenance:
+    creator: Developer Dojo maintainers
+    source: Generated from the Pocket Invoice flow and tokens with Penpot’s official library
+    license: MIT
+    date: "2026-11-21"
+brief:
+  goal: Greyscale 390 px screens for every Pocket Invoice state, wired so a person can click from sign-up to a sent invoice and through every error.
+  audience: Learners who have a sitemap and want to test it before choosing colours or type.
+  inputs:
+    - name: Your sitemap from UX-001
+      source: Your own Penpot file
+      terms: Your work
+    - name: Page 02 of pocket-invoice.penpot
+      source: The UX pathway page
+      terms: Dojo content, MIT licence
+  doneWhen:
+    - There is one board per state, at 390 px wide, with no colour except greys
+    - Every transition in the sitemap is a working interaction in View mode
+    - Errors that no button causes are marked as prototype-only links, so the prototype can still reach them
+    - A partner finishes the happy path without being told where to click
+stack:
+  components:
+    - part: tool
+      name: Penpot (self-hosted or penpot.app)
+      version: 2.18 (the example file was checked on a self-hosted 2.18.7)
+      permissions: Edit one practice project of your own
+      cost: "Penpot Professional plan: $0, up to 8 members and 10 GB, no file limits (penpot.app/pricing, checked 2026-11-21). Self-hosting is free under MPL-2.0; you pay for your own server."
+    - part: harness
+      name: Any chat assistant in a browser
+      version:
+        unavailable: Not fixed; any assistant can draft the text, and its version changes the wording, not the checks
+      permissions: Reads only what you paste into it; it never touches the design file
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+    - part: instructions
+      name: The prompts on this page
+      version: Draft, 2026-11-21
+      permissions: None
+      cost: None
+    - part: data
+      name: Pocket Invoice, an invented invoicing app
+      version: "Flow spec of 2026-11-21: 11 states, 19 transitions"
+      permissions: Fictional; no real company, person or customer
+      cost: None
+  rationale: Penpot is open source, runs in a browser, can be self-hosted and has a free plan with no file limits, so every learner can open the same editable file. The assistant only drafts text you check; the design work and the checks stay with you.
+  alternatives:
+    - name: Figma
+      tradeoff: Widely used. The free Starter plan allows unlimited drafts but is limited elsewhere (for example 20 MCP tool calls a month); Professional seats cost $3 to $16 a month and there is no self-hosting (figma.com/pricing, checked 2026-11-21). The example file is Penpot-only and has not been tried in Figma.
+      tested: false
+    - name: Penpot MCP server with an agent
+      tradeoff: "Lets an agent edit the open page directly, but uses a personal key with no permission scopes. Not run for this pathway: no native write by an agent was verified."
+      tested: false
+agents:
+  roles:
+    - role: Drafting assistant
+      responsibility: Writes the words for each screen (headings, labels, hints, error messages) from the sitemap.
+      reviewGate: You compare every line with the flow and the done-when list before it goes into Penpot.
+    - role: Reviewer
+      responsibility: Clicks through View mode and lists every transition that does not work or lands on the wrong board.
+      dependsOn:
+        - Drafting assistant
+      reviewGate: A finding counts only when the reviewer can point to the board, layer or line it is about.
+setup:
+  steps:
+    - "Open Penpot in a browser: sign up at penpot.app, or use your own self-hosted instance."
+    - Download pocket-invoice.penpot from the UX pathway page and import it (Projects, then Import .penpot).
+    - Open each of the four pages once in the workspace before you use View mode, so Penpot lays out the text.
+  auth: Your own Penpot account. The chat assistant needs no access to Penpot.
+  smokeTest:
+    action: Open page 02 in View mode and click Create workspace without filling the form.
+    expected: The prototype moves to the sign-up error state.
+    result: passed
+    evidence: /examples/ux-pathway/penpot-import-check.json (checks import, pages, text-layout-02 and text-layout-04)
+    date: "2026-11-21"
+prompts:
+  - id: screen-words
+    title: Write the screen words
+    purpose: Gets plain headings, labels and error messages for each state.
+    text: |-
+      For each state in my sitemap below, write the heading, the field labels with any hint, the button labels and, for error states, one error message per field that says how to fix it.
+      Use plain words a 9-year-old could read. Error messages say what to do, not what went wrong.
+      Sitemap:
+      <paste your list of states>
+exercise:
+  title: Prototyping (Penpot user guide)
+  resourceId: penpot/prototyping
+  terms: Read on the publisher’s site under its terms.
+execution:
+  steps:
+    - actor: Drafting assistant
+      action: Write the words for every screen with the prompt.
+      handoff: You check the words against the sitemap.
+    - actor: Learner
+      action: "Draw one greyscale 390 px board per state and add an interaction for every transition: navigate, open overlay for the dialog, close overlay for Keep editing."
+      handoff: The prototype goes to a partner in View mode.
+    - actor: Reviewer
+      action: Click through every path and list what does not work.
+      handoff: You fix each finding.
+verification:
+  checks:
+    - action: Click through page 02 of the example in Penpot View mode, along every transition
+      expected: Every one of the 19 transitions lands on the right board, with no page error
+      result: passed
+      evidence: /examples/ux-pathway/penpot-import-check.json (interactions-02, flow-02 and prototype-walk-02; screenshots in /examples/ux-pathway/screens/)
+      date: "2026-11-21"
+    - action: A partner clicks through your own prototype without help
+      expected: They finish the happy path and one error path
+      result: not-run
+adaptation:
+  variations:
+    - change: The screens are for a 1280 px desktop as well as a phone.
+      effect: Draw desktop boards for the screens with the most content and check that the reading order stays the same.
+    - change: The dialog becomes a separate page.
+      effect: Replace the overlay with a navigate interaction and add a way back, then check the walk again.
+randori:
+  challenge: See the UX Randori recipe.
+  constraints:
+    - Greyscale only
+    - Every transition wired
+  evaluation: A partner clicks through without help.
+maintenance:
+  cadence: Every six months, or when Penpot changes its file format or token import
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers, and no learner has run it yet."
+    - Penpot plans, versions and features change; check penpot.app/pricing and help.penpot.app before you rely on a limit.
+    - The example file was checked on a self-hosted Penpot 2.18.7. Penpot cloud (penpot.app) was not checked.

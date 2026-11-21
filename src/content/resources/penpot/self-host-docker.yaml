@@ -1,0 +1,9 @@
+title: "Self-hosting Penpot with Docker"
+provider: "Penpot"
+url: "https://help.penpot.app/technical-guide/getting-started/docker/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [brand-web-design, open-source]
+summary: "Penpot's technical guide to running your own instance with Docker Compose. Penpot is open source under the Mozilla Public License 2.0; the guide also covers Kubernetes and other install paths."
+verifiedOn: 2026-11-21

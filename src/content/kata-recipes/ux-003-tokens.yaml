@@ -1,0 +1,194 @@
+# UX pathway (M9): a draft recipe. The worked example, its Penpot file and its checks are on /katas/ux-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given; not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: UX pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/91
+review:
+  unavailable: Built and checked by the Dojo maintainers; no independent review yet.
+summary: Name the colours, type sizes and spacing of the design once, as design tokens in a JSON file, and check every text and control colour pair for contrast.
+metadata:
+  id: UX-003
+  title: Define design tokens for colour, type and spacing
+  layer: specialization
+  professionalReviewRequired: false
+  outcomeIds:
+    - define-design-tokens
+  artifactTypes:
+    - token-file
+  domainIds:
+    - ux
+  capabilityIds:
+    - design-systems
+    - test-accessibility
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - penpot-and-browser
+    - assistant-and-browser
+  pathwayIds:
+    - personas-and-journeys
+    - brand-website-and-mockups
+  constraintIds:
+    - fictional-data
+    - no-personal-data
+    - no-paid-tools
+  externalResources:
+    - penpot/design-tokens
+    - w3c/wcag-quickref
+  standards:
+    - name: Web Content Accessibility Guidelines (WCAG)
+      version: "2.2"
+      applicability: The practice screens and the Pocket Invoice example only
+      reviewScope: "What the listed checks test: axe rules tagged WCAG A and AA, keyboard focus, reflow at 320 px, and text and control contrast computed from the tokens. No conformance claim for any product."
+      sourceResourceId: w3c/wcag-quickref
+  verificationEvidence:
+    - description: Every alias resolves and every text and control colour pair meets its contrast ratio, computed from the token file
+      method: automated-check
+      standards:
+        - Web Content Accessibility Guidelines (WCAG)
+    - description: The token file imports into Penpot with its sets and theme
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Imports the example tokens into Penpot and explains the difference between the core and semantic sets
+    - stage: adapt
+      criterion: Adds a dark theme whose semantic colours still pass contrast
+    - stage: demonstrate
+      criterion: Writes a token file for the Randori product from scratch and proves its contrast
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: Pocket Invoice as an editable Penpot file, a token file and a working, accessible page."
+  href: /katas/ux-pathway
+  provenance:
+    creator: Developer Dojo maintainers
+    source: Generated from the Pocket Invoice flow and tokens with Penpot’s official library
+    license: MIT
+    date: "2026-11-21"
+brief:
+  goal: A token file in the W3C Design Tokens Community Group draft format that Penpot can import, with core values, semantic aliases and a theme.
+  audience: Learners who have low-fidelity screens and are choosing the visual design.
+  inputs:
+    - name: pocket-invoice-tokens.json
+      source: The UX pathway page
+      terms: Dojo content, MIT licence
+    - name: Design tokens (Penpot user guide)
+      source: penpot/design-tokens
+      terms: Read on the publisher’s site under its terms
+  doneWhen:
+    - Core tokens hold raw values; semantic tokens only point at core tokens
+    - Every alias resolves, with no loop
+    - Text colours reach 4.5:1 and borders and focus rings 3:1 against the surfaces they sit on
+    - The file imports into Penpot and shows both sets and the theme
+stack:
+  components:
+    - part: tool
+      name: Penpot (self-hosted or penpot.app)
+      version: 2.18 (the example file was checked on a self-hosted 2.18.7)
+      permissions: Edit one practice project; importing tokens replaces that file’s global token set
+      cost: "Penpot Professional plan: $0, up to 8 members and 10 GB, no file limits (penpot.app/pricing, checked 2026-11-21). Self-hosting is free under MPL-2.0; you pay for your own server."
+    - part: harness
+      name: Any chat assistant in a browser
+      version:
+        unavailable: Not fixed; any assistant can draft the text, and its version changes the wording, not the checks
+      permissions: Reads only what you paste into it; it never touches the design file
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+    - part: instructions
+      name: The prompts on this page
+      version: Draft, 2026-11-21
+      permissions: None
+      cost: None
+    - part: data
+      name: Pocket Invoice, an invented invoicing app
+      version: "Flow spec of 2026-11-21: 11 states, 19 transitions"
+      permissions: Fictional; no real company, person or customer
+      cost: None
+  rationale: Penpot is open source, runs in a browser, can be self-hosted and has a free plan with no file limits, so every learner can open the same editable file. The assistant only drafts text you check; the design work and the checks stay with you.
+  alternatives:
+    - name: Figma
+      tradeoff: Widely used. The free Starter plan allows unlimited drafts but is limited elsewhere (for example 20 MCP tool calls a month); Professional seats cost $3 to $16 a month and there is no self-hosting (figma.com/pricing, checked 2026-11-21). The example file is Penpot-only and has not been tried in Figma.
+      tested: false
+    - name: Penpot MCP server with an agent
+      tradeoff: "Lets an agent edit the open page directly, but uses a personal key with no permission scopes. Not run for this pathway: no native write by an agent was verified."
+      tested: false
+agents:
+  roles:
+    - role: Drafting assistant
+      responsibility: Proposes semantic names (text, surface, border, action, focus) and the core value each should point at.
+      reviewGate: You compare every line with the flow and the done-when list before it goes into Penpot.
+    - role: Reviewer
+      responsibility: Computes the contrast of every text and border pair and lists any that fail.
+      dependsOn:
+        - Drafting assistant
+      reviewGate: A finding counts only when the reviewer can point to the board, layer or line it is about.
+setup:
+  steps:
+    - "Open Penpot in a browser: sign up at penpot.app, or use your own self-hosted instance."
+    - Download pocket-invoice.penpot from the UX pathway page and import it (Projects, then Import .penpot).
+    - Open each of the four pages once in the workspace before you use View mode, so Penpot lays out the text.
+  auth: Your own Penpot account. The chat assistant needs no access to Penpot.
+  smokeTest:
+    action: Open the Tokens panel in the imported file.
+    expected: Two sets, core and semantic, and one theme, Mode / Light, holding 54 tokens.
+    result: passed
+    evidence: /examples/ux-pathway/penpot-import-check.json (check tokens)
+    date: "2026-11-21"
+prompts:
+  - id: semantic-names
+    title: Name the semantic tokens
+    purpose: Separates what a colour is for from what it is.
+    text: |-
+      Here are my core colour, spacing and type tokens as JSON.
+      Propose semantic tokens (text, surface, border, action, focus) that point at core tokens with {alias} references.
+      For each text or border token, name the surface it will sit on, so I can check contrast.
+      Do not invent new raw values.
+exercise:
+  title: Design tokens (Penpot user guide)
+  resourceId: penpot/design-tokens
+  terms: Read on the publisher’s site under its terms.
+execution:
+  steps:
+    - actor: Learner
+      action: "Write core tokens: colours, spacing, radius, border widths, font family, sizes and weights."
+    - actor: Drafting assistant
+      action: Propose semantic aliases with the prompt.
+      handoff: You check each alias and the surface it is meant for.
+    - actor: Reviewer
+      action: Compute contrast for every text and border pair.
+      handoff: You change any failing core value and check again.
+    - actor: Learner
+      action: Import the file into Penpot and apply the tokens to your screens.
+verification:
+  checks:
+    - action: Resolve every alias in the example token file and compute contrast for text and controls
+      expected: No unknown or circular alias; text 4.5:1 or more and borders 3:1 or more on their surfaces (for example, link on white 5.99:1, input border 4.64:1)
+      result: passed
+      evidence: /examples/ux-pathway/pocket-invoice-tokens.json, recomputed by the site’s unit tests on every pipeline
+      date: "2026-11-21"
+    - action: Import the example token file into Penpot
+      expected: Sets core and semantic, theme Mode / Light, 54 tokens
+      result: passed
+      evidence: /examples/ux-pathway/penpot-import-check.json (check tokens)
+      date: "2026-11-21"
+    - action: Your own token file passes the same checks
+      expected: All aliases resolve and every pair passes
+      result: not-run
+adaptation:
+  variations:
+    - change: Add a dark theme.
+      effect: Add a second semantic set or theme; every pair must pass again, because a colour that passes on white can fail on near-black.
+    - change: The brand colour is a light yellow.
+      effect: It cannot carry white text; use it for surfaces and pick a darker action colour that passes.
+randori:
+  challenge: See the UX Randori recipe.
+  constraints:
+    - Every pair passes contrast
+  evaluation: The token file imports and the contrast table has no failure.
+maintenance:
+  cadence: Every six months, or when Penpot changes its file format or token import
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers, and no learner has run it yet."
+    - Penpot plans, versions and features change; check penpot.app/pricing and help.penpot.app before you rely on a limit.
+    - The example file was checked on a self-hosted Penpot 2.18.7. Penpot cloud (penpot.app) was not checked.
+    - Penpot imports tokens in the W3C Design Tokens Community Group draft format. The format is a draft and may change.

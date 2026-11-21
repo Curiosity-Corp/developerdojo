@@ -1,0 +1,9 @@
+title: "Components"
+provider: "Penpot"
+url: "https://help.penpot.app/user-guide/design-systems/components/"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [brand-web-design, creative-media]
+summary: "Penpot explains main components and their copies: change the main component once and every copy follows, with overrides where a copy needs to differ. The basis of a reusable screen library."
+verifiedOn: 2026-11-21

@@ -1,0 +1,9 @@
+title: "Penpot MCP server"
+provider: "Penpot"
+url: "https://help.penpot.app/mcp/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [brand-web-design, ai-agents]
+summary: "Penpot's guide to its MCP server, which lets an AI agent read and change the design file you have open. It uses a personal key and has no permission scopes, so try it only in a practice file you can lose."
+verifiedOn: 2026-11-21
