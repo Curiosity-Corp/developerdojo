@@ -551,6 +551,7 @@ COORDINATION_IFC = 'wall-with-opening-and-window.coordination.ifc'
 PLANNED_IFC = 'wall-with-opening-and-window.planned.ifc'
 FIXED_DATE = '2026-11-21T00:00:00'
 BCF_DATE = '2026-11-21T00:00:00+00:00'
+FIXED_EPOCH = int(datetime.datetime.fromisoformat(BCF_DATE).timestamp())
 BCF_AUTHOR = 'Developer Dojo practice (not a person)'
 # Every GlobalId and BCF Guid the script creates is derived from a name, so the outputs are byte-for-byte reproducible.
 GUID_NAMESPACE = uuid.UUID('6f1c9a52-3d0e-5b7a-9c41-2b8e0d6a9f13')
@@ -599,11 +600,17 @@ def fixed_header(model: ifcopenshell.file, name: str, authorization: str) -> Non
     header.authorization = authorization
 
 
-def stable_new_guids(model: ifcopenshell.file, before: set[str], label: str) -> None:
-    """Give every IfcRoot the API created a GlobalId derived from its place in the file, instead of a random one."""
+def stable_new_entities(model: ifcopenshell.file, before: set[str], histories: set[int], label: str) -> None:
+    """Give every IfcRoot the API created a GlobalId derived from its place in the file, instead of a random one, and
+    every IfcOwnerHistory it created FIXED_DATE instead of the time of the run."""
     for entity in sorted(model.by_type('IfcRoot'), key=lambda e: e.id()):
         if entity.GlobalId not in before:
             entity.GlobalId = guid_for(f'{label}:{entity.id()}:{entity.is_a()}')
+    for history in model.by_type('IfcOwnerHistory'):
+        if history.id() not in histories:
+            history.CreationDate = FIXED_EPOCH
+            if history.LastModifiedDate is not None:
+                history.LastModifiedDate = FIXED_EPOCH
 
 
 def element_by_role(model: ifcopenshell.file, role: str) -> ifcopenshell.entity_instance:
@@ -1019,6 +1026,7 @@ def plan(model: ifcopenshell.file, brief: dict, issues: list[dict[str, object]],
     """Add the brief's tasks to the model, assign each element to the task that builds it, and derive each dependency
     from a relationship in the model or from an open issue. Durations are not invented: none is set."""
     before = {e.GlobalId for e in model.by_type('IfcRoot')}
+    histories = {h.id() for h in model.by_type('IfcOwnerHistory')}
     schedule = ifcopenshell.api.sequence.add_work_schedule(model, name=brief['schedule']['name'], predefined_type='PLANNED', start_time=datetime.datetime(2026, 11, 21))
     schedule.CreationDate = FIXED_DATE
     tasks = {}
@@ -1070,7 +1078,7 @@ def plan(model: ifcopenshell.file, brief: dict, issues: list[dict[str, object]],
         fail(f'the dependencies have a cycle: ordered {order} of {sorted(tasks)}')
     for (a, b) in sorted(deps):
         ifcopenshell.api.sequence.assign_sequence(model, relating_process=tasks[a], related_process=tasks[b], sequence_type='FINISH_START')
-    stable_new_guids(model, before, 'planned')
+    stable_new_entities(model, before, histories, 'planned')
     rows = []
     for spec in brief['schedule']['tasks']:
         builds = [f'#{e}={model.by_id(e).is_a()}' for e, t in sorted(outputs.items()) if t == spec['id']]
