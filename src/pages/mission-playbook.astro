@@ -170,8 +170,8 @@ const ROUTE_STATUS = { routed: 'Sent to the Sensei contribution process; not yet
             <p><strong>A reviewer reruns:</strong> {field.checks.length} {field.checks.length === 1 ? 'check' : 'checks'} from the <a href={field.pathway}>pathway</a>.</p>
             <p><strong>Qualified review:</strong> {field.professionalReview.required ? 'required for real use.' : 'not required for this practice material.'}</p>
             <p class="actions">
-              <a href={sheetPath(field.packId)} download={`transfer-practice-${field.packId}.md`} aria-label={`Download the ${field.name} practice sheet`}>Download the sheet</a>
-              <button type="button" data-practice-sheet={transfer.sheets.get(field.packId)} data-practice-name={field.name} aria-label={`Put the ${field.name} practice sheet in my brief`} hidden>Put it in my brief</button>
+              <a href={sheetPath(field.packId)} download={`transfer-practice-${field.packId}.md`}>Download the {field.name} practice sheet</a>
+              <button type="button" data-practice-sheet={transfer.sheets.get(field.packId)} data-practice-name={field.name} hidden>Put the {field.name} practice sheet in my brief</button>
             </p>
           </article>
         );
