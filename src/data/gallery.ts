@@ -32,6 +32,9 @@ export const galleryOutcomeLabels: Record<string, string> = {
   'inspect-weather-record': 'Inspect a daily weather record',
   'estimate-reference-et': 'Estimate reference evapotranspiration',
   'estimate-irrigation-need': 'Estimate a crop’s irrigation need',
+  'inspect-research-record': 'Inspect a published research record',
+  'evaluate-measurement-uncertainty': 'Evaluate measurement uncertainty',
+  'fit-line-with-uncertainty': 'Fit a line and report its uncertainty',
 };
 
 /** The outcome vocabulary the gallery browses. */
@@ -267,5 +270,39 @@ export const galleryEntries: GalleryEntryInput[] = [
     fieldIds: ['agriculture'],
     kataId: 'AGR-003',
     exercise: { title: 'Follow the agriculture pathway', href: '/katas/agriculture-pathway' },
+  },
+  {
+    id: 'science-trend-with-uncertainty',
+    title: 'A temperature trend with its standard uncertainty, on a published record',
+    summary: 'The SCI-003 worked example. NASA’s GISTEMP global temperature record becomes a least-squares line for 1991 to 2020 with the standard uncertainties of its slope and intercept, after the script reproduces the GUM’s own worked examples.',
+    form: 'native',
+    artifact: {
+      format: 'Fit report and uncertainty budget (JSON and CSV) and a one-page summary (Markdown)',
+      files: [
+        { label: 'Read the results summary', href: '/examples/science-pathway/generated/summary.md' },
+        { label: 'Download the fit report (JSON)', href: '/examples/science-pathway/generated/trend.json' },
+        { label: 'Download the uncertainty budget (CSV)', href: '/examples/science-pathway/generated/uncertainty-budget.csv' },
+      ],
+    },
+    provenance: {
+      creator: 'Developer Dojo maintainers (script and results); NASA Goddard Institute for Space Studies (temperature record)',
+      madeWith: 'A Python 3.12 script with no packages, published next to the results, using the methods of the GUM (JCGM 100:2008).',
+      source: 'The GISTEMP v4 global land-ocean table, as NASA served it on the date retrieved.',
+      rights: 'The temperature record is NASA material, generally not under copyright in the US. The script and results are Dojo material under the MIT licence.',
+      rightsHref: '/examples/science-pathway/README.md',
+      created: '2026-11-21',
+    },
+    verification: {
+      method: 'automated-check',
+      date: '2026-11-21',
+      checked: 'Every pipeline reruns the script, which first reproduces the published values of the GUM’s worked examples in Annex H.2 and H.3, and fails if any output differs from the published files.',
+      notChecked: 'The record’s own uncertainty is not evaluated; the line’s uncertainty assumes independent residuals. No calibration, no learner and no metrologist, statistician or climate scientist review.',
+      evidenceHref: '/katas/science-pathway',
+      nextCheck: QUARTERLY,
+    },
+    outcomeIds: ['fit-line-with-uncertainty'],
+    fieldIds: ['science'],
+    kataId: 'SCI-003',
+    exercise: { title: 'Follow the science pathway', href: '/katas/science-pathway' },
   },
 ];

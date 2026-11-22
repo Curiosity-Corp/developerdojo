@@ -1,0 +1,124 @@
+{
+  "example": "GUM Annex H.2: resistance R, reactance X and impedance Z from five sets of V, I and phi",
+  "inputs": {
+    "V": {
+      "unit": "V",
+      "estimate": 4.999,
+      "standardUncertainty": 0.0032,
+      "observations": 5,
+      "degreesOfFreedom": 4,
+      "evaluation": "Type A, GUM eqs. 3 to 5"
+    },
+    "I": {
+      "unit": "mA",
+      "estimate": 19.661,
+      "standardUncertainty": 0.0095,
+      "observations": 5,
+      "degreesOfFreedom": 4,
+      "evaluation": "Type A, GUM eqs. 3 to 5"
+    },
+    "phi": {
+      "unit": "rad",
+      "estimate": 1.04446,
+      "standardUncertainty": 0.00075,
+      "observations": 5,
+      "degreesOfFreedom": 4,
+      "evaluation": "Type A, GUM eqs. 3 to 5"
+    }
+  },
+  "inputCorrelations": {
+    "V,I": -0.36,
+    "V,phi": 0.86,
+    "I,phi": -0.65
+  },
+  "outputs": {
+    "R": {
+      "estimate_ohm": 127.732,
+      "combinedStandardUncertainty_ohm": 0.071,
+      "relative": 0.00056,
+      "ifInputsUncorrelated_ohm": 0.195,
+      "contributions": [
+        {
+          "input": "V",
+          "sensitivityCoefficient": 25.5515,
+          "standardUncertainty_SI": 0.00320936,
+          "contribution_ohm": 0.0820041
+        },
+        {
+          "input": "I",
+          "sensitivityCoefficient": -6496.73,
+          "standardUncertainty_SI": 9.47101e-06,
+          "contribution_ohm": -0.0615306
+        },
+        {
+          "input": "phi",
+          "sensitivityCoefficient": -219.847,
+          "standardUncertainty_SI": 0.000752064,
+          "contribution_ohm": -0.165339
+        }
+      ]
+    },
+    "X": {
+      "estimate_ohm": 219.847,
+      "combinedStandardUncertainty_ohm": 0.296,
+      "relative": 0.0013,
+      "ifInputsUncorrelated_ohm": 0.201,
+      "contributions": [
+        {
+          "input": "V",
+          "sensitivityCoefficient": 43.9781,
+          "standardUncertainty_SI": 0.00320936,
+          "contribution_ohm": 0.141142
+        },
+        {
+          "input": "I",
+          "sensitivityCoefficient": -11181.9,
+          "standardUncertainty_SI": 9.47101e-06,
+          "contribution_ohm": -0.105903
+        },
+        {
+          "input": "phi",
+          "sensitivityCoefficient": 127.732,
+          "standardUncertainty_SI": 0.000752064,
+          "contribution_ohm": 0.0960627
+        }
+      ]
+    },
+    "Z": {
+      "estimate_ohm": 254.26,
+      "combinedStandardUncertainty_ohm": 0.236,
+      "relative": 0.00093,
+      "ifInputsUncorrelated_ohm": 0.204,
+      "contributions": [
+        {
+          "input": "V",
+          "sensitivityCoefficient": 50.8621,
+          "standardUncertainty_SI": 0.00320936,
+          "contribution_ohm": 0.163235
+        },
+        {
+          "input": "I",
+          "sensitivityCoefficient": -12932.2,
+          "standardUncertainty_SI": 9.47101e-06,
+          "contribution_ohm": -0.122481
+        },
+        {
+          "input": "phi",
+          "sensitivityCoefficient": 0.0,
+          "standardUncertainty_SI": 0.000752064,
+          "contribution_ohm": 0.0
+        }
+      ]
+    }
+  },
+  "outputCorrelations": {
+    "R,X": -0.588,
+    "R,Z": -0.485,
+    "X,Z": 0.993
+  },
+  "outputCorrelationsIfInputsUncorrelated": {
+    "R,X": 0.056,
+    "R,Z": 0.527,
+    "X,Z": 0.878
+  }
+}

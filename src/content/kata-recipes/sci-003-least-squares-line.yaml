@@ -1,0 +1,186 @@
+# Science pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/science-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job science_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Science pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a metrologist, statistician or climate scientist yet.
+summary: "Reproduce the GUM’s thermometer calibration line, then fit a straight line through 30 years of NASA’s global temperature record and report its slope with a standard uncertainty, saying plainly what that uncertainty assumes."
+metadata:
+  id: SCI-003
+  title: "Fit a line by least squares and report its parameters with standard uncertainties"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - fit-line-with-uncertainty
+  artifactTypes:
+    - fit-report
+  domainIds:
+    - science
+  capabilityIds:
+    - analyze-data
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - nasa/gistemp
+    - bipm/gum-jcgm-100-2008
+    - nist/technical-note-1297
+    - nist/engineering-statistics-handbook
+  crossFieldTransfers:
+    - data
+  verificationEvidence:
+    - description: A fit report for the 1991-2020 annual means whose slope, standard uncertainty and residual autocorrelation match the CI output, after the GUM's Annex H.3 values are reproduced
+      method: automated-check
+    - description: The report states the independence assumption and that the uncertainty is not the record's own
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces the GUM's calibration line and the predicted correction at 30 degrees C with its uncertainty
+    - stage: adapt
+      criterion: Fits the record and explains what the lag-1 autocorrelation of the residuals says about the least-squares uncertainty
+    - stage: demonstrate
+      criterion: Explains to a reviewer why this slope uncertainty is not the uncertainty of the warming, and names the source that evaluates the record's uncertainty
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: NASA’s GISTEMP global temperature record, the GUM’s worked uncertainty examples reproduced number for number, and a 30-year trend with the standard uncertainty of its slope, every number computed by the site’s CI."
+  href: /katas/science-pathway
+  provenance:
+    creator: NASA Goddard Institute for Space Studies (temperature record); Developer Dojo maintainers (script and results)
+    source: NASA GISS GISTEMP v4, GLB.Ts+dSST.csv, retrieved 2026-11-21; method and reference values from JCGM 100:2008 (GUM); results from /examples/science-pathway/tools/science_pathway.py
+    license: Temperature record is NASA material, not under US copyright (17 U.S.C. 105); script and outputs MIT
+    date: "2026-11-21"
+brief:
+  goal: A fit report for the GUM's calibration example and for 30 years of the record, each parameter with its standard uncertainty and its assumptions stated.
+  audience: Learners who finished SCI-002 and want to report a fitted trend honestly.
+  inputs:
+    - name: The GUM's thermometer readings and corrections, Table H.6
+      source: bipm/gum-jcgm-100-2008 (read the table in the GUM; the script holds the same numbers)
+      terms: © JCGM 2008; free to read, not to be republished. Use the numbers as checks and copy no text.
+    - name: gistemp-v4-global-land-ocean.csv
+      source: nasa/gistemp (copy on /examples/science-pathway/inputs/)
+      terms: NASA material, not under US copyright; credit NASA GISS and cite the dataset as GISS asks
+  doneWhen:
+    - You reproduce the GUM's intercept, slope, their standard uncertainties and correlation, and b(30 degrees C) with its uncertainty
+    - You fit the 1991-2020 annual means and report the slope in degrees C per decade with its standard uncertainty
+    - You report the lag-1 autocorrelation of the residuals and say what it means for the uncertainty
+    - Your values match /examples/science-pathway/generated/trend.json
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: NASA GISS GISTEMP v4 global land-ocean means
+      version: "Retrieved 2026-11-21, SHA-256 a7b1939d…e81253"
+      permissions: Read a copy
+      cost: Free (NASA material)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against the GUM’s worked examples
+      permissions: Reads what you paste in; give it a copy of the record only
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library is enough for these formulas, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A statistics package (for example a regression routine in R, SciPy or a spreadsheet's LINEST)
+      tradeoff: Faster, but hides the formulas this pathway is about, and packages differ in how they report uncertainty. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains the least-squares formulas you paste in and drafts the Python for them.
+      reviewGate: You run the code and keep it only if it reproduces the GUM's Annex H.3 values.
+    - role: Learner as reviewer
+      responsibility: Fits the record and writes the report with its assumptions.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: The report states what the uncertainty assumes and what it does not cover.
+setup:
+  steps:
+    - Use the folder and Python from SCI-001.
+    - Open the GUM at Annex H.3 beside the script.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/science_pathway.py . out"
+    expected: "55 reference checks pass, including the eleven predicted corrections of Table H.6, and out/trend.json holds the 1991-2020 fit"
+    result: passed
+    evidence: /examples/science-pathway/generated/trend.json, recomputed by CI on every pipeline
+    date: "2026-11-21"
+prompts:
+  - id: explain-assumption
+    title: Ask what the uncertainty assumes
+    purpose: Learn what a least-squares standard uncertainty does and does not cover before you report one.
+    text: |-
+      I fitted a straight line by least squares to 30 annual values and got a slope and its standard uncertainty.
+      Explain, naming your sources, what that standard uncertainty assumes about the residuals, how to check the assumption with the lag-1 autocorrelation, and what it means for the uncertainty if the residuals are positively autocorrelated.
+      Do not give me a corrected number; tell me which method would compute one and what it assumes.
+exercise:
+  title: Guide to the expression of uncertainty in measurement (GUM), JCGM 100:2008
+  resourceId: bipm/gum-jcgm-100-2008
+  terms: © JCGM 2008. Free to read from the BIPM; it may not be republished. Cite it and copy no text.
+execution:
+  steps:
+    - actor: Learner
+      action: Write the GUM's Table H.6 into a script or spreadsheet and reproduce the line and b(30 degrees C).
+    - actor: Explaining assistant
+      action: Drafts the least-squares code and the lag-1 autocorrelation of the residuals.
+      handoff: You run it on the GUM's data first, then on the record.
+    - actor: Learner
+      action: Write the fit report with its assumptions and compare it with the CI output.
+verification:
+  checks:
+    - action: Reproduce the GUM's Annex H.3 with the pathway script
+      expected: "y1 -0.1712 degrees C, y2 0.00218, u(y1) 0.0029, u(y2) 0.00067, r -0.930, s 0.0035; b(30 degrees C) -0.1494 with standard uncertainty 0.0041"
+      result: passed
+      evidence: /examples/science-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+      date: "2026-11-21"
+    - action: Fit the 1991-2020 annual means with the pathway script
+      expected: "Slope 0.23 degrees C per decade with standard uncertainty 0.0186; intercept at 1991 0.276 degrees C (standard uncertainty 0.031); r(intercept, slope) -0.859; s 0.088 degrees C; residual lag-1 autocorrelation 0.19"
+      result: passed
+      evidence: /examples/science-pathway/generated/trend.json, recomputed by CI on every pipeline
+      date: "2026-11-21"
+    - action: Your own fit report matches the CI output and states its assumptions
+      expected: Same slope, standard uncertainty and autocorrelation, and the independence assumption in words
+      result: not-run
+  failures:
+    - observed: The slope looks tiny, about 0.002
+      correction: Years are the unit of t, so the slope is in degrees C per year. Multiply by ten for degrees C per decade, and the uncertainty too.
+    - observed: The intercept's uncertainty changes when you move t0
+      correction: That is expected; the intercept is the value at t0. Moving t0 to the mean year makes the intercept and slope uncorrelated (GUM H.3.5). The slope and its uncertainty do not change.
+adaptation:
+  variations:
+    - change: Fit another 30-year period
+      effect: The slope and its uncertainty change with the years chosen. Report the period with every slope.
+randori:
+  challenge: See the science Randori recipe, SCI-R01.
+  constraints:
+    - Every slope comes with its period, its standard uncertainty and its assumptions
+  evaluation: The fit report matches the CI output for the same file.
+maintenance:
+  cadence: Every six months, or when GISS changes the GISTEMP table format or the JCGM revises the GUM
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice, not a calibration certificate. No metrologist, statistician or climate scientist has reviewed it, and a real measurement result needs the qualified reviewers its laboratory, journal or accreditation body names.
+    - The GUM’s Annex H data are illustrative, not measurements of a real instrument.
+    - The record’s own uncertainty is evaluated by GISS and is not reproduced here.
+    - The least-squares uncertainty assumes independent residuals. The annual residuals have a lag-1 autocorrelation of 0.19 and the monthly ones 0.61; no test is run and no corrected value is given here.
+    - A line over 30 years describes those years; it is not a forecast.

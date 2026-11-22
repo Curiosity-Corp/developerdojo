@@ -1,0 +1,9 @@
+title: "Guidelines for Evaluating and Expressing the Uncertainty of NIST Measurement Results (Technical Note 1297)"
+provider: "National Institute of Standards and Technology"
+url: "https://www.nist.gov/pml/nist-technical-note-1297"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [data-analytics]
+summary: "NIST's short statement of the GUM method: standard uncertainty, Type A and Type B evaluation, combined and expanded uncertainty, and how to report them."
+verifiedOn: 2026-11-21

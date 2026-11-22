@@ -1,0 +1,9 @@
+title: "GISS Surface Temperature Analysis (GISTEMP), version 4"
+provider: "NASA Goddard Institute for Space Studies"
+url: "https://data.giss.nasa.gov/gistemp/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [data-analytics]
+summary: "NASA's estimate of global surface temperature change since 1880, as tables of monthly, seasonal and annual anomalies from the 1951-1980 mean. Revised every month as new data arrive, so pin the copy you use and cite the date you downloaded it."
+verifiedOn: 2026-11-21

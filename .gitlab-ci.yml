@@ -156,6 +156,26 @@ agriculture_pathway:
       - agriculture-pathway-out
     expire_in: 30 days
 
+# Blocking: the science pathway (#93). Standard library only. The script refuses to write if the GUM's worked
+# examples (Annex H.2, H.3) do not reproduce, then reruns the record checks; any difference from generated/ fails.
+science_pathway:
+  stage: validate
+  image: python:3.12-slim
+  needs: []
+  rules:
+    - !reference [.skip-in-production-e2e, rules]
+    - when: on_success
+  script:
+    # Standard library only: nothing to install. The script refuses to write if the GUM's worked examples do not reproduce.
+    # The record is committed and hash-pinned; tools/fetch_input.py is for maintainers and never runs here.
+    - python -I public/examples/science-pathway/tools/science_pathway.py public/examples/science-pathway science-pathway-out
+    - diff -r science-pathway-out public/examples/science-pathway/generated
+  artifacts:
+    when: always
+    paths:
+      - science-pathway-out
+    expire_in: 30 days
+
 # Blocking: dist/ link check. Every internal href/src/srcset in the built pages must resolve.
 links:
   extends: .node
@@ -252,7 +272,7 @@ e2e:production:
 # Internal GitLab Pages preview of the built site.
 pages:
   stage: deploy
-  needs: [check, test, ux_pathway, bim_pathway, agriculture_pathway, build, e2e, links]
+  needs: [check, test, ux_pathway, bim_pathway, agriculture_pathway, science_pathway, build, e2e, links]
   interruptible: false
   script:
     - sha256sum -c search-index.sha256
@@ -274,7 +294,7 @@ pages:
 # event lists evaluated at build time) always reaches GitHub Pages.
 publish_github_pages:
   stage: deploy
-  needs: [check, test, ux_pathway, bim_pathway, agriculture_pathway, build, e2e, links]
+  needs: [check, test, ux_pathway, bim_pathway, agriculture_pathway, science_pathway, build, e2e, links]
   interruptible: false
   resource_group: github-pages-release
   variables:

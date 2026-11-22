@@ -126,6 +126,9 @@ const REFLOW_ROUTES = [
   // The agriculture pathway and its widest recipe page (#93).
   '/katas/agriculture-pathway/',
   '/katas/agr-003-irrigation-need/',
+  // The science pathway and its widest recipe page (#93).
+  '/katas/science-pathway/',
+  '/katas/sci-002-uncertainty-budget/',
   // Optional Ignite Curiosity journeys (#83).
   '/journeys/',
   '/journeys/robotics/',

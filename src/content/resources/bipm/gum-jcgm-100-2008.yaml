@@ -1,0 +1,9 @@
+title: "Guide to the expression of uncertainty in measurement (GUM), JCGM 100:2008"
+provider: "Joint Committee for Guides in Metrology (BIPM)"
+url: "https://www.bipm.org/en/doi/10.59161/JCGM100-2008E"
+cost: "free"
+format: "book"
+level: "advanced"
+skills: [data-analytics]
+summary: "The international guide to evaluating and stating measurement uncertainty: Type A and Type B evaluation, propagation with correlated inputs, and worked examples in Annex H that you can reproduce number for number. Free to read; it may not be republished."
+verifiedOn: 2026-11-21

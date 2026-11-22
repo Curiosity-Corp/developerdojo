@@ -1,0 +1,105 @@
+{
+  "title": "Land-Ocean: Global Means",
+  "columns": [
+    "Year",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+    "J-D",
+    "D-N",
+    "DJF",
+    "MAM",
+    "JJA",
+    "SON"
+  ],
+  "unit": "degrees C, anomaly from the 1951-1980 mean for the same place and time of year (as GISS states; the CSV itself does not say)",
+  "firstYear": 1880,
+  "lastYear": 2026,
+  "years": 147,
+  "missingMarker": "a cell of asterisks",
+  "missingCells": 7,
+  "missingByColumn": {
+    "Nov": [
+      2026
+    ],
+    "Dec": [
+      2026
+    ],
+    "J-D": [
+      2026
+    ],
+    "D-N": [
+      1880,
+      2026
+    ],
+    "DJF": [
+      1880
+    ],
+    "SON": [
+      2026
+    ]
+  },
+  "yearsWithAllMonths": 146,
+  "monthly": {
+    "values": 1762,
+    "min": {
+      "year": 1893,
+      "month": "Jan",
+      "value": -0.81
+    },
+    "max": {
+      "year": 2026,
+      "month": "Oct",
+      "value": 1.55
+    }
+  },
+  "annual": {
+    "values": 146,
+    "min": {
+      "year": 1909,
+      "value": -0.48
+    },
+    "max": {
+      "year": 2024,
+      "value": 1.28
+    }
+  },
+  "basePeriod": {
+    "years": "1951-1980",
+    "meanOfAnnualValues": 0.0,
+    "meanOfEachMonth": {
+      "Jan": -0.001,
+      "Feb": 0.0,
+      "Mar": -0.001,
+      "Apr": 0.0,
+      "May": 0.001,
+      "Jun": 0.001,
+      "Jul": 0.0,
+      "Aug": 0.0,
+      "Sep": 0.0,
+      "Oct": 0.0,
+      "Nov": -0.001,
+      "Dec": 0.0
+    },
+    "largestMonthMean": 0.001
+  },
+  "annualAgainstMonths": {
+    "yearsCompared": 146,
+    "sameAtTwoDecimals": 134,
+    "withinRounding": 146,
+    "largestDifference": {
+      "year": 2003,
+      "value": -0.0058
+    },
+    "rule": "J-D compared with the mean of the twelve monthly values; both are printed to 0.01, so a difference up to 0.01 is rounding"
+  }
+}

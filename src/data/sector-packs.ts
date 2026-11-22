@@ -166,6 +166,61 @@ export const sectorPackInputs: SectorPackInput[] = [
     sourcesCheckedOn: '2026-11-21',
     trackingIssue: 93,
   },
+  {
+    id: 'science',
+    title: 'Science and research: from a published record to a result with its uncertainty',
+    fieldIds: ['science'],
+    pathway: '/katas/science-pathway',
+    kataIds: ['SCI-001', 'SCI-002', 'SCI-003'],
+    randoriKataId: 'SCI-R01',
+    foundationKataIds: ['PRACTICE-001', 'PRACTICE-002'],
+    examples: { dir: '/examples/science-pathway', readme: '/examples/science-pathway/README.md' },
+    inputs: [
+      {
+        name: 'GISTEMP v4 global land-ocean temperature anomalies (GLB.Ts+dSST.csv), NASA GISS',
+        path: '/examples/science-pathway/inputs/gistemp-v4-global-land-ocean.csv',
+        source: 'https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv',
+        terms: 'NASA material, generally not subject to copyright in the US (17 U.S.C. 105). Cited as GISS asks, with NASA credited as the source and no NASA endorsement implied. GISS revises the record monthly; this copy is pinned by its hash.',
+        sha256: 'a7b1939db2e7e484c798e925e0f07f8184356c52ac0e7ce264adcd0f25e81253',
+      },
+    ],
+    checks: [
+      {
+        name: 'The GUM worked examples (Annex H.2 and H.3), the record inspection, the uncertainty budget, the least-squares line and the Randori cards',
+        ciJob: 'science_pathway',
+        runs: 'public/examples/science-pathway/tools/science_pathway.py',
+        outputs: [
+          '/examples/science-pathway/generated/reference-checks.json',
+          '/examples/science-pathway/generated/inspection.json',
+          '/examples/science-pathway/generated/uncertainty-budget.json',
+          '/examples/science-pathway/generated/uncertainty-budget.csv',
+          '/examples/science-pathway/generated/trend.json',
+          '/examples/science-pathway/generated/trend-residuals.csv',
+          '/examples/science-pathway/generated/randori/cards.json',
+          '/examples/science-pathway/generated/manifest.json',
+          '/examples/science-pathway/generated/summary.md',
+        ],
+      },
+    ],
+    verified: [
+      'The temperature record is the file NASA served on the date retrieved, unchanged (SHA-256 {recordSha}…, checked by the site’s tests).',
+      { text: 'The script reproduces {referenceChecks} published values from the GUM’s worked examples (Annex H.2, Tables H.2 to H.5, and Annex H.3, Table H.6) and refuses to write any result if one differs.', evidence: '/examples/science-pathway/generated/reference-checks.json' },
+      { text: 'The record has {years} years and {missingCells} unavailable cells, each read as unavailable and never as zero; in {sameAtTwoDecimals} of {yearsCompared} complete years the published annual mean equals the mean of its months at two decimals.', evidence: '/examples/science-pathway/generated/inspection.json' },
+      { text: 'On every pipeline, CI reruns the script with Python 3.12 and fails if any output differs from the files on this page.', evidence: '/examples/science-pathway/generated/summary.md' },
+    ],
+    notVerified: [
+      'The uncertainty of the record itself. GISS evaluates it separately; this pathway neither reproduces nor checks it.',
+      'Whether the residuals of the line are independent. Their lag-1 autocorrelation is reported (0.19 for the annual fit, 0.61 for the monthly one on Randori card B), but no test is run and no autocorrelation-corrected uncertainty is computed.',
+      'Any real measurement, instrument or calibration. The GUM’s Annex H data are illustrative, and nothing here is a calibration certificate or a statement of traceability.',
+      'GISTEMP’s own method: the station and sea-surface processing behind the record is not rerun.',
+      'Use by real learners: no learner has run these katas yet.',
+    ],
+    professionalReview: { required: true, limit: 'None. No metrologist, statistician or climate scientist has reviewed this pathway; a real measurement result, calibration or published finding needs the qualified reviewers its laboratory, journal or accreditation body names.' },
+    armory: { stackRecipeIds: ['python-standard-library'], entryIds: [] },
+    galleryEntryIds: ['science-trend-with-uncertainty'],
+    sourcesCheckedOn: '2026-11-21',
+    trackingIssue: 93,
+  },
 ];
 
 /** The packs, validated for shape. Cross-references are checked by the build and the tests. */

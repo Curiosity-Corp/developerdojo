@@ -1,0 +1,177 @@
+# Science pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/science-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job science_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Science pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a metrologist, statistician or climate scientist yet.
+summary: "Open NASA’s GISTEMP global temperature table and write down what it holds before you use it: years, columns, the unit and base period, every unavailable cell, and whether the annual means agree with their months."
+metadata:
+  id: SCI-001
+  title: "Inspect a published research record: columns, units, gaps and internal consistency"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - inspect-research-record
+  artifactTypes:
+    - record-inspection
+  domainIds:
+    - science
+  capabilityIds:
+    - analyze-data
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - nasa/gistemp
+    - bipm/gum-jcgm-100-2008
+    - nist/technical-note-1297
+    - nist/engineering-statistics-handbook
+  crossFieldTransfers:
+    - data
+  verificationEvidence:
+    - description: An inspection record (years, columns, unit, base period, unavailable cells and the annual-against-months check) that matches the Dojo's CI output for the same file
+      method: automated-check
+    - description: Each claim in the record points to a column, a row or GISS's own documentation
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces the inspection and explains why an asterisk cell must never be read as zero
+    - stage: adapt
+      criterion: Inspects another GISTEMP table (a hemisphere or a zonal mean) the same way and records its gaps as unavailable
+    - stage: demonstrate
+      criterion: Explains to a reviewer what the record supports and what it does not, citing GISS's own description of its uncertainty
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: NASA’s GISTEMP global temperature record, the GUM’s worked uncertainty examples reproduced number for number, and a 30-year trend with the standard uncertainty of its slope, every number computed by the site’s CI."
+  href: /katas/science-pathway
+  provenance:
+    creator: NASA Goddard Institute for Space Studies (temperature record); Developer Dojo maintainers (script and results)
+    source: NASA GISS GISTEMP v4, GLB.Ts+dSST.csv, retrieved 2026-11-21; method and reference values from JCGM 100:2008 (GUM); results from /examples/science-pathway/tools/science_pathway.py
+    license: Temperature record is NASA material, not under US copyright (17 U.S.C. 105); script and outputs MIT
+    date: "2026-11-21"
+brief:
+  goal: An inspection record of the temperature table, with every claim traced to a column, a row or GISS's documentation.
+  audience: Learners who have done the foundations and want to treat a published research dataset as evidence rather than as a chart.
+  inputs:
+    - name: gistemp-v4-global-land-ocean.csv
+      source: nasa/gistemp (copy on /examples/science-pathway/inputs/)
+      terms: NASA material, not under US copyright; credit NASA GISS and cite the dataset as GISS asks
+  doneWhen:
+    - You name the first and last year, the columns, the unit and the base period, and say where the unit comes from (the CSV itself does not state it)
+    - You count the unavailable cells by column and report each as unavailable, never as zero
+    - You check each complete year's annual mean (J-D) against the mean of its twelve months and say how big a difference is only rounding
+    - Your counts match /examples/science-pathway/generated/inspection.json
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: NASA GISS GISTEMP v4 global land-ocean means
+      version: "Retrieved 2026-11-21, SHA-256 a7b1939d…e81253"
+      permissions: Read a copy
+      cost: Free (NASA material)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against the GUM’s worked examples
+      permissions: Reads what you paste in; give it a copy of the record only
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library is enough for these formulas, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A statistics package (for example a regression routine in R, SciPy or a spreadsheet's LINEST)
+      tradeoff: Faster, but hides the formulas this pathway is about, and packages differ in how they report uncertainty. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains a column of the table (J-D, D-N, DJF and so on) and drafts the Python to count and compare it.
+      reviewGate: You check the explanation against GISS's documentation and run the code on the file.
+    - role: Learner as reviewer
+      responsibility: Compares the record with the file and with the Dojo's CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A claim stays only if it cites a column, a row or the documentation.
+setup:
+  steps:
+    - Install Python 3.12 or later. Nothing else is needed.
+    - Download the record and the pathway script from /katas/science-pathway into a new, empty folder. Work on copies; keep the original.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/science_pathway.py . out (from the folder that holds inputs/ and tools/)"
+    expected: "55 reference checks pass and out/inspection.json reports 147 years"
+    result: passed
+    evidence: /examples/science-pathway/generated/inspection.json, recomputed by CI on every pipeline
+    date: "2026-11-21"
+prompts:
+  - id: explain-columns
+    title: Explain the columns
+    purpose: Learn what each column of the table means, without trusting the explanation blindly.
+    text: |-
+      Here are the first four lines of NASA's GISTEMP v4 global land-ocean table: <paste them>.
+      Explain each column (the months, J-D, D-N and the seasons), what the numbers are measured against, and what a cell of asterisks means, naming GISS's documentation as your source.
+      Then give me Python, standard library only, that counts the asterisk cells by column and compares each year's J-D with the mean of its twelve months, so I can check you against the file.
+      If you are not sure, say so.
+exercise:
+  title: GISS Surface Temperature Analysis (GISTEMP), version 4
+  resourceId: nasa/gistemp
+  terms: NASA material, not under US copyright; credit NASA GISS as the source and do not imply NASA endorsement.
+execution:
+  steps:
+    - actor: Learner
+      action: Open the CSV in a text editor or spreadsheet and find the title line, the header, the years and the asterisk cells.
+    - actor: Explaining assistant
+      action: Drafts a script that counts unavailable cells and compares the annual means with their months.
+      handoff: You run it and compare the output with the file.
+    - actor: Learner
+      action: Write the inspection record and compare it with the CI output.
+verification:
+  checks:
+    - action: Inspect the record with the pathway script
+      expected: "1880 to 2026, 147 years, 19 columns; 7 cells unavailable (Nov, Dec, J-D, D-N and SON of 2026; D-N and DJF of 1880); J-D equals the mean of its months at two decimals in 134 of 146 complete years and is within 0.01 in all 146 (largest difference 0.0058 degrees C, 2003)"
+      result: passed
+      evidence: /examples/science-pathway/generated/inspection.json, recomputed by CI on every pipeline
+      date: "2026-11-21"
+    - action: Your own inspection record matches the CI output
+      expected: Same years, columns, unavailable cells and annual-against-months counts
+      result: not-run
+  failures:
+    - observed: The first year's D-N and DJF cells are asterisks, and so are the last months of the current year
+      correction: D-N and DJF need the December before, which the record does not have for its first year, and the current year is not over. Both are unavailable, not zero.
+    - observed: Some annual means differ from the mean of their months by 0.01
+      correction: Both are printed to two decimals, so a difference of up to 0.01 is rounding; a larger one would be worth asking GISS about.
+adaptation:
+  variations:
+    - change: Inspect a newer download of the same table
+      effect: GISS revises the record every month, so values and the hash change. Record the date and hash of the copy you used, and expect small differences in past years too.
+randori:
+  challenge: See the science Randori recipe, SCI-R01.
+  constraints:
+    - Every claim cites the file or GISS's documentation
+  evaluation: The record matches the CI output for the same file.
+maintenance:
+  cadence: Every six months, or when GISS changes the GISTEMP table format or the JCGM revises the GUM
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice, not a calibration certificate. No metrologist, statistician or climate scientist has reviewed it, and a real measurement result needs the qualified reviewers its laboratory, journal or accreditation body names.
+    - The GUM’s Annex H data are illustrative, not measurements of a real instrument.
+    - The record’s own uncertainty is evaluated by GISS and is not reproduced here.
+    - GISS revises the record every month; the numbers here belong to the pinned copy only.
