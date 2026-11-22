@@ -45,7 +45,7 @@ metadata:
     - name: BIM Collaboration Format (BCF)
       version: "BCF-XML 3.0 (the register); BCF-XML 2.1 (the Randori format card)"
       applicability: The practice issue register written for this pathway
-      reviewScope: Whether each XML part is valid against the schema files bcf-client 0.9.0 ships, which are compared with buildingSMART's published files, and whether bcf-client reads the zip back. No other BCF tool was tested, so interoperability with any other tool is not shown.
+      reviewScope: Whether each XML part is valid against buildingSMART's official BCF-XML schema files (kept unchanged with the examples, because bcf-client 0.9.0 does not ship them), and whether bcf-client reads the zip back. No other BCF tool was tested, so interoperability with any other tool is not shown.
       sourceResourceId: buildingsmart/bcf-xml
   verificationEvidence:
     - description: For the card drawn, the coordination evidence before and after the change, matching the Dojo's CI output for that card

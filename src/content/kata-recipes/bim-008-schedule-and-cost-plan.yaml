@@ -183,7 +183,7 @@ verification:
       result: not-run
   failures:
     - observed: The work schedule's date changes on every run
-      correction: ifcopenshell.api.sequence.add_work_schedule stamps the current time. Set CreationDate and StartTime yourself if the file must be reproducible.
+      correction: The add_work_schedule function in IfcOpenShell's sequence API stamps the current time. Set CreationDate and StartTime yourself if the file must be reproducible.
     - observed: The order is right but nobody can say why
       correction: Store the reason with each dependency when you create it. A typed order cannot be checked.
 adaptation:
