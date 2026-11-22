@@ -11,6 +11,7 @@ import { senseiContributions } from '../../data/sensei-contributions';
 import { missionPlaybook } from '../../data/mission-playbook';
 import { arenaRecordFiles } from '../../lib/arena-content';
 import { loadKataRecipes } from '../../lib/kata-recipe-content';
+import { isUnavailable } from '../../lib/kata-recipe';
 import { loadContributions, type Outcome } from '../../lib/sensei-contributions';
 import { formatDate } from '../../lib/labels';
 
@@ -19,7 +20,7 @@ const contributions = loadContributions(senseiContributions, {
   recipes: resolved.map(({ slug, recipe }) => ({
     slug,
     id: recipe.metadata.id,
-    roles: 'unavailable' in recipe.agents ? [] : recipe.agents.roles,
+    roles: isUnavailable(recipe.agents) ? [] : recipe.agents.roles,
     changes: recipe.changes,
   })),
   arenaRecordIds: arenaRecordFiles().flatMap(({ data }) => {
@@ -95,7 +96,7 @@ const targetLink = (item: (typeof contributions)[number]) => {
             <div><dt>Source</dt><dd>{item.provenance.source}</dd></div>
             <div><dt>Rights</dt><dd>{item.provenance.rights}</dd></div>
             <div><dt>Confidentiality</dt><dd>{item.provenance.confidentiality}</dd></div>
-            <div><dt>Security</dt><dd>{item.security.executable ? 'Changes something that runs. ' : 'Changes nothing that runs. '}{'unavailable' in item.security.review ? <span data-unavailable><strong>Unavailable.</strong> {item.security.review.unavailable}</span> : item.security.review}</dd></div>
+            <div><dt>Security</dt><dd>{item.security.executable ? 'Changes something that runs. ' : 'Changes nothing that runs. '}{isUnavailable(item.security.review) ? <span data-unavailable><strong>Unavailable.</strong> {item.security.review.unavailable}</span> : item.security.review}</dd></div>
             <div><dt>Reproduced on</dt><dd><time datetime={item.reproduction.checkedOn}>{day(item.reproduction.checkedOn)}</time></dd></div>
           </dl>
           <h4>How to reproduce it</h4>
@@ -108,7 +109,7 @@ const targetLink = (item: (typeof contributions)[number]) => {
           <h4>Review</h4>
           <dl class="pairs">
             <div><dt>Author</dt><dd>{item.review.author}</dd></div>
-            <div data-independent-review><dt>Independent review</dt><dd>{'unavailable' in item.review.independent ? <span data-unavailable><strong>Unavailable.</strong> {item.review.independent.unavailable}</span> : item.review.independent}</dd></div>
+            <div data-independent-review><dt>Independent review</dt><dd>{isUnavailable(item.review.independent) ? <span data-unavailable><strong>Unavailable.</strong> {item.review.independent.unavailable}</span> : item.review.independent}</dd></div>
             <div><dt>Outcome</dt><dd>{OUTCOME[item.review.outcome]}</dd></div>
             <div><dt>Decision</dt><dd>{item.review.decision}</dd></div>
             <div><dt>Corrections during review</dt><dd>{item.review.corrections.length > 0 ? <ul>{item.review.corrections.map((entry) => <li><strong>Observed:</strong> {entry.observed} <strong>Correction:</strong> {entry.correction}</li>)}</ul> : 'None recorded.'}</dd></div>
