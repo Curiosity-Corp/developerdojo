@@ -1,8 +1,10 @@
 ---
 import type { FlowState, StateId, Transition } from '../data/pocket-invoice';
 
-// One greyscale screen of the Pocket Invoice clickable prototype (/examples/pocket-invoice-prototype/), drawn from
-// a state of the flow in src/data/pocket-invoice.ts. Buttons become links to the state they lead to, numbered as
+// One screen of the Pocket Invoice clickable prototype (/examples/pocket-invoice-prototype/), drawn from a state of
+// the flow in src/data/pocket-invoice.ts. In low fidelity it is greyscale; in high fidelity (data-fidelity="high" on
+// the .proto container, UX-005) every colour, size, border and corner is a UX-003 token, read from the --pi-* custom
+// properties the page sets, so it matches the generated high-fidelity screens in public/examples/ux-pathway/generated/screens/. Buttons become links to the state they lead to, numbered as
 // on the sitemap; transitions no button causes are listed in a dashed "prototype only" box, so every one is reachable.
 interface Props {
   state: FlowState;
@@ -19,7 +21,7 @@ const numberTo = (to: StateId): number => {
 const extra = transitions.filter((t) => t.from === state.id && !state.elements.some((e) => e.type === 'button' && e.to === t.to));
 const headingIndex = state.elements.findIndex((e) => e.type === 'heading');
 ---
-<p class="bar"><span>{productName}</span><span>{kindLabel}</span></p>
+<p class="bar"><span class="brand"><span class="mark" aria-hidden="true">{productName.charAt(0)}</span>{productName}</span><span class="kind">{kindLabel}</span></p>
 {state.elements.map((element, index) =>
   element.type === 'heading' ? (index === headingIndex ? <h2 id={'proto-h-' + state.id} tabindex="-1">{element.text}</h2> : <p class="subhead">{element.text}</p>)
   : element.type === 'text' ? <p>{element.text}</p>
@@ -60,7 +62,8 @@ const headingIndex = state.elements.findIndex((e) => e.type === 'heading');
   /* Reflow (WCAG 1.4.10): at 195 px every line, button and badge wraps inside the board instead of widening the page. */
   :global(.board) { overflow-wrap: anywhere; }
   .bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; margin: -1rem -1rem 1rem; padding: .75rem 1rem; background: #e0e0e0; color: #212121; font-weight: 700; font-size: .9rem; }
-  .bar span:last-child { font-weight: 400; color: #424242; }
+  .bar .kind { font-weight: 400; color: #424242; }
+  .mark { display: none; }
   h2 { font-size: 1.5rem; line-height: 1.25; margin: 0 0 .75rem; color: #212121; }
   h2:focus-visible { outline: 3px solid #212121; outline-offset: 3px; }
   p { margin: 0 0 1rem; color: #424242; }
@@ -96,4 +99,39 @@ const headingIndex = state.elements.findIndex((e) => e.type === 'heading');
   .proto-only ul { margin: 0; padding-left: 1.25rem; }
   .proto-only li { margin-bottom: .5rem; }
   .proto-only a { color: #212121; font-size: .9rem; display: inline-flex; gap: .5rem; align-items: baseline; flex-wrap: wrap; }
+
+  /* High fidelity (UX-005): the same structure drawn only with UX-003 tokens, as the components in
+     public/examples/ux-pathway/generated/components.svg. Transition numbers are a wireframe device, so they go. */
+  :global(.proto[data-fidelity="high"]) .bar { align-items: center; background: var(--pi-color-surface-card); color: var(--pi-color-text-default); border-bottom: var(--pi-border-width-thin) solid var(--pi-color-border-subtle); font-size: var(--pi-font-size-m); font-weight: var(--pi-font-weight-bold); }
+  :global(.proto[data-fidelity="high"]) .brand { display: inline-flex; align-items: center; gap: var(--pi-spacing-2); }
+  :global(.proto[data-fidelity="high"]) .mark { display: inline-grid; place-items: center; width: 2rem; height: 2rem; border-radius: var(--pi-radius-card); background: var(--pi-color-action-primary); color: var(--pi-color-text-inverse); }
+  :global(.proto[data-fidelity="high"]) .kind { display: none; }
+  :global(.proto[data-fidelity="high"]) h2 { font-size: var(--pi-font-size-l); color: var(--pi-color-text-default); }
+  :global(.proto[data-fidelity="high"]) h2:focus-visible { outline-color: var(--pi-color-focus-ring); }
+  :global(.proto[data-fidelity="high"]) p { font-size: var(--pi-font-size-s); color: var(--pi-color-text-muted); }
+  :global(.proto[data-fidelity="high"]) .subhead { font-size: var(--pi-font-size-m); color: var(--pi-color-text-default); }
+  :global(.proto[data-fidelity="high"]) .problem { padding: var(--pi-spacing-4); background: var(--pi-color-surface-card); border: var(--pi-border-width-bar) solid var(--pi-color-border-error); }
+  :global(.proto[data-fidelity="high"]) .problem p { font-size: var(--pi-font-size-m); color: var(--pi-color-text-default); }
+  :global(.proto[data-fidelity="high"]) .problem li { color: var(--pi-color-text-error); font-weight: var(--pi-font-weight-bold); }
+  :global(.proto[data-fidelity="high"]) .field.has-error { padding-left: var(--pi-spacing-4); border-left: var(--pi-border-width-bar) solid var(--pi-color-border-error); }
+  :global(.proto[data-fidelity="high"]) .label { font-size: var(--pi-font-size-m); color: var(--pi-color-text-default); }
+  :global(.proto[data-fidelity="high"]) .hint { color: var(--pi-color-text-muted); }
+  :global(.proto[data-fidelity="high"]) .error { color: var(--pi-color-text-error); }
+  :global(.proto[data-fidelity="high"]) .input { min-height: var(--pi-size-control); color: var(--pi-color-text-default); background: var(--pi-color-surface-card); border: var(--pi-border-width-thick) solid var(--pi-color-border-input); border-radius: var(--pi-radius-control); }
+  :global(.proto[data-fidelity="high"]) .has-error .input { border-color: var(--pi-color-border-error); }
+  :global(.proto[data-fidelity="high"]) .summary div { border-bottom: var(--pi-border-width-thin) solid var(--pi-color-border-input); }
+  :global(.proto[data-fidelity="high"]) .summary dt, :global(.proto[data-fidelity="high"]) .summary dd, :global(.proto[data-fidelity="high"]) th, :global(.proto[data-fidelity="high"]) td { color: var(--pi-color-text-default); }
+  :global(.proto[data-fidelity="high"]) th, :global(.proto[data-fidelity="high"]) td { border-bottom: var(--pi-border-width-thin) solid var(--pi-color-border-input); font-size: var(--pi-font-size-s); }
+  :global(.proto[data-fidelity="high"]) th { border-bottom-width: var(--pi-border-width-thick); }
+  :global(.proto[data-fidelity="high"]) .table:focus-visible { outline-color: var(--pi-color-focus-ring); }
+  :global(.proto[data-fidelity="high"]) .btn { min-height: var(--pi-size-control); border-radius: var(--pi-radius-control); font-size: var(--pi-font-size-m); }
+  :global(.proto[data-fidelity="high"]) .btn.primary, :global(.proto[data-fidelity="high"]) .btn.secondary { width: 100%; justify-content: center; }
+  :global(.proto[data-fidelity="high"]) .btn.primary { background: var(--pi-color-action-primary); color: var(--pi-color-text-inverse); border: var(--pi-border-width-thick) solid var(--pi-color-action-primary); }
+  :global(.proto[data-fidelity="high"]) .btn.secondary { background: var(--pi-color-surface-card); color: var(--pi-color-action-primary); border: var(--pi-border-width-thick) solid var(--pi-color-action-primary); }
+  :global(.proto[data-fidelity="high"]) .btn.link { min-height: 0; color: var(--pi-color-text-link); }
+  :global(.proto[data-fidelity="high"]) .btn:focus-visible, :global(.proto[data-fidelity="high"]) .proto-only a:focus-visible { outline-color: var(--pi-color-focus-ring); }
+  :global(.proto[data-fidelity="high"]) .n { display: none; }
+  :global(.proto[data-fidelity="high"]) .proto-only { border: var(--pi-border-width-thick) dashed var(--pi-color-border-input); border-radius: var(--pi-radius-card); }
+  :global(.proto[data-fidelity="high"]) .proto-only p { color: var(--pi-color-text-default); }
+  :global(.proto[data-fidelity="high"]) .proto-only a { color: var(--pi-color-text-link); font-size: var(--pi-font-size-s); }
 </style>

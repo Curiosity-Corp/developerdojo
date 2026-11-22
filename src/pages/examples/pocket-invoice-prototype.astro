@@ -2,12 +2,18 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PrototypeBoard from '../../components/PrototypeBoard.astro';
 import { PRODUCT, STATES, TRANSITIONS, START_STATE, type FlowState } from '../../data/pocket-invoice';
+import tokenFile from '../../data/pocket-invoice-tokens.json';
+import { cssCustomProperties, resolveTokens } from '../../lib/design-tokens';
 
 // UX-002 (#91): a clickable low-fidelity prototype of the Pocket Invoice flow, built in the site's own stack. Every
 // screen, link and number comes from src/data/pocket-invoice.ts, the flow the Penpot file, the SVG wireframes and
 // the working example are made from. Links change the state through the URL hash, so the browser's Back button is a
 // back path too, and the discard dialog opens as a native modal dialog over the form. e2e/ux-pathway.spec.ts walks
-// every transition.
+// every transition, in both fidelities.
+//
+// UX-005 (#91): the Low/High switch (also ?fidelity=high) redraws the same screens with the UX-003 tokens, set here
+// as --pi-* custom properties from the same token file the generated high-fidelity screens are drawn from.
+const tokenStyle = cssCustomProperties(resolveTokens(tokenFile), 'pi');
 const numbered = TRANSITIONS.map((transition, index) => ({ ...transition, n: index + 1 }));
 const kindLabel: Record<string, string> = { screen: 'Screen', error: 'Error', empty: 'Empty state', overlay: 'Dialog', success: 'Success', boundary: 'Outside this flow' };
 const screens = STATES.filter((state) => state.kind !== 'overlay');
@@ -18,17 +24,22 @@ const closeOf = (state: FlowState) => {
   return found;
 };
 ---
-<BaseLayout title="Pocket Invoice: a clickable low-fidelity prototype" description="Click through every state of a small SaaS flow in greyscale: errors, an empty state, a dialog and the way back, each link numbered as on the sitemap.">
+<BaseLayout title="Pocket Invoice: a clickable prototype in low and high fidelity" description="Click through every state of a small SaaS flow, in greyscale or in its brand tokens: errors, an empty state, a dialog and the way back, each link numbered as on the sitemap.">
   <section class="section intro" aria-labelledby="proto-title"><div class="container narrow">
-    <p class="eyebrow">UX-002 · Clickable prototype</p>
-    <h1 id="proto-title">{PRODUCT.name}, in low fidelity</h1>
-    <p>One greyscale screen for each state of the UX pathway’s example flow. Each link moves to the state it leads to, and the number beside it is that transition’s number on the sitemap. Cancel opens a dialog over the form, Escape closes it, and your browser’s Back button goes back one step. Links in a dashed box reach states that no button causes, such as the error after a bad entry.</p>
+    <p class="eyebrow">UX-002 and UX-005 · Clickable prototype</p>
+    <h1 id="proto-title">{PRODUCT.name}, a clickable prototype</h1>
+    <p>One screen for each state of the UX pathway’s example flow. Each link moves to the state it leads to, and the number beside it is that transition’s number on the sitemap. Cancel opens a dialog over the form, Escape closes it, and your browser’s Back button goes back one step. Links in a dashed box reach states that no button causes, such as the error after a bad entry.</p>
     <p>This is a prototype, so you cannot type anything. The <a href="/examples/pocket-invoice/">working example</a> is the built version, and the <a href="/katas/ux-pathway">UX pathway</a> has the same screens as SVG files.</p>
+    <fieldset class="fidelity" data-fidelity-switch hidden>
+      <legend>Fidelity</legend>
+      <label><input type="radio" name="fidelity" value="low" checked /> Low: greyscale, with transition numbers</label>
+      <label><input type="radio" name="fidelity" value="high" /> High: the brand tokens and components</label>
+    </fieldset>
     <p class="progress" aria-live="polite">Transitions tried: <strong data-visited-count>0</strong> of {numbered.length}.</p>
   </div></section>
 
   <div class="container narrow">
-    <div class="proto" data-prototype data-start={START_STATE} data-current-state={START_STATE}>
+    <div class="proto" data-prototype data-fidelity="low" data-start={START_STATE} data-current-state={START_STATE} style={tokenStyle}>
       {screens.map((state) => (
         <section class="board" id={'proto-' + state.id} data-prototype-state={state.id} aria-labelledby={'proto-h-' + state.id} hidden={state.id !== START_STATE}>
           <PrototypeBoard state={state} transitions={numbered} productName={PRODUCT.name} kindLabel={kindLabel[state.kind] ?? state.kind} />
@@ -58,6 +69,11 @@ const closeOf = (state: FlowState) => {
   .dialog { max-width: min(22rem, calc(100% - 2rem)); border: 2px solid #212121; }
   .dialog::backdrop { background: rgb(33 33 33 / .55); }
   .back { margin-block: 2rem; }
+  .fidelity { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin: 0 0 1rem; padding: .75rem 1rem; border: 2px solid currentColor; border-radius: 8px; }
+  .fidelity legend { font-weight: 700; padding-inline: .25rem; }
+  .fidelity label { display: inline-flex; align-items: center; gap: .5rem; min-height: 24px; }
+  .proto[data-fidelity="high"] .board { background: var(--pi-color-surface-page); color: var(--pi-color-text-default); border: var(--pi-border-width-thin) solid var(--pi-color-border-subtle); border-radius: var(--pi-radius-card); font-family: var(--pi-font-family-base), system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .proto[data-fidelity="high"] .dialog { border: var(--pi-border-width-thin) solid var(--pi-color-border-input); }
 </style>
 
 <script>
@@ -67,6 +83,24 @@ const closeOf = (state: FlowState) => {
   const counter = document.querySelector<HTMLElement>('[data-visited-count]');
   if (!root || !counter) throw new Error('Pocket Invoice prototype: the container or the counter is missing');
   const proto: HTMLElement = root;
+  // The fidelity switch: ?fidelity=high in the URL, kept as the user changes it, so a shared link opens the same way.
+  const fidelitySwitch = document.querySelector<HTMLFieldSetElement>('[data-fidelity-switch]');
+  if (!fidelitySwitch) throw new Error('Pocket Invoice prototype: the fidelity switch is missing');
+  const setFidelity = (value: string): void => {
+    const fidelity = value === 'high' ? 'high' : 'low';
+    proto.dataset['fidelity'] = fidelity;
+    for (const input of fidelitySwitch.querySelectorAll<HTMLInputElement>('input[name="fidelity"]')) input.checked = input.value === fidelity;
+  };
+  setFidelity(new URLSearchParams(location.search).get('fidelity') ?? 'low');
+  fidelitySwitch.hidden = false;
+  fidelitySwitch.addEventListener('change', (event) => {
+    if (!(event.target instanceof HTMLInputElement)) return;
+    setFidelity(event.target.value);
+    const url = new URL(location.href);
+    if (event.target.value === 'high') url.searchParams.set('fidelity', 'high');
+    else url.searchParams.delete('fidelity');
+    history.replaceState(history.state, '', url);
+  });
   const count: HTMLElement = counter;
   const boards = new Map([...proto.querySelectorAll<HTMLElement>('[data-prototype-state]')].map((board) => [board.dataset['prototypeState'] ?? '', board]));
   const start = proto.dataset['start'] ?? '';
