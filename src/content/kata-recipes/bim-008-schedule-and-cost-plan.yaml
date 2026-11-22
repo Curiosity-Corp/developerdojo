@@ -201,6 +201,6 @@ maintenance:
     - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
     - The sample is a three-element test file plus one practice duct, not a building. Nothing learned from it is evidence about a real project.
     - No model, issue, sequence or quantity here is professionally reviewed or approved, and nothing is construction ready. The review package names the qualified reviewers and gates a real project would need.
-    - This is a preliminary mapping, not a programme: there are no durations, calendars, resources or dates, because no source for them was chosen.
+    - This is a preliminary mapping, not a programme. There are no durations, calendars, resources or dates, because no source for them was chosen.
     - The cost plan is unpriced. It is not an estimate, a bill of quantities or an order, and the measurement rules a contract would set are not applied.
     - The planned IFC was read back with IfcOpenShell only. No scheduling tool was tested.
