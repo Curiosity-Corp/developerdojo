@@ -1,6 +1,8 @@
+import { readFileSync } from 'node:fs';
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page, type TestInfo } from '@playwright/test';
 import { STATES, TRANSITIONS, stateById, type StateId } from '../src/data/pocket-invoice';
+import { resolveTokens, type TokenFile } from '../src/lib/design-tokens';
 
 // The UX pathway (#91): drive the working Pocket Invoice example through every state in the flow, and
 // in each one run axe (WCAG A and AA, light and dark), a reflow check at 320 px and the focus rule for
@@ -174,17 +176,33 @@ test('the UX pathway page links every step and serves real files', async ({ page
   expect(check.checks.every((item) => item.pass)).toBe(true);
 });
 
-test('the low-fidelity prototype reaches every state through all its transitions', async ({ page }) => {
+const tokenValue = (name: string): string => {
+  const token = resolveTokens(JSON.parse(readFileSync('src/data/pocket-invoice-tokens.json', 'utf8')) as TokenFile).get(name);
+  if (!token) throw new Error('the token file has no ' + name);
+  return token.resolved;
+};
+const rgb = (hex: string): string => 'rgb(' + [1, 3, 5].map((offset) => Number.parseInt(hex.slice(offset, offset + 2), 16)).join(', ') + ')';
+
+for (const fidelity of ['low', 'high'] as const) test('the ' + fidelity + '-fidelity prototype reaches every state through all its transitions', async ({ page }, testInfo) => {
   // UX-002 (#91): one walk that uses every numbered transition at least once, by clicking the link that carries its
-  // number, plus Escape for the dialog's close and the browser's Back button for a back path.
+  // number, plus Escape for the dialog's close and the browser's Back button for a back path. UX-005 runs the same
+  // walk in high fidelity, where every colour comes from the UX-003 tokens.
   const proto = page.locator('[data-prototype]');
   const walk: (number | 'back' | 'escape')[] = [1, 'back', 4, 5, 2, 3, 6, 10, 'escape', 8, 11, 13, 6, 8, 9, 14, 7, 16, 17, 7, 15, 18, 19];
   const axe = async (where: string): Promise<void> => {
     const results = await new AxeBuilder({ page }).include('[data-prototype]').withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze();
     expect(results.violations.map((v) => v.id + ' (' + v.impact + ')'), where).toEqual([]);
   };
-  await page.goto('/examples/pocket-invoice-prototype/');
+  await page.goto('/examples/pocket-invoice-prototype/' + (fidelity === 'high' ? '?fidelity=high' : ''));
   await expect(proto).toHaveAttribute('data-current-state', 'signup');
+  await expect(proto).toHaveAttribute('data-fidelity', fidelity);
+  await expect(page.getByRole('radio', { name: new RegExp('^' + (fidelity === 'high' ? 'High' : 'Low')) })).toBeChecked();
+  if (fidelity === 'high') {
+    const primary = page.locator('[data-prototype-state="signup"] a.btn.primary').first();
+    await expect(primary).toHaveCSS('background-color', rgb(tokenValue('color.action.primary')));
+    await expect(primary).toHaveCSS('color', rgb(tokenValue('color.text.inverse')));
+    await expect(page.locator('[data-prototype-state="signup"]')).toHaveCSS('background-color', rgb(tokenValue('color.surface.page')));
+  }
   await axe('signup');
   let current: StateId = 'signup';
   for (const step of walk) {
@@ -208,17 +226,62 @@ test('the low-fidelity prototype reaches every state through all its transitions
     } else {
       await expect(page.locator('[data-prototype-state="' + current + '"]')).toBeVisible();
       await expect(page.locator(':focus')).toHaveText(heading(current));
-      if (current === 'invoice-new-error' && step === 8) await axe('invoice-new-error');
+      if (current === 'invoice-new-error' && step === 8) {
+        await axe('invoice-new-error');
+        await testInfo.attach(fidelity + '-fidelity invoice-new-error', { body: await page.locator('[data-prototype-state="invoice-new-error"]').screenshot(), contentType: 'image/png' });
+      }
     }
   }
   await expect(page.locator('[data-visited-count]')).toHaveText(String(TRANSITIONS.length));
+});
+
+test('the fidelity switch changes the prototype and keeps the choice in the URL', async ({ page }) => {
+  const proto = page.locator('[data-prototype]');
+  await page.goto('/examples/pocket-invoice-prototype/');
+  await expect(proto).toHaveAttribute('data-fidelity', 'low');
+  await page.getByRole('radio', { name: /^High/ }).check();
+  await expect(proto).toHaveAttribute('data-fidelity', 'high');
+  expect(new URL(page.url()).searchParams.get('fidelity')).toBe('high');
+  await page.locator('[data-prototype-state="signup"] a[data-transition="1"]').click();
+  await expect(proto).toHaveAttribute('data-current-state', 'invoices-empty');
+  await page.reload();
+  await expect(proto).toHaveAttribute('data-fidelity', 'high');
+  await expect(proto).toHaveAttribute('data-current-state', 'invoices-empty');
+  await page.getByRole('radio', { name: /^Low/ }).check();
+  expect(new URL(page.url()).searchParams.has('fidelity')).toBe(false);
+  await expect(proto).toHaveAttribute('data-fidelity', 'low');
+});
+
+test('every line of text in the high-fidelity screens fits the space it was laid out for', async ({ page, request }, testInfo) => {
+  // UX-005 (#91): the generator wraps text with an estimated character width; here the browser measures each line
+  // (getBBox) against the left and right edges the generator recorded in data-fit. The font is whatever the CI
+  // browser substitutes for the token's family, which the attached measurements name.
+  const manifest = await (await request.get('/examples/ux-pathway/generated/manifest.json')).json() as { outputs: string[] };
+  const screens = manifest.outputs.filter((name) => name.startsWith('screens/'));
+  expect(screens.length).toBe(STATES.length * 2);
+  const measured: { screen: string; text: string; left: number; right: number; from: number; to: number }[] = [];
+  let declaredFont = '';
+  for (const screen of screens) {
+    await page.goto('/examples/ux-pathway/generated/' + screen);
+    const lines = await page.evaluate(() => [...document.querySelectorAll<SVGTextElement>('text[data-fit]')].map((element) => {
+      const [left = 0, right = 0] = (element.getAttribute('data-fit') ?? '').split(' ').map(Number);
+      const box = element.getBBox();
+      return { text: element.textContent ?? '', left, right, from: box.x, to: box.x + box.width };
+    }));
+    declaredFont ||= await page.evaluate(() => { const first = document.querySelector('text'); return first ? getComputedStyle(first).fontFamily : ''; });
+    expect(lines.length, screen).toBeGreaterThan(0);
+    measured.push(...lines.map((line) => ({ screen, ...line })));
+  }
+  const overflow = measured.filter((line) => line.from < line.left - 2 || line.to > line.right + 2);
+  await testInfo.attach('high-fidelity-text-fit.json', { body: JSON.stringify({ declaredFont, lines: measured.length, overflow }, null, 2), contentType: 'application/json' });
+  expect(overflow.map((line) => line.screen + ': ' + line.text + ' ends at ' + line.to.toFixed(1) + ', room to ' + line.right)).toEqual([]);
 });
 
 test('the UX pathway serves the open files the flow script generated', async ({ page, request }) => {
   const base = '/examples/ux-pathway/';
   const manifest = await (await request.get(base + 'generated/manifest.json')).json() as { inputs: Record<string, string>; outputs: string[] };
   expect(manifest.outputs).toContain('sitemap.svg');
-  for (const name of [...manifest.outputs.map((output) => 'generated/' + output), ...Object.keys(manifest.inputs), 'tools/ux_pathway.mjs']) {
+  for (const name of [...manifest.outputs.map((output) => 'generated/' + output), ...Object.keys(manifest.inputs), 'tools/ux_pathway.mjs', 'tools/ux_hifi.mjs', 'tools/design_tokens.mjs']) {
     const response = await request.get(base + name);
     expect(response.status(), name).toBe(200);
     if (name.endsWith('.svg')) expect(await response.text(), name).toContain('<svg');

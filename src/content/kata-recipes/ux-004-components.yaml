@@ -156,6 +156,16 @@ verification:
       result: passed
       evidence: /examples/ux-pathway/penpot-import-check.json (checks components, library-colours and library-typographies)
       date: "2026-11-20"
+    - action: Draw the style guide and the component sheet from the example token file and inputs/brand.json with the flow script, and audit both drawings
+      expected: 13 named components; every colour, font size, weight, corner and border is a token value, and every token a component lists exists
+      result: passed
+      evidence: /examples/ux-pathway/generated/fidelity-report.md (rows components.svg and style-guide.svg), rerun by the ux_pathway CI job on every pipeline
+      date: "2026-11-21"
+    - action: Audit every high-fidelity screen, at 390 px and 1440 px, for component use
+      expected: On each of the 22 screens every element of the flow is drawn as a component from the sheet, and no other component name appears
+      result: passed
+      evidence: /examples/ux-pathway/generated/fidelity-report.json (files, components), rerun by the ux_pathway CI job on every pipeline
+      date: "2026-11-21"
     - action: Change a main component in your file and look at the screens
       expected: Every copy changes
       result: not-run

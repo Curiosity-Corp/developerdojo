@@ -167,6 +167,16 @@ verification:
       result: passed
       evidence: /examples/ux-pathway/qa-report.md (11 of 11 states, desktop and mobile)
       date: "2026-11-20"
+    - action: Draw every state at 390 px and 1440 px from the tokens and audit each screen for text contrast, control boundaries and control size
+      expected: All 22 screens pass; text 4.5:1 or more (3:1 for large text), control boundaries 3:1 or more, controls at least 48 px tall (lowest text contrast 4.63:1)
+      result: passed
+      evidence: /examples/ux-pathway/generated/fidelity-report.md, rerun by the ux_pathway CI job on every pipeline
+      date: "2026-11-21"
+    - action: Click through every transition of the prototype in high fidelity with axe, and measure each line of text of the high-fidelity screens in a browser
+      expected: All 19 transitions reached with no axe violation for WCAG A and AA; the primary button and page colours equal the token values; no line runs past the room it was laid out for
+      result: passed
+      evidence: /examples/pocket-invoice-prototype/?fidelity=high, walked by the site’s browser tests on every pipeline
+      date: "2026-11-21"
     - action: Keyboard-only pass of your own page
       expected: Every state reachable; focus always visible
       result: not-run
