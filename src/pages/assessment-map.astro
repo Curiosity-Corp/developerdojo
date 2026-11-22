@@ -85,7 +85,7 @@ const reviewedStages = map.belts.stages.filter((stage) => map.specialistBelts.re
             <dt>Checks the reviewer reruns</dt><dd><ul>{belt.checks.map((check) => <li>{check}</li>)}</ul></dd>
             <dt>Qualified review</dt><dd>{belt.professionalReview.required ? 'Required for real work. ' : 'Not required for this practice. '}{belt.professionalReview.limit}</dd>
           </dl>
-          <p class="record-links">Record a review: {reviewedStages.map((stage, index) => <>{index > 0 && ' · '}<a href={`/review-record?subject=belt:${belt.packId}:${stage.id}`}>{stage.name} stage<span class="visually-hidden">, {belt.field}</span></a></>)}</p>
+          <p class="record-links">Record a review: {reviewedStages.map((stage, index) => <>{index > 0 && ' · '}<a href={`/review-record?subject=belt:${belt.packId}:${stage.id}`} aria-label={`${stage.name} stage, ${belt.field}`}>{stage.name} stage</a></>)}</p>
         </article>
       ))}
     </div>
@@ -176,7 +176,6 @@ const reviewedStages = map.belts.stages.filter((stage) => map.specialistBelts.re
   .belt h4 { margin-top: 0; font-size: var(--text-lg, 1.125rem); }
   .belt ul { margin: 0; padding-left: var(--space-4); }
   .record-links { margin-bottom: 0; font-weight: 700; }
-  .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
   .reuse { display: inline-block; }
   .table-wrap { max-width: 100%; overflow-x: auto; }
   table { border-collapse: collapse; width: 100%; max-width: 75ch; }
