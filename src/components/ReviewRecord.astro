@@ -1,0 +1,326 @@
+---
+/**
+ * The independent review record (#90): the form a reviewer fills in during a pilot review. Every subject's criteria
+ * are rendered here; the script shows the chosen one. What is typed is saved only in this browser
+ * (src/lib/storage.ts, key dojo:review-record) and copied out as Markdown. Nothing is sent anywhere.
+ * The rules (what must be filled in, finishing, corrections) are in src/lib/review-record.ts.
+ */
+import ExportBox from './ExportBox.astro';
+import { OBSERVATIONS } from '../lib/assessment-map';
+import { MAX_CORRECTION, MAX_REFERENCE, MAX_TEXT, type ReviewSubject } from '../lib/review-record';
+
+interface Props {
+  subjects: ReviewSubject[];
+}
+const { subjects } = Astro.props;
+const key = (id: string) => id.replace(/[^a-z0-9-]/gi, '-');
+// Escaped so no text in the data can close the script element.
+const json = JSON.stringify(subjects).replace(/</g, '\\u003c');
+const ranks = subjects.filter((subject) => subject.group === 'rank');
+const belts = subjects.filter((subject) => subject.group === 'belt');
+---
+
+<section class="tool js-only review-record" aria-labelledby="rr-title" data-review-record data-pagefind-ignore>
+  <h2 id="rr-title">Record a review</h2>
+  <p class="tool-note">
+    <strong>For the reviewer.</strong> What you type is saved <strong>only in this browser, on this device</strong>. Nothing is sent anywhere and
+    there is no account. Do not type the learner's name, passwords or private material: refer to evidence by file, check or moment in the session.
+  </p>
+  <p class="tool-note" data-save-note hidden></p>
+  <script type="application/json" is:inline data-review-subjects set:html={json} />
+
+  <fieldset class="rr-editable" data-editable>
+    <legend class="visually-hidden">The review</legend>
+    <div class="tool-field">
+      <label for="rr-subject">What is being reviewed</label>
+      <select id="rr-subject" data-subject>
+        <optgroup label="Ranks">{ranks.map((subject) => <option value={subject.id}>{subject.label}</option>)}</optgroup>
+        <optgroup label="Specialist belts">{belts.map((subject) => <option value={subject.id}>{subject.label}</option>)}</optgroup>
+      </select>
+    </div>
+
+    <fieldset>
+      <legend>Before the session</legend>
+      <label class="choice"><input type="checkbox" data-consent /><span>The learner and I agreed in writing what I may open, keep and share, and for how long.</span></label>
+      <label class="choice"><input type="checkbox" data-independent /><span>I did not prepare this work, I have no conflict of interest, and I am not the pilot coordinator.</span></label>
+    </fieldset>
+
+    <div class="tool-field">
+      <label for="rr-unseen">The unseen task you set</label>
+      <p class="tool-hint" id="rr-unseen-hint">The constraint, changed tool or injected failure, revealed only when the task started.</p>
+      <textarea id="rr-unseen" rows="3" maxlength={MAX_TEXT} aria-describedby="rr-unseen-hint" data-unseen></textarea>
+    </div>
+
+    {subjects.map((subject) => (
+      <div class="rr-panel" data-subject-panel={subject.id} hidden>
+        <h3>{subject.label}</h3>
+        <p class="rr-question">{subject.question}</p>
+        {subject.professionalReview && (
+          <p class="boundary"><strong>Qualified review in this field:</strong> {subject.professionalReview.limit}</p>
+        )}
+        {subject.criteria.map((criterion) => (
+          <fieldset data-criterion={criterion.id}>
+            <legend>{criterion.id} {criterion.title}</legend>
+            <p class="tool-hint"><strong>Observed when:</strong> {criterion.observable}</p>
+            <p class="tool-hint"><strong>Not yet observed when:</strong> {criterion.notYet}</p>
+            <p class="tool-hint"><strong>Look at:</strong> {criterion.evidence.join(' · ')}</p>
+            <div class="rr-choices">
+              {OBSERVATIONS.map((observation) => (
+                <label class="choice"><input type="radio" name={`rr-${key(subject.id)}-${criterion.id}`} value={observation} data-observation /><span>{observation}</span></label>
+              ))}
+            </div>
+            <div class="tool-field">
+              <label for={`rr-${key(subject.id)}-${criterion.id}-ref`}>Evidence reference for {criterion.id}</label>
+              <textarea id={`rr-${key(subject.id)}-${criterion.id}-ref`} rows="2" maxlength={MAX_REFERENCE} data-reference></textarea>
+            </div>
+          </fieldset>
+        ))}
+      </div>
+    ))}
+
+    <div class="tool-field">
+      <label for="rr-failures">Failures seen</label>
+      <p class="tool-hint" id="rr-failures-hint">What went wrong during the work and the unseen task, the cause, and the check that confirmed each repair.</p>
+      <textarea id="rr-failures" rows="3" maxlength={MAX_TEXT} aria-describedby="rr-failures-hint" data-failures></textarea>
+    </div>
+    <div class="tool-field">
+      <label for="rr-strength">One strength, tied to evidence</label>
+      <textarea id="rr-strength" rows="2" maxlength={MAX_TEXT} data-strength></textarea>
+    </div>
+    <div class="tool-field">
+      <label for="rr-gap">One gap, tied to evidence</label>
+      <textarea id="rr-gap" rows="2" maxlength={MAX_TEXT} data-gap></textarea>
+    </div>
+    <div class="tool-field">
+      <label for="rr-minutes">Time taken in minutes (optional)</label>
+      <input id="rr-minutes" type="text" inputmode="numeric" maxlength="3" autocomplete="off" data-minutes />
+    </div>
+  </fieldset>
+
+  <h3>Before you can finish</h3>
+  <ul class="rr-problems" data-problems></ul>
+  <div class="tool-actions">
+    <button type="button" class="tool-btn" data-finish>Finish the record</button>
+  </div>
+  <p class="tool-status" role="status" data-finish-status></p>
+
+  <div class="rr-correction" data-correction-box hidden>
+    <h3>Add a correction</h3>
+    <p class="tool-hint">A finished record is not edited. If the learner shows a factual mistake, add a dated correction: the original entries stay as they are.</p>
+    <div class="tool-field">
+      <label for="rr-correction">Correction</label>
+      <textarea id="rr-correction" rows="2" maxlength={MAX_CORRECTION} data-correction></textarea>
+    </div>
+    <div class="tool-actions"><button type="button" class="tool-btn tool-btn--quiet" data-add-correction>Add the correction</button></div>
+  </div>
+
+  <h3>The review log</h3>
+  <ExportBox id="rr-export" label="Review log as Markdown" copyLabel="Copy review log" rows={18}>
+    <button type="button" class="tool-btn tool-btn--quiet" data-new>Start a new record</button>
+  </ExportBox>
+  <p class="tool-status" role="status" data-saved></p>
+</section>
+
+<style>
+  .rr-editable { border: 0; padding: 0; margin: 0; min-width: 0; }
+  .rr-editable:disabled { opacity: 0.85; }
+  .rr-panel { margin-block: var(--space-4); }
+  .rr-question { font-weight: 700; }
+  .rr-choices { display: flex; flex-wrap: wrap; gap: 0 var(--space-4); }
+  .rr-problems li + li { margin-top: var(--space-1); }
+  .boundary { padding: var(--space-3); border-left: 4px solid var(--tone-gold); background: var(--paper-sunk); }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+</style>
+
+<script>
+  import {
+    REVIEW_RECORD_NAME,
+    REVIEW_RECORD_VERSION,
+    addCorrection,
+    applyDraft,
+    emptyRecord,
+    finishRecord,
+    isObservation,
+    parseRecord,
+    parseSubjects,
+    recordProblems,
+    renderReviewLog,
+    type CriterionEntry,
+    type RecordDraft,
+    type ReviewRecord,
+    type ReviewSubject,
+  } from '../lib/review-record';
+  import { armedButton, todayLocal, wireExportBox } from '../lib/export-box';
+  import { createStore, storageKey } from '../lib/storage';
+
+  const root = document.querySelector<HTMLElement>('[data-review-record]');
+  if (root) init(root);
+
+  function readSubjects(root: HTMLElement): ReviewSubject[] {
+    const source = root.querySelector('[data-review-subjects]')?.textContent ?? '[]';
+    try {
+      return parseSubjects(JSON.parse(source));
+    } catch (error) {
+      console.error('The review subjects on this page could not be read', error);
+      return [];
+    }
+  }
+
+  function init(root: HTMLElement): void {
+    const subjects = readSubjects(root);
+    const first = subjects[0];
+    if (!first) return;
+    const ids = subjects.map((subject) => subject.id);
+    const store = createStore();
+    const load = (): ReviewRecord | undefined => store.load(REVIEW_RECORD_NAME, { version: REVIEW_RECORD_VERSION, validate: (data) => parseRecord(data, ids) });
+    let record: ReviewRecord = load() ?? emptyRecord(first.id);
+
+    // A link can name the subject (for example from a belt on the assessment map), unless a finished record is open.
+    const asked = new URLSearchParams(window.location.search).get('subject');
+    if (asked && ids.includes(asked) && !record.finishedOn) record = { ...record, subjectId: asked };
+
+    const editable = root.querySelector<HTMLFieldSetElement>('[data-editable]')!;
+    const subjectSelect = root.querySelector<HTMLSelectElement>('[data-subject]')!;
+    const consent = root.querySelector<HTMLInputElement>('[data-consent]')!;
+    const independent = root.querySelector<HTMLInputElement>('[data-independent]')!;
+    const unseen = root.querySelector<HTMLTextAreaElement>('[data-unseen]')!;
+    const failures = root.querySelector<HTMLTextAreaElement>('[data-failures]')!;
+    const strength = root.querySelector<HTMLTextAreaElement>('[data-strength]')!;
+    const gap = root.querySelector<HTMLTextAreaElement>('[data-gap]')!;
+    const minutes = root.querySelector<HTMLInputElement>('[data-minutes]')!;
+    const problemsList = root.querySelector<HTMLUListElement>('[data-problems]')!;
+    const finish = root.querySelector<HTMLButtonElement>('[data-finish]')!;
+    const finishStatus = root.querySelector<HTMLElement>('[data-finish-status]')!;
+    const correctionBox = root.querySelector<HTMLElement>('[data-correction-box]')!;
+    const correction = root.querySelector<HTMLTextAreaElement>('[data-correction]')!;
+    const addButton = root.querySelector<HTMLButtonElement>('[data-add-correction]')!;
+    const saved = root.querySelector<HTMLElement>('[data-saved]')!;
+    const saveNote = root.querySelector<HTMLElement>('[data-save-note]')!;
+    const exportBox = wireExportBox(root);
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-subject-panel]'));
+
+    const subject = (): ReviewSubject => subjects.find((item) => item.id === record.subjectId) ?? first;
+    const panel = (): HTMLElement | undefined => panels.find((item) => item.dataset['subjectPanel'] === record.subjectId);
+
+    function persist(): void {
+      const ok = store.save(REVIEW_RECORD_NAME, REVIEW_RECORD_VERSION, record);
+      saved.textContent = ok ? 'Saved on this device.' : 'Not saved: your browser blocked it. Copy the review log to keep it.';
+    }
+
+    function readDraft(): RecordDraft {
+      const entries: Record<string, CriterionEntry> = {};
+      for (const fieldset of panel()?.querySelectorAll<HTMLFieldSetElement>('[data-criterion]') ?? []) {
+        const id = fieldset.dataset['criterion'];
+        if (!id) continue;
+        const checked = fieldset.querySelector<HTMLInputElement>('input[data-observation]:checked')?.value;
+        entries[id] = { observation: isObservation(checked) ? checked : '', reference: fieldset.querySelector<HTMLTextAreaElement>('[data-reference]')?.value ?? '' };
+      }
+      return {
+        subjectId: record.subjectId,
+        consent: consent.checked,
+        independent: independent.checked,
+        unseenTask: unseen.value,
+        entries,
+        failures: failures.value,
+        strength: strength.value,
+        gap: gap.value,
+        minutes: minutes.value,
+      };
+    }
+
+    /** Puts the record into every control. Used on load, on a subject change, and when another tab changes it. */
+    function fill(): void {
+      subjectSelect.value = record.subjectId;
+      for (const item of panels) item.hidden = item.dataset['subjectPanel'] !== record.subjectId;
+      consent.checked = record.consent;
+      independent.checked = record.independent;
+      unseen.value = record.unseenTask;
+      failures.value = record.failures;
+      strength.value = record.strength;
+      gap.value = record.gap;
+      minutes.value = record.minutes;
+      for (const fieldset of panel()?.querySelectorAll<HTMLFieldSetElement>('[data-criterion]') ?? []) {
+        const entry = record.entries[fieldset.dataset['criterion'] ?? ''];
+        for (const radio of fieldset.querySelectorAll<HTMLInputElement>('input[data-observation]')) radio.checked = radio.value === (entry?.observation ?? '');
+        const reference = fieldset.querySelector<HTMLTextAreaElement>('[data-reference]');
+        if (reference) reference.value = entry?.reference ?? '';
+      }
+      refresh();
+    }
+
+    /** Updates everything computed from the record: the lock, the list of what is missing and the review log. */
+    function refresh(): void {
+      const finished = Boolean(record.finishedOn);
+      editable.disabled = finished;
+      finish.hidden = finished;
+      correctionBox.hidden = !finished;
+      problemsList.replaceChildren();
+      const problems = finished ? [] : recordProblems(record, subject());
+      const lines = finished ? [`Finished on ${record.finishedOn}. The entries are locked; add a correction if something is wrong.`] : problems.length ? problems : ['Nothing is missing. You can finish the record.'];
+      for (const line of lines) {
+        const item = document.createElement('li');
+        item.textContent = line;
+        problemsList.append(item);
+      }
+      exportBox?.setText(renderReviewLog(record, subject()));
+    }
+
+    function change(): void {
+      record = applyDraft(record, readDraft());
+      persist();
+      refresh();
+    }
+
+    subjectSelect.addEventListener('change', () => {
+      if (record.finishedOn) return;
+      record = applyDraft(record, readDraft());
+      record = { ...record, subjectId: ids.includes(subjectSelect.value) ? subjectSelect.value : first.id };
+      persist();
+      fill();
+    });
+    editable.addEventListener('input', (event) => { if (event.target !== subjectSelect) change(); });
+    editable.addEventListener('change', (event) => { if (event.target !== subjectSelect) change(); });
+
+    finish.addEventListener('click', () => {
+      record = applyDraft(record, readDraft());
+      const result = finishRecord(record, subject(), todayLocal());
+      record = result.record;
+      persist();
+      refresh();
+      finishStatus.textContent = result.problems.length
+        ? `Not finished: ${result.problems.length} ${result.problems.length === 1 ? 'thing is' : 'things are'} still missing (listed above).`
+        : 'Finished. The record awards nothing; copy the review log below into the confidential case issue.';
+    });
+
+    addButton.addEventListener('click', () => {
+      const result = addCorrection(record, correction.value, todayLocal());
+      if (result.problem) {
+        finishStatus.textContent = result.problem;
+        return;
+      }
+      record = result.record;
+      correction.value = '';
+      persist();
+      refresh();
+      finishStatus.textContent = 'Correction added below the original entries.';
+    });
+
+    armedButton(root.querySelector<HTMLButtonElement>('[data-new]')!, 'Click again to start a new record', () => {
+      record = emptyRecord(record.subjectId);
+      store.remove(REVIEW_RECORD_NAME);
+      finishStatus.textContent = '';
+      saved.textContent = 'Started a new record. The previous one is no longer on this device.';
+      fill();
+    });
+
+    window.addEventListener('storage', (event) => {
+      if (event.key !== storageKey(REVIEW_RECORD_NAME)) return;
+      record = load() ?? emptyRecord(first.id);
+      fill();
+    });
+
+    saveNote.hidden = store.persistent;
+    if (!store.persistent) saveNote.textContent = 'Your browser is blocking saving on this device, so the record lasts only while this page is open. Copy the review log to keep it.';
+    fill();
+  }
+</script>

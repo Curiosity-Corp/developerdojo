@@ -170,6 +170,37 @@ export const assessmentMap = {
       { id: 'black', name: 'Black', title: 'Improve and teach', proof: 'Combine or invent a repeatable technique, explain its limits, and help another learner reproduce and evaluate it.', status: 'proposed' },
     ],
   },
+  specialistBelts: {
+    question: 'Can this person do the work of one field, checked the way that field checks it, when the situation changes?',
+    reviewedStages: ['brown', 'black'],
+    whyTheseStages: 'Brown is the first stage that asks the learner to defend their evidence under an unseen change, so it is the first one an independent reviewer looks at. White, Yellow and Green are practiced with your own checklist on the belts page.',
+    criteria: [
+      {
+        id: 'SPB-1',
+        title: 'Your own field artifact, checked the field\'s way',
+        observable: 'The learner brings an artifact of their own in the field, not the worked example, and the reviewer reruns the checks the field pathway names on it and gets the results the learner recorded.',
+        notYet: 'The artifact is the worked example, only the learner ran the checks, or the reviewer cannot rerun them from the record.',
+        demands: ['independent-judgment'],
+        evidence: ['artifacts', 'configuration', 'tests'],
+      },
+      {
+        id: 'SPB-2',
+        title: 'The field Randori, unseen',
+        observable: 'The reviewer chooses a change of the kind the field Randori describes, one the learner has not practiced, and reveals it after the work starts. The learner adapts, reruns the same field checks and records what changed.',
+        notYet: 'The learner already practiced that exact change, drops a field check to get a result, or does not record what changed.',
+        demands: ['unseen-constraint', 'changed-tool-or-failure', 'independent-judgment'],
+        evidence: ['failures', 'tests', 'review-log'],
+      },
+      {
+        id: 'SPB-3',
+        title: 'Field limits and qualified review',
+        observable: 'The learner says what the field checks do not cover and where the field needs a qualified professional, and claims no approval that a Dojo review cannot give.',
+        notYet: 'The result is presented as approved, compliant or ready for real use, or the field\'s own limits are missing.',
+        demands: ['independent-judgment', 'domain-adaptation'],
+        evidence: ['decisions', 'review-log'],
+      },
+    ],
+  },
   pilot: {
     status: 'not-run',
     evidence: [
