@@ -13,6 +13,7 @@ The worked example for the BIM pathway (/katas/bim-pathway, Developer Dojo issue
 | `randori-cards.ids` | Three requirement cards for the Randori (CARD-A to CARD-C), IDS 1.0 | MIT, Developer Dojo |
 | `coordination-brief.json` | The practice duct, clash rules, tasks and cost lines for BIM-007, BIM-008 and BIM-R02 | MIT, Developer Dojo |
 | `review-gates.json` | The review gates G1 to G5: what each covers and the qualified reviewers it needs | MIT, Developer Dojo |
+| `schemas/bcf-xml/v3.0/`, `schemas/bcf-xml/v2.1/` | buildingSMART's BCF-XML schema files, unchanged (tags v3.0 and v2.1) | CC BY-ND 4.0, © buildingSMART International Ltd. (`schemas/bcf-xml/LICENSE-buildingSMART-BCF-XML.txt`) |
 | `tools/bim_pathway.py` | The script that makes the edit and runs every check | MIT, Developer Dojo |
 | `tools/requirements.txt` | The pinned packages, with hashes (compiled from `tools/requirements.in` with uv) | Each package under its own licence |
 | `generated/wall-with-opening-and-window.edited.ifc` | The sample with one property changed and its header rewritten | CC BY 4.0 adaptation of the buildingSMART sample |
@@ -37,6 +38,13 @@ buildingSMART Certification-datasets, commit `80d976a9b193a26a8e928c3e79bff67af1
 `IFC 4.0.2.1 (IFC 4 ADD2 TC1)/ISO Spec - ReferenceView_V1.2/wall-with-opening-and-window.ifc`,
 SHA-256 `73b0e45d931d5dc13bfee5fdc7bd80f796526445458b2de74c4168d209097832`.
 https://github.com/buildingSMART/Certification-datasets
+
+## Source of the BCF schema files
+
+buildingSMART BCF-XML, https://github.com/buildingSMART/BCF-XML, folder `Schemas/` at tag `v3.0` (commit
+`5834466b2477ac700d7a61990b4e67ec1005cc68`) and tag `v2.1` (commit `a0fbab777706b5ac282105f724979e1f8e271e51`),
+copied unchanged. The licence text is the repository's `LICENSE` file. The script checks every file's git blob id
+against the ids it pins, so a changed copy stops it.
 
 ## Rerun the checks
 
@@ -80,9 +88,9 @@ Construction work is kept apart from the shape and the building information.
   wall, although the collision mode and the box route both find it. `clashes.json` records that result under
   `intersectionMode`; nothing relies on it. Do not read an empty result from one clash mode as "no clash".
 - **Issues:** each clash becomes an issue with the GlobalIds of both elements and the review gates that must close
-  it. The register is written as BCF 3.0. Each XML part is validated with xmlschema against the schema files
-  bcf-client 0.9.0 ships; `bcf-check.json` records whether each file is identical to buildingSMART's published one
-  (BCF-XML tags v3.0 and v2.1). bcf-client reads the zip back and every selected GlobalId must be in the model.
+  it. The register is written as BCF 3.0. Each XML part is validated with xmlschema against buildingSMART's
+  official schema files (BCF-XML tags v3.0 and v2.1), and the script first proves each file by its git blob id.
+  bcf-client reads the zip back and every selected GlobalId must be in the model.
   No other BCF tool has opened the files, so do not assume they interoperate.
 - **Sequence:** tasks are written into an IFC copy with `ifcopenshell.api.sequence`. Every element is assigned to
   the one task that builds it, and every finish-to-start dependency comes from `IfcRelFillsElement` and
@@ -95,8 +103,9 @@ Construction work is kept apart from the shape and the building information.
   `constructionReady` is always false.
 
 Standards: IFC4 (ADD2 TC1, as the sample declares), IDS 1.0, BCF-XML 3.0 and 2.1. Schema validation runs with
-EXPRESS rules off. bcf-client's BCF 2.1 `visinfo.xsd` is more permissive than buildingSMART's (field of view 1 to
-170 degrees instead of 45 to 60), so the 2.1 export also checks the official range.
+EXPRESS rules off. BCF parts are validated against buildingSMART's official BCF-XML schema files in
+`schemas/bcf-xml/`, unchanged, because the installed bcf-client 0.9.0 lacks some of them. The 2.1 export also
+checks the official field-of-view range (45 to 60 degrees) on its own.
 
 No result here is combined into a single score, and none is professional, regulatory or construction approval.
 The requirements are invented for practice. "REI 60" in the edited copy is a placeholder that meets a practice

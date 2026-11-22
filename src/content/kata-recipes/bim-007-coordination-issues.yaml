@@ -183,7 +183,7 @@ verification:
       evidence: /examples/bim-pathway/generated/coordination/issues.json and /examples/bim-pathway/generated/coordination/issues.csv
       date: "2026-11-21"
     - action: Validate and read back the BCF 3.0 file
-      expected: Every part valid against bcf-client's BCF 3.0 schema files; bcf-client reads one topic whose selected GlobalIds are in the model
+      expected: Every part valid against buildingSMART's official BCF-XML v3.0 schema files (kept unchanged, each proven by its git blob id); bcf-client reads one topic whose selected GlobalIds are in the model
       result: passed
       evidence: /examples/bim-pathway/generated/coordination/issues.bcf and /examples/bim-pathway/generated/coordination/bcf-check.json
       date: "2026-11-21"

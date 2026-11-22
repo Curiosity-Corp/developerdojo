@@ -166,7 +166,8 @@ describe('BIM pathway coordination, sequence and review (BIM-007, BIM-008, BIM-R
     expect(bcf.readBack.topics).toHaveLength(1);
     expect(bcf.readBack.topics[0]?.selectedInModel).toBe(true);
     expect(bcf.readBack.topics[0]?.selected.sort()).toEqual([...(issues[0]?.GlobalIds ?? [])].sort());
-    expect(bcf.schemaFiles.map((file) => file.file)).toContain('markup.xsd');
+    expect(bcf.schemaFiles.map((file) => file.file)).toContain('schemas/bcf-xml/v3.0/markup.xsd');
+    expect(bcf.schemaFiles.every((file) => file.matchesOfficial)).toBe(true);
     expect(readFileSync(join(GEN, 'coordination/issues.bcf')).subarray(0, 2).toString('latin1')).toBe('PK');
   });
 

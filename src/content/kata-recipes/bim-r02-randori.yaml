@@ -152,7 +152,7 @@ verification:
       evidence: /examples/bim-pathway/generated/randori-coordination/clearance.json and /examples/bim-pathway/generated/randori-coordination/issues-clearance.bcf
       date: "2026-11-21"
     - action: Card F, a BCF 2.1 export
-      expected: Valid against bcf-client's BCF 2.1 schema files and read back; the extension lists and the camera aspect ratio do not carry over; the field of view is inside the official 2.1 range
+      expected: Valid against buildingSMART's official BCF 2.1 schema files and read back by bcf-client; the extension lists and the camera aspect ratio do not carry over; the field of view is inside the official 2.1 range
       result: passed
       evidence: /examples/bim-pathway/generated/randori-coordination/issues-bcf21.bcf and /examples/bim-pathway/generated/randori-coordination/bcf21-check.json
       date: "2026-11-21"
@@ -165,8 +165,8 @@ verification:
       expected: Evidence before and after, and the review gates named
       result: not-run
   failures:
-    - observed: The BCF 2.1 file is valid against bcf-client's schema but uses a 90 degree field of view
-      correction: bcf-client 0.9.0 ships a relaxed 2.1 visinfo schema (1 to 170 degrees). buildingSMART's own 2.1 schema allows 45 to 60. Check against the official range too.
+    - observed: Validation stops because a schema file is missing, or a tool accepts a 90 degree field of view
+      correction: The installed bcf-client 0.9.0 lacks some BCF schema files, and a tool's own copy of a schema can be looser than the standard. Validate against buildingSMART's official BCF-XML files for the version you write; the official 2.1 schema allows a field of view of 45 to 60 degrees.
 adaptation:
   variations:
     - change: The partner draws two cards

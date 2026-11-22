@@ -566,6 +566,8 @@ OFFICIAL_BCF_XSD = {
         'markup.xsd': '037464ee8f6726f1c8ef08fb900a06090fa1d5e6', 'project.xsd': '8203889b6c71edba8588319bbb05c32ef00e28e5',
         'version.xsd': '55cbd2be900f0b8b9f9c246e6705a9066681b64c', 'visinfo.xsd': '19cdf95d9746f421876c6de6796112622d79f3d0'}},
 }
+# Kept unchanged from buildingSMART/BCF-XML (CC BY-ND 4.0); check_bcf proves each one by its git blob id.
+BCF_XSD_DIR = Path(__file__).resolve().parent.parent / 'schemas' / 'bcf-xml'
 # The official BCF 2.1 visinfo.xsd limits a perspective camera's FieldOfView to 45-60 degrees.
 BCF21_FIELD_OF_VIEW = (45.0, 60.0)
 
@@ -954,19 +956,21 @@ def git_blob(data: bytes) -> str:
 
 
 def check_bcf(path: Path, entries: list[dict[str, bytes]], version: str, model: ifcopenshell.file) -> dict[str, object]:
-    """Validate each XML part against the schema files bcf-client ships, compare those schema files with
-    buildingSMART's official ones, and read the zip back with bcf-client."""
-    import bcf
+    """Validate each XML part against buildingSMART's official BCF-XML schema files, kept unchanged next to this
+    script (the installed bcf-client 0.9.0 lacks some of them), after proving each file is the official one by its git blob id;
+    then read the zip back with bcf-client."""
     import xmlschema
 
     key = 'v3' if version == '3.0' else 'v2'
-    xsd_dir = Path(bcf.__file__).parent / key / 'xsd'
+    xsd_dir = BCF_XSD_DIR / OFFICIAL_BCF_XSD[key]['tag']
     provenance = []
     for name, blob in sorted(OFFICIAL_BCF_XSD[key]['blobs'].items()):
-        installed = xsd_dir / name
-        if not installed.is_file():
-            fail(f'bcf-client has no {key}/xsd/{name}')
-        provenance.append({'file': name, 'matchesOfficial': git_blob(installed.read_bytes()) == blob})
+        kept = xsd_dir / name
+        if not kept.is_file():
+            fail(f'the official BCF schema file {kept} is missing')
+        if git_blob(kept.read_bytes()) != blob:
+            fail(f'{kept} is not the official BCF-XML {OFFICIAL_BCF_XSD[key]["tag"]} file (git blob differs)')
+        provenance.append({'file': f'schemas/bcf-xml/{OFFICIAL_BCF_XSD[key]["tag"]}/{name}', 'gitBlob': blob, 'matchesOfficial': True})
     schemas = {}
     def schema(name: str) -> 'xmlschema.XMLSchema':
         if name not in schemas:
@@ -979,7 +983,7 @@ def check_bcf(path: Path, entries: list[dict[str, bytes]], version: str, model: 
         errors = [str(e.reason) for e in schema(xsd).iter_errors(entry['data'].decode('utf-8'))]
         parts.append({'part': name.split('/')[-1] if '/' in name else name, 'topic': name.split('/')[0] if '/' in name else None, 'schema': xsd, 'errors': errors})
         if errors:
-            fail(f'BCF {version} {name} is not valid against bcf-client {key}/xsd/{xsd}: {errors[0]}')
+            fail(f'BCF {version} {name} is not valid against the official {xsd}: {errors[0]}')
     if key == 'v3':
         from bcf.v3.bcfxml import BcfXml
     else:
@@ -1001,7 +1005,7 @@ def check_bcf(path: Path, entries: list[dict[str, bytes]], version: str, model: 
         fail(f'{path.name}: a topic selects no element or an element that is not in the model')
     return {
         'version': version,
-        'validatedWith': f"bcf-client {importlib.metadata.version('bcf-client')} schema files ({key}/xsd), with xmlschema {xmlschema.__version__}",
+        'validatedWith': f"buildingSMART's official BCF-XML {OFFICIAL_BCF_XSD[key]['tag']} schema files, unchanged, with xmlschema {xmlschema.__version__}",
         'schemaFiles': provenance,
         'official': {'repository': 'https://github.com/buildingSMART/BCF-XML', 'tag': OFFICIAL_BCF_XSD[key]['tag'], 'commit': OFFICIAL_BCF_XSD[key]['commit']},
         'parts': parts,
@@ -1220,7 +1224,7 @@ def summary_coordination(c: dict[str, object]) -> str:
     lines += ['', 'The two routes agree. The opening is a void, not a physical element.', '', '| Issue | Type | Status | Title | Review gates |', '| --- | --- | --- | --- | --- |']
     lines += [f"| {i['id']} | {i['type']} | {i['status']} | {i['title']} | {' '.join(i['reviewGates'])} |" for i in issues]
     lines += ['', f"BCF {bcf3['version']}: every part valid against the schema files bcf-client ships; read back with bcf-client: {len(bcf3['readBack']['topics'])} topic(s), every selected GlobalId found in the model.",
-              'Schema files compared with buildingSMART BCF-XML ' + bcf3['official']['tag'] + ': ' + ', '.join(f"{f['file']} {'same' if f['matchesOfficial'] else 'differs'}" for f in bcf3['schemaFiles']) + '.', '',
+              'Validated against buildingSMART BCF-XML ' + bcf3['official']['tag'] + ' schema files, kept unchanged and each proven by its git blob id (' + str(len(bcf3['schemaFiles'])) + ' files).', '',
               '## Schedule and cost mapping (BIM-008), preliminary', '', f"Model: planning/{PLANNED_IFC}. Order: {' → '.join(sched['order'])}. Durations: none set.", '',
               '| Task | Name | Builds | After | Because |', '| --- | --- | --- | --- | --- |']
     lines += [f"| {t['task']} | {t['name']} | {' '.join(t['builds']) or 'nothing modelled'} | {' '.join(t['after']) or '-'} | {'; '.join(t['because']) or '-'} |" for t in sched['tasks']]
@@ -1307,10 +1311,10 @@ def run_coordination(examples: Path, out: Path, quantity_rows: list[dict[str, ob
          'result': f"{len(new_issues)} new issue(s): {', '.join(new_issues) or 'none'}", 'newIssues': new_issues, 'clearanceClashes': clashes_r['clearanceClashes'],
          'evidence': ['randori-coordination/clearance.json', 'randori-coordination/issues-clearance.json', 'randori-coordination/issues-clearance.bcf']},
         {'id': 'CARD-F', 'changes': 'format', 'card': 'The receiving tool reads BCF 2.1 only. Export the same issues as BCF 2.1 and say what does not carry over.',
-         'result': f"valid against bcf-client's BCF 2.1 schema files and read back ({len(bcf21['readBack']['topics'])} topic(s)); some information does not carry over",
+         'result': f"valid against buildingSMART's official BCF 2.1 schema files and read back ({len(bcf21['readBack']['topics'])} topic(s)); some information does not carry over",
          'notCarried': ['extensions.xml: the BCF 3.0 lists of allowed topic types, statuses, priorities, labels and users have no file in this 2.1 export', 'PerspectiveCamera/AspectRatio: BCF 2.1 has no aspect ratio', 'The Comments and Viewpoints lists move out of Topic to the end of the markup file (structure, not loss)'],
          'fieldOfViewWithinOfficial21Range': fov_ok,
-         'schemaNote': 'bcf-client 0.9.0 ships a BCF 2.1 visinfo.xsd that differs from buildingSMART v2.1: it allows a FieldOfView of 1 to 170 degrees (official: 45 to 60) and lowercase colour codes. The export uses 60 degrees so it fits the official range too; see schemaFiles in bcf21-check.json.',
+         'schemaNote': 'The parts are validated against buildingSMART\'s official BCF-XML v2.1 schema files, kept unchanged beside the script, because the installed bcf-client 0.9.0 lacks schema files (v3/xsd/documents.xsd among them). The official 2.1 visinfo.xsd allows a perspective FieldOfView of 45 to 60 degrees; the export uses 60 and the script checks the range as well.',
          'evidence': ['randori-coordination/issues-bcf21.bcf', 'randori-coordination/bcf21-check.json']},
         {'id': 'CARD-T', 'changes': 'tool', 'card': 'Find the clashes with a second tool and compare, instead of trusting one clash engine.',
          'result': 'IfcOpenShell clash tree (collision mode) and box arithmetic agree on every pair; the box route only holds because every element here is box-shaped, which the script checks. ' + clashes['intersectionMode']['note'],
