@@ -10,7 +10,7 @@ import { loadAssessmentMap } from '../lib/assessment-map';
 import { loadKataRecipes } from '../lib/kata-recipe-content';
 import { humanize } from '../lib/kata-recipes';
 import { loadMissionPlaybook } from '../lib/mission-playbook';
-import { reviewHref, sheetPath } from '../lib/mission-transfer';
+import { requestHref, reviewHref, sheetPath } from '../lib/mission-transfer';
 import { loadTransferPracticeContent } from '../lib/mission-transfer-content';
 
 // Both loaders throw a readable error, and so fail the build, when the data breaks a rule (#90, #95).
@@ -173,12 +173,13 @@ const ROUTE_STATUS = { routed: 'Sent to the Sensei contribution process; not yet
               <a href={sheetPath(field.packId)} download={`transfer-practice-${field.packId}.md`}>Download the {field.name} practice sheet</a>
               <button type="button" data-practice-sheet={transfer.sheets.get(field.packId)} data-practice-name={field.name} hidden>Put the {field.name} practice sheet in my brief</button>
             </p>
+            <p><strong>For you:</strong> <a href={requestHref(field.packId)} data-transfer-request={field.packId}>Ask for an independent review of your transfer into {field.name}</a></p>
             <p><strong>For your reviewer:</strong> <a href={reviewHref(field.packId)} data-transfer-review={field.packId}>Review a transfer into {field.name}</a></p>
           </article>
         );
       })}
     </div>
-    <p>Every sheet records the rubric result as Unavailable. Only a reviewer who did not help you records one, on the assessment map’s transfer criteria and in its own words: Observed, Not yet observed or Unclear. Your reviewer records it on the <a href="/review-record">independent review record</a>, which opens on your field from its card: the transfer criteria, the field’s reference and review gate, the checks to rerun and the kind of unseen change, all on the reviewer’s own device. <a href="/belt-review">Prepare a practice review</a> · <a href="/assessment-map">Read the assessment map</a></p>
+    <p>Every sheet records the rubric result as Unavailable. Only a reviewer who did not help you records one, on the assessment map’s transfer criteria and in its own words: Observed, Not yet observed or Unclear. You ask for that review from your card with a <a href="/review-request">review request</a>: where your evidence is, the scope of consent and the kind of unseen change, kept on your own device. Your reviewer records it on the <a href="/review-record">independent review record</a>, which opens on your field from its card: the transfer criteria, the field’s reference and review gate, the checks to rerun and the kind of unseen change, all on the reviewer’s own device. <a href="/belt-review">Prepare a practice review</a> · <a href="/assessment-map">Read the assessment map</a></p>
   </div></section>
 
   <section id="brief" class="section"><div class="container content"><p class="eyebrow">Your turn</p><h2>Make a brief you own</h2>

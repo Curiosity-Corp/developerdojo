@@ -16,6 +16,7 @@ const { page } = Astro.props;
 const json = JSON.stringify(page).replace(/</g, '\\u003c');
 const ranks = page.subjects.filter((subject) => subject.group === 'rank');
 const belts = page.subjects.filter((subject) => subject.group === 'belt');
+const transfers = page.subjects.filter((subject) => subject.group === 'transfer');
 const guide = (kind: string) => page.evidence.find((item) => item.kind === kind);
 const titleOf = (kind: string) => guide(kind)?.title ?? kind;
 ---
@@ -36,6 +37,7 @@ const titleOf = (kind: string) => guide(kind)?.title ?? kind;
       <select id="rq-subject" data-subject>
         <optgroup label="Ranks">{ranks.map((subject) => <option value={subject.id}>{subject.label}</option>)}</optgroup>
         <optgroup label="Specialist belts">{belts.map((subject) => <option value={subject.id}>{subject.label}</option>)}</optgroup>
+        {transfers.length > 0 && <optgroup label="Cross-field transfers">{transfers.map((subject) => <option value={subject.id}>{subject.label}</option>)}</optgroup>}
       </select>
     </div>
 
@@ -166,7 +168,7 @@ const titleOf = (kind: string) => guide(kind)?.title ?? kind;
     const load = (): ReviewRequest | undefined => store.load(REVIEW_REQUEST_NAME, { version: REVIEW_REQUEST_VERSION, validate: (data) => parseRequest(data, ids) });
     let request: ReviewRequest = load() ?? emptyRequest(first.id);
 
-    // A link can name the subject, for example from a rank or a belt on the assessment map.
+    // A link can name the subject: a rank or a belt on the assessment map, or a practice card's transfer.
     const asked = new URLSearchParams(window.location.search).get('subject');
     if (asked && ids.includes(asked)) request = { ...request, subjectId: asked };
 

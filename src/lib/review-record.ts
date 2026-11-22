@@ -161,6 +161,9 @@ export const transferSubjectId = (packId: string): string => `transfer:${packId}
 /** A link that opens the review record on one subject. */
 export const reviewRecordHref = (subjectId: string): string => `/review-record?subject=${subjectId}`;
 
+/** A link that opens the learner's review request (src/lib/review-request.ts) on one subject. */
+export const reviewRequestHref = (subjectId: string): string => `/review-request?subject=${subjectId}`;
+
 export const TRANSFER_QUESTION = 'Can this person carry the foundation technique into this field, check the work the way the field checks it, and keep it working when the situation changes?';
 
 /** One field a learner can practise a transfer into, as the transfer practice assembles it (src/lib/mission-transfer.ts). */

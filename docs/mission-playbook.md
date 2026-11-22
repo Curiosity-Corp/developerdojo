@@ -97,7 +97,8 @@ Rules the check enforces (`checkTransferPractice`, run by the build and by `test
   result; only an independent reviewer records one (`docs/independent-review-pilot.md`).
 - Published text has no issue or MR references, hostnames or repository paths.
 
-**Independent review of a transfer.** Each practice card and each sheet links to `/review-record?subject=transfer:<pack>`,
+**Independent review of a transfer.** Each practice card and each sheet links the learner to
+`/review-request?subject=transfer:<pack>`, to ask for the review, and the reviewer to `/review-record?subject=transfer:<pack>`,
 where a reviewer who did not help the learner records the playbook's transfer criteria (MD-1 and SEN-2 from the
 assessment map) against the field's reference, review gate, checks and an unseen change of the Randori's kind. The
 subjects are built from the same assembled practice (`transferSubjects` in `src/lib/review-record.ts`), so a new field

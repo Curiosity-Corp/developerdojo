@@ -216,15 +216,18 @@ saved in their own browser (key `dojo:review-record`) and copied out as Markdown
 saved in their own browser (key `dojo:review-request`) and copied out as Markdown, which the learner gives privately
 to the pilot coordinator for the confidential case issue. The website receives nothing.
 
-- The learner chooses the same subjects as the review record (a rank rubric, or a specialist belt at a reviewed
-  stage), built by `requestSubjects` in `src/lib/review-request.ts` from `reviewSubjects`, so a request and the
-  record that answers it cannot disagree. A link from `/assessment-map` can preselect a subject.
+- The learner chooses the same subjects as the review record (a rank rubric, a specialist belt at a reviewed
+  stage, or a cross-field transfer into one field), built by `requestSubjects` in `src/lib/review-request.ts` from
+  the one subject list both pages load (`loadReviewSubjects` in `src/lib/review-subjects-content.ts`), so a request
+  and the record that answers it cannot disagree. A link from `/assessment-map` or from a transfer practice card on
+  `/mission-playbook` can preselect a subject. `requestSubjects` switches on every subject group with an exhaustive
+  check, so a new group fails type checking until the request handles it.
 - For each criterion the page shows the evidence it needs and whether the learner has said where that evidence is.
   The learner brings five of the six kinds of section 3; the review log is the reviewer's, so the request never asks
   for it.
 - The learner sees the *kind* of unseen task for the subject (`unseenTask` on each rank and on `specialistBelts` in
-  `src/data/assessment-map.ts`), never the task. For a specialist belt it names the field Randori the reviewer draws
-  on; the reviewer still picks a change the learner has not practiced (section 9).
+  `src/data/assessment-map.ts`), never the task. For a specialist belt or a transfer it names the field Randori the reviewer
+  draws on; the reviewer still picks a change the learner has not practiced (section 9).
 - A request is ready only when every learner evidence kind has a location, what the reviewer may open, keep and
   share and until when is written, an AI choice is made, and the learner confirms it names no person and holds no
   secret. Text that looks like a password, key or token is refused: the learner gives access instead.

@@ -2,23 +2,13 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import ReviewRecord from '../components/ReviewRecord.astro';
-import { RANKS } from '../lib/ranks';
-import { loadAssessmentMap } from '../lib/assessment-map';
-import { reviewSubjects, transferSubjects } from '../lib/review-record';
-import { sheetPath } from '../lib/mission-transfer';
-import { loadTransferPracticeContent } from '../lib/mission-transfer-content';
-import { loadSpecialistBelts } from '../lib/specialist-belts-content';
-import { assessmentMap } from '../data/assessment-map';
+import { loadReviewSubjects } from '../lib/review-subjects-content';
 
 // The subjects come from the assessment map (ranks, shared specialist criteria) and the sector packs (each field's
 // checks, Randori and qualified-review limit), so this form and /assessment-map cannot disagree (#90). Transfers come
 // from the mission playbook's transfer practice, so a field's practice sheet and its review always match (#95).
-const map = loadAssessmentMap(assessmentMap);
-const transfer = await loadTransferPracticeContent();
-const subjects = [
-  ...reviewSubjects(map, await loadSpecialistBelts(), (id) => RANKS.find((rank) => rank.id === id)?.name ?? id),
-  ...transferSubjects(map, transfer.criteria.map((criterion) => criterion.id), transfer.fields.map((field) => ({ ...field, sheet: sheetPath(field.packId) }))),
-];
+// /review-request reads the same list, so a learner's request and this record cannot disagree.
+const { subjects } = await loadReviewSubjects();
 ---
 <BaseLayout title="Record an independent review" description="A review record for a rank, a specialist belt or a cross-field transfer: each criterion with its evidence, the unseen task, one strength and one gap, kept on the reviewer's device.">
   <PageHero compact eyebrow="Ranks · specialist belts · transfers · independent review" title="Record an independent review" subtitle="For the reviewer in a pilot review: record each criterion against real evidence, then copy the review log. Nothing leaves your device." ctas={[{ label: 'Start recording', href: '#rr-title', icon: 'arrow-right' }, { label: 'What each rank and belt asks', href: '/assessment-map', variant: 'ghost', icon: 'arrow-right' }]} />

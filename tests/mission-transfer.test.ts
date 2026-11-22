@@ -8,9 +8,10 @@ import { missionPlaybook } from '../src/data/mission-playbook';
 import { transferPractice } from '../src/data/mission-transfer';
 import { sectorPacks } from '../src/data/sector-packs';
 import type { MissionPlaybook, MissionReferences } from '../src/lib/mission-playbook';
-import { assemblePractice, checkTransferPractice, PRACTICE_STEPS, practiceAdaptations, reviewHref, sheetPath, SITE, type RecipeFacts, type TransferPractice } from '../src/lib/mission-transfer';
+import { assemblePractice, checkTransferPractice, PRACTICE_STEPS, practiceAdaptations, requestHref, reviewHref, sheetPath, SITE, type RecipeFacts, type TransferPractice } from '../src/lib/mission-transfer';
 import { loadAssessmentMap } from '../src/lib/assessment-map';
 import { emptyRecord, finishRecord, parseSubjects, recordProblems, renderReviewLog, transferSubjectId, transferSubjects, type ReviewRecord, type ReviewSubject } from '../src/lib/review-record';
+import { emptyRequest, parseRequestPage, renderRequest, requestSubjects, type RequestPage } from '../src/lib/review-request';
 
 // Transfer practice (#95): every pathway built on the foundation katas offers a practice sheet, each sheet is read
 // from its pathway, and no sheet claims a rubric result.
@@ -192,6 +193,47 @@ describe('an independent reviewer can record each transfer', () => {
       expect(reviewHref(field.packId)).toBe(`/review-record?subject=${transferSubjectId(field.packId)}`);
       expect(assembled.sheets.get(field.packId)).toContain(`${SITE}${reviewHref(field.packId)}`);
     }
+  });
+
+  it('links every practice sheet to the learner\'s review request for its own transfer', () => {
+    for (const field of assembled.fields) {
+      expect(requestHref(field.packId)).toBe(`/review-request?subject=${transferSubjectId(field.packId)}`);
+      expect(assembled.sheets.get(field.packId)).toContain(`${SITE}${requestHref(field.packId)}`);
+    }
+  });
+
+  it('lets the learner request each transfer review: the same criteria as evidence kinds, the field Randori and limit', () => {
+    const requests = requestSubjects(map, subjects, []);
+    expect(requests.map((item) => item.id)).toEqual(subjects.map((item) => item.id));
+    for (const request of requests) {
+      const source = subjects.find((item) => item.id === request.id);
+      expect(request.group).toBe('transfer');
+      expect(request.label).toBe(source?.label);
+      expect(request.criteria.map((criterion) => criterion.id)).toEqual(criterionIds);
+      for (const criterion of request.criteria) {
+        const fromMap = rubric.find((item) => item.id === criterion.id);
+        expect(criterion.evidence).toEqual(fromMap?.evidence);
+      }
+      expect(request.unseenTask).toBe(map.specialistBelts.unseenTask);
+      expect(request.randori).toEqual({ title: `${source?.transfer?.randori.id} ${source?.transfer?.randori.title}`, href: source?.transfer?.randori.href });
+      expect(request.professionalReview).toEqual(source?.professionalReview);
+    }
+    const page: RequestPage = { subjects: requests, evidence: map.pilot.evidence, steps: map.pilot.steps.map((step) => step.title) };
+    expect(parseRequestPage(JSON.parse(JSON.stringify(page)))).toEqual(page);
+    const bim = requests.find((item) => item.id === transferSubjectId('bim'));
+    expect(bim).toBeDefined();
+    if (!bim) return;
+    const markdown = renderRequest(emptyRequest(bim.id), bim, page);
+    expect(markdown).toContain('- Review against: Transfer into');
+    expect(markdown).toContain(`Field Randori it draws on: ${bim.randori?.title}`);
+    expect(markdown).toContain('## Qualified review in this field');
+  });
+
+  it('refuses a transfer subject without its field facts', () => {
+    const [first] = subjects;
+    expect(first).toBeDefined();
+    if (!first) return;
+    expect(() => requestSubjects(map, [{ ...first, transfer: undefined }], [])).toThrow(/transfer with no field facts/);
   });
 
   it('fails the build on a transfer criterion the assessment map does not have, or none at all', () => {

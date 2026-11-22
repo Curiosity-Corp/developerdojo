@@ -3,7 +3,7 @@ import { expect, test, type Page } from '@playwright/test';
 
 // Independent review of a cross-field transfer (#95): a learner's practice card opens the review record on that
 // field's transfer; the reviewer records the playbook's transfer criteria against the field's own checks, on their
-// own device, and copies the review log. Nothing is sent.
+// own device, and copies the review log. Nothing is sent. The learner asks for that review from the same card.
 const FIELDS = [
   { id: 'ux', name: 'SaaS UX' },
   { id: 'bim', name: 'Architecture and BIM' },
@@ -64,11 +64,24 @@ test("a reviewer opens a learner's transfer from its practice card, records it a
   expect(requests.join('\n')).not.toContain('swapped the model file');
 });
 
-test('every practice field links to its own transfer review, and the review record offers each one', async ({ page }) => {
+test('every practice field links to its own transfer review and request, and both forms offer each one', async ({ page }) => {
   await page.goto('/mission-playbook/#practice');
   for (const field of FIELDS) {
     await expect(page.locator('#practice').getByRole('link', { name: `Review a transfer into ${field.name}` })).toHaveAttribute('href', `/review-record?subject=transfer:${field.id}`);
+    await expect(page.locator('#practice').getByRole('link', { name: `Ask for an independent review of your transfer into ${field.name}` })).toHaveAttribute('href', `/review-request?subject=transfer:${field.id}`);
   }
+  // The learner's request opens on the field from its card, with the transfer criteria and the field Randori.
+  await page.locator('#practice').getByRole('link', { name: 'Ask for an independent review of your transfer into Agriculture' }).click();
+  await expect(page).toHaveURL(/\/review-request\?subject=transfer:agriculture$/);
+  await expect(page.getByLabel('What you want to be reviewed against')).toHaveValue('transfer:agriculture');
+  const request = panel(page);
+  await expect(request.getByRole('heading', { name: 'Transfer into Agriculture' })).toBeVisible();
+  await expect(request.locator('[data-readiness-for="MD-1"]')).toBeVisible();
+  await expect(request.locator('[data-readiness-for="SEN-2"]')).toBeVisible();
+  await expect(request.getByText(/Qualified review in this field/)).toBeVisible();
+  await expect(page.getByLabel('Review request as Markdown')).toHaveValue(/Review against: Transfer into Agriculture \(proposed rubric\)/);
+  await expect(page.locator('optgroup[label="Cross-field transfers"] option')).toHaveCount(FIELDS.length);
+
   await page.goto('/review-record');
   const options = page.locator('optgroup[label="Cross-field transfers"] option');
   await expect(options).toHaveCount(FIELDS.length);

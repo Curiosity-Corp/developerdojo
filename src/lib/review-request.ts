@@ -1,12 +1,12 @@
 import { EVIDENCE_KINDS, type AssessmentMap, type EvidenceKind } from './assessment-map';
-import { reviewSubjects, type ProfessionalReview, type SpecialistBelt } from './review-record';
+import { SUBJECT_GROUPS, type ProfessionalReview, type ReviewSubject, type SpecialistBelt, type SubjectGroup } from './review-record';
 
 /**
  * The independent review request (developerdojo#90): the learner's half of a pilot review, steps 2 to 4 of
  * docs/independent-review-pilot.md, section 4. The reviewer's half is the review record (src/lib/review-record.ts).
  *
- * The learner chooses what to be reviewed against (a rank rubric or a specialist belt stage, the same subjects the
- * review record offers), says where each kind of evidence is, agrees the scope of access and consent, and copies a
+ * The learner chooses what to be reviewed against (a rank rubric, a specialist belt stage or a cross-field transfer
+ * into one field, the same subjects the review record offers), says where each kind of evidence is, agrees the scope of access and consent, and copies a
  * Markdown request to hand privately to the pilot coordinator. It is kept on the learner's own device and the
  * website never receives it. No DOM here; the form is src/components/ReviewRequest.astro.
  *
@@ -53,15 +53,15 @@ export interface RequestCriterion {
 }
 
 export interface RequestSubject {
-  /** The same id as the review record: rank:<rank id> or belt:<sector pack id>:<stage id>. */
+  /** The same id as the review record: rank:<rank id>, belt:<sector pack id>:<stage id> or transfer:<sector pack id>. */
   id: string;
-  group: 'rank' | 'belt';
+  group: SubjectGroup;
   label: string;
   question: string;
   /** The kind of unseen task the reviewer sets, from the assessment map. */
   unseenTask: string;
   criteria: RequestCriterion[];
-  /** Specialist belts only: the field Randori whose kind of change the reviewer draws on. */
+  /** Specialist belts and transfers: the field Randori whose kind of change the reviewer draws on. */
   randori?: { title: string; href: string };
   professionalReview?: ProfessionalReview;
 }
@@ -80,13 +80,16 @@ export interface RequestPage {
   steps: string[];
 }
 
+const isSubjectGroup = (value: unknown): value is SubjectGroup => typeof value === 'string' && (SUBJECT_GROUPS as readonly string[]).includes(value);
+
 /**
- * The subjects a learner can ask to be reviewed against: exactly the review record's subjects, with each criterion's
- * evidence as kinds and the kind of unseen task added. Throws, and so fails the build, when the data disagrees.
+ * The subjects a learner can ask to be reviewed against: exactly the review record's subjects (pass the same list the
+ * record uses, src/lib/review-subjects-content.ts), with each criterion's evidence as kinds and the kind of unseen
+ * task added. Throws, and so fails the build, when the data disagrees.
  */
-export function requestSubjects(map: AssessmentMap, belts: readonly SpecialistBelt[], rankName: (id: string) => string): RequestSubject[] {
+export function requestSubjects(map: AssessmentMap, subjects: readonly ReviewSubject[], belts: readonly SpecialistBelt[]): RequestSubject[] {
   const kindOf = new Map(map.pilot.evidence.map((item) => [item.title, item.kind]));
-  return reviewSubjects(map, belts, rankName).map((subject): RequestSubject => {
+  return subjects.map((subject): RequestSubject => {
     const criteria = subject.criteria.map((criterion): RequestCriterion => ({
       id: criterion.id,
       title: criterion.title,
@@ -98,14 +101,31 @@ export function requestSubjects(map: AssessmentMap, belts: readonly SpecialistBe
       }),
     }));
     const base = { id: subject.id, group: subject.group, label: subject.label, question: subject.question, criteria };
-    if (subject.group === 'rank') {
-      const rank = map.ranks.find((item) => `rank:${item.rank}` === subject.id);
-      if (!rank) throw new Error(`Review subject ${subject.id} has no rank in src/data/assessment-map.ts`);
-      return { ...base, unseenTask: rank.unseenTask };
+    switch (subject.group) {
+      case 'rank': {
+        const rank = map.ranks.find((item) => `rank:${item.rank}` === subject.id);
+        if (!rank) throw new Error(`Review subject ${subject.id} has no rank in src/data/assessment-map.ts`);
+        return { ...base, unseenTask: rank.unseenTask };
+      }
+      case 'belt': {
+        const belt = belts.find((item) => subject.id.startsWith(`belt:${item.packId}:`));
+        if (!belt) throw new Error(`Review subject ${subject.id} has no specialist belt`);
+        return { ...base, unseenTask: map.specialistBelts.unseenTask, randori: belt.randori, professionalReview: subject.professionalReview ?? belt.professionalReview };
+      }
+      case 'transfer': {
+        // A transfer's unseen change is the field Randori's kind, as for a specialist belt: the reviewer picks one the
+        // learner has not practised (the review record says the same to the reviewer).
+        const facts = subject.transfer;
+        if (!facts) throw new Error(`Review subject ${subject.id} is a transfer with no field facts`);
+        if (!subject.professionalReview) throw new Error(`Review subject ${subject.id} is a transfer with no qualified-review limit`);
+        const randori = { title: `${facts.randori.id} ${facts.randori.title}`, href: facts.randori.href };
+        return { ...base, unseenTask: map.specialistBelts.unseenTask, randori, professionalReview: subject.professionalReview };
+      }
+      default: {
+        const unhandled: never = subject.group;
+        throw new Error(`Review subject ${subject.id} has an unknown group ${String(unhandled)}`);
+      }
     }
-    const belt = belts.find((item) => subject.id.startsWith(`belt:${item.packId}:`));
-    if (!belt) throw new Error(`Review subject ${subject.id} has no specialist belt`);
-    return { ...base, unseenTask: map.specialistBelts.unseenTask, randori: belt.randori, professionalReview: subject.professionalReview ?? belt.professionalReview };
   });
 }
 
@@ -285,7 +305,7 @@ export function parseRequestPage(value: unknown): RequestPage {
     for (const raw of value['subjects']) {
       if (!isObject(raw)) continue;
       const { id, group, label, question, unseenTask, criteria, randori, professionalReview } = raw;
-      if (typeof id !== 'string' || (group !== 'rank' && group !== 'belt') || typeof label !== 'string' || typeof question !== 'string' || typeof unseenTask !== 'string' || !Array.isArray(criteria)) continue;
+      if (typeof id !== 'string' || !isSubjectGroup(group) || typeof label !== 'string' || typeof question !== 'string' || typeof unseenTask !== 'string' || !Array.isArray(criteria)) continue;
       const list: RequestCriterion[] = [];
       for (const item of criteria) {
         if (!isObject(item)) continue;
