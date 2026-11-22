@@ -20,7 +20,7 @@ resources:
   - "owasp/top-10-for-llm-applications"
   - "anthropic/building-effective-agents"
   - "zod/zod-intro"
-updated: 2026-11-03
+updated: 2026-11-22
 ---
 
 This is lesson 6 of the PHANTOMS track. It supports the Master Developer module on AI-agent orchestration, and it pairs with the [Working with AI agents](/library/tracks/working-with-ai-agents/) track. A is the letter most likely to change under your feet, which is exactly why the starter treats it as a boundary and not a vendor.
@@ -45,15 +45,17 @@ The 2030 Product Development Manager decides **what the AI feature is for, what 
 
 The `packages/ai` package is small on purpose. In plain words:
 
-- It reads three settings from the server's environment: the provider's **base URL**, an optional **API key**, and a **model name**. They are empty in `.env.example`, so nothing calls out until you decide.
-- It checks that configuration with a schema (a malformed URL is refused).
-- It exposes one function that takes a prompt and returns text.
-- It refuses prompts that are empty or longer than 8,000 characters.
-- It sets a **timeout** (15 seconds by default, between half a second and a minute) and a **maximum output size** of 512 tokens (a token is a small piece of text, roughly a short word or part of a word).
-- It talks to the model through the AI SDK's "OpenAI-compatible" provider, a common protocol that many hosted and self-hosted model servers speak. That is how one adapter can reach many providers.
-- It makes **no live model call at startup or in tests.**
+- It reads three settings from the server's environment: the provider's **base URL**, an optional **API key**, and a **model name**. They are empty in `.env.example`. If none is set, the AI layer is simply off; if only some are set, it stops and names the missing one.
+- It offers three ways to ask: **generate** (text back), **generateObject** (data checked against a schema, or an error) and **stream** (text as it arrives).
+- It refuses prompts longer than 8,000 characters and retries a failed call at most once.
+- Every request runs under a **budget**: a **timeout** (15 seconds by default), a **maximum output size** of 512 tokens per model call (a token is a small piece of text, roughly a short word or part of a word), at most 5 steps and 20,000 tokens when tools are used. Those numbers are ceilings: a single request may lower them, never raise them. A tool loop that runs out of budget fails instead of returning half an answer.
+- It can let the model use **tools**, but only from an allowlist with two gates: the adapter knows only the tools registered when it was built, and each request must name the ones it enables. A request that names none exposes none.
+- It writes one **usage record** per request: model, time taken, token counts and outcome, and never the prompt, the answer or the tool data.
+- It can reach tools served by another program over MCP, the Model Context Protocol, but that is **off by default**, limited to servers listed in server-side configuration, and each server needs its own list of allowed tools.
+- It talks to the model through the AI SDK's "OpenAI-compatible" provider, a common protocol that many hosted and self-hosted model servers speak. That is how one adapter can reach many providers. Not every server supports tools or structured output, so the adapter declares what an endpoint can do and refuses the rest up front.
+- It makes **no live model call at startup or in tests.** Tests use `createFakeAI`, a fake adapter that applies the same checks and records every call.
 
-That is the whole idea: small, limited, replaceable. The docs say it directly: "Application code imports a small PHANTOMS AI interface, not a vendor package."
+That is the whole idea: limited and replaceable, even with tools. The guide says it is "agentic in the practical sense" yet "not an agent framework": long multi-step workflows belong to a framework you evaluate behind the same boundary. The rule stays the one the docs state: "Application code imports a small PHANTOMS AI interface, not a vendor package."
 
 ### Why configuration lives on the server
 
@@ -69,7 +71,7 @@ Every limit in the adapter is a decision someone must own:
 | Maximum output | How long may an answer be, and what does it cost? |
 | Prompt size | What is the most we will send? Less data sent means less risk. |
 | Retries | How many tries before we give up? Retried side effects must be safe to repeat. |
-| Budget per user or tenant | What is the most one customer may spend us? |
+| Budget per user or tenant | What is the most one customer may spend us? The adapter's usage records give you the token counts; the per-customer limit is yours to build. |
 | Fallback | What does the user see if the model is slow or down? |
 
 ### Data sent is data shared
@@ -87,7 +89,7 @@ A model answer is just text from a stranger. It can be wrong. It can be manipula
 
 ### Tests must not call a model
 
-The starter keeps tests deterministic: use a **fake adapter** in unit tests, one that returns a fixed answer. A real model call in a unit test makes tests slow, flaky and costly. Quality is tested separately, with an **evaluation set**.
+The starter keeps tests deterministic: use a **fake adapter** in unit tests, one that returns a fixed answer. The starter ships one, `createFakeAI`, and it applies the same limits, allowlist and schema checks as the real adapter, so a test still catches a forbidden tool or an oversized prompt. A real model call in a unit test makes tests slow, flaky and costly. Quality is tested separately, with an **evaluation set**.
 
 ### An evaluation set is how you know it works
 
@@ -104,7 +106,7 @@ An **evaluation set** (an "eval") is a list of example inputs with a note on wha
 7. **Build the evaluation set** first, 15 to 30 realistic cases, written by you, with a note on what good looks like.
 8. **Brief an agent** to implement behind the adapter, with a fake adapter in the tests.
 9. **Run the evals**, read the failures yourself, and decide whether quality is good enough.
-10. **Monitor in use.** Record model, adapter version, latency, token use and outcome. Do not log full prompts or responses by default.
+10. **Monitor in use.** Record model, adapter version, latency, token use and outcome; the adapter's usage record already holds most of this. Do not log full prompts or responses by default.
 
 ## 4. Worked example: TrailMug
 

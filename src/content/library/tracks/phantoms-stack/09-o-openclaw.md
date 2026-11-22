@@ -20,12 +20,12 @@ resources:
   - "openclaw/openclaw-repository"
   - "owasp/top-10-for-llm-applications"
   - "anthropic/building-effective-agents"
-updated: 2026-11-03
+updated: 2026-11-22
 ---
 
 This is lesson 9 of the PHANTOMS track. It supports the Master Developer module on AI-agent orchestration, at its most demanding: agents that run as part of your product, not only agents that build it. O is optional. The skill this lesson teaches is as much *when to say no* as how to say yes.
 
-> **Review note, 3 November 2026: the O slot is under review.** The people who maintain the PHANTOMS stack are checking whether OpenClaw fits the role this lesson gives it. Three facts drive the review. First, OpenClaw describes itself as a personal assistant that runs on your own devices and meets you in chat apps, not as a library that your product's backend embeds. Second, it is a Node application, while the rest of PHANTOMS uses Bun only, so it would be a separately deployed service with its own runtime. Third, it changes fast and publishes many [security advisories](https://github.com/openclaw/openclaw/security/advisories), so a pinned version needs a fresh read of them before every update. The lesson below stays useful: the boundary you draw (a narrow, authenticated interface, a deny-by-default tool list, human approval for risky actions) is the same for any agent runtime. When the review ends, this lesson will be rewritten to match the decision.
+> **Decision, 22 November 2026: O stays optional, and stays outside your app.** The PHANTOMS maintainers reviewed the O slot and recorded the outcome as decision 016 in the starter's decision log. OpenClaw remains one *example* of an agent runtime, not a required piece. It describes itself as an assistant that meets people in chat apps through a Gateway, so it is an operator-facing service your staff talk to, not a library your backend imports. It is a Node application, while the rest of PHANTOMS uses Bun only, so it runs as its own deployment with its own runtime. It reaches your product only through a narrow, authenticated API or a small read-only MCP server (the starter ships one as an example). Its releases come several times a week and it publishes many [security advisories](https://github.com/openclaw/openclaw/security/advisories), so the starter treats a version bump as a security review, not a default. This lesson teaches that boundary, which is the same for any agent runtime you might choose.
 
 ## 1. Why this matters
 
@@ -53,12 +53,13 @@ For the 2030 Product Development Manager this is the most important lesson in th
 
 The architecture guide draws it as a separate service next to the API:
 
-- The **API** can send the agent service a *scoped task request*: a small, specific job.
-- The **agent** may call back into the API only through **allowlisted tools**.
-- The agent service has its own identity, its own limits and its own network position. It is not inside the API process.
-- It is reached over an **authenticated internal interface**. Never put it, or any administration endpoint, on a public network.
+- The runtime is a **separate deployment** with its own identity, its own limits and its own network position. The app never embeds it, and never trusts it more than any other client.
+- The app gives it a **narrow surface** to call: a few authenticated API routes, or an MCP server with a short tool list, or both. Read-only tools come first; a tool that changes data needs a recorded decision and a human approval step for consequential actions.
+- The runtime gets **its own credential**, separate from every user's and from the database's, kept in a secret manager and revocable on its own. It never gets a route to the database.
+- The app **authorizes and rate-limits every call itself**. The architecture guide says the tool list is the allowlist; the runtime's own settings and the model's prompt are not access-control boundaries.
+- It runs on a **private network**. Never put it, or any administration endpoint, on the public internet.
 
-The starter does not deploy an agent. The docs say clearly that it does not implement "a deployed agent". What you learn here is the boundary to draw before anyone builds one.
+The starter does not deploy an agent runtime. It ships one small piece of the boundary instead: `apps/mcp`, an optional MCP server with two read-only tools, `list_tasks` and `get_task`. Every request must carry a bearer token of at least 32 characters, compared in constant time; it is not part of the default Compose file, the default dev command or the container image. The starter itself calls that single shared token "an example gate, not per-user identity". What you learn here is the boundary to draw before anyone connects a real runtime.
 
 ### Deny by default
 
@@ -67,13 +68,13 @@ The starter does not deploy an agent. The docs say clearly that it does not impl
 The security guide gives the policy shape:
 
 - **Per agent and per task.** A tool allowlist belongs to one agent doing one kind of job, not to "the system".
-- **Deny privileged tools** such as gateway administration, scheduling and delegating to other sessions, unless the job specifically requires them.
+- **Deny privileged tools** such as gateway administration, scheduling and delegating to other sessions, unless the job specifically requires them. For OpenClaw the security guide names them: deny `gateway`, `cron`, `sessions_spawn` and `sessions_send` for any agent that handles untrusted content. It also warns that an agent with message-tool access can send across conversations and providers by default, so decide on purpose whether to turn that off.
 - **Isolate sessions and workspaces.** One customer's conversation must never leak into another's. Agents that handle untrusted content run in a sandbox.
 - **Review and pin every plugin.** A plugin is code that runs with the agent's power. Treat it like a dependency (lesson 3) with more risk: check its source, its maintainer and its version.
 - **Keep audit records** of tool calls and approvals.
 - **Require explicit authorization for outside effects**, and human approval for consequential ones.
 
-OpenClaw's own documentation has a page on tool and agent permissions, and the starter points to it. Read it when you design a policy, because the exact settings belong to the version you run. The reference version in the starter's policy is v2026.9.7, a "learning reference", with the note: review the release, isolate the gateway, and configure per-agent tool permissions before adoption.
+OpenClaw's own documentation has a page on tool and agent permissions, and the starter points to it. Read it when you design a policy, because the exact settings belong to the version you run. The reference version in the starter's policy is `v2026.10.10`, a "learning reference", with the note: review its published security advisories before each pin bump, review the release, isolate the gateway, and configure per-agent tool permissions before adoption. Newer releases exist; the pin moves only after someone has read the advisories for the new version.
 
 ### Everything the agent reads is untrusted
 
@@ -179,6 +180,6 @@ She also drafts what the policy would say, so the trigger has a plan behind it: 
 
 ## 9. Further learning
 
-Start with the OpenClaw documentation, its architecture page and the page on tool and agent permissions. Check the repository's releases and issues before you adopt or upgrade, as the starter's version policy asks. The OWASP list of risks for language-model applications names prompt injection and excessive agency, the two risks this lesson is built around. Anthropic's article on building effective agents will help you resist adding more agent than the job needs.
+Start with the starter's own `docs/architecture.md` ("Agent runtime options") and `docs/security.md` ("Agent runtime boundary"), then the OpenClaw documentation, its architecture page and the page on tool and agent permissions. Check the repository's releases and issues before you adopt or upgrade, as the starter's version policy asks. The OWASP list of risks for language-model applications names prompt injection and excessive agency, the two risks this lesson is built around. Anthropic's article on building effective agents will help you resist adding more agent than the job needs.
 
 **Next:** [M is for Milvus](/library/tracks/phantoms-stack/10-m-milvus/).

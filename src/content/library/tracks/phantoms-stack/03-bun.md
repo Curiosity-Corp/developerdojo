@@ -20,7 +20,7 @@ resources:
   - "bun/bun-test-runner"
   - "twelve-factor/the-twelve-factor-app"
   - "owasp/top-ten"
-updated: 2026-11-03
+updated: 2026-11-22
 ---
 
 This is lesson 3 of the PHANTOMS track. It supports the Master Developer platform module. Bun has no letter in the acronym, but it sits under every letter. If you understand it, you understand what every agent command in the starter does.
@@ -66,7 +66,7 @@ The starter commits a text lockfile called `bun.lock`. It lists every package an
 
 ### The package pin
 
-The root `package.json` contains a field called `packageManager` set to `bun@1.4.2`, and an `engines` rule. This **pins** the toolchain version. Everyone who runs the project, human or agent, uses the same Bun. As reviewed on 2026-10-01, the starter's version policy lists Bun 1.4.2.
+The root `package.json` contains a field called `packageManager` set to `bun@1.4.4`, and an `engines` rule. This **pins** the toolchain version. Everyone who runs the project, human or agent, uses the same Bun. As reviewed on 2026-11-03, the starter's version policy lists Bun 1.4.4.
 
 ### Workspaces
 

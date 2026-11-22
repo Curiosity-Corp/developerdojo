@@ -19,7 +19,7 @@ resources:
   - "twelve-factor/the-twelve-factor-app"
   - "anthropic/building-effective-agents"
   - "owasp/top-10-for-llm-applications"
-updated: 2026-11-03
+updated: 2026-11-22
 ---
 
 This is lesson 1 of the PHANTOMS track. It supports the Master Developer modules on platform and AI-agent orchestration, and it helps in Developer week 4, when you defend a roadmap and must say what a technical choice costs. It gives you the map. The next eleven lessons walk the territory.
@@ -101,22 +101,22 @@ This follows [the Way](/library/the-way-five-rules): git is the source of truth.
 
 ### Versions are a decision too
 
-The starter keeps a **version policy**. It lists the exact versions it was reviewed with and how often to refresh them. As reviewed on 2026-10-01:
+The starter keeps a **version policy**. It lists the exact versions it was reviewed with and how often to refresh them. As reviewed on 2026-11-03:
 
 | Piece | Version in the policy |
 |---|---|
-| Bun | 1.4.2 |
-| Turborepo | 2.11.6 |
-| Next.js | 16.3.8 |
-| React and React DOM | 19.3.0 |
-| Hono | 4.13.12 |
-| AI SDK (the library inside the A adapter) | 7.0.126 |
+| Bun | 1.4.4 |
+| Turborepo | 2.11.10 |
+| Next.js | 16.4.5 |
+| React and React DOM | 19.3.1 |
+| Hono | 4.13.16 |
+| AI SDK (the library inside the A adapter) | 7.0.162 |
 | PostgreSQL (local container) | 18.6 |
-| OpenClaw (reference, optional) | v2026.9.7 |
-| Milvus (reference, optional) | v3.0.2 |
+| OpenClaw (reference, optional) | v2026.10.10 |
+| Milvus (reference, optional) | v3.0.3 |
 | SeaweedFS (reference, optional) | 4.48 |
 
-The exact versions that actually run are in `package.json` and `bun.lock`, and they can move ahead of the policy page. At the time of writing, the lockfile resolves a slightly newer Next.js patch than the policy lists. That is why the rule is: **read the lockfile for what runs; read the policy for what was reviewed.** The optional pins are "learning references", not tested combinations. Always check the repository for current numbers before you build.
+The exact versions that actually run are in `package.json` and `bun.lock`, and they can move ahead of the policy page. That is why the rule is: **read the lockfile for what runs; read the policy for what was reviewed.** The optional pins are "learning references": the starter runs and tests Milvus and SeaweedFS together in opt-in profiles, but it does not install or test OpenClaw. Always check the repository for current numbers before you build.
 
 ## 3. Step by step: how to choose and swap a piece
 

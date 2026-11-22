@@ -20,7 +20,7 @@ resources:
   - "seaweedfs/seaweedfs-repository"
   - "amazon-s3/what-is-amazon-s3"
   - "owasp/secrets-management-cheat-sheet"
-updated: 2026-11-03
+updated: 2026-11-22
 ---
 
 This is lesson 11 of the PHANTOMS track. It supports the Master Developer modules on platform and production launch. S is the last optional piece. Like O and M, its main lesson is a decision: do you need to keep files, and if so, who will run the place where they live?
@@ -56,7 +56,7 @@ If your code speaks S3, you can move between stores by changing configuration: a
 
 ### What SeaweedFS is made of
 
-At a high level, SeaweedFS has a part that keeps track of where data lives (the master), parts that store the data (volume servers), an optional part that gives a folder-like view (the filer), and an S3 gateway that speaks the S3 protocol. You do not need the details to make decisions. You need to know that **it is several cooperating processes**, each of which needs to be secured, monitored and upgraded. The wiki describes the parts and how to start them. The starter's version policy lists SeaweedFS 4.48 as a reference pin, not a tested combination.
+At a high level, SeaweedFS has a part that keeps track of where data lives (the master), parts that store the data (volume servers), an optional part that gives a folder-like view (the filer), and an S3 gateway that speaks the S3 protocol. You do not need the details to make decisions. You need to know that **it is several cooperating processes**, each of which needs to be secured, monitored and upgraded. The wiki describes the parts and how to start them. The starter's version policy lists SeaweedFS 4.48 as a reference pin. The starter runs it in opt-in `objects` and `retrieval` profiles and tests it with Milvus, but retention, access control and recovery are still yours to test.
 
 ### Uploads are untrusted input
 
