@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { changeReportSchema, resolveLifecycle, ROLE_LABELS, OWNERSHIP_MATRIX, type LifecycleArea, type LifecycleView } from './catalog-lifecycle';
 import { unavailableSchema } from './kata-recipe';
 import { resourceId } from './schemas';
 
@@ -124,7 +125,13 @@ const reviewSchema = z.strictObject({
   lastVerified: isoDate,
   checked: text,
   nextReview: isoDate,
-}).refine((review) => review.nextReview > review.lastVerified, { path: ['nextReview'], message: 'nextReview must be after lastVerified' });
+  /**
+   * A change noticed after the last check (#96): a new release, a permission or price change. The entry shows
+   * "review due" until it is checked again; then lastVerified moves and this is removed (the MR keeps it).
+   */
+  changeReported: changeReportSchema.optional(),
+}).refine((review) => review.nextReview > review.lastVerified, { path: ['nextReview'], message: 'nextReview must be after lastVerified' })
+  .refine((review) => !review.changeReported || review.changeReported.date >= review.lastVerified, { path: ['changeReported', 'date'], message: 'a change report cannot be older than the last check' });
 
 export const armoryEntrySchema = z.strictObject({
   id: slug,
@@ -240,6 +247,33 @@ export interface ResolvedArmoryEntry {
   listed: boolean;
   gaps: string[];
   reviewDue: boolean;
+  /** Verified, stale or unavailable on the build date (#96), with the owning role and provenance. */
+  lifecycle: LifecycleView;
+}
+
+/** Which row of the ownership matrix an entry's kind falls under. */
+export const KIND_LIFECYCLE_AREAS: Record<ArmoryKind, LifecycleArea> = {
+  harness: 'harness-model-pricing', model: 'harness-model-pricing', instructions: 'skill-provenance', skill: 'skill-provenance',
+  mcp: 'integration-compatibility', cli: 'integration-compatibility', api: 'integration-compatibility', plugin: 'integration-compatibility',
+  library: 'integration-compatibility', application: 'integration-compatibility',
+};
+
+/** An entry's lifecycle: owner from the matrix, review dates, a reported change, withdrawal as unavailable. */
+export function armoryLifecycle(entry: ArmoryEntry, today: string, names: ReadonlyMap<string, string> = new Map()): LifecycleView {
+  const area = KIND_LIFECYCLE_AREAS[entry.kind];
+  const replacement = entry.withdrawn?.replacedBy;
+  return resolveLifecycle({
+    area,
+    maintainerRole: ROLE_LABELS[OWNERSHIP_MATRIX[area].owner],
+    recorded: entry.withdrawn ? 'unavailable' : 'verified',
+    verifiedOn: entry.review.lastVerified,
+    nextReview: entry.review.nextReview,
+    checked: entry.review.checked,
+    provenance: [`${entry.maintainer.name} (${STATUS_LABELS[entry.maintainer.status]})`, ...entry.sources.map((source) => source.label)],
+    ...(entry.withdrawn ? { reason: entry.withdrawn.reason } : {}),
+    ...(replacement ? { alternative: { label: names.get(replacement) ?? replacement, href: `#${replacement}` } } : {}),
+    ...(entry.review.changeReported ? { changeReported: entry.review.changeReported } : {}),
+  }, today);
 }
 
 export interface ResolvedStackRecipe {
@@ -313,9 +347,10 @@ export function validateArmory(input: { entries: unknown; recipes: unknown }, re
   for (const id of recipeIds) if (!kataRecipes.has(id)) problems.push(`recipe ${id}: add it to kataDimensions.stackRecipes so katas can reference it`);
   if (problems.length) throw new ArmoryError(problems);
 
+  const names = new Map(entries.map((entry) => [entry.id, entry.name]));
   const resolvedEntries = entries.map((entry) => {
     const gaps = listingGaps(entry);
-    return { entry, gaps, listed: gaps.length === 0, reviewDue: entry.review.nextReview < references.today };
+    return { entry, gaps, listed: gaps.length === 0, reviewDue: entry.review.nextReview < references.today, lifecycle: armoryLifecycle(entry, references.today, names) };
   });
   const listed = new Set(resolvedEntries.filter((resolved) => resolved.listed).map((resolved) => resolved.entry.id));
   return {

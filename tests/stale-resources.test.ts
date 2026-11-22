@@ -43,6 +43,28 @@ describe('list-stale-resources', () => {
     expect(run('--today', '2027-02-01', '--days', '400')).toContain('1 of 4 resources need a fresh check.');
   });
 
+  it('lists non-verified catalog entries from the lifecycle ledger by owning role (#96)', () => {
+    const ledgerPath = join(dir, 'catalog-lifecycle.json');
+    const row = (id: string, state: string, maintainerRole: string, extra: Record<string, string> = {}) => ({
+      id, surface: 'armory', title: id, href: `/armory/registry#${id}`, state, area: 'integration-compatibility', maintainerRole, provenance: ['x'], ...extra,
+    });
+    writeFileSync(ledgerPath, JSON.stringify({ generatedOn: '2026-11-22', matrix: [], entries: [
+      row('fine', 'verified', 'Catalog maintainer', { verifiedOn: '2026-11-20', dueOn: '2027-02-18' }),
+      row('changed', 'stale', 'Catalog maintainer', { verifiedOn: '2026-11-20', dueOn: '2027-02-18', reason: 'A change was reported.' }),
+      row('gone', 'unavailable', 'Kata maintainer', { reason: 'Withdrawn upstream.' }),
+    ] }));
+    const out = execFileSync('node', ['scripts/list-stale-resources.mjs', '--catalog', ledgerPath], { encoding: 'utf8' });
+    expect(out).toContain('2 of 3 catalog entries are not verified.');
+    expect(out).toContain('- [ ] review due: [changed](/armory/registry#changed) (armory changed, integration-compatibility) · verified 2026-11-20 · due 2027-02-18 · A change was reported.');
+    expect(out).toContain('- [ ] unavailable: [gone](/armory/registry#gone) (armory gone, integration-compatibility) · never verified · Withdrawn upstream.');
+    expect(out).not.toContain('[fine]');
+    expect(out.indexOf('## Catalog maintainer')).toBeLessThan(out.indexOf('## Kata maintainer'));
+  });
+
+  it('exits 2 on an unreadable ledger', () => {
+    expect(() => execFileSync('node', ['scripts/list-stale-resources.mjs', '--catalog', join(dir, 'missing.json')], { encoding: 'utf8', stdio: 'pipe' })).toThrow(/cannot read catalog ledger/);
+  });
+
   // Reads every resource file (861 today), so it can pass the 5 s default on a busy machine.
   it('runs clean on the real catalogue', { timeout: 30_000 }, () => {
     const out = execFileSync('node', ['scripts/list-stale-resources.mjs'], { encoding: 'utf8' });

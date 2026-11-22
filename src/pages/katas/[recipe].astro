@@ -13,6 +13,7 @@ import TableOfContents from '../../components/TableOfContents.astro';
 import ResourceCard from '../../components/ResourceCard.astro';
 import CopyPrompt from '../../components/CopyPrompt.astro';
 import RecipeUnavailable from '../../components/RecipeUnavailable.astro';
+import LifecycleNotice from '../../components/LifecycleNotice.astro';
 import { loadKataRecipes } from '../../lib/kata-recipe-content';
 import { loadContent } from '../../lib/content';
 import { fields } from '../../lib/fields';
@@ -110,6 +111,8 @@ const isoDay = (date: string) => formatDate(new Date(`${date}T00:00:00Z`));
             </div>
           )
         }
+
+        <LifecycleNotice view={resolved.lifecycle} />
 
         <dl class="identity" aria-label="About this recipe">
           <div><dt>Status</dt><dd>{STATUS_LABELS[recipe.status]}</dd></div>

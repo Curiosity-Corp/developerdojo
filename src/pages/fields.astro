@@ -7,6 +7,8 @@ import { loadContent } from '../lib/content';
 import { validateKataCatalog } from '../lib/kata-catalog';
 import { kataCatalog, kataDimensions } from '../data/kata-catalog';
 import KataRecipeLinks from '../components/KataRecipeLinks.astro';
+import LifecycleNotice from '../components/LifecycleNotice.astro';
+import { loadCatalogLifecycle } from '../lib/catalog-lifecycle-content';
 import { loadKataRecipes } from '../lib/kata-recipe-content';
 
 const recipes = await loadKataRecipes();
@@ -17,6 +19,7 @@ const validatedKatas = validateKataCatalog(kataCatalog, {
   fields: fields.map((field) => field.id), resources: resources.map((resource) => resource.id),
   pathways: tracks.map((track) => track.id), ...kataDimensions,
 });
+const { katas: kataLifecycle } = await loadCatalogLifecycle();
 const foundations = new Map(validatedKatas.filter((kata) => kata.metadata.layer === 'foundation').map((kata) => [kata.metadata.id, kata]));
 const practice: Record<string, { href: string; label: string }> = {
   science: { href: '/katas/industry-workshops#vegetation', label: 'Investigate a vegetation signal' },
@@ -39,6 +42,7 @@ const practice: Record<string, { href: string; label: string }> = {
             {practice[field.id] && <p><a href={practice[field.id]?.href}>{practice[field.id]?.label}</a></p>}
             {validatedKatas.filter((kata) => kata.metadata.domainIds.includes(field.id)).map((kata) => (
               <div class="practice"><p><a href={kata.href}>{kata.linkLabel}</a></p>
+                {(() => { const view = kataLifecycle.get(kata.href); return view && <LifecycleNotice view={view} compact />; })()}
                 {kata.metadata.foundationKataIds.map((id) => {
                   const foundation = foundations.get(id);
                   return foundation && <p>Related foundation: <a href={foundation.href}>{foundation.linkLabel}</a></p>;

@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import { ARMORY_KINDS, ECOSYSTEMS, ECOSYSTEM_LABELS, KIND_LABELS, STATUS_LABELS, type ArmoryEntry } from '../../lib/armory';
 import { loadArmory } from '../../lib/armory-content';
+import LifecycleNotice from '../../components/LifecycleNotice.astro';
 
 // Records, schema and listing rules: src/data/armory.ts and src/lib/armory.ts (docs/armory-registry.md).
 const { armory, resources, usage } = await loadArmory();
@@ -36,7 +37,7 @@ const evidenceLabel = { 'smoke-test': 'Tested', documented: 'Documented, not tes
     <form class="filters" data-registry-filter hidden><label for="registry-kind">Show a type</label><select id="registry-kind" name="kind"><option value="all">All types</option>{kindsShown.map((kind) => <option value={kind}>{KIND_LABELS[kind]}</option>)}</select></form>
     <p data-registry-status role="status" aria-live="polite"></p>
     <div class="registry-grid">
-      {listed.map(({ entry }) => {
+      {listed.map(({ entry, lifecycle }) => {
         const used = usage.entries.get(entry.id) ?? [];
         const smoke = missing(entry.smokeTest) ? undefined : entry.smokeTest;
         const review = missing(entry.securityReview) ? undefined : entry.securityReview;
@@ -46,6 +47,7 @@ const evidenceLabel = { 'smoke-test': 'Tested', documented: 'Documented, not tes
           <p class="by">{entry.maintainer.name}{entry.maintainer.note ? ` · ${entry.maintainer.note}` : ''}</p>
           <p>{entry.summary}</p>
           <p class="checked">Checked <time datetime={entry.review.lastVerified}>{longDate(entry.review.lastVerified)}</time>{version ? ` · version ${version.value}` : ''}. <span data-review-due hidden>Review due: check the source before relying on this entry.</span></p>
+          <LifecycleNotice view={lifecycle} compact />
           <details><summary>Versions, permissions and evidence</summary>
             <dl>
               <div><dt>Version</dt><dd>{version ? `${version.value}. ${version.how}` : ''}</dd></div>
@@ -117,7 +119,7 @@ const evidenceLabel = { 'smoke-test': 'Tested', documented: 'Documented, not tes
     <h2 id="candidates-title">Not listed yet</h2>
     <p>These are real tools with checked sources, but something is missing before they can be listed: usually a recorded smoke test. They are shown so you can see what is known and what is not. No setup is given, because none has been tested.</p>
     <div class="registry-grid">
-      {candidates.map(({ entry, gaps }) => {
+      {candidates.map(({ entry, gaps, lifecycle }) => {
         const review = missing(entry.securityReview) ? undefined : entry.securityReview;
         return <article class="entry candidate" id={entry.id} data-registry-entry data-listed="false" data-kind={entry.kind} data-review-next={entry.review.nextReview}>
           <p class="type">{typeLine(entry)} · not listed</p><h3>{entry.name}</h3>
@@ -125,6 +127,7 @@ const evidenceLabel = { 'smoke-test': 'Tested', documented: 'Documented, not tes
           <p>{entry.summary}</p>
           {entry.ecosystems.length > 0 && <p class="tags">{entry.ecosystems.map((ecosystem) => <span class="badge">{ECOSYSTEM_LABELS[ecosystem]}</span>)}</p>}
           <p class="checked">Sources checked <time datetime={entry.review.lastVerified}>{longDate(entry.review.lastVerified)}</time>. <span data-review-due hidden>Review due.</span></p>
+          <LifecycleNotice view={lifecycle} compact />
           <details><summary>What is known and what is missing</summary>
             <h4>Missing before listing</h4>
             <ul data-gaps>{gaps.map((gap) => <li>{gap}</li>)}</ul>
