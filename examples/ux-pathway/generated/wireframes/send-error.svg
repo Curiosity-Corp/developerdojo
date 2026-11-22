@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" role="img" aria-labelledby="title desc" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+<title id="title">The invoice was not sent (send-error), low fidelity, 390 px</title>
+<desc id="desc">A failure after the user pressed Send: says what happened, that nothing was sent, and what to do. Numbered circles are the transition numbers on the sitemap.</desc>
+<rect x="0" y="0" width="390" height="844" fill="#ffffff"/>
+<rect x="0" y="0" width="390" height="56" fill="#e0e0e0"/>
+<text x="24" y="35" font-size="16" font-weight="700" fill="#212121">Pocket Invoice</text>
+<text x="366" y="35" font-size="14" fill="#424242" text-anchor="end">Error</text>
+<text x="24" y="111" font-size="24" font-weight="700" fill="#212121">The invoice was not sent</text>
+<rect x="26" y="134" width="338" height="136" fill="#ffffff" stroke="#212121" stroke-width="4"/>
+<text x="44" y="170" font-size="19" font-weight="700" fill="#212121">There is a problem</text>
+<text x="44" y="201" font-size="16" fill="#212121" text-decoration="underline">The client email address cannot</text>
+<text x="44" y="225" font-size="16" fill="#212121" text-decoration="underline">receive mail. Check the address and</text>
+<text x="44" y="249" font-size="16" fill="#212121" text-decoration="underline">try again.</text>
+<text x="24" y="313" font-size="16" fill="#424242">Nothing was sent. Your invoice is saved as</text>
+<text x="24" y="337" font-size="16" fill="#424242">a draft.</text>
+<g data-to="invoice-new" data-transition="17"><rect x="24" y="360" width="264" height="48" rx="4" fill="#424242"/><text x="156" y="390" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">Change the email address</text><circle cx="308" cy="384" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="308" y="388" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">17</text></g>
+<rect x="1" y="1" width="388" height="842" fill="none" stroke="#9e9e9e" stroke-width="2"/>
+</svg>

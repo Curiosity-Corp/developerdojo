@@ -1,0 +1,264 @@
+{
+  "product": "Pocket Invoice",
+  "start": "signup",
+  "states": 11,
+  "transitions": 19,
+  "pass": true,
+  "checks": [
+    {
+      "id": "unique-states",
+      "description": "Every state has its own id.",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "screens-known",
+      "description": "Every state belongs to a screen in the screen list.",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "transitions-name-states",
+      "description": "Every transition starts and ends at a state that exists.",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "reachable",
+      "description": "Every state can be reached from the start state.",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "no-dead-ends",
+      "description": "Every state has at least one way out.",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "errors-recover",
+      "description": "Every error state has a way out to a state that is not an error.",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "dialogs-close",
+      "description": "Every dialog has a close transition back to the screen underneath.",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "buttons-wired",
+      "description": "Every button starts a transition in the flow.",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "one-transition-per-pair",
+      "description": "No two transitions join the same two states in the same direction.",
+      "pass": true,
+      "failures": []
+    },
+    {
+      "id": "prototype-only-marked",
+      "description": "Every transition that no button causes is drawn as a prototype-only link on its screen.",
+      "pass": true,
+      "failures": [],
+      "detail": {
+        "transitions": [
+          2,
+          8,
+          16
+        ]
+      }
+    },
+    {
+      "id": "token-contrast",
+      "description": "Every token colour pair meets its minimum WCAG 2 contrast ratio.",
+      "pass": true,
+      "failures": []
+    }
+  ],
+  "contrast": [
+    {
+      "group": "text",
+      "foreground": "color.text.default",
+      "background": "color.surface.page",
+      "foregroundValue": "#101828",
+      "backgroundValue": "#f5f7fa",
+      "ratio": 16.53,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "group": "text",
+      "foreground": "color.text.default",
+      "background": "color.surface.card",
+      "foregroundValue": "#101828",
+      "backgroundValue": "#ffffff",
+      "ratio": 17.74,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "group": "text",
+      "foreground": "color.text.muted",
+      "background": "color.surface.page",
+      "foregroundValue": "#344054",
+      "backgroundValue": "#f5f7fa",
+      "ratio": 9.74,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "group": "text",
+      "foreground": "color.text.link",
+      "background": "color.surface.card",
+      "foregroundValue": "#175cd3",
+      "backgroundValue": "#ffffff",
+      "ratio": 5.98,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "group": "text",
+      "foreground": "color.text.link",
+      "background": "color.surface.page",
+      "foregroundValue": "#175cd3",
+      "backgroundValue": "#f5f7fa",
+      "ratio": 5.57,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "group": "text",
+      "foreground": "color.text.error",
+      "background": "color.surface.error",
+      "foregroundValue": "#b42318",
+      "backgroundValue": "#fef3f2",
+      "ratio": 6.04,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "group": "text",
+      "foreground": "color.text.error",
+      "background": "color.surface.card",
+      "foregroundValue": "#b42318",
+      "backgroundValue": "#ffffff",
+      "ratio": 6.57,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "group": "text",
+      "foreground": "color.text.success",
+      "background": "color.surface.success",
+      "foregroundValue": "#067647",
+      "backgroundValue": "#ecfdf3",
+      "ratio": 5.39,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "group": "text",
+      "foreground": "color.text.inverse",
+      "background": "color.action.primary",
+      "foregroundValue": "#ffffff",
+      "backgroundValue": "#175cd3",
+      "ratio": 5.98,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "group": "text",
+      "foreground": "color.text.inverse",
+      "background": "color.action.primary-hover",
+      "foregroundValue": "#ffffff",
+      "backgroundValue": "#194185",
+      "ratio": 9.83,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "group": "text",
+      "foreground": "color.text.default",
+      "background": "color.surface.error",
+      "foregroundValue": "#101828",
+      "backgroundValue": "#fef3f2",
+      "ratio": 16.32,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "group": "text",
+      "foreground": "color.text.default",
+      "background": "color.surface.success",
+      "foregroundValue": "#101828",
+      "backgroundValue": "#ecfdf3",
+      "ratio": 16.82,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "group": "ui",
+      "foreground": "color.border.input",
+      "background": "color.surface.page",
+      "foregroundValue": "#667085",
+      "backgroundValue": "#f5f7fa",
+      "ratio": 4.63,
+      "minimum": 3,
+      "pass": true
+    },
+    {
+      "group": "ui",
+      "foreground": "color.border.input",
+      "background": "color.surface.card",
+      "foregroundValue": "#667085",
+      "backgroundValue": "#ffffff",
+      "ratio": 4.97,
+      "minimum": 3,
+      "pass": true
+    },
+    {
+      "group": "ui",
+      "foreground": "color.border.error",
+      "background": "color.surface.card",
+      "foregroundValue": "#b42318",
+      "backgroundValue": "#ffffff",
+      "ratio": 6.57,
+      "minimum": 3,
+      "pass": true
+    },
+    {
+      "group": "ui",
+      "foreground": "color.focus.ring",
+      "background": "color.surface.page",
+      "foregroundValue": "#194185",
+      "backgroundValue": "#f5f7fa",
+      "ratio": 9.16,
+      "minimum": 3,
+      "pass": true
+    },
+    {
+      "group": "ui",
+      "foreground": "color.focus.ring",
+      "background": "color.surface.card",
+      "foregroundValue": "#194185",
+      "backgroundValue": "#ffffff",
+      "ratio": 9.83,
+      "minimum": 3,
+      "pass": true
+    },
+    {
+      "group": "ui",
+      "foreground": "color.action.primary",
+      "background": "color.surface.card",
+      "foregroundValue": "#175cd3",
+      "backgroundValue": "#ffffff",
+      "ratio": 5.98,
+      "minimum": 3,
+      "pass": true
+    }
+  ]
+}

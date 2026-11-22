@@ -1,0 +1,89 @@
+{
+  "note": "Token colour pairs for Pocket Invoice and the WCAG 2 contrast each must meet: 4.5:1 for text (success criterion 1.4.3), 3:1 for borders, focus and controls (1.4.11). Read by tools/ux_pathway.mjs and tests/pocket-invoice.test.ts.",
+  "groups": [
+    {
+      "name": "text",
+      "minimum": 4.5,
+      "pairs": [
+        [
+          "color.text.default",
+          "color.surface.page"
+        ],
+        [
+          "color.text.default",
+          "color.surface.card"
+        ],
+        [
+          "color.text.muted",
+          "color.surface.page"
+        ],
+        [
+          "color.text.link",
+          "color.surface.card"
+        ],
+        [
+          "color.text.link",
+          "color.surface.page"
+        ],
+        [
+          "color.text.error",
+          "color.surface.error"
+        ],
+        [
+          "color.text.error",
+          "color.surface.card"
+        ],
+        [
+          "color.text.success",
+          "color.surface.success"
+        ],
+        [
+          "color.text.inverse",
+          "color.action.primary"
+        ],
+        [
+          "color.text.inverse",
+          "color.action.primary-hover"
+        ],
+        [
+          "color.text.default",
+          "color.surface.error"
+        ],
+        [
+          "color.text.default",
+          "color.surface.success"
+        ]
+      ]
+    },
+    {
+      "name": "ui",
+      "minimum": 3,
+      "pairs": [
+        [
+          "color.border.input",
+          "color.surface.page"
+        ],
+        [
+          "color.border.input",
+          "color.surface.card"
+        ],
+        [
+          "color.border.error",
+          "color.surface.card"
+        ],
+        [
+          "color.focus.ring",
+          "color.surface.page"
+        ],
+        [
+          "color.focus.ring",
+          "color.surface.card"
+        ],
+        [
+          "color.action.primary",
+          "color.surface.card"
+        ]
+      ]
+    }
+  ]
+}
