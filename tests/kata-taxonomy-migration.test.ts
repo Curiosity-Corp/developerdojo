@@ -173,6 +173,7 @@ describe('on-device keys never depend on a kata route or taxonomy ID', () => {
     'src/components/TemplateForm.astro': 'dojo:draft:<library page id>',
     'src/components/SelfAssessment.astro': 'dojo:self-assessment:track-a',
     'src/components/BeltJourney.astro': 'dojo:belt-evidence, by the belt journal\'s own field list',
+    'src/components/ReviewRecord.astro': 'dojo:review-record, one record keyed by assessment-map criterion IDs and sector pack IDs, never a kata route',
     'src/components/ThemeToggle.astro': 'dojo-theme (a display preference, not progress)',
   };
 

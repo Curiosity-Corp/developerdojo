@@ -13,6 +13,7 @@ review (Curiosity-Corp/developerdojo#80). No pilot review has run. The data behi
 Contents: [1 What the pilot is](#1-what-the-pilot-is-and-is-not) · [2 Roles](#2-roles) · [3 Evidence](#3-the-evidence-the-reviewer-receives)
 · [4 Run a pilot review](#4-run-a-pilot-review) · [5 After the review](#5-after-the-review-correct-withdraw-report)
 · [6 What the pilot reuses](#6-what-the-pilot-reuses) · [7 Measures](#7-measures) · [8 What the tests check](#8-what-the-tests-check)
+· [9 Specialist belts](#9-specialist-belts) · [10 The review record](#10-the-review-record)
 
 ## 1. What the pilot is (and is not)
 
@@ -86,7 +87,8 @@ The learner starts from the public review packet (`public/examples/belt-review-p
 7. **Record every criterion** of the chosen rubric as *Observed*, *Not yet observed* or *Unclear*, each with an
    evidence reference (a file, a check result, a log line, a moment in the session). Absence of evidence is not a
    pass. No numeric score and no pass mark. Use the [review sheet](../src/content/library/sensei-review-sheet.md)
-   layout and the [feedback sentences](../src/content/library/sensei-feedback-sentences.md).
+   layout and the [feedback sentences](../src/content/library/sensei-feedback-sentences.md). The
+   [review record](#10-the-review-record) at `/review-record` holds steps 7 to 9 on the reviewer's own device.
 8. **Give one strength and one gap,** both tied to evidence, and let the learner choose the next step.
 9. **Write the review log** as a comment in the confidential issue: the rubric, each criterion with its observation
    and reference, the unseen task, the failures seen, the time taken, and any concern. No promise of a belt or rank.
@@ -148,6 +150,54 @@ The public map shows three pilot measures. Each is `null` until a pilot measures
 - the belts, certificates and review pages link to `/assessment-map`, and this procedure exists and is linked from
   the maintainer handbook.
 
+`tests/review-record.test.ts` checks the review record: one specialist belt per sector pack at Brown and Black only,
+each with its pack's professional-review limit; a record does not finish without consent, independence, the unseen
+task, a strength, a gap and an evidence reference for every criterion; a finished record ignores edits and takes
+only dated corrections; the log lists each criterion and states that it awards nothing; and a saved record for a
+subject that no longer exists is dropped. `tests/assessment-map.test.ts` also rejects specialist belt criteria
+without the `SPB-` prefix, without a Randori criterion carrying the advanced minimum, or without the field-limits
+criterion, and reviewed stages out of order.
+
+`e2e/review-record.spec.ts` drives the form in a browser: the specialist belts on the map link to a preselected
+record, an incomplete record is refused with the reason, a finished record is locked across a reload, a correction
+appears below the unchanged entries, the record is listed under Saved on this device, a new record starts empty,
+the page fits 320 px, reads without JavaScript and passes the axe WCAG 2.1 AA scan in both themes.
+
 `e2e/assessment-map.spec.ts` checks the page in a browser: the three ranks, the proposed labels, *Unavailable*
 measures, the boundaries, the links from the belts and certificates pages, a 320 px screen without JavaScript, and
 the axe WCAG 2.1 AA scan.
+
+## 9. Specialist belts
+
+A specialist belt is a belt stage in one field, reviewed against that field's own checks. It is proposed, like
+everything in this procedure, and no specialist belt is issued.
+
+- **Which fields.** One specialist belt per sector pack (`src/data/sector-packs.ts`): a field gets one when its
+  pathway is complete, with checks CI reruns and a Randori. Today that is UX, BIM, agriculture and science. Other
+  fields practice the shared stages on `/belts` with the learner's own checklist.
+- **Which stages.** Brown and Black (`specialistBelts.reviewedStages`). Brown is the first stage that asks the
+  learner to defend evidence under an unseen change, so it is the first an independent reviewer looks at.
+- **What it asks.** The shared criteria SPB-1 to SPB-3 in `src/data/assessment-map.ts` (the learner's own artifact
+  passes the field checks rerun by the reviewer; the field Randori, unseen; field limits and qualified review), plus
+  the proof of the stage itself.
+- **What comes from the field.** The checks the reviewer reruns, the Randori recipe and the qualified-review limit
+  are read from the sector pack at build time (`src/lib/specialist-belts-content.ts`), never copied, so a pathway
+  and its belt cannot disagree. A pack whose Randori has no recipe fails the build.
+- **Unseen means unseen.** For SPB-2 the reviewer picks a change *of the kind* the field Randori describes that the
+  learner has not practiced: not one of the published Randori cards as written.
+
+## 10. The review record
+
+`/review-record` is the reviewer's form for steps 7 to 9 of section 4. It is a static page: what the reviewer types is
+saved in their own browser (key `dojo:review-record`) and copied out as Markdown. The website receives nothing.
+
+- The reviewer chooses a rank rubric or a specialist belt stage; the criteria, and for a belt the field's
+  qualified-review limit, are shown from the same data as `/assessment-map`.
+- It does not finish until scope, access and consent are agreed, the reviewer confirms independence, the unseen task
+  is described, every criterion has an observation and an evidence reference, and one strength and one gap are
+  written. *Not yet observed* and *Unclear* are valid observations: a criterion is recorded, not passed.
+- A finished record is locked. A factual mistake is fixed with a dated correction listed below the unchanged entries,
+  the same discipline as [certificates.md section 9](certificates.md#9-correct-an-entry).
+- The reviewer copies the review log into the confidential case issue (section 4, step 9). The record holds no
+  learner name, and nothing on it awards a belt or a rank.
+- One record is kept per browser. Starting a new record removes the old one from the device, so copy the log first.
