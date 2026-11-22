@@ -51,6 +51,8 @@ export const rankAssessmentSchema = z.strictObject({
   assesses: z.array(text).min(2),
   notAssessed: z.array(text).min(1),
   currentProcedure: z.strictObject({ label: z.string().min(4), href: link, summary: text }),
+  /** The kind of unseen task a reviewer sets in an independent review. The learner sees the kind, never the task itself. */
+  unseenTask: text,
   rubric: z.strictObject({
     tier: z.enum(['foundation', 'advanced']),
     status: z.literal('proposed'),
@@ -78,6 +80,8 @@ export const specialistBeltsSchema = z.strictObject({
   question: text,
   reviewedStages: z.array(z.enum(BELT_STAGE_IDS)).min(1),
   whyTheseStages: text,
+  /** The kind of unseen task a reviewer sets in an independent review. The learner sees the kind, never the task itself. */
+  unseenTask: text,
   criteria: z.array(criterionSchema).min(2),
 });
 export type SpecialistBeltRules = z.infer<typeof specialistBeltsSchema>;

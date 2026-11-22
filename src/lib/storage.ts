@@ -229,6 +229,7 @@ export function describeKey(key: string): string {
   if (name === 'lessons') return 'Lessons marked done';
   if (name === 'belt-evidence') return 'Belt practice evidence checklist';
   if (name === 'review-record') return 'Independent review record';
+  if (name === 'review-request') return 'Independent review request';
   if (name.startsWith('checklist:')) return `Checklist ticks on ${name.slice('checklist:'.length)}`;
   if (name.startsWith('draft:')) return `Template draft: ${name.slice('draft:'.length)}`;
   return name;

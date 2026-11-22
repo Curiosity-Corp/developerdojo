@@ -1,0 +1,281 @@
+---
+/**
+ * The independent review request (#90): the learner's half of a pilot review. Every subject's criteria are rendered
+ * here; the script shows the chosen one and which criteria still lack evidence. What is typed is saved only in this
+ * browser (src/lib/storage.ts, key dojo:review-request) and copied out as Markdown. Nothing is sent anywhere.
+ * The rules (what makes a request ready, the Markdown) are in src/lib/review-request.ts.
+ */
+import ExportBox from './ExportBox.astro';
+import { AI_USE, AI_USE_LABELS, LEARNER_EVIDENCE, MAX_LOCATION, MAX_SCOPE, SCOPE_FIELDS, SCOPE_LABELS, type RequestPage } from '../lib/review-request';
+
+interface Props {
+  page: RequestPage;
+}
+const { page } = Astro.props;
+// Escaped so no text in the data can close the script element.
+const json = JSON.stringify(page).replace(/</g, '\\u003c');
+const ranks = page.subjects.filter((subject) => subject.group === 'rank');
+const belts = page.subjects.filter((subject) => subject.group === 'belt');
+const guide = (kind: string) => page.evidence.find((item) => item.kind === kind);
+const titleOf = (kind: string) => guide(kind)?.title ?? kind;
+---
+
+<section class="tool js-only review-request" aria-labelledby="rq-title" data-review-request data-pagefind-ignore>
+  <h2 id="rq-title">Prepare your request</h2>
+  <p class="tool-note">
+    <strong>For the learner.</strong> What you type is saved <strong>only in this browser, on this device</strong>. Nothing is sent anywhere and
+    there is no account. Do not type names, passwords or private material: say <em>where</em> the evidence is, and give the reviewer access there.
+  </p>
+  <p class="tool-note" data-save-note hidden></p>
+  <script type="application/json" is:inline data-review-request-page set:html={json} />
+
+  <fieldset class="rq-editable" data-editable>
+    <legend class="visually-hidden">Your review request</legend>
+    <div class="tool-field">
+      <label for="rq-subject">What you want to be reviewed against</label>
+      <select id="rq-subject" data-subject>
+        <optgroup label="Ranks">{ranks.map((subject) => <option value={subject.id}>{subject.label}</option>)}</optgroup>
+        <optgroup label="Specialist belts">{belts.map((subject) => <option value={subject.id}>{subject.label}</option>)}</optgroup>
+      </select>
+    </div>
+
+    {page.subjects.map((subject) => (
+      <div class="rq-panel" data-subject-panel={subject.id} hidden>
+        <h3>{subject.label}</h3>
+        <p class="rq-question">{subject.question}</p>
+        <div class="rq-unseen">
+          <p><strong>The unseen task.</strong> You will not see it in advance: the reviewer sets it and reveals it when the work starts. Its kind: {subject.unseenTask}</p>
+          {subject.randori && <p>The field Randori it draws on: <a href={subject.randori.href}>{subject.randori.title}</a>. Practicing the published cards is fine; the reviewer chooses a change you have not practiced.</p>}
+        </div>
+        {subject.professionalReview && (
+          <p class="boundary"><strong>Qualified review in this field:</strong> {subject.professionalReview.limit}</p>
+        )}
+        <h4>What the reviewer will look for</h4>
+        <ul class="rq-criteria">
+          {subject.criteria.map((criterion) => (
+            <li data-readiness-for={criterion.id}>
+              <strong>{criterion.id} {criterion.title}.</strong> {criterion.observable}
+              <br /><span class="rq-needs">Evidence: {criterion.evidence.map(titleOf).join(' · ')}</span>
+              <br /><span class="rq-state" data-readiness></span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+
+    <fieldset>
+      <legend>Where your evidence is</legend>
+      <p class="tool-hint">A repository, folder, file or link the reviewer will be given read access to. The review log is not on this list: the reviewer writes it during the session.</p>
+      {LEARNER_EVIDENCE.map((kind) => (
+        <div class="tool-field">
+          <label for={`rq-loc-${kind}`}>{titleOf(kind)}</label>
+          <p class="tool-hint" id={`rq-loc-${kind}-hint`}>{guide(kind)?.description}</p>
+          <input id={`rq-loc-${kind}`} type="text" maxlength={MAX_LOCATION} autocomplete="off" aria-describedby={`rq-loc-${kind}-hint`} data-location={kind} />
+        </div>
+      ))}
+    </fieldset>
+
+    <fieldset>
+      <legend>Scope, access and consent</legend>
+      <p class="tool-hint">Agree these with the reviewer in writing before anything is shared. Your work stays private by default.</p>
+      {SCOPE_FIELDS.map((field) => (
+        <div class="tool-field">
+          <label for={`rq-scope-${field}`}>{SCOPE_LABELS[field]}</label>
+          <textarea id={`rq-scope-${field}`} rows="2" maxlength={MAX_SCOPE} data-scope={field}></textarea>
+        </div>
+      ))}
+    </fieldset>
+
+    <fieldset>
+      <legend>AI services</legend>
+      {AI_USE.map((value) => (
+        <label class="choice"><input type="radio" name="rq-ai" value={value} data-ai /><span>{AI_USE_LABELS[value]}</span></label>
+      ))}
+    </fieldset>
+
+    <label class="choice"><input type="checkbox" data-private /><span>This request names no person and holds no password, key or private material.</span></label>
+  </fieldset>
+
+  <h3>Before you send it</h3>
+  <ul class="rq-problems" data-problems></ul>
+  <p class="tool-status" role="status" data-ready-status></p>
+
+  <h3>Your request</h3>
+  <ExportBox id="rq-export" label="Review request as Markdown" copyLabel="Copy the request" rows={18}>
+    <button type="button" class="tool-btn tool-btn--quiet" data-new>Start a new request</button>
+  </ExportBox>
+  <p class="tool-status" role="status" data-saved></p>
+</section>
+
+<style>
+  .rq-editable { border: 0; padding: 0; margin: 0; min-width: 0; }
+  .rq-panel { margin-block: var(--space-4); }
+  .rq-question { font-weight: 700; }
+  .rq-unseen { padding: var(--space-3); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+  .rq-unseen p { margin: 0; }
+  .rq-unseen p + p { margin-top: var(--space-2); }
+  .rq-criteria { padding-left: var(--space-4); }
+  .rq-criteria li + li { margin-top: var(--space-3); }
+  .rq-needs { font-size: 0.95em; }
+  .rq-state { font-weight: 700; }
+  .rq-problems li + li { margin-top: var(--space-1); }
+  .boundary { padding: var(--space-3); border-left: 4px solid var(--tone-gold); background: var(--paper-sunk); }
+</style>
+
+<script>
+  import {
+    LEARNER_EVIDENCE,
+    REVIEW_REQUEST_NAME,
+    REVIEW_REQUEST_VERSION,
+    SCOPE_FIELDS,
+    criterionReadiness,
+    emptyRequest,
+    parseRequest,
+    parseRequestPage,
+    renderRequest,
+    requestProblems,
+    type LearnerEvidenceKind,
+    type RequestPage,
+    type RequestSubject,
+    type ReviewRequest,
+  } from '../lib/review-request';
+  import { armedButton, wireExportBox } from '../lib/export-box';
+  import { createStore, storageKey } from '../lib/storage';
+
+  const root = document.querySelector<HTMLElement>('[data-review-request]');
+  if (root) init(root);
+
+  function readPage(root: HTMLElement): RequestPage {
+    const source = root.querySelector('[data-review-request-page]')?.textContent ?? '{}';
+    try {
+      return parseRequestPage(JSON.parse(source));
+    } catch (error) {
+      console.error('The review request data on this page could not be read', error);
+      return parseRequestPage(undefined);
+    }
+  }
+
+  function init(root: HTMLElement): void {
+    const page = readPage(root);
+    const first = page.subjects[0];
+    if (!first) return;
+    // Captured once: a hoisted function declaration below does not keep the narrowing of first.
+    const firstId = first.id;
+    const ids = page.subjects.map((subject) => subject.id);
+    const store = createStore();
+    const load = (): ReviewRequest | undefined => store.load(REVIEW_REQUEST_NAME, { version: REVIEW_REQUEST_VERSION, validate: (data) => parseRequest(data, ids) });
+    let request: ReviewRequest = load() ?? emptyRequest(first.id);
+
+    // A link can name the subject, for example from a rank or a belt on the assessment map.
+    const asked = new URLSearchParams(window.location.search).get('subject');
+    if (asked && ids.includes(asked)) request = { ...request, subjectId: asked };
+
+    const editable = root.querySelector<HTMLFieldSetElement>('[data-editable]')!;
+    const subjectSelect = root.querySelector<HTMLSelectElement>('[data-subject]')!;
+    const locationInputs = Array.from(root.querySelectorAll<HTMLInputElement>('[data-location]'));
+    const scopeInputs = Array.from(root.querySelectorAll<HTMLTextAreaElement>('[data-scope]'));
+    const aiInputs = Array.from(root.querySelectorAll<HTMLInputElement>('[data-ai]'));
+    const privateBox = root.querySelector<HTMLInputElement>('[data-private]')!;
+    const problemsList = root.querySelector<HTMLUListElement>('[data-problems]')!;
+    const readyStatus = root.querySelector<HTMLElement>('[data-ready-status]')!;
+    const saved = root.querySelector<HTMLElement>('[data-saved]')!;
+    const saveNote = root.querySelector<HTMLElement>('[data-save-note]')!;
+    const exportBox = wireExportBox(root);
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-subject-panel]'));
+    const titleOf = (kind: string): string => page.evidence.find((item) => item.kind === kind)?.title ?? kind;
+
+    const subject = (): RequestSubject => page.subjects.find((item) => item.id === request.subjectId) ?? first;
+    const panel = (): HTMLElement | undefined => panels.find((item) => item.dataset['subjectPanel'] === request.subjectId);
+    const isLearnerKind = (value: string | undefined): value is LearnerEvidenceKind => (LEARNER_EVIDENCE as readonly string[]).includes(value ?? '');
+
+    function persist(): void {
+      const ok = store.save(REVIEW_REQUEST_NAME, REVIEW_REQUEST_VERSION, request);
+      saved.textContent = ok ? 'Saved on this device.' : 'Not saved: your browser blocked it. Copy the request to keep it.';
+    }
+
+    /** Reads every control into a request, through the same parser as storage, so the caps always apply. */
+    function readForm(): ReviewRequest {
+      const locations: Record<string, string> = {};
+      for (const input of locationInputs) {
+        const kind = input.dataset['location'];
+        if (isLearnerKind(kind)) locations[kind] = input.value;
+      }
+      const scope: Record<string, string> = {};
+      for (const input of scopeInputs) scope[input.dataset['scope'] ?? ''] = input.value;
+      const raw = {
+        subjectId: ids.includes(subjectSelect.value) ? subjectSelect.value : firstId,
+        locations,
+        scope,
+        aiUse: aiInputs.find((input) => input.checked)?.value ?? '',
+        noPrivateDetails: privateBox.checked,
+      };
+      return parseRequest(raw, ids) ?? emptyRequest(firstId);
+    }
+
+    /** Puts the request into every control. Used on load, on a new request, and when another tab changes it. */
+    function fill(): void {
+      subjectSelect.value = request.subjectId;
+      for (const input of locationInputs) {
+        const kind = input.dataset['location'];
+        input.value = isLearnerKind(kind) ? request.locations[kind] ?? '' : '';
+      }
+      for (const input of scopeInputs) {
+        const field = SCOPE_FIELDS.find((item) => item === input.dataset['scope']);
+        input.value = field ? request.scope[field] : '';
+      }
+      for (const input of aiInputs) input.checked = input.value === request.aiUse;
+      privateBox.checked = request.noPrivateDetails;
+      refresh();
+    }
+
+    /** Updates everything computed from the request: the shown panel, each criterion's readiness, the problems and the Markdown. */
+    function refresh(): void {
+      for (const item of panels) item.hidden = item.dataset['subjectPanel'] !== request.subjectId;
+      const current = subject();
+      for (const state of criterionReadiness(request, current)) {
+        const target = panel()?.querySelector<HTMLElement>(`[data-readiness-for="${state.id}"] [data-readiness]`);
+        if (!target) continue;
+        const located = state.missing.length === 0;
+        target.textContent = located
+          ? `Evidence located${state.reviewerWrites ? '; the reviewer adds the review log in the session' : ''}.`
+          : `Not located yet: ${state.missing.map(titleOf).join(', ')}.`;
+        target.dataset['state'] = located ? 'located' : 'missing';
+      }
+      const problems = requestProblems(request, current, page.evidence);
+      problemsList.replaceChildren();
+      for (const line of problems.length ? problems : ['Nothing is missing. Copy the request and give it privately to the pilot coordinator.']) {
+        const item = document.createElement('li');
+        item.textContent = line;
+        problemsList.append(item);
+      }
+      readyStatus.textContent = problems.length ? `${problems.length} ${problems.length === 1 ? 'thing' : 'things'} still missing.` : 'Ready to send.';
+      exportBox?.setText(renderRequest(request, current, page));
+    }
+
+    function change(): void {
+      request = readForm();
+      persist();
+      refresh();
+    }
+
+    editable.addEventListener('input', change);
+    editable.addEventListener('change', change);
+
+    armedButton(root.querySelector<HTMLButtonElement>('[data-new]')!, 'Click again to start a new request', () => {
+      request = emptyRequest(request.subjectId);
+      store.remove(REVIEW_REQUEST_NAME);
+      saved.textContent = 'Started a new request. The previous one is no longer on this device.';
+      fill();
+    });
+
+    window.addEventListener('storage', (event) => {
+      if (event.key !== storageKey(REVIEW_REQUEST_NAME)) return;
+      request = load() ?? emptyRequest(first.id);
+      fill();
+    });
+
+    saveNote.hidden = store.persistent;
+    if (!store.persistent) saveNote.textContent = 'Your browser is blocking saving on this device, so the request lasts only while this page is open. Copy the request to keep it.';
+    fill();
+  }
+</script>

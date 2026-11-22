@@ -37,6 +37,8 @@ const reviewedStages = map.belts.stages.filter((stage) => map.specialistBelts.re
           <ul>{rank.notAssessed.map((line) => <li>{line}</li>)}</ul>
           <h4>Today</h4>
           <p>{rank.currentProcedure.summary} <a href={rank.currentProcedure.href}>{rank.currentProcedure.label}</a></p>
+          <h4>Unseen task in a review</h4>
+          <p>{rank.unseenTask} <a href={`/review-request?subject=rank:${rank.rank}`}>Ask for a {rankName(rank.rank)} review</a></p>
         </article>
       ))}
     </div>
@@ -72,6 +74,7 @@ const reviewedStages = map.belts.stages.filter((stage) => map.specialistBelts.re
         </dl>
       </article>
     ))}
+    <p><strong>The unseen task:</strong> {map.specialistBelts.unseenTask}</p>
     <p>A review record for a specialist belt also checks the stage itself, using the proof of the {reviewedStages.map((stage) => stage.name).join(' or ')} stage in the progression above.</p>
     <h3>Fields with a specialist belt today</h3>
     <p>Each field below has a complete pathway with checks that run on every build. Other fields can be practiced on the belts page, but have no specialist belt yet.</p>
@@ -86,6 +89,7 @@ const reviewedStages = map.belts.stages.filter((stage) => map.specialistBelts.re
             <dt>Qualified review</dt><dd>{belt.professionalReview.required ? 'Required for real work. ' : 'Not required for this practice. '}{belt.professionalReview.limit}</dd>
           </dl>
           <p class="record-links">Record a review: {reviewedStages.map((stage, index) => <>{index > 0 && ' · '}<a href={`/review-record?subject=belt:${belt.packId}:${stage.id}`} aria-label={`${stage.name} stage, ${belt.field}`}>{stage.name} stage</a></>)}</p>
+          <p class="record-links">Ask for a review: {reviewedStages.map((stage, index) => <>{index > 0 && ' · '}<a href={`/review-request?subject=belt:${belt.packId}:${stage.id}`} aria-label={`Request a ${stage.name} stage review, ${belt.field}`}>{stage.name} stage</a></>)}</p>
         </article>
       ))}
     </div>
@@ -143,7 +147,7 @@ const reviewedStages = map.belts.stages.filter((stage) => map.specialistBelts.re
   <section class="section outcome" id="boundaries" aria-labelledby="boundaries-title"><div class="container content">
     <h2 id="boundaries-title">Boundaries</h2>
     <ul class="boundaries">{map.boundaries.map((line) => <li>{line}</li>)}</ul>
-    <p><a href="/belts">Belt practice</a> · <a href="/belt-review">Prepare a practice review</a> · <a href="/certificates">Ranks and certificates</a> · <a href="/sensei">Sensei</a></p>
+    <p><a href="/belts">Belt practice</a> · <a href="/belt-review">Prepare a practice review</a> · <a href="/review-request">Ask for an independent review</a> · <a href="/certificates">Ranks and certificates</a> · <a href="/sensei">Sensei</a></p>
   </div></section>
 </BaseLayout>
 <style>

@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ReviewRequest from '../components/ReviewRequest.astro';
+import { RANKS } from '../lib/ranks';
+import { loadAssessmentMap } from '../lib/assessment-map';
+import { requestSubjects, type RequestPage } from '../lib/review-request';
+import { loadSpecialistBelts } from '../lib/specialist-belts-content';
+import { assessmentMap } from '../data/assessment-map';
+
+// The learner's half of an independent review (#90). The subjects are the review record's own (ranks and specialist
+// belts from the assessment map and the sector packs), so a request and the record that answers it cannot disagree.
+const map = loadAssessmentMap(assessmentMap);
+const subjects = requestSubjects(map, await loadSpecialistBelts(), (id) => RANKS.find((rank) => rank.id === id)?.name ?? id);
+const page: RequestPage = { subjects, evidence: map.pilot.evidence, steps: map.pilot.steps.map((step) => step.title) };
+
+// Where the learner's request and the reviewer's record sit in the pilot steps. A step title that is no longer in
+// the map fails the build, so this page cannot point at a step that was renamed.
+const ROLES: Record<string, { text: string; href?: string; link?: string }> = {
+  'Agree scope, access and consent': { text: 'You write the scope in your request on this page.' },
+  'Send the evidence packet': { text: 'You say where each kind of evidence is on this page.' },
+  'Set the unseen task': { text: 'You see its kind on this page, never the task.' },
+  'Record each criterion': { text: 'The reviewer uses the', href: '/review-record', link: 'review record' },
+};
+for (const title of Object.keys(ROLES)) {
+  if (!map.pilot.steps.some((step) => step.title === title)) throw new Error(`/review-request names the pilot step "${title}", which is not in src/data/assessment-map.ts`);
+}
+---
+<BaseLayout title="Ask for an independent review" description="Prepare a request for an independent review against a rank or a specialist belt: what the reviewer looks for, where your evidence is, the scope of consent and the kind of unseen task.">
+  <PageHero compact eyebrow="Ranks · specialist belts · independent review" title="Ask for an independent review" subtitle="See what a rank or specialist belt asks for, check that your evidence covers it, and prepare a request you hand privately to the pilot coordinator. Nothing leaves your device." ctas={[{ label: 'Prepare your request', href: '#rq-title', icon: 'arrow-right' }, { label: 'How a review works', href: '#how', variant: 'ghost', icon: 'arrow-right' }]} />
+
+  <section class="section"><div class="container content">
+    <p class="boundary" data-request-boundary><strong>A request, not an application:</strong> A review request awards nothing and is not an application for a certificate. The rubrics it names are proposed, not approved, and no pilot review has run yet. A rank certificate still follows the <a href="/certificates">certificate process</a>, with a separate Maintainer deciding. Dojo assessment is not professional licensure or accreditation. This website takes no authenticated submissions: your request stays on your device until you copy it.</p>
+  </div></section>
+
+  <section class="section outcome" id="how" aria-labelledby="how-title"><div class="container content">
+    <h2 id="how-title">How an independent review works, end to end</h2>
+    <p>Two people besides you take part: a pilot coordinator, who keeps the confidential record of the case, and an independent reviewer with relevant expertise and no conflict of interest. Nobody reviews their own work.</p>
+    <ol class="steps">
+      {map.pilot.steps.map((step) => {
+        const role = ROLES[step.title];
+        return (
+          <li>
+            <strong>{step.title}.</strong> {step.description}
+            {role && <><br /><span class="role">{role.text}{role.href && <> <a href={role.href}>{role.link}</a>.</>}</span></>}
+          </li>
+        );
+      })}
+    </ol>
+    <p>The reviewer records every criterion as observed, not yet observed or unclear, each with an evidence reference. There is no score and no pass mark. <em>Not yet observed</em> is a valid result that comes with a next step. See <a href="/assessment-map">what each rank and belt asks</a>.</p>
+  </div></section>
+
+  <section class="section"><div class="container content">
+    <ReviewRequest page={page} />
+    <p class="no-js">The request form needs JavaScript. Without it, use the <a href="/examples/belt-review-packet.md">review packet</a>: it asks for the same evidence, scope and consent. The criteria for each rank and belt are on the <a href="/assessment-map#rubrics">assessment map</a>.</p>
+    <p>You can copy or delete everything this site saved in your browser from <a href="/train#device-data-title">Saved on this device</a>. Your work and the review notes stay private unless you give written consent to share them.</p>
+  </div></section>
+</BaseLayout>
+<style>
+  .content { max-width: 75rem; }
+  .content > p, .content > ol { max-width: 75ch; }
+  .outcome { background: var(--paper-raised); }
+  .boundary { padding: var(--space-4); border-left: 4px solid var(--tone-gold); background: var(--paper-sunk); }
+  .steps li + li { margin-top: var(--space-3); }
+  .role { display: inline-block; margin-top: var(--space-1); font-weight: 700; }
+</style>
