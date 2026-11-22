@@ -53,7 +53,7 @@ const staged = [
   { title: 'Professional review', why: 'Every gate in the review package is not reviewed. A real review needs the qualified people the package names.' },
 ];
 const hardIssue = issueRegister.issues[0];
-const notCarried = cards.cards.flatMap((card) => ('notCarried' in card ? card.notCarried : []));
+const notCarried: string[] = cards.cards.flatMap((card) => ('notCarried' in card && Array.isArray(card.notCarried) ? card.notCarried : []));
 const statusLabel = (status: string) => (status === 'pass' ? 'Pass' : 'Fail');
 const sources = {
   sample: 'https://github.com/buildingSMART/Certification-datasets/blob/80d976a9b193a26a8e928c3e79bff67af1de68a8/IFC%204.0.2.1%20%28IFC%204%20ADD2%20TC1%29/ISO%20Spec%20-%20ReferenceView_V1.2/wall-with-opening-and-window.ifc',

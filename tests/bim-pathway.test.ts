@@ -176,7 +176,7 @@ describe('BIM pathway coordination, sequence and review (BIM-007, BIM-008, BIM-R
     expect(schedule.order).toEqual(['T-010', 'T-020', 'T-030', 'T-040']);
     expect(schedule.dependencies.map((dependency) => `${dependency.before}>${dependency.after}`)).toEqual(['T-010>T-020', 'T-010>T-030', 'T-030>T-040']);
     for (const dependency of schedule.dependencies) expect(dependency.because.length).toBeGreaterThan(0);
-    expect(schedule.tasks.flatMap((task) => task.builds).sort()).toEqual(['#102=IfcWindow', '#45=IfcWall', '#80=IfcOpeningElement', expect.stringMatching(/^#\d+=IfcDuctSegment$/)].sort());
+    expect(schedule.tasks.flatMap((task) => task.builds).sort()).toEqual(['#102=IfcWindow', '#150=IfcDuctSegment', '#45=IfcWall', '#80=IfcOpeningElement']);
     expect(schedule.tasks.every((task) => task.duration === null)).toBe(true);
     expect(schedule.tasks.find((task) => task.task === 'T-040')?.heldBy).toEqual(['ISS-001']);
     expect(schedule.readBack).toMatchObject({ matchesWhatWasWritten: true, workSchedules: 1 });
