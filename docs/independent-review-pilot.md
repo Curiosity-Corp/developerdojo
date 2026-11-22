@@ -13,7 +13,7 @@ review (Curiosity-Corp/developerdojo#80). No pilot review has run. The data behi
 Contents: [1 What the pilot is](#1-what-the-pilot-is-and-is-not) · [2 Roles](#2-roles) · [3 Evidence](#3-the-evidence-the-reviewer-receives)
 · [4 Run a pilot review](#4-run-a-pilot-review) · [5 After the review](#5-after-the-review-correct-withdraw-report)
 · [6 What the pilot reuses](#6-what-the-pilot-reuses) · [7 Measures](#7-measures) · [8 What the tests check](#8-what-the-tests-check)
-· [9 Specialist belts](#9-specialist-belts) · [10 The review record](#10-the-review-record)
+· [9 Specialist belts](#9-specialist-belts) · [10 The review record](#10-the-review-record) · [11 The review request](#11-the-review-request)
 
 ## 1. What the pilot is (and is not)
 
@@ -209,3 +209,24 @@ saved in their own browser (key `dojo:review-record`) and copied out as Markdown
 - The reviewer copies the review log into the confidential case issue (section 4, step 9). The record holds no
   learner name, and nothing on it awards a belt or a rank.
 - One record is kept per browser. Starting a new record removes the old one from the device, so copy the log first.
+
+## 11. The review request
+
+`/review-request` is the learner's side of steps 2 to 5 of section 4. It is a static page: what the learner types is
+saved in their own browser (key `dojo:review-request`) and copied out as Markdown, which the learner gives privately
+to the pilot coordinator for the confidential case issue. The website receives nothing.
+
+- The learner chooses the same subjects as the review record (a rank rubric, or a specialist belt at a reviewed
+  stage), built by `requestSubjects` in `src/lib/review-request.ts` from `reviewSubjects`, so a request and the
+  record that answers it cannot disagree. A link from `/assessment-map` can preselect a subject.
+- For each criterion the page shows the evidence it needs and whether the learner has said where that evidence is.
+  The learner brings five of the six kinds of section 3; the review log is the reviewer's, so the request never asks
+  for it.
+- The learner sees the *kind* of unseen task for the subject (`unseenTask` on each rank and on `specialistBelts` in
+  `src/data/assessment-map.ts`), never the task. For a specialist belt it names the field Randori the reviewer draws
+  on; the reviewer still picks a change the learner has not practiced (section 9).
+- A request is ready only when every learner evidence kind has a location, what the reviewer may open, keep and
+  share and until when is written, an AI choice is made, and the learner confirms it names no person and holds no
+  secret. Text that looks like a password, key or token is refused: the learner gives access instead.
+- The request awards nothing and is not an application for a certificate. The coordinator still records scope and
+  consent in the case issue (step 2) and chooses the reviewer (step 3).
