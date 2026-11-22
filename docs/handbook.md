@@ -238,7 +238,10 @@ First Monday of the month, about one hour. Put it in your calendar.
 
 - **Quarterly resource refresh** (first Monday of January, April, July and October, about two hours). Any
   resource that has gone 90 days since someone last opened it gets checked by a person.
-  Review the Armory, kata artifacts, benchmarks and standards separately using the [catalog lifecycle workflow](catalog-lifecycle.md); the resource job below covers YAML resources only.
+  Catalog entries (curated katas, kata recipes and the Armory) are listed every week instead: the scheduled
+  `catalog_lifecycle` job's `catalog-lifecycle-report.md` names each entry that is due or unavailable and
+  its owning role. Work them with the [catalog lifecycle workflow](catalog-lifecycle.md); the resource job
+  below covers YAML resources only.
   1. **Get the list.** Open **Build > Pipelines**, open the newest pipeline on `master` and press play on the
      manual job `stale_resources`. When it finishes, open the job's artifact `stale-resources.md`. It lists
      every resource whose `verifiedOn` is older than 90 days, grouped by provider, as a checklist. (On a

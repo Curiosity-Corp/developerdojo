@@ -84,7 +84,11 @@ export const armoryEntries: ArmoryEntryInput[] = [
       'The recorded runs exercised print mode with tools disabled. File editing and command execution are documented, not tested here.',
       'Model behaviour, flags and prices change between versions; re-run before relying on the results.',
     ],
-    review: { lastVerified: CHECKED, checked: 'Documentation, package metadata and the FND-001 run files.', nextReview: NEXT },
+    review: {
+      lastVerified: CHECKED, checked: 'Documentation, package metadata and the FND-001 run files.', nextReview: NEXT,
+      // Lifecycle exercise (#96): npm reports 2.1.330 as latest on 2026-11-22; the smoke test and runs used 2.1.329.
+      changeReported: { date: '2026-11-22', change: 'Claude Code 2.1.330 is now the current release. The smoke test and the recorded runs used 2.1.329, so steps and permissions have not been checked on the version you will install.' },
+    },
   },
   {
     id: 'claude-sonnet-5-5', name: 'Claude Sonnet 5.5', kind: 'model',

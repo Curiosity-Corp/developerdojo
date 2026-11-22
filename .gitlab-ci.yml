@@ -225,6 +225,27 @@ stale_resources:
     paths:
       - stale-resources.md
 
+# The catalog refresh list (#96): every catalog entry (curated kata, kata recipe, Armory entry) that is not
+# verified on the build date, by owning maintainer role, from the ledger the build publishes at
+# dist/catalog-lifecycle.json. Runs with the weekly link-check schedule and on every MR (so a reported change
+# shows up in the MR's artifact). Reads one file, needs no npm install; exits non-zero only if the ledger is
+# missing or malformed, because a stale entry is a job for a maintainer, not a broken build.
+catalog_lifecycle:
+  stage: e2e
+  needs: [build]
+  rules:
+    - !reference [.skip-in-production-e2e, rules]
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $LINK_CHECK == "true"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE != "schedule"'
+  script:
+    - node scripts/list-stale-resources.mjs --catalog dist/catalog-lifecycle.json --report catalog-lifecycle-report.md
+  artifacts:
+    when: always
+    expire_in: 90 days
+    paths:
+      - catalog-lifecycle-report.md
+
 # Blocking: Playwright e2e over the built site: every route, nav/footer links, image wiring, no
 # horizontal scroll at 390, and the axe-core WCAG 2.1 AA scan (zero serious/critical) in light and dark.
 e2e:

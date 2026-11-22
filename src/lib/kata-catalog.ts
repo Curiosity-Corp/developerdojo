@@ -1,16 +1,27 @@
 import { z } from 'zod';
+import { lifecycleRecordSchema, type LifecycleRecord, type LifecycleRecordInput } from './catalog-lifecycle';
 import { kataMetadataSchema, type KataMetadata, type KataMetadataInput } from './kata-schema';
 
 const entrySchema = z.strictObject({
   metadata: kataMetadataSchema,
   href: z.string().regex(/^\/katas\/[a-z0-9]+(?:-[a-z0-9]+)*$/),
   linkLabel: z.string().trim().min(1),
+  /**
+   * Optional here because recipes pass through this validator with their own review record. The curated
+   * catalog must carry it: see curatedKataEntrySchema and validateCuratedLifecycle (#96).
+   */
+  lifecycle: lifecycleRecordSchema.optional(),
 });
 
 /** A catalog entry as authored: optional metadata lists may be omitted. */
-export type KataCatalogEntryInput = { metadata: KataMetadataInput; href: string; linkLabel: string };
+export type KataCatalogEntryInput = { metadata: KataMetadataInput; href: string; linkLabel: string; lifecycle?: LifecycleRecordInput };
 /** A validated catalog entry: defaults applied, every reference checked. */
-export type KataCatalogEntry = { metadata: KataMetadata; href: string; linkLabel: string };
+export type KataCatalogEntry = { metadata: KataMetadata; href: string; linkLabel: string; lifecycle?: LifecycleRecord };
+/** A curated catalog entry (src/data/kata-catalog.ts): the lifecycle fields are required (#96). */
+export type CuratedKataEntryInput = KataCatalogEntryInput & { lifecycle: LifecycleRecordInput };
+export type CuratedKataEntry = KataCatalogEntry & { lifecycle: LifecycleRecord };
+
+const curatedKataEntrySchema = entrySchema.extend({ lifecycle: lifecycleRecordSchema });
 
 /**
  * The reference data each dimension is checked against. Every registry is plain data, so a new
@@ -46,6 +57,16 @@ function formatSchemaIssues(error: z.ZodError, input: unknown): string[] {
       && typeof entry.metadata === 'object' && entry.metadata !== null && 'id' in entry.metadata ? String(entry.metadata.id) : `entry ${String(index)}`;
     return `${id}: ${issue.path.slice(1).join('.') || '(entry)'}: ${issue.message}`;
   });
+}
+
+/**
+ * The curated catalog's lifecycle gate (#96): every entry names its area, maintainer role, verification date,
+ * what was checked, its provenance and its recorded state. A missing or malformed field fails the build and CI.
+ */
+export function validateCuratedLifecycle(input: unknown): CuratedKataEntry[] {
+  const parsed = z.array(curatedKataEntrySchema).safeParse(input);
+  if (!parsed.success) throw new KataCatalogError(formatSchemaIssues(parsed.error, input));
+  return parsed.data;
 }
 
 /** Foundation chains must end: a cycle would make "start with this foundation" unanswerable. */

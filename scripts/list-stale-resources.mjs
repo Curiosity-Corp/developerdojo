@@ -5,6 +5,12 @@
 // Exit codes: 0 the list was printed (it may be empty), 2 the script itself could not run.
 // Usage: node scripts/list-stale-resources.mjs [--days 90] [--today 2027-02-01] [--dir src/content/resources]
 //        [--report stale-resources.md]
+//
+// Catalog mode (#96): node scripts/list-stale-resources.mjs --catalog dist/catalog-lifecycle.json [--report file]
+// reads the lifecycle ledger the site build publishes (src/pages/catalog-lifecycle.json.ts) and lists every
+// catalog entry (curated kata, kata recipe, Armory entry) that is not verified, grouped by the maintainer role
+// that owns it, with the reason and the review date. State was computed on the build date; the ledger is
+// the single source, so this mode never recomputes it. Same exit codes.
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 
@@ -17,6 +23,7 @@ const DAYS = Number(option('days', '90'));
 const TODAY = option('today', new Date().toISOString().slice(0, 10));
 const DIR = option('dir', 'src/content/resources');
 const REPORT = option('report', '');
+const CATALOG = option('catalog', '');
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 async function yamlFiles(dir) {
@@ -37,7 +44,50 @@ function field(text, key) {
   return /^(["']).*\1$/.test(value) ? value.slice(1, -1) : value;
 }
 
+/** Markdown refresh list from the published lifecycle ledger: non-verified entries by owning role. */
+function catalogReport(ledger) {
+  if (!ledger || !Array.isArray(ledger.entries) || typeof ledger.generatedOn !== 'string') {
+    throw new Error('catalog ledger must have generatedOn and an entries array');
+  }
+  const open = ledger.entries.filter((entry) => entry.state !== 'verified');
+  const byRole = new Map();
+  for (const entry of open) {
+    const role = entry.maintainerRole || '(no maintainer role)';
+    if (!byRole.has(role)) byRole.set(role, []);
+    byRole.get(role).push(entry);
+  }
+  const lines = [
+    `# Catalog lifecycle (as built on ${ledger.generatedOn})`,
+    '',
+    `${open.length} of ${ledger.entries.length} catalog entries are not verified.`,
+  ];
+  if (open.length === 0) lines.push('', 'Every entry is verified and inside its review cadence.');
+  for (const role of [...byRole.keys()].sort((a, b) => a.localeCompare(b))) {
+    lines.push('', `## ${role}`, '');
+    for (const entry of byRole.get(role).sort((a, b) => a.id.localeCompare(b.id))) {
+      const label = entry.state === 'stale' ? 'review due' : entry.state;
+      const verified = entry.verifiedOn ? `verified ${entry.verifiedOn}` : 'never verified';
+      const due = entry.dueOn ? ` · due ${entry.dueOn}` : '';
+      lines.push(`- [ ] ${label}: [${entry.title}](${entry.href}) (${entry.surface} ${entry.id}, ${entry.area}) · ${verified}${due} · ${entry.reason ?? ''}`.trimEnd());
+    }
+  }
+  return `${lines.join('\n')}\n`;
+}
+
+async function catalogMain() {
+  let ledger;
+  try {
+    ledger = JSON.parse(await readFile(CATALOG, 'utf8'));
+  } catch (error) {
+    throw new Error(`cannot read catalog ledger ${CATALOG}: ${error.message}`);
+  }
+  const report = catalogReport(ledger);
+  process.stdout.write(report);
+  if (REPORT) await writeFile(REPORT, report);
+}
+
 async function main() {
+  if (CATALOG) return catalogMain();
   if (!Number.isFinite(DAYS) || DAYS < 0) throw new Error(`--days must be a number, got ${DAYS}`);
   const today = Date.parse(`${TODAY}T00:00:00Z`);
   if (Number.isNaN(today)) throw new Error(`--today must be YYYY-MM-DD, got ${TODAY}`);

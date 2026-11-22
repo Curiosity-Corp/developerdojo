@@ -1,0 +1,64 @@
+---
+/**
+ * The lifecycle line on a catalog entry (#96): when it was last verified, by which maintainer role, and
+ * whether it is verified, due for review or unavailable. When it is not verified, the reason and the fallback
+ * advice are always shown. Rendered at build time; the nightly rebuild moves an entry to "review due" once
+ * its cadence passes, so it works without JavaScript.
+ * Props: view (a LifecycleView), compact? (one line under a link, without provenance)
+ */
+import { FALLBACK_TEXT, STATE_LABELS, type LifecycleView } from '../lib/catalog-lifecycle';
+
+interface Props {
+  view: LifecycleView;
+  compact?: boolean;
+}
+const { view, compact = false } = Astro.props;
+const longDate = (iso: string): string => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+---
+
+<div class:list={['lifecycle', view.state, { compact }]} data-lifecycle={view.state} data-lifecycle-area={view.area}>
+  <p>
+    <strong>{STATE_LABELS[view.state]}.</strong>
+    {view.verifiedOn
+      ? <>Last verified <time datetime={view.verifiedOn}>{longDate(view.verifiedOn)}</time> by the {view.maintainerRole.toLowerCase()}.</>
+      : <>Not verified yet. Owner: the {view.maintainerRole.toLowerCase()}.</>}
+    {view.state === 'verified' && view.dueOn && <> Next check by <time datetime={view.dueOn}>{longDate(view.dueOn)}</time>.</>}
+  </p>
+  {view.state !== 'verified' && (
+    <p class="fallback" data-lifecycle-fallback>{view.reason} {FALLBACK_TEXT[view.state]}</p>
+  )}
+  {view.alternative && <p>Use instead: <a href={view.alternative.href}>{view.alternative.label}</a></p>}
+  {!compact && view.checked && <p class="detail"><strong>What was checked:</strong> {view.checked}</p>}
+  {!compact && (
+    <p class="detail" data-lifecycle-provenance><strong>Provenance:</strong> {view.provenance.join('; ')}.</p>
+  )}
+</div>
+
+<style>
+  .lifecycle {
+    margin: 0 0 var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    border-left: 4px solid var(--line-strong);
+    background: var(--paper-sunk);
+    border-radius: var(--radius);
+    font-size: var(--text-sm);
+    overflow-wrap: anywhere;
+  }
+  .lifecycle p {
+    margin: 0;
+  }
+  .lifecycle p + p {
+    margin-top: var(--space-2);
+  }
+  .lifecycle.stale,
+  .lifecycle.unavailable {
+    border-left-color: var(--rust-text);
+  }
+  .lifecycle.stale > p:first-child strong,
+  .lifecycle.unavailable > p:first-child strong {
+    color: var(--rust-text);
+  }
+  .compact {
+    padding-block: var(--space-1);
+  }
+</style>

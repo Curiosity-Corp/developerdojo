@@ -1,6 +1,7 @@
 import { kataDimensions } from '../data/kata-catalog';
 import { fixtureDimensions, fixtureStackRecipes, newField } from '../data/kata-fixtures';
 import { KataCatalogError, validateKataCatalog, type KataCatalogEntryInput, type KataReferences } from './kata-catalog';
+import { resolveLifecycle, type LifecycleView } from './catalog-lifecycle';
 import { kataRecipeSchema, type KataRecipe, type RecipeStatus } from './kata-recipe';
 
 /**
@@ -58,6 +59,36 @@ export interface ResolvedRecipe {
   usedBy: RecipeLink[];
   /** Evidence that someone other than the learner checks (the QA review path on /belt-review). */
   reviewedEvidence: boolean;
+  /** Verified, stale or unavailable on the build date (#96), with the owning role and provenance. */
+  lifecycle: LifecycleView;
+}
+
+/**
+ * A recipe's lifecycle (#96), read from the fields it already has: maintainer.role, review (or, while no
+ * independent review exists, the latest dated passed check), brief.inputs as provenance, and withdrawn as
+ * unavailable. Kata artifacts follow the artifact-validity cadence in the ownership matrix.
+ */
+export function recipeLifecycle(recipe: KataRecipe, today: string): LifecycleView {
+  const provenance = recipe.brief.inputs.map((input) => `${input.name}: ${input.source}`);
+  const common = { area: 'artifact-validity' as const, maintainerRole: recipe.maintainer.role, provenance };
+  if (recipe.status === 'withdrawn') {
+    return resolveLifecycle({ ...common, recorded: 'unavailable', reason: recipe.notice ?? 'This recipe was withdrawn.' }, today);
+  }
+  if (recipe.status === 'fixture') {
+    return resolveLifecycle({ ...common, recorded: 'verified', reason: 'This is a template example. Nobody has run or reviewed it.' }, today);
+  }
+  if (!('unavailable' in recipe.review)) {
+    return resolveLifecycle({ ...common, recorded: 'verified', verifiedOn: recipe.review.lastVerified, nextReview: recipe.review.nextReview, checked: recipe.review.checked }, today);
+  }
+  const checks = [
+    ...('unavailable' in recipe.setup ? [] : [recipe.setup.smokeTest]),
+    ...('unavailable' in recipe.verification ? [] : recipe.verification.checks),
+  ];
+  const latest = checks.flatMap((check) => check.result === 'passed' && check.date ? [check.date] : []).sort().at(-1);
+  return resolveLifecycle({
+    ...common, recorded: 'verified',
+    ...(latest ? { verifiedOn: latest, checked: `The maintainers' own checks passed. ${recipe.review.unavailable}` } : { reason: recipe.review.unavailable }),
+  }, today);
 }
 
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -143,6 +174,7 @@ export function resolveRecipes(records: readonly RecipeRecord[], context: Recipe
       foundations: recipe.metadata.foundationKataIds.flatMap((foundation) => links.get(foundation) ?? []),
       usedBy: dependents.filter((dependent) => dependent.foundations.includes(id)).flatMap((dependent) => links.get(dependent.id) ?? []),
       reviewedEvidence: recipe.metadata.verificationEvidence.some((evidence) => REVIEW_METHODS.has(evidence.method)),
+      lifecycle: recipeLifecycle(recipe, context.today),
     };
   });
 }

@@ -8,6 +8,7 @@ import PageHero from '../../components/PageHero.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { loadKataRecipes } from '../../lib/kata-recipe-content';
 import { STATUS_LABELS } from '../../lib/kata-recipes';
+import LifecycleNotice from '../../components/LifecycleNotice.astro';
 
 const recipes = await loadKataRecipes();
 const real = recipes.filter((item) => item.recipe.status !== 'fixture');
@@ -27,6 +28,7 @@ const fixtures = recipes.filter((item) => item.recipe.status === 'fixture');
               <a href={item.href}>{item.recipe.metadata.title}</a>
               <span class="meta">{item.recipe.metadata.id} · {STATUS_LABELS[item.recipe.status]}</span>
               <p>{item.recipe.summary}</p>
+              <LifecycleNotice view={item.lifecycle} compact />
             </li>
           ))}
         </ul>

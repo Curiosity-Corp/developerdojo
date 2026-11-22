@@ -28,6 +28,11 @@ Further rules the schema enforces:
 - Smoke-test evidence paths must be under `/examples/armory/` or `/examples/fnd-001/runs/`.
 - Smoke-test and security-review dates are on or before `review.lastVerified`; `nextReview` is after it.
   The page shows "review due" after `nextReview` (build date and visitor clock).
+- Each entry also shows its lifecycle line ([catalog-lifecycle.md](catalog-lifecycle.md)). The owning role and
+  cadence come from its kind: harnesses and models are re-checked every 30 days, skills and integrations
+  every 90. When an upstream change is noticed, add `review.changeReported: { date, change }` (not older
+  than `lastVerified`). The entry shows Review due with that text until it is checked again, and the weekly
+  `catalog_lifecycle` report lists it.
 - `withdrawn` keeps a stale entry with its reason and an optional `replacedBy`; a withdrawn entry is
   never listed.
 
