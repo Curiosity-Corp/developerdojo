@@ -13,6 +13,8 @@ The mission playbook (#95) is the `/mission-playbook` page. It has four parts, a
 3. **The routes.** Where a retrospective sends a verified technique improvement or benchmark correction: the Sensei
    contribution worksheets on `/sensei/contribute`.
 4. **The worked mission.** One real cross-field transfer with public provenance (see below).
+5. **Transfer practice.** A learner carries the worked mission's technique into a field they choose, with a practice
+   sheet per field (see below). The data is `src/data/mission-transfer.ts`, the rules `src/lib/mission-transfer.ts`.
 
 `src/lib/mission-playbook.ts` holds the schema and the rules. The page calls `loadMissionPlaybook`, so bad data fails
 the build with one readable message; `tests/mission-playbook.test.ts` runs the same check against the files, and
@@ -68,9 +70,42 @@ Penpot", but in UX-005 the assistant writes the web page. It was applied through
 [contributions/ux-005-review-gate.md](contributions/ux-005-review-gate.md)); its independent review is unavailable, so
 its status is `applied`, not `accepted`.
 
+## Transfer practice
+
+The `#practice` section of `/mission-playbook` lets a learner pick a field and get its practice sheet: the template's
+brief, transfer record and retrospective with every line the pathway can answer already filled in. The learner can
+put it into the editable brief (JavaScript; an edited brief is replaced only after a confirmation) or download it from
+`/examples/mission-transfer/<pack>.md` (works without JavaScript). Nothing is saved or sent.
+
+What a sheet holds, and where it comes from:
+
+| Line | Source |
+| --- | --- |
+| Foundation technique and katas | `workedMission.foundation` and the kata catalog |
+| The field's reference and review gate | the worked mission's adaptation, or `additionalFields`; the gate is quoted from the recipe |
+| First kata, unseen Randori, inputs and terms, checks, stack, constraints, capabilities, standards, qualified-review limit | `src/data/sector-packs.ts` and the recipes |
+| Transfer criteria and the evidence each asks for | the playbook's `rubricCriterionIds` in the assessment map |
+| Practice steps and the self-check | `src/data/mission-transfer.ts` |
+
+Rules the check enforces (`checkTransferPractice`, run by the build and by `tests/mission-transfer.test.ts`):
+
+- Every sector pack that builds on the worked mission's foundation katas has exactly one practice: the worked
+  mission's adaptation, or an entry in `additionalFields`. **A new pathway fails the build until it has one.**
+- An additional field's gate is a recipe of that pack, and the role exists.
+- The steps are `foundation, first-kata, gate, randori, evidence, review`, in that order.
+- Every sheet records the rubric result as Unavailable. The self-check is the learner's own and is never a rubric
+  result; only an independent reviewer records one (`docs/independent-review-pilot.md`).
+- Published text has no issue or MR references, hostnames or repository paths.
+
+To add a field: add its sector pack (`docs/sector-packs.md`), then add `{ packId, reference, gate }` to
+`additionalFields`, naming the recipe role whose review gate shows the field's independent check. The e2e spec
+`e2e/mission-transfer.spec.ts` lists the fields it expects; add the new one there.
+
 ## Limitations
 
 - No learner has used the playbook or run the worked mission, and no independent reviewer has assessed it.
 - The worked mission is the maintainers' own pathway work. A learner, client or customer mission needs written
   permission before any of it is published, and none is published here.
 - Professional approval is not given or implied: BIM and agriculture need qualified review for real use.
+- No learner has used a transfer practice sheet yet, and no independent reviewer has assessed a transfer made with
+  one. The sheets make the practice and the hand-over to a reviewer concrete; they do not stand in for either.

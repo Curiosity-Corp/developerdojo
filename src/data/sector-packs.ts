@@ -18,7 +18,7 @@ export const sectorPackInputs: SectorPackInput[] = [
     randoriKataId: 'UX-R01',
     foundationKataIds: ['PRACTICE-001', 'PRACTICE-002'],
     examples: { dir: '/examples/ux-pathway', readme: '/examples/ux-pathway/README.md' },
-    inputs: { none: 'Pocket Invoice is invented for practice. Its flow file, contrast pairs, tokens, Penpot file, drawings and screenshots are Dojo material under the MIT licence, generated from src/data.' },
+    inputs: { none: 'Pocket Invoice is invented for practice. Its flow file, contrast pairs, tokens, Penpot file, drawings and screenshots are Dojo material under the MIT licence, generated from the site’s own data.' },
     checks: [
       { name: 'The Penpot file is rebuilt from the flow and tokens, and every token colour pair meets its contrast ratio', ciJob: 'test', runs: 'tests/pocket-invoice.test.ts', outputs: ['/examples/ux-pathway/pocket-invoice.penpot', '/examples/ux-pathway/pocket-invoice-tokens.json'] },
       { name: 'The working example is driven through every state with axe, reflow and focus checks, and the clickable prototype through every transition', ciJob: 'e2e', runs: 'e2e/ux-pathway.spec.ts', outputs: ['/examples/ux-pathway/qa-report.md'] },
