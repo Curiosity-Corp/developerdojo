@@ -1,18 +1,25 @@
 #!/usr/bin/env node
 /**
- * UX pathway (M9): rebuilds the open, editable low-fidelity artifacts of the Pocket Invoice example, and the checks
- * on them, from the published inputs. No dependencies: the Node standard library only.
+ * UX pathway (M9): rebuilds the open, editable artifacts of the Pocket Invoice example, and the checks on them, from
+ * the published inputs: the low-fidelity drawings here, and the brand and style guide, components, responsive
+ * high-fidelity screens and visual-fidelity report in ux_hifi.mjs. No dependencies: the Node standard library only.
  *
  *   node tools/ux_pathway.mjs <pack dir> <out dir>
  *
  * Reads   <pack>/inputs/pocket-invoice-flow.json   the flow: screens, states and transitions
  *         <pack>/inputs/contrast-pairs.json        the token colour pairs and the contrast each must meet
  *         <pack>/pocket-invoice-tokens.json        the design tokens (W3C DTCG draft format, as Penpot imports it)
+ *         <pack>/inputs/brand.json                 the brand: name, wordmark, voice, rules and the two layout widths
  * Writes  <out>/sitemap.svg                         every state and numbered transition, grouped by screen
  *         <out>/journey.svg                         every low-fidelity screen on one canvas, connected
  *         <out>/wireframes/<state>.svg              one greyscale 390 px screen per state
  *         <out>/flow-checks.json, <out>/summary.md  what was checked and the result
  *         <out>/manifest.json                       the SHA-256 of each input and the list of outputs
+ *         <out>/style-guide.svg, style-guide.md     the brand and style guide, from the tokens and the brand file
+ *         <out>/components.svg                      every component, drawn only with token values
+ *         <out>/screens/phone|desktop/<state>.svg   each state in high fidelity at 390 px and at 1440 px
+ *         <out>/journey-high.svg                    every high-fidelity phone screen on one canvas, connected
+ *         <out>/fidelity-report.json, .md           the visual-fidelity check of those drawings against the tokens
  *
  * Every file is written even when a check fails, so you can see what failed; the exit code is then 1.
  * The site's CI reruns this script on every pipeline and fails if its output differs from generated/.
@@ -22,11 +29,16 @@ import { createHash } from 'node:crypto';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { contrast, flattenTokens, resolveToken } from './design_tokens.mjs';
+import { renderHifi } from './ux_hifi.mjs';
+
+export { contrast };
 
 export const INPUTS = {
   flow: 'inputs/pocket-invoice-flow.json',
   pairs: 'inputs/contrast-pairs.json',
   tokens: 'pocket-invoice-tokens.json',
+  brand: 'inputs/brand.json',
 };
 
 const FONT = "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif";
@@ -421,40 +433,31 @@ function journeySvg(flow) {
   });
 }
 
+/** The high-fidelity phone screens on one canvas, laid out and connected exactly like the low-fidelity journey. */
+function hifiJourneySvg(flow, boards, background) {
+  return diagram(flow, {
+    gap: 136,
+    rowGap: 56,
+    size: (state) => ({ w: FRAME_W * JOURNEY_SCALE, h: JOURNEY_LABEL + Math.ceil(boards[state.id].height * JOURNEY_SCALE) }),
+    sourcePort: (t, b) => {
+      const y = boards[t.from].hot[t.n];
+      return y === undefined ? undefined : b.y + JOURNEY_LABEL + y * JOURNEY_SCALE;
+    },
+    title: flow.product.name + ' journey in high fidelity: every phone screen on one canvas, connected by its ' + flow.transitions.length + ' transitions',
+    desc: 'The ' + flow.states.length + ' high-fidelity phone screens, placed as on the low-fidelity journey. Each line starts at the control that causes it, or at the side of the screen when no control does, and carries the same number as on the sitemap.',
+    legendNote: 'The screens are the files in screens/phone/ at half size. Lines that start at the side of a screen have no button: see the prototype-only links.',
+    draw: (state, b) => {
+      const board = boards[state.id];
+      return '<g' + attrs({ 'data-state': state.id }) + '>' +
+        text(b.x, b.y + 20, state.title, { size: 14, bold: true }) +
+        '<g' + attrs({ transform: 'translate(' + b.x + ' ' + (b.y + JOURNEY_LABEL) + ') scale(' + JOURNEY_SCALE + ')' }) + '>' +
+        board.body + rect(1, 1, FRAME_W - 2, board.height - 2, { stroke: background, sw: 2 }) +
+        '</g></g>';
+    },
+  });
+}
+
 // ---------------------------------------------------------------- checks
-
-function flattenTokens(file) {
-  const out = new Map();
-  const order = (file.$metadata && file.$metadata.tokenSetOrder) || Object.keys(file).filter((key) => !key.startsWith('$'));
-  const walk = (node, path) => {
-    if (node && typeof node === 'object' && '$value' in node) { out.set(path.join('.'), String(node.$value)); return; }
-    for (const [key, child] of Object.entries(node ?? {})) if (!key.startsWith('$')) walk(child, [...path, key]);
-  };
-  for (const set of order) walk(file[set], []);
-  return out;
-}
-
-function resolveToken(tokens, name, trail = []) {
-  if (!tokens.has(name)) throw new Error('unknown token ' + name + (trail.length ? ' (from ' + trail.join(' -> ') + ')' : ''));
-  if (trail.includes(name)) throw new Error('circular token reference ' + [...trail, name].join(' -> '));
-  const value = tokens.get(name);
-  const alias = /^\{([^{}]+)\}$/.exec(value);
-  return alias ? resolveToken(tokens, alias[1], [...trail, name]) : value;
-}
-
-function luminance(hex) {
-  const match = /^#([0-9a-f]{6})$/i.exec(hex);
-  if (!match) throw new Error(hex + ' is not a #rrggbb colour');
-  const [r, g, b] = [0, 2, 4].map((i) => parseInt(match[1].slice(i, i + 2), 16) / 255)
-    .map((c) => (c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)));
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-}
-
-/** WCAG 2 contrast ratio, from 1 to 21. */
-export function contrast(a, b) {
-  const [light, dark] = [luminance(a), luminance(b)].sort((x, y) => y - x);
-  return (light + 0.05) / (dark + 0.05);
-}
 
 function check(id, description, failures, detail) {
   return { id, description, pass: failures.length === 0, failures, ...(detail ? { detail } : {}) };
@@ -509,7 +512,7 @@ function summary(result, outputs) {
   const lines = [
     '# ' + result.product + ': low-fidelity artifacts and flow checks',
     '',
-    'Generated by tools/ux_pathway.mjs from ' + INPUTS.flow + ', ' + INPUTS.pairs + ' and ' + INPUTS.tokens + '. Do not edit: change an input and rerun the script.',
+    'Generated by tools/ux_pathway.mjs from ' + INPUTS.flow + ', ' + INPUTS.pairs + ', ' + INPUTS.tokens + ' and ' + INPUTS.brand + '. Do not edit: change an input and rerun the script.',
     '',
     'States: ' + result.states + '. Transitions: ' + result.transitions + '. Start: ' + result.start + '.',
     '',
@@ -531,6 +534,10 @@ function summary(result, outputs) {
     '',
     ...outputs.map((name) => '- ' + name),
     '',
+    '## High fidelity',
+    '',
+    'The brand and style guide, the components, the high-fidelity screens and their visual-fidelity check are in style-guide.md and fidelity-report.md.',
+    '',
     '## Not checked here',
     '',
     '- Whether the screens are clear or pleasant to a person. That needs the peer review in the kata.',
@@ -542,13 +549,16 @@ function summary(result, outputs) {
 }
 
 /** Builds every output file from parsed inputs. Pure: no file system access. */
-export function render({ flow, tokens, pairs, hashes }) {
+export function render({ flow, tokens, pairs, brand, hashes }) {
   const files = [];
   for (const state of flow.states) files.push(['wireframes/' + state.id + '.svg', wireframeSvg(flow, state)]);
   files.push(['sitemap.svg', sitemapSvg(flow)]);
   files.push(['journey.svg', journeySvg(flow)]);
   const result = checkFlow(flow, tokens, pairs);
   files.push(['flow-checks.json', JSON.stringify(result, null, 2) + '\n']);
+  const hifi = renderHifi({ flow, tokenFile: tokens, pairs, brand });
+  files.push(...hifi.files);
+  files.push(['journey-high.svg', hifiJourneySvg(flow, hifi.phoneBoards, hifi.frameStroke)]);
   const outputs = [...files.map(([name]) => name), 'manifest.json', 'summary.md'].sort();
   const drawings = {};
   for (const [name, content] of files) {
@@ -558,7 +568,7 @@ export function render({ flow, tokens, pairs, hashes }) {
   files.push(['manifest.json', JSON.stringify({ generator: 'tools/ux_pathway.mjs', inputs: hashes, outputs, drawings }, null, 2) + '\n']);
   files.push(['summary.md', summary(result, outputs)]);
   files.sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0));
-  return { files, failures: result.checks.filter((c) => !c.pass).map((c) => c.id + ': ' + c.failures.join(', ')) };
+  return { files, failures: [...result.checks.filter((c) => !c.pass).map((c) => c.id + ': ' + c.failures.join(', ')), ...hifi.failures] };
 }
 
 // ---------------------------------------------------------------- command line
@@ -580,7 +590,7 @@ function main(argv) {
     loaded[key] = input.data;
     hashes[name] = createHash('sha256').update(input.raw).digest('hex');
   }
-  const { files, failures } = render({ flow: loaded.flow, tokens: loaded.tokens, pairs: loaded.pairs, hashes });
+  const { files, failures } = render({ flow: loaded.flow, tokens: loaded.tokens, pairs: loaded.pairs, brand: loaded.brand, hashes });
   for (const [name, content] of files) {
     const path = join(outDir, name);
     mkdirSync(dirname(path), { recursive: true });

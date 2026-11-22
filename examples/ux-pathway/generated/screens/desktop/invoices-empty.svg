@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc" font-family="Source Sans Pro, sans-serif">
+<title id="title">Invoices: none yet (invoices-empty), high fidelity, desktop, 1440 px</title>
+<desc id="desc">The empty state explains what the screen is for and offers the one next step. Drawn from the token file and the components; every colour, size, weight, radius and border is a token value.</desc>
+<rect x="0" y="0" width="1440" height="900" fill="#f5f7fa"/>
+<g data-component="AppBar"><rect x="0" y="0" width="1440" height="64" fill="#ffffff"/><rect x="0" y="63" width="1440" height="1" fill="#d0d5dd"/><rect x="32" y="16" width="32" height="32" rx="8" fill="#175cd3"/><text x="48" y="39" font-size="19" font-weight="700" fill="#ffffff" text-anchor="middle" data-fit="32 64">P</text><text x="76" y="39" font-size="19" font-weight="700" fill="#101828" data-fit="76 1416">Pocket Invoice</text><text x="1408" y="38" font-size="16" fill="#175cd3" text-anchor="end" text-decoration="underline" data-fit="1320 1408">Invoices</text></g>
+<rect x="400" y="112" width="640" height="244" rx="8" fill="#ffffff" stroke="#d0d5dd" stroke-width="1"/>
+<g data-component="Heading/Page" data-element="0"><text x="432" y="177" font-size="32" font-weight="700" fill="#101828" data-fit="432 1008">Invoices</text></g>
+<g data-component="Text/Body" data-element="1"><text x="432" y="222" font-size="16" fill="#344054" data-fit="432 1008">You have not sent an invoice yet. Your first one takes about two</text><text x="432" y="246" font-size="16" fill="#344054" data-fit="432 1008">minutes.</text></g>
+<g data-component="Button/Primary" data-element="2" data-to="invoice-new"><rect x="432" y="276" width="296" height="48" rx="4" fill="#175cd3" data-control="button"/><text x="580" y="306" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle" data-fit="432 728">Create your first invoice</text></g>
+</svg>

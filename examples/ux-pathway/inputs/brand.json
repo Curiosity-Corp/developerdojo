@@ -1,0 +1,46 @@
+{
+  "note": "The Pocket Invoice brand, for the UX pathway's high-fidelity files. Read by tools/ux_hifi.mjs with pocket-invoice-tokens.json: colours, type sizes, weights, spacing, radii, borders and the control size come only from the token file; this file adds the words, the wordmark and the layout widths. Pocket Invoice is invented for practice.",
+  "name": "Pocket Invoice",
+  "tagline": "Invoices for freelancers, on a phone or a computer.",
+  "wordmark": {
+    "mark": "P",
+    "about": "A rounded square in color.action.primary with a bold P in color.text.inverse, then the name in bold color.text.default."
+  },
+  "voice": [
+    "Plain words that say what happens next: Create workspace, Send invoice.",
+    "Every error names the fix: Enter a workspace name, not Invalid input.",
+    "Keep what the user typed after every error and every way back."
+  ],
+  "rules": [
+    "Colours, type sizes, weights, spacing, radii and borders come only from the token file.",
+    "Text meets 4.5:1 contrast, large text 3:1; control boundaries meet 3:1 (WCAG 2.2, 1.4.3 and 1.4.11).",
+    "Buttons and inputs are at least size.control (48 px) tall, above the 24 px minimum target in WCAG 2.2 (2.5.8).",
+    "Never colour alone: an error also has a bar, the word Error and a message.",
+    "One primary button per screen."
+  ],
+  "nav": {
+    "label": "Invoices"
+  },
+  "signedInScreens": [
+    "invoices",
+    "new-invoice",
+    "review",
+    "sent"
+  ],
+  "layouts": {
+    "phone": {
+      "width": 390,
+      "minHeight": 844,
+      "appBarHeight": 64,
+      "dialogTop": 200
+    },
+    "desktop": {
+      "width": 1440,
+      "minHeight": 900,
+      "appBarHeight": 64,
+      "contentWidth": 640,
+      "dialogWidth": 560,
+      "dialogTop": 240
+    }
+  }
+}

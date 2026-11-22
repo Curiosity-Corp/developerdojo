@@ -3,13 +3,42 @@
   "inputs": {
     "inputs/pocket-invoice-flow.json": "dce94d018bb521e02ebee599cee41e300d0adc0712a041b3aac27cd9180a2882",
     "inputs/contrast-pairs.json": "536220ae89b3c892fac3fa4902c6278f1d0b50643e75be315ebda0a18e3695f1",
-    "pocket-invoice-tokens.json": "9855e7ba68d906fc9bb761bb9da20dd720511214810ab028c477a46736d55a4b"
+    "pocket-invoice-tokens.json": "9855e7ba68d906fc9bb761bb9da20dd720511214810ab028c477a46736d55a4b",
+    "inputs/brand.json": "d4ee1d75e0549268d25e58baaff157fae56bb6657d18fee153ecd436818ffee5"
   },
   "outputs": [
+    "components.svg",
+    "fidelity-report.json",
+    "fidelity-report.md",
     "flow-checks.json",
+    "journey-high.svg",
     "journey.svg",
     "manifest.json",
+    "screens/desktop/discard-dialog.svg",
+    "screens/desktop/invoice-new-error.svg",
+    "screens/desktop/invoice-new.svg",
+    "screens/desktop/invoice-review.svg",
+    "screens/desktop/invoice-sent.svg",
+    "screens/desktop/invoices-empty.svg",
+    "screens/desktop/invoices-list.svg",
+    "screens/desktop/send-error.svg",
+    "screens/desktop/sign-in.svg",
+    "screens/desktop/signup-error.svg",
+    "screens/desktop/signup.svg",
+    "screens/phone/discard-dialog.svg",
+    "screens/phone/invoice-new-error.svg",
+    "screens/phone/invoice-new.svg",
+    "screens/phone/invoice-review.svg",
+    "screens/phone/invoice-sent.svg",
+    "screens/phone/invoices-empty.svg",
+    "screens/phone/invoices-list.svg",
+    "screens/phone/send-error.svg",
+    "screens/phone/sign-in.svg",
+    "screens/phone/signup-error.svg",
+    "screens/phone/signup.svg",
     "sitemap.svg",
+    "style-guide.md",
+    "style-guide.svg",
     "summary.md",
     "wireframes/discard-dialog.svg",
     "wireframes/invoice-new-error.svg",
@@ -75,6 +104,106 @@
     "journey.svg": {
       "width": 2122,
       "height": 1808
+    },
+    "screens/phone/signup.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "screens/phone/signup-error.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "screens/phone/sign-in.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "screens/phone/invoices-empty.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "screens/phone/invoice-new.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "screens/phone/invoice-new-error.svg": {
+      "width": 390,
+      "height": 962
+    },
+    "screens/phone/discard-dialog.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "screens/phone/invoice-review.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "screens/phone/send-error.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "screens/phone/invoice-sent.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "screens/phone/invoices-list.svg": {
+      "width": 390,
+      "height": 844
+    },
+    "screens/desktop/signup.svg": {
+      "width": 1440,
+      "height": 900
+    },
+    "screens/desktop/signup-error.svg": {
+      "width": 1440,
+      "height": 900
+    },
+    "screens/desktop/sign-in.svg": {
+      "width": 1440,
+      "height": 900
+    },
+    "screens/desktop/invoices-empty.svg": {
+      "width": 1440,
+      "height": 900
+    },
+    "screens/desktop/invoice-new.svg": {
+      "width": 1440,
+      "height": 900
+    },
+    "screens/desktop/invoice-new-error.svg": {
+      "width": 1440,
+      "height": 962
+    },
+    "screens/desktop/discard-dialog.svg": {
+      "width": 1440,
+      "height": 900
+    },
+    "screens/desktop/invoice-review.svg": {
+      "width": 1440,
+      "height": 900
+    },
+    "screens/desktop/send-error.svg": {
+      "width": 1440,
+      "height": 900
+    },
+    "screens/desktop/invoice-sent.svg": {
+      "width": 1440,
+      "height": 900
+    },
+    "screens/desktop/invoices-list.svg": {
+      "width": 1440,
+      "height": 900
+    },
+    "components.svg": {
+      "width": 1264,
+      "height": 2206
+    },
+    "style-guide.svg": {
+      "width": 1264,
+      "height": 3164
+    },
+    "journey-high.svg": {
+      "width": 2122,
+      "height": 1835
     }
   }
 }
