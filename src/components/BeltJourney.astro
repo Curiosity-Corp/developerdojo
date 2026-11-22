@@ -1,12 +1,9 @@
 ---
 /** Practice framework. Local self-checks are learner notes and never an award. */
-const stages = [
-  { name: 'White', title: 'See and explain', proof: 'Identify the outcome, its audience and a check for success. Explain what the harness, model and instructions each do.' },
-  { name: 'Yellow', title: 'Follow a kata', proof: 'Reproduce a documented result, record your stack and show that you checked it against the recipe.' },
-  { name: 'Green', title: 'Adapt the technique', proof: 'Change a requirement or tool, explain your decision and compare the result against the same checks.' },
-  { name: 'Brown', title: 'Solve an unfamiliar challenge', proof: 'Choose your own stack, respond to a failure or new constraint, and defend the evidence in a Randori exercise.' },
-  { name: 'Black', title: 'Improve and teach', proof: 'Combine or invent a repeatable technique, explain its limits, and help another learner reproduce and evaluate it.' },
-] as const;
+import { assessmentMap } from '../data/assessment-map';
+
+// The five proposed stages have one source, shared with /assessment-map (#90).
+const stages = assessmentMap.belts.stages;
 const fields = [
   { id: 'software', title: 'Software and prototypes', artifact: 'A working, editable prototype and an explanation of who it serves.', verify: 'Test the main action, keyboard use and a narrow phone screen; record failures and repairs.', challenge: 'A key interaction must also work without a mouse.', href: '/katas/first-prototype', link: 'Build a prototype' },
   { id: 'ux', title: 'SaaS UX and visual design', artifact: 'A user journey and an editable screen or prototype with stated design choices.', verify: 'Check the journey, readable text, contrast and a phone-sized layout with the intended audience in mind.', challenge: 'A user cannot complete the main task in the originally planned way.', href: '/katas/ux-journey', link: 'Practice a UX journey' },
@@ -34,7 +31,7 @@ const checks = [
     <ol class="stage-grid">
       {stages.map((stage) => <li><span class={`stripe ${stage.name.toLowerCase()}`} aria-hidden="true"></span><h3>{stage.name}: {stage.title}</h3><p>{stage.proof}</p></li>)}
     </ol>
-    <p>Developer, Master Developer and Sensei are broader ranks. A Master Developer transfers judgment between tools or fields; a Sensei can explain, review and teach a technique. A field practice stage does not automatically confer either rank. See the <a href="/certificates">existing rank and certificate process</a>.</p>
+    <p>Developer, Master Developer and Sensei are broader ranks. A Master Developer transfers judgment between tools or fields; a Sensei can explain, review and teach a technique. A field practice stage does not automatically confer either rank. See the <a href="/certificates">existing rank and certificate process</a>, and the <a href="/assessment-map">assessment map</a> for what each rank assesses apart from the belts.</p>
   </div>
 </section>
 <section class="section" aria-labelledby="field-evidence-title">

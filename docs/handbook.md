@@ -13,6 +13,7 @@ Five other documents work together with this one:
 | [ROADMAP.md](../ROADMAP.md) | What is done, what is next, how to propose new work |
 | [docs/source-map.md](source-map.md) | Where the Curiosity learning material really lives, what is reusable and what must never be published |
 | [docs/certificates.md](certificates.md) | How a certificate is approved, added to the public list, corrected and removed. The list starts empty |
+| [docs/independent-review-pilot.md](independent-review-pilot.md) | The proposed independent review pilot behind the assessment map: evidence, steps, and how it reuses the certificate procedure and the Sensei handbook. Not run yet |
 
 Contents: [1 What the site is](#1-what-the-site-is) · [2 How it is built and published](#2-how-the-site-is-built-and-published)
 · [3 Where the source material lives](#3-where-the-source-material-lives) · [4 The positioning](#4-the-positioning-what-every-page-must-serve)

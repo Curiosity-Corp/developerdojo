@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { RANKS } from '../lib/ranks';
+import { DEMAND_LABELS, EVIDENCE_KINDS, OBSERVATIONS, loadAssessmentMap, type EvidenceKind } from '../lib/assessment-map';
+import { assessmentMap } from '../data/assessment-map';
+
+// Throws a readable error, and so fails the build, if the data breaks a rule in src/lib/assessment-map.ts (#90).
+const map = loadAssessmentMap(assessmentMap);
+const rankName = (id: string) => RANKS.find((rank) => rank.id === id)?.name ?? id;
+const evidenceTitle = (kind: EvidenceKind) => map.pilot.evidence.find((item) => item.kind === kind)?.title ?? kind;
+const PILOT_STATUS = { 'not-run': 'Not run yet', running: 'Running', reported: 'Reported' } as const;
+const TIER = { foundation: 'Foundation rubric', advanced: 'Advanced rubric' } as const;
+---
+<BaseLayout title="Assessment map: ranks, belts and independent review" description="What Developer, Master Developer and Sensei each assess, how that differs from field belts, the proposed advanced rubrics and an independent review pilot.">
+  <PageHero compact eyebrow="Ranks · belts · independent review" title="What each rank assesses" subtitle="A rank and a belt answer different questions. This map shows what each one looks for, the proposed rubrics and how an independent review would work." ctas={[{ label: 'See the ranks', href: '#ranks', icon: 'arrow-right' }, { label: 'See the review pilot', href: '#pilot', variant: 'ghost', icon: 'arrow-right' }]} />
+
+  <section class="section"><div class="container content">
+    <p class="boundary" data-map-status><strong>Proposed, not approved:</strong> Every rubric and belt stage on this page is a proposal for the program policy review. The existing <a href="/certificates">rank certificate requirements</a> stay exactly as they are. No belt is issued, and no pilot review has run yet.</p>
+  </div></section>
+
+  <section class="section outcome" id="ranks" aria-labelledby="ranks-title"><div class="container content">
+    <h2 id="ranks-title">Three ranks, three questions</h2>
+    <p>Developer, Master Developer and Sensei are the same in every field. Each rank asks its own question. None of them is earned by collecting belts.</p>
+    <div class="ranks">
+      {map.ranks.map((rank) => (
+        <article class="rank" id={`rank-${rank.rank}`} aria-labelledby={`rank-${rank.rank}-title`}>
+          <h3 id={`rank-${rank.rank}-title`}>{rankName(rank.rank)}</h3>
+          <p class="question">{rank.question}</p>
+          <h4>Assesses</h4>
+          <ul>{rank.assesses.map((line) => <li>{line}</li>)}</ul>
+          <h4>Does not assess</h4>
+          <ul>{rank.notAssessed.map((line) => <li>{line}</li>)}</ul>
+          <h4>Today</h4>
+          <p>{rank.currentProcedure.summary} <a href={rank.currentProcedure.href}>{rank.currentProcedure.label}</a></p>
+        </article>
+      ))}
+    </div>
+  </div></section>
+
+  <section class="section" id="belts" aria-labelledby="belts-title"><div class="container content">
+    <h2 id="belts-title">Belts answer a different question</h2>
+    <p class="question">{map.belts.question}</p>
+    <ul>{map.belts.assesses.map((line) => <li>{line}</li>)}</ul>
+    <p>A belt is about one field. A rank is about developing in any field, transferring judgment and teaching others. A belt stage never confers a rank on its own.</p>
+    <h3>Proposed belt progression</h3>
+    <ol class="stages">
+      {map.belts.stages.map((stage) => (
+        <li><span class={`stripe ${stage.id}`} aria-hidden="true"></span><strong>{stage.name}: {stage.title}</strong> <span class="tag">Proposed</span><br />{stage.proof}</li>
+      ))}
+    </ol>
+    <p><a href="/belts">Practice the belt stages in your field</a></p>
+  </div></section>
+
+  <section class="section outcome" id="rubrics" aria-labelledby="rubrics-title"><div class="container content">
+    <h2 id="rubrics-title">Proposed rubrics</h2>
+    <p>Advanced criteria always require an unseen constraint, a changed tool or a failure, and independent judgment. Master Developer also requires transfer to another tool family or field. Sensei also requires teaching or reviewing a technique that works across fields, with its domain adaptations.</p>
+    <p>A reviewer records each criterion as {OBSERVATIONS.map((label, index) => <>{index > 0 && (index === OBSERVATIONS.length - 1 ? ' or ' : ', ')}<em>{label}</em></>)}, with an evidence reference. There is no score and no pass mark. Absence of evidence is not a pass.</p>
+    {map.ranks.map((rank) => (
+      <div class="rubric" aria-labelledby={`rubric-${rank.rank}`}>
+        <h3 id={`rubric-${rank.rank}`}>{rankName(rank.rank)}: {TIER[rank.rubric.tier]} <span class="tag">Proposed</span></h3>
+        {rank.rubric.criteria.map((criterion) => (
+          <article class="criterion" id={criterion.id.toLowerCase()}>
+            <h4><span class="code">{criterion.id}</span> {criterion.title}</h4>
+            <dl>
+              <dt>Observed when</dt><dd>{criterion.observable}</dd>
+              <dt>Not yet observed when</dt><dd>{criterion.notYet}</dd>
+              <dt>Requires</dt><dd>{criterion.demands.map((demand) => DEMAND_LABELS[demand]).join(' · ')}</dd>
+              <dt>Evidence</dt><dd>{criterion.evidence.map(evidenceTitle).join(' · ')}</dd>
+            </dl>
+          </article>
+        ))}
+      </div>
+    ))}
+  </div></section>
+
+  <section class="section" id="pilot" aria-labelledby="pilot-title"><div class="container content">
+    <h2 id="pilot-title">Independent review pilot</h2>
+    <p><strong>Status: {PILOT_STATUS[map.pilot.status]}.</strong> The pilot tests whether these rubrics work with a real reviewer and real work. It uses the existing Sensei review guidance and certificate steps, and it adds no new way to earn a rank.</p>
+    <h3>What the reviewer receives</h3>
+    <ul class="evidence">
+      {EVIDENCE_KINDS.map((kind) => map.pilot.evidence.find((item) => item.kind === kind)).map((item) => item && <li><strong>{item.title}.</strong> {item.description}</li>)}
+    </ul>
+    <h3>How a pilot review runs</h3>
+    <ol class="steps">
+      {map.pilot.steps.map((step) => (
+        <li><strong>{step.title}.</strong> {step.description}{step.reuses && <> <span class="reuse">Uses: <a href={step.reuses.href}>{step.reuses.label}</a></span></>}</li>
+      ))}
+    </ol>
+    <h3>Pilot measures</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">Measure</th><th scope="col">Value</th><th scope="col">Why</th></tr></thead>
+        <tbody>
+          {map.pilot.measures.map((measure) => (
+            <tr><th scope="row">{measure.name}</th><td data-measure-value>{measure.value ?? 'Unavailable'}</td><td>{measure.why}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div></section>
+
+  <section class="section outcome" id="boundaries" aria-labelledby="boundaries-title"><div class="container content">
+    <h2 id="boundaries-title">Boundaries</h2>
+    <ul class="boundaries">{map.boundaries.map((line) => <li>{line}</li>)}</ul>
+    <p><a href="/belts">Belt practice</a> · <a href="/belt-review">Prepare a practice review</a> · <a href="/certificates">Ranks and certificates</a> · <a href="/sensei">Sensei</a></p>
+  </div></section>
+</BaseLayout>
+<style>
+  .content { max-width: 75rem; }
+  .content > p, .content > ul, .content > ol { max-width: 75ch; }
+  .outcome { background: var(--paper-raised); }
+  .boundary { padding: var(--space-4); border-left: 4px solid var(--tone-gold); background: var(--paper-sunk); }
+  .question { font-size: var(--text-lg, 1.125rem); font-weight: 700; }
+  .ranks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: var(--space-3); margin-block: var(--space-4); }
+  article { min-width: 0; padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); overflow-wrap: anywhere; }
+  .rank h3 { font-size: var(--text-xl); margin-top: 0; }
+  .rank h4 { margin: var(--space-3) 0 var(--space-1); }
+  .stages { list-style: none; padding: 0; display: grid; gap: var(--space-2); }
+  .stages li { padding: var(--space-3); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); }
+  /* The same stripe colors as the belts page (BeltJourney.astro). */
+  .stripe { display: inline-block; width: 2rem; height: .55rem; margin-right: var(--space-2); border: 1px solid var(--line-strong); border-radius: 1rem; background: #fff; vertical-align: middle; }
+  .stripe.yellow { background: #e4b83c; } .stripe.green { background: #417257; } .stripe.brown { background: #79523e; } .stripe.black { background: #222; }
+  .tag { display: inline-block; padding: 0 var(--space-2); border: 1px solid var(--line); border-radius: 999px; font-size: 0.85em; font-weight: 700; }
+  .rubric { margin-block: var(--space-5); }
+  .rubric h3 { font-size: var(--text-xl); }
+  .criterion + .criterion { margin-top: var(--space-3); }
+  .criterion h4 { margin-top: 0; }
+  .code { font-family: var(--font-mono, monospace); margin-right: var(--space-2); }
+  dl { display: grid; grid-template-columns: minmax(8rem, max-content) minmax(0, 1fr); gap: var(--space-2) var(--space-3); margin: 0; }
+  dt { font-weight: 700; }
+  dd { margin: 0; }
+  @media (max-width: 40rem) { dl { grid-template-columns: minmax(0, 1fr); } dd { margin-bottom: var(--space-2); } }
+  li + li { margin-top: var(--space-2); }
+  .reuse { display: inline-block; }
+  .table-wrap { max-width: 100%; overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; max-width: 75ch; }
+  th, td { text-align: left; vertical-align: top; padding: var(--space-2); border-bottom: 1px solid var(--line); }
+</style>
