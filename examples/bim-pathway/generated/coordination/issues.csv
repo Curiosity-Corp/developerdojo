@@ -1,0 +1,2 @@
+id,type,status,priority,title,elements,GlobalIds,measure,assignedTo,reviewGates
+ISS-001,Clash,Open,High,D-01 Supply duct (practice) passes through Wall for Test Example with no opening for it,#150=IfcDuctSegment #45=IfcWall,1g6W_KPS9IgQUhTVWD7nUg 3ZYW59sxj8lei475l7EhLU,overlap_m3=0.03,Services coordinator (practice role),G2 G3

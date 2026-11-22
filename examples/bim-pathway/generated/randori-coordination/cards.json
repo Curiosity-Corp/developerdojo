@@ -1,0 +1,69 @@
+{
+  "cards": [
+    {
+      "card": "Keep 0.05 m clear between the duct and every other element, not only avoid touching.",
+      "changes": "requirement",
+      "clearanceClashes": [
+        "#102=IfcWindow"
+      ],
+      "evidence": [
+        "randori-coordination/clearance.json",
+        "randori-coordination/issues-clearance.json",
+        "randori-coordination/issues-clearance.bcf"
+      ],
+      "id": "CARD-R",
+      "newIssues": [
+        "ISS-002"
+      ],
+      "result": "1 new issue(s): ISS-002"
+    },
+    {
+      "card": "The receiving tool reads BCF 2.1 only. Export the same issues as BCF 2.1 and say what does not carry over.",
+      "changes": "format",
+      "evidence": [
+        "randori-coordination/issues-bcf21.bcf",
+        "randori-coordination/bcf21-check.json"
+      ],
+      "fieldOfViewWithinOfficial21Range": true,
+      "id": "CARD-F",
+      "notCarried": [
+        "extensions.xml: the BCF 3.0 lists of allowed topic types, statuses, priorities, labels and users have no file in this 2.1 export",
+        "PerspectiveCamera/AspectRatio: BCF 2.1 has no aspect ratio",
+        "The Comments and Viewpoints lists move out of Topic to the end of the markup file (structure, not loss)"
+      ],
+      "result": "valid against buildingSMART's official BCF 2.1 schema files and read back (1 topic(s)); some information does not carry over",
+      "schemaNote": "The parts are validated against buildingSMART's official BCF-XML v2.1 schema files, kept unchanged beside the script, because the installed bcf-client 0.9.0 lacks schema files (v3/xsd/documents.xsd among them). The official 2.1 visinfo.xsd allows a perspective FieldOfView of 45 to 60 degrees; the export uses 60 and the script checks the range as well."
+    },
+    {
+      "boxRouteChecks": [
+        {
+          "agree": true,
+          "boxes_m3": 0.15,
+          "built_m3": 0.15,
+          "element": "#150=IfcDuctSegment"
+        },
+        {
+          "agree": true,
+          "boxes_m3": 0.2,
+          "built_m3": 0.2,
+          "element": "#102=IfcWindow"
+        },
+        {
+          "agree": true,
+          "boxes_m3": 1.5,
+          "built_m3": 1.5,
+          "element": "#45=IfcWall"
+        }
+      ],
+      "card": "Find the clashes with a second tool and compare, instead of trusting one clash engine.",
+      "changes": "tool",
+      "evidence": [
+        "coordination/clashes.json"
+      ],
+      "id": "CARD-T",
+      "limitation": "Box arithmetic is not a clash engine: it is right here only because each built volume equals its box volume (the wall: less the opening). Any sloped, curved or hollow element would stop the script instead of giving an answer.",
+      "result": "IfcOpenShell clash tree (collision mode) and box arithmetic agree on every pair; the box route only holds because every element here is box-shaped, which the script checks. Validation exception: IfcClash 0.9 intersection mode (tolerance 0.002 m) reports no clash here, although its collision mode and the box route both find ['#45=IfcWall']. It is recorded and not relied on. Do not read an empty result from one mode as no clash.",
+      "routesAgree": true
+    }
+  ]
+}

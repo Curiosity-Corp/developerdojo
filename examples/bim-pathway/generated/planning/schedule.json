@@ -1,0 +1,143 @@
+{
+  "checked": "Tasks from the practice brief, written into the IFC copy with ifcopenshell.api.sequence: each physical element is assigned to the one task that builds it (IfcRelAssignsToProduct), and each dependency (IfcRelSequence, finish to start) is derived from a relationship in the model or an open issue, never typed in. The order is computed, and a cycle stops the script. No durations or dates are set, because no productivity source has been chosen.",
+  "dependencies": [
+    {
+      "after": "T-020",
+      "because": [
+        "#102 fills #80 (#112 IfcRelFillsElement), which voids #45 (#85 IfcRelVoidsElement)"
+      ],
+      "before": "T-010",
+      "type": "FINISH_START"
+    },
+    {
+      "after": "T-030",
+      "because": [
+        "ISS-001: #150 passes through #45, so it goes in after it"
+      ],
+      "before": "T-010",
+      "type": "FINISH_START"
+    },
+    {
+      "after": "T-040",
+      "because": [
+        "ISS-001: T-040 seals the penetration once the duct is in"
+      ],
+      "before": "T-030",
+      "type": "FINISH_START"
+    }
+  ],
+  "order": [
+    "T-010",
+    "T-020",
+    "T-030",
+    "T-040"
+  ],
+  "readBack": {
+    "builds": [
+      [
+        "T-010",
+        "#45=IfcWall"
+      ],
+      [
+        "T-010",
+        "#80=IfcOpeningElement"
+      ],
+      [
+        "T-020",
+        "#102=IfcWindow"
+      ],
+      [
+        "T-030",
+        "#150=IfcDuctSegment"
+      ]
+    ],
+    "matchesWhatWasWritten": true,
+    "sequences": [
+      [
+        "T-010",
+        "T-020",
+        "FINISH_START"
+      ],
+      [
+        "T-010",
+        "T-030",
+        "FINISH_START"
+      ],
+      [
+        "T-030",
+        "T-040",
+        "FINISH_START"
+      ]
+    ],
+    "tasks": [
+      "T-010",
+      "T-020",
+      "T-030",
+      "T-040"
+    ],
+    "workSchedules": 1
+  },
+  "tasks": [
+    {
+      "after": [],
+      "because": [],
+      "builds": [
+        "#45=IfcWall",
+        "#80=IfcOpeningElement"
+      ],
+      "duration": null,
+      "heldBy": [],
+      "name": "Build wall with opening",
+      "predefinedType": "CONSTRUCTION",
+      "task": "T-010"
+    },
+    {
+      "after": [
+        "T-010"
+      ],
+      "because": [
+        "#102 fills #80 (#112 IfcRelFillsElement), which voids #45 (#85 IfcRelVoidsElement)"
+      ],
+      "builds": [
+        "#102=IfcWindow"
+      ],
+      "duration": null,
+      "heldBy": [],
+      "name": "Install window",
+      "predefinedType": "INSTALLATION",
+      "task": "T-020"
+    },
+    {
+      "after": [
+        "T-010"
+      ],
+      "because": [
+        "ISS-001: #150 passes through #45, so it goes in after it"
+      ],
+      "builds": [
+        "#150=IfcDuctSegment"
+      ],
+      "duration": null,
+      "heldBy": [],
+      "name": "Install supply duct",
+      "predefinedType": "INSTALLATION",
+      "task": "T-030"
+    },
+    {
+      "after": [
+        "T-030"
+      ],
+      "because": [
+        "ISS-001: T-040 seals the penetration once the duct is in"
+      ],
+      "builds": [],
+      "duration": null,
+      "heldBy": [
+        "ISS-001"
+      ],
+      "name": "Fire-stop duct penetration",
+      "predefinedType": "CONSTRUCTION",
+      "task": "T-040"
+    }
+  ]
+}

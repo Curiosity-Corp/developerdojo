@@ -334,6 +334,38 @@
       "state": "verified"
     },
     {
+      "id": "BIM-007",
+      "surface": "recipe",
+      "title": "Find a clash and raise it as a BCF issue",
+      "href": "/katas/bim-007-coordination-issues",
+      "area": "artifact-validity",
+      "maintainerRole": "BIM pathway maintainer",
+      "provenance": [
+        "wall-with-opening-and-window.edited.ifc: /examples/bim-pathway/generated/wall-with-opening-and-window.edited.ifc",
+        "coordination-brief.json: /examples/bim-pathway/coordination-brief.json"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent or professional review yet.",
+      "verifiedOn": "2026-11-22",
+      "dueOn": "2027-02-20",
+      "state": "verified"
+    },
+    {
+      "id": "BIM-008",
+      "surface": "recipe",
+      "title": "Map the model to a sequence and an unpriced cost plan",
+      "href": "/katas/bim-008-schedule-and-cost-plan",
+      "area": "artifact-validity",
+      "maintainerRole": "BIM pathway maintainer",
+      "provenance": [
+        "wall-with-opening-and-window.coordination.ifc: /examples/bim-pathway/generated/coordination/wall-with-opening-and-window.coordination.ifc",
+        "coordination-brief.json: /examples/bim-pathway/coordination-brief.json"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent or professional review yet.",
+      "verifiedOn": "2026-11-22",
+      "dueOn": "2027-02-20",
+      "state": "verified"
+    },
+    {
       "id": "BIM-R01",
       "surface": "recipe",
       "title": "BIM Randori: an unseen requirement change",
@@ -347,6 +379,22 @@
       "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent or professional review yet.",
       "verifiedOn": "2026-11-21",
       "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "BIM-R02",
+      "surface": "recipe",
+      "title": "Specialist BIM Randori: a changed requirement, format or tool",
+      "href": "/katas/bim-r02-randori",
+      "area": "artifact-validity",
+      "maintainerRole": "BIM pathway maintainer",
+      "provenance": [
+        "wall-with-opening-and-window.coordination.ifc: /examples/bim-pathway/generated/coordination/wall-with-opening-and-window.coordination.ifc",
+        "issues.bcf and issues.json: /examples/bim-pathway/generated/coordination/"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent or professional review yet.",
+      "verifiedOn": "2026-11-22",
+      "dueOn": "2027-02-20",
       "state": "verified"
     },
     {

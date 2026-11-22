@@ -1,0 +1,67 @@
+{
+  "official": {
+    "commit": "a0fbab777706b5ac282105f724979e1f8e271e51",
+    "repository": "https://github.com/buildingSMART/BCF-XML",
+    "tag": "v2.1"
+  },
+  "parts": [
+    {
+      "errors": [],
+      "part": "bcf.version",
+      "schema": "version.xsd",
+      "topic": null
+    },
+    {
+      "errors": [],
+      "part": "markup.bcf",
+      "schema": "markup.xsd",
+      "topic": "b6f57a89-fdff-541c-b852-27ec4f72bb47"
+    },
+    {
+      "errors": [],
+      "part": "viewpoint.bcfv",
+      "schema": "visinfo.xsd",
+      "topic": "b6f57a89-fdff-541c-b852-27ec4f72bb47"
+    }
+  ],
+  "readBack": {
+    "tool": "bcf-client",
+    "topics": [
+      {
+        "guid": "b6f57a89-fdff-541c-b852-27ec4f72bb47",
+        "selected": [
+          "1g6W_KPS9IgQUhTVWD7nUg",
+          "3ZYW59sxj8lei475l7EhLU"
+        ],
+        "selectedInModel": true,
+        "status": "Open",
+        "title": "ISS-001: D-01 Supply duct (practice) passes through Wall for Test Example with no opening for it"
+      }
+    ]
+  },
+  "schemaFiles": [
+    {
+      "file": "schemas/bcf-xml/v2.1/markup.xsd",
+      "gitBlob": "037464ee8f6726f1c8ef08fb900a06090fa1d5e6",
+      "matchesOfficial": true
+    },
+    {
+      "file": "schemas/bcf-xml/v2.1/project.xsd",
+      "gitBlob": "8203889b6c71edba8588319bbb05c32ef00e28e5",
+      "matchesOfficial": true
+    },
+    {
+      "file": "schemas/bcf-xml/v2.1/version.xsd",
+      "gitBlob": "55cbd2be900f0b8b9f9c246e6705a9066681b64c",
+      "matchesOfficial": true
+    },
+    {
+      "file": "schemas/bcf-xml/v2.1/visinfo.xsd",
+      "gitBlob": "19cdf95d9746f421876c6de6796112622d79f3d0",
+      "matchesOfficial": true
+    }
+  ],
+  "snapshots": 0,
+  "validatedWith": "buildingSMART's official BCF-XML v2.1 schema files, unchanged, with xmlschema 4.3.2",
+  "version": "2.1"
+}
