@@ -107,7 +107,8 @@ try {
         violations: result.violations,
         violationKeys: violationKeys(result.violations),
         incompleteRules: result.incomplete.map((r) => r.id).sort(),
-        ruleIds: [...result.passes, ...result.violations, ...result.incomplete, ...result.inapplicable].map((r) => r.id).sort(),
+        // A rule can appear in two lists (color-contrast both passes and is incomplete), so count each rule once.
+        ruleIds: [...new Set([...result.passes, ...result.violations, ...result.incomplete, ...result.inapplicable].map((r) => r.id))].sort(),
       };
       report.measurements.push(sample);
       await save();

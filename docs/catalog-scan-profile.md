@@ -11,4 +11,19 @@ The first round of this experiment (job 2315492, 2026-11-11) compared the baseli
 
 Read the samples per theme and treatment, including every violation and affected node. A difference between samples is evidence to inspect. One run cannot establish a reliable speedup: repeat on separate runs, and change the runner load. A failed job or a partial artifact may mean an interrupted scan or a setup failure. The job also fails if a scan finds a serious or critical violation. The normal blocking checks keep their own independent result.
 
+## Results, 2026-11-22 (job 2887712, pipeline 162011)
+
+One run on one shared runner, Chromium 156, 912-card catalog with 15,454 DOM elements, while the same pipeline's `e2e` job ran beside it.
+
+| Theme | Baseline scans | Violations-only scans |
+| --- | --- | --- |
+| Light | 29.1 s, 47.9 s | 26.9 s, 24.8 s |
+| Dark | 51.0 s, 38.2 s | 37.6 s, 24.9 s |
+
+- **Same findings.** Every scan in both treatments found zero violations, and `agreement` is true in both themes. Every scan ran the same 90 rules; `color-contrast` was incomplete in all of them.
+- **Faster, with overlap.** The violations-only scans averaged 28.6 s against 41.6 s for the baseline, but the slowest violations-only scan (37.6 s) is slower than the fastest baseline scan (29.1 s). Runner load explains part of the spread, so the size of the saving is not settled by this run.
+- **Where the time goes.** On its own, `color-contrast` took 14.6 s (light) and 16.5 s (dark), with 7,549 incomplete nodes; this is the cost tracked in #120. `region`, which passes 13,128 nodes, took 11.6 s and 8.2 s. Every other rule took under 5 s. These are the two rules where node detail for non-violations costs the most, which is the work `resultTypes` removes.
+
+**Decision.** The release check in `e2e/qa.spec.ts` now passes `resultTypes: ['violations']` for every page. It cannot reduce coverage: every rule still runs on every node, the assertion reads only `violations`, and every violation keeps all its nodes. The `[catalog-diagnostics]` lines in each `e2e` log give the before/after scan times on later pipelines. In the first round of the per-rule pass, `color-contrast` ran twice because it is listed both as passing and as incomplete; the rule list is now de-duplicated.
+
 These measurements describe a shared CI runner. They do not measure real-device navigation, filtering, layout or paint, and they do not replace a person's accessibility review. If violations-only scans are consistently faster and find the same violation nodes, the release check in `e2e/qa.spec.ts` can adopt the same option. The rules and the nodes checked stay the same. Do not remove catalog entries, filters, no-JavaScript access, WCAG rules or browser checks to improve a measurement.
