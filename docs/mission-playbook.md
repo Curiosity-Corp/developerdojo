@@ -56,13 +56,17 @@ contribution work in #94:
 
 1. Fill the worksheet the route names (`/examples/sensei/kata-improvement.md` or
    `/examples/sensei/benchmark-correction.md`).
-2. Open a GitLab issue with the matching template (`Kata_improvement` or `Benchmark_correction`), or add a note to
-   #94 while that process is being built, with the evidence (recipe, role, the text as it reads, the proposal).
+2. Open a GitLab issue with the matching template (`Kata_improvement` or `Benchmark_correction`) with the evidence
+   (recipe, role, the text as it reads, the proposal). The process is [sensei-contributions.md](sensei-contributions.md).
 3. Add the item to `workedMission.retrospective.improvements` (or the learner's own retrospective) with
-   `status: 'routed'`. Change it to `accepted` or `declined` only after a reviewer has decided.
+   `status: 'routed'`. Set it to `applied` when the change is merged with no independent review yet, and to
+   `accepted` or `declined` only after a reviewer who is not the author has decided. The contribution log check
+   fails when this status and the log's outcome disagree.
 
-The worked mission routes one: UX-005's drafting-assistant review gate says lines are compared "before it goes into
-Penpot", but in UX-005 the assistant writes the web page.
+The worked mission routed one: UX-005's drafting-assistant review gate said lines are compared "before it goes into
+Penpot", but in UX-005 the assistant writes the web page. It was applied through the contribution process (#94,
+[contributions/ux-005-review-gate.md](contributions/ux-005-review-gate.md)); its independent review is unavailable, so
+its status is `applied`, not `accepted`.
 
 ## Limitations
 

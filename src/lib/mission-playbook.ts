@@ -92,7 +92,8 @@ export const workedMissionSchema = z.strictObject({
       observed: text,
       proposal: text,
       evidence: z.strictObject({ recipe: z.string().regex(/^[a-z0-9-]+$/), role: label }),
-      status: z.enum(['routed', 'accepted', 'declined']),
+      /** applied: changed in the kata, with no independent review recorded yet (src/lib/sensei-contributions.ts). */
+      status: z.enum(['routed', 'applied', 'accepted', 'declined']),
     })),
     sharing: text,
   }),

@@ -85,10 +85,10 @@ export const missionPlaybook = {
         {
           kind: 'technique-improvement',
           title: 'UX-005: the review gate names the wrong destination',
-          observed: 'In UX-005 the drafting assistant writes the web page, but its review gate says each line is compared before it goes into Penpot. The wording matches the earlier Penpot katas, where it is right.',
+          observed: 'In UX-005 the drafting assistant writes the web page, but its review gate said each line is compared before it goes into Penpot. The wording matched the earlier Penpot katas, where it is right.',
           proposal: 'Name the page instead: compare every line with the flow and the done-when list before it goes into the page.',
           evidence: { recipe: 'ux-005-implement-and-qa', role: 'Drafting assistant' },
-          status: 'routed',
+          status: 'applied',
         },
       ],
       sharing: 'Everything here is already public on the pathway pages under the terms they record. Nothing private was used, so nothing had to be removed.',

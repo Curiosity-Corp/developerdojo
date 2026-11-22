@@ -117,6 +117,17 @@ const verification = z.strictObject({
   failures: z.array(z.strictObject({ observed: text, correction: text })).default(() => []),
 });
 
+/**
+ * One entry in the recipe's change history (#94): what changed, why, and who reviewed it independently. The
+ * review is a person's recorded decision or { unavailable: "<why>" }; it is never implied by the change itself.
+ */
+const change = z.strictObject({
+  date: isoDate,
+  change: text,
+  reason: text,
+  review: fact,
+});
+
 const adaptation = z.strictObject({ variations: z.array(z.strictObject({ change: text, effect: text })).min(1) });
 
 const randori = z.strictObject({ challenge: text, constraints: z.array(text).min(1), evaluation: text });
@@ -155,6 +166,8 @@ export const kataRecipeSchema = z.strictObject({
   randori: orUnavailable(randori),
   maintenance: z.strictObject({ cadence: text, caveats: z.array(text).min(1) }),
   downloads: z.array(download).default(() => []),
+  /** Change history, oldest first. Shown on the page; a contribution that changes the recipe adds an entry. */
+  changes: z.array(change).default(() => []),
 }).superRefine((recipe, ctx) => {
   const isFixtureId = recipe.metadata.id.startsWith('FIX');
   if ((recipe.status === 'fixture') !== isFixtureId) {
@@ -189,6 +202,10 @@ export const kataRecipeSchema = z.strictObject({
   if (!('unavailable' in recipe.review) && recipe.review.nextReview <= recipe.review.lastVerified) {
     ctx.addIssue({ code: 'custom', path: ['review', 'nextReview'], message: 'nextReview must be after lastVerified' });
   }
+  recipe.changes.forEach((entry, index) => {
+    const previous = recipe.changes[index - 1];
+    if (previous && entry.date < previous.date) ctx.addIssue({ code: 'custom', path: ['changes', index, 'date'], message: 'list changes oldest first' });
+  });
   const seen = new Set<string>();
   recipe.prompts.forEach((item, index) => {
     if (seen.has(item.id)) ctx.addIssue({ code: 'custom', path: ['prompts', index, 'id'], message: `prompt ${item.id} is listed twice` });
