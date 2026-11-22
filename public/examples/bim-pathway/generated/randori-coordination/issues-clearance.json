@@ -1,0 +1,63 @@
+{
+  "issues": [
+    {
+      "GlobalIds": [
+        "1g6W_KPS9IgQUhTVWD7nUg",
+        "3ZYW59sxj8lei475l7EhLU"
+      ],
+      "assignedTo": "Services coordinator (practice role)",
+      "description": "The duct and the wall overlap by 0.03 m³. The wall has no opening at that point, and its Pset_WallCommon.FireRating is “REI 60” (the practice label from BIM-004). Resolve by rerouting the duct or by a builder’s work opening with a fire-stopping detail; either needs the reviewers in gates G2 and G3 of the review package.",
+      "elements": [
+        "#150=IfcDuctSegment",
+        "#45=IfcWall"
+      ],
+      "id": "ISS-001",
+      "kind": "hard clash",
+      "location_m": [
+        1.5,
+        0.15,
+        1.655
+      ],
+      "measure": {
+        "overlap_m3": 0.03
+      },
+      "model": "coordination/wall-with-opening-and-window.coordination.ifc",
+      "priority": "High",
+      "reviewGates": [
+        "G2",
+        "G3"
+      ],
+      "status": "Open",
+      "title": "D-01 Supply duct (practice) passes through Wall for Test Example with no opening for it",
+      "type": "Clash"
+    },
+    {
+      "GlobalIds": [
+        "1g6W_KPS9IgQUhTVWD7nUg",
+        "0tA4DSHd50le6Ov9Yu0I9X"
+      ],
+      "assignedTo": "Services coordinator (practice role)",
+      "description": "Card CARD-R changes the requirement: keep 0.05 m between the duct and every other element. The duct does not touch the window, but the gap is 0.03 m.",
+      "elements": [
+        "#150=IfcDuctSegment",
+        "#102=IfcWindow"
+      ],
+      "id": "ISS-002",
+      "kind": "clearance",
+      "location_m": null,
+      "measure": {
+        "clearance_m": 0.05,
+        "gap_m": 0.03
+      },
+      "model": "coordination/wall-with-opening-and-window.coordination.ifc",
+      "priority": "Normal",
+      "reviewGates": [
+        "G2"
+      ],
+      "status": "Open",
+      "title": "D-01 Supply duct (practice) is 0.03 m from Window for Test Example, closer than the 0.05 m clearance",
+      "type": "Clearance"
+    }
+  ],
+  "status": "Practice issues under the Randori clearance card. Nobody has reviewed or resolved them."
+}

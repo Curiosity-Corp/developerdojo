@@ -1,0 +1,110 @@
+{
+  "official": {
+    "commit": "5834466b2477ac700d7a61990b4e67ec1005cc68",
+    "repository": "https://github.com/buildingSMART/BCF-XML",
+    "tag": "v3.0"
+  },
+  "parts": [
+    {
+      "errors": [],
+      "part": "bcf.version",
+      "schema": "version.xsd",
+      "topic": null
+    },
+    {
+      "errors": [],
+      "part": "extensions.xml",
+      "schema": "extensions.xsd",
+      "topic": null
+    },
+    {
+      "errors": [],
+      "part": "markup.bcf",
+      "schema": "markup.xsd",
+      "topic": "b6f57a89-fdff-541c-b852-27ec4f72bb47"
+    },
+    {
+      "errors": [],
+      "part": "viewpoint.bcfv",
+      "schema": "visinfo.xsd",
+      "topic": "b6f57a89-fdff-541c-b852-27ec4f72bb47"
+    },
+    {
+      "errors": [],
+      "part": "markup.bcf",
+      "schema": "markup.xsd",
+      "topic": "800d85bd-e275-568b-bf4a-9be0ec7099be"
+    },
+    {
+      "errors": [],
+      "part": "viewpoint.bcfv",
+      "schema": "visinfo.xsd",
+      "topic": "800d85bd-e275-568b-bf4a-9be0ec7099be"
+    }
+  ],
+  "readBack": {
+    "tool": "bcf-client",
+    "topics": [
+      {
+        "guid": "800d85bd-e275-568b-bf4a-9be0ec7099be",
+        "selected": [
+          "1g6W_KPS9IgQUhTVWD7nUg",
+          "0tA4DSHd50le6Ov9Yu0I9X"
+        ],
+        "selectedInModel": true,
+        "status": "Open",
+        "title": "ISS-002: D-01 Supply duct (practice) is 0.03 m from Window for Test Example, closer than the 0.05 m clearance"
+      },
+      {
+        "guid": "b6f57a89-fdff-541c-b852-27ec4f72bb47",
+        "selected": [
+          "1g6W_KPS9IgQUhTVWD7nUg",
+          "3ZYW59sxj8lei475l7EhLU"
+        ],
+        "selectedInModel": true,
+        "status": "Open",
+        "title": "ISS-001: D-01 Supply duct (practice) passes through Wall for Test Example with no opening for it"
+      }
+    ]
+  },
+  "schemaFiles": [
+    {
+      "file": "schemas/bcf-xml/v3.0/documents.xsd",
+      "gitBlob": "f02331f65c32ef31c0b39f7fe11992d719cb910f",
+      "matchesOfficial": true
+    },
+    {
+      "file": "schemas/bcf-xml/v3.0/extensions.xsd",
+      "gitBlob": "f22f79d88dedd249a5e6df012c9eb093b655f963",
+      "matchesOfficial": true
+    },
+    {
+      "file": "schemas/bcf-xml/v3.0/markup.xsd",
+      "gitBlob": "59185058a3076765f7d468c7100fe75a68b3b05d",
+      "matchesOfficial": true
+    },
+    {
+      "file": "schemas/bcf-xml/v3.0/project.xsd",
+      "gitBlob": "9383d037df8d1b24dd6727402e090eb813f6bd53",
+      "matchesOfficial": true
+    },
+    {
+      "file": "schemas/bcf-xml/v3.0/shared-types.xsd",
+      "gitBlob": "93dd4843fb1173818181905c94f2b4602ffe7f2d",
+      "matchesOfficial": true
+    },
+    {
+      "file": "schemas/bcf-xml/v3.0/version.xsd",
+      "gitBlob": "608b45fa71b0eef4f99563c9af30205b17143c88",
+      "matchesOfficial": true
+    },
+    {
+      "file": "schemas/bcf-xml/v3.0/visinfo.xsd",
+      "gitBlob": "6e3053aa6a8346f1847189b9115ed83235d1c451",
+      "matchesOfficial": true
+    }
+  ],
+  "snapshots": 0,
+  "validatedWith": "buildingSMART's official BCF-XML v3.0 schema files, unchanged, with xmlschema 4.3.2",
+  "version": "3.0"
+}

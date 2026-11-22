@@ -14,12 +14,19 @@ test('the BIM pathway shows the three outcomes separately and serves its files',
   await expect(page.locator('[data-quantity]')).toHaveCount(11);
   await expect(page.locator('[data-quantity="Q-09"]')).toContainText('5 m²');
   await expect(page.locator('[data-cross-check]')).toHaveCount(4);
+  await expect(page.locator('[data-clash="#45=IfcWall"]')).toContainText('hard clash');
+  await expect(page.locator('[data-issue]')).toHaveCount(1);
+  await expect(page.locator('[data-task]')).toHaveCount(4);
+  await expect(page.locator('[data-cost-line]')).toHaveCount(4);
+  await expect(page.locator('[data-randori-card]')).toHaveCount(3);
+  await expect(page.locator('[data-review-gate]')).toHaveCount(5);
+  await expect(page.locator('[data-construction-ready="false"]')).toContainText('Construction ready: no.');
   await expect(page.locator('[data-staged]').first()).toContainText('Proposed');
-  for (const id of ['bim-001-inspect-model', 'bim-002-property-sets', 'bim-003-ids-check', 'bim-004-change-and-revalidate', 'bim-005-mesh-geometry', 'bim-006-quantity-trace', 'bim-r01-randori']) {
+  for (const id of ['bim-001-inspect-model', 'bim-002-property-sets', 'bim-003-ids-check', 'bim-004-change-and-revalidate', 'bim-005-mesh-geometry', 'bim-006-quantity-trace', 'bim-007-coordination-issues', 'bim-008-schedule-and-cost-plan', 'bim-r01-randori', 'bim-r02-randori']) {
     await expect(page.locator(`a[href="/katas/${id}"]`).first()).toBeVisible();
   }
   const files = await page.locator('a[href^="/examples/bim-pathway/"]').evaluateAll((links) => [...new Set(links.map((link) => link.getAttribute('href') ?? ''))]);
-  expect(files.length).toBeGreaterThanOrEqual(12);
+  expect(files.length).toBeGreaterThanOrEqual(24);
   for (const href of files) expect((await request.get(href)).status(), href).toBe(200);
 });
 

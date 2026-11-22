@@ -1,0 +1,217 @@
+# BIM pathway (M10, #92): a draft recipe. The worked example, files and CI check results are on /katas/bim-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job bim_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: BIM pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/92
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent or professional review yet.
+summary: Add a practice duct to the model, find where it clashes, check the clash with a second route, and raise it as an issue in a BCF file that validates and reads back.
+metadata:
+  id: BIM-007
+  title: Find a clash and raise it as a BCF issue
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - coordinate-and-raise-issues
+  artifactTypes:
+    - issue-register
+    - edited-model
+  domainIds:
+    - architecture-bim
+    - construction
+  capabilityIds:
+    - coordinate-disciplines
+    - process-geometry
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - ifcopenshell-and-python
+  constraintIds:
+    - licensed-sample-only
+    - no-paid-tools
+    - offline-capable
+  externalResources:
+    - buildingsmart/ifc-wall-example
+    - buildingsmart/bcf-xml
+    - ifcopenshell/geometry-processing
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: Industry Foundation Classes (IFC)
+      version: IFC4 ADD2 TC1 (ISO 16739-1:2018), as declared by the sample file
+      applicability: The buildingSMART practice sample and copies of it only
+      reviewScope: "What the listed checks test: the shapes, entities and relationships in the practice files. No claim about any real building."
+    - name: BIM Collaboration Format (BCF)
+      version: "BCF-XML 3.0 (the register); BCF-XML 2.1 (the Randori format card)"
+      applicability: The practice issue register written for this pathway
+      reviewScope: Whether each XML part is valid against buildingSMART's official BCF-XML schema files (kept unchanged with the examples, because bcf-client 0.9.0 does not ship them), and whether bcf-client reads the zip back. No other BCF tool was tested, so interoperability with any other tool is not shown.
+      sourceResourceId: buildingsmart/bcf-xml
+  verificationEvidence:
+    - description: A coordination model with the duct, a clash result on which IfcOpenShell's clash tree and box arithmetic agree, and an issue register as JSON, CSV and BCF 3.0, matching the Dojo's CI output
+      method: automated-check
+      standards:
+        - Industry Foundation Classes (IFC)
+        - BIM Collaboration Format (BCF)
+    - description: The BCF file is valid against the schema files and reads back with every selected GlobalId found in the model
+      method: automated-check
+      standards:
+        - BIM Collaboration Format (BCF)
+    - description: The learner names which reviewers must close the issue, and why the clash result is not a design decision
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces the hard clash (0.03 m³ between the duct and the wall) and the BCF issue, and shows the file reads back
+    - stage: adapt
+      criterion: Moves the duct so it clears the wall, reruns, and shows the register empties without deleting the issue file by hand
+    - stage: demonstrate
+      criterion: Hands the BCF file to a partner, who finds the issue's elements in the model by GlobalId without help
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: a practice duct authored into the edited sample, the clash it causes found by two routes, and a BCF 3.0 issue register that validates and reads back, computed by the site’s CI on buildingSMART’s wall-with-opening-and-window sample."
+  href: /katas/bim-pathway
+  provenance:
+    creator: buildingSMART International (sample model); Developer Dojo maintainers (practice duct, brief, checks and outputs)
+    source: buildingSMART Certification-datasets, pinned commit 80d976a9b193a26a8e928c3e79bff67af1de68a8; outputs from /examples/bim-pathway/tools/bim_pathway.py
+    license: Sample model CC BY 4.0 (buildingSMART International); brief, script and outputs MIT
+    date: "2026-11-22"
+brief:
+  goal: An issue register a partner can open, in which every issue points at the model elements it is about and the clash behind it is checked twice.
+  audience: Learners who finished BIM-004 and BIM-005.
+  inputs:
+    - name: wall-with-opening-and-window.edited.ifc
+      source: /examples/bim-pathway/generated/wall-with-opening-and-window.edited.ifc
+      terms: CC BY 4.0 adaptation of buildingSMART International's sample
+    - name: coordination-brief.json
+      source: /examples/bim-pathway/coordination-brief.json
+      terms: Dojo content, MIT licence
+  doneWhen:
+    - The duct is in the model as an IfcDuctSegment in the storey, with its own GlobalId, and the file passes schema validation
+    - The hard clash is found by a clash engine and confirmed by a second, independent route
+    - Each issue names its elements by GlobalId, its measure, its status and the review gates that must close it
+    - The BCF file is valid against the BCF schema files and reads back in a second tool or library
+    - The register says it is practice on a test file and that nobody has reviewed or resolved the issues
+stack:
+  components:
+    - part: tool
+      name: IfcOpenShell (geometry and clash tree built with OpenCASCADE) and bcf-client
+      version: 0.9.0.post1 and 0.9.0
+      permissions: Reads the IFC copy you open; writes only the files your script saves
+      cost: Free (LGPL-3.0-or-later)
+    - part: runtime
+      name: Python in a virtual environment, with xmlschema
+      version: "3.12"
+      permissions: Runs on your own machine; network only to install the pinned packages
+      cost: Free
+    - part: data
+      name: The edited sample from BIM-004 and the practice brief
+      version: "Certification-datasets commit 80d976a; coordination-brief.json 2026-11-21"
+      permissions: Practice copies; the sample licence allows changes with credit
+      cost: Free (CC BY 4.0 and MIT)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may draft a script, and every result it gives is checked against the files
+      permissions: Reads what you paste in; if it runs commands, give it only the copies
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: A clash engine is software with its own tolerances, so one route is a claim and two agreeing routes are evidence. BCF is the open format for handing an issue to someone else's tool, but a file that validates is not proof that another tool reads it the same way, so the register is also read back and its GlobalIds checked against the model.
+  alternatives:
+    - name: IfcClash (the clash tool in the IfcOpenShell project)
+      tradeoff: Runs the same clash tree with its own clash sets and writes BCF itself. The pathway calls the tree directly so every step is visible. Not run separately.
+      tested: false
+    - name: A desktop coordination tool
+      tradeoff: Faster on federated models and has a viewer, but its clash rules are often hidden and licences cost money. Not tried for this pathway.
+      tested: false
+agents:
+  roles:
+    - role: Coding agent
+      responsibility: Drafts the script that adds the duct, runs the clash test and writes the register.
+      reviewGate: The script stops when the two clash routes disagree; a register without GlobalIds is rejected.
+    - role: Learner as reviewer
+      responsibility: Opens the BCF file, checks each selected GlobalId exists in the model, and reads the issue against the review package.
+      dependsOn:
+        - Coding agent
+      reviewGate: The issue names who must close it; nobody marks it resolved.
+setup:
+  steps:
+    - "Create a virtual environment with Python 3.12: python3.12 -m venv .venv"
+    - "Install the pinned packages: .venv/bin/pip install --require-hashes -r /examples/bim-pathway/tools/requirements.txt"
+    - Download the edited model and coordination-brief.json from /katas/bim-pathway into a new, empty folder. Work on copies.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Check the coordination model: .venv/bin/python -I -c \"import ifcopenshell; m = ifcopenshell.open('wall-with-opening-and-window.coordination.ifc'); print([e.is_a() for e in m.by_type('IfcElement')])\""
+    expected: "Four elements, including one IfcDuctSegment"
+    result: passed
+    evidence: /examples/bim-pathway/generated/coordination/geometry.json, recomputed by CI on every pipeline
+    date: "2026-11-22"
+prompts:
+  - id: two-route-clash
+    title: Ask for a clash result you can check
+    purpose: Make the clash engine's answer one of two routes, not the only one.
+    text: |-
+      Using ifcopenshell 0.9, add an IfcDuctSegment to &lt;copy.ifc&gt; from the sizes in coordination-brief.json, contained
+      in the same storey as the wall. Build an ifcopenshell.geom.tree over the duct, wall and window and test the duct for
+      collisions (touching not allowed); also run the intersection mode and record what it reports. Then compute the same overlaps from the built shapes' bounding boxes, first checking that each built
+      volume equals its box volume (the wall: less the opening). Stop with an error if the routes disagree. Write each
+      clash as an issue with the GlobalIds of both elements, then a BCF 3.0 zip with one topic and one viewpoint per issue.
+      Validate every XML part against the BCF schema files and read the zip back. Do not call any issue resolved.
+exercise:
+  title: IFC wall with opening and window sample
+  resourceId: buildingsmart/ifc-wall-example
+  terms: CC BY 4.0, buildingSMART International Ltd.
+execution:
+  steps:
+    - actor: Coding agent
+      action: Adds the duct, runs both clash routes and writes the register and the BCF file.
+      handoff: You check the GlobalIds and the read-back.
+    - actor: Learner
+      action: Reads the issue against the review package and names the reviewers in gates G2 and G3.
+    - actor: Learner
+      action: Writes why the clash result is evidence for a reviewer, not a design decision.
+verification:
+  checks:
+    - action: Find the hard clashes between the duct and the other elements
+      expected: One hard clash, duct and wall, 0.03 m³ by the box route; the clash tree's collision mode finds the same pair; no clash with the window. IfcClash's intersection mode reports no clash, recorded as a validation exception
+      result: passed
+      evidence: /examples/bim-pathway/generated/coordination/clashes.json, recomputed by CI on every pipeline
+      date: "2026-11-22"
+    - action: Write the issue register
+      expected: ISS-001, open, high priority, naming the duct and the wall by GlobalId and gates G2 and G3
+      result: passed
+      evidence: /examples/bim-pathway/generated/coordination/issues.json and /examples/bim-pathway/generated/coordination/issues.csv
+      date: "2026-11-22"
+    - action: Validate and read back the BCF 3.0 file
+      expected: Every part valid against buildingSMART's official BCF-XML v3.0 schema files (kept unchanged, each proven by its git blob id); bcf-client reads one topic whose selected GlobalIds are in the model
+      result: passed
+      evidence: /examples/bim-pathway/generated/coordination/issues.bcf and /examples/bim-pathway/generated/coordination/bcf-check.json
+      date: "2026-11-22"
+    - action: Open the BCF file in a BCF viewer or another coordination tool
+      expected: The topic opens and selects the duct and the wall
+      result: not-run
+  failures:
+    - observed: The clash tree reports a clash 1000 times too deep, or none at all
+      correction: The tree works in the model length unit (millimetre here). Convert tolerances from metres before you pass them, and convert the results back.
+    - observed: IfcClash's intersection mode reports no clash for a duct that plainly passes through the wall
+      correction: Seen in this file with IfcClash 0.9 at a 2 mm tolerance. Use the collision mode with touching not allowed and a second route, and treat an empty result from one mode as unverified, not as clear.
+    - observed: The BCF file is rejected because a Guid is in capitals
+      correction: BCF 3.0 Guids are lowercase UUIDs. IFC GlobalIds are a different, 22-character format; do not mix them up.
+adaptation:
+  variations:
+    - change: Raise the duct 0.3 m so it runs above the wall
+      effect: No hard clash, so the register is empty. An empty register is a result to keep, not a file to skip.
+randori:
+  challenge: See the specialist BIM Randori recipe, BIM-R02.
+  constraints:
+    - Every issue keeps its GlobalIds and review gates
+  evaluation: A partner finds each issue's elements in the model from the BCF file alone.
+maintenance:
+  cadence: Every six months, when IfcOpenShell or bcf-client releases a new minor version, or when buildingSMART revises IFC or BCF
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - The sample is a three-element test file plus one practice duct, not a building. Nothing learned from it is evidence about a real project.
+    - No model, issue, sequence or quantity here is professionally reviewed or approved, and nothing is construction ready. The review package names the qualified reviewers and gates a real project would need.
+    - The duct is practice content routed to clash on purpose. It is not a services design, and the clash is not a finding about any building.
+    - Only bcf-client has read the BCF files back. No other BCF tool was tested, so this does not show the file opens the same way anywhere else.
+    - The box route holds only because every element here is box-shaped, which the script checks. It is not a general clash engine.

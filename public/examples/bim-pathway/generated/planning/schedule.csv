@@ -1,0 +1,5 @@
+task,name,predefinedType,builds,after,because,duration,heldBy
+T-010,Build wall with opening,CONSTRUCTION,#45=IfcWall #80=IfcOpeningElement,,,unavailable,
+T-020,Install window,INSTALLATION,#102=IfcWindow,T-010,"#102 fills #80 (#112 IfcRelFillsElement), which voids #45 (#85 IfcRelVoidsElement)",unavailable,
+T-030,Install supply duct,INSTALLATION,#150=IfcDuctSegment,T-010,"ISS-001: #150 passes through #45, so it goes in after it",unavailable,
+T-040,Fire-stop duct penetration,CONSTRUCTION,,T-030,ISS-001: T-040 seals the penetration once the duct is in,unavailable,ISS-001

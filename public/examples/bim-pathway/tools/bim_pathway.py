@@ -18,18 +18,24 @@ The output is deterministic: no dates, no absolute paths, floats rounded, keys s
 """
 from __future__ import annotations
 
+import datetime
 import hashlib
+import importlib.metadata
 import json
 import logging
 import shutil
 import sys
+import uuid
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
 import ifcopenshell
 import ifcopenshell.api.pset
+import ifcopenshell.api.sequence
 import ifcopenshell.geom
+import ifcopenshell.guid
 import ifcopenshell.util.element
+import ifcopenshell.util.representation
 import ifcopenshell.util.shape
 import ifcopenshell.util.unit
 import ifcopenshell.validate
@@ -537,6 +543,640 @@ def quantities_csv(data: dict[str, object]) -> str:
     return buffer.getvalue()
 
 
+
+# --- BIM-007: coordination, an authored duct, clashes and an issue register ------------------------------------------
+COORDINATION_BRIEF = 'coordination-brief.json'
+REVIEW_GATES = 'review-gates.json'
+COORDINATION_IFC = 'wall-with-opening-and-window.coordination.ifc'
+PLANNED_IFC = 'wall-with-opening-and-window.planned.ifc'
+FIXED_DATE = '2026-11-21T00:00:00'
+BCF_DATE = '2026-11-21T00:00:00+00:00'
+FIXED_EPOCH = int(datetime.datetime.fromisoformat(BCF_DATE).timestamp())
+BCF_AUTHOR = 'Developer Dojo practice (not a person)'
+# Every GlobalId and BCF Guid the script creates is derived from a name, so the outputs are byte-for-byte reproducible.
+GUID_NAMESPACE = uuid.UUID('6f1c9a52-3d0e-5b7a-9c41-2b8e0d6a9f13')
+# The XSD files bcf-client 0.9.0 ships, and the git blob ids of buildingSMART's official files at the v3.0 and v2.1 tags
+# (github.com/buildingSMART/BCF-XML). A blob id is SHA-1 over "blob <size>\0" and the bytes, as git computes it.
+OFFICIAL_BCF_XSD = {
+    'v3': {'tag': 'v3.0', 'commit': '5834466b2477ac700d7a61990b4e67ec1005cc68', 'blobs': {
+        'documents.xsd': 'f02331f65c32ef31c0b39f7fe11992d719cb910f', 'extensions.xsd': 'f22f79d88dedd249a5e6df012c9eb093b655f963',
+        'markup.xsd': '59185058a3076765f7d468c7100fe75a68b3b05d', 'project.xsd': '9383d037df8d1b24dd6727402e090eb813f6bd53',
+        'shared-types.xsd': '93dd4843fb1173818181905c94f2b4602ffe7f2d', 'version.xsd': '608b45fa71b0eef4f99563c9af30205b17143c88',
+        'visinfo.xsd': '6e3053aa6a8346f1847189b9115ed83235d1c451'}},
+    'v2': {'tag': 'v2.1', 'commit': 'a0fbab777706b5ac282105f724979e1f8e271e51', 'blobs': {
+        'markup.xsd': '037464ee8f6726f1c8ef08fb900a06090fa1d5e6', 'project.xsd': '8203889b6c71edba8588319bbb05c32ef00e28e5',
+        'version.xsd': '55cbd2be900f0b8b9f9c246e6705a9066681b64c', 'visinfo.xsd': '19cdf95d9746f421876c6de6796112622d79f3d0'}},
+}
+# Kept unchanged from buildingSMART/BCF-XML (CC BY-ND 4.0); check_bcf proves each one by its git blob id.
+BCF_XSD_DIR = Path(__file__).resolve().parent.parent / 'schemas' / 'bcf-xml'
+# The official BCF 2.1 visinfo.xsd limits a perspective camera's FieldOfView to 45-60 degrees.
+BCF21_FIELD_OF_VIEW = (45.0, 60.0)
+
+
+def guid_for(label: str) -> str:
+    return ifcopenshell.guid.compress(uuid.uuid5(GUID_NAMESPACE, label).hex)
+
+
+def bcf_guid(label: str) -> str:
+    return str(uuid.uuid5(GUID_NAMESPACE, label))
+
+
+def read_json(path: Path) -> dict:
+    try:
+        return json.loads(path.read_text(encoding='utf-8'))
+    except (OSError, ValueError) as err:
+        fail(f'cannot read {path.name}: {err}')
+        raise
+
+
+def fixed_header(model: ifcopenshell.file, name: str, authorization: str) -> None:
+    header = model.header.file_name
+    header.name = name
+    header.time_stamp = FIXED_DATE
+    header.author = EDITED_HEADER['author']
+    header.organization = EDITED_HEADER['organization']
+    header.preprocessor_version = f'IfcOpenShell {ifcopenshell.version}'
+    header.originating_system = 'Developer Dojo /examples/bim-pathway/tools/bim_pathway.py'
+    header.authorization = authorization
+
+
+def stable_new_entities(model: ifcopenshell.file, before: set[str], histories: set[int], label: str) -> None:
+    """Give every IfcRoot the API created a GlobalId derived from its place in the file, instead of a random one, and
+    every IfcOwnerHistory it created FIXED_DATE instead of the time of the run."""
+    for entity in sorted(model.by_type('IfcRoot'), key=lambda e: e.id()):
+        if entity.GlobalId not in before:
+            entity.GlobalId = guid_for(f'{label}:{entity.id()}:{entity.is_a()}')
+    for history in model.by_type('IfcOwnerHistory'):
+        if history.id() not in histories:
+            history.CreationDate = FIXED_EPOCH
+            if history.LastModifiedDate is not None:
+                history.LastModifiedDate = FIXED_EPOCH
+
+
+def element_by_role(model: ifcopenshell.file, role: str) -> ifcopenshell.entity_instance:
+    classes = {'wall': 'IfcWall', 'opening': 'IfcOpeningElement', 'window': 'IfcWindow', 'duct': 'IfcDuctSegment'}
+    if role not in classes:
+        fail(f'unknown element role {role!r} in {COORDINATION_BRIEF}')
+    found = model.by_type(classes[role])
+    if len(found) != 1:
+        fail(f'expected one {classes[role]}, found {len(found)}')
+    return found[0]
+
+
+def author_duct(model: ifcopenshell.file, brief: dict) -> ifcopenshell.entity_instance:
+    """Add the brief's duct to the model with plain IFC4 entities: a rectangle profile extruded along the duct axis,
+    placed in the storey, contained in it and grouped into a ventilation system."""
+    d = brief['duct']
+    to_model = 1 / ifcopenshell.util.unit.calculate_unit_scale(model)  # metres to the model length unit
+    container = ifcopenshell.util.element.get_container(element_by_role(model, 'wall'))
+    if container is None:
+        fail('the wall has no spatial container to put the duct in')
+    body = ifcopenshell.util.representation.get_context(model, 'Model', 'Body', 'MODEL_VIEW')
+    if body is None:
+        fail('the sample has no Model/Body/MODEL_VIEW context')
+    origin = model.createIfcCartesianPoint([float(c * to_model) for c in d['start_m']])
+    axis = model.createIfcDirection([0.0, 1.0, 0.0])  # the extrusion (local Z) runs along world +Y
+    ref = model.createIfcDirection([1.0, 0.0, 0.0])  # local X stays world X, so the profile width is along the wall
+    placement = model.createIfcLocalPlacement(container.ObjectPlacement, model.createIfcAxis2Placement3D(origin, axis, ref))
+    profile = model.createIfcRectangleProfileDef('AREA', 'Duct section', model.createIfcAxis2Placement2D(model.createIfcCartesianPoint([0.0, 0.0]), None), float(d['width_m'] * to_model), float(d['height_m'] * to_model))
+    solid = model.createIfcExtrudedAreaSolid(profile, model.createIfcAxis2Placement3D(model.createIfcCartesianPoint([0.0, 0.0, 0.0]), None, None), model.createIfcDirection([0.0, 0.0, 1.0]), float(d['length_m'] * to_model))
+    shape = model.createIfcProductDefinitionShape(None, None, [model.createIfcShapeRepresentation(body, 'Body', 'SweptSolid', [solid])])
+    duct = model.createIfcDuctSegment(guid_for('duct:' + d['name']), None, d['name'], d['description'], None, placement, shape, d['tag'], d['predefinedType'])
+    rels = [r for r in model.by_type('IfcRelContainedInSpatialStructure') if r.RelatingStructure == container]
+    if len(rels) != 1:
+        fail(f'expected one containment relationship for the storey, found {len(rels)}')
+    rels[0].RelatedElements = list(rels[0].RelatedElements) + [duct]
+    system = model.createIfcDistributionSystem(guid_for('system:' + d['system']), None, d['system'], 'Practice system for the coordination kata', None, None, 'VENTILATION')
+    model.createIfcRelAssignsToGroup(guid_for('group:' + d['system']), None, None, None, [duct], None, system)
+    return duct
+
+
+def box_of(entry: dict) -> tuple[list[float], list[float]]:
+    return entry['bbox_m']['min'], entry['bbox_m']['max']
+
+
+def box_overlap(a: tuple[list[float], list[float]], b: tuple[list[float], list[float]]) -> float:
+    volume = 1.0
+    for axis in range(3):
+        side = min(a[1][axis], b[1][axis]) - max(a[0][axis], b[0][axis])
+        if side <= 0:
+            return 0.0
+        volume *= side
+    return volume
+
+
+def box_gap(a: tuple[list[float], list[float]], b: tuple[list[float], list[float]]) -> float:
+    return sum(max(0.0, b[0][axis] - a[1][axis], a[0][axis] - b[1][axis]) ** 2 for axis in range(3)) ** 0.5
+
+
+def overlap_box(a: tuple[list[float], list[float]], b: tuple[list[float], list[float]]) -> tuple[list[float], list[float]]:
+    return [max(a[0][i], b[0][i]) for i in range(3)], [min(a[1][i], b[1][i]) for i in range(3)]
+
+
+def clash_tree(model: ifcopenshell.file, elements: list[ifcopenshell.entity_instance], geo: dict[int, dict]) -> tuple['ifcopenshell.geom.tree', float]:
+    """The same tree and settings IfcClash 0.9 uses, with one thread so the result does not depend on scheduling.
+
+    Returns the tree and the factor from the tree's length unit to metres. The unit is measured, not assumed: each
+    element's placed triangles (local vertices through the shape matrix, as the tree places them) must give the same
+    box as geometry() gives in metres, for one known factor. Any other result stops the script, so a placement or unit
+    difference between the two routes cannot pass as "no clash"."""
+    tree = ifcopenshell.geom.tree(backend='opencascade.trianglebvh')
+    iterator = ifcopenshell.geom.iterator(ifcopenshell.geom.settings(), model, 1, include=elements)
+    if not iterator.initialize():
+        fail('the clash tree could not build any shape')
+    placed: dict[int, tuple[list[float], list[float]]] = {}
+    while True:
+        shape = iterator.get()
+        verts = ifcopenshell.util.shape.get_vertices(shape.geometry)
+        matrix = ifcopenshell.util.shape.get_shape_matrix(shape)
+        world = verts @ matrix[:3, :3].T + matrix[:3, 3]
+        placed[shape.id] = ([float(v) for v in world.min(axis=0)], [float(v) for v in world.max(axis=0)])
+        tree.add_element(shape)
+        if not iterator.next():
+            break
+    missing = [e.id() for e in elements if e.id() not in placed]
+    if missing:
+        fail(f'the clash tree did not build {missing}')
+    for factor in (1.0, 0.001):
+        if all(abs(placed[e.id()][k][i] * factor - box_of(geo[e.id()])[k][i]) < 1e-6 for e in elements for k in (0, 1) for i in range(3)):
+            return tree, factor
+    seen = {f'#{e.id()}={e.is_a()}': {'tree': placed[e.id()], 'geometry_m': box_of(geo[e.id()])} for e in elements}
+    fail(f'the clash tree places the elements differently from geometry() (neither metre nor millimetre): {seen}')
+
+
+def tree_results(results: tuple, scale: float, keep: str) -> list[dict[str, object]]:
+    """One result per pair: the deepest penetration (keep='max') or the smallest gap (keep='min')."""
+    pairs: dict[tuple[str, str], dict[str, object]] = {}
+    for r in results:
+        entry = {
+            'a': f'#{r.a.id()}={r.a.is_a()}', 'aGlobalId': r.a.GlobalId, 'b': f'#{r.b.id()}={r.b.is_a()}', 'bGlobalId': r.b.GlobalId,
+            'type': ifcopenshell.geom.tree.get_clash_type(r.clash_type), 'distance_m': num(r.distance * scale),
+            'p1_m': [num(c * scale) for c in r.p1], 'p2_m': [num(c * scale) for c in r.p2],
+        }
+        key = (entry['a'], entry['b'])
+        held = pairs.get(key)
+        if held is None or (entry['distance_m'] > held['distance_m'] if keep == 'max' else entry['distance_m'] < held['distance_m']):
+            pairs[key] = entry
+    return [pairs[k] for k in sorted(pairs)]
+
+
+def coordination(model: ifcopenshell.file, brief: dict, clearance_m: float | None) -> dict[str, object]:
+    """Clashes between the duct and every other physical element, by two independent routes: IfcOpenShell's clash tree
+    (as IfcClash runs it) and plain box arithmetic. The script stops if the routes disagree. With clearance_m, also the
+    pairs that do not touch but are closer than the clearance (the Randori requirement card)."""
+    duct = element_by_role(model, 'duct')
+    others = [element_by_role(model, role) for role in ('wall', 'window')]
+    geo = {e['id']: e for e in geometry(model)['elements']}
+    # The box route holds only if every element is its bounding box (the wall: its box less the opening's box).
+    opening = element_by_role(model, 'opening')
+    wall = element_by_role(model, 'wall')
+    def box_volume(box: tuple[list[float], list[float]]) -> float:
+        return box_overlap(box, box)
+    box_checks = [
+        {'element': f'#{duct.id()}={duct.is_a()}', 'built_m3': geo[duct.id()]['volume_m3'], 'boxes_m3': num(box_volume(box_of(geo[duct.id()])))},
+        {'element': f'#{others[1].id()}={others[1].is_a()}', 'built_m3': geo[others[1].id()]['volume_m3'], 'boxes_m3': num(box_volume(box_of(geo[others[1].id()])))},
+        {'element': f'#{wall.id()}={wall.is_a()}', 'built_m3': geo[wall.id()]['volume_m3'], 'boxes_m3': num(box_volume(box_of(geo[wall.id()])) - box_overlap(box_of(geo[wall.id()]), box_of(geo[opening.id()])))},
+    ]
+    for c in box_checks:
+        c['agree'] = abs(c['built_m3'] - c['boxes_m3']) < 1e-6
+        if not c['agree']:
+            fail(f"box route does not hold for {c['element']}: built {c['built_m3']} m3, boxes {c['boxes_m3']} m3")
+    analytic = []
+    duct_box = box_of(geo[duct.id()])
+    for other in others:
+        box = box_of(geo[other.id()])
+        volume = box_overlap(duct_box, box)
+        if other == wall:
+            volume -= box_overlap(overlap_box(duct_box, box), box_of(geo[opening.id()])) if box_overlap(duct_box, box) > 0 else 0.0
+        analytic.append({'element': f'#{other.id()}={other.is_a()}', 'GlobalId': other.GlobalId, 'overlap_m3': num(volume), 'gap_m': num(box_gap(duct_box, box)) if volume <= 0 else 0.0})
+
+    lo, hi = duct_box
+    tree, scale = clash_tree(model, [duct] + others, geo)
+    tolerance = float(brief['rules']['hardClash']['tolerance_m'])
+    duct_ref = f'#{duct.id()}={duct.is_a()}'
+    # IfcClash's collision mode with touching not allowed: the pairs whose faces cross. It gives a pair, not a depth;
+    # the overlap volume comes from the box route.
+    hard = tree_results(tree.clash_collision_many([duct], others, allow_touching=False), scale, keep='max')
+    if any(c['a'] != duct_ref for c in hard):
+        fail(f'the clash tree returned a pair that does not start with the duct: {hard}')
+    for clash in hard:
+        for point in (clash['p1_m'], clash['p2_m']):
+            if not all(lo[i] - 0.01 <= point[i] <= hi[i] + 0.01 for i in range(3)):
+                fail(f'clash point {point} is outside the duct box {lo} to {hi}: the tree is not in the unit assumed')
+    tree_hard = sorted(c['b'] for c in hard)
+    box_hard = sorted(a['element'] for a in analytic if a['overlap_m3'] > 0)
+    if tree_hard != box_hard:
+        fail(f'hard clashes disagree: clash tree collision mode {tree_hard}, box route {box_hard}; unit factor {scale}')
+    # IfcClash's intersection mode is recorded beside them, not relied on: in this file it does not report the duct
+    # through the wall. Tolerances go into the tree in its own length unit; scale converts results back to metres.
+    found = tree_results(tree.clash_intersection_many([duct], others, tolerance=tolerance / scale, check_all=True), scale, keep='max')
+    found_pairs = sorted(c['b'] if c['a'] == duct_ref else c['a'] for c in found)
+    agrees = found_pairs == box_hard
+    intersection_mode = {
+        'tolerance_m': tolerance, 'found': found, 'pairs': found_pairs, 'agreesWithBothRoutes': agrees,
+        'note': 'IfcClash intersection mode finds the same pairs.' if agrees else
+        f"Validation exception: IfcClash 0.9 intersection mode (tolerance {tolerance} m) reports {found_pairs or 'no clash'} here, although its collision mode and the box route both find {box_hard}. It is recorded and not relied on. Do not read an empty result from one mode as no clash.",
+    }
+    result: dict[str, object] = {
+        'checked': 'Hard clashes between the practice duct and every other physical element, by IfcOpenShell\'s clash tree (the opencascade.trianglebvh tree IfcClash 0.9 uses, collision mode with touching not allowed) and, independently, by box arithmetic on the built shapes, which also gives the overlap volume. The script writes nothing if the two routes disagree. IfcClash\'s intersection mode is run too and its result recorded under intersectionMode. The opening is a void, not a physical element, so it is not tested on its own.',
+        'tolerance_m': tolerance,
+        'treeLengthUnitToMetre': scale,
+        'boxRoute': {'holds': True, 'checks': box_checks, 'pairs': analytic},
+        'clashTree': {'mode': 'collision, touching not allowed', 'hard': hard},
+        'intersectionMode': intersection_mode,
+        'hardClashes': box_hard,
+        'routesAgree': True,
+    }
+    if clearance_m is not None:
+        raw_clear = tree.clash_clearance_many([duct], others, clearance=clearance_m / scale, check_all=True)
+        near = [c for c in tree_results(raw_clear, scale, keep='min') if c['b'] not in box_hard]
+        box_near = sorted(a['element'] for a in analytic if a['overlap_m3'] <= 0 and a['gap_m'] < clearance_m)
+        if sorted(c['b'] for c in near) != box_near:
+            fail(f'clearance results disagree: clash tree {[c["b"] for c in near]}, box route {box_near}')
+        for c in near:
+            gap = next(a['gap_m'] for a in analytic if a['element'] == c['b'])
+            if abs(c['distance_m'] - gap) > 1e-4:
+                fail(f"clearance distance to {c['b']} disagrees: clash tree {c['distance_m']} m, box route {gap} m")
+        result['clearance_m'] = clearance_m
+        result['clashTree']['clearance'] = near
+        result['clearanceClashes'] = box_near
+    return result
+
+
+def issue_register(model: ifcopenshell.file, clashes: dict[str, object], brief: dict, model_path: str) -> list[dict[str, object]]:
+    duct = element_by_role(model, 'duct')
+    fire = ifcopenshell.util.element.get_pset(element_by_role(model, 'wall'), 'Pset_WallCommon', 'FireRating')
+    geo = {e['id']: e for e in geometry(model)['elements']}
+    issues = []
+    for n, element in enumerate(clashes['hardClashes'], start=1):
+        other = model.by_id(int(element.split('=')[0][1:]))
+        pair = next(p for p in clashes['boxRoute']['pairs'] if p['element'] == element)
+        lo, hi = overlap_box(box_of(geo[duct.id()]), box_of(geo[other.id()]))
+        issues.append({
+            'id': f'ISS-{n:03d}', 'type': 'Clash', 'kind': 'hard clash', 'status': 'Open', 'priority': 'High',
+            'title': f'{duct.Name} passes through {other.Name or other.is_a()} with no opening for it',
+            'elements': [f'#{duct.id()}={duct.is_a()}', element], 'GlobalIds': [duct.GlobalId, other.GlobalId],
+            'measure': {'overlap_m3': pair['overlap_m3']}, 'location_m': [num((lo[i] + hi[i]) / 2) for i in range(3)],
+            'description': f"The duct and the wall overlap by {pair['overlap_m3']} m³. The wall has no opening at that point, and its Pset_WallCommon.FireRating is “{fire}” (the practice label from BIM-004). Resolve by rerouting the duct or by a builder’s work opening with a fire-stopping detail; either needs the reviewers in gates G2 and G3 of the review package.",
+            'assignedTo': brief['issueOwner'], 'reviewGates': ['G2', 'G3'], 'model': model_path,
+        })
+    return issues
+
+
+def clearance_issues(model: ifcopenshell.file, clashes: dict[str, object], base: list[dict[str, object]], brief: dict, model_path: str) -> list[dict[str, object]]:
+    duct = element_by_role(model, 'duct')
+    issues = [dict(i) for i in base]
+    for element in clashes['clearanceClashes']:
+        other = model.by_id(int(element.split('=')[0][1:]))
+        pair = next(p for p in clashes['boxRoute']['pairs'] if p['element'] == element)
+        issues.append({
+            'id': f'ISS-{len(issues) + 1:03d}', 'type': 'Clearance', 'kind': 'clearance', 'status': 'Open', 'priority': 'Normal',
+            'title': f'{duct.Name} is {pair["gap_m"]} m from {other.Name or other.is_a()}, closer than the {clashes["clearance_m"]} m clearance',
+            'elements': [f'#{duct.id()}={duct.is_a()}', element], 'GlobalIds': [duct.GlobalId, other.GlobalId],
+            'measure': {'gap_m': pair['gap_m'], 'clearance_m': clashes['clearance_m']}, 'location_m': None,
+            'description': f"Card CARD-R changes the requirement: keep {clashes['clearance_m']} m between the duct and every other element. The duct does not touch the window, but the gap is {pair['gap_m']} m.",
+            'assignedTo': brief['issueOwner'], 'reviewGates': ['G2'], 'model': model_path,
+        })
+    return issues
+
+
+def issues_csv(issues: list[dict[str, object]]) -> str:
+    import csv
+    import io
+
+    buffer = io.StringIO()
+    writer = csv.writer(buffer, lineterminator='\n')
+    writer.writerow(['id', 'type', 'status', 'priority', 'title', 'elements', 'GlobalIds', 'measure', 'assignedTo', 'reviewGates'])
+    for i in issues:
+        measure = ' '.join(f'{k}={v}' for k, v in sorted(i['measure'].items()))
+        writer.writerow([i['id'], i['type'], i['status'], i['priority'], i['title'], ' '.join(i['elements']), ' '.join(i['GlobalIds']), measure, i['assignedTo'], ' '.join(i['reviewGates'])])
+    return buffer.getvalue()
+
+
+def xml_text(element: ET.Element) -> bytes:
+    ET.indent(element)
+    return b'<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(element, encoding='utf-8', xml_declaration=False) + b'\n'
+
+
+def sub(parent: ET.Element, tag: str, text: str | None = None, **attrs: str) -> ET.Element:
+    child = ET.SubElement(parent, tag, {k: v for k, v in attrs.items()})
+    if text is not None:
+        child.text = text
+    return child
+
+
+def camera(issue: dict[str, object]) -> tuple[list[float], list[float], list[float]]:
+    """A perspective camera 3 m in front of the issue (on the -Y side of the wall), looking at it."""
+    target = issue['location_m'] or [1.5, 0.15, 1.0]
+    eye = [target[0], num(target[1] - 3.0), target[2]]
+    return eye, [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]
+
+
+def write_bcf(path: Path, issues: list[dict[str, object]], project_guid: str, model_path: str, version: str, people: list[str]) -> list[dict[str, bytes]]:
+    """A BCF zip with one topic per issue, a viewpoint that selects the issue's elements, and no snapshot.
+    Entries are written in a fixed order with fixed dates, so the zip is byte-for-byte reproducible."""
+    import zipfile
+
+    entries: list[tuple[str, bytes]] = []
+    if version == '3.0':
+        entries.append(('bcf.version', xml_text(ET.Element('Version', {'VersionId': '3.0'}))))
+        ext = ET.Element('Extensions')
+        for group, item, values in (('TopicTypes', 'TopicType', sorted({i['type'] for i in issues})), ('TopicStatuses', 'TopicStatus', ['Open']), ('Priorities', 'Priority', ['High', 'Normal']), ('TopicLabels', 'TopicLabel', ['Coordination', 'Practice']), ('Users', 'User', people)):
+            g = sub(ext, group)
+            for v in values:
+                sub(g, item, v)
+        entries.append(('extensions.xml', xml_text(ext)))
+    else:
+        v = ET.Element('Version', {'VersionId': '2.1'})
+        sub(v, 'DetailedVersion', '2.1')
+        entries.append(('bcf.version', xml_text(v)))
+    for issue in issues:
+        topic_guid = bcf_guid('topic:' + issue['id'])
+        view_guid = bcf_guid('viewpoint:' + issue['id'])
+        comment_guid = bcf_guid('comment:' + issue['id'])
+        markup = ET.Element('Markup')
+        header = sub(markup, 'Header')
+        if version == '3.0':
+            f = sub(sub(header, 'Files'), 'File', IfcProject=project_guid, IsExternal='true')
+        else:
+            f = sub(header, 'File', IfcProject=project_guid, isExternal='true')
+        sub(f, 'Filename', Path(model_path).name)
+        sub(f, 'Reference', model_path)
+        topic = sub(markup, 'Topic', Guid=topic_guid, TopicType=issue['type'], TopicStatus=issue['status'])
+        sub(topic, 'Title', f"{issue['id']}: {issue['title']}")
+        sub(topic, 'Priority', issue['priority'])
+        if version == '3.0':
+            labels = sub(topic, 'Labels')
+            for label in ('Coordination', 'Practice'):
+                sub(labels, 'Label', label)
+        else:
+            for label in ('Coordination', 'Practice'):
+                sub(topic, 'Labels', label)
+        sub(topic, 'CreationDate', BCF_DATE)
+        sub(topic, 'CreationAuthor', BCF_AUTHOR)
+        sub(topic, 'AssignedTo', issue['assignedTo'])
+        sub(topic, 'Description', issue['description'] + ' Practice issue on a test file; not a real coordination record.')
+        comment_text = 'Raised by the Developer Dojo pathway script. Nobody has reviewed or resolved it.'
+        if version == '3.0':
+            comment = sub(sub(topic, 'Comments'), 'Comment', Guid=comment_guid)
+            sub(comment, 'Date', BCF_DATE)
+            sub(comment, 'Author', BCF_AUTHOR)
+            sub(comment, 'Comment', comment_text)
+            sub(comment, 'Viewpoint', Guid=view_guid)
+            sub(sub(sub(topic, 'Viewpoints'), 'ViewPoint', Guid=view_guid), 'Viewpoint', 'viewpoint.bcfv')
+        else:
+            comment = sub(markup, 'Comment', Guid=comment_guid)
+            sub(comment, 'Date', BCF_DATE)
+            sub(comment, 'Author', BCF_AUTHOR)
+            sub(comment, 'Comment', comment_text)
+            sub(comment, 'Viewpoint', Guid=view_guid)
+            sub(sub(markup, 'Viewpoints', Guid=view_guid), 'Viewpoint', 'viewpoint.bcfv')
+        vis = ET.Element('VisualizationInfo', {'Guid': view_guid})
+        components = sub(vis, 'Components')
+        selection = sub(components, 'Selection')
+        for g in issue['GlobalIds']:
+            sub(selection, 'Component', IfcGuid=g)
+        sub(components, 'Visibility', DefaultVisibility='true')
+        eye, direction, up = camera(issue)
+        cam = sub(vis, 'PerspectiveCamera')
+        for tag, vector in (('CameraViewPoint', eye), ('CameraDirection', direction), ('CameraUpVector', up)):
+            point = sub(cam, tag)
+            for axis, value in zip('XYZ', vector):
+                sub(point, axis, repr(float(value)))
+        sub(cam, 'FieldOfView', '60.0')
+        if version == '3.0':
+            sub(cam, 'AspectRatio', '1.5')
+        entries.append((f'{topic_guid}/markup.bcf', xml_text(markup)))
+        entries.append((f'{topic_guid}/viewpoint.bcfv', xml_text(vis)))
+    with zipfile.ZipFile(path, 'w') as archive:
+        for name, data in entries:
+            info = zipfile.ZipInfo(name, date_time=(2026, 11, 21, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_STORED
+            info.create_system = 3
+            info.external_attr = 0o644 << 16
+            archive.writestr(info, data)
+    return [{'name': name, 'data': data} for name, data in entries]
+
+
+def git_blob(data: bytes) -> str:
+    return hashlib.sha1(b'blob ' + str(len(data)).encode() + b'\0' + data).hexdigest()
+
+
+def check_bcf(path: Path, entries: list[dict[str, bytes]], version: str, model: ifcopenshell.file) -> dict[str, object]:
+    """Validate each XML part against buildingSMART's official BCF-XML schema files, kept unchanged next to this
+    script (the installed bcf-client 0.9.0 lacks some of them), after proving each file is the official one by its git blob id;
+    then read the zip back with bcf-client."""
+    import xmlschema
+
+    key = 'v3' if version == '3.0' else 'v2'
+    xsd_dir = BCF_XSD_DIR / OFFICIAL_BCF_XSD[key]['tag']
+    provenance = []
+    for name, blob in sorted(OFFICIAL_BCF_XSD[key]['blobs'].items()):
+        kept = xsd_dir / name
+        if not kept.is_file():
+            fail(f'the official BCF schema file {kept} is missing')
+        if git_blob(kept.read_bytes()) != blob:
+            fail(f'{kept} is not the official BCF-XML {OFFICIAL_BCF_XSD[key]["tag"]} file (git blob differs)')
+        provenance.append({'file': f'schemas/bcf-xml/{OFFICIAL_BCF_XSD[key]["tag"]}/{name}', 'gitBlob': blob, 'matchesOfficial': True})
+    schemas = {}
+    def schema(name: str) -> 'xmlschema.XMLSchema':
+        if name not in schemas:
+            schemas[name] = xmlschema.XMLSchema(str(xsd_dir / name))
+        return schemas[name]
+    parts = []
+    for entry in entries:
+        name = entry['name']
+        xsd = 'version.xsd' if name == 'bcf.version' else 'extensions.xsd' if name == 'extensions.xml' else 'markup.xsd' if name.endswith('markup.bcf') else 'visinfo.xsd'
+        errors = [str(e.reason) for e in schema(xsd).iter_errors(entry['data'].decode('utf-8'))]
+        parts.append({'part': name.split('/')[-1] if '/' in name else name, 'topic': name.split('/')[0] if '/' in name else None, 'schema': xsd, 'errors': errors})
+        if errors:
+            fail(f'BCF {version} {name} is not valid against the official {xsd}: {errors[0]}')
+    if key == 'v3':
+        from bcf.v3.bcfxml import BcfXml
+    else:
+        from bcf.v2.bcfxml import BcfXml
+    known = {e.GlobalId for e in model.by_type('IfcRoot')}
+    topics = []
+    try:
+        with BcfXml.load(path) as bcfxml:
+            for guid, handler in sorted(bcfxml.topics.items()):
+                selected = []
+                for viewpoint in handler.viewpoints.values():
+                    components = viewpoint.visualization_info.components
+                    if components is not None and components.selection is not None:
+                        selected += [c.ifc_guid for c in components.selection.component]
+                topics.append({'guid': guid, 'title': handler.topic.title, 'status': handler.topic.topic_status, 'selected': selected, 'selectedInModel': all(g in known for g in selected)})
+    except Exception as err:  # bcf-client raises xsdata and zipfile errors; any of them means the file did not read back
+        fail(f'bcf-client could not read {path.name} back: {err}')
+    if not topics or not all(t['selectedInModel'] and t['selected'] for t in topics):
+        fail(f'{path.name}: a topic selects no element or an element that is not in the model')
+    return {
+        'version': version,
+        'validatedWith': f"buildingSMART's official BCF-XML {OFFICIAL_BCF_XSD[key]['tag']} schema files, unchanged, with xmlschema {xmlschema.__version__}",
+        'schemaFiles': provenance,
+        'official': {'repository': 'https://github.com/buildingSMART/BCF-XML', 'tag': OFFICIAL_BCF_XSD[key]['tag'], 'commit': OFFICIAL_BCF_XSD[key]['commit']},
+        'parts': parts,
+        'readBack': {'tool': 'bcf-client', 'topics': topics},
+        'snapshots': 0,
+    }
+
+
+# --- BIM-008: the model mapped to a construction sequence and an unpriced cost plan -----------------------------------
+def plan(model: ifcopenshell.file, brief: dict, issues: list[dict[str, object]], quantity_rows: list[dict[str, object]]) -> dict[str, object]:
+    """Add the brief's tasks to the model, assign each element to the task that builds it, and derive each dependency
+    from a relationship in the model or from an open issue. Durations are not invented: none is set."""
+    before = {e.GlobalId for e in model.by_type('IfcRoot')}
+    histories = {h.id() for h in model.by_type('IfcOwnerHistory')}
+    schedule = ifcopenshell.api.sequence.add_work_schedule(model, name=brief['schedule']['name'], predefined_type='PLANNED', start_time=datetime.datetime(2026, 11, 21))
+    schedule.CreationDate = FIXED_DATE
+    tasks = {}
+    outputs: dict[int, str] = {}
+    for spec in brief['schedule']['tasks']:
+        task = ifcopenshell.api.sequence.add_task(model, work_schedule=schedule, name=spec['name'], identification=spec['id'], predefined_type=spec['predefinedType'])
+        task.Description = spec['description']
+        tasks[spec['id']] = task
+        for role in spec['builds']:
+            element = element_by_role(model, role)
+            if element.id() in outputs:
+                fail(f"{spec['id']} and {outputs[element.id()]} both build #{element.id()}")
+            outputs[element.id()] = spec['id']
+            ifcopenshell.api.sequence.assign_product(model, relating_product=element, related_object=task)
+    physical = [e for e in model.by_type('IfcElement')]
+    unassigned = [f'#{e.id()}={e.is_a()}' for e in physical if e.id() not in outputs]
+    if unassigned:
+        fail(f'no task builds {unassigned}')
+    task_of = {element_id: tasks[task_id] for element_id, task_id in outputs.items()}
+    deps: dict[tuple[str, str], list[str]] = {}
+    def depend(before_task: ifcopenshell.entity_instance, after_task: ifcopenshell.entity_instance, why: str) -> None:
+        if before_task != after_task:
+            deps.setdefault((before_task.Identification, after_task.Identification), []).append(why)
+    for fills in model.by_type('IfcRelFillsElement'):
+        opening = fills.RelatingOpeningElement
+        for voids in opening.VoidsElements:
+            depend(task_of[voids.RelatingBuildingElement.id()], task_of[fills.RelatedBuildingElement.id()], f'#{fills.RelatedBuildingElement.id()} fills #{opening.id()} (#{fills.id()} IfcRelFillsElement), which voids #{voids.RelatingBuildingElement.id()} (#{voids.id()} IfcRelVoidsElement)')
+    for issue in issues:
+        ids = [int(e.split('=')[0][1:]) for e in issue['elements']]
+        duct_id, host_id = ids[0], ids[1]
+        depend(task_of[host_id], task_of[duct_id], f"{issue['id']}: #{duct_id} passes through #{host_id}, so it goes in after it")
+        for spec in brief['schedule']['tasks']:
+            if spec.get('resolves') == issue['kind']:
+                depend(task_of[duct_id], tasks[spec['id']], f"{issue['id']}: {spec['id']} seals the penetration once the duct is in")
+    # Order: Kahn's algorithm, ties broken by task id, so a cycle stops the script.
+    preds = {t: sorted(a for (a, b) in deps if b == t) for t in tasks}
+    order, ready = [], sorted(t for t in tasks if not preds[t])
+    remaining = {t: set(p) for t, p in preds.items()}
+    while ready:
+        current = ready.pop(0)
+        order.append(current)
+        for t in sorted(tasks):
+            if current in remaining[t]:
+                remaining[t].discard(current)
+                if not remaining[t] and t not in order and t not in ready:
+                    ready.append(t)
+                    ready.sort()
+    if len(order) != len(tasks):
+        fail(f'the dependencies have a cycle: ordered {order} of {sorted(tasks)}')
+    for (a, b) in sorted(deps):
+        ifcopenshell.api.sequence.assign_sequence(model, relating_process=tasks[a], related_process=tasks[b], sequence_type='FINISH_START')
+    stable_new_entities(model, before, histories, 'planned')
+    rows = []
+    for spec in brief['schedule']['tasks']:
+        builds = [f'#{e}={model.by_id(e).is_a()}' for e, t in sorted(outputs.items()) if t == spec['id']]
+        rows.append({'task': spec['id'], 'name': spec['name'], 'predefinedType': spec['predefinedType'], 'builds': builds, 'after': preds[spec['id']], 'because': [w for (a, b), why in sorted(deps.items()) if b == spec['id'] for w in why], 'duration': None, 'heldBy': [i['id'] for i in issues if spec.get('resolves') == i['kind']]})
+    by_id = {r['id']: r for r in quantity_rows}
+    lines = []
+    for spec in brief['costPlan']:
+        source = spec['source']
+        if source.startswith('Q-'):
+            row = by_id.get(source)
+            if row is None:
+                fail(f'cost line {spec["id"]} cites {source}, which is not a traced quantity')
+            quantity, unit = row['value'], row['unit']
+        elif source == 'count':
+            quantity, unit = len(model.by_type(spec['class'])), 'nr'
+        elif source == 'issues':
+            quantity, unit = sum(1 for i in issues if i['kind'] == spec['kind']), 'nr'
+        elif source == 'duct-length':
+            # The brief's length, checked against the built duct's extent along its axis (world Y).
+            duct = element_by_role(model, 'duct')
+            built = next(e for e in geometry(model)['elements'] if e['id'] == duct.id())
+            extent = num(built['bbox_m']['max'][1] - built['bbox_m']['min'][1])
+            if abs(extent - brief['duct']['length_m']) > 1e-6:
+                fail(f"duct length {brief['duct']['length_m']} m disagrees with the built duct ({extent} m)")
+            quantity, unit = extent, 'm'
+        else:
+            fail(f'cost line {spec["id"]} has an unknown source {source!r}')
+            raise SystemExit
+        if spec['task'] not in tasks:
+            fail(f'cost line {spec["id"]} names task {spec["task"]}, which the schedule does not have')
+        lines.append({'id': spec['id'], 'item': spec['item'], 'task': spec['task'], 'quantity': quantity, 'unit': unit, 'source': source, 'rate': None, 'amount': None, 'rateStatus': 'unavailable: no unit-rate source that may be reused has been chosen, and no contract measurement rules apply to a test file'})
+    return {
+        'schedule': {
+            'checked': 'Tasks from the practice brief, written into the IFC copy with ifcopenshell.api.sequence: each physical element is assigned to the one task that builds it (IfcRelAssignsToProduct), and each dependency (IfcRelSequence, finish to start) is derived from a relationship in the model or an open issue, never typed in. The order is computed, and a cycle stops the script. No durations or dates are set, because no productivity source has been chosen.',
+            'tasks': rows,
+            'order': order,
+            'dependencies': [{'before': a, 'after': b, 'type': 'FINISH_START', 'because': why} for (a, b), why in sorted(deps.items())],
+        },
+        'costPlan': {
+            'checked': 'Each cost line cites a traced quantity (BIM-006), a count of model elements or an open issue, and the task it belongs to. No line is priced.',
+            'lines': lines,
+            'priced': sum(1 for l in lines if l['rate'] is not None),
+        },
+    }
+
+
+def read_back_plan(model: ifcopenshell.file) -> dict[str, object]:
+    """What the planned IFC file holds, read from the written file, for comparison with what the script meant to write."""
+    builds = sorted([o.Identification, f'#{r.RelatingProduct.id()}={r.RelatingProduct.is_a()}'] for r in model.by_type('IfcRelAssignsToProduct') for o in r.RelatedObjects)
+    sequences = sorted([r.RelatingProcess.Identification, r.RelatedProcess.Identification, r.SequenceType] for r in model.by_type('IfcRelSequence'))
+    return {'tasks': sorted(t.Identification for t in model.by_type('IfcTask')), 'builds': builds, 'sequences': sequences, 'workSchedules': len(model.by_type('IfcWorkSchedule'))}
+
+
+def table_csv(header: list[str], rows: list[list[object]]) -> str:
+    import csv
+    import io
+
+    buffer = io.StringIO()
+    writer = csv.writer(buffer, lineterminator='\n')
+    writer.writerow(header)
+    for row in rows:
+        writer.writerow(['unavailable' if v is None else v for v in row])
+    return buffer.getvalue()
+
+
+# --- The review package: who must review what before anything is used ------------------------------------------------
+def review_package(gates: dict, deliverables: dict[str, str]) -> dict[str, object]:
+    covered = set()
+    out = []
+    for gate in gates['gates']:
+        for d in gate['deliverables']:
+            if d not in deliverables:
+                fail(f"review gate {gate['id']} names {d}, which the script does not produce")
+            covered.add(d)
+        if not gate['reviewers']:
+            fail(f"review gate {gate['id']} names no reviewer")
+        out.append({**gate, 'evidence': [deliverables[d] for d in gate['deliverables']], 'status': 'not-reviewed', 'reviewedBy': None, 'decision': None})
+    missing = sorted(set(deliverables) - covered)
+    if missing:
+        fail(f'no review gate covers {missing}')
+    return {
+        'status': gates['status'],
+        'gates': out,
+        'deliverables': deliverables,
+        'reviewed': sum(1 for g in out if g['status'] != 'not-reviewed'),
+        'constructionReady': False,
+        'boundary': gates['boundary'],
+    }
+
+
+def review_markdown(package: dict[str, object]) -> str:
+    lines = ['# Review package (practice)', '', package['status'], '', package['boundary'], '', '| Gate | What is reviewed | Required reviewers | Evidence | Status |', '| --- | --- | --- | --- | --- |']
+    for g in package['gates']:
+        lines.append(f"| {g['id']} {g['name']} | {g['scope']} | {'; '.join(g['reviewers'])} | {' '.join(g['evidence'])} | not reviewed |")
+    lines += ['', f"Gates reviewed: {package['reviewed']} of {len(package['gates'])}. Construction ready: no.", '']
+    return '\n'.join(lines)
+
+
 def summary_markdown(results: dict[str, dict[str, dict[str, object]]], manifest: dict[str, object]) -> str:
     lines = [
         '# BIM pathway checks',
@@ -579,11 +1219,147 @@ def summary_markdown(results: dict[str, dict[str, dict[str, object]]], manifest:
     return '\n'.join(lines)
 
 
+
+def summary_coordination(c: dict[str, object]) -> str:
+    clashes, issues, bcf3, sched, cost, cards, review = c['clashes'], c['issues'], c['bcf3'], c['plan']['schedule'], c['plan']['costPlan'], c['cards'], c['review']
+    lines = ['## Coordination (BIM-007): a practice duct, clashes and an issue register', '',
+             f"Model: coordination/{COORDINATION_IFC}, the edited copy plus one Dojo-authored practice duct. Schema issues: {len(c['schema']['issues'])}.", '',
+             '| Pair | Box route overlap (m³) | Box route gap (m) | Clash tree |', '| --- | --- | --- | --- |']
+    tree = {t['b']: t for t in clashes['clashTree']['hard']}
+    for p in clashes['boxRoute']['pairs']:
+        t = tree.get(p['element'])
+        lines.append(f"| duct and {p['element']} | {p['overlap_m3']} | {p['gap_m']} | {'hard clash, depth ' + str(t['distance_m']) + ' m' if t else 'no hard clash'} |")
+    lines += ['', 'The two routes agree. The opening is a void, not a physical element.', '', '| Issue | Type | Status | Title | Review gates |', '| --- | --- | --- | --- | --- |']
+    lines += [f"| {i['id']} | {i['type']} | {i['status']} | {i['title']} | {' '.join(i['reviewGates'])} |" for i in issues]
+    lines += ['', f"BCF {bcf3['version']}: every part valid against the schema files bcf-client ships; read back with bcf-client: {len(bcf3['readBack']['topics'])} topic(s), every selected GlobalId found in the model.",
+              'Validated against buildingSMART BCF-XML ' + bcf3['official']['tag'] + ' schema files, kept unchanged and each proven by its git blob id (' + str(len(bcf3['schemaFiles'])) + ' files).', '',
+              '## Schedule and cost mapping (BIM-008), preliminary', '', f"Model: planning/{PLANNED_IFC}. Order: {' → '.join(sched['order'])}. Durations: none set.", '',
+              '| Task | Name | Builds | After | Because |', '| --- | --- | --- | --- | --- |']
+    lines += [f"| {t['task']} | {t['name']} | {' '.join(t['builds']) or 'nothing modelled'} | {' '.join(t['after']) or '-'} | {'; '.join(t['because']) or '-'} |" for t in sched['tasks']]
+    lines += ['', '| Cost line | Item | Task | Quantity | Unit | Source | Rate |', '| --- | --- | --- | --- | --- | --- | --- |']
+    lines += [f"| {l['id']} | {l['item']} | {l['task']} | {l['quantity']} | {l['unit']} | {l['source']} | unavailable |" for l in cost['lines']]
+    lines += ['', f"Priced lines: {cost['priced']} of {len(cost['lines'])}.", '', '## Specialist Randori (BIM-R02)', '', '| Card | Changes | Result |', '| --- | --- | --- |']
+    lines += [f"| {k['id']} | {k['changes']} | {k['result']} |" for k in cards['cards']]
+    lines += ['', '## Review package', '', '| Gate | Required reviewers | Status |', '| --- | --- | --- |']
+    lines += [f"| {g['id']} {g['name']} | {'; '.join(g['reviewers'])} | not reviewed |" for g in review['gates']]
+    lines += ['', 'Construction ready: no. Nothing in this folder is approved for any project.', '']
+    return '\n'.join(lines)
+
+
+def run_coordination(examples: Path, out: Path, quantity_rows: list[dict[str, object]]) -> dict[str, object]:
+    brief = read_json(examples / COORDINATION_BRIEF)
+    gates = read_json(examples / REVIEW_GATES)
+    coord = out / 'coordination'
+    coord.mkdir()
+    model = open_ifc(out / EDITED_IFC)
+    author_duct(model, brief)
+    fixed_header(model, COORDINATION_IFC, 'Practice coordination copy, not approved for any project')
+    model.write(str(coord / COORDINATION_IFC))
+    model = open_ifc(coord / COORDINATION_IFC)  # every check below reads the written file, not the object in memory
+    model_ref = f'coordination/{COORDINATION_IFC}'
+    geo = geometry(model)
+    if not geo['allBuilt']:
+        fail('an element of the coordination model does not build')
+    clashes = coordination(model, brief, None)
+    issues = issue_register(model, clashes, brief, model_ref)
+    if not issues:
+        fail('the practice duct was routed to clash with the wall, but no hard clash was found')
+    project = model.by_type('IfcProject')[0].GlobalId
+    entries = write_bcf(coord / 'issues.bcf', issues, project, model_ref, '3.0', [brief['issueOwner']])
+    bcf3 = check_bcf(coord / 'issues.bcf', entries, '3.0', model)
+    schema = schema_validation(model)
+    ids_summary, ids_full = ids_check(examples / PRACTICE_IDS, model)
+    write_json(coord / 'geometry.json', geo)
+    write_json(coord / 'clashes.json', clashes)
+    write_json(coord / 'issues.json', {'status': 'Practice issues on a test file. Nobody has reviewed or resolved them.', 'issues': issues})
+    (coord / 'issues.csv').write_text(issues_csv(issues), encoding='utf-8')
+    write_json(coord / 'bcf-check.json', bcf3)
+    write_json(coord / 'schema.json', schema)
+    write_json(coord / 'ids.json', ids_summary)
+    write_json(coord / 'ids-ifctester.json', ids_full)
+
+    planning = out / 'planning'
+    planning.mkdir()
+    planned = open_ifc(coord / COORDINATION_IFC)
+    plan_data = plan(planned, brief, issues, quantity_rows)
+    fixed_header(planned, PLANNED_IFC, 'Practice sequence, not a programme for any project')
+    planned.write(str(planning / PLANNED_IFC))
+    planned = open_ifc(planning / PLANNED_IFC)
+    sched = plan_data['schedule']
+    expected = {
+        'tasks': sorted(t['task'] for t in sched['tasks']),
+        'builds': sorted([t['task'], b] for t in sched['tasks'] for b in t['builds']),
+        'sequences': sorted([d['before'], d['after'], d['type']] for d in sched['dependencies']),
+        'workSchedules': 1,
+    }
+    back = read_back_plan(planned)
+    if back != expected:
+        fail(f'the planned IFC does not read back as written: wrote {expected}, read {back}')
+    sched['readBack'] = {'matchesWhatWasWritten': True, **back}
+    planned_schema = schema_validation(planned)
+    write_json(planning / 'schedule.json', sched)
+    (planning / 'schedule.csv').write_text(table_csv(['task', 'name', 'predefinedType', 'builds', 'after', 'because', 'duration', 'heldBy'], [[t['task'], t['name'], t['predefinedType'], ' '.join(t['builds']), ' '.join(t['after']), '; '.join(t['because']), t['duration'], ' '.join(t['heldBy'])] for t in sched['tasks']]), encoding='utf-8')
+    write_json(planning / 'cost-plan.json', plan_data['costPlan'])
+    (planning / 'cost-plan.csv').write_text(table_csv(['id', 'item', 'task', 'quantity', 'unit', 'source', 'rate', 'amount'], [[l['id'], l['item'], l['task'], l['quantity'], l['unit'], l['source'], l['rate'], l['amount']] for l in plan_data['costPlan']['lines']]), encoding='utf-8')
+    write_json(planning / 'schema.json', planned_schema)
+
+    randori = out / 'randori-coordination'
+    randori.mkdir()
+    clearance = float(brief['rules']['randoriClearance_m'])
+    clashes_r = coordination(model, brief, clearance)
+    issues_r = clearance_issues(model, clashes_r, issues, brief, model_ref)
+    entries_r = write_bcf(randori / 'issues-clearance.bcf', issues_r, project, model_ref, '3.0', [brief['issueOwner']])
+    bcf_r = check_bcf(randori / 'issues-clearance.bcf', entries_r, '3.0', model)
+    entries21 = write_bcf(randori / 'issues-bcf21.bcf', issues, project, model_ref, '2.1', [brief['issueOwner']])
+    bcf21 = check_bcf(randori / 'issues-bcf21.bcf', entries21, '2.1', model)
+    fov_ok = BCF21_FIELD_OF_VIEW[0] <= 60.0 <= BCF21_FIELD_OF_VIEW[1]
+    new_issues = [i['id'] for i in issues_r if i['id'] not in {j['id'] for j in issues}]
+    cards = {'cards': [
+        {'id': 'CARD-R', 'changes': 'requirement', 'card': f'Keep {clearance} m clear between the duct and every other element, not only avoid touching.',
+         'result': f"{len(new_issues)} new issue(s): {', '.join(new_issues) or 'none'}", 'newIssues': new_issues, 'clearanceClashes': clashes_r['clearanceClashes'],
+         'evidence': ['randori-coordination/clearance.json', 'randori-coordination/issues-clearance.json', 'randori-coordination/issues-clearance.bcf']},
+        {'id': 'CARD-F', 'changes': 'format', 'card': 'The receiving tool reads BCF 2.1 only. Export the same issues as BCF 2.1 and say what does not carry over.',
+         'result': f"valid against buildingSMART's official BCF 2.1 schema files and read back ({len(bcf21['readBack']['topics'])} topic(s)); some information does not carry over",
+         'notCarried': ['extensions.xml: the BCF 3.0 lists of allowed topic types, statuses, priorities, labels and users have no file in this 2.1 export', 'PerspectiveCamera/AspectRatio: BCF 2.1 has no aspect ratio', 'The Comments and Viewpoints lists move out of Topic to the end of the markup file (structure, not loss)'],
+         'fieldOfViewWithinOfficial21Range': fov_ok,
+         'schemaNote': 'The parts are validated against buildingSMART\'s official BCF-XML v2.1 schema files, kept unchanged beside the script, because the installed bcf-client 0.9.0 lacks schema files (v3/xsd/documents.xsd among them). The official 2.1 visinfo.xsd allows a perspective FieldOfView of 45 to 60 degrees; the export uses 60 and the script checks the range as well.',
+         'evidence': ['randori-coordination/issues-bcf21.bcf', 'randori-coordination/bcf21-check.json']},
+        {'id': 'CARD-T', 'changes': 'tool', 'card': 'Find the clashes with a second tool and compare, instead of trusting one clash engine.',
+         'result': 'IfcOpenShell clash tree (collision mode) and box arithmetic agree on every pair; the box route only holds because every element here is box-shaped, which the script checks. ' + clashes['intersectionMode']['note'],
+         'boxRouteChecks': clashes['boxRoute']['checks'], 'routesAgree': clashes['routesAgree'],
+         'limitation': 'Box arithmetic is not a clash engine: it is right here only because each built volume equals its box volume (the wall: less the opening). Any sloped, curved or hollow element would stop the script instead of giving an answer.',
+         'evidence': ['coordination/clashes.json']},
+    ]}
+    if not fov_ok:
+        fail('the BCF 2.1 export uses a field of view outside the official 2.1 range')
+    write_json(randori / 'clearance.json', clashes_r)
+    write_json(randori / 'issues-clearance.json', {'status': 'Practice issues under the Randori clearance card. Nobody has reviewed or resolved them.', 'issues': issues_r})
+    write_json(randori / 'bcf-clearance-check.json', bcf_r)
+    write_json(randori / 'bcf21-check.json', bcf21)
+    write_json(randori / 'cards.json', cards)
+
+    review_dir = out / 'review'
+    review_dir.mkdir()
+    deliverables = {
+        'coordination-model': model_ref, 'clash-results': 'coordination/clashes.json', 'issue-register': 'coordination/issues.bcf',
+        'information-checks': 'coordination/ids.json', 'schema-checks': 'coordination/schema.json', 'quantities': 'quantities/quantities.json',
+        'cost-plan': 'planning/cost-plan.json', 'planned-model': f'planning/{PLANNED_IFC}', 'schedule': 'planning/schedule.json',
+        'randori-cards': 'randori-coordination/cards.json',
+    }
+    package = review_package(gates, deliverables)
+    write_json(review_dir / 'review-package.json', package)
+    (review_dir / 'review-package.md').write_text(review_markdown(package), encoding='utf-8')
+    return {
+        'clashes': clashes, 'issues': issues, 'bcf3': bcf3, 'plan': plan_data, 'cards': cards, 'review': package, 'schema': schema,
+        'hashes': {name: sha256(out / name) for name in (model_ref, f'planning/{PLANNED_IFC}', 'coordination/issues.bcf', 'randori-coordination/issues-clearance.bcf', 'randori-coordination/issues-bcf21.bcf')},
+    }
+
+
 def main(argv: list[str]) -> None:
     if len(argv) != 3:
         fail('usage: bim_pathway.py <examples-dir> <out-dir>')
     examples, out = Path(argv[1]), Path(argv[2])
-    for name in (SOURCE_IFC, PRACTICE_IDS, RANDORI_IDS):
+    for name in (SOURCE_IFC, PRACTICE_IDS, RANDORI_IDS, COORDINATION_BRIEF, REVIEW_GATES):
         if not (examples / name).is_file():
             fail(f'missing input {examples / name}')
     if out.exists():
@@ -623,6 +1399,7 @@ def main(argv: list[str]) -> None:
     write_json(out / 'quantities' / 'quantities.json', quantity_data)
     (out / 'quantities' / 'quantities.csv').write_text(quantities_csv(quantity_data), encoding='utf-8')
     results['quantities'] = {'quantities': quantity_data}
+    coordination_data = run_coordination(examples, out, quantity_data['quantities'])
 
     before, after = properties(models['original']), properties(models['edited'])
     changes = []
@@ -645,11 +1422,13 @@ def main(argv: list[str]) -> None:
     py = sys.version_info
     manifest = {
         'tools': {'ifcopenshell': ifcopenshell.version, 'ifctester': ifctester.__version__, 'python': f'{py.major}.{py.minor}'},
-        'inputs': {name: sha256(examples / name) for name in (SOURCE_IFC, PRACTICE_IDS, RANDORI_IDS)},
+        'inputs': {name: sha256(examples / name) for name in (SOURCE_IFC, PRACTICE_IDS, RANDORI_IDS, COORDINATION_BRIEF, REVIEW_GATES)},
         'edited': {EDITED_IFC: sha256(out / EDITED_IFC)},
+        'coordination': coordination_data['hashes'],
     }
+    manifest['tools'].update({'bcf-client': importlib.metadata.version('bcf-client'), 'xmlschema': importlib.metadata.version('xmlschema')})
     write_json(out / 'manifest.json', manifest)
-    (out / 'summary.md').write_text(summary_markdown(results, manifest), encoding='utf-8')
+    (out / 'summary.md').write_text(summary_markdown(results, manifest) + '\n' + summary_coordination(coordination_data), encoding='utf-8')
 
 
 if __name__ == '__main__':

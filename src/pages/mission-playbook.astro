@@ -45,7 +45,7 @@ const foundationCapabilities = new Set(foundations.flatMap((entry) => entry.meta
 
 const fields = mission.adaptations.map((adaptation) => {
   const pack = sectorPack(adaptation.packId);
-  const katas = [...pack.kataIds, pack.randoriKataId].map((id) => {
+  const katas = [...pack.kataIds, pack.randoriKataId, ...pack.specialistRandoriKataIds].map((id) => {
     const item = byId.get(id);
     if (!item) throw new Error(`mission playbook: sector pack ${pack.id} names ${id}, which has no recipe`);
     return item;

@@ -1,0 +1,206 @@
+# BIM pathway (M10, #92): a draft recipe. The worked example, files and CI check results are on /katas/bim-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job bim_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: BIM pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/92
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent or professional review yet.
+summary: Map the model's elements to construction tasks, derive each dependency from a relationship in the model or an open issue, and build an unpriced cost plan whose lines cite traced quantities.
+metadata:
+  id: BIM-008
+  title: Map the model to a sequence and an unpriced cost plan
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - map-model-to-schedule
+  artifactTypes:
+    - schedule-mapping
+    - quantity-table
+  domainIds:
+    - architecture-bim
+    - construction
+  capabilityIds:
+    - plan-sequence
+    - take-off-quantities
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - ifcopenshell-and-python
+  constraintIds:
+    - licensed-sample-only
+    - no-paid-tools
+    - offline-capable
+  externalResources:
+    - buildingsmart/ifc-wall-example
+    - ifcopenshell/geometry-processing
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: Industry Foundation Classes (IFC)
+      version: IFC4 ADD2 TC1 (ISO 16739-1:2018), as declared by the sample file
+      applicability: The buildingSMART practice sample and copies of it only
+      reviewScope: "What the listed checks test: the shapes, entities and relationships in the practice files. No claim about any real building."
+  verificationEvidence:
+    - description: A planned IFC copy with a work schedule, four tasks, each element assigned to the task that builds it and three finish-to-start dependencies, read back from the written file and matching the Dojo's CI output
+      method: automated-check
+      standards:
+        - Industry Foundation Classes (IFC)
+    - description: A cost plan in which each line cites a traced quantity, an element count or an open issue, and no line is priced
+      method: automated-check
+      standards:
+        - Industry Foundation Classes (IFC)
+    - description: The learner names what a planner and a quantity surveyor would have to add before either is used
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces the task order T-010, T-020, T-030, T-040 and says which model relationship or issue gives each dependency
+    - stage: adapt
+      criterion: Adds a task (for example, making good around the duct) with its own source for each dependency, and the order is still computed, not typed
+    - stage: demonstrate
+      criterion: Explains to a partner why the plan has no durations or rates, and who would supply them
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: the coordination model mapped to four construction tasks and an unpriced cost plan, each link traced to the model or the issue register, computed by the site’s CI on buildingSMART’s wall-with-opening-and-window sample."
+  href: /katas/bim-pathway
+  provenance:
+    creator: buildingSMART International (sample model); Developer Dojo maintainers (practice duct, brief, checks and outputs)
+    source: buildingSMART Certification-datasets, pinned commit 80d976a9b193a26a8e928c3e79bff67af1de68a8; outputs from /examples/bim-pathway/tools/bim_pathway.py
+    license: Sample model CC BY 4.0 (buildingSMART International); brief, script and outputs MIT
+    date: "2026-11-22"
+brief:
+  goal: A preliminary model-to-sequence mapping and cost plan in which every link can be traced, and nothing is invented.
+  audience: Learners who finished BIM-006 and BIM-007.
+  inputs:
+    - name: wall-with-opening-and-window.coordination.ifc
+      source: /examples/bim-pathway/generated/coordination/wall-with-opening-and-window.coordination.ifc
+      terms: CC BY 4.0 adaptation of buildingSMART International's sample
+    - name: coordination-brief.json
+      source: /examples/bim-pathway/coordination-brief.json
+      terms: Dojo content, MIT licence
+  doneWhen:
+    - Every physical element is assigned to exactly one task, in the IFC file (IfcRelAssignsToProduct)
+    - Each dependency cites the model relationship or the issue it comes from, and the order is computed; a cycle stops the script
+    - The planned file is read back and matches what was written
+    - Each cost line cites a traced quantity, a count of model elements or an open issue, and no rate is invented
+    - The plan says it is preliminary practice, with no durations, rates or programme
+stack:
+  components:
+    - part: tool
+      name: IfcOpenShell (geometry and clash tree built with OpenCASCADE) and bcf-client
+      version: 0.9.0.post1 and 0.9.0
+      permissions: Reads the IFC copy you open; writes only the files your script saves
+      cost: Free (LGPL-3.0-or-later)
+    - part: runtime
+      name: Python in a virtual environment, with xmlschema
+      version: "3.12"
+      permissions: Runs on your own machine; network only to install the pinned packages
+      cost: Free
+    - part: data
+      name: The edited sample from BIM-004 and the practice brief
+      version: "Certification-datasets commit 80d976a; coordination-brief.json 2026-11-21"
+      permissions: Practice copies; the sample licence allows changes with credit
+      cost: Free (CC BY 4.0 and MIT)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may draft a script, and every result it gives is checked against the files
+      permissions: Reads what you paste in; if it runs commands, give it only the copies
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: A schedule or cost plan linked to a model is only useful if each link can be checked. Writing the tasks into the IFC file, rather than into a separate spreadsheet, keeps them in the open exchange format, and reading the file back shows what another IFC reader would find. Durations and rates are left out because no source for them has been chosen, and an invented number would look like evidence.
+  alternatives:
+    - name: A scheduling tool linked to the model
+      tradeoff: Adds durations, calendars and a Gantt view. Each tool imports IFC tasks differently, and none was tested, so do not assume the tasks open the same way in one.
+      tested: false
+    - name: Unit rates from a published price book
+      tradeoff: Would price the plan, but most price books cannot be reused freely and their measurement rules differ. None was chosen.
+      tested: false
+agents:
+  roles:
+    - role: Coding agent
+      responsibility: Drafts the script that writes the tasks, assigns the elements and derives the dependencies.
+      reviewGate: Every dependency carries its reason; a dependency without one is rejected.
+    - role: Learner as reviewer
+      responsibility: Checks each dependency against the model relationships and the issue register, and checks each cost line against BIM-006.
+      dependsOn:
+        - Coding agent
+      reviewGate: Nothing is presented as a programme, an estimate or construction ready.
+setup:
+  steps:
+    - "Create a virtual environment with Python 3.12: python3.12 -m venv .venv"
+    - "Install the pinned packages: .venv/bin/pip install --require-hashes -r /examples/bim-pathway/tools/requirements.txt"
+    - Download the edited model and coordination-brief.json from /katas/bim-pathway into a new, empty folder. Work on copies.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Check the planned model: .venv/bin/python -I -c \"import ifcopenshell; m = ifcopenshell.open('wall-with-opening-and-window.planned.ifc'); print(sorted(t.Identification for t in m.by_type('IfcTask')))\""
+    expected: "['T-010', 'T-020', 'T-030', 'T-040']"
+    result: passed
+    evidence: /examples/bim-pathway/generated/planning/schedule.json (readBack), recomputed by CI on every pipeline
+    date: "2026-11-22"
+prompts:
+  - id: traced-sequence
+    title: Ask for a sequence you can trace
+    purpose: Make every dependency carry the model relationship or issue it comes from.
+    text: |-
+      Using ifcopenshell.api.sequence in ifcopenshell 0.9, add a work schedule and the tasks in coordination-brief.json to
+      &lt;copy.ifc&gt;. Assign each physical element to the one task that builds it. Derive each finish-to-start dependency
+      from IfcRelFillsElement and IfcRelVoidsElement, or from an open issue in issues.json, and record the reason. Compute
+      the order and stop with an error if there is a cycle. Write the file, read it back and compare. Do not set durations,
+      dates or rates; say they are unavailable. Do not call the result a programme or an estimate.
+exercise:
+  title: IFC wall with opening and window sample
+  resourceId: buildingsmart/ifc-wall-example
+  terms: CC BY 4.0, buildingSMART International Ltd.
+execution:
+  steps:
+    - actor: Coding agent
+      action: Writes the tasks and the dependencies into a copy and writes the cost plan.
+      handoff: You check each reason and each cited quantity.
+    - actor: Learner
+      action: Reads the plan against gates G4 and G5 of the review package.
+    - actor: Learner
+      action: Writes what a planner and a quantity surveyor would add before anyone used it.
+verification:
+  checks:
+    - action: Map the elements to tasks and derive the dependencies
+      expected: "T-010 builds the wall and the opening, T-020 the window, T-030 the duct; T-040 builds nothing and is held by ISS-001. Order T-010, T-020, T-030, T-040: window after wall (the window fills the opening that voids the wall), duct after wall (ISS-001), fire stopping after duct (ISS-001)"
+      result: passed
+      evidence: /examples/bim-pathway/generated/planning/schedule.json and /examples/bim-pathway/generated/planning/schedule.csv, recomputed by CI on every pipeline
+      date: "2026-11-22"
+    - action: Read the planned IFC back
+      expected: Four tasks, four product assignments, three finish-to-start sequences and one work schedule, matching what was written
+      result: passed
+      evidence: /examples/bim-pathway/generated/planning/schedule.json (readBack) and /examples/bim-pathway/generated/planning/wall-with-opening-and-window.planned.ifc
+      date: "2026-11-22"
+    - action: Build the unpriced cost plan
+      expected: "C-01 wall net volume 1.5 m³ (Q-06), C-02 one window, C-03 duct 1.5 m (checked against the built duct), C-04 one fire-stopping item (ISS-001); rates unavailable"
+      result: passed
+      evidence: /examples/bim-pathway/generated/planning/cost-plan.json and /examples/bim-pathway/generated/planning/cost-plan.csv
+      date: "2026-11-22"
+    - action: Open the planned IFC in a scheduling tool
+      expected: The four tasks and three dependencies appear
+      result: not-run
+  failures:
+    - observed: The work schedule's date changes on every run
+      correction: The add_work_schedule function in IfcOpenShell's sequence API stamps the current time. Set CreationDate and StartTime yourself if the file must be reproducible.
+    - observed: The order is right but nobody can say why
+      correction: Store the reason with each dependency when you create it. A typed order cannot be checked.
+adaptation:
+  variations:
+    - change: Resolve ISS-001 by rerouting the duct above the wall
+      effect: The duct no longer depends on the wall through the issue and the fire-stopping task has nothing to do; the plan changes because the evidence changed.
+randori:
+  challenge: See the specialist BIM Randori recipe, BIM-R02.
+  constraints:
+    - Every dependency keeps its reason
+  evaluation: A partner traces each dependency and cost line back to the model or the register.
+maintenance:
+  cadence: Every six months, when IfcOpenShell releases a new minor version, or when buildingSMART revises IFC
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - The sample is a three-element test file plus one practice duct, not a building. Nothing learned from it is evidence about a real project.
+    - No model, issue, sequence or quantity here is professionally reviewed or approved, and nothing is construction ready. The review package names the qualified reviewers and gates a real project would need.
+    - This is a preliminary mapping, not a programme. There are no durations, calendars, resources or dates, because no source for them was chosen.
+    - The cost plan is unpriced. It is not an estimate, a bill of quantities or an order, and the measurement rules a contract would set are not applied.
+    - The planned IFC was read back with IfcOpenShell only. No scheduling tool was tested.

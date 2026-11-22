@@ -1,0 +1,100 @@
+{
+  "boxRoute": {
+    "checks": [
+      {
+        "agree": true,
+        "boxes_m3": 0.15,
+        "built_m3": 0.15,
+        "element": "#150=IfcDuctSegment"
+      },
+      {
+        "agree": true,
+        "boxes_m3": 0.2,
+        "built_m3": 0.2,
+        "element": "#102=IfcWindow"
+      },
+      {
+        "agree": true,
+        "boxes_m3": 1.5,
+        "built_m3": 1.5,
+        "element": "#45=IfcWall"
+      }
+    ],
+    "holds": true,
+    "pairs": [
+      {
+        "GlobalId": "3ZYW59sxj8lei475l7EhLU",
+        "element": "#45=IfcWall",
+        "gap_m": 0.0,
+        "overlap_m3": 0.03
+      },
+      {
+        "GlobalId": "0tA4DSHd50le6Ov9Yu0I9X",
+        "element": "#102=IfcWindow",
+        "gap_m": 0.03,
+        "overlap_m3": 0.0
+      }
+    ]
+  },
+  "checked": "Hard clashes between the practice duct and every other physical element, by IfcOpenShell's clash tree (the opencascade.trianglebvh tree IfcClash 0.9 uses, collision mode with touching not allowed) and, independently, by box arithmetic on the built shapes, which also gives the overlap volume. The script writes nothing if the two routes disagree. IfcClash's intersection mode is run too and its result recorded under intersectionMode. The opening is a void, not a physical element, so it is not tested on its own.",
+  "clashTree": {
+    "clearance": [
+      {
+        "a": "#150=IfcDuctSegment",
+        "aGlobalId": "1g6W_KPS9IgQUhTVWD7nUg",
+        "b": "#102=IfcWindow",
+        "bGlobalId": "0tA4DSHd50le6Ov9Yu0I9X",
+        "distance_m": 0.03,
+        "p1_m": [
+          1.7,
+          0.25,
+          1.53
+        ],
+        "p2_m": [
+          1.7,
+          0.25,
+          1.5
+        ],
+        "type": "clearance"
+      }
+    ],
+    "hard": [
+      {
+        "a": "#150=IfcDuctSegment",
+        "aGlobalId": "1g6W_KPS9IgQUhTVWD7nUg",
+        "b": "#45=IfcWall",
+        "bGlobalId": "3ZYW59sxj8lei475l7EhLU",
+        "distance_m": 0.0,
+        "p1_m": [
+          1.7,
+          0.3,
+          1.78
+        ],
+        "p2_m": [
+          1.46,
+          0.3,
+          1.78
+        ],
+        "type": "collision"
+      }
+    ],
+    "mode": "collision, touching not allowed"
+  },
+  "clearanceClashes": [
+    "#102=IfcWindow"
+  ],
+  "clearance_m": 0.05,
+  "hardClashes": [
+    "#45=IfcWall"
+  ],
+  "intersectionMode": {
+    "agreesWithBothRoutes": false,
+    "found": [],
+    "note": "Validation exception: IfcClash 0.9 intersection mode (tolerance 0.002 m) reports no clash here, although its collision mode and the box route both find ['#45=IfcWall']. It is recorded and not relied on. Do not read an empty result from one mode as no clash.",
+    "pairs": [],
+    "tolerance_m": 0.002
+  },
+  "routesAgree": true,
+  "tolerance_m": 0.002,
+  "treeLengthUnitToMetre": 0.001
+}

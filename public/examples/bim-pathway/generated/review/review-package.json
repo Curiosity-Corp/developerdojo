@@ -1,0 +1,119 @@
+{
+  "boundary": "Every gate needs a qualified person in the named role, under the rules of the project and the place it is built in. A green check in this pathway is software evidence on a test file, not a review. Construction ready is always false.",
+  "constructionReady": false,
+  "deliverables": {
+    "clash-results": "coordination/clashes.json",
+    "coordination-model": "coordination/wall-with-opening-and-window.coordination.ifc",
+    "cost-plan": "planning/cost-plan.json",
+    "information-checks": "coordination/ids.json",
+    "issue-register": "coordination/issues.bcf",
+    "planned-model": "planning/wall-with-opening-and-window.planned.ifc",
+    "quantities": "quantities/quantities.json",
+    "randori-cards": "randori-coordination/cards.json",
+    "schedule": "planning/schedule.json",
+    "schema-checks": "coordination/schema.json"
+  },
+  "gates": [
+    {
+      "decision": null,
+      "deliverables": [
+        "coordination-model",
+        "information-checks",
+        "schema-checks",
+        "randori-cards"
+      ],
+      "evidence": [
+        "coordination/wall-with-opening-and-window.coordination.ifc",
+        "coordination/ids.json",
+        "coordination/schema.json",
+        "randori-coordination/cards.json"
+      ],
+      "id": "G1",
+      "name": "Information and model check",
+      "reviewedBy": null,
+      "reviewers": [
+        "BIM or information manager"
+      ],
+      "scope": "The model meets the information requirements and exchange schema; the Randori cards are read.",
+      "status": "not-reviewed"
+    },
+    {
+      "decision": null,
+      "deliverables": [
+        "clash-results",
+        "issue-register"
+      ],
+      "evidence": [
+        "coordination/clashes.json",
+        "coordination/issues.bcf"
+      ],
+      "id": "G2",
+      "name": "Services route and builder’s work",
+      "reviewedBy": null,
+      "reviewers": [
+        "Mechanical (building services) engineer",
+        "Structural engineer"
+      ],
+      "scope": "Whether the duct is rerouted or the wall gets a formed opening, and the issue register is closed.",
+      "status": "not-reviewed"
+    },
+    {
+      "decision": null,
+      "deliverables": [
+        "issue-register"
+      ],
+      "evidence": [
+        "coordination/issues.bcf"
+      ],
+      "id": "G3",
+      "name": "Fire stopping",
+      "reviewedBy": null,
+      "reviewers": [
+        "Fire engineer",
+        "Building control body or authority having jurisdiction"
+      ],
+      "scope": "The penetration through the fire-rated wall and its sealing detail.",
+      "status": "not-reviewed"
+    },
+    {
+      "decision": null,
+      "deliverables": [
+        "quantities",
+        "cost-plan"
+      ],
+      "evidence": [
+        "quantities/quantities.json",
+        "planning/cost-plan.json"
+      ],
+      "id": "G4",
+      "name": "Quantities and cost",
+      "reviewedBy": null,
+      "reviewers": [
+        "Quantity surveyor or cost engineer"
+      ],
+      "scope": "Measurement rules, quantities and rates.",
+      "status": "not-reviewed"
+    },
+    {
+      "decision": null,
+      "deliverables": [
+        "planned-model",
+        "schedule"
+      ],
+      "evidence": [
+        "planning/wall-with-opening-and-window.planned.ifc",
+        "planning/schedule.json"
+      ],
+      "id": "G5",
+      "name": "Sequence",
+      "reviewedBy": null,
+      "reviewers": [
+        "Construction planner"
+      ],
+      "scope": "Task logic, durations and resources.",
+      "status": "not-reviewed"
+    }
+  ],
+  "reviewed": 0,
+  "status": "Practice review package. No gate has been reviewed, and nothing here is approved for design, procurement or construction."
+}

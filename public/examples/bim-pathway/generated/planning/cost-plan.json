@@ -1,0 +1,50 @@
+{
+  "checked": "Each cost line cites a traced quantity (BIM-006), a count of model elements or an open issue, and the task it belongs to. No line is priced.",
+  "lines": [
+    {
+      "amount": null,
+      "id": "C-01",
+      "item": "Wall, net volume",
+      "quantity": 1.5,
+      "rate": null,
+      "rateStatus": "unavailable: no unit-rate source that may be reused has been chosen, and no contract measurement rules apply to a test file",
+      "source": "Q-06",
+      "task": "T-010",
+      "unit": "m³"
+    },
+    {
+      "amount": null,
+      "id": "C-02",
+      "item": "Window, supply and fit",
+      "quantity": 1,
+      "rate": null,
+      "rateStatus": "unavailable: no unit-rate source that may be reused has been chosen, and no contract measurement rules apply to a test file",
+      "source": "count",
+      "task": "T-020",
+      "unit": "nr"
+    },
+    {
+      "amount": null,
+      "id": "C-03",
+      "item": "Supply duct, 400 × 250 mm",
+      "quantity": 1.5,
+      "rate": null,
+      "rateStatus": "unavailable: no unit-rate source that may be reused has been chosen, and no contract measurement rules apply to a test file",
+      "source": "duct-length",
+      "task": "T-030",
+      "unit": "m"
+    },
+    {
+      "amount": null,
+      "id": "C-04",
+      "item": "Fire stopping at duct penetration",
+      "quantity": 1,
+      "rate": null,
+      "rateStatus": "unavailable: no unit-rate source that may be reused has been chosen, and no contract measurement rules apply to a test file",
+      "source": "issues",
+      "task": "T-040",
+      "unit": "nr"
+    }
+  ],
+  "priced": 0
+}

@@ -39,6 +39,8 @@ export const sectorPackSchema = z.strictObject({
   kataIds: z.array(kataId).min(1),
   /** The Randori recipe: an unseen change after the learner starts. */
   randoriKataId: kataId,
+  /** Further Randori recipes for specialists, each an unseen change to a requirement, format or tool. Optional. */
+  specialistRandoriKataIds: z.array(kataId).default([]),
   /** Shared foundations every kata in the pack builds on. Reused, never copied into the pack. */
   foundationKataIds: z.array(kataId).min(1),
   /** Where the files a learner downloads live, and the README that gives their licences and how to rerun the checks. */
@@ -68,6 +70,10 @@ export const sectorPackSchema = z.strictObject({
   if (!/-R\d{2}$/.test(pack.randoriKataId)) ctx.addIssue({ code: 'custom', path: ['randoriKataId'], message: 'a Randori kata ID ends in -R01, -R02 and so on' });
   pack.kataIds.forEach((id, index) => {
     if (/-R\d{2}$/.test(id)) ctx.addIssue({ code: 'custom', path: ['kataIds', index], message: 'list the Randori in randoriKataId, not with the practice katas' });
+  });
+  pack.specialistRandoriKataIds.forEach((id, index) => {
+    if (!/-R\d{2}$/.test(id)) ctx.addIssue({ code: 'custom', path: ['specialistRandoriKataIds', index], message: 'a Randori kata ID ends in -R01, -R02 and so on' });
+    if (id === pack.randoriKataId) ctx.addIssue({ code: 'custom', path: ['specialistRandoriKataIds', index], message: 'the main Randori is already randoriKataId' });
   });
   pack.verified.forEach((item, index) => {
     const line = typeof item === 'string' ? item : item.text;
@@ -121,7 +127,7 @@ export function checkSectorPacks(input: unknown, refs: SectorPackReferences): st
     for (const id of pack.fieldIds) if (!refs.fieldIds.includes(id)) problems.push(p + ': field ' + id + ' is not in src/lib/fields.ts');
     if (!refs.pageRoutes.includes(pack.pathway)) problems.push(p + ': pathway page ' + pack.pathway + ' does not exist; add src/pages' + pack.pathway + '.astro');
     for (const id of pack.foundationKataIds) if (!refs.foundationKataIds.includes(id)) problems.push(p + ': ' + id + ' is not a foundation kata');
-    for (const id of [...pack.kataIds, pack.randoriKataId]) {
+    for (const id of [...pack.kataIds, pack.randoriKataId, ...pack.specialistRandoriKataIds]) {
       claim('kata', id, p);
       const recipe = recipes.get(id);
       if (!recipe) { problems.push(p + ': ' + id + ' has no recipe in src/content/kata-recipes'); continue; }
@@ -137,7 +143,7 @@ export function checkSectorPacks(input: unknown, refs: SectorPackReferences): st
     for (const id of pack.galleryEntryIds) {
       const entry = gallery.get(id);
       if (!entry) { problems.push(p + ': gallery entry ' + id + ' does not exist (src/data/gallery.ts)'); continue; }
-      if (![...pack.kataIds, pack.randoriKataId].includes(entry.kataId)) problems.push(p + ': gallery entry ' + id + ' is taught by ' + entry.kataId + ', which is not in the pack');
+      if (![...pack.kataIds, pack.randoriKataId, ...pack.specialistRandoriKataIds].includes(entry.kataId)) problems.push(p + ': gallery entry ' + id + ' is taught by ' + entry.kataId + ', which is not in the pack');
       if (!entry.fieldIds.includes(field)) problems.push(p + ': gallery entry ' + id + ' is not listed under the pack field ' + field);
     }
     const files = [pack.examples.readme, ...(Array.isArray(pack.inputs) ? pack.inputs.map((input) => input.path) : []), ...pack.checks.flatMap((check) => check.outputs)];

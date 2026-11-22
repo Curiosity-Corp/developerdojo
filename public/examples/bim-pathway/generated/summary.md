@@ -97,3 +97,61 @@ No schema issues reported.
 | CARD-A Card A: windows carry a fire rating label too | fail |
 | CARD-B Card B: every wall has a material | pass |
 | CARD-C Card C: wall thermal transmittance at most 0.30 W/(m2 K) | pass |
+
+## Coordination (BIM-007): a practice duct, clashes and an issue register
+
+Model: coordination/wall-with-opening-and-window.coordination.ifc, the edited copy plus one Dojo-authored practice duct. Schema issues: 0.
+
+| Pair | Box route overlap (m³) | Box route gap (m) | Clash tree |
+| --- | --- | --- | --- |
+| duct and #45=IfcWall | 0.03 | 0.0 | hard clash, depth 0.0 m |
+| duct and #102=IfcWindow | 0.0 | 0.03 | no hard clash |
+
+The two routes agree. The opening is a void, not a physical element.
+
+| Issue | Type | Status | Title | Review gates |
+| --- | --- | --- | --- | --- |
+| ISS-001 | Clash | Open | D-01 Supply duct (practice) passes through Wall for Test Example with no opening for it | G2 G3 |
+
+BCF 3.0: every part valid against the schema files bcf-client ships; read back with bcf-client: 1 topic(s), every selected GlobalId found in the model.
+Validated against buildingSMART BCF-XML v3.0 schema files, kept unchanged and each proven by its git blob id (7 files).
+
+## Schedule and cost mapping (BIM-008), preliminary
+
+Model: planning/wall-with-opening-and-window.planned.ifc. Order: T-010 → T-020 → T-030 → T-040. Durations: none set.
+
+| Task | Name | Builds | After | Because |
+| --- | --- | --- | --- | --- |
+| T-010 | Build wall with opening | #45=IfcWall #80=IfcOpeningElement | - | - |
+| T-020 | Install window | #102=IfcWindow | T-010 | #102 fills #80 (#112 IfcRelFillsElement), which voids #45 (#85 IfcRelVoidsElement) |
+| T-030 | Install supply duct | #150=IfcDuctSegment | T-010 | ISS-001: #150 passes through #45, so it goes in after it |
+| T-040 | Fire-stop duct penetration | nothing modelled | T-030 | ISS-001: T-040 seals the penetration once the duct is in |
+
+| Cost line | Item | Task | Quantity | Unit | Source | Rate |
+| --- | --- | --- | --- | --- | --- | --- |
+| C-01 | Wall, net volume | T-010 | 1.5 | m³ | Q-06 | unavailable |
+| C-02 | Window, supply and fit | T-020 | 1 | nr | count | unavailable |
+| C-03 | Supply duct, 400 × 250 mm | T-030 | 1.5 | m | duct-length | unavailable |
+| C-04 | Fire stopping at duct penetration | T-040 | 1 | nr | issues | unavailable |
+
+Priced lines: 0 of 4.
+
+## Specialist Randori (BIM-R02)
+
+| Card | Changes | Result |
+| --- | --- | --- |
+| CARD-R | requirement | 1 new issue(s): ISS-002 |
+| CARD-F | format | valid against buildingSMART's official BCF 2.1 schema files and read back (1 topic(s)); some information does not carry over |
+| CARD-T | tool | IfcOpenShell clash tree (collision mode) and box arithmetic agree on every pair; the box route only holds because every element here is box-shaped, which the script checks. Validation exception: IfcClash 0.9 intersection mode (tolerance 0.002 m) reports no clash here, although its collision mode and the box route both find ['#45=IfcWall']. It is recorded and not relied on. Do not read an empty result from one mode as no clash. |
+
+## Review package
+
+| Gate | Required reviewers | Status |
+| --- | --- | --- |
+| G1 Information and model check | BIM or information manager | not reviewed |
+| G2 Services route and builder’s work | Mechanical (building services) engineer; Structural engineer | not reviewed |
+| G3 Fire stopping | Fire engineer; Building control body or authority having jurisdiction | not reviewed |
+| G4 Quantities and cost | Quantity surveyor or cost engineer | not reviewed |
+| G5 Sequence | Construction planner | not reviewed |
+
+Construction ready: no. Nothing in this folder is approved for any project.

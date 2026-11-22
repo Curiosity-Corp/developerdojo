@@ -1,0 +1,70 @@
+{
+  "status": "Practice review package. No gate has been reviewed, and nothing here is approved for design, procurement or construction.",
+  "licence": "MIT, Developer Dojo",
+  "boundary": "Every gate needs a qualified person in the named role, under the rules of the project and the place it is built in. A green check in this pathway is software evidence on a test file, not a review. Construction ready is always false.",
+  "gates": [
+    {
+      "id": "G1",
+      "name": "Information and model check",
+      "scope": "The model meets the information requirements and exchange schema; the Randori cards are read.",
+      "reviewers": [
+        "BIM or information manager"
+      ],
+      "deliverables": [
+        "coordination-model",
+        "information-checks",
+        "schema-checks",
+        "randori-cards"
+      ]
+    },
+    {
+      "id": "G2",
+      "name": "Services route and builder’s work",
+      "scope": "Whether the duct is rerouted or the wall gets a formed opening, and the issue register is closed.",
+      "reviewers": [
+        "Mechanical (building services) engineer",
+        "Structural engineer"
+      ],
+      "deliverables": [
+        "clash-results",
+        "issue-register"
+      ]
+    },
+    {
+      "id": "G3",
+      "name": "Fire stopping",
+      "scope": "The penetration through the fire-rated wall and its sealing detail.",
+      "reviewers": [
+        "Fire engineer",
+        "Building control body or authority having jurisdiction"
+      ],
+      "deliverables": [
+        "issue-register"
+      ]
+    },
+    {
+      "id": "G4",
+      "name": "Quantities and cost",
+      "scope": "Measurement rules, quantities and rates.",
+      "reviewers": [
+        "Quantity surveyor or cost engineer"
+      ],
+      "deliverables": [
+        "quantities",
+        "cost-plan"
+      ]
+    },
+    {
+      "id": "G5",
+      "name": "Sequence",
+      "scope": "Task logic, durations and resources.",
+      "reviewers": [
+        "Construction planner"
+      ],
+      "deliverables": [
+        "planned-model",
+        "schedule"
+      ]
+    }
+  ]
+}
