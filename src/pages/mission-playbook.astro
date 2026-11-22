@@ -10,6 +10,8 @@ import { loadAssessmentMap } from '../lib/assessment-map';
 import { loadKataRecipes } from '../lib/kata-recipe-content';
 import { humanize } from '../lib/kata-recipes';
 import { loadMissionPlaybook } from '../lib/mission-playbook';
+import { sheetPath } from '../lib/mission-transfer';
+import { loadTransferPracticeContent } from '../lib/mission-transfer-content';
 
 // Both loaders throw a readable error, and so fail the build, when the data breaks a rule (#90, #95).
 const map = loadAssessmentMap(assessmentMap);
@@ -73,10 +75,12 @@ const templateParts: { heading: string; items: readonly { label: string; prompt:
   { heading: 'Transfer record', items: playbook.template.transfer },
   { heading: 'Retrospective', items: playbook.template.retrospective },
 ];
+// Transfer practice (#95): one sheet per field, read from the pathways; the same sheets are served as downloads.
+const transfer = await loadTransferPracticeContent();
 const ROUTE_STATUS = { routed: 'Sent to the Sensei contribution process; not yet reviewed', applied: 'Applied to the kata through the Sensei contribution process; independent review unavailable, so it is not yet accepted', accepted: 'Accepted after review', declined: 'Declined after review' } as const;
 ---
 <BaseLayout title="Mission playbook" description="Turn a practiced kata into a mission brief, a transfer record and a retrospective, with a worked mission that carries one technique across three fields.">
-  <PageHero compact eyebrow="Missions · practice to real work" title="Take a kata into the world" subtitle="Define the outcome, agree what you can use, choose your stack and show how the work will be checked." ctas={[{ label: 'Make a mission brief', href: '#brief', icon: 'arrow-right' }, { label: 'See a worked mission', href: '#worked', variant: 'ghost', icon: 'arrow-right' }]} />
+  <PageHero compact eyebrow="Missions · practice to real work" title="Take a kata into the world" subtitle="Define the outcome, agree what you can use, choose your stack and show how the work will be checked." ctas={[{ label: 'Make a mission brief', href: '#brief', icon: 'arrow-right' }, { label: 'See a worked mission', href: '#worked', variant: 'ghost', icon: 'arrow-right' }, { label: 'Practise a transfer', href: '#practice', variant: 'ghost', icon: 'arrow-right' }]} />
   <section id="example" class="section outcome"><div class="container content">
     <p class="eyebrow">See the outcome · fictional example</p><h2>A useful estimate, with its limits attached</h2>
     <div class="example"><p><strong>Goal:</strong> compare two lighting schedules for a fictional community room.</p><p><strong>Check:</strong> six 100 W lights for five hours on 30 days use 90 kWh; six 12 W lights use 10.8 kWh under the same assumptions.</p><p><strong>Decision still needed:</strong> compare actual brightness, measured usage, costs and compatibility. A qualified person reviews real installation work.</p></div>
@@ -148,6 +152,34 @@ const ROUTE_STATUS = { routed: 'Sent to the Sensei contribution process; not yet
     </dl>
   </div></section>
 
+  <section id="practice" class="section" aria-labelledby="practice-title"><div class="container content">
+    <p class="eyebrow">Your turn · transfer practice</p>
+    <h2 id="practice-title">{transfer.practice.title}</h2>
+    <p>{transfer.practice.notice}</p>
+    <p>Choose a field. Its sheet already holds what the pathway can answer: the field’s reference and review gate, the first kata, an unseen change, the inputs with their terms, the checks a reviewer reruns and the qualified-review limit. You write the rest.</p>
+    <ol class="steps">{transfer.practice.steps.map((step) => <li><strong>{step.label}.</strong> {step.text.replace(/:$/, '.')}</li>)}</ol>
+    <div class="fields">
+      {transfer.fields.map((field) => {
+        const first = field.katas[0] ?? field.randori;
+        return (
+          <article aria-labelledby={`practice-${field.packId}`} data-practice-field={field.packId}>
+            <h3 id={`practice-${field.packId}`}>Into {field.name}</h3>
+            <p><strong>Its reference:</strong> {field.reference}</p>
+            <p><strong>Start with:</strong> <a href={first.href}>{first.id} {first.title}</a></p>
+            <p><strong>Unseen change:</strong> <a href={field.randori.href}>{field.randori.id} {field.randori.title}</a></p>
+            <p><strong>A reviewer reruns:</strong> {field.checks.length} {field.checks.length === 1 ? 'check' : 'checks'} from the <a href={field.pathway}>pathway</a>.</p>
+            <p><strong>Qualified review:</strong> {field.professionalReview.required ? 'required for real use.' : 'not required for this practice material.'}</p>
+            <p class="actions">
+              <a href={sheetPath(field.packId)} download={`transfer-practice-${field.packId}.md`}>Download the {field.name} practice sheet</a>
+              <button type="button" data-practice-sheet={transfer.sheets.get(field.packId)} data-practice-name={field.name} hidden>Put the {field.name} practice sheet in my brief</button>
+            </p>
+          </article>
+        );
+      })}
+    </div>
+    <p>Every sheet records the rubric result as Unavailable. Only a reviewer who did not help you records one, on the assessment map’s transfer criteria and in its own words: Observed, Not yet observed or Unclear. <a href="/belt-review">Prepare a practice review</a> · <a href="/assessment-map">Read the assessment map</a></p>
+  </div></section>
+
   <section id="brief" class="section"><div class="container content"><p class="eyebrow">Your turn</p><h2>Make a brief you own</h2>
     <p>The template has three parts: the mission brief, the transfer record and the retrospective. Edit it on your device. The Dojo does not save or send what you type. If you copy or share it with another service, that service receives it; include only information you are permitted to share.</p>
     <details><summary>What each part asks for</summary>
@@ -188,6 +220,32 @@ const ROUTE_STATUS = { routed: 'Sent to the Sensei contribution process; not yet
     });
   }
 </script>
+<script>
+  // Transfer practice (#95): load one field's sheet into the editable brief. Nothing is saved or sent.
+  const record = document.getElementById('mission-record');
+  const practiceStatus = document.getElementById('mission-status');
+  let loadedSheet = '';
+  if (record instanceof HTMLTextAreaElement && practiceStatus) {
+    for (const button of document.querySelectorAll('button[data-practice-sheet]')) {
+      if (!(button instanceof HTMLButtonElement)) continue;
+      const sheet = button.dataset['practiceSheet'] ?? '';
+      if (!sheet) continue;
+      button.hidden = false;
+      button.addEventListener('click', () => {
+        const edited = record.value !== record.defaultValue && record.value !== loadedSheet;
+        if (edited && !window.confirm('Replace what you have written in your brief with this practice sheet?')) {
+          practiceStatus.textContent = 'Your brief is unchanged.';
+          return;
+        }
+        loadedSheet = sheet;
+        record.value = loadedSheet;
+        record.dispatchEvent(new Event('input'));
+        practiceStatus.textContent = `The ${button.dataset['practiceName'] ?? ''} practice sheet is in your brief. Edit it, then copy or download it.`;
+        record.focus();
+      });
+    }
+  }
+</script>
 <style>
   .content { max-width: 70rem; } .outcome { background: var(--paper-raised); }
   .eyebrow { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
@@ -211,4 +269,6 @@ const ROUTE_STATUS = { routed: 'Sent to the Sensei contribution process; not yet
   .prompts dt { font-weight: 700; } .prompts dd { margin: 0 0 var(--space-2); }
   .improvement { padding: var(--space-3); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
   .table-wrap { overflow-x: auto; }
+  .steps li + li { margin-top: var(--space-2); }
+  .fields .actions { margin-bottom: 0; }
 </style>

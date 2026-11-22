@@ -58,7 +58,7 @@ test('the worked mission shows its brief, transfer record, unavailable rubric re
   await expect(page.getByRole('heading', { level: 2, name: 'One check, three fields' })).toBeVisible();
   await expect(page.locator('[data-mission-provenance]')).toContainText('not a learner, client or customer mission');
   for (const field of ['SaaS UX', 'Architecture and BIM', 'Agriculture']) {
-    await expect(page.getByRole('heading', { level: 3, name: field })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 3, name: field, exact: true })).toBeVisible();
   }
   const result = page.locator('[data-rubric-result] tbody tr');
   await expect(result).toHaveCount(1);
