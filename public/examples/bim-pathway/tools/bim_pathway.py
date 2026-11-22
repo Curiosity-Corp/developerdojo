@@ -744,9 +744,12 @@ def coordination(model: ifcopenshell.file, brief: dict, clearance_m: float | Non
     lo, hi = duct_box
     tree, scale = clash_tree(model, [duct] + others, geo)
     tolerance = float(brief['rules']['hardClash']['tolerance_m'])
-    # Tolerances go into the tree in its own length unit and results come back in it; scale converts to metres.
-    raw = tree.clash_intersection_many([duct], others, tolerance=tolerance / scale, check_all=True)
-    hard = tree_results(raw, scale, keep='max')
+    duct_ref = f'#{duct.id()}={duct.is_a()}'
+    # IfcClash's collision mode with touching not allowed: the pairs whose faces cross. It gives a pair, not a depth;
+    # the overlap volume comes from the box route.
+    hard = tree_results(tree.clash_collision_many([duct], others, allow_touching=False), scale, keep='max')
+    if any(c['a'] != duct_ref for c in hard):
+        fail(f'the clash tree returned a pair that does not start with the duct: {hard}')
     for clash in hard:
         for point in (clash['p1_m'], clash['p2_m']):
             if not all(lo[i] - 0.01 <= point[i] <= hi[i] + 0.01 for i in range(3)):
@@ -754,15 +757,24 @@ def coordination(model: ifcopenshell.file, brief: dict, clearance_m: float | Non
     tree_hard = sorted(c['b'] for c in hard)
     box_hard = sorted(a['element'] for a in analytic if a['overlap_m3'] > 0)
     if tree_hard != box_hard:
-        # Say what the tree does see, so the disagreement can be read from the log.
-        touching = [f'{c["a"]}/{c["b"]} {c["type"]}' for c in tree_results(tree.clash_collision_many([duct], others, allow_touching=True), scale, keep='max')]
-        fail(f'hard clashes disagree: clash tree {tree_hard}, box route {box_hard}; tree collisions (touching allowed): {touching}; unit factor {scale}')
+        fail(f'hard clashes disagree: clash tree collision mode {tree_hard}, box route {box_hard}; unit factor {scale}')
+    # IfcClash's intersection mode is recorded beside them, not relied on: in this file it does not report the duct
+    # through the wall. Tolerances go into the tree in its own length unit; scale converts results back to metres.
+    found = tree_results(tree.clash_intersection_many([duct], others, tolerance=tolerance / scale, check_all=True), scale, keep='max')
+    found_pairs = sorted(c['b'] if c['a'] == duct_ref else c['a'] for c in found)
+    agrees = found_pairs == box_hard
+    intersection_mode = {
+        'tolerance_m': tolerance, 'found': found, 'pairs': found_pairs, 'agreesWithBothRoutes': agrees,
+        'note': 'IfcClash intersection mode finds the same pairs.' if agrees else
+        f"Validation exception: IfcClash 0.9 intersection mode (tolerance {tolerance} m) reports {found_pairs or 'no clash'} here, although its collision mode and the box route both find {box_hard}. It is recorded and not relied on. Do not read an empty result from one mode as no clash.",
+    }
     result: dict[str, object] = {
-        'checked': 'Hard clashes between the practice duct and every other physical element, by IfcOpenShell\'s clash tree (the opencascade.trianglebvh tree and the intersection test IfcClash 0.9 uses) and, independently, by box arithmetic on the built shapes. The script writes nothing if the two routes disagree. The opening is a void, not a physical element, so it is not tested on its own.',
+        'checked': 'Hard clashes between the practice duct and every other physical element, by IfcOpenShell\'s clash tree (the opencascade.trianglebvh tree IfcClash 0.9 uses, collision mode with touching not allowed) and, independently, by box arithmetic on the built shapes, which also gives the overlap volume. The script writes nothing if the two routes disagree. IfcClash\'s intersection mode is run too and its result recorded under intersectionMode. The opening is a void, not a physical element, so it is not tested on its own.',
         'tolerance_m': tolerance,
         'treeLengthUnitToMetre': scale,
         'boxRoute': {'holds': True, 'checks': box_checks, 'pairs': analytic},
-        'clashTree': {'hard': hard},
+        'clashTree': {'mode': 'collision, touching not allowed', 'hard': hard},
+        'intersectionMode': intersection_mode,
         'hardClashes': box_hard,
         'routesAgree': True,
     }
@@ -1301,7 +1313,7 @@ def run_coordination(examples: Path, out: Path, quantity_rows: list[dict[str, ob
          'schemaNote': 'bcf-client 0.9.0 ships a BCF 2.1 visinfo.xsd that differs from buildingSMART v2.1: it allows a FieldOfView of 1 to 170 degrees (official: 45 to 60) and lowercase colour codes. The export uses 60 degrees so it fits the official range too; see schemaFiles in bcf21-check.json.',
          'evidence': ['randori-coordination/issues-bcf21.bcf', 'randori-coordination/bcf21-check.json']},
         {'id': 'CARD-T', 'changes': 'tool', 'card': 'Find the clashes with a second tool and compare, instead of trusting one clash engine.',
-         'result': 'IfcOpenShell clash tree and box arithmetic agree on every pair; the box route only holds because every element here is box-shaped, which the script checks',
+         'result': 'IfcOpenShell clash tree (collision mode) and box arithmetic agree on every pair; the box route only holds because every element here is box-shaped, which the script checks. ' + clashes['intersectionMode']['note'],
          'boxRouteChecks': clashes['boxRoute']['checks'], 'routesAgree': clashes['routesAgree'],
          'limitation': 'Box arithmetic is not a clash engine: it is right here only because each built volume equals its box volume (the wall: less the opening). Any sloped, curved or hollow element would stop the script instead of giving an answer.',
          'evidence': ['coordination/clashes.json']},

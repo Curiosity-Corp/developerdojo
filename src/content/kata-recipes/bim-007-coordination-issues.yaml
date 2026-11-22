@@ -153,7 +153,7 @@ prompts:
     text: |-
       Using ifcopenshell 0.9, add an IfcDuctSegment to &lt;copy.ifc&gt; from the sizes in coordination-brief.json, contained
       in the same storey as the wall. Build an ifcopenshell.geom.tree over the duct, wall and window and test the duct for
-      intersections. Then compute the same overlaps from the built shapes' bounding boxes, first checking that each built
+      collisions (touching not allowed); also run the intersection mode and record what it reports. Then compute the same overlaps from the built shapes' bounding boxes, first checking that each built
       volume equals its box volume (the wall: less the opening). Stop with an error if the routes disagree. Write each
       clash as an issue with the GlobalIds of both elements, then a BCF 3.0 zip with one topic and one viewpoint per issue.
       Validate every XML part against the BCF schema files and read the zip back. Do not call any issue resolved.
@@ -173,7 +173,7 @@ execution:
 verification:
   checks:
     - action: Find the hard clashes between the duct and the other elements
-      expected: One hard clash, duct and wall, 0.03 m³ by the box route; the clash tree finds the same pair; no clash with the window
+      expected: One hard clash, duct and wall, 0.03 m³ by the box route; the clash tree's collision mode finds the same pair; no clash with the window. IfcClash's intersection mode reports no clash, recorded as a validation exception
       result: passed
       evidence: /examples/bim-pathway/generated/coordination/clashes.json, recomputed by CI on every pipeline
       date: "2026-11-21"
@@ -193,6 +193,8 @@ verification:
   failures:
     - observed: The clash tree reports a clash 1000 times too deep, or none at all
       correction: The tree works in the model length unit (millimetre here). Convert tolerances from metres before you pass them, and convert the results back.
+    - observed: IfcClash's intersection mode reports no clash for a duct that plainly passes through the wall
+      correction: Seen in this file with IfcClash 0.9 at a 2 mm tolerance. Use the collision mode with touching not allowed and a second route, and treat an empty result from one mode as unverified, not as clear.
     - observed: The BCF file is rejected because a Guid is in capitals
       correction: BCF 3.0 Guids are lowercase UUIDs. IFC GlobalIds are a different, 22-character format; do not mix them up.
 adaptation:

@@ -72,9 +72,13 @@ Run it from this folder. The script removes and recreates the output folder you 
 Construction work is kept apart from the shape and the building information.
 
 - **Coordination:** one practice duct is added to the edited copy with plain IFC4 entities, routed through the
-  wall on purpose. Clashes are found with IfcOpenShell's clash tree (the `opencascade.trianglebvh` tree and
-  intersection test IfcClash 0.9 uses) and, independently, by box arithmetic on the built shapes, after checking
-  that every built volume equals its box volume. The script stops if the two routes disagree.
+  wall on purpose. Clashes are found with IfcOpenShell's clash tree (the `opencascade.trianglebvh` tree IfcClash
+  0.9 uses, collision mode with touching not allowed) and, independently, by box arithmetic on the built shapes,
+  after checking that every built volume equals its box volume. The box route also gives the overlap volume. The
+  script stops if the two routes disagree, or if the tree places any element differently from the built shapes.
+- **Validation exception:** IfcClash's intersection mode (2 mm tolerance) reports no clash for the duct through the
+  wall, although the collision mode and the box route both find it. `clashes.json` records that result under
+  `intersectionMode`; nothing relies on it. Do not read an empty result from one clash mode as "no clash".
 - **Issues:** each clash becomes an issue with the GlobalIds of both elements and the review gates that must close
   it. The register is written as BCF 3.0. Each XML part is validated with xmlschema against the schema files
   bcf-client 0.9.0 ships; `bcf-check.json` records whether each file is identical to buildingSMART's published one

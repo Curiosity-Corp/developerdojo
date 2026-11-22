@@ -19,7 +19,7 @@
   "rules": {
     "hardClash": {
       "tolerance_m": 0.002,
-      "meaning": "Solids that overlap by more than this are a hard clash."
+      "meaning": "A hard clash is a pair whose faces cross (IfcClash collision mode, touching not allowed) with a positive overlap volume by the box route. This tolerance is passed to IfcClash's intersection mode, whose result is recorded beside them."
     },
     "randoriClearance_m": 0.05
   },

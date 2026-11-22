@@ -201,13 +201,13 @@ const sources = {
     <div class="table-wrap" tabindex="0" role="region" aria-labelledby="clash-caption">
       <table>
         <caption id="clash-caption">The practice duct against each physical element, in metres</caption>
-        <thead><tr><th scope="col">Pair</th><th scope="col">Box route overlap m³</th><th scope="col">Box route gap m</th><th scope="col">IfcOpenShell clash tree</th></tr></thead>
+        <thead><tr><th scope="col">Pair</th><th scope="col">Box route overlap m³</th><th scope="col">Box route gap m</th><th scope="col">IfcOpenShell clash tree (collision mode)</th></tr></thead>
         <tbody>
-          {clashes.boxRoute.pairs.map((pair) => { const tree = clashes.clashTree.hard.find((item) => item.b === pair.element); return <tr data-clash={pair.element}><td>duct and {pair.element}</td><td>{pair.overlap_m3}</td><td>{pair.gap_m}</td><td>{tree ? `hard clash, ${tree.distance_m} m deep` : 'no hard clash'}</td></tr>; })}
+          {clashes.boxRoute.pairs.map((pair) => { const tree = clashes.clashTree.hard.find((item) => item.b === pair.element); return <tr data-clash={pair.element}><td>duct and {pair.element}</td><td>{pair.overlap_m3}</td><td>{pair.gap_m}</td><td>{tree ? 'hard clash, faces cross' : 'no hard clash'}</td></tr>; })}
         </tbody>
       </table>
     </div>
-    <p>The two routes {clashes.routesAgree ? 'agree' : 'disagree'}; the script writes nothing if they do not. Box arithmetic is right here only because every element is box-shaped, which the script checks. The coordination model has {coordinationSchema.issues.length} schema issues. <a href={`${GEN}/coordination/wall-with-opening-and-window.coordination.ifc`} download>Coordination model (IFC)</a> · <a href={`${GEN}/coordination/clashes.json`}>clash results (JSON)</a>.</p>
+    <p>The two routes {clashes.routesAgree ? 'agree' : 'disagree'}; the script writes nothing if they do not. <span data-intersection-mode>{clashes.intersectionMode.note}</span> Box arithmetic is right here only because every element is box-shaped, which the script checks. The coordination model has {coordinationSchema.issues.length} schema issues. <a href={`${GEN}/coordination/wall-with-opening-and-window.coordination.ifc`} download>Coordination model (IFC)</a> · <a href={`${GEN}/coordination/clashes.json`}>clash results (JSON)</a>.</p>
 
     <h3 id="issues-title">Issue register</h3>
     <ul class="issues">
