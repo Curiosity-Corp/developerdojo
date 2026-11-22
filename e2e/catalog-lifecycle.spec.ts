@@ -25,7 +25,8 @@ test('the reported Claude Code change shows as review due with fallback advice',
 
 test('every kata recipe shows its lifecycle, with provenance on the recipe page', async ({ page }) => {
   await page.goto('/katas/recipes/');
-  const items = page.locator('ul.recipes > li');
+  // The first list holds real recipes; template fixtures follow in their own list and have no lifecycle.
+  const items = page.locator('ul.recipes').first().locator(':scope > li');
   const count = await items.count();
   for (let index = 0; index < count; index += 1) await expect(items.nth(index).locator('[data-lifecycle]')).toHaveCount(1);
   const first = items.first().getByRole('link').first();
