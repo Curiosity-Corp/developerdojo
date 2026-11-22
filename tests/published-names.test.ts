@@ -35,6 +35,25 @@ describe('published-name matcher', () => {
     expect(names('zorblaxian acmewidgetry preacme widget')).toEqual([]);
   });
 
+  it('finds every name when names overlap in the text', () => {
+    const overlapping = compileDenylist(['acme', 'acme widget', 'widget co']);
+    expect(findNames('Acme Widget Co', overlapping).map((f) => f.name)).toEqual(['acme', 'acme widget', 'widget co']);
+  });
+
+  it('finds a name the filter reaches only through Unicode case folding', () => {
+    // U+017F (long s) folds to "s" under the 'iu' flags the per-name patterns use; the filter must agree.
+    expect(findNames('Mi\u017Fter', compileDenylist(['mister']))).toEqual([{ name: 'mister', line: 1 }]);
+  });
+
+  it('does not join a name across a line break', () => {
+    expect(names('acme\nwidget')).toEqual([]);
+    expect(names('acme\nacme widget')).toEqual(['acme widget']);
+  });
+
+  it('finds nothing with an empty matcher list', () => {
+    expect(findNames('zorblax', [])).toEqual([]);
+  });
+
   it('reports the line of the first match', () => {
     expect(findNames('one\ntwo\nZorblax three\nzorblax', matchers)).toEqual([{ name: 'zorblax', line: 3 }]);
   });
@@ -83,10 +102,21 @@ describe('directory scan', () => {
   });
 });
 
+// Timeout, sized from measurement (developerdojo#129). On the CI runner this scan of 1771 files took about
+// 0.8 s (pipelines 159610 and 159616). A busy runner stretched the earlier scan about 3x (about 1.6 s of
+// file walk, reads and matching measured in pipeline 159610, against 5.03 s in job 2839429). 8 s covers that
+// slowdown with room for the published sources to double. If this gets close to the limit, make the scan
+// faster; do not raise the number.
+const PUBLISHED_SOURCES_TIMEOUT_MS = 8_000;
+
 describe('published sources', () => {
-  it('name nothing on the denylist', async () => {
-    const root = join(__dirname, '..');
-    const { findings } = await scanDirectories([join(root, 'src'), join(root, 'public')], await loadDenylist());
-    expect(findings.map((f) => `${f.file} (${f.where})`)).toEqual([]);
-  });
+  it(
+    'name nothing on the denylist',
+    async () => {
+      const root = join(__dirname, '..');
+      const { findings } = await scanDirectories([join(root, 'src'), join(root, 'public')], await loadDenylist());
+      expect(findings.map((f) => `${f.file} (${f.where})`)).toEqual([]);
+    },
+    PUBLISHED_SOURCES_TIMEOUT_MS,
+  );
 });
