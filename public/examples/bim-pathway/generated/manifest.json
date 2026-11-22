@@ -2,7 +2,7 @@
   "coordination": {
     "coordination/issues.bcf": "8edc6dab99c7b7bb84905842b605cbaa9bcfab310b5e1a4c8396d3c80476064f",
     "coordination/wall-with-opening-and-window.coordination.ifc": "ca9cc0b6d7636add6e99c3e4ea3ee1abc75d8f06cc3cbddb428dc7097eada4ac",
-    "planning/wall-with-opening-and-window.planned.ifc": "2adec99eaa9d0bc3ba7f378e815773827dafe20c0ff6765c1cc25fe14b83399b",
+    "planning/wall-with-opening-and-window.planned.ifc": "1aa453693ec0bc3ae23e6e87f8831932aeb6f3384a0f8c8ee47c4cca9a17802d",
     "randori-coordination/issues-bcf21.bcf": "23cea9a0c8702b91e0915f3645a2bdbde704d91cfb6104c4edf30ab03d2c6136",
     "randori-coordination/issues-clearance.bcf": "f75c0b5cb84f06bb8db3ba07af68fcc557f9ded32ed4a3c1ed31f02eab25fc9d"
   },
