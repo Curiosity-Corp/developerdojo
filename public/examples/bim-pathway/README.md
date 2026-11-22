@@ -11,6 +11,8 @@ The worked example for the BIM pathway (/katas/bim-pathway, Developer Dojo issue
 | `wall-with-opening-and-window.ifc` | buildingSMART's IFC4 test sample, unchanged | CC BY 4.0, © buildingSMART International Ltd. (`LICENSE-buildingSMART.txt`) |
 | `practice-requirements.ids` | Six practice requirements (REQ-01 to REQ-06), IDS 1.0 | MIT, Developer Dojo |
 | `randori-cards.ids` | Three requirement cards for the Randori (CARD-A to CARD-C), IDS 1.0 | MIT, Developer Dojo |
+| `coordination-brief.json` | The practice duct, clash rules, tasks and cost lines for BIM-007, BIM-008 and BIM-R02 | MIT, Developer Dojo |
+| `review-gates.json` | The review gates G1 to G5: what each covers and the qualified reviewers it needs | MIT, Developer Dojo |
 | `tools/bim_pathway.py` | The script that makes the edit and runs every check | MIT, Developer Dojo |
 | `tools/requirements.txt` | The pinned packages, with hashes (compiled from `tools/requirements.in` with uv) | Each package under its own licence |
 | `generated/wall-with-opening-and-window.edited.ifc` | The sample with one property changed and its header rewritten | CC BY 4.0 adaptation of the buildingSMART sample |
@@ -21,6 +23,12 @@ The worked example for the BIM pathway (/katas/bim-pathway, Developer Dojo issue
 | `generated/mesh/wall-with-opening-and-window.obj` | The wall and the window as a triangle mesh (Wavefront OBJ, metres, Z up), BIM-005 | CC BY 4.0 adaptation of the buildingSMART sample |
 | `generated/mesh/mesh-checks.json` | Each mesh checked from its triangles: closed, oriented, Euler characteristic, area, volume | MIT, Developer Dojo |
 | `generated/quantities/quantities.csv`, `quantities.json` | Eleven quantities with source entities, GlobalIds, unit, method and assumption, and the cross-checks (BIM-006) | MIT, Developer Dojo |
+| `generated/coordination/wall-with-opening-and-window.coordination.ifc` | The edited copy with one practice duct (IfcDuctSegment) added, BIM-007 | CC BY 4.0 adaptation of the buildingSMART sample |
+| `generated/coordination/` | Geometry, schema and IDS results for that model, the clash results by both routes, and the issue register (`issues.json`, `issues.csv`, BCF 3.0 `issues.bcf`) with its schema check and read-back (`bcf-check.json`) | MIT, Developer Dojo |
+| `generated/planning/wall-with-opening-and-window.planned.ifc` | The coordination model with a work schedule, tasks, product assignments and sequences added, BIM-008 | CC BY 4.0 adaptation of the buildingSMART sample |
+| `generated/planning/` | The sequence (`schedule.json`, `schedule.csv`), the unpriced cost plan (`cost-plan.json`, `cost-plan.csv`) and the planned model's schema result | MIT, Developer Dojo |
+| `generated/randori-coordination/` | The specialist Randori cards (BIM-R02): the clearance card's results and register, the BCF 2.1 export and its check | MIT, Developer Dojo |
+| `generated/review/` | The review package: each gate, its reviewers and evidence, all not reviewed | MIT, Developer Dojo |
 | `generated/summary.md` | The results in one page | MIT, Developer Dojo |
 
 ## Source of the model
@@ -58,6 +66,33 @@ Run it from this folder. The script removes and recreates the output folder you 
   window attributes) and cross-checked against the built geometry. The script stops without writing anything if
   a cross-check disagrees. The glazing area is an estimate from `Pset_WindowCommon.GlazingAreaFraction`. These
   are practice quantities on a test file, not a takeoff for cost, procurement or construction.
+
+## Coordination, sequence and review (BIM-007, BIM-008, BIM-R02)
+
+Construction work is kept apart from the shape and the building information.
+
+- **Coordination:** one practice duct is added to the edited copy with plain IFC4 entities, routed through the
+  wall on purpose. Clashes are found with IfcOpenShell's clash tree (the `opencascade.trianglebvh` tree and
+  intersection test IfcClash 0.9 uses) and, independently, by box arithmetic on the built shapes, after checking
+  that every built volume equals its box volume. The script stops if the two routes disagree.
+- **Issues:** each clash becomes an issue with the GlobalIds of both elements and the review gates that must close
+  it. The register is written as BCF 3.0. Each XML part is validated with xmlschema against the schema files
+  bcf-client 0.9.0 ships; `bcf-check.json` records whether each file is identical to buildingSMART's published one
+  (BCF-XML tags v3.0 and v2.1). bcf-client reads the zip back and every selected GlobalId must be in the model.
+  No other BCF tool has opened the files, so do not assume they interoperate.
+- **Sequence:** tasks are written into an IFC copy with `ifcopenshell.api.sequence`. Every element is assigned to
+  the one task that builds it, and every finish-to-start dependency comes from `IfcRelFillsElement` and
+  `IfcRelVoidsElement` or from an open issue. The order is computed; a cycle stops the script. The file is read
+  back and compared. No durations or dates are set.
+- **Cost plan:** every line cites a traced quantity (BIM-006), an element count or an open issue. No line is priced.
+- **Specialist Randori:** card R adds a 50 mm clearance rule, card F exports the register as BCF 2.1 and lists what
+  does not carry over, card T compares the two clash routes and states when the second stops holding.
+- **Review package:** five gates, each naming the qualified reviewers it needs. None is reviewed, and
+  `constructionReady` is always false.
+
+Standards: IFC4 (ADD2 TC1, as the sample declares), IDS 1.0, BCF-XML 3.0 and 2.1. Schema validation runs with
+EXPRESS rules off. bcf-client's BCF 2.1 `visinfo.xsd` is more permissive than buildingSMART's (field of view 1 to
+170 degrees instead of 45 to 60), so the 2.1 export also checks the official range.
 
 No result here is combined into a single score, and none is professional, regulatory or construction approval.
 The requirements are invented for practice. "REI 60" in the edited copy is a placeholder that meets a practice

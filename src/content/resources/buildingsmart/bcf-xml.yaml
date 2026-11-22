@@ -1,0 +1,9 @@
+title: "BIM Collaboration Format (BCF-XML)"
+provider: "buildingSMART International"
+url: "https://github.com/buildingSMART/BCF-XML"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [cad-3d-bim]
+summary: "buildingSMART's open file format for passing model-based issues between tools: each topic carries its status, comments and viewpoints, and a viewpoint selects model elements by IFC GlobalId. The repository holds the XML schemas for each version (3.0 and 2.1 are tagged) and their documentation; the 3.0 schemas are published under CC BY-ND 4.0. A valid BCF file says nothing about how a given tool will display it."
+verifiedOn: 2026-11-21

@@ -664,17 +664,31 @@ def overlap_box(a: tuple[list[float], list[float]], b: tuple[list[float], list[f
     return [max(a[0][i], b[0][i]) for i in range(3)], [min(a[1][i], b[1][i]) for i in range(3)]
 
 
-def clash_tree(model: ifcopenshell.file, elements: list[ifcopenshell.entity_instance]) -> 'ifcopenshell.geom.tree':
-    """The same tree and settings IfcClash 0.9 uses, with one thread so the result does not depend on scheduling."""
+def clash_tree(model: ifcopenshell.file, elements: list[ifcopenshell.entity_instance], probe: ifcopenshell.entity_instance, probe_extent_m: float) -> tuple['ifcopenshell.geom.tree', float]:
+    """The same tree and settings IfcClash 0.9 uses, with one thread so the result does not depend on scheduling.
+
+    Returns the tree and the factor from the tree's length unit to metres. The unit is measured, not assumed: the
+    probe element's largest tessellated extent is compared with its largest extent in metres from geometry()."""
     tree = ifcopenshell.geom.tree(backend='opencascade.trianglebvh')
     iterator = ifcopenshell.geom.iterator(ifcopenshell.geom.settings(), model, 1, include=elements)
     if not iterator.initialize():
         fail('the clash tree could not build any shape')
+    probe_extent = None
     while True:
-        tree.add_element(iterator.get())
+        shape = iterator.get()
+        if shape.id == probe.id():
+            verts = ifcopenshell.util.shape.get_vertices(shape.geometry)
+            probe_extent = float((verts.max(axis=0) - verts.min(axis=0)).max())
+        tree.add_element(shape)
         if not iterator.next():
             break
-    return tree
+    if not probe_extent:
+        fail(f'the clash tree did not build #{probe.id()}')
+    to_m = probe_extent_m / probe_extent
+    known = [f for f in (1.0, 0.001) if abs(to_m - f) / f < 1e-6]
+    if not known:
+        fail(f'the clash tree length unit is neither metre nor millimetre (factor {to_m})')
+    return tree, known[0]
 
 
 def tree_results(results: tuple, scale: float, keep: str) -> list[dict[str, object]]:
@@ -723,16 +737,13 @@ def coordination(model: ifcopenshell.file, brief: dict, clearance_m: float | Non
             volume -= box_overlap(overlap_box(duct_box, box), box_of(geo[opening.id()])) if box_overlap(duct_box, box) > 0 else 0.0
         analytic.append({'element': f'#{other.id()}={other.is_a()}', 'GlobalId': other.GlobalId, 'overlap_m3': num(volume), 'gap_m': num(box_gap(duct_box, box)) if volume <= 0 else 0.0})
 
-    tree = clash_tree(model, [duct] + others)
+    lo, hi = duct_box
+    tree, scale = clash_tree(model, [duct] + others, duct, max(hi[i] - lo[i] for i in range(3)))
     tolerance = float(brief['rules']['hardClash']['tolerance_m'])
-    # ifcopenshell 0.9.0.post1 builds the tree in the model length unit (millimetre here), as geometry() finds for
-    # create_shape: tolerances go in as model units and points come back in model units. The points are checked against
-    # the box route below, so a wrong unit assumption stops the script instead of passing silently.
-    scale = ifcopenshell.util.unit.calculate_unit_scale(model)
+    # Tolerances go into the tree in its own length unit and results come back in it; scale converts to metres.
     raw = tree.clash_intersection_many([duct], others, tolerance=tolerance / scale, check_all=True)
     hard = tree_results(raw, scale, keep='max')
     for clash in hard:
-        lo, hi = duct_box
         for point in (clash['p1_m'], clash['p2_m']):
             if not all(lo[i] - 0.01 <= point[i] <= hi[i] + 0.01 for i in range(3)):
                 fail(f'clash point {point} is outside the duct box {lo} to {hi}: the tree is not in the unit assumed')
@@ -743,6 +754,7 @@ def coordination(model: ifcopenshell.file, brief: dict, clearance_m: float | Non
     result: dict[str, object] = {
         'checked': 'Hard clashes between the practice duct and every other physical element, by IfcOpenShell\'s clash tree (the opencascade.trianglebvh tree and the intersection test IfcClash 0.9 uses) and, independently, by box arithmetic on the built shapes. The script writes nothing if the two routes disagree. The opening is a void, not a physical element, so it is not tested on its own.',
         'tolerance_m': tolerance,
+        'treeLengthUnitToMetre': scale,
         'boxRoute': {'holds': True, 'checks': box_checks, 'pairs': analytic},
         'clashTree': {'hard': hard},
         'hardClashes': box_hard,

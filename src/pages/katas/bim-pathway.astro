@@ -15,6 +15,15 @@ import change from '../../../public/examples/bim-pathway/generated/change.json';
 import randori from '../../../public/examples/bim-pathway/generated/randori/ids.json';
 import meshChecks from '../../../public/examples/bim-pathway/generated/mesh/mesh-checks.json';
 import quantities from '../../../public/examples/bim-pathway/generated/quantities/quantities.json';
+import clashes from '../../../public/examples/bim-pathway/generated/coordination/clashes.json';
+import issueRegister from '../../../public/examples/bim-pathway/generated/coordination/issues.json';
+import bcfCheck from '../../../public/examples/bim-pathway/generated/coordination/bcf-check.json';
+import coordinationSchema from '../../../public/examples/bim-pathway/generated/coordination/schema.json';
+import schedule from '../../../public/examples/bim-pathway/generated/planning/schedule.json';
+import costPlan from '../../../public/examples/bim-pathway/generated/planning/cost-plan.json';
+import plannedSchema from '../../../public/examples/bim-pathway/generated/planning/schema.json';
+import cards from '../../../public/examples/bim-pathway/generated/randori-coordination/cards.json';
+import reviewPackage from '../../../public/examples/bim-pathway/generated/review/review-package.json';
 
 const EX = '/examples/bim-pathway';
 const GEN = `${EX}/generated`;
@@ -25,20 +34,26 @@ const steps = [
   { id: 'BIM-004', href: '/katas/bim-004-change-and-revalidate', title: 'Change the model and check it again', does: 'One scoped edit, every GlobalId kept, then IDS, schema and geometry checks rerun on the copy.' },
   { id: 'BIM-005', href: '/katas/bim-005-mesh-geometry', title: 'Build a 3D mesh and check its shape', does: 'Tessellate the wall and window to an OBJ and check each mesh from its triangles alone: closed, oriented, holes, area and volume.' },
   { id: 'BIM-006', href: '/katas/bim-006-quantity-trace', title: 'Trace quantities to the model objects', does: 'Eleven quantities, each with its source entities, unit, method and assumption, cross-checked against the built geometry.' },
+  { id: 'BIM-007', href: '/katas/bim-007-coordination-issues', title: 'Find a clash and raise it as a BCF issue', does: 'Add a practice duct, find where it clashes by two routes, and write an issue register as BCF that validates and reads back.' },
+  { id: 'BIM-008', href: '/katas/bim-008-schedule-and-cost-plan', title: 'Map the model to a sequence and an unpriced cost plan', does: 'Assign each element to the task that builds it, derive each dependency from the model or an issue, and cite a traced quantity on every cost line.' },
   { id: 'BIM-R01', href: '/katas/bim-r01-randori', title: 'BIM Randori: an unseen requirement change', does: 'A partner reveals one new requirement after you start; meet it without breaking the others.' },
+  { id: 'BIM-R02', href: '/katas/bim-r02-randori', title: 'Specialist BIM Randori: a changed requirement, format or tool', does: 'A specialist changes a clearance rule, the exchange format or the clash tool after you start; show what changes for the reviewers.' },
 ];
 const pairs = originalIds.specifications.map((spec, index) => ({ spec, after: editedIds.specifications[index] }));
 const geometryRows = originalGeometry.elements.map((element, index) => ({ element, after: editedGeometry.elements[index] }));
 const edit = change.propertyChanges[0];
 const quantityValue = (value: number | null) => (value === null ? 'unavailable' : String(value));
 const staged = [
-  { title: 'Coordination and clashes', why: 'A clash check and a BCF issue register need a multi-discipline open model; this sample has one wall and one window, so nothing can clash.' },
-  { title: 'Cost', why: 'Pricing the quantities needs unit rates from a source that may be reused and the measurement rules a contract sets. Neither has been chosen.' },
-  { title: 'Construction sequence (4D)', why: 'Linking model objects to a schedule needs a sequence source. None has been chosen.' },
+  { title: 'Federated, multi-discipline coordination', why: 'The coordination kata clashes one practice duct against one wall. Coordinating real architectural, structural and services models needs a set of openly licensed models that may be reused; none has been chosen.' },
+  { title: 'Priced cost and a timed programme', why: 'The cost plan is unpriced and the sequence has no durations. Rates and productivity need sources that may be reused and the measurement rules a contract sets; none has been chosen.' },
+  { title: 'Other BCF and scheduling tools', why: 'Only bcf-client and IfcOpenShell have read the files back. No BCF viewer, coordination tool or scheduling tool has opened them.' },
   { title: 'Full schema rules and outside validation', why: 'EXPRESS where-rules and buildingSMART’s validation service have not been run.' },
   { title: 'Authoring tools and viewers', why: 'No round trip through a BIM authoring tool, and no viewer has opened the OBJ.' },
   { title: 'Civil works and digital twins', why: 'Out of scope for a single-wall sample.' },
+  { title: 'Professional review', why: 'Every gate in the review package is not reviewed. A real review needs the qualified people the package names.' },
 ];
+const hardIssue = issueRegister.issues[0];
+const notCarried = cards.cards.flatMap((card) => ('notCarried' in card ? card.notCarried : []));
 const statusLabel = (status: string) => (status === 'pass' ? 'Pass' : 'Fail');
 const sources = {
   sample: 'https://github.com/buildingSMART/Certification-datasets/blob/80d976a9b193a26a8e928c3e79bff67af1de68a8/IFC%204.0.2.1%20%28IFC%204%20ADD2%20TC1%29/ISO%20Spec%20-%20ReferenceView_V1.2/wall-with-opening-and-window.ifc',
@@ -50,10 +65,12 @@ const sources = {
   geometry: 'https://docs.ifcopenshell.org/ifcopenshell-python/geometry_processing.html',
   pypiIfcopenshell: 'https://pypi.org/project/ifcopenshell/0.9.0.post1/',
   pypiIfctester: 'https://pypi.org/project/ifctester/0.9.0/',
+  pypiBcf: 'https://pypi.org/project/bcf-client/0.9.0/',
+  bcf: 'https://github.com/buildingSMART/BCF-XML',
 };
 ---
 <BaseLayout title="BIM pathway: from an IFC file to checked, edited building information" description="Follow a BIM pathway on a real, openly licensed IFC model: inspect it, read its property sets, check it against IDS requirements, change it and check it again, with every result computed in CI.">
-  <PageHero compact eyebrow="Architecture and BIM · Pathway" title="From an IFC file to checked information" accent="." subtitle="Seven katas on one small, openly licensed building model. Each step has a real file you can open and a check result that CI computes on every pipeline." ctas={[
+  <PageHero compact eyebrow="Architecture and BIM · Pathway" title="From an IFC file to checked information" accent="." subtitle="Ten katas on one small, openly licensed building model. Each step has a real file you can open and a check result that CI computes on every pipeline." ctas={[
     { label: 'Start with BIM-001', href: '/katas/bim-001-inspect-model', icon: 'play' },
     { label: 'Download the model', href: `${EX}/wall-with-opening-and-window.ifc`, variant: 'ghost', icon: 'arrow-right' },
   ]} />
@@ -90,7 +107,7 @@ const sources = {
 
   <section class="section" aria-labelledby="steps-title"><div class="container narrow">
     <p class="eyebrow">03 / The steps</p>
-    <h2 id="steps-title">Seven katas, in order</h2>
+    <h2 id="steps-title">Ten katas, in order</h2>
     <p>Each kata has a brief, prompts, checks and the evidence for the checks the Dojo has run. They are drafts: the Dojo built the example and CI checks it, and no learner has run them yet. Do the foundations first: <a href="/katas/compare-instructions">Compare AI instructions</a> and <a href="/katas/context-trap">Spot a context trap</a>. If you have not read an IFC file before, <a href="/katas/inspect-ifc">Find the story in a building model</a> walks through the same sample by hand.</p>
     <ol class="steps">
       {steps.map((step) => <li><a href={step.href}><span class="step-id">{step.id}</span> {step.title}</a><p>{step.does}</p></li>)}
@@ -175,8 +192,72 @@ const sources = {
     <p>The sample has {quantities.authoredQuantitySets} authored quantity sets, so there was nothing from the model author to compare with. The glazing area is an estimate from a declared property, not a measurement. These are practice quantities on a test file: not a takeoff for cost, procurement or construction. Each row’s assumption is in <a href={`${GEN}/quantities/quantities.csv`} download>the table (CSV)</a> · <a href={`${GEN}/quantities/quantities.json`}>with the cross-checks (JSON)</a>. To work one quantity by hand first, try <a href="/katas/ifc-quantity-trace">Trace a wall quantity</a>.</p>
   </div></section>
 
+  <section class="section" aria-labelledby="coordination-title"><div class="container narrow">
+    <p class="eyebrow">06 / Coordination, sequence and review</p>
+    <h2 id="coordination-title">A clash, an issue, a sequence and who must review it</h2>
+    <p>Construction work is a third layer, kept apart from the shape and the building information. BIM-007 adds one practice duct to the edited copy, routed through the wall on purpose; BIM-008 maps the result to tasks and an unpriced cost plan. CI recomputes all of it on every pipeline.</p>
+
+    <h3 id="clash-title">Clashes, by two routes (BIM-007)</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="clash-caption">
+      <table>
+        <caption id="clash-caption">The practice duct against each physical element, in metres</caption>
+        <thead><tr><th scope="col">Pair</th><th scope="col">Box route overlap m³</th><th scope="col">Box route gap m</th><th scope="col">IfcOpenShell clash tree</th></tr></thead>
+        <tbody>
+          {clashes.boxRoute.pairs.map((pair) => { const tree = clashes.clashTree.hard.find((item) => item.b === pair.element); return <tr data-clash={pair.element}><td>duct and {pair.element}</td><td>{pair.overlap_m3}</td><td>{pair.gap_m}</td><td>{tree ? `hard clash, ${tree.distance_m} m deep` : 'no hard clash'}</td></tr>; })}
+        </tbody>
+      </table>
+    </div>
+    <p>The two routes {clashes.routesAgree ? 'agree' : 'disagree'}; the script writes nothing if they do not. Box arithmetic is right here only because every element is box-shaped, which the script checks. The coordination model has {coordinationSchema.issues.length} schema issues. <a href={`${GEN}/coordination/wall-with-opening-and-window.coordination.ifc`} download>Coordination model (IFC)</a> · <a href={`${GEN}/coordination/clashes.json`}>clash results (JSON)</a>.</p>
+
+    <h3 id="issues-title">Issue register</h3>
+    <ul class="issues">
+      {issueRegister.issues.map((issue) => <li data-issue={issue.id}><strong>{issue.id}</strong> {issue.type}, {issue.status.toLowerCase()}: {issue.title}. Review gates {issue.reviewGates.join(', ')}.</li>)}
+    </ul>
+    <p>The register is written as <a href={`${GEN}/coordination/issues.bcf`} download>BCF {bcfCheck.version}</a>, with <a href={`${GEN}/coordination/issues.csv`} download>CSV</a> and <a href={`${GEN}/coordination/issues.json`}>JSON</a> copies. Every XML part is valid against the schema files bcf-client ships ({bcfCheck.schemaFiles.filter((file) => file.matchesOfficial).length} of {bcfCheck.schemaFiles.length} identical to buildingSMART’s published files; see <a href={`${GEN}/coordination/bcf-check.json`}>the check</a>), and bcf-client reads it back with {bcfCheck.readBack.topics.length} topic selecting {hardIssue?.GlobalIds.length} elements that are in the model. No other BCF tool has opened it, so do not assume one will show it the same way.</p>
+
+    <h3 id="sequence-title">Sequence and cost mapping (BIM-008), preliminary</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="sequence-caption">
+      <table>
+        <caption id="sequence-caption">Tasks written into the planned IFC copy, in computed order</caption>
+        <thead><tr><th scope="col">Task</th><th scope="col">Builds</th><th scope="col">After</th><th scope="col">Because</th></tr></thead>
+        <tbody>
+          {schedule.order.map((id) => { const task = schedule.tasks.find((item) => item.task === id); return task && <tr data-task={task.task}><th scope="row">{task.task} {task.name}</th><td>{task.builds.join(' ') || 'nothing modelled'}</td><td>{task.after.join(', ') || 'none'}</td><td>{task.because.join('; ') || 'first task'}</td></tr>; })}
+        </tbody>
+      </table>
+    </div>
+    <p>Each dependency comes from a relationship in the model or an open issue, never typed in. The planned file is read back and {schedule.readBack.matchesWhatWasWritten ? 'matches' : 'does not match'} what was written; it has {plannedSchema.issues.length} schema issues. No task has a duration: no source for one was chosen. <a href={`${GEN}/planning/wall-with-opening-and-window.planned.ifc`} download>Planned model (IFC)</a> · <a href={`${GEN}/planning/schedule.csv`} download>sequence (CSV)</a>.</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="cost-caption">
+      <table>
+        <caption id="cost-caption">Unpriced cost plan: every line cites its source</caption>
+        <thead><tr><th scope="col">Line</th><th scope="col">Item</th><th scope="col">Task</th><th scope="col">Quantity</th><th scope="col">Source</th><th scope="col">Rate</th></tr></thead>
+        <tbody>
+          {costPlan.lines.map((line) => <tr data-cost-line={line.id}><th scope="row">{line.id}</th><td>{line.item}</td><td>{line.task}</td><td>{line.quantity} {line.unit}</td><td>{line.source}</td><td>unavailable</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>{costPlan.priced} of {costPlan.lines.length} lines are priced. This is not an estimate. <a href={`${GEN}/planning/cost-plan.csv`} download>Cost plan (CSV)</a>.</p>
+
+    <h3 id="specialist-randori-title">Specialist Randori cards (BIM-R02)</h3>
+    <ul class="issues">
+      {cards.cards.map((card) => <li data-randori-card={card.id}><strong>{card.id}</strong> changes the {card.changes}: {card.card} Result: {card.result}.</li>)}
+    </ul>
+    <p>Card F lists what does not carry over to BCF 2.1: {notCarried.slice(0, 2).map((item) => item.split(':')[0]).join(' and ')}. <a href={`${GEN}/randori-coordination/cards.json`}>The cards and their evidence (JSON)</a>; see <a href="/katas/bim-r02-randori">BIM-R02</a>.</p>
+
+    <h3 id="review-title">Review package</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="review-caption">
+      <table>
+        <caption id="review-caption">Who must review what before anyone designs, prices or builds from it</caption>
+        <thead><tr><th scope="col">Gate</th><th scope="col">What is reviewed</th><th scope="col">Required reviewers</th><th scope="col">Status</th></tr></thead>
+        <tbody>
+          {reviewPackage.gates.map((gate) => <tr data-review-gate={gate.id}><th scope="row">{gate.id} {gate.name}</th><td>{gate.scope}</td><td>{gate.reviewers.join('; ')}</td><td>Not reviewed</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p data-construction-ready={String(reviewPackage.constructionReady)}>{reviewPackage.reviewed} of {reviewPackage.gates.length} gates reviewed. Construction ready: no. {reviewPackage.boundary} <a href={`${GEN}/review/review-package.md`}>Review package (Markdown)</a> · <a href={`${GEN}/review/review-package.json`}>JSON</a>.</p>
+  </div></section>
+
   <section class="section" aria-labelledby="tools-title"><div class="container narrow">
-    <p class="eyebrow">06 / The tools</p>
+    <p class="eyebrow">07 / The tools</p>
     <h2 id="tools-title">Open tools, pinned versions</h2>
     <div class="table-wrap" tabindex="0" role="region" aria-labelledby="tools-caption">
       <table>
@@ -185,9 +266,11 @@ const sources = {
         <tbody>
           <tr><th scope="row">IfcOpenShell</th><td>{manifest.tools.ifcopenshell}</td><td>LGPL-3.0-or-later</td><td><a href={sources.pypiIfcopenshell}>PyPI</a>, <a href={sources.validate}>validation</a>, <a href={sources.geometry}>geometry</a></td></tr>
           <tr><th scope="row">IfcTester</th><td>{manifest.tools.ifctester}</td><td>LGPL-3.0-or-later</td><td><a href={sources.pypiIfctester}>PyPI</a>, <a href={sources.ifctester}>documentation</a></td></tr>
+          <tr><th scope="row">bcf-client</th><td>{manifest.tools['bcf-client']}</td><td>LGPL-3.0-or-later</td><td><a href={sources.pypiBcf}>PyPI</a></td></tr>
           <tr><th scope="row">Python</th><td>{manifest.tools.python}</td><td>PSF</td><td>CI image python:3.12-slim</td></tr>
           <tr><th scope="row">Wavefront OBJ</th><td>Plain-text mesh</td><td>Open format</td><td><a href="https://www.loc.gov/preservation/digital/formats/fdd/fdd000507.shtml">Library of Congress format description</a></td></tr>
           <tr><th scope="row">IDS (buildingSMART)</th><td>1.0</td><td>Open standard</td><td><a href={sources.ids}>repository</a>, <a href={sources.idsXsd}>schema</a></td></tr>
+          <tr><th scope="row">BCF-XML (buildingSMART)</th><td>3.0, and 2.1 for card F</td><td>Open standard; 3.0 schemas CC BY-ND 4.0</td><td><a href={sources.bcf}>repository</a></td></tr>
           <tr><th scope="row">IFC (buildingSMART)</th><td>IFC4 (as the sample declares)</td><td>Open standard</td><td>Declared in the file’s FILE_SCHEMA</td></tr>
         </tbody>
       </table>
@@ -195,25 +278,26 @@ const sources = {
     <p>The Armory lists <a href="/armory/registry#ifcopenshell">IfcOpenShell</a> and <a href="/armory/registry#ifctester">IfcTester</a> with their smoke tests, and the stack recipe <a href="/armory/registry#recipe-ifcopenshell-and-python">IfcOpenShell, IfcTester and Python</a>.</p>
   </div></section>
 
-  <SectorPackEvidence pack="bim" eyebrow="07 / What is checked" facts={{ modelSha: manifest.inputs['wall-with-opening-and-window.ifc'].slice(0, 12), meshObjects: String(meshChecks.elements.length), quantityRows: String(quantities.quantities.length), crossChecks: String(quantities.crossChecks.length) }} />
+  <SectorPackEvidence pack="bim" eyebrow="08 / What is checked" facts={{ modelSha: manifest.inputs['wall-with-opening-and-window.ifc'].slice(0, 12), meshObjects: String(meshChecks.elements.length), quantityRows: String(quantities.quantities.length), crossChecks: String(quantities.crossChecks.length) }} />
 
   <section class="section" aria-labelledby="staged-title"><div class="container narrow">
-    <p class="eyebrow">08 / Staged</p>
+    <p class="eyebrow">09 / Staged</p>
     <h2 id="staged-title">Proposed, not built yet</h2>
     <p>These parts of a built-environment pathway are proposed. Nothing below has been run, and no result is shown for any of them.</p>
     <ul class="staged">
       {staged.map((item) => <li data-staged><strong>{item.title}</strong> <span class="badge">Proposed</span><br />{item.why}</li>)}
     </ul>
-    <p class="note">No model, mesh, quantity or check on this page is professionally reviewed or approved, and none is fit for construction. A real project needs the qualified reviewers its contract and jurisdiction name, for example an architect, an engineer, a quantity surveyor or a BIM manager, and their approval before anyone builds, prices or orders from it.</p>
+    <p class="note">No model, mesh, quantity, issue, sequence or check on this page is professionally reviewed or approved, and none is fit for construction. A real project needs the qualified reviewers its contract and jurisdiction name, for example an architect, an engineer, a quantity surveyor or a BIM manager, and their approval before anyone builds, prices or orders from it.</p>
   </div></section>
 
   <section class="section" aria-labelledby="credits-title"><div class="container narrow">
-    <p class="eyebrow">09 / Credits</p>
+    <p class="eyebrow">10 / Credits</p>
     <h2 id="credits-title">Credits and terms</h2>
     <ul>
       <li>Model: <a href={sources.sample}>wall-with-opening-and-window.ifc</a>, © buildingSMART International Ltd., from the Certification-datasets repository at a pinned commit, <a href={sources.licence}>licensed CC BY 4.0</a>. The edited copy is an adaptation: one property changed and the file header rewritten by the Dojo. The OBJ mesh is an adaptation too: the geometry only, tessellated by the Dojo’s script.</li>
-      <li>The IDS files, the pathway script and its outputs: Developer Dojo, MIT licence.</li>
-      <li>IfcOpenShell and IfcTester: the IfcOpenShell project, LGPL-3.0-or-later.</li>
+      <li>The IDS files, the coordination brief, the review gates, the pathway script and its outputs: Developer Dojo, MIT licence. The coordination and planned models are adaptations of the buildingSMART sample (CC BY 4.0) with one practice duct and practice tasks added.</li>
+      <li>BCF-XML schemas: buildingSMART International, used unchanged as shipped in bcf-client; not copied into this site.</li>
+      <li>IfcOpenShell, IfcTester and bcf-client: the IfcOpenShell project, LGPL-3.0-or-later.</li>
     </ul>
   </div></section>
 </BaseLayout>
@@ -234,6 +318,7 @@ const sources = {
   .steps li { padding: var(--space-4, 1rem); background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); }
   .steps a { font-weight: 800; }
   .steps p { margin: .25rem 0 0; }
+  .issues li { margin-bottom: var(--space-2, .5rem); }
   .staged { display: grid; gap: var(--space-3, .75rem); }
   .badge { display: inline-block; padding: 0 .5rem; border: 1px solid var(--line); border-radius: var(--radius); font-size: .85em; font-weight: 700; }
   .step-id { display: inline-block; min-width: 4.5rem; color: var(--rust-text); }

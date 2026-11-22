@@ -18,6 +18,8 @@ export const galleryOutcomeLabels: Record<string, string> = {
   'revise-and-revalidate-model': 'Change a building model and check it again',
   'export-and-check-mesh': 'Build a 3D mesh from a building model and check its shape',
   'trace-quantities': 'Trace quantities to the model objects they come from',
+  'coordinate-and-raise-issues': 'Find a clash in a building model and raise it as an issue',
+  'map-model-to-schedule': 'Map a building model to a construction sequence and cost plan',
   'inspect-3d': 'Inspect a 3D scene',
   'compare-instructions': 'Compare two instructions',
   'inspect-source': 'Check a source before trusting it',

@@ -15,9 +15,9 @@ A pack adds a field's practice. It never copies a foundation: every pack kata bu
 | --- | --- | --- | --- | --- | --- |
 | Pack record | `src/data/sector-packs.ts` | `ux` | `bim` | `agriculture` | `science` |
 | Pathway page | `src/pages/katas/<field>-pathway.astro` | `ux-pathway` | `bim-pathway` | `agriculture-pathway` | `science-pathway` |
-| Recipe pages (practice katas) | `src/content/kata-recipes/<prefix>-00N-*.yaml` | UX-001 to UX-005 | BIM-001 to BIM-006 | AGR-001 to AGR-003 | SCI-001 to SCI-003 |
-| Randori | `src/content/kata-recipes/<prefix>-r01-randori.yaml` | UX-R01 | BIM-R01 | AGR-R01 | SCI-R01 |
-| Inputs, script, outputs, README | `public/examples/<field>-pathway/` | Penpot file and tokens | buildingSMART IFC, IDS | NOAA weather record | NASA GISTEMP record |
+| Recipe pages (practice katas) | `src/content/kata-recipes/<prefix>-00N-*.yaml` | UX-001 to UX-005 | BIM-001 to BIM-008 | AGR-001 to AGR-003 | SCI-001 to SCI-003 |
+| Randori | `src/content/kata-recipes/<prefix>-r01-randori.yaml` | UX-R01 | BIM-R01, and the specialist BIM-R02 | AGR-R01 | SCI-R01 |
+| Inputs, script, outputs, README | `public/examples/<field>-pathway/` | Penpot file and tokens | buildingSMART IFC, IDS, coordination brief, review gates | NOAA weather record | NASA GISTEMP record |
 | CI check | `.gitlab-ci.yml` | `ux_pathway`, `test`, `e2e` | `bim_pathway` | `agriculture_pathway` | `science_pathway` |
 | Verified / not verified | pack record, rendered by `src/components/SectorPackEvidence.astro` | section 05 | section 06 | section 06 | section 06 |
 | Armory | `armoryStackRecipes` (and entries) in `src/data/armory.ts` | `penpot-and-browser` | `ifcopenshell-and-python` | `python-standard-library` | `python-standard-library` |
@@ -31,6 +31,8 @@ A pack adds a field's practice. It never copies a foundation: every pack kata bu
 `sectorPackSchema` in `src/lib/sector-pack.ts` is the contract. The fields that matter most:
 
 - `kataIds` are the practice katas in order; `randoriKataId` is the Randori and must end in `-R01`, `-R02` and so on.
+  `specialistRandoriKataIds` (optional) lists further Randori for specialists, for example one that changes a
+  requirement, an exchange format or a tool; each is checked like the main Randori.
 - `inputs` lists every outside file: its site path, an `https` source, its terms and its SHA-256. A pack with no outside
   input says so with `{ none: '...' }` and why.
 - `checks` names each CI job, what it runs and the files it writes. A check whose `runs` is a script under

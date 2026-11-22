@@ -1,0 +1,188 @@
+# BIM pathway (M10, #92): a draft recipe. The worked example, files and CI check results are on /katas/bim-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job bim_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: BIM pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/92
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent or professional review yet.
+summary: A specialist partner changes one thing after you start, a requirement, an exchange format or a tool, and you show what changes in the coordination evidence and the review package.
+metadata:
+  id: BIM-R02
+  title: "Specialist BIM Randori: a changed requirement, format or tool"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - coordinate-and-raise-issues
+    - revise-and-revalidate-model
+  artifactTypes:
+    - issue-register
+  domainIds:
+    - architecture-bim
+    - construction
+  capabilityIds:
+    - coordinate-disciplines
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - ifcopenshell-and-python
+  constraintIds:
+    - licensed-sample-only
+    - no-paid-tools
+    - offline-capable
+  externalResources:
+    - buildingsmart/bcf-xml
+    - ifcopenshell/geometry-processing
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: Industry Foundation Classes (IFC)
+      version: IFC4 ADD2 TC1 (ISO 16739-1:2018), as declared by the sample file
+      applicability: The buildingSMART practice sample and copies of it only
+      reviewScope: "What the listed checks test: the shapes, entities and relationships in the practice files. No claim about any real building."
+    - name: BIM Collaboration Format (BCF)
+      version: "BCF-XML 3.0 (the register); BCF-XML 2.1 (the Randori format card)"
+      applicability: The practice issue register written for this pathway
+      reviewScope: Whether each XML part is valid against the schema files bcf-client 0.9.0 ships, which are compared with buildingSMART's published files, and whether bcf-client reads the zip back. No other BCF tool was tested, so interoperability with any other tool is not shown.
+      sourceResourceId: buildingsmart/bcf-xml
+  verificationEvidence:
+    - description: For the card drawn, the coordination evidence before and after the change, matching the Dojo's CI output for that card
+      method: automated-check
+      standards:
+        - Industry Foundation Classes (IFC)
+        - BIM Collaboration Format (BCF)
+    - description: A Sensei or partner checks that the learner said what the change does to the review package and what it does not show
+      method: sensei-review
+  beltCriteria:
+    - stage: practice
+      criterion: Handles card R (a 50 mm clearance) and finds the new issue between the duct and the window
+    - stage: adapt
+      criterion: Handles card F (BCF 2.1) and lists what does not carry over, or card T and says when the second route stops holding
+    - stage: demonstrate
+      criterion: Writes a fourth card for a partner, predicts its result, and names the review gate it touches
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: three specialist cards (a clearance requirement, a BCF 2.1 export and a second clash route), each with its evidence, computed by the site’s CI on buildingSMART’s wall-with-opening-and-window sample."
+  href: /katas/bim-pathway
+  provenance:
+    creator: buildingSMART International (sample model); Developer Dojo maintainers (practice duct, brief, checks and outputs)
+    source: buildingSMART Certification-datasets, pinned commit 80d976a9b193a26a8e928c3e79bff67af1de68a8; outputs from /examples/bim-pathway/tools/bim_pathway.py
+    license: Sample model CC BY 4.0 (buildingSMART International); brief, script and outputs MIT
+    date: "2026-11-21"
+brief:
+  goal: Meet one specialist change you did not see in advance, with evidence, and say what it changes for the reviewers.
+  audience: Learners who finished BIM-007 and BIM-008, working with a partner or Sensei.
+  inputs:
+    - name: wall-with-opening-and-window.coordination.ifc
+      source: /examples/bim-pathway/generated/coordination/wall-with-opening-and-window.coordination.ifc
+      terms: CC BY 4.0 adaptation of buildingSMART International's sample
+    - name: issues.bcf and issues.json
+      source: /examples/bim-pathway/generated/coordination/
+      terms: Dojo content, MIT licence
+  doneWhen:
+    - "Card R: the new clearance rule is applied by both routes and the new issue is in a register that validates and reads back"
+    - "Card F: the BCF 2.1 file validates and reads back, and what does not carry over is listed, not hidden"
+    - "Card T: the second route agrees, and the condition under which it would stop holding is written down"
+    - The review gates the change touches are named, and nothing is marked reviewed or construction ready
+stack:
+  components:
+    - part: tool
+      name: IfcOpenShell and bcf-client
+      version: 0.9.0.post1 and 0.9.0
+      permissions: Read and write your own copies only
+      cost: Free (LGPL-3.0-or-later)
+    - part: data
+      name: The coordination model and register from BIM-007
+      version: "2026-11-21"
+      permissions: Practice copies
+      cost: Free
+  rationale: Same stack as BIM-007 and BIM-008, so the only new thing is the specialist change.
+  alternatives:
+    - name: A requirement card in IDS instead of a clearance rule
+      tradeoff: BIM-R01 already practises IDS cards. A clearance rule cannot be written in IDS 1.0, which checks information, not geometry.
+      tested: false
+agents:
+  roles:
+    - role: Partner or Sensei
+      responsibility: Draws one card after the learner starts and keeps the others hidden.
+      reviewGate: Asks for the evidence before and after, and the review gates the change touches.
+    - role: Learner
+      responsibility: Reads the card, predicts the result, makes the change and rechecks.
+      dependsOn:
+        - Partner or Sensei
+      reviewGate: The prediction is written down before the check runs.
+setup:
+  steps:
+    - Use the environment from BIM-007.
+    - The partner opens /examples/bim-pathway/generated/randori-coordination/cards.json and keeps it; the learner works from the coordination model and register.
+  auth: None.
+  smokeTest:
+    action: Run the three cards with the pathway script
+    expected: "Card R adds ISS-002 (duct 0.03 m from the window); card F writes a BCF 2.1 file that validates and reads back; card T: both clash routes agree"
+    result: passed
+    evidence: /examples/bim-pathway/generated/randori-coordination/cards.json, recomputed by CI on every pipeline
+    date: "2026-11-21"
+prompts:
+  - id: predict-the-change
+    title: Predict what the change does
+    purpose: Make the learner commit to an effect on the evidence and the reviewers before the tool answers.
+    text: |-
+      Here is a change to my coordination work: &lt;paste the card&gt;.
+      Do not run anything yet. Tell me which elements, issues or files it affects, what I should expect to change, and
+      which review gate in review-package.json it touches. Then I will check.
+exercise:
+  title: BIM Collaboration Format (BCF-XML)
+  resourceId: buildingsmart/bcf-xml
+  terms: buildingSMART publishes the BCF-XML 3.0 schemas under CC BY-ND 4.0; use them unchanged and credit buildingSMART.
+execution:
+  steps:
+    - actor: Partner or Sensei
+      action: Waits until the learner has started, then reveals one card.
+      handoff: The learner writes a prediction.
+    - actor: Learner
+      action: Makes the change, reruns the checks and compares the evidence before and after.
+    - actor: Partner or Sensei
+      action: Reviews the evidence and the named review gates.
+verification:
+  checks:
+    - action: Card R, a 50 mm clearance requirement
+      expected: Both routes find the window 0.03 m from the duct; ISS-002 is added; the register validates and reads back
+      result: passed
+      evidence: /examples/bim-pathway/generated/randori-coordination/clearance.json and /examples/bim-pathway/generated/randori-coordination/issues-clearance.bcf
+      date: "2026-11-21"
+    - action: Card F, a BCF 2.1 export
+      expected: Valid against bcf-client's BCF 2.1 schema files and read back; the extension lists and the camera aspect ratio do not carry over; the field of view is inside the official 2.1 range
+      result: passed
+      evidence: /examples/bim-pathway/generated/randori-coordination/issues-bcf21.bcf and /examples/bim-pathway/generated/randori-coordination/bcf21-check.json
+      date: "2026-11-21"
+    - action: Card T, a second clash route
+      expected: The IfcOpenShell clash tree and box arithmetic agree on every pair, and the box route's condition is checked
+      result: passed
+      evidence: /examples/bim-pathway/generated/coordination/clashes.json and /examples/bim-pathway/generated/randori-coordination/cards.json
+      date: "2026-11-21"
+    - action: A learner meets a drawn card with a written prediction
+      expected: Evidence before and after, and the review gates named
+      result: not-run
+  failures:
+    - observed: The BCF 2.1 file is valid against bcf-client's schema but uses a 90 degree field of view
+      correction: bcf-client 0.9.0 ships a relaxed 2.1 visinfo schema (1 to 170 degrees). buildingSMART's own 2.1 schema allows 45 to 60. Check against the official range too.
+adaptation:
+  variations:
+    - change: The partner draws two cards
+      effect: Apply one at a time and rerun everything after each, so you know which change caused what.
+randori:
+  challenge: Meet one specialist change, a requirement, a format or a tool, revealed after you start, on the coordination model.
+  constraints:
+    - Write your prediction before you check
+    - Keep every issue's GlobalIds and review gates
+    - Say what the change does not show
+  evaluation: The card's evidence matches, and the partner agrees the review gates touched are named.
+maintenance:
+  cadence: Every six months, when IfcOpenShell or bcf-client releases a new minor version, or when buildingSMART revises IFC or BCF
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - The sample is a three-element test file plus one practice duct, not a building. Nothing learned from it is evidence about a real project.
+    - No model, issue, sequence or quantity here is professionally reviewed or approved, and nothing is construction ready. The review package names the qualified reviewers and gates a real project would need.
+    - The cards are invented practice changes, not a client or authority requirement.
+    - Only bcf-client has read the BCF 2.1 and 3.0 files back; do not assume another tool reads either the same way.

@@ -114,7 +114,7 @@ export interface MissionReferences {
   /** Kata recipes by slug: ID, agent roles and foundations. */
   recipes: readonly { slug: string; id: string; roles: readonly { role: string; reviewGate: string }[]; foundationKataIds: readonly string[] }[];
   /** Sector packs: kata IDs and the foundations they build on. */
-  packs: readonly { id: string; kataIds: readonly string[]; randoriKataId: string; foundationKataIds: readonly string[] }[];
+  packs: readonly { id: string; kataIds: readonly string[]; randoriKataId: string; specialistRandoriKataIds?: readonly string[]; foundationKataIds: readonly string[] }[];
   /** IDs in the kata catalog (src/data/kata-catalog.ts). */
   catalogIds: readonly string[];
   /** Site paths that exist (pages and public files). The test supplies them; the build relies on the link check. */
@@ -171,7 +171,7 @@ export function checkMissionPlaybook(input: unknown, refs: MissionReferences): s
     for (const id of mission.foundation.kataIds) if (!pack.foundationKataIds.includes(id)) problems.push(`sector pack ${pack.id} does not build on ${id}, so the technique cannot be said to transfer to it`);
     const recipe = refs.recipes.find((item) => item.slug === adaptation.gate.recipe);
     if (!recipe) { problems.push(`recipe ${adaptation.gate.recipe} does not exist`); continue; }
-    if (![...pack.kataIds, pack.randoriKataId].includes(recipe.id)) problems.push(`recipe ${recipe.slug} (${recipe.id}) is not a kata of sector pack ${pack.id}`);
+    if (![...pack.kataIds, pack.randoriKataId, ...(pack.specialistRandoriKataIds ?? [])].includes(recipe.id)) problems.push(`recipe ${recipe.slug} (${recipe.id}) is not a kata of sector pack ${pack.id}`);
     if (!recipe.roles.some((role) => role.role === adaptation.gate.role)) problems.push(`recipe ${recipe.slug} has no agent role "${adaptation.gate.role}"`);
   }
   for (const improvement of mission.retrospective.improvements) {
