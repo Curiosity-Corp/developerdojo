@@ -1,0 +1,5 @@
+{
+  "checked": "IFC schema: entity attributes, types, cardinalities and inverses (ifcopenshell.validate, express_rules=False). EXPRESS where-rules and implementer agreements are not checked here.",
+  "issues": [],
+  "valid": true
+}

@@ -75,7 +75,7 @@ showcase:
     creator: buildingSMART International (sample model); Developer Dojo maintainers (practice duct, brief, checks and outputs)
     source: buildingSMART Certification-datasets, pinned commit 80d976a9b193a26a8e928c3e79bff67af1de68a8; outputs from /examples/bim-pathway/tools/bim_pathway.py
     license: Sample model CC BY 4.0 (buildingSMART International); brief, script and outputs MIT
-    date: "2026-11-21"
+    date: "2026-11-22"
 brief:
   goal: An issue register a partner can open, in which every issue points at the model elements it is about and the clash behind it is checked twice.
   audience: Learners who finished BIM-004 and BIM-005.
@@ -145,7 +145,7 @@ setup:
     expected: "Four elements, including one IfcDuctSegment"
     result: passed
     evidence: /examples/bim-pathway/generated/coordination/geometry.json, recomputed by CI on every pipeline
-    date: "2026-11-21"
+    date: "2026-11-22"
 prompts:
   - id: two-route-clash
     title: Ask for a clash result you can check
@@ -176,17 +176,17 @@ verification:
       expected: One hard clash, duct and wall, 0.03 m³ by the box route; the clash tree's collision mode finds the same pair; no clash with the window. IfcClash's intersection mode reports no clash, recorded as a validation exception
       result: passed
       evidence: /examples/bim-pathway/generated/coordination/clashes.json, recomputed by CI on every pipeline
-      date: "2026-11-21"
+      date: "2026-11-22"
     - action: Write the issue register
       expected: ISS-001, open, high priority, naming the duct and the wall by GlobalId and gates G2 and G3
       result: passed
       evidence: /examples/bim-pathway/generated/coordination/issues.json and /examples/bim-pathway/generated/coordination/issues.csv
-      date: "2026-11-21"
+      date: "2026-11-22"
     - action: Validate and read back the BCF 3.0 file
       expected: Every part valid against buildingSMART's official BCF-XML v3.0 schema files (kept unchanged, each proven by its git blob id); bcf-client reads one topic whose selected GlobalIds are in the model
       result: passed
       evidence: /examples/bim-pathway/generated/coordination/issues.bcf and /examples/bim-pathway/generated/coordination/bcf-check.json
-      date: "2026-11-21"
+      date: "2026-11-22"
     - action: Open the BCF file in a BCF viewer or another coordination tool
       expected: The topic opens and selects the duct and the wall
       result: not-run

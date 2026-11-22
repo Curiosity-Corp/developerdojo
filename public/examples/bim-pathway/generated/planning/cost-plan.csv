@@ -1,0 +1,5 @@
+id,item,task,quantity,unit,source,rate,amount
+C-01,"Wall, net volume",T-010,1.5,m³,Q-06,unavailable,unavailable
+C-02,"Window, supply and fit",T-020,1,nr,count,unavailable,unavailable
+C-03,"Supply duct, 400 × 250 mm",T-030,1.5,m,duct-length,unavailable,unavailable
+C-04,Fire stopping at duct penetration,T-040,1,nr,issues,unavailable,unavailable

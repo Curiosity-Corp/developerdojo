@@ -69,7 +69,7 @@ showcase:
     creator: buildingSMART International (sample model); Developer Dojo maintainers (practice duct, brief, checks and outputs)
     source: buildingSMART Certification-datasets, pinned commit 80d976a9b193a26a8e928c3e79bff67af1de68a8; outputs from /examples/bim-pathway/tools/bim_pathway.py
     license: Sample model CC BY 4.0 (buildingSMART International); brief, script and outputs MIT
-    date: "2026-11-21"
+    date: "2026-11-22"
 brief:
   goal: Meet one specialist change you did not see in advance, with evidence, and say what it changes for the reviewers.
   audience: Learners who finished BIM-007 and BIM-008, working with a partner or Sensei.
@@ -122,7 +122,7 @@ setup:
     expected: "Card R adds ISS-002 (duct 0.03 m from the window); card F writes a BCF 2.1 file that validates and reads back; card T: both clash routes agree"
     result: passed
     evidence: /examples/bim-pathway/generated/randori-coordination/cards.json, recomputed by CI on every pipeline
-    date: "2026-11-21"
+    date: "2026-11-22"
 prompts:
   - id: predict-the-change
     title: Predict what the change does
@@ -150,17 +150,17 @@ verification:
       expected: Both routes find the window 0.03 m from the duct; ISS-002 is added; the register validates and reads back
       result: passed
       evidence: /examples/bim-pathway/generated/randori-coordination/clearance.json and /examples/bim-pathway/generated/randori-coordination/issues-clearance.bcf
-      date: "2026-11-21"
+      date: "2026-11-22"
     - action: Card F, a BCF 2.1 export
       expected: Valid against buildingSMART's official BCF 2.1 schema files and read back by bcf-client; the extension lists and the camera aspect ratio do not carry over; the field of view is inside the official 2.1 range
       result: passed
       evidence: /examples/bim-pathway/generated/randori-coordination/issues-bcf21.bcf and /examples/bim-pathway/generated/randori-coordination/bcf21-check.json
-      date: "2026-11-21"
+      date: "2026-11-22"
     - action: Card T, a second clash route
-      expected: The IfcOpenShell clash tree and box arithmetic agree on every pair, and the box route's condition is checked
+      expected: The IfcOpenShell clash tree (collision mode) and box arithmetic agree on every pair, and the box route's condition is checked. IfcClash's intersection mode reports no clash for the duct through the wall, recorded as a validation exception
       result: passed
       evidence: /examples/bim-pathway/generated/coordination/clashes.json and /examples/bim-pathway/generated/randori-coordination/cards.json
-      date: "2026-11-21"
+      date: "2026-11-22"
     - action: A learner meets a drawn card with a written prediction
       expected: Evidence before and after, and the review gates named
       result: not-run

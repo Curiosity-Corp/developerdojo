@@ -67,7 +67,7 @@ showcase:
     creator: buildingSMART International (sample model); Developer Dojo maintainers (practice duct, brief, checks and outputs)
     source: buildingSMART Certification-datasets, pinned commit 80d976a9b193a26a8e928c3e79bff67af1de68a8; outputs from /examples/bim-pathway/tools/bim_pathway.py
     license: Sample model CC BY 4.0 (buildingSMART International); brief, script and outputs MIT
-    date: "2026-11-21"
+    date: "2026-11-22"
 brief:
   goal: A preliminary model-to-sequence mapping and cost plan in which every link can be traced, and nothing is invented.
   audience: Learners who finished BIM-006 and BIM-007.
@@ -137,7 +137,7 @@ setup:
     expected: "['T-010', 'T-020', 'T-030', 'T-040']"
     result: passed
     evidence: /examples/bim-pathway/generated/planning/schedule.json (readBack), recomputed by CI on every pipeline
-    date: "2026-11-21"
+    date: "2026-11-22"
 prompts:
   - id: traced-sequence
     title: Ask for a sequence you can trace
@@ -167,17 +167,17 @@ verification:
       expected: "T-010 builds the wall and the opening, T-020 the window, T-030 the duct; T-040 builds nothing and is held by ISS-001. Order T-010, T-020, T-030, T-040: window after wall (the window fills the opening that voids the wall), duct after wall (ISS-001), fire stopping after duct (ISS-001)"
       result: passed
       evidence: /examples/bim-pathway/generated/planning/schedule.json and /examples/bim-pathway/generated/planning/schedule.csv, recomputed by CI on every pipeline
-      date: "2026-11-21"
+      date: "2026-11-22"
     - action: Read the planned IFC back
       expected: Four tasks, four product assignments, three finish-to-start sequences and one work schedule, matching what was written
       result: passed
       evidence: /examples/bim-pathway/generated/planning/schedule.json (readBack) and /examples/bim-pathway/generated/planning/wall-with-opening-and-window.planned.ifc
-      date: "2026-11-21"
+      date: "2026-11-22"
     - action: Build the unpriced cost plan
       expected: "C-01 wall net volume 1.5 m³ (Q-06), C-02 one window, C-03 duct 1.5 m (checked against the built duct), C-04 one fire-stopping item (ISS-001); rates unavailable"
       result: passed
       evidence: /examples/bim-pathway/generated/planning/cost-plan.json and /examples/bim-pathway/generated/planning/cost-plan.csv
-      date: "2026-11-21"
+      date: "2026-11-22"
     - action: Open the planned IFC in a scheduling tool
       expected: The four tasks and three dependencies appear
       result: not-run
