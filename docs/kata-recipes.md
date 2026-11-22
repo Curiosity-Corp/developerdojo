@@ -107,6 +107,11 @@ maintenance:
   caveats: [ ... ]            # at least one
 downloads:                    # optional; plain text only
   - { filename: agents.md, description: ..., content: ... }   # .md .json .yaml .toml or .txt
+changes:                      # optional; oldest first; shown as "Change history" on the page (#94)
+  - date: "2026-11-21"
+    change: What changed, in plain words
+    reason: Why: the observation or evidence behind it
+    review: The independent reviewer's role and decision   # or { unavailable: ... } until a second person reviews it
 ```
 
 ## Rules the build enforces
@@ -125,6 +130,8 @@ with the file name and the path inside the record:
     `metadata.verificationEvidence` entry and `maintainer.person`;
   - `withdrawn` needs a `notice`.
 - `review.nextReview` on or before `lastVerified`.
+- `changes` out of date order. A change made through the Sensei contribution process also needs its entry in
+  `src/data/sensei-contributions.ts`, and the two must agree ([sensei-contributions.md](sensei-contributions.md)).
 - Every metadata reference must exist: fields, pathways, resources, outcomes, artifacts, capabilities,
   constraints, stack recipes and foundations (from `kataCatalog` or another recipe). The exercise
   `resourceId` must exist too.

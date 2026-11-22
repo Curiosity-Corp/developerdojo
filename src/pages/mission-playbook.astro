@@ -73,7 +73,7 @@ const templateParts: { heading: string; items: readonly { label: string; prompt:
   { heading: 'Transfer record', items: playbook.template.transfer },
   { heading: 'Retrospective', items: playbook.template.retrospective },
 ];
-const ROUTE_STATUS = { routed: 'Sent to the Sensei contribution process; not yet reviewed', accepted: 'Accepted after review', declined: 'Declined after review' } as const;
+const ROUTE_STATUS = { routed: 'Sent to the Sensei contribution process; not yet reviewed', applied: 'Applied to the kata through the Sensei contribution process; independent review unavailable, so it is not yet accepted', accepted: 'Accepted after review', declined: 'Declined after review' } as const;
 ---
 <BaseLayout title="Mission playbook" description="Turn a practiced kata into a mission brief, a transfer record and a retrospective, with a worked mission that carries one technique across three fields.">
   <PageHero compact eyebrow="Missions · practice to real work" title="Take a kata into the world" subtitle="Define the outcome, agree what you can use, choose your stack and show how the work will be checked." ctas={[{ label: 'Make a mission brief', href: '#brief', icon: 'arrow-right' }, { label: 'See a worked mission', href: '#worked', variant: 'ghost', icon: 'arrow-right' }]} />
@@ -142,7 +142,7 @@ const ROUTE_STATUS = { routed: 'Sent to the Sensei contribution process; not yet
         : <li>{field.name}: no failure is recorded in its kata recipes.</li>)}</ul></dd>
       <dt>What remains uncertain or untested</dt><dd>{mission.retrospective.uncertain} Each pathway lists what it did not verify: {fields.map((field, index) => <>{index > 0 && ', '}<a href={field.pack.pathway}>{field.name} ({field.pack.notVerified.length} items)</a></>)}.</dd>
       <dt>A verified technique improvement</dt><dd>{mission.retrospective.improvements.map((item) => (
-        <div class="improvement"><p><strong>{item.title}.</strong> {item.observed}</p><blockquote><p>{role(item.evidence.recipe, item.evidence.role).reviewGate}</p><footer>As it reads today in <a href={recipe(item.evidence.recipe).href}>{recipe(item.evidence.recipe).recipe.metadata.id}</a></footer></blockquote><p><strong>Proposal:</strong> {item.proposal}</p><p><strong>Status:</strong> {ROUTE_STATUS[item.status]}.</p></div>
+        <div class="improvement"><p><strong>{item.title}.</strong> {item.observed}</p><blockquote><p>{role(item.evidence.recipe, item.evidence.role).reviewGate}</p><footer>As it reads today in <a href={recipe(item.evidence.recipe).href}>{recipe(item.evidence.recipe).recipe.metadata.id}</a></footer></blockquote><p><strong>Proposal:</strong> {item.proposal}</p><p><strong>Status:</strong> {ROUTE_STATUS[item.status]}. <a href="/sensei/contribute#record">See the contribution record</a></p></div>
       ))}</dd>
       <dt>What may be shared</dt><dd>{mission.retrospective.sharing}</dd>
     </dl>

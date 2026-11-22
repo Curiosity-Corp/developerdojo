@@ -78,11 +78,12 @@ const allSections: [string, string][] = [
   ['belt', 'Belt evidence'],
   ['connections', 'Connections'],
   ['downloads', 'Downloads'],
+  ['changes', 'Change history'],
   ['maintenance', 'Maintenance and caveats'],
 ];
 // Measured comparisons come from the Arena records naming this kata, computed from their run files (src/lib/kata-comparisons.ts).
 const comparisons = kataComparisons(metadata.id, loadArenaRecords());
-const sections = allSections.filter(([slug]) => (slug !== 'downloads' || recipe.downloads.length > 0) && (slug !== 'comparisons' || comparisons.length > 0));
+const sections = allSections.filter(([slug]) => (slug !== 'downloads' || recipe.downloads.length > 0) && (slug !== 'changes' || recipe.changes.length > 0) && (slug !== 'comparisons' || comparisons.length > 0));
 const costText = (arm: ComparisonArm) => {
   const value = arm.measured;
   if (!value || value.totalCostUsd === null) return undefined;
@@ -447,6 +448,21 @@ const isoDay = (date: string) => formatDate(new Date(`${date}T00:00:00Z`));
                 <li><a href={`${href}/${file.filename}`} download={file.filename}>{file.filename}</a>: {file.description}</li>
               ))}
             </ul>
+          </section>
+        )}
+
+        {recipe.changes.length > 0 && (
+          <section aria-labelledby="changes" data-change-history>
+            <h2 id="changes">{title('changes')}</h2>
+            <ol class="steps">
+              {recipe.changes.map((entry) => (
+                <li>
+                  <time datetime={entry.date}>{isoDay(entry.date)}</time>: {entry.change}
+                  <span class="handoff"><strong>Why:</strong> {entry.reason}</span>
+                  <span class="handoff"><strong>Independent review:</strong> {isUnavailable(entry.review) ? <RecipeUnavailable inline reason={entry.review.unavailable} /> : entry.review}</span>
+                </li>
+              ))}
+            </ol>
           </section>
         )}
 

@@ -14,6 +14,7 @@ Five other documents work together with this one:
 | [docs/source-map.md](source-map.md) | Where the Curiosity learning material really lives, what is reusable and what must never be published |
 | [docs/certificates.md](certificates.md) | How a certificate is approved, added to the public list, corrected and removed. The list starts empty |
 | [docs/mission-playbook.md](mission-playbook.md) | The mission brief, transfer record and retrospective templates, the worked cross-field mission, and how a retrospective improvement is routed to the Sensei contribution process |
+| [docs/sensei-contributions.md](sensei-contributions.md) | Kata improvements, benchmark corrections and private mentoring feedback: templates, the five checks, roles and outcomes, change history and the public contribution log |
 | [docs/independent-review-pilot.md](independent-review-pilot.md) | The proposed independent review pilot behind the assessment map: evidence, steps, and how it reuses the certificate procedure and the Sensei handbook. Not run yet |
 
 Contents: [1 What the site is](#1-what-the-site-is) · [2 How it is built and published](#2-how-the-site-is-built-and-published)

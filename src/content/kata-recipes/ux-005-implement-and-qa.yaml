@@ -121,7 +121,7 @@ agents:
   roles:
     - role: Drafting assistant
       responsibility: Writes the page from the flow and tokens, one state at a time.
-      reviewGate: You compare every line with the flow and the done-when list before it goes into Penpot.
+      reviewGate: You compare every line with the flow and the done-when list before it goes into the page.
     - role: Reviewer
       responsibility: Runs the automated checks and a keyboard pass, and lists failures by state.
       dependsOn:
@@ -187,3 +187,9 @@ maintenance:
     - "This recipe is a draft: the example was built and checked by the Dojo maintainers, and no learner has run it yet."
     - Penpot plans, versions and features change; check penpot.app/pricing and help.penpot.app before you rely on a limit.
     - The example file was checked on a self-hosted Penpot 2.18.7. Penpot cloud (penpot.app) was not checked.
+changes:
+  - date: "2026-11-21"
+    change: "The drafting assistant's review gate now says each line is compared before it goes into the page. It said Penpot, which is right in UX-001 to UX-004 but not here, where the assistant writes the web page."
+    reason: Found while reading this kata next to the Penpot katas for the worked mission on the mission playbook, and sent through the Sensei kata improvement process.
+    review:
+      unavailable: No second person has reviewed this change yet. The site's automated checks ran on it; they check the record, not the wording.
