@@ -1,0 +1,448 @@
+{
+  "passed": 55,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "H2-V-mean",
+      "source": "GUM Table H.2",
+      "quantity": "mean of V, volts",
+      "published": 4.999,
+      "computed": 4.999,
+      "status": "pass"
+    },
+    {
+      "id": "H2-I-mean",
+      "source": "GUM Table H.2",
+      "quantity": "mean of I, milliamperes",
+      "published": 19.661,
+      "computed": 19.661,
+      "status": "pass"
+    },
+    {
+      "id": "H2-phi-mean",
+      "source": "GUM Table H.2",
+      "quantity": "mean of phi, radians",
+      "published": 1.04446,
+      "computed": 1.04446,
+      "status": "pass"
+    },
+    {
+      "id": "H2-V-u",
+      "source": "GUM Table H.2",
+      "quantity": "experimental standard deviation of the mean of V, volts",
+      "published": 0.0032,
+      "computed": 0.0032,
+      "status": "pass"
+    },
+    {
+      "id": "H2-I-u",
+      "source": "GUM Table H.2",
+      "quantity": "experimental standard deviation of the mean of I, milliamperes",
+      "published": 0.0095,
+      "computed": 0.0095,
+      "status": "pass"
+    },
+    {
+      "id": "H2-phi-u",
+      "source": "GUM Table H.2",
+      "quantity": "experimental standard deviation of the mean of phi, radians",
+      "published": 0.00075,
+      "computed": 0.00075,
+      "status": "pass"
+    },
+    {
+      "id": "H2-r-V-I",
+      "source": "GUM Table H.2",
+      "quantity": "correlation coefficient r(V, I)",
+      "published": -0.36,
+      "computed": -0.36,
+      "status": "pass"
+    },
+    {
+      "id": "H2-r-V-phi",
+      "source": "GUM Table H.2",
+      "quantity": "correlation coefficient r(V, phi)",
+      "published": 0.86,
+      "computed": 0.86,
+      "status": "pass"
+    },
+    {
+      "id": "H2-r-I-phi",
+      "source": "GUM Table H.2",
+      "quantity": "correlation coefficient r(I, phi)",
+      "published": -0.65,
+      "computed": -0.65,
+      "status": "pass"
+    },
+    {
+      "id": "H3-R",
+      "source": "GUM Table H.3",
+      "quantity": "R, ohms (approach 1)",
+      "published": 127.732,
+      "computed": 127.732,
+      "status": "pass"
+    },
+    {
+      "id": "H3-uc-R",
+      "source": "GUM Table H.3",
+      "quantity": "combined standard uncertainty of R, ohms",
+      "published": 0.071,
+      "computed": 0.071,
+      "status": "pass"
+    },
+    {
+      "id": "H3-X",
+      "source": "GUM Table H.3",
+      "quantity": "X, ohms (approach 1)",
+      "published": 219.847,
+      "computed": 219.847,
+      "status": "pass"
+    },
+    {
+      "id": "H3-uc-X",
+      "source": "GUM Table H.3",
+      "quantity": "combined standard uncertainty of X, ohms",
+      "published": 0.295,
+      "computed": 0.296,
+      "status": "pass",
+      "tolerance": 0.001,
+      "note": "GUM eq. 16 on the unrounded Table H.2 data gives 0.29558, which rounds to 0.296; the GUM prints 0.295, the value its approach 2 gives (Table H.4, 0.29549 here). Accepted within one unit of the last printed digit."
+    },
+    {
+      "id": "H3-Z",
+      "source": "GUM Table H.3",
+      "quantity": "Z, ohms (approach 1)",
+      "published": 254.26,
+      "computed": 254.26,
+      "status": "pass"
+    },
+    {
+      "id": "H3-uc-Z",
+      "source": "GUM Table H.3",
+      "quantity": "combined standard uncertainty of Z, ohms",
+      "published": 0.236,
+      "computed": 0.236,
+      "status": "pass"
+    },
+    {
+      "id": "H3-r-R-X",
+      "source": "GUM Table H.3",
+      "quantity": "correlation coefficient r(R, X)",
+      "published": -0.588,
+      "computed": -0.588,
+      "status": "pass"
+    },
+    {
+      "id": "H3-r-R-Z",
+      "source": "GUM Table H.3",
+      "quantity": "correlation coefficient r(R, Z)",
+      "published": -0.485,
+      "computed": -0.485,
+      "status": "pass"
+    },
+    {
+      "id": "H3-r-X-Z",
+      "source": "GUM Table H.3",
+      "quantity": "correlation coefficient r(X, Z)",
+      "published": 0.993,
+      "computed": 0.993,
+      "status": "pass"
+    },
+    {
+      "id": "H4-R",
+      "source": "GUM Table H.4",
+      "quantity": "mean of the five values of R, ohms (approach 2)",
+      "published": 127.732,
+      "computed": 127.732,
+      "status": "pass"
+    },
+    {
+      "id": "H4-u-R",
+      "source": "GUM Table H.4",
+      "quantity": "experimental standard deviation of the mean of R, ohms",
+      "published": 0.071,
+      "computed": 0.071,
+      "status": "pass"
+    },
+    {
+      "id": "H4-X",
+      "source": "GUM Table H.4",
+      "quantity": "mean of the five values of X, ohms (approach 2)",
+      "published": 219.847,
+      "computed": 219.847,
+      "status": "pass"
+    },
+    {
+      "id": "H4-u-X",
+      "source": "GUM Table H.4",
+      "quantity": "experimental standard deviation of the mean of X, ohms",
+      "published": 0.295,
+      "computed": 0.295,
+      "status": "pass"
+    },
+    {
+      "id": "H4-Z",
+      "source": "GUM Table H.4",
+      "quantity": "mean of the five values of Z, ohms (approach 2)",
+      "published": 254.26,
+      "computed": 254.26,
+      "status": "pass"
+    },
+    {
+      "id": "H4-u-Z",
+      "source": "GUM Table H.4",
+      "quantity": "experimental standard deviation of the mean of Z, ohms",
+      "published": 0.236,
+      "computed": 0.236,
+      "status": "pass"
+    },
+    {
+      "id": "H4-r-R-X",
+      "source": "GUM Table H.4",
+      "quantity": "correlation coefficient r(R, X), approach 2",
+      "published": -0.588,
+      "computed": -0.588,
+      "status": "pass"
+    },
+    {
+      "id": "H4-r-R-Z",
+      "source": "GUM Table H.4",
+      "quantity": "correlation coefficient r(R, Z), approach 2",
+      "published": -0.485,
+      "computed": -0.485,
+      "status": "pass"
+    },
+    {
+      "id": "H4-r-X-Z",
+      "source": "GUM Table H.4",
+      "quantity": "correlation coefficient r(X, Z), approach 2",
+      "published": 0.993,
+      "computed": 0.993,
+      "status": "pass"
+    },
+    {
+      "id": "H5-uc-R",
+      "source": "GUM Table H.5",
+      "quantity": "combined standard uncertainty of R if the inputs were uncorrelated, ohms",
+      "published": 0.195,
+      "computed": 0.195,
+      "status": "pass"
+    },
+    {
+      "id": "H5-uc-X",
+      "source": "GUM Table H.5",
+      "quantity": "combined standard uncertainty of X if the inputs were uncorrelated, ohms",
+      "published": 0.201,
+      "computed": 0.201,
+      "status": "pass"
+    },
+    {
+      "id": "H5-uc-Z",
+      "source": "GUM Table H.5",
+      "quantity": "combined standard uncertainty of Z if the inputs were uncorrelated, ohms",
+      "published": 0.204,
+      "computed": 0.204,
+      "status": "pass"
+    },
+    {
+      "id": "H5-r-R-X",
+      "source": "GUM Table H.5",
+      "quantity": "correlation coefficient r(R, X) if the inputs were uncorrelated",
+      "published": 0.056,
+      "computed": 0.056,
+      "status": "pass"
+    },
+    {
+      "id": "H5-r-R-Z",
+      "source": "GUM Table H.5",
+      "quantity": "correlation coefficient r(R, Z) if the inputs were uncorrelated",
+      "published": 0.527,
+      "computed": 0.527,
+      "status": "pass"
+    },
+    {
+      "id": "H5-r-X-Z",
+      "source": "GUM Table H.5",
+      "quantity": "correlation coefficient r(X, Z) if the inputs were uncorrelated",
+      "published": 0.878,
+      "computed": 0.878,
+      "status": "pass"
+    },
+    {
+      "id": "H3-y1",
+      "source": "GUM H.3 (thermometer calibration)",
+      "quantity": "intercept y1, degrees C (eq. H.13a)",
+      "published": -0.1712,
+      "computed": -0.1712,
+      "status": "pass"
+    },
+    {
+      "id": "H3-y2",
+      "source": "GUM H.3 (thermometer calibration)",
+      "quantity": "slope y2 (eq. H.13b)",
+      "published": 0.00218,
+      "computed": 0.00218,
+      "status": "pass"
+    },
+    {
+      "id": "H3-u-y1",
+      "source": "GUM H.3 (thermometer calibration)",
+      "quantity": "standard uncertainty of y1, degrees C (eq. H.13c)",
+      "published": 0.0029,
+      "computed": 0.0029,
+      "status": "pass"
+    },
+    {
+      "id": "H3-u-y2",
+      "source": "GUM H.3 (thermometer calibration)",
+      "quantity": "standard uncertainty of y2 (eq. H.13d)",
+      "published": 0.00067,
+      "computed": 0.00067,
+      "status": "pass"
+    },
+    {
+      "id": "H3-r-y1-y2",
+      "source": "GUM H.3 (thermometer calibration)",
+      "quantity": "correlation coefficient r(y1, y2) (eq. H.13e)",
+      "published": -0.93,
+      "computed": -0.93,
+      "status": "pass"
+    },
+    {
+      "id": "H3-s",
+      "source": "GUM H.3 (thermometer calibration)",
+      "quantity": "standard deviation of the fit s, degrees C (eq. H.13f)",
+      "published": 0.0035,
+      "computed": 0.0035,
+      "status": "pass"
+    },
+    {
+      "id": "H3-tmin",
+      "source": "GUM H.3 (thermometer calibration)",
+      "quantity": "temperature where the predicted correction is least uncertain, degrees C",
+      "published": 24.0085,
+      "computed": 24.0085,
+      "status": "pass"
+    },
+    {
+      "id": "H3-b30",
+      "source": "GUM H.3 (thermometer calibration)",
+      "quantity": "predicted correction b(30 degrees C), degrees C (eq. H.14)",
+      "published": -0.1494,
+      "computed": -0.1494,
+      "status": "pass"
+    },
+    {
+      "id": "H3-u-b30",
+      "source": "GUM H.3 (thermometer calibration)",
+      "quantity": "combined standard uncertainty of b(30 degrees C), degrees C (eq. H.15)",
+      "published": 0.0041,
+      "computed": 0.0041,
+      "status": "pass"
+    },
+    {
+      "id": "H3-y1-prime",
+      "source": "GUM H.3 (thermometer calibration)",
+      "quantity": "intercept at t0 = t_bar, degrees C (eq. H.17a)",
+      "published": -0.1625,
+      "computed": -0.1625,
+      "status": "pass"
+    },
+    {
+      "id": "H3-u-y1-prime",
+      "source": "GUM H.3 (thermometer calibration)",
+      "quantity": "standard uncertainty of that intercept, degrees C (eq. H.17a)",
+      "published": 0.0011,
+      "computed": 0.0011,
+      "status": "pass"
+    },
+    {
+      "id": "H6-b-1",
+      "source": "GUM Table H.6",
+      "quantity": "predicted correction b(t_1) at 21.521 degrees C",
+      "published": -0.1679,
+      "computed": -0.1679,
+      "status": "pass"
+    },
+    {
+      "id": "H6-b-2",
+      "source": "GUM Table H.6",
+      "quantity": "predicted correction b(t_2) at 22.012 degrees C",
+      "published": -0.1668,
+      "computed": -0.1668,
+      "status": "pass"
+    },
+    {
+      "id": "H6-b-3",
+      "source": "GUM Table H.6",
+      "quantity": "predicted correction b(t_3) at 22.512 degrees C",
+      "published": -0.1657,
+      "computed": -0.1657,
+      "status": "pass"
+    },
+    {
+      "id": "H6-b-4",
+      "source": "GUM Table H.6",
+      "quantity": "predicted correction b(t_4) at 23.003 degrees C",
+      "published": -0.1646,
+      "computed": -0.1646,
+      "status": "pass"
+    },
+    {
+      "id": "H6-b-5",
+      "source": "GUM Table H.6",
+      "quantity": "predicted correction b(t_5) at 23.507 degrees C",
+      "published": -0.1635,
+      "computed": -0.1635,
+      "status": "pass"
+    },
+    {
+      "id": "H6-b-6",
+      "source": "GUM Table H.6",
+      "quantity": "predicted correction b(t_6) at 23.999 degrees C",
+      "published": -0.1625,
+      "computed": -0.1625,
+      "status": "pass"
+    },
+    {
+      "id": "H6-b-7",
+      "source": "GUM Table H.6",
+      "quantity": "predicted correction b(t_7) at 24.513 degrees C",
+      "published": -0.1614,
+      "computed": -0.1614,
+      "status": "pass"
+    },
+    {
+      "id": "H6-b-8",
+      "source": "GUM Table H.6",
+      "quantity": "predicted correction b(t_8) at 25.002 degrees C",
+      "published": -0.1603,
+      "computed": -0.1603,
+      "status": "pass"
+    },
+    {
+      "id": "H6-b-9",
+      "source": "GUM Table H.6",
+      "quantity": "predicted correction b(t_9) at 25.503 degrees C",
+      "published": -0.1592,
+      "computed": -0.1592,
+      "status": "pass"
+    },
+    {
+      "id": "H6-b-10",
+      "source": "GUM Table H.6",
+      "quantity": "predicted correction b(t_10) at 26.01 degrees C",
+      "published": -0.1581,
+      "computed": -0.1581,
+      "status": "pass"
+    },
+    {
+      "id": "H6-b-11",
+      "source": "GUM Table H.6",
+      "quantity": "predicted correction b(t_11) at 26.511 degrees C",
+      "published": -0.157,
+      "computed": -0.157,
+      "status": "pass"
+    }
+  ]
+}

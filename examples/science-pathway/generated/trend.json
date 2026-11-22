@@ -1,0 +1,18 @@
+{
+  "series": "annual means (J-D)",
+  "period": "1991-2020",
+  "n": 30,
+  "unavailable": [],
+  "t0": 1991.0,
+  "intercept_C": 0.276,
+  "u_intercept_C": 0.031,
+  "slope_C_per_decade": 0.23,
+  "u_slope_C_per_decade": 0.0186,
+  "r_intercept_slope": -0.859,
+  "s_C": 0.088,
+  "degreesOfFreedom": 28,
+  "slopeOverItsUncertainty": 12.4,
+  "residualLag1Autocorrelation": 0.19,
+  "method": "GUM Annex H.3 least-squares line b(t) = y1 + y2 (t - t0), years as t",
+  "assumption": "The standard uncertainties assume independent residuals, as the least-squares formulas do. The residual lag-1 autocorrelation is reported so you can see whether that holds; this is not the uncertainty of the record."
+}
