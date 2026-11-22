@@ -2,9 +2,81 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import { missionBrief } from '../data/mission-brief';
+import { missionPlaybook } from '../data/mission-playbook';
+import { assessmentMap } from '../data/assessment-map';
+import { kataCatalog } from '../data/kata-catalog';
+import { sectorPack, sectorPacks } from '../data/sector-packs';
+import { loadAssessmentMap } from '../lib/assessment-map';
+import { loadKataRecipes } from '../lib/kata-recipe-content';
+import { humanize } from '../lib/kata-recipes';
+import { loadMissionPlaybook } from '../lib/mission-playbook';
+
+// Both loaders throw a readable error, and so fail the build, when the data breaks a rule (#90, #95).
+const map = loadAssessmentMap(assessmentMap);
+const resolved = await loadKataRecipes();
+const roles = (agents: (typeof resolved)[number]['recipe']['agents']) => ('unavailable' in agents ? [] : agents.roles);
+const playbook = loadMissionPlaybook(missionPlaybook, {
+  assessment: map,
+  recipes: resolved.map(({ slug, recipe }) => ({ slug, id: recipe.metadata.id, roles: roles(recipe.agents), foundationKataIds: recipe.metadata.foundationKataIds })),
+  packs: sectorPacks,
+  catalogIds: kataCatalog.map((entry) => entry.metadata.id),
+});
+const mission = playbook.workedMission;
+
+const byId = new Map(resolved.map((item) => [item.recipe.metadata.id, item] as const));
+const bySlug = new Map(resolved.map((item) => [item.slug, item] as const));
+const recipe = (slug: string) => {
+  const found = bySlug.get(slug);
+  if (!found) throw new Error(`mission playbook: no recipe ${slug}`);
+  return found;
+};
+const role = (slug: string, name: string) => {
+  const found = roles(recipe(slug).recipe.agents).find((item) => item.role === name);
+  if (!found) throw new Error(`mission playbook: recipe ${slug} has no role ${name}`);
+  return found;
+};
+const unique = <T,>(items: T[]) => [...new Set(items)];
+const foundations = mission.foundation.kataIds.map((id) => {
+  const entry = kataCatalog.find((item) => item.metadata.id === id);
+  if (!entry) throw new Error(`mission playbook: no catalog kata ${id}`);
+  return entry;
+});
+const foundationCapabilities = new Set(foundations.flatMap((entry) => entry.metadata.capabilityIds));
+
+const fields = mission.adaptations.map((adaptation) => {
+  const pack = sectorPack(adaptation.packId);
+  const katas = [...pack.kataIds, pack.randoriKataId].map((id) => {
+    const item = byId.get(id);
+    if (!item) throw new Error(`mission playbook: sector pack ${pack.id} names ${id}, which has no recipe`);
+    return item;
+  });
+  const gate = role(adaptation.gate.recipe, adaptation.gate.role);
+  return {
+    pack,
+    name: pack.title.split(':')[0] ?? pack.title,
+    adaptation,
+    gate,
+    gateKata: recipe(adaptation.gate.recipe),
+    katas,
+    capabilities: unique(katas.flatMap(({ recipe: item }) => item.metadata.capabilityIds)).filter((id) => !foundationCapabilities.has(id)),
+    standards: unique(katas.flatMap(({ recipe: item }) => item.metadata.standards.map((standard) => `${standard.name} (${standard.version})`))),
+    constraints: unique(katas.flatMap(({ recipe: item }) => item.metadata.constraintIds)),
+    inputs: Array.isArray(pack.inputs) ? pack.inputs.map((input) => ({ name: input.name, terms: input.terms, href: input.path })) : [{ name: 'Dojo practice material', terms: pack.inputs.none, href: pack.examples.readme }],
+    failures: katas.flatMap(({ recipe: item }) => ('unavailable' in item.verification ? [] : item.verification.failures.map((failure) => ({ id: item.metadata.id, ...failure })))),
+  };
+});
+const criterion = (id: string) => map.ranks.flatMap((rank) => rank.rubric.criteria).find((item) => item.id === id);
+const evidenceTitle = (kind: string) => map.pilot.evidence.find((item) => item.kind === kind)?.title ?? kind;
+const transferCriteria = playbook.rubricCriterionIds.map((id) => criterion(id)).filter((item) => item !== undefined);
+const templateParts: { heading: string; items: readonly { label: string; prompt: string }[] }[] = [
+  { heading: 'Mission brief', items: playbook.template.brief },
+  { heading: 'Transfer record', items: playbook.template.transfer },
+  { heading: 'Retrospective', items: playbook.template.retrospective },
+];
+const ROUTE_STATUS = { routed: 'Sent to the Sensei contribution process; not yet reviewed', accepted: 'Accepted after review', declined: 'Declined after review' } as const;
 ---
-<BaseLayout title="Mission playbook" description="Turn a practiced kata into a learner-owned mission brief, verification plan and retrospective.">
-  <PageHero compact eyebrow="Missions · practice to real work" title="Take a kata into the world" subtitle="Define the outcome, agree what you can use, choose your stack and show how the work will be checked." ctas={[{ label: 'Make a mission brief', href: '#brief', icon: 'arrow-right' }, { label: 'See an example', href: '#example', variant: 'ghost', icon: 'arrow-right' }]} />
+<BaseLayout title="Mission playbook" description="Turn a practiced kata into a mission brief, a transfer record and a retrospective, with a worked mission that carries one technique across three fields.">
+  <PageHero compact eyebrow="Missions · practice to real work" title="Take a kata into the world" subtitle="Define the outcome, agree what you can use, choose your stack and show how the work will be checked." ctas={[{ label: 'Make a mission brief', href: '#brief', icon: 'arrow-right' }, { label: 'See a worked mission', href: '#worked', variant: 'ghost', icon: 'arrow-right' }]} />
   <section id="example" class="section outcome"><div class="container content">
     <p class="eyebrow">See the outcome · fictional example</p><h2>A useful estimate, with its limits attached</h2>
     <div class="example"><p><strong>Goal:</strong> compare two lighting schedules for a fictional community room.</p><p><strong>Check:</strong> six 100 W lights for five hours on 30 days use 90 kWh; six 12 W lights use 10.8 kWh under the same assumptions.</p><p><strong>Decision still needed:</strong> compare actual brightness, measured usage, costs and compatibility. A qualified person reviews real installation work.</p></div>
@@ -14,13 +86,82 @@ import { missionBrief } from '../data/mission-brief';
     <ol><li><strong>Agree the goal and permissions.</strong> Identify the decision-maker, audience, permitted source material, constraints and what success looks like.</li><li><strong>Adapt a kata.</strong> Pick a technique that fits. Use the <a href="/katas/context-trap">context-trust kata</a> when reading an unfamiliar source, or the <a href="/katas/arena-run-card">run record</a> when comparing approaches.</li><li><strong>Choose your stack.</strong> Record the harness, model, instructions, tools, versions and permissions actually used. Separate your decisions from what an agent did.</li><li><strong>Verify the result.</strong> Define observable checks, keep the source and output where authorized, and record failures or uncertainty. Arrange independent or qualified review when the work calls for it.</li><li><strong>Learn and share responsibly.</strong> Capture what changed and what evidence supports an improvement. Share a sanitized lesson only with permission and appropriate credit.</li></ol>
     <p>Use any assistant you can access on a phone or computer, or a trusted CLI harness. This page does not connect to a service or execute an agent. Provider access, terms and costs vary.</p>
   </div></section>
-  <section id="brief" class="section outcome"><div class="container content"><p class="eyebrow">Your turn</p><h2>Make a brief you own</h2>
-    <p>Edit this template on your device. The Dojo does not save or send what you type. If you copy or share it with another service, that service receives it; include only information you are permitted to share.</p>
-    <label for="mission-record">Your editable mission brief</label><textarea id="mission-record" rows="19">{missionBrief}</textarea>
+
+  <section id="worked" class="section outcome" aria-labelledby="worked-title"><div class="container content">
+    <p class="eyebrow">A worked mission · real, public files</p>
+    <h2 id="worked-title">{mission.title}</h2>
+    <p class="boundary" data-mission-provenance><strong>Where this comes from:</strong> {mission.provenance} No independent review has assessed it yet.</p>
+    <h3>The brief</h3>
+    <dl class="brief">
+      <dt>Goal</dt><dd>{mission.goal} <em>For:</em> {mission.audience}</dd>
+      <dt>Authorized inputs and permissions</dt><dd><ul>{fields.map((field) => field.inputs.map((input) => <li><a href={input.href}>{input.name}</a> ({field.name}): {input.terms}</li>))}</ul></dd>
+      <dt>Real-world constraints</dt><dd><ul>{mission.sharedConstraints.map((line) => <li>{line}</li>)}{fields.map((field) => <li>{field.name}: {field.constraints.map(humanize).join(', ').toLowerCase() || 'none recorded'}.</li>)}</ul></dd>
+      <dt>Chosen stack</dt><dd><ul>{fields.map((field) => <li>{field.name}: {field.pack.armory.stackRecipeIds.map(humanize).join(', ')}, with an assistant of your choice. See each kata for versions and permissions.</li>)}</ul></dd>
+      <dt>Dependencies</dt><dd>The foundation katas {foundations.map((entry, index) => <>{index > 0 && ' and '}<a href={entry.href}>{entry.metadata.id} {entry.linkLabel}</a></>)}, which every kata in the three pathways names as its foundation.</dd>
+      <dt>Acceptance criteria and who checks them</dt><dd><ul>{fields.map((field) => field.pack.checks.map((check) => <li>{field.name}: {check.name}. Rerun by CI on every pipeline.</li>))}</ul></dd>
+      <dt>Independent review and qualified professional approval required</dt><dd><ul>{fields.map((field) => <li>{field.name}: {field.pack.professionalReview.required ? 'required for real use. ' : 'not required for this practice material. '}{field.pack.professionalReview.limit}</li>)}</ul></dd>
+      <dt>Katas practiced</dt><dd><ul>{fields.map((field) => <li><a href={field.pack.pathway}>{field.pack.title}</a>: {field.katas.map((item, index) => <>{index > 0 && ', '}<a href={item.href}>{item.recipe.metadata.id}</a></>)}</li>)}</ul></dd>
+    </dl>
+  </div></section>
+
+  <section id="transfer" class="section" aria-labelledby="transfer-title"><div class="container content">
+    <p class="eyebrow">Transfer record</p>
+    <h2 id="transfer-title">What transfers, and what each field changes</h2>
+    <p><strong>Foundation technique that transfers:</strong> {mission.foundation.technique}</p>
+    <div class="fields">
+      {fields.map((field) => (
+        <article aria-labelledby={`field-${field.pack.id}`}>
+          <h3 id={`field-${field.pack.id}`}><a href={field.pack.pathway}>{field.name}</a></h3>
+          <p><strong>Its reference:</strong> {field.adaptation.reference}</p>
+          <blockquote><p>{field.gate.reviewGate}</p><footer>Review gate for the {field.gate.role.toLowerCase()} in <a href={field.gateKata.href}>{field.gateKata.recipe.metadata.id}</a></footer></blockquote>
+          <p><strong>Specialist capabilities:</strong> {field.capabilities.map(humanize).join(', ')}</p>
+          <p><strong>Standards:</strong> {field.standards.length ? field.standards.join('; ') : 'none recorded on these katas'}</p>
+        </article>
+      ))}
+    </div>
+    <h3>Independent rubric result</h3>
+    <p>The transfer is assessed with the assessment map’s own rubric, not a second scale: {transferCriteria.map((item, index) => <>{index > 0 && ' and '}<a href={`/assessment-map#rank-${item.id.startsWith('MD') ? 'master-developer' : 'sensei'}`}>{item.id} {item.title}</a></>)}. A reviewer records each criterion as Observed, Not yet observed or Unclear, with an evidence reference.</p>
+    <div class="table-wrap" role="region" aria-label="Rubric result for this mission" tabindex="0"><table data-rubric-result>
+      <caption>Rubric result for this mission</caption>
+      <thead><tr><th scope="col">Criterion</th><th scope="col">Result</th><th scope="col">Evidence a reviewer can open now</th><th scope="col">Evidence still missing</th></tr></thead>
+      <tbody>{mission.rubricResult.criteria.map((result) => (
+        <tr><th scope="row">{result.id} {criterion(result.id)?.title}</th><td>{result.observation ?? 'Unavailable'}</td><td>{result.offered.map(evidenceTitle).join(', ')}</td><td>{result.missing.length ? result.missing.map(evidenceTitle).join(', ') : 'None'}</td></tr>
+      ))}</tbody>
+    </table></div>
+    <p>{mission.rubricResult.why} {mission.rubricResult.criteria.map((result) => result.note).join(' ')}</p>
+  </div></section>
+
+  <section id="retrospective" class="section outcome" aria-labelledby="retro-title"><div class="container content">
+    <p class="eyebrow">Sanitized retrospective · checked {mission.retrospective.checkedOn}</p>
+    <h2 id="retro-title">What the mission taught, and where it goes</h2>
+    <dl class="brief">
+      <dt>What actually happened</dt><dd>{mission.retrospective.whatHappened}</dd>
+      <dt>Evidence that supports it</dt><dd>The pathway pages, their example files and the outputs CI recomputes: {fields.map((field, index) => <>{index > 0 && ', '}<a href={field.pack.examples.readme}>{field.name} README</a></>)}.</dd>
+      <dt>Failures and what changed</dt><dd><ul>{fields.map((field) => field.failures.length
+        ? field.failures.map((failure) => <li><strong>{failure.id}:</strong> {failure.observed}. {failure.correction}</li>)
+        : <li>{field.name}: no failure is recorded in its kata recipes.</li>)}</ul></dd>
+      <dt>What remains uncertain or untested</dt><dd>{mission.retrospective.uncertain} Each pathway lists what it did not verify: {fields.map((field, index) => <>{index > 0 && ', '}<a href={field.pack.pathway}>{field.name} ({field.pack.notVerified.length} items)</a></>)}.</dd>
+      <dt>A verified technique improvement</dt><dd>{mission.retrospective.improvements.map((item) => (
+        <div class="improvement"><p><strong>{item.title}.</strong> {item.observed}</p><blockquote><p>{role(item.evidence.recipe, item.evidence.role).reviewGate}</p><footer>As it reads today in <a href={recipe(item.evidence.recipe).href}>{recipe(item.evidence.recipe).recipe.metadata.id}</a></footer></blockquote><p><strong>Proposal:</strong> {item.proposal}</p><p><strong>Status:</strong> {ROUTE_STATUS[item.status]}.</p></div>
+      ))}</dd>
+      <dt>What may be shared</dt><dd>{mission.retrospective.sharing}</dd>
+    </dl>
+  </div></section>
+
+  <section id="brief" class="section"><div class="container content"><p class="eyebrow">Your turn</p><h2>Make a brief you own</h2>
+    <p>The template has three parts: the mission brief, the transfer record and the retrospective. Edit it on your device. The Dojo does not save or send what you type. If you copy or share it with another service, that service receives it; include only information you are permitted to share.</p>
+    <details><summary>What each part asks for</summary>
+      {templateParts.map((part) => (
+        <><h3>{part.heading}</h3><dl class="prompts">{part.items.map((item) => <><dt>{item.label}</dt><dd>{item.prompt}</dd></>)}</dl></>
+      ))}
+    </details>
+    <label for="mission-record">Your editable mission brief</label><textarea id="mission-record" rows="30">{missionBrief}</textarea>
     <div class="actions"><button id="copy-mission" type="button" hidden>Copy my brief</button><a id="download-mission" download="mission-brief.md" hidden>Download my brief</a><span id="mission-status" role="status" aria-live="polite">You can also select and copy the text.</span></div>
     <p><a href="/examples/mission-brief.md" download>Download the blank template</a> · <a href="/examples/mission-brief.md">Open the blank template</a></p>
-    <p>A brief is a planning aid, not proof of completed work, a belt or professional approval. For real projects, agree the review and sign-off required for the field before relying on the outcome.</p>
-    <p><a href="/belt-review">Prepare a practice review</a> · <a href="/katas/portfolio">Keep an evidence portfolio</a> · <a href="/missions">Back to Missions</a></p>
+    <h3>Where a verified improvement goes</h3>
+    <ul>{playbook.routes.map((route) => <li><strong>{route.label}:</strong> {route.when} Use the <a href={route.worksheet}>{route.label.toLowerCase()} worksheet</a> and the <a href={route.guide}>Sensei contribution guide</a>.</li>)}</ul>
+    <ul class="boundaries">{playbook.boundaries.map((line) => <li>{line}</li>)}</ul>
+    <p><a href="/assessment-map">Read the assessment map</a> · <a href="/belt-review">Prepare a practice review</a> · <a href="/katas/portfolio">Keep an evidence portfolio</a> · <a href="/missions">Back to Missions</a></p>
   </div></section>
 </BaseLayout>
 <script>
@@ -56,4 +197,18 @@ import { missionBrief } from '../data/mission-brief';
   .actions { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-block: var(--space-3); }
   button, .actions a { padding: var(--space-3); border: 1px solid var(--band); border-radius: var(--radius); background: var(--band); color: var(--band-text); font: inherit; font-weight: 700; cursor: pointer; }
   [hidden] { display: none; } li + li { margin-top: var(--space-2); }
+  .boundary { padding: var(--space-3) var(--space-4); border-left: 4px solid var(--tone-gold); background: var(--paper); }
+  .brief { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-2); }
+  .brief dt { font-weight: 800; margin-top: var(--space-3); }
+  .brief dd { margin: 0; }
+  .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: var(--space-3); margin-block: var(--space-4); }
+  .fields article { padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-raised); }
+  blockquote { margin: var(--space-3) 0; padding-left: var(--space-3); border-left: 3px solid var(--line-strong); }
+  blockquote footer { color: var(--ink-muted); font-size: .9em; }
+  table { width: 100%; border-collapse: collapse; margin-block: var(--space-3); }
+  caption { text-align: left; font-weight: 700; margin-bottom: var(--space-2); }
+  th, td { padding: var(--space-2); border: 1px solid var(--line); text-align: left; vertical-align: top; }
+  .prompts dt { font-weight: 700; } .prompts dd { margin: 0 0 var(--space-2); }
+  .improvement { padding: var(--space-3); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+  .table-wrap { overflow-x: auto; }
 </style>
