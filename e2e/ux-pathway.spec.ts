@@ -173,3 +173,64 @@ test('the UX pathway page links every step and serves real files', async ({ page
   const check = await (await request.get('/examples/ux-pathway/penpot-import-check.json')).json() as { checks: { pass: boolean }[] };
   expect(check.checks.every((item) => item.pass)).toBe(true);
 });
+
+test('the low-fidelity prototype reaches every state through all its transitions', async ({ page }) => {
+  // UX-002 (#91): one walk that uses every numbered transition at least once, by clicking the link that carries its
+  // number, plus Escape for the dialog's close and the browser's Back button for a back path.
+  const proto = page.locator('[data-prototype]');
+  const walk: (number | 'back' | 'escape')[] = [1, 'back', 4, 5, 2, 3, 6, 10, 'escape', 8, 11, 13, 6, 8, 9, 14, 7, 16, 17, 7, 15, 18, 19];
+  const axe = async (where: string): Promise<void> => {
+    const results = await new AxeBuilder({ page }).include('[data-prototype]').withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze();
+    expect(results.violations.map((v) => v.id + ' (' + v.impact + ')'), where).toEqual([]);
+  };
+  await page.goto('/examples/pocket-invoice-prototype/');
+  await expect(proto).toHaveAttribute('data-current-state', 'signup');
+  await axe('signup');
+  let current: StateId = 'signup';
+  for (const step of walk) {
+    if (step === 'back') {
+      await page.goBack();
+      current = 'signup';
+    } else if (step === 'escape') {
+      await page.keyboard.press('Escape');
+      current = 'invoice-new';
+    } else {
+      const transition = TRANSITIONS[step - 1];
+      if (!transition) throw new Error('no transition ' + step);
+      expect(transition.from, 'transition ' + step + ' starts where the walk is').toBe(current);
+      await page.locator('[data-prototype-state="' + current + '"] a[data-transition="' + step + '"]').first().click();
+      current = transition.to;
+    }
+    await expect(proto, 'after ' + step).toHaveAttribute('data-current-state', current);
+    if (current === 'discard-dialog') {
+      await expect(page.getByRole('dialog', { name: heading('discard-dialog') })).toBeVisible();
+      if (step === 10) await axe('discard-dialog');
+    } else {
+      await expect(page.locator('[data-prototype-state="' + current + '"]')).toBeVisible();
+      await expect(page.locator(':focus')).toHaveText(heading(current));
+      if (current === 'invoice-new-error' && step === 8) await axe('invoice-new-error');
+    }
+  }
+  await expect(page.locator('[data-visited-count]')).toHaveText(String(TRANSITIONS.length));
+});
+
+test('the UX pathway serves the open files the flow script generated', async ({ page, request }) => {
+  const base = '/examples/ux-pathway/';
+  const manifest = await (await request.get(base + 'generated/manifest.json')).json() as { inputs: Record<string, string>; outputs: string[] };
+  expect(manifest.outputs).toContain('sitemap.svg');
+  for (const name of [...manifest.outputs.map((output) => 'generated/' + output), ...Object.keys(manifest.inputs), 'tools/ux_pathway.mjs']) {
+    const response = await request.get(base + name);
+    expect(response.status(), name).toBe(200);
+    if (name.endsWith('.svg')) expect(await response.text(), name).toContain('<svg');
+  }
+  const checks = await (await request.get(base + 'generated/flow-checks.json')).json() as { pass: boolean };
+  expect(checks.pass).toBe(true);
+  await page.goto('/katas/ux-pathway/');
+  for (const name of ['sitemap.svg', 'journey.svg']) {
+    const image = page.locator('img[src="' + base + 'generated/' + name + '"]');
+    await image.scrollIntoViewIfNeeded();
+    await expect(image).toHaveJSProperty('complete', true);
+    expect(await image.evaluate((element: HTMLImageElement) => element.naturalWidth), name).toBeGreaterThan(0);
+  }
+  await expect(page.locator('a[href="/examples/pocket-invoice-prototype/"]')).toBeVisible();
+});

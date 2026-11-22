@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" role="img" aria-labelledby="title desc" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+<title id="title">Create your workspace (signup), low fidelity, 390 px</title>
+<desc id="desc">The first screen: the fewest fields needed before the user can do real work. Numbered circles are the transition numbers on the sitemap.</desc>
+<rect x="0" y="0" width="390" height="844" fill="#ffffff"/>
+<rect x="0" y="0" width="390" height="56" fill="#e0e0e0"/>
+<text x="24" y="35" font-size="16" font-weight="700" fill="#212121">Pocket Invoice</text>
+<text x="366" y="35" font-size="14" fill="#424242" text-anchor="end">Screen</text>
+<text x="24" y="111" font-size="24" font-weight="700" fill="#212121">Create your workspace</text>
+<text x="24" y="149" font-size="16" font-weight="700" fill="#212121">Email address</text>
+<text x="24" y="175" font-size="14" fill="#616161">We send your invoices from this address.</text>
+<rect x="24" y="184" width="342" height="48" fill="#ffffff" stroke="#616161" stroke-width="2"/>
+<text x="36" y="214" font-size="16" fill="#424242">sam@example.com</text>
+<text x="24" y="273" font-size="16" font-weight="700" fill="#212121">Workspace name</text>
+<rect x="24" y="284" width="342" height="48" fill="#ffffff" stroke="#616161" stroke-width="2"/>
+<text x="36" y="314" font-size="16" fill="#424242">Sam Rivera Design</text>
+<g data-to="invoices-empty" data-transition="1"><rect x="24" y="356" width="192" height="48" rx="4" fill="#424242"/><text x="120" y="386" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">Create workspace</text><circle cx="236" cy="380" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="236" y="384" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">1</text></g>
+<g data-to="sign-in" data-transition="4"><text x="24" y="437" font-size="16" fill="#212121" text-decoration="underline">I already have an account</text><circle cx="244" cy="432" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="244" y="436" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">4</text></g>
+<rect x="24" y="460" width="342" height="96" fill="none" stroke="#616161" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="40" y="486" font-size="14" font-weight="700" fill="#212121">Prototype only: no button causes these</text>
+<circle cx="52" cy="512" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="52" y="516" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">2</text>
+<text x="72" y="517" font-size="14" fill="#424242">Create workspace with a badly formed</text>
+<text x="72" y="537" font-size="14" fill="#424242">email address or no workspace name</text>
+<rect x="1" y="1" width="388" height="842" fill="none" stroke="#9e9e9e" stroke-width="2"/>
+</svg>

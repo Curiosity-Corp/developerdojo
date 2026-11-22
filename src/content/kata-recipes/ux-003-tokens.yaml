@@ -166,6 +166,11 @@ verification:
       result: passed
       evidence: /examples/ux-pathway/pocket-invoice-tokens.json, recomputed by the site’s unit tests on every pipeline
       date: "2026-11-20"
+    - action: Recheck the colour pairs in inputs/contrast-pairs.json with the flow script, outside the site’s own code
+      expected: All 18 pairs pass (12 text pairs at 4.5:1, 6 control pairs at 3:1)
+      result: passed
+      evidence: /examples/ux-pathway/generated/flow-checks.json (check token-contrast), rerun by the ux_pathway CI job on every pipeline
+      date: "2026-11-21"
     - action: Import the example token file into Penpot
       expected: Sets core and semantic, theme Mode / Light, 54 tokens
       result: passed

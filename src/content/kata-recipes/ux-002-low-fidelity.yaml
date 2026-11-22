@@ -158,6 +158,16 @@ verification:
       result: passed
       evidence: /examples/ux-pathway/penpot-import-check.json (interactions-02, flow-02 and prototype-walk-02; screenshots in /examples/ux-pathway/screens/)
       date: "2026-11-20"
+    - action: Redraw one greyscale 390 px screen per state as SVG from the flow file, and check that every button starts a transition
+      expected: 11 screens; every button leads where a transition goes; the three errors no button causes are drawn as prototype-only links
+      result: passed
+      evidence: /examples/ux-pathway/generated/manifest.json and /examples/ux-pathway/generated/summary.md (check buttons-wired), rerun and compared by the ux_pathway CI job on every pipeline
+      date: "2026-11-21"
+    - action: Click through the browser prototype at /examples/pocket-invoice-prototype/ along every transition
+      expected: All 19 transitions land on the right state, including the dialog, Escape and the browser’s Back button, with no axe finding for WCAG A and AA
+      result: passed
+      evidence: e2e/ux-pathway.spec.ts in the site’s browser tests, run on every pipeline
+      date: "2026-11-21"
     - action: A partner clicks through your own prototype without help
       expected: They finish the happy path and one error path
       result: not-run

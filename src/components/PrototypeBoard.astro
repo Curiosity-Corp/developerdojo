@@ -1,0 +1,99 @@
+---
+import type { FlowState, StateId, Transition } from '../data/pocket-invoice';
+
+// One greyscale screen of the Pocket Invoice clickable prototype (/examples/pocket-invoice-prototype/), drawn from
+// a state of the flow in src/data/pocket-invoice.ts. Buttons become links to the state they lead to, numbered as
+// on the sitemap; transitions no button causes are listed in a dashed "prototype only" box, so every one is reachable.
+interface Props {
+  state: FlowState;
+  transitions: readonly (Transition & { n: number })[];
+  productName: string;
+  kindLabel: string;
+}
+const { state, transitions, productName, kindLabel } = Astro.props;
+const numberTo = (to: StateId): number => {
+  const found = transitions.find((t) => t.from === state.id && t.to === to);
+  if (!found) throw new Error('Pocket Invoice prototype: ' + state.id + ' has a button to ' + to + ' but no transition');
+  return found.n;
+};
+const extra = transitions.filter((t) => t.from === state.id && !state.elements.some((e) => e.type === 'button' && e.to === t.to));
+const headingIndex = state.elements.findIndex((e) => e.type === 'heading');
+---
+<p class="bar"><span>{productName}</span><span>{kindLabel}</span></p>
+{state.elements.map((element, index) =>
+  element.type === 'heading' ? (index === headingIndex ? <h2 id={'proto-h-' + state.id} tabindex="-1">{element.text}</h2> : <p class="subhead">{element.text}</p>)
+  : element.type === 'text' ? <p>{element.text}</p>
+  : element.type === 'error-summary' ? (
+    <div class="problem"><p><strong>There is a problem</strong></p><ul>{element.items.map((item) => <li>{item}</li>)}</ul></div>
+  )
+  : element.type === 'field' ? (
+    <div class:list={['field', { 'has-error': Boolean(element.error) }]}>
+      <p class="label">{element.label}</p>
+      {element.hint && <p class="hint">{element.hint}</p>}
+      {element.error && <p class="error">Error: {element.error}</p>}
+      <p class="input">{element.value || ' '}</p>
+    </div>
+  )
+  : element.type === 'summary' ? (
+    <dl class="summary">{element.rows.map(([key, value]) => <div><dt>{key}</dt><dd>{value}</dd></div>)}</dl>
+  )
+  : element.type === 'table' ? (
+    <div class="table" role="region" tabindex="0" aria-label={state.title + ': table'}>
+      <table>
+        <thead><tr>{element.columns.map((column) => <th scope="col">{column}</th>)}</tr></thead>
+        <tbody>{element.rows.map((row) => <tr>{row.map((cell) => <td>{cell}</td>)}</tr>)}</tbody>
+      </table>
+    </div>
+  )
+  : (
+    <p class="action"><a class:list={['btn', element.variant]} href={'#proto-' + element.to} data-transition={numberTo(element.to)}>{element.label}<span class="n" aria-hidden="true">{numberTo(element.to)}</span></a></p>
+  )
+)}
+{extra.length > 0 && (
+  <div class="proto-only">
+    <p><strong>Prototype only:</strong> no button on this screen causes these.</p>
+    <ul>{extra.map((t) => <li><a href={'#proto-' + t.to} data-transition={t.n}>{t.trigger}<span class="n" aria-hidden="true">{t.n}</span></a></li>)}</ul>
+  </div>
+)}
+
+<style>
+  /* Reflow (WCAG 1.4.10): at 195 px every line, button and badge wraps inside the board instead of widening the page. */
+  :global(.board) { overflow-wrap: anywhere; }
+  .bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; margin: -1rem -1rem 1rem; padding: .75rem 1rem; background: #e0e0e0; color: #212121; font-weight: 700; font-size: .9rem; }
+  .bar span:last-child { font-weight: 400; color: #424242; }
+  h2 { font-size: 1.5rem; line-height: 1.25; margin: 0 0 .75rem; color: #212121; }
+  h2:focus-visible { outline: 3px solid #212121; outline-offset: 3px; }
+  p { margin: 0 0 1rem; color: #424242; }
+  .subhead { font-weight: 700; color: #212121; }
+  .problem { border: 4px solid #212121; padding: .75rem 1rem; margin-bottom: 1.25rem; }
+  .problem p, .problem li { color: #212121; }
+  .problem ul { margin: 0; padding-left: 1.25rem; }
+  .field { margin-bottom: 1.25rem; }
+  .field.has-error { border-left: 4px solid #212121; padding-left: .75rem; }
+  .label { font-weight: 700; color: #212121; margin-bottom: .25rem; }
+  .hint { font-size: .9rem; color: #616161; margin-bottom: .25rem; }
+  .error { font-weight: 700; color: #212121; margin-bottom: .25rem; }
+  .input { border: 2px solid #616161; min-height: 3rem; padding: .7rem .75rem; margin: 0; overflow-wrap: anywhere; color: #424242; background: #fff; }
+  .has-error .input { border-width: 4px; border-color: #212121; }
+  .summary { margin: 0 0 1.25rem; }
+  .summary div { display: grid; grid-template-columns: minmax(0, 35%) minmax(0, 1fr); gap: .5rem; padding: .5rem 0; border-bottom: 1px solid #9e9e9e; }
+  .summary dt { font-weight: 700; color: #212121; }
+  .summary dd { margin: 0; color: #424242; overflow-wrap: anywhere; }
+  .table { overflow-x: auto; margin-bottom: 1.25rem; }
+  .table:focus-visible { outline: 3px solid #212121; outline-offset: 2px; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+  th, td { text-align: left; padding: .4rem .5rem .4rem 0; border-bottom: 1px solid #9e9e9e; color: #212121; }
+  th { border-bottom: 2px solid #212121; }
+  .action { margin-bottom: .75rem; }
+  .btn { display: inline-flex; flex-wrap: wrap; max-width: 100%; box-sizing: border-box; align-items: center; gap: .6rem; min-height: 3rem; padding: .6rem 1rem; border-radius: 4px; font-weight: 700; text-decoration: none; }
+  .btn.primary { background: #424242; color: #fff; }
+  .btn.secondary { background: #e0e0e0; color: #212121; border: 2px solid #616161; }
+  .btn.link { min-height: 0; padding: 0; color: #212121; text-decoration: underline; }
+  .btn:focus-visible, .proto-only a:focus-visible { outline: 3px solid #212121; outline-offset: 3px; }
+  .n { display: inline-grid; place-items: center; min-width: 1.5rem; height: 1.5rem; border-radius: 50%; background: #fff; color: #212121; border: 1.5px solid #212121; font-size: .75rem; font-weight: 700; }
+  .proto-only { border: 2px dashed #616161; padding: .75rem 1rem; margin-top: 1rem; }
+  .proto-only p { color: #212121; font-size: .9rem; }
+  .proto-only ul { margin: 0; padding-left: 1.25rem; }
+  .proto-only li { margin-bottom: .5rem; }
+  .proto-only a { color: #212121; font-size: .9rem; display: inline-flex; gap: .5rem; align-items: baseline; flex-wrap: wrap; }
+</style>

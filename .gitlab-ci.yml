@@ -120,6 +120,25 @@ bim_pathway:
       - bim-pathway-out
     expire_in: 30 days
 
+# Blocking: the UX pathway (#91). Node's standard library only, so nothing to install. Reruns the flow script on the
+# published flow file and tokens: it redraws the sitemap, the one-canvas journey and every low-fidelity screen as
+# SVG, reruns the flow and contrast checks, and fails if a check fails or any output differs from
+# public/examples/ux-pathway/generated, so the files on /katas/ux-pathway are what CI computed.
+ux_pathway:
+  stage: validate
+  needs: []
+  rules:
+    - !reference [.skip-in-production-e2e, rules]
+    - when: on_success
+  script:
+    - node public/examples/ux-pathway/tools/ux_pathway.mjs public/examples/ux-pathway ux-pathway-out
+    - diff -r ux-pathway-out public/examples/ux-pathway/generated
+  artifacts:
+    when: always
+    paths:
+      - ux-pathway-out
+    expire_in: 30 days
+
 agriculture_pathway:
   stage: validate
   image: python:3.12-slim
@@ -233,7 +252,7 @@ e2e:production:
 # Internal GitLab Pages preview of the built site.
 pages:
   stage: deploy
-  needs: [check, test, bim_pathway, agriculture_pathway, build, e2e, links]
+  needs: [check, test, ux_pathway, bim_pathway, agriculture_pathway, build, e2e, links]
   interruptible: false
   script:
     - sha256sum -c search-index.sha256
@@ -255,7 +274,7 @@ pages:
 # event lists evaluated at build time) always reaches GitHub Pages.
 publish_github_pages:
   stage: deploy
-  needs: [check, test, bim_pathway, agriculture_pathway, build, e2e, links]
+  needs: [check, test, ux_pathway, bim_pathway, agriculture_pathway, build, e2e, links]
   interruptible: false
   resource_group: github-pages-release
   variables:
