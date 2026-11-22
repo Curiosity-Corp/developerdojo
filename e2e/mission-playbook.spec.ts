@@ -51,3 +51,25 @@ test('the mission playbook has no serious accessibility violations', async ({ pa
   const report = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
   expect(report.violations.filter((item) => item.impact === 'serious' || item.impact === 'critical')).toEqual([]);
 });
+
+test('the worked mission shows its brief, transfer record, unavailable rubric result and retrospective', async ({ page, request }) => {
+  await page.goto('/mission-playbook/');
+  await page.getByRole('link', { name: 'See a worked mission' }).click();
+  await expect(page.getByRole('heading', { level: 2, name: 'One check, three fields' })).toBeVisible();
+  await expect(page.locator('[data-mission-provenance]')).toContainText('not a learner, client or customer mission');
+  for (const field of ['SaaS UX', 'Architecture and BIM', 'Agriculture']) {
+    await expect(page.getByRole('heading', { level: 3, name: field })).toBeVisible();
+  }
+  const result = page.locator('[data-rubric-result] tbody tr');
+  await expect(result).toHaveCount(1);
+  await expect(result.first()).toContainText('SEN-2');
+  await expect(result.first().locator('td').first()).toHaveText('Unavailable');
+  await expect(page.locator('#retrospective')).toContainText('UX-005');
+  for (const href of ['/katas/ux-pathway', '/katas/bim-pathway', '/katas/agriculture-pathway', '/examples/sensei/kata-improvement.md', '/examples/sensei/benchmark-correction.md', '/sensei/contribute']) {
+    await expect(page.locator(`a[href="${href}"]`).first()).toBeAttached();
+    expect((await request.get(href)).status(), href).toBe(200);
+  }
+  const template = await request.get('/examples/mission-brief.md');
+  const text = await template.text();
+  for (const label of ['Foundation technique that transfers', 'Independent rubric result', 'A verified technique improvement or benchmark correction']) expect(text).toContain(label);
+});
