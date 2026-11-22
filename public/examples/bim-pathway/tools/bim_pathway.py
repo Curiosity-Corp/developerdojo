@@ -664,31 +664,35 @@ def overlap_box(a: tuple[list[float], list[float]], b: tuple[list[float], list[f
     return [max(a[0][i], b[0][i]) for i in range(3)], [min(a[1][i], b[1][i]) for i in range(3)]
 
 
-def clash_tree(model: ifcopenshell.file, elements: list[ifcopenshell.entity_instance], probe: ifcopenshell.entity_instance, probe_extent_m: float) -> tuple['ifcopenshell.geom.tree', float]:
+def clash_tree(model: ifcopenshell.file, elements: list[ifcopenshell.entity_instance], geo: dict[int, dict]) -> tuple['ifcopenshell.geom.tree', float]:
     """The same tree and settings IfcClash 0.9 uses, with one thread so the result does not depend on scheduling.
 
-    Returns the tree and the factor from the tree's length unit to metres. The unit is measured, not assumed: the
-    probe element's largest tessellated extent is compared with its largest extent in metres from geometry()."""
+    Returns the tree and the factor from the tree's length unit to metres. The unit is measured, not assumed: each
+    element's placed triangles (local vertices through the shape matrix, as the tree places them) must give the same
+    box as geometry() gives in metres, for one known factor. Any other result stops the script, so a placement or unit
+    difference between the two routes cannot pass as "no clash"."""
     tree = ifcopenshell.geom.tree(backend='opencascade.trianglebvh')
     iterator = ifcopenshell.geom.iterator(ifcopenshell.geom.settings(), model, 1, include=elements)
     if not iterator.initialize():
         fail('the clash tree could not build any shape')
-    probe_extent = None
+    placed: dict[int, tuple[list[float], list[float]]] = {}
     while True:
         shape = iterator.get()
-        if shape.id == probe.id():
-            verts = ifcopenshell.util.shape.get_vertices(shape.geometry)
-            probe_extent = float((verts.max(axis=0) - verts.min(axis=0)).max())
+        verts = ifcopenshell.util.shape.get_vertices(shape.geometry)
+        matrix = ifcopenshell.util.shape.get_shape_matrix(shape)
+        world = verts @ matrix[:3, :3].T + matrix[:3, 3]
+        placed[shape.id] = ([float(v) for v in world.min(axis=0)], [float(v) for v in world.max(axis=0)])
         tree.add_element(shape)
         if not iterator.next():
             break
-    if not probe_extent:
-        fail(f'the clash tree did not build #{probe.id()}')
-    to_m = probe_extent_m / probe_extent
-    known = [f for f in (1.0, 0.001) if abs(to_m - f) / f < 1e-6]
-    if not known:
-        fail(f'the clash tree length unit is neither metre nor millimetre (factor {to_m})')
-    return tree, known[0]
+    missing = [e.id() for e in elements if e.id() not in placed]
+    if missing:
+        fail(f'the clash tree did not build {missing}')
+    for factor in (1.0, 0.001):
+        if all(abs(placed[e.id()][k][i] * factor - box_of(geo[e.id()])[k][i]) < 1e-6 for e in elements for k in (0, 1) for i in range(3)):
+            return tree, factor
+    seen = {f'#{e.id()}={e.is_a()}': {'tree': placed[e.id()], 'geometry_m': box_of(geo[e.id()])} for e in elements}
+    fail(f'the clash tree places the elements differently from geometry() (neither metre nor millimetre): {seen}')
 
 
 def tree_results(results: tuple, scale: float, keep: str) -> list[dict[str, object]]:
@@ -738,7 +742,7 @@ def coordination(model: ifcopenshell.file, brief: dict, clearance_m: float | Non
         analytic.append({'element': f'#{other.id()}={other.is_a()}', 'GlobalId': other.GlobalId, 'overlap_m3': num(volume), 'gap_m': num(box_gap(duct_box, box)) if volume <= 0 else 0.0})
 
     lo, hi = duct_box
-    tree, scale = clash_tree(model, [duct] + others, duct, max(hi[i] - lo[i] for i in range(3)))
+    tree, scale = clash_tree(model, [duct] + others, geo)
     tolerance = float(brief['rules']['hardClash']['tolerance_m'])
     # Tolerances go into the tree in its own length unit and results come back in it; scale converts to metres.
     raw = tree.clash_intersection_many([duct], others, tolerance=tolerance / scale, check_all=True)
@@ -750,7 +754,9 @@ def coordination(model: ifcopenshell.file, brief: dict, clearance_m: float | Non
     tree_hard = sorted(c['b'] for c in hard)
     box_hard = sorted(a['element'] for a in analytic if a['overlap_m3'] > 0)
     if tree_hard != box_hard:
-        fail(f'hard clashes disagree: clash tree {tree_hard}, box route {box_hard}')
+        # Say what the tree does see, so the disagreement can be read from the log.
+        touching = [f'{c["a"]}/{c["b"]} {c["type"]}' for c in tree_results(tree.clash_collision_many([duct], others, allow_touching=True), scale, keep='max')]
+        fail(f'hard clashes disagree: clash tree {tree_hard}, box route {box_hard}; tree collisions (touching allowed): {touching}; unit factor {scale}')
     result: dict[str, object] = {
         'checked': 'Hard clashes between the practice duct and every other physical element, by IfcOpenShell\'s clash tree (the opencascade.trianglebvh tree and the intersection test IfcClash 0.9 uses) and, independently, by box arithmetic on the built shapes. The script writes nothing if the two routes disagree. The opening is a void, not a physical element, so it is not tested on its own.',
         'tolerance_m': tolerance,
