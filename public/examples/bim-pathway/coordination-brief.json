@@ -1,0 +1,96 @@
+{
+  "status": "Practice brief for the Developer Dojo BIM pathway (BIM-007, BIM-008, BIM-R02). Written for the exercise; not a design, a services route or a programme.",
+  "licence": "MIT, Developer Dojo",
+  "duct": {
+    "name": "D-01 Supply duct (practice)",
+    "description": "Practice duct routed through the wall on purpose, so the coordination kata has a clash to find. Not sized or routed by a designer.",
+    "tag": "D-01",
+    "predefinedType": "RIGIDSEGMENT",
+    "system": "SUP-01 Supply air (practice)",
+    "width_m": 0.4,
+    "height_m": 0.25,
+    "length_m": 1.5,
+    "start_m": [
+      1.5,
+      -0.6,
+      1.655
+    ]
+  },
+  "rules": {
+    "hardClash": {
+      "tolerance_m": 0.002,
+      "meaning": "Solids that overlap by more than this are a hard clash."
+    },
+    "randoriClearance_m": 0.05
+  },
+  "issueOwner": "Services coordinator (practice role)",
+  "schedule": {
+    "name": "Practice sequence (BIM-008)",
+    "tasks": [
+      {
+        "id": "T-010",
+        "name": "Build wall with opening",
+        "predefinedType": "CONSTRUCTION",
+        "description": "Build the wall and form the window opening.",
+        "builds": [
+          "wall",
+          "opening"
+        ]
+      },
+      {
+        "id": "T-020",
+        "name": "Install window",
+        "predefinedType": "INSTALLATION",
+        "description": "Fit the window in the opening.",
+        "builds": [
+          "window"
+        ]
+      },
+      {
+        "id": "T-030",
+        "name": "Install supply duct",
+        "predefinedType": "INSTALLATION",
+        "description": "Install duct D-01.",
+        "builds": [
+          "duct"
+        ]
+      },
+      {
+        "id": "T-040",
+        "name": "Fire-stop duct penetration",
+        "predefinedType": "CONSTRUCTION",
+        "description": "Seal where the duct passes through the fire-rated wall. Held until issue ISS-001 is resolved and the detail is reviewed.",
+        "builds": [],
+        "resolves": "hard clash"
+      }
+    ]
+  },
+  "costPlan": [
+    {
+      "id": "C-01",
+      "item": "Wall, net volume",
+      "task": "T-010",
+      "source": "Q-06"
+    },
+    {
+      "id": "C-02",
+      "item": "Window, supply and fit",
+      "task": "T-020",
+      "source": "count",
+      "class": "IfcWindow"
+    },
+    {
+      "id": "C-03",
+      "item": "Supply duct, 400 × 250 mm",
+      "task": "T-030",
+      "source": "duct-length"
+    },
+    {
+      "id": "C-04",
+      "item": "Fire stopping at duct penetration",
+      "task": "T-040",
+      "source": "issues",
+      "kind": "hard clash"
+    }
+  ]
+}
