@@ -1,0 +1,199 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectorPackEvidence from '../../components/SectorPackEvidence.astro';
+// Every number on this page is read from the files CI recomputes
+// (/examples/science-pathway/tools/science_pathway.py, job science_pathway).
+import manifest from '../../../public/examples/science-pathway/generated/manifest.json';
+import inspection from '../../../public/examples/science-pathway/generated/inspection.json';
+import referenceChecks from '../../../public/examples/science-pathway/generated/reference-checks.json';
+import budget from '../../../public/examples/science-pathway/generated/uncertainty-budget.json';
+import trend from '../../../public/examples/science-pathway/generated/trend.json';
+import cards from '../../../public/examples/science-pathway/generated/randori/cards.json';
+
+const EX = '/examples/science-pathway';
+const GEN = `${EX}/generated`;
+const RECORD = 'inputs/gistemp-v4-global-land-ocean.csv';
+const recordSha = (manifest.inputs as Record<string, string>)[RECORD];
+if (!recordSha) throw new Error(`The science manifest has no hash for ${RECORD}`);
+const steps = [
+  { id: 'SCI-001', href: '/katas/sci-001-inspect-research-record', title: 'Inspect a published research record', does: 'Years, columns, unit, the missing-value marker and whether the annual means agree with their months, before any number is used.' },
+  { id: 'SCI-002', href: '/katas/sci-002-uncertainty-budget', title: 'Evaluate measurement uncertainty', does: 'Reproduce the GUM’s worked example: Type A standard uncertainties, correlated inputs and an uncertainty budget.' },
+  { id: 'SCI-003', href: '/katas/sci-003-least-squares-line', title: 'Fit a line and report its uncertainty', does: 'Reproduce the GUM’s calibration line, then fit 30 years of the record and say what the uncertainty does and does not cover.' },
+  { id: 'SCI-R01', href: '/katas/sci-r01-randori', title: 'Science Randori: an unseen change', does: 'A partner reveals one changed assumption after you start; predict its effect on the slope and its uncertainty, then recompute.' },
+];
+const missingColumns = Object.entries(inspection.missingByColumn as Record<string, number[]>);
+const outputs = Object.entries(budget.outputs);
+const inputs = Object.entries(budget.inputs);
+const cardRows = Object.entries(cards).map(([id, card]) => ({ id, ...card }));
+const signed = (value: number) => (value > 0 ? `+${value.toFixed(3)}` : value.toFixed(3));
+const sources = {
+  record: 'https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv',
+  gistemp: 'https://data.giss.nasa.gov/gistemp/',
+  faq: 'https://data.giss.nasa.gov/gistemp/faq/',
+  paper: 'https://doi.org/10.1029/2023JD040179',
+  gum: 'https://www.bipm.org/en/doi/10.59161/JCGM100-2008E',
+  tn1297: 'https://www.nist.gov/pml/nist-technical-note-1297',
+  handbook: 'https://www.itl.nist.gov/div898/handbook/eda/section3/eda35c.htm',
+  usc105: 'https://www.copyright.gov/title17/92chap1.html#105',
+  nasaMedia: 'https://www.nasa.gov/nasa-brand-center/images-and-media/',
+};
+---
+<BaseLayout title="Science pathway: from a published record to a result with its uncertainty" description="Follow a science and research pathway: inspect NASA's GISTEMP temperature record, evaluate measurement uncertainty with the GUM, and fit a trend with the standard uncertainty of its slope, every result computed in CI.">
+  <PageHero compact eyebrow="Science · Pathway" title="From a published record to a result with its uncertainty" accent="." subtitle="Four katas on a real research record and the international guide to measurement uncertainty. Each step has a file you can open and a result that CI computes again on every pipeline." ctas={[
+    { label: 'Start with SCI-001', href: '/katas/sci-001-inspect-research-record', icon: 'play' },
+    { label: 'Download the record', href: `${EX}/${RECORD}`, variant: 'ghost', icon: 'arrow-right' },
+  ]} />
+
+  <section class="section" aria-labelledby="outcome-title"><div class="container narrow">
+    <p class="eyebrow">01 / The files</p>
+    <h2 id="outcome-title">One record, one method, every number rerun</h2>
+    <p>The record is NASA’s GISTEMP v4 table of global land and ocean temperature anomalies: {inspection.years} years, {inspection.firstYear} to {inspection.lastYear}, a value for each month, the annual mean (J-D) and seasonal means, in degrees Celsius against the {inspection.basePeriod.years} mean. The method is the GUM, the international guide to measurement uncertainty: the script reproduces its worked examples before it touches the record.</p>
+    <ul class="links">
+      <li><a href={`${EX}/${RECORD}`} download>The temperature record</a> (CSV, as NASA served it), unchanged.</li>
+      <li><a href={`${GEN}/uncertainty-budget.csv`} download>The uncertainty budget</a> (CSV) and <a href={`${GEN}/uncertainty-budget.json`}>as JSON</a>.</li>
+      <li><a href={`${GEN}/trend.json`}>The fit report</a> (JSON) and <a href={`${GEN}/trend-residuals.csv`} download>its residuals</a> (CSV).</li>
+      <li><a href={`${GEN}/summary.md`}>The result summary</a> (Markdown) and every result under <a href={`${GEN}/manifest.json`}>the manifest</a>, with the method and the input hash.</li>
+      <li><a href={`${EX}/tools/science_pathway.py`}>The pathway script</a> (Python 3.12, standard library only, MIT), so you can rerun every number yourself.</li>
+      <li><a href={`${EX}/README.md`}>README</a>: sources, terms, how to rerun the checks, and what they do not cover.</li>
+    </ul>
+  </div></section>
+
+  <section class="section" aria-labelledby="record-title"><div class="container narrow">
+    <p class="eyebrow">02 / What is in the record</p>
+    <h2 id="record-title">{inspection.years} years, {inspection.missingCells} cells unavailable</h2>
+    <p>A cell of asterisks means GISS has no value yet. The script reads it as unavailable, leaves it out of every sum and never treats it as zero. {inspection.yearsWithAllMonths} years have all twelve months.</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="missing-caption">
+      <table>
+        <caption id="missing-caption">Unavailable cells by column, from the CI inspection</caption>
+        <thead><tr><th scope="col">Column</th><th scope="col">Unavailable in</th></tr></thead>
+        <tbody>
+          {missingColumns.map(([column, years]) => <tr><th scope="row">{column}</th><td>{years.join(', ')}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>Monthly values run from {inspection.monthly.min.value} °C ({inspection.monthly.min.month} {inspection.monthly.min.year}) to {inspection.monthly.max.value} °C ({inspection.monthly.max.month} {inspection.monthly.max.year}); annual means from {inspection.annual.min.value} °C ({inspection.annual.min.year}) to {inspection.annual.max.value} °C ({inspection.annual.max.year}). Over the base period {inspection.basePeriod.years} the annual means average {inspection.basePeriod.meanOfAnnualValues} °C, as an anomaly from that period should. Of {inspection.annualAgainstMonths.yearsCompared} complete years, the published J-D equals the mean of its twelve months at two decimals in <span data-annual-match>{inspection.annualAgainstMonths.sameAtTwoDecimals}</span>, and differs by no more than 0.01 °C, the printed precision, in {inspection.annualAgainstMonths.withinRounding}. <a href={`${GEN}/inspection.json`}>Full inspection (JSON)</a>.</p>
+  </div></section>
+
+  <section class="section" aria-labelledby="steps-title"><div class="container narrow">
+    <p class="eyebrow">03 / The steps</p>
+    <h2 id="steps-title">Four katas, in order</h2>
+    <p>Each kata has a brief, prompts, checks and the evidence for the checks the Dojo has run. They are drafts: the Dojo built the example and CI checks it, and no learner has run them yet. Do the foundations first: <a href="/katas/compare-instructions">Compare AI instructions</a> and <a href="/katas/context-trap">Spot a context trap</a>.</p>
+    <ol class="steps">
+      {steps.map((step) => <li><a href={step.href}><span class="step-id">{step.id}</span> {step.title}</a><p>{step.does}</p></li>)}
+    </ol>
+  </div></section>
+
+  <section class="section" aria-labelledby="checks-title"><div class="container narrow">
+    <p class="eyebrow">04 / The checks</p>
+    <h2 id="checks-title">Reproduce the method, then use it</h2>
+    <p>These results come from CI: the pipeline reruns <code>/examples/science-pathway/tools/science_pathway.py</code> and fails if any output differs from the published files.</p>
+
+    <h3 id="reference-title">Reference checks: the GUM’s own worked examples</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="reference-caption">
+      <table>
+        <caption id="reference-caption">Published values and the script’s values, rounded as published</caption>
+        <thead><tr><th scope="col">Source</th><th scope="col">Quantity</th><th scope="col">Published</th><th scope="col">Computed</th><th scope="col">Result</th></tr></thead>
+        <tbody>
+          {referenceChecks.checks.map((check) => <tr><td>{check.source}</td><td>{check.quantity}</td><td>{check.published}</td><td>{check.computed}</td><td data-reference-check={check.id}>{check.status === 'pass' ? 'Pass' : 'Fail'}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p><strong>{referenceChecks.passed} passed, {referenceChecks.failed} failed.</strong> The script stops without writing any result if one check fails, so every number below was computed by code that reproduces the GUM’s examples. The GUM’s Annex H data are illustrative, not measurements of a real instrument. <a href={`${GEN}/reference-checks.json`}>Result (JSON)</a>.</p>
+
+    <h3 id="budget-title">Uncertainty budget (SCI-002)</h3>
+    <p>{budget.example}. Each input is the mean of {inputs[0]?.[1].observations} observations with a Type A standard uncertainty; the inputs are correlated, and the law of propagation for correlated inputs gives each output’s combined standard uncertainty.</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="inputs-caption">
+      <table>
+        <caption id="inputs-caption">Inputs, Type A evaluation</caption>
+        <thead><tr><th scope="col">Input</th><th scope="col">Unit</th><th scope="col">Estimate</th><th scope="col">Standard uncertainty</th><th scope="col">Degrees of freedom</th></tr></thead>
+        <tbody>
+          {inputs.map(([name, input]) => <tr><th scope="row">{name}</th><td>{input.unit}</td><td>{input.estimate}</td><td>{input.standardUncertainty}</td><td>{input.degreesOfFreedom}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="outputs-caption">
+      <table>
+        <caption id="outputs-caption">Outputs, ohms</caption>
+        <thead><tr><th scope="col">Output</th><th scope="col">Estimate</th><th scope="col">Combined standard uncertainty</th><th scope="col">If the inputs were uncorrelated</th></tr></thead>
+        <tbody>
+          {outputs.map(([name, output]) => <tr><th scope="row">{name}</th><td>{output.estimate_ohm}</td><td data-budget-uc={name}>{output.combinedStandardUncertainty_ohm}</td><td>{output.ifInputsUncorrelated_ohm}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>Ignoring the correlation between the inputs would change every combined standard uncertainty: that is the point of the example. <a href={`${GEN}/uncertainty-budget.json`}>Budget with sensitivity coefficients (JSON)</a>.</p>
+
+    <h3 id="trend-title">A line through the record (SCI-003)</h3>
+    <p>{trend.method}, fitted to the {trend.series} {trend.period} ({trend.n} values, {trend.degreesOfFreedom} degrees of freedom).</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="trend-caption">
+      <table>
+        <caption id="trend-caption">Least-squares line, {trend.period}</caption>
+        <thead><tr><th scope="col">Quantity</th><th scope="col">Value</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Slope, °C per decade</th><td data-trend-slope>{trend.slope_C_per_decade}</td></tr>
+          <tr><th scope="row">Standard uncertainty of the slope, °C per decade</th><td data-trend-u-slope>{trend.u_slope_C_per_decade}</td></tr>
+          <tr><th scope="row">Intercept at {trend.t0}, °C</th><td>{trend.intercept_C} (standard uncertainty {trend.u_intercept_C})</td></tr>
+          <tr><th scope="row">Correlation of intercept and slope</th><td>{trend.r_intercept_slope}</td></tr>
+          <tr><th scope="row">Standard deviation of the residuals, °C</th><td>{trend.s_C}</td></tr>
+          <tr><th scope="row">Lag-1 autocorrelation of the residuals</th><td data-trend-lag1>{trend.residualLag1Autocorrelation}</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>{trend.assumption} GISS states the uncertainty of its annual global means separately (<a href={sources.faq}>about ±0.05 °C after 1960</a>); this pathway does not evaluate it. A line over these years describes these years; it is not a forecast. <a href={`${GEN}/trend.json`}>Result (JSON)</a>.</p>
+
+    <h3 id="randori-title">Randori cards</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="randori-caption">
+      <table>
+        <caption id="randori-caption">Each card changes one assumption; slope and its standard uncertainty, °C per decade</caption>
+        <thead><tr><th scope="col">Card</th><th scope="col">Change</th><th scope="col">Slope</th><th scope="col">Change in slope</th><th scope="col">Standard uncertainty</th><th scope="col">Uncertainty ratio</th></tr></thead>
+        <tbody>
+          {cardRows.map((card) => <tr><th scope="row">{card.id}</th><td>{card.title}</td><td>{card.slope_C_per_decade}</td><td data-randori-card={card.id}>{signed(card.changeInSlope_C_per_decade)}</td><td>{card.u_slope_C_per_decade}</td><td>{card.uncertaintyRatio}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>The partner keeps this table hidden until the learner has written a prediction; see <a href="/katas/sci-r01-randori">SCI-R01</a>. <a href={`${GEN}/randori/cards.json`}>Result (JSON)</a>.</p>
+  </div></section>
+
+  <section class="section" aria-labelledby="tools-title"><div class="container narrow">
+    <p class="eyebrow">05 / The tools and sources</p>
+    <h2 id="tools-title">No packages, public sources</h2>
+    <p>The script uses only the Python 3.12 standard library, so it runs offline with nothing to install. A spreadsheet works for checking one row by hand. The Armory lists the stack recipe <a href="/armory/registry#recipe-python-standard-library">Python standard library</a>.</p>
+    <ul class="links">
+      <li><a href={sources.gum}>JCGM 100:2008, Guide to the expression of uncertainty in measurement (GUM)</a>: Type A evaluation (clause 4.2), correlated inputs (clause 5.2) and the worked examples in Annex H.2 and H.3. Only its published numbers are used, as checks; no text is copied.</li>
+      <li><a href={sources.tn1297}>NIST Technical Note 1297</a>: NIST’s statement of the same method.</li>
+      <li><a href={sources.handbook}>NIST/SEMATECH e-Handbook of Statistical Methods, section 1.3.5.12</a>: the autocorrelation coefficient used on the residuals.</li>
+      <li><a href={sources.gistemp}>NASA GISS Surface Temperature Analysis (GISTEMP) v4</a>: the record, its <a href={sources.faq}>FAQ</a> and the analysis paper, <a href={sources.paper}>doi:10.1029/2023JD040179</a>. GISTEMP combines NOAA’s GHCN v4 land stations and ERSST v5 sea surface temperatures.</li>
+    </ul>
+  </div></section>
+
+  <SectorPackEvidence pack="science" eyebrow="06 / What is checked" facts={{ recordSha: recordSha.slice(0, 12), referenceChecks: referenceChecks.passed, years: inspection.years, missingCells: inspection.missingCells, sameAtTwoDecimals: inspection.annualAgainstMonths.sameAtTwoDecimals, yearsCompared: inspection.annualAgainstMonths.yearsCompared }} />
+
+  <section class="section" aria-labelledby="credits-title"><div class="container narrow">
+    <p class="eyebrow">07 / Credits</p>
+    <h2 id="credits-title">Credits and terms</h2>
+    <ul>
+      <li>Temperature record: GISTEMP Team, 2026: <a href={sources.record}>GISS Surface Temperature Analysis (GISTEMP), version 4</a>. NASA Goddard Institute for Space Studies. Dataset accessed 21 November 2026. NASA material is generally not under copyright in the US (<a href={sources.usc105}>17 U.S.C. 105</a>); NASA is credited as the source, and nothing here implies NASA endorsement (<a href={sources.nasaMedia}>NASA media guidelines</a>).</li>
+      <li>Method and reference values: JCGM 100:2008, © JCGM. Free to read; cited and linked, and not republished here.</li>
+      <li>The pathway script and its outputs: Developer Dojo, MIT licence.</li>
+    </ul>
+  </div></section>
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 68rem; }
+  .eyebrow { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .links li { margin-bottom: var(--space-2, .5rem); }
+  .table-wrap { overflow-x: auto; margin-block: var(--space-6, 1.5rem); }
+  .table-wrap:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  table { width: 100%; border-collapse: collapse; }
+  caption { text-align: left; font-weight: 800; margin-bottom: var(--space-2, .5rem); }
+  th, td { text-align: left; vertical-align: top; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+  code { overflow-wrap: anywhere; }
+  /* Long words and the DOI link would push the page past a 195 px viewport. */
+  h2, h3, p, li, a { overflow-wrap: anywhere; }
+  .steps { padding-left: 0; list-style: none; display: grid; gap: var(--space-4, 1rem); }
+  .steps li { min-width: 0; padding: var(--space-4, 1rem); background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); }
+  .steps a { font-weight: 800; }
+  .steps p { margin: .25rem 0 0; }
+  .step-id { display: inline-block; min-width: 4.5rem; color: var(--rust-text); }
+</style>

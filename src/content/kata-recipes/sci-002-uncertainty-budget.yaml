@@ -1,0 +1,177 @@
+# Science pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/science-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job science_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Science pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a metrologist, statistician or climate scientist yet.
+summary: "Reproduce the GUM’s worked example of correlated measurements: evaluate Type A standard uncertainties from five sets of observations, propagate them with their correlations, and write an uncertainty budget a reviewer can check line by line."
+metadata:
+  id: SCI-002
+  title: "Evaluate measurement uncertainty: Type A evaluation, correlated inputs and an uncertainty budget"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - evaluate-measurement-uncertainty
+  artifactTypes:
+    - uncertainty-budget
+  domainIds:
+    - science
+  capabilityIds:
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - nasa/gistemp
+    - bipm/gum-jcgm-100-2008
+    - nist/technical-note-1297
+    - nist/engineering-statistics-handbook
+  crossFieldTransfers:
+    - data
+  verificationEvidence:
+    - description: An uncertainty budget for R, X and Z whose estimates, combined standard uncertainties and correlations match the GUM's Table H.3, as the CI output does
+      method: automated-check
+    - description: Each line of the budget names its input, sensitivity coefficient, standard uncertainty and the GUM equation it uses
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces the budget and explains why the combined standard uncertainties change when the input correlations are ignored
+    - stage: adapt
+      criterion: Builds the same kind of budget for another quantity computed from repeated observations, with every input's evaluation stated
+    - stage: demonstrate
+      criterion: Explains to a reviewer which uncertainty components the budget leaves out and why the result is not a calibration certificate
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: NASA’s GISTEMP global temperature record, the GUM’s worked uncertainty examples reproduced number for number, and a 30-year trend with the standard uncertainty of its slope, every number computed by the site’s CI."
+  href: /katas/science-pathway
+  provenance:
+    creator: NASA Goddard Institute for Space Studies (temperature record); Developer Dojo maintainers (script and results)
+    source: NASA GISS GISTEMP v4, GLB.Ts+dSST.csv, retrieved 2026-11-21; method and reference values from JCGM 100:2008 (GUM); results from /examples/science-pathway/tools/science_pathway.py
+    license: Temperature record is NASA material, not under US copyright (17 U.S.C. 105); script and outputs MIT
+    date: "2026-11-21"
+brief:
+  goal: An uncertainty budget for the GUM's resistance, reactance and impedance example, reproduced number for number and readable line by line.
+  audience: Learners who have done the foundations and want to report a result with its uncertainty, not a bare number.
+  inputs:
+    - name: The five sets of V, I and phi in the GUM, Table H.2
+      source: bipm/gum-jcgm-100-2008 (read the table in the GUM; the script holds the same numbers)
+      terms: © JCGM 2008; free to read, not to be republished. Use the numbers as checks and copy no text.
+  doneWhen:
+    - You compute each input's mean and the experimental standard deviation of its mean, and the correlation of each pair of inputs
+    - You compute R, X and Z and their combined standard uncertainties with the correlations, and again as if the inputs were uncorrelated
+    - Your values match the GUM's Tables H.2, H.3 and H.5 at the precision it prints, and /examples/science-pathway/generated/uncertainty-budget.json
+    - Every line of your budget names its equation
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: NASA GISS GISTEMP v4 global land-ocean means
+      version: "Retrieved 2026-11-21, SHA-256 SHA_SHORT"
+      permissions: Read a copy
+      cost: Free (NASA material)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against the GUM’s worked examples
+      permissions: Reads what you paste in; give it a copy of the record only
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library is enough for these formulas, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A statistics package (for example a regression routine in R, SciPy or a spreadsheet's LINEST)
+      tradeoff: Faster, but hides the formulas this pathway is about, and packages differ in how they report uncertainty. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains an equation of the GUM you paste in and drafts the Python for it.
+      reviewGate: You run the code and keep it only if it reproduces the GUM's printed values.
+    - role: Learner as reviewer
+      responsibility: Builds the budget and compares each value with the GUM and the CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A value stays only if it matches the GUM at its printed precision.
+setup:
+  steps:
+    - Use the folder and Python from SCI-001.
+    - Open the GUM (free from the BIPM) at Annex H.2 beside the script.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/science_pathway.py . out"
+    expected: "__NCHECKS__ reference checks pass, including R, X and Z and their combined standard uncertainties from Table H.3"
+    result: passed
+    evidence: /examples/science-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+    date: "2026-11-21"
+prompts:
+  - id: explain-correlation
+    title: Explain why correlation matters
+    purpose: Understand the law of propagation for correlated inputs before you trust code that applies it.
+    text: |-
+      I measured V, I and phi five times together, so their means are correlated. R = V cos(phi) / I.
+      Explain, naming the GUM (JCGM 100:2008) clause and equation you use, how to combine the standard uncertainties of V, I and phi into the standard uncertainty of R when they are correlated, and what changes if I ignore the correlation.
+      Then give me Python, standard library only, that does it for the numbers I paste, so I can check you against the GUM's own tables.
+      If you are not sure, say so.
+exercise:
+  title: Guide to the expression of uncertainty in measurement (GUM), JCGM 100:2008
+  resourceId: bipm/gum-jcgm-100-2008
+  terms: © JCGM 2008. Free to read from the BIPM; it may not be republished. Cite it and copy no text.
+execution:
+  steps:
+    - actor: Learner
+      action: Read GUM clause 4.2 and Annex H.2 and write the five sets of observations into a script or spreadsheet.
+    - actor: Explaining assistant
+      action: Drafts the code for the means, standard deviations of the means, correlations and propagation.
+      handoff: You run it and compare every value with Tables H.2, H.3 and H.5.
+    - actor: Learner
+      action: Write the budget, one line per output and input, and compare it with the CI output.
+verification:
+  checks:
+    - action: Reproduce the GUM's Tables H.2 to H.5 with the pathway script
+      expected: "R 127.732 ohm, uc 0.071; X 219.847 ohm, uc 0.295; Z 254.260 ohm, uc 0.236; if the inputs were uncorrelated uc would be 0.195, 0.201 and 0.204"
+      result: passed
+      evidence: /examples/science-pathway/generated/uncertainty-budget.json, recomputed by CI on every pipeline
+      date: "2026-11-21"
+    - action: Your own budget matches the GUM and the CI output
+      expected: Same estimates, combined standard uncertainties and correlations at the printed precision
+      result: not-run
+  failures:
+    - observed: The standard uncertainty of an input comes out about 2.2 times too large
+      correction: That is the standard deviation of the observations. The standard uncertainty of the mean divides it by the square root of the number of observations (GUM eq. 5).
+    - observed: The combined standard uncertainties do not match Table H.3
+      correction: Check that the covariance terms are included (GUM eq. 16); without them you get Table H.5 instead.
+adaptation:
+  variations:
+    - change: Treat the inputs as uncorrelated
+      effect: The budget then matches Table H.5. Say in words why the uncertainty of X goes down and that of R goes up.
+randori:
+  challenge: See the science Randori recipe, SCI-R01.
+  constraints:
+    - Every value matches the GUM at its printed precision
+  evaluation: The budget matches the CI output and the GUM's tables.
+maintenance:
+  cadence: Every six months, or when GISS changes the GISTEMP table format or the JCGM revises the GUM
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice, not a calibration certificate. No metrologist, statistician or climate scientist has reviewed it, and a real measurement result needs the qualified reviewers its laboratory, journal or accreditation body names.
+    - The GUM’s Annex H data are illustrative, not measurements of a real instrument.
+    - The record’s own uncertainty is evaluated by GISS and is not reproduced here.
+    - A full budget for a real measurement also has Type B components (calibration, resolution, environment); the GUM example leaves them out on purpose, and so does this one.

@@ -152,7 +152,7 @@ def predict(fit: dict, t: float) -> tuple[float, float]:  # GUM eqs. H.12 and H.
 
 
 def lag1_autocorrelation(values: list[float]) -> float:
-    """r1 = C1 / C0, with Ch the lag-h autocovariance about the mean (NIST/SEMATECH e-Handbook, section 1.3.5.12)."""
+    """r1: sum of (Y_i - mean)(Y_i+1 - mean) over sum of (Y_i - mean)^2 (NIST/SEMATECH e-Handbook, section 1.3.5.12)."""
     m = mean(values)
     c0 = math.fsum((v - m) ** 2 for v in values)
     c1 = math.fsum((values[k] - m) * (values[k + 1] - m) for k in range(len(values) - 1))
@@ -468,7 +468,7 @@ def main(argv: list[str]) -> int:
             "typeA": "GUM clause 4.2, eqs. 3 to 5; covariance of means, eq. 17",
             "propagation": "GUM clause 5.2, eq. 16, with sensitivity coefficients from eq. H.7",
             "trend": f"GUM Annex H.3 least squares on the {TREND['series']} values {TREND['first']}-{TREND['last']}, t0 = {TREND['t0']}",
-            "autocorrelation": "lag-1 autocorrelation of the residuals, r1 = C1 / C0 (NIST/SEMATECH e-Handbook of Statistical Methods, 1.3.5.12)",
+            "autocorrelation": "lag-1 autocorrelation coefficient of the residuals (NIST/SEMATECH e-Handbook of Statistical Methods, section 1.3.5.12)",
             "missing": "asterisk cells are unavailable (null) and left out of every sum, never read as zero",
         },
         "outputs": sorted(str(p.relative_to(out)) for p in out.rglob("*") if p.is_file()),

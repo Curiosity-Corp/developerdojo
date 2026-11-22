@@ -1,0 +1,177 @@
+# Science pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/science-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job science_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Science pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a metrologist, statistician or climate scientist yet.
+summary: Start from the 1991-2020 fit; a partner reveals one changed assumption after you begin. Predict how the slope and its standard uncertainty move, then recompute and explain the difference.
+metadata:
+  id: SCI-R01
+  title: "Science Randori: an unseen change of assumption"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - fit-line-with-uncertainty
+  artifactTypes:
+    - fit-report
+  domainIds:
+    - science
+  capabilityIds:
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - nasa/gistemp
+    - bipm/gum-jcgm-100-2008
+    - nist/technical-note-1297
+    - nist/engineering-statistics-handbook
+  crossFieldTransfers:
+    - data
+  verificationEvidence:
+    - description: For the card drawn, a written prediction, the recomputed slope and standard uncertainty, and an explanation of any gap between them
+      method: automated-check
+    - description: A Sensei or partner checks that the prediction was written before the recompute and that the explanation names the formula that moved
+      method: sensei-review
+  beltCriteria:
+    - stage: practice
+      criterion: Handles card C, where the slope does not move, and explains why
+    - stage: adapt
+      criterion: Handles card A or B and predicts the direction of the change in the standard uncertainty correctly
+    - stage: demonstrate
+      criterion: Writes a fourth card for a partner and predicts its result before running it
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: NASA’s GISTEMP global temperature record, the GUM’s worked uncertainty examples reproduced number for number, and a 30-year trend with the standard uncertainty of its slope, every number computed by the site’s CI."
+  href: /katas/science-pathway
+  provenance:
+    creator: NASA Goddard Institute for Space Studies (temperature record); Developer Dojo maintainers (script and results)
+    source: NASA GISS GISTEMP v4, GLB.Ts+dSST.csv, retrieved 2026-11-21; method and reference values from JCGM 100:2008 (GUM); results from /examples/science-pathway/tools/science_pathway.py
+    license: Temperature record is NASA material, not under US copyright (17 U.S.C. 105); script and outputs MIT
+    date: "2026-11-21"
+brief:
+  goal: Meet one changed assumption you did not see in advance, with a prediction first and a recompute after.
+  audience: Learners who finished SCI-003, working with a partner or Sensei.
+  inputs:
+    - name: Your SCI-003 fit report
+      source: Your own output, or /examples/science-pathway/generated/trend.json
+      terms: Dojo output, MIT licence
+    - name: The Randori cards
+      source: The table on /katas/science-pathway (the partner keeps it; the learner sees only the drawn card)
+      terms: Dojo content, MIT licence
+  doneWhen:
+    - Your prediction (direction and rough size of the change in slope and in its standard uncertainty) is written before you recompute
+    - Your recomputed values match /examples/science-pathway/generated/randori/cards.json for the card
+    - You name the formula the card changed and explain any gap between prediction and result
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: NASA GISS GISTEMP v4 global land-ocean means
+      version: "Retrieved 2026-11-21, SHA-256 SHA_SHORT"
+      permissions: Read a copy
+      cost: Free (NASA material)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against the GUM’s worked examples
+      permissions: Reads what you paste in; give it a copy of the record only
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library is enough for these formulas, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A statistics package (for example a regression routine in R, SciPy or a spreadsheet's LINEST)
+      tradeoff: Faster, but hides the formulas this pathway is about, and packages differ in how they report uncertainty. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Partner or Sensei
+      responsibility: Draws one card after the learner starts and keeps the others hidden.
+      reviewGate: Asks for the prediction, the recompute and the explanation.
+    - role: Learner
+      responsibility: Reads the card, predicts, changes only the one assumption and recomputes.
+      dependsOn:
+        - Partner or Sensei
+      reviewGate: The prediction is written down before the recompute runs.
+setup:
+  steps:
+    - Use the folder and Python from SCI-003.
+    - The partner opens the Randori table on /katas/science-pathway; the learner does not.
+  auth: None.
+  smokeTest:
+    action: Recompute all three cards with the pathway script
+    expected: "__CARDS_SMOKE__"
+    result: passed
+    evidence: /examples/science-pathway/generated/randori/cards.json, recomputed by CI on every pipeline
+    date: "2026-11-21"
+prompts:
+  - id: predict-first
+    title: Predict before you compute
+    purpose: Make the learner commit to a reading of the method before the code answers.
+    text: |-
+      My least-squares fit of 30 annual temperature means changes in one way: <paste the card>.
+      Do not compute anything yet. Tell me which formula this changes, whether the slope and its standard uncertainty should go up, go down or stay the same, and roughly by how much, with your reasoning. Then I will recompute.
+exercise:
+  title: Guide to the expression of uncertainty in measurement (GUM), JCGM 100:2008
+  resourceId: bipm/gum-jcgm-100-2008
+  terms: © JCGM 2008. Free to read from the BIPM; it may not be republished. Cite it and copy no text.
+execution:
+  steps:
+    - actor: Partner or Sensei
+      action: Waits until the learner has started, then reveals one card.
+      handoff: The learner writes a prediction.
+    - actor: Learner
+      action: Changes only what the card says, recomputes and compares with the prediction.
+    - actor: Partner or Sensei
+      action: Reviews the prediction, the result and the explanation.
+verification:
+  checks:
+    - action: Recompute the three cards with the pathway script
+      expected: "__CARDS_TEXT__"
+      result: passed
+      evidence: /examples/science-pathway/generated/randori/cards.json
+      date: "2026-11-21"
+    - action: A learner meets a drawn card with a prediction written first
+      expected: Prediction, recompute and explanation
+      result: not-run
+  failures:
+    - observed: __CARDB_FAILURE__
+      correction: __CARDB_CORRECTION__
+adaptation:
+  variations:
+    - change: The partner draws two cards
+      effect: Apply one at a time and recompute after each, so you know which change moved what.
+randori:
+  challenge: Meet one changed assumption you have not seen, revealed after you start, on the 1991-2020 fit.
+  constraints:
+    - Write your prediction before you compute
+    - Change only what the card says
+    - Name the formula that moved
+  evaluation: The recompute matches the CI result for the card, and the partner agrees the explanation names what moved.
+maintenance:
+  cadence: Every six months, or when GISS changes the GISTEMP table format or the JCGM revises the GUM
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice, not a calibration certificate. No metrologist, statistician or climate scientist has reviewed it, and a real measurement result needs the qualified reviewers its laboratory, journal or accreditation body names.
+    - The GUM’s Annex H data are illustrative, not measurements of a real instrument.
+    - The record’s own uncertainty is evaluated by GISS and is not reproduced here.
+    - The cards are invented practice changes, not a method for any study.
