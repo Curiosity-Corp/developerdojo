@@ -161,10 +161,20 @@ def lag1_autocorrelation(values: list[float]) -> float:
 
 # ---------- reference checks: the GUM's own worked examples ----------
 
-def check(cid: str, source: str, quantity: str, published: float, computed: float, decimals: int) -> dict:
+def check(cid: str, source: str, quantity: str, published: float, computed: float, decimals: int, note: str | None = None) -> dict:
+    """Pass when the computed value, rounded as published, equals the published value.
+
+    A check with a note is one where the GUM's printed value is one unit off in its last digit from what its own
+    equations give on its own data; the note says why, and that check passes within one unit of the last digit.
+    """
     shown = round(computed, decimals)
-    return {"id": cid, "source": source, "quantity": quantity, "published": published, "computed": shown,
-            "status": "pass" if abs(shown - published) < 10 ** -decimals / 2 + 1e-12 else "fail"}
+    tolerance = 10 ** -decimals if note else 10 ** -decimals / 2
+    result = {"id": cid, "source": source, "quantity": quantity, "published": published, "computed": shown,
+              "status": "pass" if abs(shown - published) < tolerance + 1e-12 else "fail"}
+    if note:
+        result["tolerance"] = 10 ** -decimals
+        result["note"] = note
+    return result
 
 
 def reference_checks() -> list[dict]:
@@ -182,9 +192,13 @@ def reference_checks() -> list[dict]:
         check("H2-r-V-phi", h2, "correlation coefficient r(V, phi)", 0.86, b["inputCorrelations"]["V,phi"], 2),
         check("H2-r-I-phi", h2, "correlation coefficient r(I, phi)", -0.65, b["inputCorrelations"]["I,phi"], 2),
     ]
+    uc_x_note = (f"GUM eq. 16 on the unrounded Table H.2 data gives {b['uc']['X']:.5f}, which rounds to "
+                 f"{round(b['uc']['X'], 3)}; the GUM prints 0.295, the value its approach 2 gives (Table H.4, "
+                 f"{b['approach2']['u']['X']:.5f} here). Accepted within one unit of the last printed digit.")
     for k, value, uc in [("R", 127.732, 0.071), ("X", 219.847, 0.295), ("Z", 254.260, 0.236)]:
         out.append(check(f"H3-{k}", h3, f"{k}, ohms (approach 1)", value, b["values"][k], 3))
-        out.append(check(f"H3-uc-{k}", h3, f"combined standard uncertainty of {k}, ohms", uc, b["uc"][k], 3))
+        out.append(check(f"H3-uc-{k}", h3, f"combined standard uncertainty of {k}, ohms", uc, b["uc"][k], 3,
+                         uc_x_note if k == "X" else None))
     for pair, r in [("R,X", -0.588), ("R,Z", -0.485), ("X,Z", 0.993)]:
         out.append(check(f"H3-r-{pair.replace(',', '-')}", h3, f"correlation coefficient r({pair.replace(',', ', ')})", r, b["r"][pair], 3))
     a2 = b["approach2"]

@@ -26,6 +26,7 @@ const missingColumns = Object.entries(inspection.missingByColumn as Record<strin
 const outputs = Object.entries(budget.outputs);
 const inputs = Object.entries(budget.inputs);
 const cardRows = Object.entries(cards).map(([id, card]) => ({ id, ...card }));
+const notedChecks = (referenceChecks.checks as { id: string; note?: string }[]).filter((check) => check.note);
 const signed = (value: number) => (value > 0 ? `+${value.toFixed(3)}` : value.toFixed(3));
 const sources = {
   record: 'https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv',
@@ -100,6 +101,7 @@ const sources = {
       </table>
     </div>
     <p><strong>{referenceChecks.passed} passed, {referenceChecks.failed} failed.</strong> The script stops without writing any result if one check fails, so every number below was computed by code that reproduces the GUM’s examples. The GUM’s Annex H data are illustrative, not measurements of a real instrument. <a href={`${GEN}/reference-checks.json`}>Result (JSON)</a>.</p>
+    {notedChecks.map((check) => <p data-reference-note={check.id}><strong>{check.id}:</strong> {check.note}</p>)}
 
     <h3 id="budget-title">Uncertainty budget (SCI-002)</h3>
     <p>{budget.example}. Each input is the mean of {inputs[0]?.[1].observations} observations with a Type A standard uncertainty; the inputs are correlated, and the law of propagation for correlated inputs gives each output’s combined standard uncertainty.</p>
