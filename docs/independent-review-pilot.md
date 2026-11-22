@@ -191,8 +191,16 @@ everything in this procedure, and no specialist belt is issued.
 `/review-record` is the reviewer's form for steps 7 to 9 of section 4. It is a static page: what the reviewer types is
 saved in their own browser (key `dojo:review-record`) and copied out as Markdown. The website receives nothing.
 
-- The reviewer chooses a rank rubric or a specialist belt stage; the criteria, and for a belt the field's
-  qualified-review limit, are shown from the same data as `/assessment-map`.
+- The reviewer chooses a rank rubric, a specialist belt stage or a cross-field transfer; the criteria, and for a
+  belt or a transfer the field's qualified-review limit, are shown from the same data as `/assessment-map`.
+- **A transfer** (`transfer:<sector pack id>`, developerdojo#95) reviews a learner who carried the foundation technique
+  into one field with the mission playbook's practice sheet. It is assessed on the playbook's transfer criteria
+  (`rubricCriterionIds`, today MD-1 and SEN-2) taken from the rank rubrics in the assessment map, so a transfer has no
+  scale of its own. The panel shows what the reviewer checks against, read from the transfer practice
+  (`src/lib/mission-transfer.ts`) at build time: the field's independent reference, its review gate, the pathway
+  checks to rerun on the learner's work, the Randori whose kind of change to set unseen, and the learner's sheet. Each
+  practice card on `/mission-playbook#practice` and each practice sheet links to its transfer's record, and the log
+  adds a section naming the field. A field with a practice always has a transfer review: both come from the same list.
 - It does not finish until scope, access and consent are agreed, the reviewer confirms independence, the unseen task
   is described, every criterion has an observation and an evidence reference, and one strength and one gap are
   written. *Not yet observed* and *Unclear* are valid observations: a criterion is recorded, not passed.

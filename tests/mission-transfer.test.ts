@@ -8,7 +8,9 @@ import { missionPlaybook } from '../src/data/mission-playbook';
 import { transferPractice } from '../src/data/mission-transfer';
 import { sectorPacks } from '../src/data/sector-packs';
 import type { MissionPlaybook, MissionReferences } from '../src/lib/mission-playbook';
-import { assemblePractice, checkTransferPractice, PRACTICE_STEPS, practiceAdaptations, SITE, type RecipeFacts, type TransferPractice } from '../src/lib/mission-transfer';
+import { assemblePractice, checkTransferPractice, PRACTICE_STEPS, practiceAdaptations, reviewHref, sheetPath, SITE, type RecipeFacts, type TransferPractice } from '../src/lib/mission-transfer';
+import { loadAssessmentMap } from '../src/lib/assessment-map';
+import { emptyRecord, finishRecord, parseSubjects, recordProblems, renderReviewLog, transferSubjectId, transferSubjects, type ReviewRecord, type ReviewSubject } from '../src/lib/review-record';
 
 // Transfer practice (#95): every pathway built on the foundation katas offers a practice sheet, each sheet is read
 // from its pathway, and no sheet claims a rubric result.
@@ -131,5 +133,100 @@ describe('the rules reject a practice that breaks them', () => {
     const leak = copy();
     leak.notice = 'Tracked in issue #95 on the project board.';
     expect(checkTransferPractice(leak, playbook, refs).join()).toMatch(/must not match/);
+  });
+});
+
+describe('an independent reviewer can record each transfer', () => {
+  const map = loadAssessmentMap(assessmentMap);
+  const criterionIds = assembled.criteria.map((criterion) => criterion.id);
+  const withSheets = assembled.fields.map((field) => ({ ...field, sheet: sheetPath(field.packId) }));
+  const subjects = transferSubjects(map, criterionIds, withSheets);
+  const rubric = map.ranks.flatMap((rank) => rank.rubric.criteria);
+
+  function complete(of: ReviewSubject): ReviewRecord {
+    return {
+      ...emptyRecord(of.id),
+      consent: true,
+      independent: true,
+      unseenTask: 'Twenty minutes in, the reviewer replaced the reference data with a newer release.',
+      entries: Object.fromEntries(of.criteria.map((criterion) => [criterion.id, { observation: 'Not yet observed' as const, reference: `review/${criterion.id}.md, note 2` }])),
+      strength: 'The field check was rerun after every assistant change (log line 8).',
+      gap: 'The qualified-review limit was not written into the brief.',
+    };
+  }
+
+  it('offers one transfer subject per practice field, on the playbook transfer criteria and no other scale', () => {
+    expect(criterionIds).toEqual(playbook.rubricCriterionIds);
+    expect(subjects.map((subject) => subject.id)).toEqual(assembled.fields.map((field) => transferSubjectId(field.packId)));
+    for (const subject of subjects) {
+      expect(subject.group).toBe('transfer');
+      expect(subject.criteria.map((criterion) => criterion.id)).toEqual(criterionIds);
+      for (const criterion of subject.criteria) {
+        const source = rubric.find((item) => item.id === criterion.id);
+        expect(source, criterion.id).toBeDefined();
+        expect(criterion.observable).toBe(source?.observable);
+        expect(criterion.notYet).toBe(source?.notYet);
+        expect(criterion.evidence.length).toBe(source?.evidence.length);
+      }
+    }
+  });
+
+  it("carries each field's reference, review gate, checks, Randori, sheet and qualified-review limit from the practice", () => {
+    for (const field of assembled.fields) {
+      const subject = subjects.find((item) => item.id === transferSubjectId(field.packId));
+      const pack = sectorPacks.find((item) => item.id === field.packId);
+      expect(subject?.transfer).toEqual({
+        field: field.name,
+        reference: field.reference,
+        gate: { quote: field.gate.reviewGate, role: field.gate.role, kata: field.gate.kata },
+        checks: field.checks,
+        randori: field.randori,
+        sheet: sheetPath(field.packId),
+      });
+      expect(subject?.professionalReview).toEqual(pack?.professionalReview);
+    }
+  });
+
+  it('links every practice sheet to the review record of its own transfer', () => {
+    for (const field of assembled.fields) {
+      expect(reviewHref(field.packId)).toBe(`/review-record?subject=${transferSubjectId(field.packId)}`);
+      expect(assembled.sheets.get(field.packId)).toContain(`${SITE}${reviewHref(field.packId)}`);
+    }
+  });
+
+  it('fails the build on a transfer criterion the assessment map does not have, or none at all', () => {
+    expect(() => transferSubjects(map, ['MD-9'], withSheets)).toThrow(/MD-9 is not in the assessment map/);
+    expect(() => transferSubjects(map, [], withSheets)).toThrow(/names no transfer criteria/);
+  });
+
+  it('round-trips through the JSON the page embeds, and drops a transfer whose field facts are missing', () => {
+    expect(parseSubjects(JSON.parse(JSON.stringify(subjects)))).toEqual(subjects);
+    const [first] = subjects;
+    expect(first).toBeDefined();
+    if (!first) return;
+    expect(parseSubjects([{ ...first, transfer: undefined }])).toEqual([]);
+    expect(parseSubjects([{ ...first, transfer: { ...first.transfer, checks: 'not a list' } }])).toEqual([]);
+  });
+
+  it('finishes only with every transfer criterion recorded, and logs the field it was checked against', () => {
+    const subject = subjects.find((item) => item.id === transferSubjectId('bim'));
+    expect(subject).toBeDefined();
+    if (!subject?.transfer) return;
+    const record = complete(subject);
+    const missing = { ...record, entries: { ...record.entries } };
+    delete missing.entries['SEN-2'];
+    expect(recordProblems(missing, subject)).toContain('SEN-2 has no observation yet.');
+    const finished = finishRecord(record, subject, '2026-11-22');
+    expect(finished.problems).toEqual([]);
+    const log = renderReviewLog(finished.record, subject);
+    expect(log).toContain('- Reviewed against: Transfer into');
+    expect(log).toContain('## The field the technique was carried into');
+    expect(log).toContain(subject.transfer.reference);
+    expect(log).toContain(subject.transfer.gate.quote);
+    for (const check of subject.transfer.checks) expect(log).toContain(check);
+    expect(log).toContain(subject.transfer.randori.id);
+    expect(log).toContain('## Qualified review in this field');
+    expect(log).toMatch(/\| MD-1 [^|]+\| Not yet observed \| review\/MD-1\.md, note 2 \|/);
+    expect(log).toContain('awards no belt and no rank');
   });
 });

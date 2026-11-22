@@ -6,7 +6,9 @@ import type { SectorPack } from './sector-pack';
  * reviewer's own device and copied out as a Markdown review log. No DOM here; the form is
  * src/components/ReviewRecord.astro and the procedure is docs/independent-review-pilot.md, section 4.
  *
- * A record reviews one subject: a rank rubric from the assessment map, or a specialist belt stage in one field.
+ * A record reviews one subject: a rank rubric from the assessment map, a specialist belt stage in one field, or a
+ * cross-field transfer into one field (developerdojo#95). A transfer is assessed on the mission playbook's transfer
+ * criteria from the assessment map, so it has no scale of its own; the field facts come from the transfer practice.
  * A specialist belt takes its shared criteria from the assessment map and everything field-specific (checks,
  * Randori, the professional-review limit) from that field's sector pack, so nothing is written twice.
  *
@@ -41,15 +43,42 @@ export interface ProfessionalReview {
   limit: string;
 }
 
-export interface ReviewSubject {
-  /** rank:<rank id> or belt:<sector pack id>:<stage id> */
+/** What the reviewer of a transfer works from: the field's own check, read from the transfer practice (#95). */
+export interface TransferFacts {
+  field: string;
+  /** The field's independent reference, the check the transferred technique must use. */
+  reference: string;
+  gate: { quote: string; role: string; kata: KataRef };
+  /** The field pathway's checks, which the reviewer reruns on the learner's work. */
+  checks: string[];
+  /** The field Randori: the reviewer picks an unseen change of this kind. */
+  randori: KataRef;
+  /** The learner's practice sheet for this field. */
+  sheet: string;
+}
+
+export interface KataRef {
   id: string;
-  group: 'rank' | 'belt';
+  title: string;
+  href: string;
+}
+
+export const SUBJECT_GROUPS = ['rank', 'belt', 'transfer'] as const;
+export type SubjectGroup = (typeof SUBJECT_GROUPS)[number];
+
+const isSubjectGroup = (value: unknown): value is SubjectGroup => typeof value === 'string' && (SUBJECT_GROUPS as readonly string[]).includes(value);
+
+export interface ReviewSubject {
+  /** rank:<rank id>, belt:<sector pack id>:<stage id> or transfer:<sector pack id> */
+  id: string;
+  group: SubjectGroup;
   label: string;
   question: string;
   criteria: RecordCriterion[];
-  /** Specialist belts only: the field's own limit, from its sector pack. */
+  /** Specialist belts and transfers: the field's own limit, from its sector pack. */
   professionalReview?: ProfessionalReview;
+  /** Transfers only: the field the technique was carried into. */
+  transfer?: TransferFacts;
 }
 
 /** One field's specialist belt, assembled from its sector pack. */
@@ -124,6 +153,58 @@ export function reviewSubjects(map: AssessmentMap, belts: readonly SpecialistBel
     })),
   );
   return [...ranks, ...specialist];
+}
+
+/** The review-record subject for a transfer into one field. */
+export const transferSubjectId = (packId: string): string => `transfer:${packId}`;
+
+/** A link that opens the review record on one subject. */
+export const reviewRecordHref = (subjectId: string): string => `/review-record?subject=${subjectId}`;
+
+export const TRANSFER_QUESTION = 'Can this person carry the foundation technique into this field, check the work the way the field checks it, and keep it working when the situation changes?';
+
+/** One field a learner can practise a transfer into, as the transfer practice assembles it (src/lib/mission-transfer.ts). */
+export interface TransferField {
+  packId: string;
+  name: string;
+  reference: string;
+  gate: { kata: KataRef; role: string; reviewGate: string };
+  randori: KataRef;
+  checks: readonly string[];
+  professionalReview: ProfessionalReview;
+  sheet: string;
+}
+
+/**
+ * One transfer subject per practice field. The criteria are the mission playbook's transfer criteria, taken from the
+ * assessment map's rank rubrics: a transfer is never assessed on a scale of its own. Throws, and so fails the build,
+ * when a criterion is not in the map.
+ */
+export function transferSubjects(map: AssessmentMap, criterionIds: readonly string[], fields: readonly TransferField[]): ReviewSubject[] {
+  if (!criterionIds.length) throw new Error('Transfer review: the mission playbook names no transfer criteria');
+  const evidenceTitle = (kind: EvidenceKind): string => map.pilot.evidence.find((item) => item.kind === kind)?.title ?? kind;
+  const all = map.ranks.flatMap((rank) => rank.rubric.criteria);
+  const criteria = criterionIds.map((id): RecordCriterion => {
+    const criterion = all.find((item) => item.id === id);
+    if (!criterion) throw new Error(`Transfer review: criterion ${id} is not in the assessment map's rank rubrics`);
+    return { id: criterion.id, title: criterion.title, observable: criterion.observable, notYet: criterion.notYet, evidence: criterion.evidence.map(evidenceTitle) };
+  });
+  return fields.map((field) => ({
+    id: transferSubjectId(field.packId),
+    group: 'transfer',
+    label: `Transfer into ${field.name}`,
+    question: TRANSFER_QUESTION,
+    criteria: criteria.map((criterion) => ({ ...criterion, evidence: [...criterion.evidence] })),
+    professionalReview: { required: field.professionalReview.required, limit: field.professionalReview.limit },
+    transfer: {
+      field: field.name,
+      reference: field.reference,
+      gate: { quote: field.gate.reviewGate, role: field.gate.role, kata: { ...field.gate.kata } },
+      checks: [...field.checks],
+      randori: { ...field.randori },
+      sheet: field.sheet,
+    },
+  }));
 }
 
 export interface CriterionEntry {
@@ -294,6 +375,36 @@ function block(value: string): string {
   return clean ? clean : '_Not recorded._';
 }
 
+function transferLines(facts: TransferFacts): string[] {
+  return [
+    '## The field the technique was carried into',
+    '',
+    `- Field: ${facts.field}`,
+    `- Its independent reference: ${facts.reference}`,
+    `- Its review gate (${facts.gate.role}, ${facts.gate.kata.id} ${facts.gate.kata.title}): "${facts.gate.quote}"`,
+    `- Checks the reviewer reruns: ${facts.checks.length ? facts.checks.join('; ') : 'none recorded; the reviewer chose them'}`,
+    `- Unseen change of the kind in: ${facts.randori.id} ${facts.randori.title}`,
+    '',
+  ];
+}
+
+function kataRef(value: unknown): KataRef | undefined {
+  if (!isObject(value)) return undefined;
+  const { id, title, href } = value;
+  return typeof id === 'string' && typeof title === 'string' && typeof href === 'string' ? { id, title, href } : undefined;
+}
+
+function transferFacts(value: unknown): TransferFacts | undefined {
+  if (!isObject(value)) return undefined;
+  const { field, reference, gate, checks, randori, sheet } = value;
+  const randoriRef = kataRef(randori);
+  if (typeof field !== 'string' || typeof reference !== 'string' || typeof sheet !== 'string' || !Array.isArray(checks) || !randoriRef || !isObject(gate)) return undefined;
+  const { quote, role, kata } = gate;
+  const gateKata = kataRef(kata);
+  if (typeof quote !== 'string' || typeof role !== 'string' || !gateKata) return undefined;
+  return { field, reference, gate: { quote, role, kata: gateKata }, checks: checks.filter((item): item is string => typeof item === 'string'), randori: randoriRef, sheet };
+}
+
 /** The review log as Markdown, in the layout of the pilot procedure, section 4, step 9. */
 export function renderReviewLog(record: ReviewRecord, subject: ReviewSubject): string {
   const minutes = minutesOf(record);
@@ -319,6 +430,7 @@ export function renderReviewLog(record: ReviewRecord, subject: ReviewSubject): s
       return `| ${cell(`${criterion.id} ${criterion.title}`)} | ${entry?.observation || 'Not recorded'} | ${cell(entry?.reference ?? '') || '-'} |`;
     }),
     '',
+    ...(subject.transfer ? transferLines(subject.transfer) : []),
     '## Failures seen',
     '',
     block(record.failures),
@@ -356,7 +468,7 @@ export function parseSubjects(value: unknown): ReviewSubject[] {
   for (const raw of value) {
     if (!isObject(raw)) continue;
     const { id, group, label, question, criteria, professionalReview } = raw;
-    if (typeof id !== 'string' || (group !== 'rank' && group !== 'belt') || typeof label !== 'string' || typeof question !== 'string' || !Array.isArray(criteria)) continue;
+    if (typeof id !== 'string' || !isSubjectGroup(group) || typeof label !== 'string' || typeof question !== 'string' || !Array.isArray(criteria)) continue;
     const list: RecordCriterion[] = [];
     for (const item of criteria) {
       if (!isObject(item)) continue;
@@ -367,6 +479,11 @@ export function parseSubjects(value: unknown): ReviewSubject[] {
     const subject: ReviewSubject = { id, group, label, question, criteria: list };
     if (isObject(professionalReview) && typeof professionalReview['required'] === 'boolean' && typeof professionalReview['limit'] === 'string') {
       subject.professionalReview = { required: professionalReview['required'], limit: professionalReview['limit'] };
+    }
+    if (group === 'transfer') {
+      const facts = transferFacts(raw['transfer']);
+      if (!facts) continue;
+      subject.transfer = facts;
     }
     if (list.length) subjects.push(subject);
   }
