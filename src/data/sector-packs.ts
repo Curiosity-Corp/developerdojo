@@ -181,7 +181,7 @@ export const sectorPackInputs: SectorPackInput[] = [
         path: '/examples/science-pathway/inputs/gistemp-v4-global-land-ocean.csv',
         source: 'https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv',
         terms: 'NASA material, generally not subject to copyright in the US (17 U.S.C. 105). Cited as GISS asks, with NASA credited as the source and no NASA endorsement implied. GISS revises the record monthly; this copy is pinned by its hash.',
-        sha256: 'SHA_TBD',
+        sha256: 'a7b1939db2e7e484c798e925e0f07f8184356c52ac0e7ce264adcd0f25e81253',
       },
     ],
     checks: [
@@ -210,7 +210,7 @@ export const sectorPackInputs: SectorPackInput[] = [
     ],
     notVerified: [
       'The uncertainty of the record itself. GISS evaluates it separately; this pathway neither reproduces nor checks it.',
-      'Whether the residuals of the line are independent. They are autocorrelated, so the least-squares uncertainty of the slope is likely too small; no autocorrelation-corrected uncertainty is computed.',
+      'Whether the residuals of the line are independent. Their lag-1 autocorrelation is reported (0.19 for the annual fit, 0.61 for the monthly one on Randori card B), but no test is run and no autocorrelation-corrected uncertainty is computed.',
       'Any real measurement, instrument or calibration. The GUM’s Annex H data are illustrative, and nothing here is a calibration certificate or a statement of traceability.',
       'GISTEMP’s own method: the station and sea-surface processing behind the record is not rerun.',
       'Use by real learners: no learner has run these katas yet.',

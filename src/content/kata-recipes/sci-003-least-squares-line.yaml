@@ -89,7 +89,7 @@ stack:
         unavailable: Depends on the spreadsheet you use; free ones work
     - part: data
       name: NASA GISS GISTEMP v4 global land-ocean means
-      version: "Retrieved 2026-11-21, SHA-256 SHA_SHORT"
+      version: "Retrieved 2026-11-21, SHA-256 a7b1939d…e81253"
       permissions: Read a copy
       cost: Free (NASA material)
     - part: harness
@@ -121,7 +121,7 @@ setup:
   auth: None. Nothing here needs an account.
   smokeTest:
     action: "Run: python3 -I tools/science_pathway.py . out"
-    expected: "__NCHECKS__ reference checks pass, including the eleven predicted corrections of Table H.6, and out/trend.json holds the 1991-2020 fit"
+    expected: "55 reference checks pass, including the eleven predicted corrections of Table H.6, and out/trend.json holds the 1991-2020 fit"
     result: passed
     evidence: /examples/science-pathway/generated/trend.json, recomputed by CI on every pipeline
     date: "2026-11-21"
@@ -154,7 +154,7 @@ verification:
       evidence: /examples/science-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
       date: "2026-11-21"
     - action: Fit the 1991-2020 annual means with the pathway script
-      expected: "__TREND_TEXT__"
+      expected: "Slope 0.23 degrees C per decade with standard uncertainty 0.0186; intercept at 1991 0.276 degrees C (standard uncertainty 0.031); r(intercept, slope) -0.859; s 0.088 degrees C; residual lag-1 autocorrelation 0.19"
       result: passed
       evidence: /examples/science-pathway/generated/trend.json, recomputed by CI on every pipeline
       date: "2026-11-21"
@@ -182,5 +182,5 @@ maintenance:
     - This is practice, not a calibration certificate. No metrologist, statistician or climate scientist has reviewed it, and a real measurement result needs the qualified reviewers its laboratory, journal or accreditation body names.
     - The GUM’s Annex H data are illustrative, not measurements of a real instrument.
     - The record’s own uncertainty is evaluated by GISS and is not reproduced here.
-    - The least-squares uncertainty assumes independent residuals. The record’s residuals are autocorrelated, so the uncertainty is likely too small, and no corrected value is given here.
+    - The least-squares uncertainty assumes independent residuals. The annual residuals have a lag-1 autocorrelation of 0.19 and the monthly ones 0.61; no test is run and no corrected value is given here.
     - A line over 30 years describes those years; it is not a forecast.

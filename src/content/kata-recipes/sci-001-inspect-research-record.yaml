@@ -85,7 +85,7 @@ stack:
         unavailable: Depends on the spreadsheet you use; free ones work
     - part: data
       name: NASA GISS GISTEMP v4 global land-ocean means
-      version: "Retrieved 2026-11-21, SHA-256 SHA_SHORT"
+      version: "Retrieved 2026-11-21, SHA-256 a7b1939d…e81253"
       permissions: Read a copy
       cost: Free (NASA material)
     - part: harness
@@ -117,7 +117,7 @@ setup:
   auth: None. Nothing here needs an account.
   smokeTest:
     action: "Run: python3 -I tools/science_pathway.py . out (from the folder that holds inputs/ and tools/)"
-    expected: "__NCHECKS__ reference checks pass and out/inspection.json reports __YEARS__ years"
+    expected: "55 reference checks pass and out/inspection.json reports 147 years"
     result: passed
     evidence: /examples/science-pathway/generated/inspection.json, recomputed by CI on every pipeline
     date: "2026-11-21"
@@ -146,7 +146,7 @@ execution:
 verification:
   checks:
     - action: Inspect the record with the pathway script
-      expected: "__INSPECT_TEXT__"
+      expected: "1880 to 2026, 147 years, 19 columns; 7 cells unavailable (Nov, Dec, J-D, D-N and SON of 2026; D-N and DJF of 1880); J-D equals the mean of its months at two decimals in 134 of 146 complete years and is within 0.01 in all 146 (largest difference 0.0058 degrees C, 2003)"
       result: passed
       evidence: /examples/science-pathway/generated/inspection.json, recomputed by CI on every pipeline
       date: "2026-11-21"

@@ -87,7 +87,7 @@ stack:
         unavailable: Depends on the spreadsheet you use; free ones work
     - part: data
       name: NASA GISS GISTEMP v4 global land-ocean means
-      version: "Retrieved 2026-11-21, SHA-256 SHA_SHORT"
+      version: "Retrieved 2026-11-21, SHA-256 a7b1939d…e81253"
       permissions: Read a copy
       cost: Free (NASA material)
     - part: harness
@@ -119,7 +119,7 @@ setup:
   auth: None.
   smokeTest:
     action: Recompute all three cards with the pathway script
-    expected: "__CARDS_SMOKE__"
+    expected: "Card A -0.054, card B -0.002, card C 0.000 degrees C per decade against the 0.23 baseline"
     result: passed
     evidence: /examples/science-pathway/generated/randori/cards.json, recomputed by CI on every pipeline
     date: "2026-11-21"
@@ -146,7 +146,7 @@ execution:
 verification:
   checks:
     - action: Recompute the three cards with the pathway script
-      expected: "__CARDS_TEXT__"
+      expected: "A (1981-2010): slope 0.176, standard uncertainty 0.0193; B (360 monthly values): slope 0.228, standard uncertainty 0.0086, residual lag-1 autocorrelation 0.61; C (t0 = 2005.5): slope 0.23 and standard uncertainty 0.0186 unchanged, intercept 0.61 degrees C with standard uncertainty 0.016, r(intercept, slope) 0.0"
       result: passed
       evidence: /examples/science-pathway/generated/randori/cards.json
       date: "2026-11-21"
@@ -154,8 +154,8 @@ verification:
       expected: Prediction, recompute and explanation
       result: not-run
   failures:
-    - observed: __CARDB_FAILURE__
-      correction: __CARDB_CORRECTION__
+    - observed: Card B halves the standard uncertainty of the slope, so the monthly fit looks twice as precise
+      correction: The 360 monthly residuals have a lag-1 autocorrelation of 0.61, so they are far from independent, and the least-squares formula treats them as 360 independent points. The smaller number reflects that assumption, not more information.
 adaptation:
   variations:
     - change: The partner draws two cards

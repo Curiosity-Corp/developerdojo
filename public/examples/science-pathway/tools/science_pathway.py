@@ -369,9 +369,20 @@ def sig(x: float, digits: int = 6) -> float:
     return float(f"{x:.{digits}g}")
 
 
+def no_negative_zero(data: object) -> object:
+    """Write a rounded zero as 0.0, never -0.0."""
+    if isinstance(data, float):
+        return 0.0 if data == 0 else data
+    if isinstance(data, dict):
+        return {k: no_negative_zero(v) for k, v in data.items()}
+    if isinstance(data, list):
+        return [no_negative_zero(v) for v in data]
+    return data
+
+
 def write_json(path: Path, data: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    path.write_text(json.dumps(no_negative_zero(data), indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 def budget_outputs(b: dict) -> tuple[dict, list[dict]]:

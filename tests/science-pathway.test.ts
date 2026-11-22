@@ -10,7 +10,7 @@ const EX = 'public/examples/science-pathway';
 const GEN = join(EX, 'generated');
 const json = <T>(path: string): T => JSON.parse(readFileSync(join(GEN, path), 'utf8')) as T;
 const RECORD = 'inputs/gistemp-v4-global-land-ocean.csv';
-const PINNED_RECORD = 'SHA_TBD';
+const PINNED_RECORD = 'a7b1939db2e7e484c798e925e0f07f8184356c52ac0e7ce264adcd0f25e81253';
 
 interface Check { id: string; published: number; computed: number; status: string; tolerance?: number; note?: string }
 interface Output { estimate_ohm: number; combinedStandardUncertainty_ohm: number; ifInputsUncorrelated_ohm: number }
@@ -70,12 +70,12 @@ describe('science pathway files', () => {
 
   it('matches the numbers the recipes quote', () => {
     const inspection = json<Inspection>('inspection.json');
-    expect([inspection.years, inspection.missingCells, inspection.annualAgainstMonths.sameAtTwoDecimals, inspection.annualAgainstMonths.yearsCompared]).toEqual(__INSPECT__);
+    expect([inspection.years, inspection.missingCells, inspection.annualAgainstMonths.sameAtTwoDecimals, inspection.annualAgainstMonths.yearsCompared]).toEqual([147, 7, 134, 146]);
     const trend = json<Trend>('trend.json');
     expect(trend).toMatchObject({ period: '1991-2020', n: 30, t0: 1991, unavailable: [] });
-    expect([trend.slope_C_per_decade, trend.u_slope_C_per_decade, trend.residualLag1Autocorrelation]).toEqual(__TREND__);
+    expect([trend.slope_C_per_decade, trend.u_slope_C_per_decade, trend.residualLag1Autocorrelation]).toEqual([0.23, 0.0186, 0.19]);
     const cards = json<Record<string, Card>>('randori/cards.json');
-    expect(Object.fromEntries(Object.entries(cards).map(([id, card]) => [id, [card.changeInSlope_C_per_decade, card.uncertaintyRatio]]))).toEqual(__CARDS__);
+    expect(Object.fromEntries(Object.entries(cards).map(([id, card]) => [id, [card.changeInSlope_C_per_decade, card.uncertaintyRatio]]))).toEqual({ A: [-0.054, 1.04], B: [-0.002, 0.46], C: [0, 1] });
   });
 
   it('has one residual row for every year of the fit', () => {

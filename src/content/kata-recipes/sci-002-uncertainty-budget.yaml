@@ -85,7 +85,7 @@ stack:
         unavailable: Depends on the spreadsheet you use; free ones work
     - part: data
       name: NASA GISS GISTEMP v4 global land-ocean means
-      version: "Retrieved 2026-11-21, SHA-256 SHA_SHORT"
+      version: "Retrieved 2026-11-21, SHA-256 a7b1939d…e81253"
       permissions: Read a copy
       cost: Free (NASA material)
     - part: harness
@@ -117,7 +117,7 @@ setup:
   auth: None. Nothing here needs an account.
   smokeTest:
     action: "Run: python3 -I tools/science_pathway.py . out"
-    expected: "__NCHECKS__ reference checks pass, including R, X and Z and their combined standard uncertainties from Table H.3"
+    expected: "55 reference checks pass, including R, X and Z and their combined standard uncertainties from Table H.3"
     result: passed
     evidence: /examples/science-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
     date: "2026-11-21"

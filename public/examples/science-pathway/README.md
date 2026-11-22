@@ -25,7 +25,7 @@ is computed by `tools/science_pathway.py`. The site's CI reruns the script on ev
 
 - **Temperature record.** GISTEMP Team, 2026: GISS Surface Temperature Analysis (GISTEMP), version 4. NASA
   Goddard Institute for Space Studies. Dataset accessed 2026-11-21 at
-  `https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv`, SHA-256 `SHA_TBD`.
+  `https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv`, SHA-256 `a7b1939db2e7e484c798e925e0f07f8184356c52ac0e7ce264adcd0f25e81253`.
   Analysis paper: doi:10.1029/2023JD040179 (2024). GISTEMP combines NOAA GHCN v4 (land stations) and ERSST v5
   (sea surface). GISS revises the record every month as new data arrive, so a new download differs: this folder
   pins one copy by its hash. Terms: NASA material is generally not subject to copyright in the United States
@@ -75,6 +75,8 @@ in `manifest.json`.
 - The H.2 and H.3 data are the GUM's illustrative numbers, not measurements of any instrument.
 - The trend uncertainty is the least-squares uncertainty of a straight line through one copy of the record. It is
   not the uncertainty of the record: GISS estimates that separately (about 0.05 degrees C for annual global means
-  after 1960, from its own analysis), and this pathway does not evaluate it. The residuals are autocorrelated, so
-  the least-squares uncertainty is likely too small.
+  after 1960, in its FAQ), and this pathway does not evaluate it.
+- The least-squares uncertainty assumes independent residuals. The annual residuals have a lag-1 autocorrelation of
+  0.19; whether that matters is not tested here. The monthly residuals (Randori card B) have 0.61, so the smaller
+  monthly uncertainty reflects the independence assumption, not more information.
 - A straight line over 30 years describes those years only; it is not a forecast.
