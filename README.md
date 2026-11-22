@@ -1,6 +1,6 @@
 # Developer Dojo
 
-_Last verified: 2026-11-13._
+_Last verified: 2026-11-22._
 
 Source of [developerdojo.org](https://developerdojo.org): a free training academy for the new kind of
 developer, run by Curiosity Research Corporation and sponsored by Reveltek. A developer no longer mostly
@@ -34,18 +34,29 @@ other hosts.
 | `npm run check:links` | Every internal link, image and anchor in `dist/` must resolve (run `build` first) |
 | `npm run check:external-links` | Polite check of outbound links in resource YAML, lessons and rendered pages |
 | `npm run stale-resources` | Lists resources whose `verifiedOn` is older than 90 days |
+| `npm run taxonomy:lock` | Adds new kata identifiers to `src/data/taxonomy-lock.json` (append-only; [docs/kata-taxonomy.md](docs/kata-taxonomy.md)) |
 
 CI (`.gitlab-ci.yml`) is the gate of record. Pipelines run for merge requests and for `master`, including the
 nightly schedule (02:00 UTC), which re-runs `master` so that date-filtered event lists stay current.
 
-- **Blocking:** `check`, `test` and `build`, then `links` and `e2e`. `build` checks `CNAME` and `.nojekyll`, and it
-  fingerprints the Pagefind entry so later jobs can tell whether the index survived artifact transfer. `e2e` covers
+- **Blocking:** `check`, `test` and `build`, then `links` and `e2e`. `build` checks `CNAME` and `.nojekyll`, runs the
+  published-name gate (`scripts/check-published-names.mjs`, #129), and fingerprints the Pagefind entry so later jobs
+  can tell whether the index survived artifact transfer. `e2e` covers
   the routes, the nav, the 390 px reflow and axe WCAG 2.1 AA (zero serious/critical) in light and dark.
+- **Blocking pathway jobs:** `bim_pathway`, `ux_pathway`, `agriculture_pathway` and `science_pathway` rerun each
+  pathway's script under `public/examples/<pathway>/tools/` and fail if any output differs from its committed
+  `generated/` folder, so the results the kata pages show are what CI computed.
+- **`catalog_lifecycle`** (MRs, `master` and the weekly link-check schedule): writes the catalog refresh list from
+  `dist/catalog-lifecycle.json` ([docs/catalog-lifecycle.md](docs/catalog-lifecycle.md)); it fails only on a missing
+  or malformed ledger.
 - **`master` only:** `pages` (the internal GitLab Pages preview) and `publish_github_pages` (the production release).
 - **Optional:**
   - `external_links`: weekly on a schedule with `LINK_CHECK=true`, and manual on MRs.
   - `stale_resources`: manual on `master`, for the quarterly refresh list.
   - `catalog_a11y_profile`: a manual diagnostic for #113; it never replaces `e2e`.
+  - `event_initialization_profile`: a manual diagnostic on MRs and `master`
+    ([docs/ci-event-initialization.md](docs/ci-event-initialization.md)).
+- **Production e2e:** `e2e:production` runs alone when `PRODUCTION_E2E=true` (see below).
 
 ## Layout
 
@@ -60,15 +71,21 @@ src/
     tracks/        track overviews (<slug>.md)
     resources/     external learning resources (<publisher>/<resource>.yaml)
     arena/         Arena evidence records (<slug>.yaml; docs/arena-evidence.md)
-  data/          events.json, challenges.json, certificates.json, plus typed kata/workshop data (*.ts)
-  lib/           nav, ranks, schemas, data loaders, image lookup, custom icons, kata catalog
+    kata-recipes/  operational kata recipes (<slug>.yaml, rendered at /katas/<slug>; docs/kata-recipes.md)
+  data/          events.json, challenges.json, certificates.json, taxonomy lock and moves, plus typed kata,
+                 workshop, mission, sector-pack and assessment data (*.ts)
+  lib/           nav, ranks, schemas, data loaders, image lookup, custom icons, kata catalog, taxonomy identifiers
+  types/         ambient type declarations
   styles/        tokens.css (light + dark design tokens), global.css
-public/          CNAME, .nojekyll, favicon, images/ (art goes here), offline/, examples/, templates/
-scripts/         build-search, link checkers, stale-resource list, serve-dist, catalog a11y profile
+public/          CNAME, .nojekyll, favicon, images/ (art goes here), offline/, templates/,
+                 examples/ (downloads, and the BIM, UX, agriculture and science pathways with their tools)
+scripts/         build-search, link checkers, published-name gate, stale-resource list, serve-dist,
+                 production e2e, wait-for-live-build, CI diagnostics
 e2e/             Playwright tests      tests/   Vitest tests
 docs/            handbook, style guide, content model, accessibility review, catalog lifecycle, ...
 tools/imagery/   art generation scripts      templates/   learner-portfolio template
 .gitlab/ci/      publish script and the GitHub Pages workflow template
+.gitlab/         issue and merge request templates (including the Sensei contribution templates)
 ```
 
 ## Components
@@ -78,7 +95,7 @@ at build time, so components show a CSS/SVG placeholder until the art exists. Th
 `-mobile` crop), `mountains-band` / `mountains-band-dark` and `og`. The Reveltek logo is referenced directly as
 `reveltek-logo.svg` / `reveltek-logo-white.svg`.
 
-`src/components/` holds about 45 components, for example `PageHero`, `SectionHeader`, `RankPath`, `IconCard`,
+`src/components/` holds about 55 components, for example `PageHero`, `SectionHeader`, `RankPath`, `IconCard`,
 `FeatureGrid`, `EventList`, `ChallengeList`, `KataPreview`, `LessonQuiz`, `SearchDialog`, `ThemeToggle` and `Icon`.
 Props are documented at the top of each file.
 
