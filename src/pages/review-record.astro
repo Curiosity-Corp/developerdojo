@@ -2,26 +2,23 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import ReviewRecord from '../components/ReviewRecord.astro';
-import { RANKS } from '../lib/ranks';
-import { loadAssessmentMap } from '../lib/assessment-map';
-import { reviewSubjects } from '../lib/review-record';
-import { loadSpecialistBelts } from '../lib/specialist-belts-content';
-import { assessmentMap } from '../data/assessment-map';
+import { loadReviewSubjects } from '../lib/review-subjects-content';
 
 // The subjects come from the assessment map (ranks, shared specialist criteria) and the sector packs (each field's
-// checks, Randori and qualified-review limit), so this form and /assessment-map cannot disagree (#90).
-const map = loadAssessmentMap(assessmentMap);
-const subjects = reviewSubjects(map, await loadSpecialistBelts(), (id) => RANKS.find((rank) => rank.id === id)?.name ?? id);
+// checks, Randori and qualified-review limit), so this form and /assessment-map cannot disagree (#90). Transfers come
+// from the mission playbook's transfer practice, so a field's practice sheet and its review always match (#95).
+// /review-request reads the same list, so a learner's request and this record cannot disagree.
+const { subjects } = await loadReviewSubjects();
 ---
-<BaseLayout title="Record an independent review" description="A review record for a rank or a specialist belt: each criterion with its evidence, the unseen task, one strength and one gap, kept on the reviewer's device.">
-  <PageHero compact eyebrow="Ranks · specialist belts · independent review" title="Record an independent review" subtitle="For the reviewer in a pilot review: record each criterion against real evidence, then copy the review log. Nothing leaves your device." ctas={[{ label: 'Start recording', href: '#rr-title', icon: 'arrow-right' }, { label: 'What each rank and belt asks', href: '/assessment-map', variant: 'ghost', icon: 'arrow-right' }]} />
+<BaseLayout title="Record an independent review" description="A review record for a rank, a specialist belt or a cross-field transfer: each criterion with its evidence, the unseen task, one strength and one gap, kept on the reviewer's device.">
+  <PageHero compact eyebrow="Ranks · specialist belts · transfers · independent review" title="Record an independent review" subtitle="For the reviewer in a pilot review: record each criterion against real evidence, then copy the review log. Nothing leaves your device." ctas={[{ label: 'Start recording', href: '#rr-title', icon: 'arrow-right' }, { label: 'What each rank and belt asks', href: '/assessment-map', variant: 'ghost', icon: 'arrow-right' }]} />
 
   <section class="section"><div class="container content">
     <p class="boundary" data-record-boundary><strong>A record, not an award:</strong> Finishing a review record issues no belt and no rank, and the rubrics it uses are proposed, not approved. A rank certificate still follows the <a href="/certificates">certificate process</a>, with a separate Maintainer deciding. Dojo assessment is not professional licensure or accreditation. This website takes no authenticated submissions: the record stays on your device until you copy it.</p>
     <h2>How to use it</h2>
     <ol class="steps">
       <li><strong>Before the session,</strong> agree scope, access and consent with the learner in writing, and check you are independent. The form will not finish without both.</li>
-      <li><strong>Choose what you review:</strong> a rank rubric, or a specialist belt in one field at the Brown or Black stage. The criteria and, for a belt, the field's own limit appear below.</li>
+      <li><strong>Choose what you review:</strong> a rank rubric, a specialist belt in one field at the Brown or Black stage, or a learner's transfer of the foundation technique into one field from the <a href="/mission-playbook#practice">mission playbook</a>. The criteria and, for a belt or a transfer, the field's own limit appear below. For a transfer you also see the field's reference, its review gate, the checks to rerun and the kind of unseen change to set.</li>
       <li><strong>Set the unseen task</strong> when the work starts, then open the original artifact and observe.</li>
       <li><strong>Record every criterion</strong> as Observed, Not yet observed or Unclear, each with an evidence reference: a file, a check result, a log line or a moment in the session. Absence of evidence is not a pass, so the form will not finish without a reference.</li>
       <li><strong>Finish and copy</strong> the review log into the confidential case issue. A finished record is locked; a mistake is fixed with a dated correction added below it, never by editing.</li>

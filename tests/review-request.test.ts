@@ -31,7 +31,7 @@ const fieldName = (id: string) => fields.find((field) => field.id === id)?.name;
 const randori = (kataId: string) => ({ title: `Randori ${kataId}`, href: `/katas/${kataId.toLowerCase()}` });
 const belts = specialistBelts(sectorPacks, fieldName, randori);
 const rankName = (id: string) => RANKS.find((rank) => rank.id === id)?.name ?? id;
-const subjects = requestSubjects(map, belts, rankName);
+const subjects = requestSubjects(map, reviewSubjects(map, belts, rankName), belts);
 const ids = subjects.map((subject) => subject.id);
 const page: RequestPage = { subjects, evidence: map.pilot.evidence, steps: map.pilot.steps.map((step) => step.title) };
 const subject = (id: string): RequestSubject => {
@@ -78,7 +78,7 @@ describe('the subjects a learner can ask to be reviewed against', () => {
   it('fails the build when a criterion names evidence the pilot does not list', () => {
     const broken = structuredClone(map) as AssessmentMap;
     broken.pilot.evidence = broken.pilot.evidence.filter((item) => item.kind !== 'failures');
-    expect(() => requestSubjects(broken, belts, rankName)).toThrow(/not a pilot evidence kind/);
+    expect(() => requestSubjects(broken, reviewSubjects(broken, belts, rankName), belts)).toThrow(/not a pilot evidence kind/);
   });
 
   it('the map refuses a rank or the specialist belts without a kind of unseen task', () => {

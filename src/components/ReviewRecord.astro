@@ -18,6 +18,7 @@ const key = (id: string) => id.replace(/[^a-z0-9-]/gi, '-');
 const json = JSON.stringify(subjects).replace(/</g, '\\u003c');
 const ranks = subjects.filter((subject) => subject.group === 'rank');
 const belts = subjects.filter((subject) => subject.group === 'belt');
+const transfers = subjects.filter((subject) => subject.group === 'transfer');
 ---
 
 <section class="tool js-only review-record" aria-labelledby="rr-title" data-review-record data-pagefind-ignore>
@@ -36,6 +37,7 @@ const belts = subjects.filter((subject) => subject.group === 'belt');
       <select id="rr-subject" data-subject>
         <optgroup label="Ranks">{ranks.map((subject) => <option value={subject.id}>{subject.label}</option>)}</optgroup>
         <optgroup label="Specialist belts">{belts.map((subject) => <option value={subject.id}>{subject.label}</option>)}</optgroup>
+        {transfers.length > 0 && <optgroup label="Cross-field transfers">{transfers.map((subject) => <option value={subject.id}>{subject.label}</option>)}</optgroup>}
       </select>
     </div>
 
@@ -57,6 +59,19 @@ const belts = subjects.filter((subject) => subject.group === 'belt');
         <p class="rr-question">{subject.question}</p>
         {subject.professionalReview && (
           <p class="boundary"><strong>Qualified review in this field:</strong> {subject.professionalReview.limit}</p>
+        )}
+        {subject.transfer && (
+          <div class="rr-transfer" data-transfer-facts>
+            <h4>What you check the transfer against</h4>
+            <dl>
+              <dt>The field's independent reference</dt><dd>{subject.transfer.reference}</dd>
+              <dt>Its review gate</dt><dd>“{subject.transfer.gate.quote}” ({subject.transfer.gate.role}, <a href={subject.transfer.gate.kata.href}>{subject.transfer.gate.kata.id} {subject.transfer.gate.kata.title}</a>)</dd>
+              <dt>Checks you rerun on the learner's work</dt>
+              <dd>{subject.transfer.checks.length ? <ul>{subject.transfer.checks.map((check) => <li>{check}</li>)}</ul> : 'None recorded: choose the checks yourself.'}</dd>
+              <dt>The unseen change you set</dt><dd>One the learner has not practised, of the kind in <a href={subject.transfer.randori.href}>{subject.transfer.randori.id} {subject.transfer.randori.title}</a>. Not a published card as written.</dd>
+              <dt>What the learner worked from</dt><dd><a href={subject.transfer.sheet}>The {subject.transfer.field} practice sheet</a>. Its self-check is the learner's own and is not evidence for a criterion.</dd>
+            </dl>
+          </div>
         )}
         {subject.criteria.map((criterion) => (
           <fieldset data-criterion={criterion.id}>
@@ -129,6 +144,10 @@ const belts = subjects.filter((subject) => subject.group === 'belt');
   .rr-choices { display: flex; flex-wrap: wrap; gap: 0 var(--space-4); }
   .rr-problems li + li { margin-top: var(--space-1); }
   .boundary { padding: var(--space-3); border-left: 4px solid var(--tone-gold); background: var(--paper-sunk); }
+  .rr-transfer { padding: var(--space-3) var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); overflow-wrap: anywhere; }
+  .rr-transfer dt { font-weight: 700; margin-top: var(--space-2); }
+  .rr-transfer dd { margin: 0; }
+  .rr-transfer ul { margin: 0; padding-left: var(--space-4); }
 </style>
 
 <script>

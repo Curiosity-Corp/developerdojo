@@ -3,6 +3,7 @@ import { humanize } from './kata-recipes';
 import { adaptationSchema, UNPUBLISHABLE, type MissionPlaybook, type MissionReferences, type MissionTemplate } from './mission-playbook';
 import type { AssessmentMap } from './assessment-map';
 import type { SectorPack } from './sector-pack';
+import { reviewRecordHref, reviewRequestHref, transferSubjectId } from './review-record';
 
 /**
  * Transfer practice (developerdojo#95): a learner carries the worked mission's foundation technique into one field
@@ -176,6 +177,12 @@ const url = (path: string) => `${SITE}${path}`;
 const kata = (item: KataLink) => `${item.id} ${item.title} (${url(item.href)})`;
 const sentence = (items: readonly string[], none: string) => items.length ? `${items.join('; ')}.` : none;
 
+/** The review record, opened on the transfer into one field. */
+export const reviewHref = (packId: string) => reviewRecordHref(transferSubjectId(packId));
+
+/** The learner's review request, opened on the transfer into one field. */
+export const requestHref = (packId: string) => reviewRequestHref(transferSubjectId(packId));
+
 /** The site path of a field's practice sheet. */
 export const sheetPath = (packId: string) => `/examples/mission-transfer/${packId}.md`;
 
@@ -191,7 +198,7 @@ export function renderPracticeSheet(context: SheetContext, field: PracticeField)
     gate: `"${field.gate.reviewGate}" (${field.gate.role}, ${kata(field.gate.kata)})`,
     randori: kata(field.randori),
     evidence: criteria.map((criterion) => `${criterion.id}: ${criterion.evidence.map((item) => item.title).join(', ')}`).join('; '),
-    review: field.checks.length ? `The reviewer reruns: ${field.checks.join('; ')}.` : 'The reviewer chooses the checks.',
+    review: `${field.checks.length ? `The reviewer reruns: ${field.checks.join('; ')}.` : 'The reviewer chooses the checks.'} Ask for the review with a review request for this transfer: ${url(requestHref(field.packId))} The reviewer records the result on the review record for this transfer: ${url(reviewHref(field.packId))}`,
   };
   const brief: Record<string, string> = {
     goal: `Practice: carry the technique into ${field.title}. Replace this with your own goal and decision-maker if you take it into real work.`,

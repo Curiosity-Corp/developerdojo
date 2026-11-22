@@ -97,6 +97,14 @@ Rules the check enforces (`checkTransferPractice`, run by the build and by `test
   result; only an independent reviewer records one (`docs/independent-review-pilot.md`).
 - Published text has no issue or MR references, hostnames or repository paths.
 
+**Independent review of a transfer.** Each practice card and each sheet links the learner to
+`/review-request?subject=transfer:<pack>`, to ask for the review, and the reviewer to `/review-record?subject=transfer:<pack>`,
+where a reviewer who did not help the learner records the playbook's transfer criteria (MD-1 and SEN-2 from the
+assessment map) against the field's reference, review gate, checks and an unseen change of the Randori's kind. The
+subjects are built from the same assembled practice (`transferSubjects` in `src/lib/review-record.ts`), so a new field
+gets its review with its practice. The record stays on the reviewer's device; the learner's sheet still says
+Unavailable until the reviewer hands over the finished log. See `docs/independent-review-pilot.md`, section 10.
+
 To add a field: add its sector pack (`docs/sector-packs.md`), then add `{ packId, reference, gate }` to
 `additionalFields`, naming the recipe role whose review gate shows the field's independent check. The e2e spec
 `e2e/mission-transfer.spec.ts` lists the fields it expects; add the new one there.
@@ -108,4 +116,5 @@ To add a field: add its sector pack (`docs/sector-packs.md`), then add `{ packId
   permission before any of it is published, and none is published here.
 - Professional approval is not given or implied: BIM and agriculture need qualified review for real use.
 - No learner has used a transfer practice sheet yet, and no independent reviewer has assessed a transfer made with
-  one. The sheets make the practice and the hand-over to a reviewer concrete; they do not stand in for either.
+  one. The sheets and the transfer review record make the practice and the review runnable; they do not stand in for
+  either, and the worked mission's rubric result stays Unavailable until a real review is recorded.

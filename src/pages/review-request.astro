@@ -2,16 +2,15 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import ReviewRequest from '../components/ReviewRequest.astro';
-import { RANKS } from '../lib/ranks';
-import { loadAssessmentMap } from '../lib/assessment-map';
 import { requestSubjects, type RequestPage } from '../lib/review-request';
-import { loadSpecialistBelts } from '../lib/specialist-belts-content';
-import { assessmentMap } from '../data/assessment-map';
+import { loadReviewSubjects } from '../lib/review-subjects-content';
 
 // The learner's half of an independent review (#90). The subjects are the review record's own (ranks and specialist
-// belts from the assessment map and the sector packs), so a request and the record that answers it cannot disagree.
-const map = loadAssessmentMap(assessmentMap);
-const subjects = requestSubjects(map, await loadSpecialistBelts(), (id) => RANKS.find((rank) => rank.id === id)?.name ?? id);
+// belts from the assessment map and the sector packs, cross-field transfers from the mission playbook's transfer
+// practice, #95), so a request and the record that answers it cannot disagree.
+const content = await loadReviewSubjects();
+const { map } = content;
+const subjects = requestSubjects(map, content.subjects, content.belts);
 const page: RequestPage = { subjects, evidence: map.pilot.evidence, steps: map.pilot.steps.map((step) => step.title) };
 
 // Where the learner's request and the reviewer's record sit in the pilot steps. A step title that is no longer in
@@ -26,8 +25,8 @@ for (const title of Object.keys(ROLES)) {
   if (!map.pilot.steps.some((step) => step.title === title)) throw new Error(`/review-request names the pilot step "${title}", which is not in src/data/assessment-map.ts`);
 }
 ---
-<BaseLayout title="Ask for an independent review" description="Prepare a request for an independent review against a rank or a specialist belt: what the reviewer looks for, where your evidence is, the scope of consent and the kind of unseen task.">
-  <PageHero compact eyebrow="Ranks · specialist belts · independent review" title="Ask for an independent review" subtitle="See what a rank or specialist belt asks for, check that your evidence covers it, and prepare a request you hand privately to the pilot coordinator. Nothing leaves your device." ctas={[{ label: 'Prepare your request', href: '#rq-title', icon: 'arrow-right' }, { label: 'How a review works', href: '#how', variant: 'ghost', icon: 'arrow-right' }]} />
+<BaseLayout title="Ask for an independent review" description="Prepare a request for an independent review against a rank, a specialist belt or a cross-field transfer: what the reviewer looks for, where your evidence is, the scope of consent and the kind of unseen task.">
+  <PageHero compact eyebrow="Ranks · specialist belts · transfers · independent review" title="Ask for an independent review" subtitle="See what a rank, a specialist belt or a transfer into a field asks for, check that your evidence covers it, and prepare a request you hand privately to the pilot coordinator. Nothing leaves your device." ctas={[{ label: 'Prepare your request', href: '#rq-title', icon: 'arrow-right' }, { label: 'How a review works', href: '#how', variant: 'ghost', icon: 'arrow-right' }]} />
 
   <section class="section"><div class="container content">
     <p class="boundary" data-request-boundary><strong>A request, not an application:</strong> A review request awards nothing and is not an application for a certificate. The rubrics it names are proposed, not approved, and no pilot review has run yet. A rank certificate still follows the <a href="/certificates">certificate process</a>, with a separate Maintainer deciding. Dojo assessment is not professional licensure or accreditation. This website takes no authenticated submissions: your request stays on your device until you copy it.</p>
