@@ -27,6 +27,7 @@ export const assessmentMap = {
         href: '/library/product-package-rubric',
         summary: 'The Developer certificate does not change: a Sensei reviews a Product Package against the six-skill rubric, and a separate Maintainer decides.',
       },
+      unseenTask: 'One changed requirement in your own field, chosen by the reviewer and revealed when the session starts.',
       rubric: {
         tier: 'foundation',
         status: 'proposed',
@@ -75,6 +76,7 @@ export const assessmentMap = {
         href: '/library/master-developer-assessment',
         summary: 'The Master Developer certificate does not change: four gates, a final exam and an oral review observed by a Sensei or mentor, and a separate Maintainer decides.',
       },
+      unseenTask: 'A brief in a tool family or field you did not practice, and a tool withdrawn or a failure injected while you work on it.',
       rubric: {
         tier: 'advanced',
         status: 'proposed',
@@ -123,6 +125,7 @@ export const assessmentMap = {
         href: '/library/sensei-role-and-limits',
         summary: 'Sensei stays by application or invitation. The Sensei handbook sets how a Sensei reviews, and the certificate process sets who decides.',
       },
+      unseenTask: 'Teaching a technique to a second volunteer under a constraint the reviewer chooses, adapting it to a second field named on the day, and reviewing a packet with one known defect.',
       rubric: {
         tier: 'advanced',
         status: 'proposed',
@@ -173,6 +176,7 @@ export const assessmentMap = {
   specialistBelts: {
     question: 'Can this person do the work of one field, checked the way that field checks it, when the situation changes?',
     reviewedStages: ['brown', 'black'],
+    unseenTask: 'A change of the kind the field Randori describes, one you have not practiced, revealed after the work starts. It is not one of the published Randori cards as written.',
     whyTheseStages: 'Brown is the first stage that asks the learner to defend their evidence under an unseen change, so it is the first one an independent reviewer looks at. White, Yellow and Green are practiced with your own checklist on the belts page.',
     criteria: [
       {
