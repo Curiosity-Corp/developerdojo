@@ -1,0 +1,956 @@
+{
+  "generatedOn": "2026-11-22",
+  "matrix": [
+    {
+      "area": "sources-and-links",
+      "label": "Sources and links",
+      "owner": "Catalog maintainer",
+      "cadenceDays": 90
+    },
+    {
+      "area": "harness-model-pricing",
+      "label": "Harness and model versions and pricing",
+      "owner": "Catalog maintainer",
+      "cadenceDays": 30
+    },
+    {
+      "area": "benchmarks",
+      "label": "Benchmark and comparison results",
+      "owner": "Benchmark maintainer",
+      "cadenceDays": 30
+    },
+    {
+      "area": "skill-provenance",
+      "label": "Skill provenance and security",
+      "owner": "Catalog maintainer",
+      "cadenceDays": 90
+    },
+    {
+      "area": "integration-compatibility",
+      "label": "Integration read/write compatibility",
+      "owner": "Catalog maintainer",
+      "cadenceDays": 90
+    },
+    {
+      "area": "artifact-validity",
+      "label": "Kata artifacts and exercises",
+      "owner": "Kata maintainer",
+      "cadenceDays": 90
+    },
+    {
+      "area": "domain-standards",
+      "label": "Domain standards",
+      "owner": "Domain maintainer",
+      "cadenceDays": 365
+    },
+    {
+      "area": "qualified-review",
+      "label": "Qualified review requirements",
+      "owner": "Domain maintainer",
+      "cadenceDays": 365
+    }
+  ],
+  "entries": [
+    {
+      "id": "PRACTICE-001",
+      "surface": "kata",
+      "title": "Compare AI instructions",
+      "href": "/katas/compare-instructions",
+      "area": "artifact-validity",
+      "maintainerRole": "Kata maintainer",
+      "provenance": [
+        "Example instructions and outputs written for this kata",
+        "Evaluation guidance from Anthropic and Google documentation"
+      ],
+      "checked": "The page and its exercise passed the automated browser checks in the site pipeline. No learner run or independent review is recorded.",
+      "verifiedOn": "2026-11-22",
+      "dueOn": "2027-02-20",
+      "state": "verified"
+    },
+    {
+      "id": "PRACTICE-002",
+      "surface": "kata",
+      "title": "Check context and trust",
+      "href": "/katas/context-trap",
+      "area": "artifact-validity",
+      "maintainerRole": "Kata maintainer",
+      "provenance": [
+        "Example document written for this kata",
+        "OWASP guidance on prompt injection",
+        "Anthropic guardrail documentation"
+      ],
+      "checked": "The page and its exercise passed the automated browser checks in the site pipeline. No learner run or independent review is recorded.",
+      "verifiedOn": "2026-11-22",
+      "dueOn": "2027-02-20",
+      "state": "verified"
+    },
+    {
+      "id": "PRACTICE-003",
+      "surface": "kata",
+      "title": "Design a user journey",
+      "href": "/katas/ux-journey",
+      "area": "artifact-validity",
+      "maintainerRole": "Kata maintainer",
+      "provenance": [
+        "Journey exercise written for this kata",
+        "Figma and Penpot prototyping help pages"
+      ],
+      "checked": "The page and its exercise passed the automated browser checks in the site pipeline. No learner run or independent review is recorded.",
+      "verifiedOn": "2026-11-22",
+      "dueOn": "2027-02-20",
+      "state": "verified"
+    },
+    {
+      "id": "PRACTICE-004",
+      "surface": "kata",
+      "title": "Investigate a real IFC model",
+      "href": "/katas/inspect-ifc",
+      "area": "artifact-validity",
+      "maintainerRole": "Kata maintainer",
+      "provenance": [
+        "buildingSMART certification dataset sample (wall with opening and window), pinned to a commit, with its licence",
+        "IfcOpenShell documentation"
+      ],
+      "checked": "The page and its exercise passed the automated browser checks in the site pipeline. No learner run or independent review is recorded.",
+      "verifiedOn": "2026-11-22",
+      "dueOn": "2027-02-20",
+      "state": "verified"
+    },
+    {
+      "id": "PRACTICE-005",
+      "surface": "kata",
+      "title": "Compare a room’s lighting energy",
+      "href": "/katas/lighting-energy",
+      "area": "artifact-validity",
+      "maintainerRole": "Kata maintainer",
+      "provenance": [
+        "Example room and bulb figures written for this kata",
+        "US Energy Information Administration and US Department of Energy guidance"
+      ],
+      "checked": "The page and its exercise passed the automated browser checks in the site pipeline. No learner run or independent review is recorded.",
+      "verifiedOn": "2026-11-22",
+      "dueOn": "2027-02-20",
+      "state": "verified"
+    },
+    {
+      "id": "PRACTICE-006",
+      "surface": "kata",
+      "title": "Customize open source",
+      "href": "/katas/open-source-patch-lab",
+      "area": "artifact-validity",
+      "maintainerRole": "Kata maintainer",
+      "provenance": [
+        "Mattermost and its welcome bot plugin, pinned to commits, with their licences",
+        "REUSE and SPDX documentation"
+      ],
+      "checked": "The page and its exercise passed the automated browser checks in the site pipeline. No learner run or independent review is recorded.",
+      "verifiedOn": "2026-11-22",
+      "dueOn": "2027-02-20",
+      "state": "verified"
+    },
+    {
+      "id": "PRACTICE-007",
+      "surface": "kata",
+      "title": "Rescue messy data",
+      "href": "/katas/data-rescue",
+      "area": "artifact-validity",
+      "maintainerRole": "Kata maintainer",
+      "provenance": [
+        "Fictional dataset written for this kata"
+      ],
+      "checked": "The page and its exercise passed the automated browser checks in the site pipeline. No learner run or independent review is recorded.",
+      "verifiedOn": "2026-11-22",
+      "dueOn": "2027-02-20",
+      "state": "verified"
+    },
+    {
+      "id": "PRACTICE-008",
+      "surface": "kata",
+      "title": "Explore a real 3D room",
+      "href": "/katas/scan-a-room",
+      "area": "artifact-validity",
+      "maintainerRole": "Kata maintainer",
+      "provenance": [
+        "Room capture and viewer from an open-source 3D capture project, pinned to a commit, with its asset licence"
+      ],
+      "checked": "The page and its exercise passed the automated browser checks in the site pipeline. No learner run or independent review is recorded.",
+      "verifiedOn": "2026-11-22",
+      "dueOn": "2027-02-20",
+      "state": "verified"
+    },
+    {
+      "id": "AGR-001",
+      "surface": "recipe",
+      "title": "Inspect a daily weather record: dates, units, gaps and flags",
+      "href": "/katas/agr-001-inspect-weather-record",
+      "area": "artifact-validity",
+      "maintainerRole": "Agriculture pathway maintainer",
+      "provenance": [
+        "noaa-ghcnd-USW00093193-2023.csv: noaa/ghcn-daily (copy on /examples/agriculture-pathway/inputs/)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent, agronomic or engineering review yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "AGR-002",
+      "surface": "recipe",
+      "title": "Estimate reference evapotranspiration with FAO-56 from temperature data",
+      "href": "/katas/agr-002-reference-et",
+      "area": "artifact-validity",
+      "maintainerRole": "Agriculture pathway maintainer",
+      "provenance": [
+        "noaa-ghcnd-USW00093193-2023.csv: noaa/ghcn-daily (copy on /examples/agriculture-pathway/inputs/)",
+        "FAO-56 Examples 8 and 18: fao/crop-evapotranspiration-56"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent, agronomic or engineering review yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "AGR-003",
+      "surface": "recipe",
+      "title": "Estimate a crop's net irrigation need from crop coefficients and effective rain",
+      "href": "/katas/agr-003-irrigation-need",
+      "area": "artifact-validity",
+      "maintainerRole": "Agriculture pathway maintainer",
+      "provenance": [
+        "et0-daily.csv: Your AGR-002 output, or /examples/agriculture-pathway/generated/et0-daily.csv",
+        "FAO-56 Tables 11 and 12, and FAO Training Manual 3 section 4.2: fao/crop-evapotranspiration-56 and fao/irrigation-water-needs"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent, agronomic or engineering review yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "AGR-R01",
+      "surface": "recipe",
+      "title": "Agriculture Randori: an unseen change of assumption",
+      "href": "/katas/agr-r01-randori",
+      "area": "artifact-validity",
+      "maintainerRole": "Agriculture pathway maintainer",
+      "provenance": [
+        "Your AGR-003 estimate: Your own output, or /examples/agriculture-pathway/generated/irrigation.json",
+        "The Randori cards: The table on /katas/agriculture-pathway (the partner keeps it; the learner sees only the drawn card)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent, agronomic or engineering review yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "BIM-001",
+      "surface": "recipe",
+      "title": "Inspect an IFC model: schema, units, spatial tree and relationships",
+      "href": "/katas/bim-001-inspect-model",
+      "area": "artifact-validity",
+      "maintainerRole": "BIM pathway maintainer",
+      "provenance": [
+        "wall-with-opening-and-window.ifc: buildingsmart/ifc-wall-example (copy on /examples/bim-pathway/)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent or professional review yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "BIM-002",
+      "surface": "recipe",
+      "title": "Read the property sets and find what is missing",
+      "href": "/katas/bim-002-property-sets",
+      "area": "artifact-validity",
+      "maintainerRole": "BIM pathway maintainer",
+      "provenance": [
+        "wall-with-opening-and-window.ifc: buildingsmart/ifc-wall-example (copy on /examples/bim-pathway/)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent or professional review yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "BIM-003",
+      "surface": "recipe",
+      "title": "Check a model against IDS requirements",
+      "href": "/katas/bim-003-ids-check",
+      "area": "artifact-validity",
+      "maintainerRole": "BIM pathway maintainer",
+      "provenance": [
+        "wall-with-opening-and-window.ifc: buildingsmart/ifc-wall-example (copy on /examples/bim-pathway/)",
+        "practice-requirements.ids: /examples/bim-pathway/practice-requirements.ids"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent or professional review yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "BIM-004",
+      "surface": "recipe",
+      "title": "Change the model and check it again",
+      "href": "/katas/bim-004-change-and-revalidate",
+      "area": "artifact-validity",
+      "maintainerRole": "BIM pathway maintainer",
+      "provenance": [
+        "wall-with-opening-and-window.ifc: buildingsmart/ifc-wall-example (copy on /examples/bim-pathway/)",
+        "practice-requirements.ids: /examples/bim-pathway/practice-requirements.ids"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent or professional review yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "BIM-005",
+      "surface": "recipe",
+      "title": "Build a 3D mesh and check its shape",
+      "href": "/katas/bim-005-mesh-geometry",
+      "area": "artifact-validity",
+      "maintainerRole": "BIM pathway maintainer",
+      "provenance": [
+        "wall-with-opening-and-window.ifc: buildingsmart/ifc-wall-example (copy on /examples/bim-pathway/)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent or professional review yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "BIM-006",
+      "surface": "recipe",
+      "title": "Trace quantities to the model objects",
+      "href": "/katas/bim-006-quantity-trace",
+      "area": "artifact-validity",
+      "maintainerRole": "BIM pathway maintainer",
+      "provenance": [
+        "wall-with-opening-and-window.ifc: buildingsmart/ifc-wall-example (copy on /examples/bim-pathway/)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent or professional review yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "BIM-R01",
+      "surface": "recipe",
+      "title": "BIM Randori: an unseen requirement change",
+      "href": "/katas/bim-r01-randori",
+      "area": "artifact-validity",
+      "maintainerRole": "BIM pathway maintainer",
+      "provenance": [
+        "wall-with-opening-and-window.edited.ifc: /examples/bim-pathway/generated/wall-with-opening-and-window.edited.ifc",
+        "randori-cards.ids: /examples/bim-pathway/randori-cards.ids (the partner keeps it; the learner sees only the drawn card)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent or professional review yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "FND-001",
+      "surface": "recipe",
+      "title": "Build a working prototype, then change one stack variable",
+      "href": "/katas/fnd-001-stack-comparison",
+      "area": "artifact-validity",
+      "maintainerRole": "Foundation kata maintainer (not yet assigned)",
+      "provenance": [
+        "Prompt A, the task brief: /examples/fnd-001/prompts/A.txt, the same text as prompt A in the stack workbench",
+        "Prompt B, the brief plus a self-review request (the instructions variant): /examples/fnd-001/prompts/B.txt",
+        "The reference page, the finished outcome to aim at: /examples/pocket-garden.html",
+        "The recorded runs and check results: /examples/fnd-001 (instructions and model) and /examples/fnd-001-harness (harness)"
+      ],
+      "checked": "The independent browser checker scored the reference and every recorded run and correction (ARN-001 on 20 November 2026, ARN-003 on 21 November 2026), and CI repeats those checks in every pipeline. Not checked: the proposed comparisons, the phone path and the transfer challenge, which nobody has recorded running, and no peer has reviewed the record.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "SCI-001",
+      "surface": "recipe",
+      "title": "Inspect a published research record: columns, units, gaps and internal consistency",
+      "href": "/katas/sci-001-inspect-research-record",
+      "area": "artifact-validity",
+      "maintainerRole": "Science pathway maintainer",
+      "provenance": [
+        "gistemp-v4-global-land-ocean.csv: nasa/gistemp (copy on /examples/science-pathway/inputs/)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a metrologist, statistician or climate scientist yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "SCI-002",
+      "surface": "recipe",
+      "title": "Evaluate measurement uncertainty: Type A evaluation, correlated inputs and an uncertainty budget",
+      "href": "/katas/sci-002-uncertainty-budget",
+      "area": "artifact-validity",
+      "maintainerRole": "Science pathway maintainer",
+      "provenance": [
+        "The five sets of V, I and phi in the GUM, Table H.2: bipm/gum-jcgm-100-2008 (read the table in the GUM; the script holds the same numbers)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a metrologist, statistician or climate scientist yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "SCI-003",
+      "surface": "recipe",
+      "title": "Fit a line by least squares and report its parameters with standard uncertainties",
+      "href": "/katas/sci-003-least-squares-line",
+      "area": "artifact-validity",
+      "maintainerRole": "Science pathway maintainer",
+      "provenance": [
+        "The GUM's thermometer readings and corrections, Table H.6: bipm/gum-jcgm-100-2008 (read the table in the GUM; the script holds the same numbers)",
+        "gistemp-v4-global-land-ocean.csv: nasa/gistemp (copy on /examples/science-pathway/inputs/)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a metrologist, statistician or climate scientist yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "SCI-R01",
+      "surface": "recipe",
+      "title": "Science Randori: an unseen change of assumption",
+      "href": "/katas/sci-r01-randori",
+      "area": "artifact-validity",
+      "maintainerRole": "Science pathway maintainer",
+      "provenance": [
+        "Your SCI-003 fit report: Your own output, or /examples/science-pathway/generated/trend.json",
+        "The Randori cards: The table on /katas/science-pathway (the partner keeps it; the learner sees only the drawn card)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a metrologist, statistician or climate scientist yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "UX-001",
+      "surface": "recipe",
+      "title": "Map a sitemap with branches and error states",
+      "href": "/katas/ux-001-sitemap",
+      "area": "artifact-validity",
+      "maintainerRole": "UX pathway maintainer",
+      "provenance": [
+        "Pocket Invoice flow (11 states, 19 transitions): The UX pathway page and page 01 of pocket-invoice.penpot",
+        "Prototyping in Penpot: penpot/prototyping"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers; no independent review yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "UX-002",
+      "surface": "recipe",
+      "title": "Draw low-fidelity screens and wire the flow",
+      "href": "/katas/ux-002-low-fidelity",
+      "area": "artifact-validity",
+      "maintainerRole": "UX pathway maintainer",
+      "provenance": [
+        "Your sitemap from UX-001: Your own Penpot file",
+        "Page 02 of pocket-invoice.penpot: The UX pathway page"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers; no independent review yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "UX-003",
+      "surface": "recipe",
+      "title": "Define design tokens for colour, type and spacing",
+      "href": "/katas/ux-003-tokens",
+      "area": "artifact-validity",
+      "maintainerRole": "UX pathway maintainer",
+      "provenance": [
+        "pocket-invoice-tokens.json: The UX pathway page",
+        "Design tokens (Penpot user guide): penpot/design-tokens"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers; no independent review yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "UX-004",
+      "surface": "recipe",
+      "title": "Build components from tokens",
+      "href": "/katas/ux-004-components",
+      "area": "artifact-validity",
+      "maintainerRole": "UX pathway maintainer",
+      "provenance": [
+        "Your token file from UX-003: Your own work",
+        "Error summary pattern: gov-uk/error-summary"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers; no independent review yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "UX-005",
+      "surface": "recipe",
+      "title": "Implement the screens and check accessibility",
+      "href": "/katas/ux-005-implement-and-qa",
+      "area": "artifact-validity",
+      "maintainerRole": "UX pathway maintainer",
+      "provenance": [
+        "Pocket Invoice example page: /examples/pocket-invoice/",
+        "Error summary pattern: gov-uk/error-summary",
+        "WCAG 2.2 quick reference: w3c/wcag-quickref"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers; no independent review yet.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "UX-R01",
+      "surface": "recipe",
+      "title": "UX Randori: an unseen flow with a hidden constraint",
+      "href": "/katas/ux-r01-randori",
+      "area": "artifact-validity",
+      "maintainerRole": "UX pathway maintainer",
+      "provenance": [
+        "An unseen brief and a sealed constraint: Chosen by your partner from the list in the download",
+        "Moderated usability testing: gov-uk/moderated-usability-testing"
+      ],
+      "state": "stale",
+      "reason": "Built and checked by the Dojo maintainers; no independent review yet."
+    },
+    {
+      "id": "claude-code",
+      "surface": "armory",
+      "title": "Claude Code",
+      "href": "/armory/registry#claude-code",
+      "area": "harness-model-pricing",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "Anthropic (official)",
+        "Claude Code overview",
+        "Permissions",
+        "Run Claude Code programmatically",
+        "Costs",
+        "Release v2.1.330",
+        "Commercial terms"
+      ],
+      "checked": "Documentation, package metadata and the FND-001 run files.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2026-12-20",
+      "state": "stale",
+      "reason": "A change was reported on 2026-11-22: Claude Code 2.1.330 is now the current release. The smoke test and the recorded runs used 2.1.329, so steps and permissions have not been checked on the version you will install."
+    },
+    {
+      "id": "claude-sonnet-5-5",
+      "surface": "armory",
+      "title": "Claude Sonnet 5.5",
+      "href": "/armory/registry#claude-sonnet-5-5",
+      "area": "harness-model-pricing",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "Anthropic (official)",
+        "Models overview",
+        "Pricing",
+        "Commercial terms"
+      ],
+      "checked": "Models overview, pricing page and the FND-001 run files.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2026-12-20",
+      "state": "verified"
+    },
+    {
+      "id": "claude-haiku-5-5",
+      "surface": "armory",
+      "title": "Claude Haiku 5.5",
+      "href": "/armory/registry#claude-haiku-5-5",
+      "area": "harness-model-pricing",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "Anthropic (official)",
+        "Models overview",
+        "Pricing",
+        "Commercial terms"
+      ],
+      "checked": "Models overview, pricing page and the FND-001 run files.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2026-12-20",
+      "state": "verified"
+    },
+    {
+      "id": "mcp-filesystem",
+      "surface": "armory",
+      "title": "MCP filesystem server",
+      "href": "/armory/registry#mcp-filesystem",
+      "area": "integration-compatibility",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "Model Context Protocol project (reference implementation)",
+        "Server source and README",
+        "Repository licence",
+        "MCP security best practices",
+        "Model Context Protocol introduction"
+      ],
+      "checked": "Repository README and licence, npm metadata and the smoke test.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2027-02-18",
+      "state": "verified"
+    },
+    {
+      "id": "playwright-mcp",
+      "surface": "armory",
+      "title": "Playwright MCP",
+      "href": "/armory/registry#playwright-mcp",
+      "area": "integration-compatibility",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "Microsoft (official)",
+        "Repository and README",
+        "Release v0.0.86",
+        "Playwright documentation",
+        "MCP security best practices"
+      ],
+      "checked": "README, --help output, npm metadata, release and the smoke test.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2027-02-18",
+      "state": "verified"
+    },
+    {
+      "id": "git",
+      "surface": "armory",
+      "title": "Git",
+      "href": "/armory/registry#git",
+      "area": "integration-compatibility",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "The Git project (official)",
+        "Git website",
+        "Reference documentation",
+        "Licence (GPLv2)",
+        "Pro Git"
+      ],
+      "checked": "git-scm.com pages and the smoke test.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2027-02-18",
+      "state": "verified"
+    },
+    {
+      "id": "ifcopenshell",
+      "surface": "armory",
+      "title": "IfcOpenShell",
+      "href": "/armory/registry#ifcopenshell",
+      "area": "integration-compatibility",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "IfcOpenShell project (official)",
+        "Installation guide",
+        "PyPI release 0.9.0.post1",
+        "Source repository",
+        "Sample IFC model"
+      ],
+      "checked": "Installation guide, validation and geometry documentation, PyPI metadata and both smoke tests.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "ifctester",
+      "surface": "armory",
+      "title": "IfcTester",
+      "href": "/armory/registry#ifctester",
+      "area": "integration-compatibility",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "IfcOpenShell project (official)",
+        "IfcTester documentation",
+        "PyPI release 0.9.0",
+        "Source repository (src/ifctester)",
+        "IDS standard (buildingSMART)"
+      ],
+      "checked": "IfcTester documentation, PyPI metadata and the smoke test.",
+      "verifiedOn": "2026-11-21",
+      "dueOn": "2027-02-19",
+      "state": "verified"
+    },
+    {
+      "id": "gemini-cli",
+      "surface": "armory",
+      "title": "Gemini CLI",
+      "href": "/armory/registry#gemini-cli",
+      "area": "harness-model-pricing",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "Google (official)",
+        "Documentation",
+        "Installation",
+        "Repository"
+      ],
+      "checked": "Documentation review: documentation, npm metadata and release. Not installed or run for the Dojo.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2026-12-20",
+      "state": "verified"
+    },
+    {
+      "id": "cloudflare-harness",
+      "surface": "armory",
+      "title": "Cloudflare Agents harnesses",
+      "href": "/armory/registry#cloudflare-harness",
+      "area": "harness-model-pricing",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "Cloudflare (official)",
+        "Harnesses",
+        "Agent setup"
+      ],
+      "checked": "Documentation review: the harnesses page. Not installed or run for the Dojo.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2026-12-20",
+      "state": "verified"
+    },
+    {
+      "id": "skills-format",
+      "surface": "armory",
+      "title": "Agent Skills format",
+      "href": "/armory/registry#skills-format",
+      "area": "skill-provenance",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "Agent Skills (specification)",
+        "What are skills",
+        "Specification",
+        "Specification repository",
+        "Agent Skills overview (Anthropic)"
+      ],
+      "checked": "Documentation review: the overview and specification. Not installed or run for the Dojo.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2027-02-18",
+      "state": "verified"
+    },
+    {
+      "id": "agents-md",
+      "surface": "armory",
+      "title": "AGENTS.md",
+      "href": "/armory/registry#agents-md",
+      "area": "skill-provenance",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "AGENTS.md (specification)",
+        "AGENTS.md",
+        "Repository",
+        "AGENTS.md (catalogue)"
+      ],
+      "checked": "Documentation review: the AGENTS.md site and repository. Not installed or run for the Dojo.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2027-02-18",
+      "state": "verified"
+    },
+    {
+      "id": "scan-to-threejs",
+      "surface": "armory",
+      "title": "scan-to-threejs",
+      "href": "/armory/registry#scan-to-threejs",
+      "area": "skill-provenance",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "Wes Bos (community)",
+        "Skill at commit 31b2dc9"
+      ],
+      "checked": "Source review at the pinned commit (see the security review). Not run.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2027-02-18",
+      "state": "verified"
+    },
+    {
+      "id": "blender-mcp",
+      "surface": "armory",
+      "title": "MCP for Blender",
+      "href": "/armory/registry#blender-mcp",
+      "area": "integration-compatibility",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "Siddharth Ahuja (community)",
+        "Repository and README",
+        "Blender command-line rendering"
+      ],
+      "checked": "README and PyPI metadata. Not run.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2027-02-18",
+      "state": "verified"
+    },
+    {
+      "id": "intuit-cli",
+      "surface": "armory",
+      "title": "Intuit CLI for QuickBooks",
+      "href": "/armory/registry#intuit-cli",
+      "area": "integration-compatibility",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "Intuit (official)",
+        "Repository",
+        "OAuth for QuickBooks"
+      ],
+      "checked": "Documentation review: repository README. Not installed or run for the Dojo.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2027-02-18",
+      "state": "verified"
+    },
+    {
+      "id": "xai-docs",
+      "surface": "armory",
+      "title": "xAI Docs MCP",
+      "href": "/armory/registry#xai-docs",
+      "area": "integration-compatibility",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "xAI (official)",
+        "Docs MCP"
+      ],
+      "checked": "Documentation review: the Docs MCP page. Not installed or run for the Dojo.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2027-02-18",
+      "state": "verified"
+    },
+    {
+      "id": "claude-code-plugins",
+      "surface": "armory",
+      "title": "Claude Code plugins",
+      "href": "/armory/registry#claude-code-plugins",
+      "area": "integration-compatibility",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "Anthropic (official)",
+        "Plugins"
+      ],
+      "checked": "Documentation review: the plugins page. Not installed or run for the Dojo.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2027-02-18",
+      "state": "verified"
+    },
+    {
+      "id": "claude-api",
+      "surface": "armory",
+      "title": "Claude API",
+      "href": "/armory/registry#claude-api",
+      "area": "integration-compatibility",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "Anthropic (official)",
+        "API overview",
+        "Pricing"
+      ],
+      "checked": "Documentation review: the API overview and pricing pages. Not installed or run for the Dojo.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2027-02-18",
+      "state": "verified"
+    },
+    {
+      "id": "qgis",
+      "surface": "armory",
+      "title": "QGIS",
+      "href": "/armory/registry#qgis",
+      "area": "integration-compatibility",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "QGIS project (official)",
+        "QGIS",
+        "Source repository"
+      ],
+      "checked": "Documentation review: website and repository. Not installed or run for the Dojo.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2027-02-18",
+      "state": "verified"
+    },
+    {
+      "id": "blender",
+      "surface": "armory",
+      "title": "Blender",
+      "href": "/armory/registry#blender",
+      "area": "integration-compatibility",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "Blender Foundation (official)",
+        "Command-line rendering",
+        "Source mirror"
+      ],
+      "checked": "Documentation review: the catalogue page and source licence. Not installed or run for the Dojo.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2027-02-18",
+      "state": "verified"
+    },
+    {
+      "id": "gazebo",
+      "surface": "armory",
+      "title": "Gazebo",
+      "href": "/armory/registry#gazebo",
+      "area": "integration-compatibility",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "Open Robotics (official)",
+        "Getting started",
+        "Getting started with Gazebo",
+        "gz-sim repository"
+      ],
+      "checked": "Documentation review: getting-started guide and repository. Not installed or run for the Dojo.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2027-02-18",
+      "state": "verified"
+    },
+    {
+      "id": "ffmpeg",
+      "surface": "armory",
+      "title": "FFmpeg",
+      "href": "/armory/registry#ffmpeg",
+      "area": "integration-compatibility",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "FFmpeg project (official)",
+        "Download",
+        "Legal"
+      ],
+      "checked": "Documentation review: download and legal pages. Not installed or run for the Dojo.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2027-02-18",
+      "state": "verified"
+    },
+    {
+      "id": "numpy",
+      "surface": "armory",
+      "title": "NumPy",
+      "href": "/armory/registry#numpy",
+      "area": "integration-compatibility",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "NumPy project (official)",
+        "Documentation",
+        "Licence",
+        "Repository"
+      ],
+      "checked": "Documentation review: documentation, licence and release. Not installed or run for the Dojo.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2027-02-18",
+      "state": "verified"
+    },
+    {
+      "id": "arduino-cli",
+      "surface": "armory",
+      "title": "Arduino CLI",
+      "href": "/armory/registry#arduino-cli",
+      "area": "integration-compatibility",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "Arduino (official)",
+        "Documentation",
+        "Repository"
+      ],
+      "checked": "Documentation review: documentation and repository. Not installed or run for the Dojo.",
+      "verifiedOn": "2026-11-20",
+      "dueOn": "2027-02-18",
+      "state": "verified"
+    }
+  ]
+}
