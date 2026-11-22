@@ -159,6 +159,8 @@ const titleOf = (kind: string) => guide(kind)?.title ?? kind;
     const page = readPage(root);
     const first = page.subjects[0];
     if (!first) return;
+    // Captured once: a hoisted function declaration below does not keep the narrowing of first.
+    const firstId = first.id;
     const ids = page.subjects.map((subject) => subject.id);
     const store = createStore();
     const load = (): ReviewRequest | undefined => store.load(REVIEW_REQUEST_NAME, { version: REVIEW_REQUEST_VERSION, validate: (data) => parseRequest(data, ids) });
@@ -201,13 +203,13 @@ const titleOf = (kind: string) => guide(kind)?.title ?? kind;
       const scope: Record<string, string> = {};
       for (const input of scopeInputs) scope[input.dataset['scope'] ?? ''] = input.value;
       const raw = {
-        subjectId: ids.includes(subjectSelect.value) ? subjectSelect.value : first.id,
+        subjectId: ids.includes(subjectSelect.value) ? subjectSelect.value : firstId,
         locations,
         scope,
         aiUse: aiInputs.find((input) => input.checked)?.value ?? '',
         noPrivateDetails: privateBox.checked,
       };
-      return parseRequest(raw, ids) ?? emptyRequest(first.id);
+      return parseRequest(raw, ids) ?? emptyRequest(firstId);
     }
 
     /** Puts the request into every control. Used on load, on a new request, and when another tab changes it. */
