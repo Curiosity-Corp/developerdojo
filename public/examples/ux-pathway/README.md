@@ -12,10 +12,18 @@ invoicing app for practice: no real company, person or customer.
 | screens/ | Screenshots from Penpot View mode, taken by that check. |
 | inputs/pocket-invoice-flow.json | The flow as plain JSON: screens, the 11 states with their elements, and the 19 numbered transitions. Edit this to change the drawings. |
 | inputs/contrast-pairs.json | The text and control colour pairs the flow script checks against the token file, with their minimum ratios. |
+| inputs/brand.json | The brand: name, wordmark, voice, rules, the screens that show the signed-in navigation, and the phone and desktop layout widths. |
 | tools/ux_pathway.mjs | The flow script: JavaScript for Node.js, no packages to install. It reads the inputs and the token file, draws the SVG files and checks the flow. |
+| tools/ux_hifi.mjs | The high-fidelity part of the script, called by ux_pathway.mjs: the style guide, the components, the screens at two widths, and the fidelity audit. (ux_hifi.d.mts gives its types to the site's tests.) |
+| tools/design_tokens.mjs | Reads the token file, resolves aliases and computes WCAG 2 contrast; shared by both scripts. |
 | generated/sitemap.svg | The sitemap: states grouped by screen, numbered arrows, error and recovery arrows dashed. |
 | generated/journey.svg | Every low-fidelity screen on one canvas, each arrow starting at the button that causes it. |
 | generated/wireframes/ | One greyscale 390 px low-fidelity screen per state, as SVG. |
+| generated/style-guide.svg, generated/style-guide.md | The style guide drawn from the tokens and the brand file, and the same guide as text. |
+| generated/components.svg | The component sheet: 13 named components drawn only with tokens, and a focus ring sample. |
+| generated/screens/phone/, generated/screens/desktop/ | One high-fidelity screen per state at 390 px and at 1440 px, built from the components. |
+| generated/journey-high.svg | Every high-fidelity phone screen on one canvas, with the same numbered arrows as journey.svg. |
+| generated/fidelity-report.json, generated/fidelity-report.md | The audit of every high-fidelity drawing (token use, text and boundary contrast, control size, components) and what it does not measure. |
 | generated/flow-checks.json, generated/summary.md | The result of every flow and contrast check, as JSON and as a table. |
 | generated/manifest.json | The generated files, the size of each drawing and the SHA-256 of each input. |
 
@@ -34,15 +42,16 @@ file of your own: importing tokens replaces that file's global token set.
 ## Redraw the SVG files from your own flow
 
 1. Copy this folder, with inputs/, tools/ and pocket-invoice-tokens.json.
-2. Edit inputs/pocket-invoice-flow.json (and the token file or the colour pairs, if you like).
+2. Edit inputs/pocket-invoice-flow.json (and the token file, the colour pairs or the brand file, if you like).
 3. Run `node tools/ux_pathway.mjs . out` in the copy, with Node.js.
-4. Open out/summary.md. The script exits with 1 when a check fails, and still writes every file so you can see why.
+4. Open out/summary.md and out/fidelity-report.md. The script exits with 1 when a check fails, and still writes every file so you can see why.
 
 Every drawing is plain SVG text, so you can open it in a browser, edit it in a text editor or a vector tool, and
 compare versions in git. Penpot and Figma both document SVG as a way to bring drawings in from other tools; nobody
 has tried that with these files yet.
 
-The clickable version of the same screens is at /examples/pocket-invoice-prototype/.
+The clickable version of the same screens is at /examples/pocket-invoice-prototype/; add ?fidelity=high, or use its
+switch, to see it drawn with the tokens.
 
 ## How the files are made
 
@@ -53,7 +62,7 @@ any file it writes differs from generated/.
 
 ## Licences and credits
 
-- Pocket Invoice, its flow, tokens, Penpot file, screenshots, SVG drawings and flow script: Developer Dojo, MIT licence.
+- Pocket Invoice, its flow, tokens, brand file, Penpot file, screenshots, SVG drawings and scripts: Developer Dojo, MIT licence.
 - @penpot/library, used to write the file: Mozilla Public License 2.0 (Kaleidos). Penpot itself is MPL-2.0.
 - The error summary follows the GOV.UK Design System error summary pattern
   (design-system.service.gov.uk/components/error-summary/), published under the Open Government Licence v3.0.
