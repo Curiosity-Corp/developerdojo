@@ -136,6 +136,7 @@ describe('createStore', () => {
     expect(describeKey('dojo:self-assessment:track-a')).toBe('Track A self-assessment');
     expect(describeKey('dojo:checklist:weekly-checklist-track-a')).toBe('Checklist ticks on weekly-checklist-track-a');
     expect(describeKey('dojo-progress-v1')).toBe('Module progress on the Train page');
+    expect(describeKey('dojo:review-record')).toBe('Independent review record');
   });
 });
 

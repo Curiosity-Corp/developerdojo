@@ -228,6 +228,7 @@ export function describeKey(key: string): string {
   if (name === 'self-assessment:track-a') return 'Track A self-assessment';
   if (name === 'lessons') return 'Lessons marked done';
   if (name === 'belt-evidence') return 'Belt practice evidence checklist';
+  if (name === 'review-record') return 'Independent review record';
   if (name.startsWith('checklist:')) return `Checklist ticks on ${name.slice('checklist:'.length)}`;
   if (name.startsWith('draft:')) return `Template draft: ${name.slice('draft:'.length)}`;
   return name;

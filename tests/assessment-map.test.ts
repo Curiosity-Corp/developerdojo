@@ -124,6 +124,27 @@ describe('the rules reject a map that breaks them', () => {
     });
   }
 
+  it('rejects specialist belt criteria with another prefix, without a Randori criterion, or without field limits', () => {
+    const prefix = copy();
+    prefix.specialistBelts.criteria[0]!.id = 'DEV-9';
+    expect(checkAssessmentMap(prefix).join('\n')).toContain('DEV-9 is a specialist belt criterion and must start with SPB-');
+    const noRandori = copy();
+    for (const criterion of noRandori.specialistBelts.criteria) criterion.demands = criterion.demands.filter((item) => item !== 'unseen-constraint');
+    expect(checkAssessmentMap(noRandori).join('\n')).toContain('specialist belts must have a Randori criterion');
+    const noLimits = copy();
+    for (const criterion of noLimits.specialistBelts.criteria) criterion.demands = criterion.demands.filter((item) => item !== 'domain-adaptation');
+    expect(checkAssessmentMap(noLimits).join('\n')).toContain('specialist belts must assess the limits and qualified review of the field');
+  });
+
+  it('rejects reviewed specialist stages out of order or repeated', () => {
+    const order = copy();
+    order.specialistBelts.reviewedStages = ['black', 'brown'];
+    expect(checkAssessmentMap(order).join('\n')).toContain('reviewedStages must list each stage once, in belt order');
+    const repeated = copy();
+    repeated.specialistBelts.reviewedStages = ['brown', 'brown'];
+    expect(checkAssessmentMap(repeated).join('\n')).toContain('reviewedStages must list each stage once, in belt order');
+  });
+
   it('rejects unknown fields, so nothing unreviewed slips onto the page', () => {
     const map = copy() as unknown as Record<string, unknown>;
     map.approvedBy = 'someone';
@@ -139,6 +160,13 @@ describe('the rules reject a map that breaks them', () => {
 });
 
 describe('the map is reachable and the procedure is written', () => {
+  it('links each specialist belt to the review record, and the pilot to the record', () => {
+    const page = read('src', 'pages', 'assessment-map.astro');
+    expect(page).toContain('href="/review-record"');
+    expect(page).toContain('/review-record?subject=belt:');
+    expect(read('src', 'pages', 'belt-review.astro')).toContain('href="/review-record"');
+  });
+
   it('is linked from the belts, certificates and review pages', () => {
     for (const path of [['src', 'components', 'BeltJourney.astro'], ['src', 'pages', 'certificates.astro'], ['src', 'pages', 'belt-review.astro']]) {
       expect(read(...path), path.join('/')).toContain('href="/assessment-map"');

@@ -25,6 +25,10 @@ export const ADVANCED_MINIMUM: readonly Demand[] = ['unseen-constraint', 'change
 export const EVIDENCE_KINDS = ['artifacts', 'configuration', 'tests', 'review-log', 'failures', 'decisions'] as const;
 export type EvidenceKind = (typeof EVIDENCE_KINDS)[number];
 
+/** The five belt stage ids, in order. */
+export const BELT_STAGE_IDS = ['white', 'yellow', 'green', 'brown', 'black'] as const;
+export type BeltStageId = (typeof BELT_STAGE_IDS)[number];
+
 /** How a reviewer records one criterion. There is no numeric score and no pass mark here. */
 export const OBSERVATIONS = ['Observed', 'Not yet observed', 'Unclear'] as const;
 
@@ -32,7 +36,7 @@ const text = z.string().trim().min(12);
 const link = z.string().regex(/^\/[a-z0-9/#-]*$/, 'a site-relative link');
 
 export const criterionSchema = z.strictObject({
-  id: z.string().regex(/^(DEV|MD|SEN)-\d$/),
+  id: z.string().regex(/^(DEV|MD|SEN|SPB)-\d$/),
   title: z.string().trim().min(4),
   observable: text,
   notYet: text,
@@ -56,13 +60,27 @@ export const rankAssessmentSchema = z.strictObject({
 export type RankAssessment = z.infer<typeof rankAssessmentSchema>;
 
 export const beltStageSchema = z.strictObject({
-  id: z.enum(['white', 'yellow', 'green', 'brown', 'black']),
+  id: z.enum(BELT_STAGE_IDS),
   name: z.string().min(4),
   title: z.string().min(4),
   proof: text,
   status: z.literal('proposed'),
 });
 export type BeltStage = z.infer<typeof beltStageSchema>;
+
+/**
+ * What a specialist belt asks for in one field, on top of the shared stage. The field's own artifact, checks,
+ * Randori and professional-review limit come from its sector pack (src/data/sector-packs.ts), never from here, so
+ * a pathway and its belt cannot disagree. reviewedStages are the stages an independent review applies to; the
+ * stages before them are practiced with the learner's own checklist on /belts.
+ */
+export const specialistBeltsSchema = z.strictObject({
+  question: text,
+  reviewedStages: z.array(z.enum(BELT_STAGE_IDS)).min(1),
+  whyTheseStages: text,
+  criteria: z.array(criterionSchema).min(2),
+});
+export type SpecialistBeltRules = z.infer<typeof specialistBeltsSchema>;
 
 export const evidenceItemSchema = z.strictObject({ kind: z.enum(EVIDENCE_KINDS), title: z.string().min(4), description: text });
 export const pilotStepSchema = z.strictObject({ title: z.string().min(4), description: text, reuses: z.strictObject({ label: z.string().min(4), href: link }).optional() });
@@ -72,6 +90,7 @@ export const pilotMeasureSchema = z.strictObject({ name: z.string().min(4), valu
 export const assessmentMapSchema = z.strictObject({
   ranks: z.array(rankAssessmentSchema).length(RANKS.length),
   belts: z.strictObject({ question: text, assesses: z.array(text).min(2), stages: z.array(beltStageSchema).length(5) }),
+  specialistBelts: specialistBeltsSchema,
   pilot: z.strictObject({
     status: z.enum(['not-run', 'running', 'reported']),
     evidence: z.array(evidenceItemSchema).length(EVIDENCE_KINDS.length),
@@ -99,7 +118,7 @@ export function checkAssessmentMap(input: unknown): string[] {
   const problems: string[] = [];
   const order = RANKS.map((rank) => rank.id);
   if (map.ranks.map((rank) => rank.rank).join() !== order.join()) problems.push(`ranks must be listed once each, in the order ${order.join(', ')}`);
-  const ids = map.ranks.flatMap((rank) => rank.rubric.criteria.map((criterion) => criterion.id));
+  const ids = [...map.ranks.flatMap((rank) => rank.rubric.criteria.map((criterion) => criterion.id)), ...map.specialistBelts.criteria.map((criterion) => criterion.id)];
   for (const id of new Set(ids)) if (ids.filter((other) => other === id).length > 1) problems.push(`criterion ${id} is listed twice`);
   for (const rank of map.ranks) {
     const prefix = { developer: 'DEV', 'master-developer': 'MD', sensei: 'SEN' }[rank.rank];
@@ -119,8 +138,18 @@ export function checkAssessmentMap(input: unknown): string[] {
       if (!demands.has('domain-adaptation')) problems.push('Sensei must assess the domain adaptations of the technique');
     }
   }
-  const stageOrder = ['white', 'yellow', 'green', 'brown', 'black'];
+  const stageOrder: readonly string[] = BELT_STAGE_IDS;
   if (map.belts.stages.map((stage) => stage.id).join() !== stageOrder.join()) problems.push(`belt stages must be ${stageOrder.join(', ')} in order`);
+  const specialist = map.specialistBelts;
+  for (const criterion of specialist.criteria) if (!criterion.id.startsWith('SPB-')) problems.push(`${criterion.id} is a specialist belt criterion and must start with SPB-`);
+  if (!specialist.criteria.some((criterion) => ADVANCED_MINIMUM.every((demand) => criterion.demands.includes(demand)))) {
+    problems.push(`specialist belts must have a Randori criterion that requires ${ADVANCED_MINIMUM.join(', ')}`);
+  }
+  if (!specialist.criteria.some((criterion) => criterion.demands.includes('domain-adaptation'))) problems.push('specialist belts must assess the limits and qualified review of the field (domain-adaptation)');
+  const reviewed = specialist.reviewedStages.map((stage) => stageOrder.indexOf(stage));
+  if (new Set(reviewed).size !== reviewed.length || reviewed.some((index, position) => position > 0 && index < (reviewed[position - 1] ?? -1))) {
+    problems.push('specialistBelts.reviewedStages must list each stage once, in belt order');
+  }
   const kinds = map.pilot.evidence.map((item) => item.kind);
   for (const kind of EVIDENCE_KINDS) if (!kinds.includes(kind)) problems.push(`pilot evidence must include ${kind}`);
   if (map.pilot.status === 'not-run') {

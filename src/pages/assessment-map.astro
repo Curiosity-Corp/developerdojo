@@ -4,6 +4,7 @@ import PageHero from '../components/PageHero.astro';
 import { RANKS } from '../lib/ranks';
 import { DEMAND_LABELS, EVIDENCE_KINDS, OBSERVATIONS, loadAssessmentMap, type EvidenceKind } from '../lib/assessment-map';
 import { assessmentMap } from '../data/assessment-map';
+import { loadSpecialistBelts } from '../lib/specialist-belts-content';
 
 // Throws a readable error, and so fails the build, if the data breaks a rule in src/lib/assessment-map.ts (#90).
 const map = loadAssessmentMap(assessmentMap);
@@ -11,6 +12,9 @@ const rankName = (id: string) => RANKS.find((rank) => rank.id === id)?.name ?? i
 const evidenceTitle = (kind: EvidenceKind) => map.pilot.evidence.find((item) => item.kind === kind)?.title ?? kind;
 const PILOT_STATUS = { 'not-run': 'Not run yet', running: 'Running', reported: 'Reported' } as const;
 const TIER = { foundation: 'Foundation rubric', advanced: 'Advanced rubric' } as const;
+// One specialist belt per sector pack: the field's checks, Randori and qualified-review limit come from the pack.
+const specialistBelts = await loadSpecialistBelts();
+const reviewedStages = map.belts.stages.filter((stage) => map.specialistBelts.reviewedStages.includes(stage.id));
 ---
 <BaseLayout title="Assessment map: ranks, belts and independent review" description="What Developer, Master Developer and Sensei each assess, how that differs from field belts, the proposed advanced rubrics and an independent review pilot.">
   <PageHero compact eyebrow="Ranks · belts · independent review" title="What each rank assesses" subtitle="A rank and a belt answer different questions. This map shows what each one looks for, the proposed rubrics and how an independent review would work." ctas={[{ label: 'See the ranks', href: '#ranks', icon: 'arrow-right' }, { label: 'See the review pilot', href: '#pilot', variant: 'ghost', icon: 'arrow-right' }]} />
@@ -52,6 +56,41 @@ const TIER = { foundation: 'Foundation rubric', advanced: 'Advanced rubric' } as
     <p><a href="/belts">Practice the belt stages in your field</a></p>
   </div></section>
 
+  <section class="section" id="specialist-belts" aria-labelledby="specialist-title"><div class="container content">
+    <h2 id="specialist-title">Specialist belts</h2>
+    <p class="question">{map.specialistBelts.question}</p>
+    <p>A specialist belt is a belt stage in one field, reviewed against that field's own checks. It is reviewed independently at the {reviewedStages.map((stage) => stage.name).join(' and ')} stages. {map.specialistBelts.whyTheseStages}</p>
+    <h3>What every specialist belt asks <span class="tag">Proposed</span></h3>
+    {map.specialistBelts.criteria.map((criterion) => (
+      <article class="criterion" id={criterion.id.toLowerCase()}>
+        <h4><span class="code">{criterion.id}</span> {criterion.title}</h4>
+        <dl>
+          <dt>Observed when</dt><dd>{criterion.observable}</dd>
+          <dt>Not yet observed when</dt><dd>{criterion.notYet}</dd>
+          <dt>Requires</dt><dd>{criterion.demands.map((demand) => DEMAND_LABELS[demand]).join(' · ')}</dd>
+          <dt>Evidence</dt><dd>{criterion.evidence.map(evidenceTitle).join(' · ')}</dd>
+        </dl>
+      </article>
+    ))}
+    <p>A review record for a specialist belt also checks the stage itself, using the proof of the {reviewedStages.map((stage) => stage.name).join(' or ')} stage in the progression above.</p>
+    <h3>Fields with a specialist belt today</h3>
+    <p>Each field below has a complete pathway with checks that run on every build. Other fields can be practiced on the belts page, but have no specialist belt yet.</p>
+    <div class="belts">
+      {specialistBelts.map((belt) => (
+        <article class="belt" id={`belt-${belt.packId}`} aria-labelledby={`belt-${belt.packId}-title`}>
+          <h4 id={`belt-${belt.packId}-title`}>{belt.field}</h4>
+          <dl>
+            <dt>Practice</dt><dd><a href={belt.pathway}>The {belt.field} pathway</a></dd>
+            <dt>Field Randori</dt><dd><a href={belt.randori.href}>{belt.randori.title}</a></dd>
+            <dt>Checks the reviewer reruns</dt><dd><ul>{belt.checks.map((check) => <li>{check}</li>)}</ul></dd>
+            <dt>Qualified review</dt><dd>{belt.professionalReview.required ? 'Required for real work. ' : 'Not required for this practice. '}{belt.professionalReview.limit}</dd>
+          </dl>
+          <p class="record-links">Record a review: {reviewedStages.map((stage, index) => <>{index > 0 && ' · '}<a href={`/review-record?subject=belt:${belt.packId}:${stage.id}`} aria-label={`${stage.name} stage, ${belt.field}`}>{stage.name} stage</a></>)}</p>
+        </article>
+      ))}
+    </div>
+  </div></section>
+
   <section class="section outcome" id="rubrics" aria-labelledby="rubrics-title"><div class="container content">
     <h2 id="rubrics-title">Proposed rubrics</h2>
     <p>Advanced criteria always require an unseen constraint, a changed tool or a failure, and independent judgment. Master Developer also requires transfer to another tool family or field. Sensei also requires teaching or reviewing a technique that works across fields, with its domain adaptations.</p>
@@ -87,6 +126,7 @@ const TIER = { foundation: 'Foundation rubric', advanced: 'Advanced rubric' } as
         <li><strong>{step.title}.</strong> {step.description}{step.reuses && <> <span class="reuse">Uses: <a href={step.reuses.href}>{step.reuses.label}</a></span></>}</li>
       ))}
     </ol>
+    <p data-record-link>During a pilot review, the reviewer can <a href="/review-record">record each criterion with the review record</a>. It keeps the record on the reviewer's device, will not finish without consent, independence and an evidence reference for every criterion, and fixes mistakes with dated corrections.</p>
     <h3>Pilot measures</h3>
     <div class="table-wrap">
       <table>
@@ -132,6 +172,10 @@ const TIER = { foundation: 'Foundation rubric', advanced: 'Advanced rubric' } as
   dd { margin: 0; }
   @media (max-width: 40rem) { dl { grid-template-columns: minmax(0, 1fr); } dd { margin-bottom: var(--space-2); } }
   li + li { margin-top: var(--space-2); }
+  .belts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--space-3); margin-block: var(--space-4); }
+  .belt h4 { margin-top: 0; font-size: var(--text-lg, 1.125rem); }
+  .belt ul { margin: 0; padding-left: var(--space-4); }
+  .record-links { margin-bottom: 0; font-weight: 700; }
   .reuse { display: inline-block; }
   .table-wrap { max-width: 100%; overflow-x: auto; }
   table { border-collapse: collapse; width: 100%; max-width: 75ch; }
