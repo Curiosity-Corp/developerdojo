@@ -11,6 +11,8 @@ export default defineConfig({
   trailingSlash: 'ignore',
   build: { format: 'directory' },
   integrations: [sitemap()],
+  // Code blocks: github-dark (the default) greys comments to 3.05:1; github-dark-default keeps every token at WCAG AA.
+  markdown: { shikiConfig: { theme: 'github-dark-default' } },
   // Moved kata routes (#82): every move in src/data/taxonomy-moves.json is a static redirect page, so
   // old links keep working. tests/taxonomy-identifiers.test.ts checks this list against the ledger.
   redirects: routeRedirects(parseLedger(moves)),

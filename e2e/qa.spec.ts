@@ -327,8 +327,10 @@ test.describe('accessibility (WCAG 2.1 AA, no serious or critical violations)', 
             const byReason = new Map<string, string[]>();
             for (const node of results.incomplete.filter((r) => r.id === 'color-contrast').flatMap((r) => r.nodes)) {
               const reason = node.any.map((c) => (c.data as { messageKey?: string } | null)?.messageKey ?? c.message).join(', ');
+              // The related nodes name what axe found behind or over the text: the thing to fix.
+              const related = node.any.flatMap((c) => c.relatedNodes ?? []).map((r) => r.target.join(' ')).slice(0, 2);
               const targets = byReason.get(reason) ?? [];
-              targets.push(node.target.join(' '));
+              targets.push(related.length ? `${node.target.join(' ')} (under/over: ${related.join(', ')})` : node.target.join(' '));
               byReason.set(reason, targets);
             }
             const unresolved = [...byReason].map(([reason, targets]) => `${reason} x${targets.length}, e.g. ${targets.slice(0, 3).join(' | ')}`);
