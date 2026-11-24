@@ -311,7 +311,12 @@ test.describe('accessibility (WCAG 2.1 AA, no serious or critical violations)', 
           const scanStarted = performance.now();
           let results;
           try {
-            results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
+            // Only violations are asserted, so axe builds node details for violations alone (#113). Every rule
+            // still runs and every violation keeps all its nodes; scans/catalog-a11y-profile measured identical findings.
+            results = await new AxeBuilder({ page })
+              .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+              .options({ resultTypes: ['violations'] })
+              .analyze();
           } finally {
             if (catalogMetrics) console.info('[catalog-diagnostics] scan finished or interrupted', JSON.stringify({
               ...catalogMetrics, scanElapsedMs: Math.round(performance.now() - scanStarted),
