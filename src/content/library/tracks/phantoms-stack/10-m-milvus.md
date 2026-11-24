@@ -20,7 +20,7 @@ resources:
   - "milvus/index-explained"
   - "postgresql/tutorial"
   - "owasp/top-10-for-llm-applications"
-updated: 2026-11-03
+updated: 2026-11-22
 ---
 
 This is lesson 10 of the PHANTOMS track. It supports the Master Developer module on AI-agent orchestration, because retrieval is how AI features use your own information. M is optional, and in most first products the right answer is "not yet". This lesson gives you the words and the tests to decide.
@@ -53,7 +53,7 @@ Searching every vector one by one is slow when there are millions. An **index** 
 
 ### Where Milvus sits in PHANTOMS
 
-The architecture diagram shows Milvus as an optional service the API may call for semantic retrieval. Milvus itself stores blocks and indexes in an **object store**, and the PHANTOMS design suggests SeaweedFS (lesson 11) for that role. So adding M can mean adding S. The starter's version policy lists Milvus v3.0.2 and SeaweedFS 4.48 as **reference pins**, and adds the caution: verify object-store behaviour, backups, query workload and exact compatibility before adoption. In other words, nobody has promised that these two work together for your workload. You must test it.
+The architecture diagram shows Milvus as an optional service the API may call for semantic retrieval. Milvus itself stores blocks and indexes in an **object store**, and the PHANTOMS design suggests SeaweedFS (lesson 11) for that role. So adding M can mean adding S. The starter's version policy lists Milvus v3.0.3 and SeaweedFS 4.48 as **reference pins**. Since decisions 013 and 014 the starter runs Milvus in an opt-in `retrieval` profile on top of SeaweedFS and tests that pair in CI, and it still starts with pgvector inside PostgreSQL. The policy keeps a caution: verify query workload, authentication and production backups before adoption. In other words, the starter proves the two start and talk to each other, not that they suit your workload. You must test that.
 
 ### What a retrieval layer must respect
 

@@ -20,7 +20,7 @@ resources:
   - "tailwind/tailwind-css-installation"
   - "shadcn/shadcn-ui-introduction"
   - "owasp/top-ten"
-updated: 2026-11-03
+updated: 2026-11-22
 ---
 
 This is lesson 7 of the PHANTOMS track. It supports Developer week 5 (brand, website, mockups) and the Master Developer production-launch module. N is the part of the product your customers actually see, so it is where product, design, accessibility and brand meet the code.
@@ -88,7 +88,7 @@ The core starter uses plain CSS so the first build is easy to inspect. The PHANT
 
 ### Versions and security notices
 
-The starter's version policy lists Next.js as the "active LTS patch line" as of 2026-10-01 and links the framework's [September 2026 security release](https://nextjs.org/blog/september-2026-security-release). At the time of writing, the version in the lockfile is slightly newer than the one in the policy page. Moral for a manager: **framework security notices are part of your operating routine.** Someone must read them weekly, and the starter's cadence says so.
+The starter's version policy lists Next.js as the "active LTS patch line" as of its 2026-11-03 review, pinned at 16.4.5, and links the framework's [September 2026 security release](https://nextjs.org/blog/september-2026-security-release). Moral for a manager: **framework security notices are part of your operating routine.** Someone must read them weekly, and the starter's cadence says so.
 
 ## 3. Step by step: how to review a page an agent built
 

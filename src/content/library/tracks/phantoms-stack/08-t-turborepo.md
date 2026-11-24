@@ -20,7 +20,7 @@ resources:
   - "bun/bun-workspaces"
   - "gitlab/create-your-first-ci-cd-pipeline"
   - "twelve-factor/the-twelve-factor-app"
-updated: 2026-11-03
+updated: 2026-11-22
 ---
 
 This is lesson 8 of the PHANTOMS track. It supports the Master Developer modules on platform and production launch, and it connects to the CI/CD track. T is the quiet letter: you will rarely see it, but it decides how long every check takes, and so how much waiting and how much CI money your product burns.
@@ -29,7 +29,7 @@ This is lesson 8 of the PHANTOMS track. It supports the Master Developer modules
 
 When a product has several parts, the order of work matters. The web app needs the shared packages built first. The type check of the API needs the database types. If an agent changes only the documentation, you do not want to rebuild the whole product.
 
-A repository that holds several apps and packages together is a **monorepo**. The PHANTOMS starter is one: two apps (`api` and `web`) and two packages (`db` and `ai`). A monorepo is convenient, because one change can touch several parts and be reviewed once. It also creates a problem: how do we run the right tasks, in the right order, without repeating work?
+A repository that holds several apps and packages together is a **monorepo**. The PHANTOMS starter is one: two apps (`api` and `web`), two packages (`db` and `ai`), and one optional workspace, `apps/mcp`, that stays out of the default run (lesson 9). A monorepo is convenient, because one change can touch several parts and be reviewed once. It also creates a problem: how do we run the right tasks, in the right order, without repeating work?
 
 **Turborepo** solves this. It reads a small file that describes the **tasks** (build, type check, dev) and how they depend on each other, then runs them in the right order, in parallel when it can, and **remembers** the results. If nothing relevant changed, it replays the saved result instead of running the task again.
 
@@ -87,7 +87,7 @@ The CI guide says: "CI owns the order and environment; the repository owns the c
 
 ### Pinned, not floating
 
-Turborepo is a development dependency pinned at 2.11.6 in the version policy, not a global tool installed by whoever remembers. The starter's reason: a floating CLI makes builds differ between machines.
+Turborepo is a development dependency pinned at 2.11.10 in the version policy, not a global tool installed by whoever remembers. The starter's reason: a floating CLI makes builds differ between machines.
 
 ## 3. Step by step: how to review a graph change
 

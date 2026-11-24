@@ -22,7 +22,7 @@ resources:
   - "docker/compose-quickstart"
   - "owasp/rest-security-cheat-sheet"
   - "anthropic/building-effective-agents"
-updated: 2026-11-03
+updated: 2026-11-22
 ---
 
 This is lesson 12, the capstone of the PHANTOMS track. It supports the Master Developer modules on platform, production launch and AI-agent orchestration. In the other lessons you learned to choose, direct and judge one piece at a time. Here you do it for a whole small product, with several agents, from a fresh clone of the public starter.
@@ -216,7 +216,7 @@ Treat its findings as leads and open each one yourself. The [Agent orchestration
 
 ## 6. Where the starter is behind
 
-This starter is a learning core, reviewed on 2026-10-01. A product built today would want more, and the capstone is the right place to record it. Dojo opinion, to be tested by you, not promises by the starter:
+This starter is a learning core; its version baseline was last reviewed on 2026-11-03. A product built today would want more, and the capstone is the right place to record it. Dojo opinion, to be tested by you, not promises by the starter:
 
 - **Real identity and per-record authorization** instead of a shared token (the starter says so itself).
 - **An API contract**, a machine-readable description of the routes, so partners and agents share one truth.
