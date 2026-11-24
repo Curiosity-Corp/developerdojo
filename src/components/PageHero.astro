@@ -193,9 +193,16 @@ const hasArt = hasImage(art, 'jpg');
   .has-side .grid {
     grid-template-columns: minmax(0, 1fr) 19rem;
   }
+  /* The words sit on a solid band panel, never directly on the photo or its gradient scrim: a reader with low
+     vision gets the same contrast everywhere in the text, and that contrast can be measured (#120). */
   .copy {
-    max-width: 40rem;
+    justify-self: start;
+    max-width: 42rem;
     overflow-wrap: break-word;
+    padding: var(--space-5) var(--space-6);
+    margin-inline: calc(-1 * var(--space-6));
+    background: var(--band);
+    border-radius: var(--radius-lg);
   }
   .eyebrow {
     margin: 0 0 var(--space-2);
@@ -244,6 +251,10 @@ const hasArt = hasImage(art, 'jpg');
     }
     .enso {
       display: none;
+    }
+    .copy {
+      padding: var(--space-4);
+      margin-inline: calc(-1 * var(--space-4));
     }
     .window {
       display: none;

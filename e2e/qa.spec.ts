@@ -321,6 +321,19 @@ test.describe('accessibility (WCAG 2.1 AA, no serious or critical violations)', 
             .filter((v) => v.impact === 'serious' || v.impact === 'critical')
             .map((v) => `${v.id} (${v.impact}): ${v.nodes.map((n) => n.target.join(' ')).slice(0, 4).join(' | ')}`);
           expect(bad).toEqual([]);
+          if (catalog) {
+            // Every catalog card and label must have a contrast axe can measure, not only no failures: a texture,
+            // photo or gradient behind text leaves `color-contrast` incomplete, which verifies nothing (#120).
+            const byReason = new Map<string, string[]>();
+            for (const node of results.incomplete.filter((r) => r.id === 'color-contrast').flatMap((r) => r.nodes)) {
+              const reason = node.any.map((c) => (c.data as { messageKey?: string } | null)?.messageKey ?? c.message).join(', ');
+              const targets = byReason.get(reason) ?? [];
+              targets.push(node.target.join(' '));
+              byReason.set(reason, targets);
+            }
+            const unresolved = [...byReason].map(([reason, targets]) => `${reason} x${targets.length}, e.g. ${targets.slice(0, 3).join(' | ')}`);
+            expect(unresolved, 'catalog text whose colour contrast axe could not determine').toEqual([]);
+          }
         });
       });
     }
