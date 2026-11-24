@@ -20,7 +20,7 @@ resources:
   - "tailwind/tailwind-css-installation"
   - "shadcn/shadcn-ui-introduction"
   - "owasp/top-ten"
-updated: 2026-11-22
+updated: 2026-11-24
 ---
 
 This is lesson 7 of the PHANTOMS track. It supports Developer week 5 (brand, website, mockups) and the Master Developer production-launch module. N is the part of the product your customers actually see, so it is where product, design, accessibility and brand meet the code.
@@ -100,7 +100,7 @@ The starter's version policy lists Next.js as the "active LTS patch line" as of 
 6. **Check what the page stores and sends.** Open the browser's developer tools, look at the network tab and storage. No secrets, no unnecessary personal data.
 7. **Check variables.** Search the code for `NEXT_PUBLIC_`. Each one must be safe for the whole world to read.
 8. **Check the rendering mode.** The page still builds as a static export. No server-only feature crept in.
-9. **Check the tests.** Is there a browser test for the main journey, run against the built app? The starter's guidance: for browser-facing journeys, add deterministic Playwright coverage.
+9. **Check the tests.** Is there a browser test for the main journey, run against the built app? The starter already has a few Playwright tests in `e2e/` (`bun run test:e2e`). They check that the home page loads without console errors, that a task can be created and listed, that an empty title is refused with a request ID, and that security headers are set. A new journey gets a test of its own beside them, with no live model calls and no outside services.
 10. **Read the diff for new dependencies.** A page rarely needs a new package. Ask why.
 
 ## 4. Worked example: TrailMug

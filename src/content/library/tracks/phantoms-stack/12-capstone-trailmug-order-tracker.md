@@ -22,7 +22,7 @@ resources:
   - "docker/compose-quickstart"
   - "owasp/rest-security-cheat-sheet"
   - "anthropic/building-effective-agents"
-updated: 2026-11-22
+updated: 2026-11-24
 ---
 
 This is lesson 12, the capstone of the PHANTOMS track. It supports the Master Developer modules on platform, production launch and AI-agent orchestration. In the other lessons you learned to choose, direct and judge one piece at a time. Here you do it for a whole small product, with several agents, from a fresh clone of the public starter.
@@ -53,7 +53,7 @@ The sample app manages "tasks". Your agents will turn it into "orders". The star
 
 ### The starter is a rulebook as much as a codebase
 
-`AGENTS.md` tells every agent: read the README and architecture first; use Bun only; keep A provider-neutral; keep O, M and S optional; validate at API boundaries; keep database access in `packages/db`; use reviewed migrations; never commit secrets; run the verification commands before handoff; and never claim production readiness from a successful build alone. **Extend** these rules with your product's rules. Do not replace them.
+`AGENTS.md` tells every agent: read the README and architecture first; use Bun as the only runtime and package manager in the app workspace, CI and deployment image; keep A provider-neutral; keep O, M and S optional; validate at API boundaries; keep database access in `packages/db`; use reviewed migrations; never commit secrets; log through the structured logger with the request ID; never reverse a recorded decision without a superseding entry; run the verification commands (including the browser tests) before handoff; and never claim production readiness from a successful build alone. **Extend** these rules with your product's rules. Do not replace them.
 
 ### Orchestration: one Commander, several sessions
 

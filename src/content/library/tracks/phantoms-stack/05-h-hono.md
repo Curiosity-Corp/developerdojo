@@ -22,7 +22,7 @@ resources:
   - "hono/hono-secure-headers"
   - "zod/zod-intro"
   - "owasp/rest-security-cheat-sheet"
-updated: 2026-11-03
+updated: 2026-11-24
 ---
 
 This is lesson 5 of the PHANTOMS track. It supports the Master Developer platform and production-launch modules, and Developer week 6, where a demo needs a working back end. H is where your product's rules become code that the outside world can call.
@@ -53,12 +53,14 @@ A **route** connects a method and a path to a piece of code. `GET /api/tasks` me
 
 | Protection | What it does | Why a manager cares |
 |---|---|---|
+| **Request ID** | Gives every request an ID and returns it in the `X-Request-Id` header | A user can quote one ID, and support can find that exact request in the logs |
+| **Access log** | Writes one structured line per request: method, path, status, time taken, request ID | You can see what happened without logging anyone's data |
 | **Secure headers** | Adds safe HTTP response headers | Reduces common browser attacks for almost no effort |
 | **CORS allowlist** | Only the configured web origin may call the API from a browser | Stops other websites using your API from a visitor's browser |
 | **Body limit** (32 KB on the API paths) | Rejects huge requests | Protects against memory exhaustion and cost |
 | **Bearer token** (when configured) | Requires `Authorization: Bearer <token>` | A minimal gate while there is no real login |
 | **Validation** (Zod) | Checks that input has the right shape | Keeps bad data out of the database |
-| **Generic errors** | Returns "The request could not be completed" and logs only the error name and path | Does not leak internals to attackers |
+| **Generic errors** | Returns "The request could not be completed" with the request ID, and logs only the error name, path and request ID | Does not leak internals to attackers, yet the failure can still be traced |
 
 ### Validation at the edge
 
@@ -79,6 +81,16 @@ The difference matters. A service that is alive but cannot reach its database sh
 
 This is the largest gap between the starter and a real product, and the most important question you will ask: *for each route, who may call it, and how does the code check?*
 
+### Request IDs, logs and traces
+
+When a café owner says "it broke at ten past three", you need to find that one request among thousands. The starter's API does three small things for this.
+
+- **Request IDs.** Every answer carries an `X-Request-Id` header, and error answers include the same ID in the body. If a caller sends a safe ID of its own, the API keeps it, so one ID can follow a request across several services. Anything else is replaced with a new random ID.
+- **Structured logs.** The API writes one JSON object per line. A machine can search them, and a person can still read them. Each request logs its method, path, status, duration and request ID. It never logs headers, request bodies, query strings or error messages, because those can carry tokens, passwords and personal data. Values under names such as `authorization`, `token` or `password` are hidden as a backstop. That backstop is a safety net, not permission to log secrets.
+- **Tracing, only when you ask for it.** Tracing records how long each step of a request took. The starter can send traces in the standard OpenTelemetry format, but only when you set `OTEL_EXPORTER_OTLP_ENDPOINT`. Without that setting, nothing leaves the machine. The starter has a test that proves tracing works on its pinned Bun version. When Bun or the tracing libraries change version, that test has to pass again. Do not assume it still works.
+
+The starter's decision log records the reason (decision 012): observability and browser tests stay **small, opt-in and pinned**. Choosing a dashboard or a hosted tracing service is a separate decision. Make it when you know your service's targets.
+
 ### Safe by default on the network
 
 The server listens only on `127.0.0.1` (the local machine) unless told otherwise. If you set the host to anything else and have not set a bearer token, the server refuses to start. That is a small, strong guardrail: a developer cannot accidentally expose an open API. Inside the container the host is set to listen on all addresses, and a token is required.
@@ -93,7 +105,7 @@ Use this list when an agent adds or changes a route.
 4. **Check authorization.** The code checks that this caller may access this record. Not just "is logged in".
 5. **Check limits.** Body size, number of results returned, and (for a real product) rate limits.
 6. **Check errors.** Failures return a safe message and the right status code (`400` bad input, `401` not authenticated, `403` not allowed, `404` not found, `500` our fault). No stack traces, no database messages.
-7. **Check what is logged.** Names and paths, not secrets, tokens or personal data.
+7. **Check what is logged.** Logs go through the structured logger and carry the request ID: names and paths, never secrets, tokens, bodies or personal data.
 8. **Check tests.** There are tests for success **and** for refusals: bad input, missing token, wrong owner.
 9. **Check the contract.** Is the route documented in a way partners can read? The CI guide suggests pinning an API linter for this.
 
@@ -120,7 +132,7 @@ When the agent returns, she does not read every line. She reads the **route list
 
 **A prompt you can adapt:**
 
-> Work in the PHANTOMS starter. Read AGENTS.md, docs/security.md and apps/api/src/app.ts first. Task: add the routes in the table below to apps/api. Rules: validate every input with Zod at the boundary; keep persistence in packages/db and call it through the existing store pattern; keep the existing middleware (secure headers, CORS allowlist, body limit, bearer auth); return safe generic errors; never log tokens or personal data. For each route, write tests for success and for each refusal in the table. Do not add a dependency. Run the checks from AGENTS.md and paste the results. At the end list every route you added and every rule you could not enforce, and say why. <paste route table>
+> Work in the PHANTOMS starter. Read AGENTS.md, docs/security.md and apps/api/src/app.ts first. Task: add the routes in the table below to apps/api. Rules: validate every input with Zod at the boundary; keep persistence in packages/db and call it through the existing store pattern; keep the existing middleware (request ID, access log, secure headers, CORS allowlist, body limit, bearer auth); return safe generic errors; log only through the existing structured logger, and never log tokens, bodies or personal data. For each route, write tests for success and for each refusal in the table. Do not add a dependency. Run the checks from AGENTS.md and paste the results. At the end list every route you added and every rule you could not enforce, and say why. <paste route table>
 
 **How to check the output.** Compare the route list to your table. Look for a missing refusal test. Try the API with `curl`, using bad input and no token. Check the response bodies for leaks. Ask: "what happens if I send a ten-megabyte body, an empty body, or a cup count of minus one?"
 
@@ -130,7 +142,7 @@ When the agent returns, she does not read every line. She reads the **route list
 
 - **Trusting the front end to validate.** Anyone can call the API directly. Validate at the API.
 - **Treating the shared token as login.** It is a placeholder. Plan real identity before real users.
-- **Returning internal errors.** Raw database messages help attackers. Return a safe message and log the detail safely.
+- **Returning internal errors.** Raw database messages help attackers. Return a safe message with the request ID, and log the detail safely.
 - **Wildcard CORS.** Use an explicit list of origins, especially when credentials are involved.
 - **No limits.** Unlimited request sizes and result sizes become outages and bills.
 - **Business logic in route handlers.** As the app grows, move it out, as the architecture guide advises, so routes stay thin and testable.
@@ -154,7 +166,7 @@ When the agent returns, she does not read every line. She reads the **route list
 - [ ] Every input is validated at the API.
 - [ ] I can say, for each route, who may call it and how the code checks.
 - [ ] Health and readiness routes exist and differ.
-- [ ] Errors are safe and logs hold no secrets.
+- [ ] Errors are safe, carry a request ID, and logs hold no secrets.
 - [ ] Tests cover refusals, not only success.
 - [ ] I know the shared token is a placeholder, and real login is on the roadmap.
 

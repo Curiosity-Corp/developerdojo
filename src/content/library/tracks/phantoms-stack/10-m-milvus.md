@@ -20,7 +20,7 @@ resources:
   - "milvus/index-explained"
   - "postgresql/tutorial"
   - "owasp/top-10-for-llm-applications"
-updated: 2026-11-22
+updated: 2026-11-24
 ---
 
 This is lesson 10 of the PHANTOMS track. It supports the Master Developer module on AI-agent orchestration, because retrieval is how AI features use your own information. M is optional, and in most first products the right answer is "not yet". This lesson gives you the words and the tests to decide.
@@ -81,14 +81,18 @@ Before you add M, try simpler options and measure.
 | **Vector search inside PostgreSQL** | Meaning-based search for modest volumes, using an extension | One database to run, back up and secure |
 | **A dedicated vector database such as Milvus** | Large volumes, heavy query load, advanced indexing | A new stateful service, a possible object store, and a second copy of data |
 
-Honest note from the Dojo, not from the starter: the middle options are often the right first step because they keep one source of truth, one backup and one set of permissions. If you consider them, check the PostgreSQL documentation for the extension's current status and your hosting's support. Move to a dedicated engine when a **measured** limit forces it.
+The starter now takes this path itself (decision 013). Its first step for meaning-based search is **pgvector**, a PostgreSQL extension that stores vectors in an ordinary table next to your other data. It runs in an opt-in `pgvector` profile and has its own migrations (`bun run db:migrate:vector`), so the default database and the default tests do not need it. The reasons are the ones in the table: one source of truth, one backup, and one transaction when a record is deleted or its permissions change. It adds no new service to run.
+
+Milvus is the second step. The starter names four signs that it is time, each measured **on your own data**: the corpus is too big for the database host, a tuned index cannot reach your speed or accuracy target, you need search features pgvector lacks, or retrieval must scale and fail separately from the app's database. The starter sets no number for these. You set the thresholds yourself.
+
+The starter's sample is a beginning, not a finished feature. The vector size is a placeholder that must match your embedding model. The sample filters results by source only, so you still have to check that the caller may read each source. When a source is deleted, its chunks must be deleted too. Check that your hosting supports the extension before you rely on it.
 
 ## 3. Step by step: how to decide whether to add M
 
 1. **Write the user task in a sentence.** "A café owner types a question about late deliveries and finds the right help article."
 2. **Build a test set of 30 real questions** with the correct answers, written by a person. This is your retrieval eval, like lesson 6's.
 3. **Measure the simple option.** Run those questions through plain SQL or full-text search. Record how many return the right result in the top five.
-4. **Try the meaning-based option on a copy of the data**, ideally inside the database you already run. Record the same measure.
+4. **Try the meaning-based option on a copy of the data**, inside the database you already run (in the starter, the `pgvector` profile). Record the same measure.
 5. **Compare the gap.** Is the improvement big enough to change a customer outcome? Write it down in numbers from your own test, not from a vendor's slide.
 6. **List what the retrieval layer must respect:** source IDs, permissions, freshness, deletion.
 7. **Estimate the cost of a new service:** memory, storage, backups, upgrades, who is on call.
