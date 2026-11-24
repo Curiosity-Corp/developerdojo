@@ -121,11 +121,13 @@ const hasArt = hasImage(art, 'jpg');
   .hero.compact {
     padding-block: var(--space-6);
   }
+  /* The art, scrim and enso stack in source order at z-index 0 under the copy at z-index 1. Negative z-indexes
+     painted the same, but axe's stacking model put them over the headline and could not measure its contrast (#120). */
   .art,
   .scrim {
     position: absolute;
     inset: 0;
-    z-index: -2;
+    z-index: 0;
   }
   .art :global(picture) {
     display: block;
@@ -161,12 +163,11 @@ const hasArt = hasImage(art, 'jpg');
       linear-gradient(180deg, rgb(140 170 120 / 0.22), rgb(217 164 65 / 0.12));
   }
   .scrim {
-    z-index: -1;
     background: linear-gradient(90deg, rgb(11 17 15 / 0.92) 0%, rgb(11 17 15 / 0.78) 38%, rgb(11 17 15 / 0.15) 75%);
   }
   .enso {
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     /* A whole brush circle sitting behind the headline, inside the page gutter. */
     left: 1rem;
     top: 50%;
@@ -183,6 +184,8 @@ const hasArt = hasImage(art, 'jpg');
     height: 100%;
   }
   .grid {
+    position: relative;
+    z-index: 1;
     display: grid;
     /* One column that may shrink below its longest word: without it a one-word title such as "Bioinformatics"
        sizes the column past a 195 px screen and the hero clips it (#68, #125). */

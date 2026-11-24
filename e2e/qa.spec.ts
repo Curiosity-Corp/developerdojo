@@ -307,6 +307,9 @@ test.describe('accessibility (WCAG 2.1 AA, no serious or critical violations)', 
               viewport: { width: innerWidth, height: innerHeight },
             }))),
           } : null;
+          // Off-screen cards skip rendering (content-visibility: auto) and keep a placeholder height, so axe saw their
+          // text spill into the next card. Render every card as a reader sees it on screen, then measure (#120).
+          if (catalog) await page.addStyleTag({ content: '#resource-list > li { content-visibility: visible; }' });
           if (catalogMetrics) console.info('[catalog-diagnostics] scan started', JSON.stringify(catalogMetrics));
           const scanStarted = performance.now();
           let results;
