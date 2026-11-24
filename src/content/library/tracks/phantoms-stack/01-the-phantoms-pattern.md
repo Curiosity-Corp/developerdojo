@@ -19,7 +19,7 @@ resources:
   - "twelve-factor/the-twelve-factor-app"
   - "anthropic/building-effective-agents"
   - "owasp/top-10-for-llm-applications"
-updated: 2026-11-22
+updated: 2026-11-24
 ---
 
 This is lesson 1 of the PHANTOMS track. It supports the Master Developer modules on platform and AI-agent orchestration, and it helps in Developer week 4, when you defend a roadmap and must say what a technical choice costs. It gives you the map. The next eleven lessons walk the territory.
@@ -96,6 +96,17 @@ A tool that is exciting but fails questions 2 to 5 is a bad choice at that momen
 ### The repository is part of the stack
 
 In a PHANTOMS project the rules are not in someone's head. They are files in git: a `README.md`, an `AGENTS.md`, guides under `docs/` and a small decision log. The `AGENTS.md` file is read by coding agents before they touch anything. It says things like: use Bun and nothing else, keep the AI layer provider-neutral, keep the database code in one package, never commit secrets, and run these commands before you say you are done. That is how a manager's decisions reach agents that never attended a meeting. Lesson 12 shows you how to write one.
+
+The starter treats this file as part of the product, because its readers direct coding agents:
+
+- **One policy for every agent.** `AGENTS.md` is an open format that many coding agents read. Claude Code reads `CLAUDE.md`, so the starter's `CLAUDE.md` holds one line that imports `AGENTS.md`. The rules live in one place.
+- **Commands first.** The file opens with a block of commands an agent can copy and run: install, lint, test one file, check migrations, build, browser tests.
+- **Rules close to the code.** The folders for the API, the web app, the database and the AI layer each have a short `AGENTS.md` of their own. The file nearest the code being changed wins, and a direct instruction from the person in charge wins over all of them.
+- **Recipes for common tasks**, such as adding an endpoint or a table. Each recipe lists its steps and the checks that prove the work is done.
+- **Instructions are not enforcement.** An agent can ignore a sentence. To make a rule hold whatever the agent decides, the starter documents permission rules and hooks (small scripts that run before or after an agent's action) as examples, switched off by default.
+- **A check in CI.** A pipeline job fails if `AGENTS.md` names a command that does not exist or a link that is broken. That way the file cannot quietly go out of date.
+
+The decision log works the same way. Each entry has a date, the reason, the trade-off, the evidence and a "revisit when" trigger. In its review of 2026-11-03 the starter checked every letter and supporting tool against its newest stable release. It kept most choices and wrote down why. Old entries are never rewritten. To change a decision, you add a new entry that supersedes it, with evidence, and `AGENTS.md` tells agents to do the same.
 
 This follows [the Way](/library/the-way-five-rules): git is the source of truth. If a rule is not in the repository, an agent cannot follow it.
 

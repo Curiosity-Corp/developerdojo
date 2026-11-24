@@ -20,7 +20,7 @@ resources:
   - "bun/bun-test-runner"
   - "twelve-factor/the-twelve-factor-app"
   - "owasp/top-ten"
-updated: 2026-11-22
+updated: 2026-11-24
 ---
 
 This is lesson 3 of the PHANTOMS track. It supports the Master Developer platform module. Bun has no letter in the acronym, but it sits under every letter. If you understand it, you understand what every agent command in the starter does.
@@ -33,7 +33,7 @@ A **runtime** is the program that runs your code. Browsers run JavaScript on web
 
 Why does a product manager care? Because these three things decide **how repeatable your build is, how many tools your team must understand, how quickly checks run (and so what CI costs), and how exposed you are to supply-chain attacks.** A supply-chain attack is when a bad actor slips harmful code into a package your product uses.
 
-PHANTOMS makes one decision here: **Bun is the required runtime and package manager.** The starter's `AGENTS.md` says: "Do not add a second JavaScript runtime or package manager to the development, CI, or deployment path." This lesson explains the reasons and the price.
+PHANTOMS makes one decision here: **Bun is the required runtime and package manager.** The starter's `AGENTS.md` says: "Do not add a second JavaScript runtime or package manager to the app workspace, CI, or the deployment image." The rule covers the app itself: everything under `apps/` and `packages/`, the CI jobs and the image you deploy. A separately deployed optional service, such as OpenClaw (lesson 9), may use its own runtime, but it must not share the app's dependencies or image. This lesson explains the reasons and the price.
 
 | The 2030 PDM decides | Delegates to agents | Verifies by | Other disciplines |
 |---|---|---|---|
@@ -74,7 +74,7 @@ The starter is a **monorepo**: one repository holding several packages. Bun's **
 
 ### The built-in test runner
 
-`bun test` finds and runs the tests, with no extra framework. The starter keeps this on purpose "to keep the default toolchain small". For browser journeys, the guides point to Playwright, run in a CI job that has a browser.
+`bun test` finds and runs the tests, with no extra framework. The starter keeps this on purpose "to keep the default toolchain small". Browser journeys are the one exception: `bun run test:e2e` runs a few Playwright tests against the built web app. In CI they run in a pinned Playwright container that has a browser. Their files end in `.e2e.ts`, so `bun test` does not pick them up.
 
 ### The trade-off, stated plainly
 
@@ -106,6 +106,7 @@ The starter's `AGENTS.md` lists the commands an agent must run before handing wo
 | `bun audit --audit-level high` | No known high-severity issues in the locked graph | That no unknown problem exists |
 | `bun test` | The written tests pass | That the tests cover what matters |
 | `bun run build` | The app builds | That it is ready for production |
+| `bun run test:e2e` | The main browser journeys work on the built pages | That every page and every browser works |
 
 A pass on all of them is the floor, not the ceiling. The starter's own guidance: never claim production readiness from a successful build alone.
 
@@ -161,7 +162,7 @@ Sam, the operations lead, notices the CI bill dropping after the team moves to o
 - [ ] I know the trade-off of one toolchain, from the decision log.
 - [ ] I reviewed a dependency change using the seven steps.
 - [ ] I know what each verification command proves and does not prove.
-- [ ] My `AGENTS.md` forbids a second runtime or package manager.
+- [ ] My `AGENTS.md` forbids a second runtime or package manager in the app workspace, CI and deployment image.
 
 ## 9. Further learning
 

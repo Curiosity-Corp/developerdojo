@@ -20,7 +20,7 @@ resources:
   - "bun/bun-workspaces"
   - "gitlab/create-your-first-ci-cd-pipeline"
   - "twelve-factor/the-twelve-factor-app"
-updated: 2026-11-22
+updated: 2026-11-24
 ---
 
 This is lesson 8 of the PHANTOMS track. It supports the Master Developer modules on platform and production launch, and it connects to the CI/CD track. T is the quiet letter: you will rarely see it, but it decides how long every check takes, and so how much waiting and how much CI money your product burns.
@@ -88,6 +88,10 @@ The CI guide says: "CI owns the order and environment; the repository owns the c
 ### Pinned, not floating
 
 Turborepo is a development dependency pinned at 2.11.10 in the version policy, not a global tool installed by whoever remembers. The starter's reason: a floating CLI makes builds differ between machines.
+
+### Why keep it at all, and what replaces it
+
+The starter has only four workspaces, so the cache saves little time. Its decision log says so openly (decision 006). Turborepo stays because it shows learners one visible task graph, it caches outputs in CI, and it is the same model they will meet in larger repositories. The reason is teaching value, not speed. The decision also names the way out: if Turborepo becomes a burden, plain Bun workspaces can do the job, with `bun run --filter <workspace> <script>` and the scripts run in a fixed order. The trigger to look again is written down too: a major Turborepo release that needs migration work, or a CI cache that no longer saves measurable time. This is what a good keep decision looks like. It gives the reason, admits the cost and names the exit.
 
 ## 3. Step by step: how to review a graph change
 
