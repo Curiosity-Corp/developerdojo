@@ -91,7 +91,7 @@ file). Nothing can be reused. Do not plan lessons "from" them; write the lesson 
 | `Curiosity-Corp/infotech` | 3 files: a design for school automation, an identity and tools blueprint | Nothing. It describes our own systems | All of it. It describes the layout of internal systems: describe the idea in a lesson if needed, never the setup | 2026-11-03 |
 | `Curiosity-Corp/catalog` | 1131 files. An open-source Ansible role and collection for workstations, with documentation | Not about product management. At most an example of an open-source project with a changelog, a security policy and a roadmap | Nothing special, but do not copy test machine names or screenshots | 2026-11-03 |
 | `Curiosity-Corp/catalog-internal` | 186 files. A private staff deployment of the workstation role | Nothing | All of it. Private operations | 2026-11-03 |
-| `Curiosity-Corp/streamstack` | 849 files. A Linux tool for camera, light and voice in calls, with decision records and test evidence | At most an example of decision records (the `docs/adr/` folder) in a real project | The test evidence (machine names, screenshots, logs) | 2026-11-03 |
+| `ViperDynamics/streamstack` | 849 files. A Linux tool for camera, light and voice in calls, with decision records and test evidence | At most an example of decision records (the `docs/adr/` folder) in a real project | The test evidence (machine names, screenshots, logs) | 2026-11-03 |
 
 ## Not in GitLab: the program SharePoint folder
 
