@@ -307,6 +307,9 @@ test.describe('accessibility (WCAG 2.1 AA, no serious or critical violations)', 
               viewport: { width: innerWidth, height: innerHeight },
             }))),
           } : null;
+          // Off-screen cards skip rendering (content-visibility: auto) and keep a placeholder height, so axe saw their
+          // text spill into the next card. Render every card as a reader sees it on screen, then measure (#120).
+          if (catalog) await page.addStyleTag({ content: '#resource-list > li { content-visibility: visible; }' });
           if (catalogMetrics) console.info('[catalog-diagnostics] scan started', JSON.stringify(catalogMetrics));
           const scanStarted = performance.now();
           let results;
@@ -326,6 +329,21 @@ test.describe('accessibility (WCAG 2.1 AA, no serious or critical violations)', 
             .filter((v) => v.impact === 'serious' || v.impact === 'critical')
             .map((v) => `${v.id} (${v.impact}): ${v.nodes.map((n) => n.target.join(' ')).slice(0, 4).join(' | ')}`);
           expect(bad).toEqual([]);
+          if (catalog) {
+            // Every catalog card and label must have a contrast axe can measure, not only no failures: a texture,
+            // photo or gradient behind text leaves `color-contrast` incomplete, which verifies nothing (#120).
+            const byReason = new Map<string, string[]>();
+            for (const node of results.incomplete.filter((r) => r.id === 'color-contrast').flatMap((r) => r.nodes)) {
+              const reason = node.any.map((c) => (c.data as { messageKey?: string } | null)?.messageKey ?? c.message).join(', ');
+              // The related nodes name what axe found behind or over the text: the thing to fix.
+              const related = node.any.flatMap((c) => c.relatedNodes ?? []).map((r) => r.target.join(' ')).slice(0, 2);
+              const targets = byReason.get(reason) ?? [];
+              targets.push(related.length ? `${node.target.join(' ')} (under/over: ${related.join(', ')})` : node.target.join(' '));
+              byReason.set(reason, targets);
+            }
+            const unresolved = [...byReason].map(([reason, targets]) => `${reason} x${targets.length}, e.g. ${targets.slice(0, 3).join(' | ')}`);
+            expect(unresolved, 'catalog text whose colour contrast axe could not determine').toEqual([]);
+          }
         });
       });
     }

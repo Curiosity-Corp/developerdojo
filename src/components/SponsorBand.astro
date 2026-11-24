@@ -39,10 +39,12 @@ const { sponsor = 'Reveltek', href = '/sponsors' } = Astro.props;
     padding-block: var(--space-7) var(--space-6);
     overflow: hidden;
   }
+  /* The backdrop sits at z-index 0 under the content at z-index 1, not at a negative z-index, which axe's stacking
+     model drew over the text (#120). */
   .backdrop {
     position: absolute;
     inset: 0;
-    z-index: -1;
+    z-index: 0;
   }
   .backdrop span {
     position: absolute;
@@ -60,13 +62,19 @@ const { sponsor = 'Reveltek', href = '/sponsors' } = Astro.props;
     object-position: center bottom;
   }
   .inner {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: var(--space-4);
     flex-wrap: wrap;
   }
+  /* The label sits on solid paper, never on the mountain picture, so its contrast is the same everywhere (#120). */
   .lead {
+    background: var(--paper);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius);
     font-family: var(--font-serif);
     font-weight: 700;
     font-size: var(--text-xl);

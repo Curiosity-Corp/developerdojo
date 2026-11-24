@@ -363,9 +363,11 @@ const steps = [
     gap: var(--space-3);
     align-items: center;
   }
+  /* The tone marks the border; the text stays ink on paper, which no tone colour can match for contrast. */
   .badge {
-    background: var(--tone);
-    color: #fbf6e8;
+    background: var(--paper-raised);
+    color: var(--ink);
+    border: 2px solid var(--tone);
     font-weight: 700;
     text-align: center;
     padding: var(--space-2) var(--space-3);

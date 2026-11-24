@@ -180,43 +180,6 @@ svg {
   }
 }
 
-/* Paper texture: a tileable grain laid over the cream (or dark) page ground, behind all content. */
-body::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.4;
-  background-image: url('/images/paper-tile.jpg');
-  background-image: image-set(
-    url('/images/paper-tile.avif') type('image/avif'),
-    url('/images/paper-tile.webp') type('image/webp'),
-    url('/images/paper-tile.jpg') type('image/jpeg')
-  );
-  background-size: 256px 256px;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) body::before {
-    opacity: 0.22;
-    background-image: url('/images/paper-tile-dark.jpg');
-    background-image: image-set(
-      url('/images/paper-tile-dark.avif') type('image/avif'),
-      url('/images/paper-tile-dark.webp') type('image/webp'),
-      url('/images/paper-tile-dark.jpg') type('image/jpeg')
-    );
-  }
-}
-:root[data-theme='dark'] body::before {
-  opacity: 0.22;
-  background-image: url('/images/paper-tile-dark.jpg');
-  background-image: image-set(
-    url('/images/paper-tile-dark.avif') type('image/avif'),
-    url('/images/paper-tile-dark.webp') type('image/webp'),
-    url('/images/paper-tile-dark.jpg') type('image/jpeg')
-  );
-}
-
 /* Theme-aware art pairs: render both, show one. */
 .only-dark {
   display: none;
