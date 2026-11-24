@@ -1,7 +1,7 @@
 # 0001: AI-assisted planning and role terminology
 
-- **Status:** Proposed. Nothing in this record is approved. The current rules stay in force until the
-  approvals in [Approvals needed](#approvals-needed) are recorded.
+- **Status:** Proposed. Only R8 (how a rule changes) is approved. The current rules stay in force until
+  the other approvals in [Approvals needed](#approvals-needed) are recorded.
 - **Date:** 2026-11-14. Inventory re-checked against `master` on 2026-11-24.
 - **Issue:** #80 (milestone "M1: Manifesto and policy review"). Related: #79 (universal development on the
   site), #81 (taxonomy).
@@ -36,7 +36,7 @@ people for these roles, so the people must be named in #80 before any approval i
 | R5 | **"Written by me, no AI" template column** and "NO AI WRITES YOUR EPICS" template notes. | Program workbooks (SharePoint, canonical) | Six learner templates under `public/templates/` (section D) | Would contradict the successor | Change the canonical workbook, keep the old version, then regenerate. Never edit the copies | Owner of the program SharePoint material | Not requested |
 | R6 | **Challenge rule "People write the epics and the roadmap".** | Published challenge briefs (`src/lib/challenge-briefs.ts`) | Challenge pages, community e2e check | Would contradict the successor for new challenges | Challenges already run keep the old rule. New challenge versions name the rule version they use | Program owner, then repository maintainers | Not requested |
 | R7 | **The 2030 Product Development Manager is the target role.** | `the-2030-product-development-manager.md` ("Start here", order 0); maintainer docs (`docs/style-guide.md`, `docs/handbook.md` section 4) | Section B below | The universal direction treats product as one specialization | Keep the page as the product specialization. Rewrite maintainer guidance as "the developer who orchestrates an outcome". Move the page from first position only once the universal entry page from #79 exists | Program owner for the role definition; repository maintainers for the docs | Not requested |
-| R8 | **"The Dojo rules also never change"** (handbook section 4, which restates R1). | `docs/handbook.md` | Maintainer docs | Blocks any successor | Amend to "rules change only by an approved decision record, and old versions stay published" in the same MR as the successor | Repository maintainers | Not requested |
+| R8 | **"The Dojo rules also never change"** (handbook section 4, which restates R1). | `docs/handbook.md` | Maintainer docs | Blocks any successor, and contradicts handbook section 12 and this record | Amended to "a rule changes only through an approved decision record, and the old version stays published". This states the change process only: R1 and the other rules keep their wording and stay in force | Repository maintainers | Approved by repository maintainers, 2026-11-24 (MR for #80) |
 
 ## Asset inventory
 
@@ -147,7 +147,8 @@ in #80 before anything changes. Each approval is separate; one does not imply an
 | Ship the self-assessment as version 2 | R4 | Program owner, then repository maintainers | Not requested |
 | New challenge versions under the successor | R6 | Program owner, then repository maintainers | Not requested |
 | Reposition the Product Development Manager role as a specialization | R7 | Program owner | Not requested |
-| Change the repository guidance (`docs/style-guide.md`, `docs/handbook.md`) | R7, R8 | Repository maintainers | Not requested |
+| Change the repository guidance on the role (`docs/style-guide.md`, `docs/handbook.md` section 4), after the R7 decision | R7 | Repository maintainers | Not requested |
+| State that rules change only by an approved decision record (`docs/handbook.md` section 4) | R8 | Repository maintainers | Approved 2026-11-24 |
 | Change certificate wording | A10 | Certificate owner (`docs/certificates.md`) | Not requested |
 
 ## Limitations

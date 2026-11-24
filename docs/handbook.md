@@ -120,8 +120,9 @@ When you review any lesson, ask the four questions. If a lesson does not answer 
 3. How do they **verify** the result?
 4. Which **other disciplines** are involved?
 
-The Dojo rules also never change: people write epics and roadmaps (AI never does); git is the source of
-truth; open source first; fix forward; disclose AI use.
+The Dojo rules: people write epics and roadmaps (AI never does); git is the source of truth; open source
+first; fix forward; disclose AI use. A rule changes only through an approved decision record in
+[docs/decisions/](decisions/), and the old version stays published as history.
 
 ## 5. Labels, board and epics
 
