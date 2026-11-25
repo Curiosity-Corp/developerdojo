@@ -1,0 +1,9 @@
+title: "EBU R 128 (2023): Loudness normalisation and permitted maximum level of audio signals"
+provider: "EBU"
+url: "https://tech.ebu.ch/docs/r/r128.pdf"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [creative-media]
+summary: "The European broadcasting recommendation that sets programme loudness to -23.0 LUFS, measured with ITU-R BS.1770, with a tolerance of +/-0.5 LU for programmes that are not live and a maximum true peak of -1 dBTP. Free to download from the EBU."
+verifiedOn: 2026-11-25

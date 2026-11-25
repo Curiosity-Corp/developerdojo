@@ -1,0 +1,24 @@
+{
+  "script": "tools/media_pathway.py",
+  "python": "3.12",
+  "inputs": {
+    "inputs/artemis-ii-launch-pad-camera-site-4.wav": "18b1c6c1dae385f4f9e69b36377d41399ec50c50ce532dfbf1041962e838410d"
+  },
+  "method": {
+    "referenceChecks": "EBU Tech 3341 (V4, 2023) Table 1 cases 1-6, 9, 10, 12, 13 and true-peak cases 15-19, synthesized at 48 kHz",
+    "loudness": "ITU-R BS.1770-5: K-weighting (Tables 1 and 2), channel weights (Table 3), 400 ms blocks with 75 % overlap, gates at -70 LKFS and -10 LU (equations 1-7)",
+    "windows": "EBU Tech 3341: momentary 0.4 s and short-term 3 s sliding rectangular windows, ungated; highest values over every sample position",
+    "truePeak": "ITU-R BS.1770-5 Annex 2: 4x over-sampling with the order-48, 4-phase interpolating filter, in floating point",
+    "normalisation": "EBU R 128 (V5, 2023): target -23.0 LUFS, +/-0.5 LU for programmes that are not live, maximum true peak -1 dBTP"
+  },
+  "outputs": [
+    "inspection.json",
+    "loudness-series.csv",
+    "loudness.json",
+    "manifest.json",
+    "normalisation.json",
+    "randori/cards.json",
+    "reference-checks.json",
+    "summary.md"
+  ]
+}

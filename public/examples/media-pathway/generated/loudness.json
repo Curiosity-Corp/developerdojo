@@ -1,0 +1,18 @@
+{
+  "integrated_LUFS": "-27.92",
+  "relativeGate_LUFS": "-40.06",
+  "gatingBlocks": 326,
+  "gatingBlocksUsed": 193,
+  "maxMomentary_LUFS": "-23.14",
+  "maxShortTerm_LUFS": "-23.85",
+  "truePeak_dBTP": {
+    "left": "-10.98",
+    "right": "-10.98"
+  },
+  "samplePeak_dBFS": {
+    "left": "-10.99",
+    "right": "-10.99"
+  },
+  "maxTruePeak_dBTP": "-10.98",
+  "truePeakAboveSamplePeak_dB": "0.00"
+}

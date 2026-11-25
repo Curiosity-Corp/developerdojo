@@ -468,6 +468,78 @@ export const sectorPackInputs: SectorPackInput[] = [
     sourcesCheckedOn: '2026-11-25',
     trackingIssue: 93,
   },
+  {
+    id: 'media',
+    title: 'Media: from a recording to a measured, normalised programme loudness',
+    fieldIds: ['media'],
+    pathway: '/katas/media-pathway',
+    kataIds: ['MED-001', 'MED-002', 'MED-003'],
+    randoriKataId: 'MED-R01',
+    foundationKataIds: ['PRACTICE-001', 'PRACTICE-002'],
+    examples: { dir: '/examples/media-pathway', readme: '/examples/media-pathway/README.md' },
+    inputs: [
+      {
+        name: 'NASA’s Artemis II launch recording from Pad Camera Site 4, a 33-second stereo WAV (48 kHz, 16-bit PCM)',
+        path: '/examples/media-pathway/inputs/artemis-ii-launch-pad-camera-site-4.wav',
+        source: 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Artemis_II_Live_Launch_Coverage_-_Pad_Camera_Site_4_%28KSC-20260401-AU-LMM01-0001-Artemis_II_Live_Launch_Coverage_Pad_Camera_Site_4%29.wav',
+        terms: 'A NASA Kennedy Space Center recording, a US government work in the public domain, kept on Wikimedia Commons (its SHA-1 there, b05c096e…f80038b4e, matches this copy). Served byte for byte; NASA’s name does not imply endorsement.',
+        sha256: '18b1c6c1dae385f4f9e69b36377d41399ec50c50ce532dfbf1041962e838410d',
+      },
+    ],
+    checks: [
+      {
+        name: 'The EBU Tech 3341 test responses, the recording inspection, its loudness and true peak, the R 128 normalisation and the Randori cards',
+        ciJob: 'media_pathway',
+        runs: 'public/examples/media-pathway/tools/media_pathway.py',
+        outputs: [
+          '/examples/media-pathway/generated/reference-checks.json',
+          '/examples/media-pathway/generated/inspection.json',
+          '/examples/media-pathway/generated/loudness.json',
+          '/examples/media-pathway/generated/loudness-series.csv',
+          '/examples/media-pathway/generated/normalisation.json',
+          '/examples/media-pathway/generated/randori/cards.json',
+          '/examples/media-pathway/generated/manifest.json',
+          '/examples/media-pathway/generated/summary.md',
+        ],
+      },
+    ],
+    verified: [
+      'The recording is NASA’s file, unchanged (SHA-256 {audioSha}…, checked by the site’s tests).',
+      { text: 'Before it measures the recording, the script synthesizes the EBU Tech 3341 test signals defined by their tones and gives {referenceChecks} published test responses within their published tolerances (loudness cases 1 to 6, 9, 10, 12 and 13; true-peak cases 15 to 19), and refuses to write any result if one falls outside.', evidence: '/examples/media-pathway/generated/reference-checks.json' },
+      { text: 'The recording measures {integrated} LUFS integrated with a true peak of {truePeak} dBTP; a gain of {gain} dB brings it to {remeasured} LUFS, remeasured, with its true peak at {truePeakAfter} dBTP.', evidence: '/examples/media-pathway/generated/normalisation.json' },
+      { text: 'On every pipeline, CI reruns the script with Python 3.12 and fails if any output differs from the files on this page.', evidence: '/examples/media-pathway/generated/summary.md' },
+    ],
+    notVerified: [
+      'Any real programme or delivery. The recording is NASA’s; nothing here says that a programme, a meter or a delivery meets EBU R 128, a broadcaster’s specification or a platform’s target.',
+      'Tech 3341 cases 7 and 8 (authentic programmes from the EBU test set), 11 and 14 (live meters) and 20 to 23 (true peak of signals synthesized at four times the rate), and the loudness range of EBU Tech 3342.',
+      'Sample rates other than 48 kHz, channel layouts beyond 5.0, and the object-based and advanced sound systems of BS.1770-5 Annex 3.',
+      'Limiting or any processing beyond a gain: the pathway plans a normalisation and never changes the recording’s dynamics.',
+      'Use by real learners: no learner has run these katas yet.',
+    ],
+    ontology: [
+      { term: 'LUFS (LKFS)', meaning: 'Loudness units relative to full scale: a programme’s K-weighted, gated loudness on a scale where 1 LU is 1 dB; BS.1770 writes LKFS and EBU R 128 LUFS for the same unit.' },
+      { term: 'K-weighting', meaning: 'The two filters BS.1770 applies before measuring power: a shelf that models the head and a high-pass that cuts the lowest frequencies (Tables 1 and 2).' },
+      { term: 'Gating', meaning: 'Leaving quiet 400 ms blocks out of the integrated loudness: those below -70 LKFS, then those more than 10 LU below the loudness of the rest (BS.1770-5, equations 5 to 7).' },
+      { term: 'Integrated loudness', meaning: 'The gated loudness of a whole programme, the one number R 128 normalises to -23.0 LUFS.' },
+      { term: 'Momentary and short-term loudness', meaning: 'Ungated loudness in a sliding window of 0.4 s and of 3 s, what a meter shows while the programme plays (EBU Tech 3341).' },
+      { term: 'True peak', meaning: 'The largest value of the waveform between samples, estimated by over-sampling, in dBTP; it can be higher than the largest sample (BS.1770-5 Annex 2).' },
+      { term: 'Normalisation', meaning: 'Changing a programme’s level by one gain so that its integrated loudness reaches a target, keeping its true peak under the permitted maximum (EBU R 128).' },
+    ],
+    procedures: [
+      { name: 'Inspect a recording’s format, sample peaks, levels and channels before metering it', kataIds: ['MED-001'] },
+      { name: 'Measure programme loudness and true peak with a meter checked against published test signals', kataIds: ['MED-002'] },
+      { name: 'Plan a loudness normalisation to EBU R 128 and check it against the true-peak limit', kataIds: ['MED-003'] },
+    ],
+    professionalReview: { required: true, limit: 'None. No broadcast audio engineer, delivery quality-control specialist or mastering engineer has reviewed this pathway; a real delivery needs the checks its broadcaster or platform asks for.', reviewers: [
+      { role: 'Broadcast audio engineer', scope: 'Whether a meter and its readings suit real programmes, including channel layouts, sample rates and the authentic test programmes.', state: 'none-available' },
+      { role: 'Delivery quality-control specialist', scope: 'Whether a real delivery meets the loudness, true-peak and format specification of the broadcaster or platform it goes to.', state: 'none-available' },
+      { role: 'Mastering engineer', scope: 'How to bring a programme to a target when a gain alone would breach the true-peak limit, without harming it.', state: 'none-available' },
+    ] },
+    armory: { stackRecipeIds: ['python-standard-library'], entryIds: [] },
+    galleryEntryIds: ['media-loudness-and-normalisation'],
+    sourcesCheckedOn: '2026-11-25',
+    trackingIssue: 93,
+  },
 ];
 
 /** The packs, validated for shape. Cross-references are checked by the build and the tests. */

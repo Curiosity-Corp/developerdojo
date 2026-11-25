@@ -1,0 +1,183 @@
+# Media pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/media-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job media_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Media pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a broadcast audio engineer, a delivery quality-control specialist or a mastering engineer yet.
+summary: "Start from the MED-002 reading of the NASA recording; a partner reveals one changed choice after you begin. Predict how the integrated loudness moves, then recompute and explain the difference."
+metadata:
+  id: MED-R01
+  title: "Media Randori: an unseen change to the meter or the delivery"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - measure-programme-loudness
+  artifactTypes:
+    - loudness-measurement
+  domainIds:
+    - media
+  capabilityIds:
+    - analyze-data
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - itu/bs-1770-loudness-and-true-peak
+    - ebu/r128-loudness-normalisation
+    - nasa/artemis-ii-launch-audio
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: Recommendation ITU-R BS.1770-5, Algorithms to measure audio programme loudness and true-peak audio level
+      version: "BS.1770-5 (11/2023); read 2026-11-25"
+      applicability: "The gated loudness of equations 1 to 7 and the channel weights of Table 3, recomputed under each changed choice on the Randori cards"
+      reviewScope: "What the listed checks test: that each card’s result matches the CI output. No claim that any card describes a real delivery."
+      sourceResourceId: itu/bs-1770-loudness-and-true-peak
+  verificationEvidence:
+    - description: For the card drawn, a written prediction, the recomputed loudness and an explanation of any gap
+      method: automated-check
+    - description: A Sensei or partner checks that the prediction was written before the recompute and that the explanation names the choice that moved the reading
+      method: sensei-review
+  beltCriteria:
+    - stage: practice
+      criterion: Handles card C and explains why one channel of a dual-mono recording reads 3 LU lower
+    - stage: adapt
+      criterion: Handles card A or B and predicts the direction of the change in integrated loudness correctly
+    - stage: demonstrate
+      criterion: Writes a fourth card for a partner and predicts its result before running it
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: a loudness meter written from ITU-R BS.1770-5, checked against EBU Tech 3341’s published test responses, then used on NASA’s Artemis II launch recording to measure its loudness and true peak and work out its EBU R 128 normalisation, all computed by the site’s CI."
+  href: /katas/media-pathway
+  provenance:
+    creator: NASA Kennedy Space Center (recording); ITU and EBU (method and test signals); Developer Dojo maintainers (script and results)
+    source: Recommendation ITU-R BS.1770-5, EBU Tech 3341 and EBU R 128 (read 2026-11-25), and NASA’s Artemis II launch recording from Pad Camera Site 4; results from /examples/media-pathway/tools/media_pathway.py
+    license: Recording a US government work in the public domain; ITU and EBU documents cited and linked, not copied; script and outputs MIT
+    date: "2026-11-25"
+brief:
+  goal: Meet one changed choice you did not see in advance, with a prediction first and a recompute after.
+  audience: Learners who finished MED-003, working with a partner or Sensei.
+  inputs:
+    - name: Your MED-002 reading of the recording
+      source: Your own output, or /examples/media-pathway/generated/loudness.json
+      terms: Dojo output, MIT licence
+    - name: The Randori cards
+      source: The table on /katas/media-pathway (the partner keeps it; the learner sees only the drawn card)
+      terms: Dojo content, MIT licence
+  doneWhen:
+    - Your prediction (direction and rough size of the change in integrated loudness) is written before you recompute
+    - Your recomputed result matches /examples/media-pathway/generated/randori/cards.json for the card
+    - You name the choice the card changed and explain any gap between prediction and result
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any audio player and a spreadsheet
+      version:
+        unavailable: Not fixed; any player that opens a WAV file and any spreadsheet that opens CSV work
+      permissions: Plays or opens a copy of the files
+      cost:
+        unavailable: Depends on the apps you use; free ones work
+    - part: data
+      name: NASA’s Artemis II launch recording, Pad Camera Site 4 (WAV)
+      version: "Downloaded 2026-11-25, SHA-256 18b1c6c1…e838410d"
+      permissions: Read a copy
+      cost: Free (US government work, public domain)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against the EBU Tech 3341 test responses
+      permissions: Reads what you paste in; paste only the public recording’s numbers, never a client’s or a colleague’s unreleased material
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library reads WAV files and is enough for these filters, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A loudness meter in a digital audio workstation or a command-line audio tool
+      tradeoff: Faster on long programmes, but the meter is a closed box unless you check it with the Tech 3341 test signals yourself, which is the habit this pathway teaches. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Partner or Sensei
+      responsibility: Draws one card after the learner starts and keeps the others hidden.
+      reviewGate: Asks for the prediction, the recompute and the explanation.
+    - role: Learner
+      responsibility: Reads the card, predicts, changes only the one choice and recomputes.
+      dependsOn:
+        - Partner or Sensei
+      reviewGate: The prediction is written down before the recompute runs.
+setup:
+  steps:
+    - Use the folder, Python and meter from MED-003.
+    - The partner opens the Randori table on /katas/media-pathway; the learner does not.
+  auth: None.
+  smokeTest:
+    action: Recompute all three cards with the pathway script
+    expected: "Against -27.92 LUFS: card A -27.87 (+0.05 LU), card B -30.06 (-2.14 LU), card C -30.93 (-3.01 LU)"
+    result: passed
+    evidence: /examples/media-pathway/generated/randori/cards.json, recomputed by CI on every pipeline
+    date: "2026-11-25"
+prompts:
+  - id: predict-first
+    title: Predict before you compute
+    purpose: Make the learner commit to a reading of the meter before the code answers.
+    text: |-
+      A 33-second stereo launch recording measures -27.92 LUFS integrated by ITU-R BS.1770-5, with 193 of its 326 gating blocks above the relative gate. One choice changes: <paste the card>.
+      Do not compute anything yet. Tell me whether the integrated loudness goes up or down, roughly by how much, and why. Then I will recompute.
+exercise:
+  title: Artemis II Live Launch Coverage, Pad Camera Site 4 (NASA audio)
+  resourceId: nasa/artemis-ii-launch-audio
+  terms: US government work, public domain. NASA content is generally not subject to US copyright and may be used in a factual manner that does not imply endorsement.
+execution:
+  steps:
+    - actor: Partner or Sensei
+      action: Waits until the learner has started, then reveals one card.
+      handoff: The learner writes a prediction.
+    - actor: Learner
+      action: Changes only what the card says, recomputes and compares with the prediction.
+    - actor: Partner or Sensei
+      action: Reviews the prediction, the result and the explanation.
+verification:
+  checks:
+    - action: Recompute the three cards with the pathway script
+      expected: "A (no K-weighting): -27.87 LUFS, +0.05 LU; B (no relative gate): -30.06 LUFS, -2.14 LU; C (the left channel alone as mono): -30.93 LUFS, -3.01 LU, so the gain to the target grows to 7.93 dB"
+      result: passed
+      evidence: /examples/media-pathway/generated/randori/cards.json
+      date: "2026-11-25"
+    - action: A learner meets a drawn card with a prediction written first
+      expected: Prediction, recompute and explanation
+      result: not-run
+  failures:
+    - observed: Card A is predicted to change the reading by several LU because a rocket is loud in the low frequencies
+      correction: The K-weighting cuts the lowest frequencies and lifts the highest, and for this recording the two nearly cancel. Measure before you conclude; on speech or music the change can be quite different.
+    - observed: Card C is predicted to give the same loudness because the sound is the same
+      correction: BS.1770 adds the channels’ power. Two identical channels carry twice the power of one, so the mono file reads 3.01 LU lower and a normalisation would turn it up by that much more.
+adaptation:
+  variations:
+    - change: The partner draws two cards
+      effect: Apply one at a time and recompute after each, so you know which change moved what.
+randori:
+  challenge: Meet one changed choice you have not seen, revealed after you start, on the MED-002 reading of the NASA recording.
+  constraints:
+    - Write your prediction before you compute
+    - Change only what the card says
+    - Name the choice that moved the reading
+  evaluation: The recompute matches the CI result for the card, and the partner agrees the explanation names what moved.
+maintenance:
+  cadence: Every six months, or when the ITU or the EBU revise BS.1770, Tech 3341 or R 128
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on NASA’s public recording, not a broadcast compliance check. No broadcast audio engineer or delivery quality-control specialist has reviewed it, and a real delivery needs the checks its broadcaster or platform asks for.
+    - The cards are practice changes to the meter and the delivery, not real delivery decisions.

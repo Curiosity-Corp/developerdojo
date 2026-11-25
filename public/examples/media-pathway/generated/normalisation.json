@@ -1,0 +1,18 @@
+{
+  "target_LUFS": "-23.0",
+  "toleranceNotLive_LU": "0.5",
+  "maxTruePeak_dBTP": "-1.0",
+  "measured_LUFS": "-27.92",
+  "withinToleranceAsDelivered": false,
+  "gain_dB": "4.92",
+  "remeasuredAfterGain_LUFS": "-23.02",
+  "truePeakAfterGain_dBTP": "-6.06",
+  "truePeakWithinLimitAfterGain": true,
+  "gainAllowedByTruePeak_dB": "9.98",
+  "gainOnlyResult": {
+    "gain_dB": "4.92",
+    "loudness_LUFS": "-23.00",
+    "truePeak_dBTP": "-6.06",
+    "meetsTarget": true
+  }
+}

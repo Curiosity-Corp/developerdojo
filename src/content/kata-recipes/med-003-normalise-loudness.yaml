@@ -1,0 +1,180 @@
+# Media pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/media-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job media_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Media pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a broadcast audio engineer, a delivery quality-control specialist or a mastering engineer yet.
+summary: "Work out the gain that brings the NASA recording to the EBU R 128 target of -23.0 LUFS, check what that gain does to its true peak against the -1 dBTP limit, remeasure after the gain, and say when a gain alone is not enough."
+metadata:
+  id: MED-003
+  title: "Normalise to EBU R 128 and check the true-peak limit"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - normalise-loudness
+  artifactTypes:
+    - normalisation-plan
+  domainIds:
+    - media
+  capabilityIds:
+    - analyze-data
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - ebu/r128-loudness-normalisation
+    - itu/bs-1770-loudness-and-true-peak
+    - nasa/artemis-ii-launch-audio
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: EBU R 128, Loudness normalisation and permitted maximum level of audio signals
+      version: "V5 (November 2023); read 2026-11-25"
+      applicability: "The target level of -23.0 LUFS, its tolerance of +/-0.5 LU for programmes that are not live, and the maximum true peak of -1 dBTP, applied to the NASA recording for practice"
+      reviewScope: "What the listed checks test: that the gain, the remeasured loudness and the true peak after the gain match the CI output. No claim that any programme is fit for broadcast or meets a broadcaster’s delivery specification."
+      sourceResourceId: ebu/r128-loudness-normalisation
+  verificationEvidence:
+    - description: The gain to the target, the loudness remeasured after the gain, the true peak after the gain and the gain the true-peak limit allows, matching the CI output
+      method: automated-check
+    - description: The learner states what they would do if the gain to the target pushed the true peak over -1 dBTP
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Computes the gain to -23.0 LUFS and remeasures the recording after applying it
+    - stage: adapt
+      criterion: Checks the true peak after the gain against -1 dBTP and works out the largest gain the limit allows
+    - stage: demonstrate
+      criterion: Explains to a reviewer when a gain alone meets R 128 and when the programme needs its peaks reduced first, without claiming any delivery is compliant
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: a loudness meter written from ITU-R BS.1770-5, checked against EBU Tech 3341’s published test responses, then used on NASA’s Artemis II launch recording to measure its loudness and true peak and work out its EBU R 128 normalisation, all computed by the site’s CI."
+  href: /katas/media-pathway
+  provenance:
+    creator: NASA Kennedy Space Center (recording); ITU and EBU (method and test signals); Developer Dojo maintainers (script and results)
+    source: Recommendation ITU-R BS.1770-5, EBU Tech 3341 and EBU R 128 (read 2026-11-25), and NASA’s Artemis II launch recording from Pad Camera Site 4; results from /examples/media-pathway/tools/media_pathway.py
+    license: Recording a US government work in the public domain; ITU and EBU documents cited and linked, not copied; script and outputs MIT
+    date: "2026-11-25"
+brief:
+  goal: A normalisation plan for the recording, a gain and its effect on loudness and true peak, that a reviewer can check line by line.
+  audience: Learners who finished MED-002 and deliver audio or video to a loudness target.
+  inputs:
+    - name: Your MED-002 readings of the recording
+      source: Your own output, or /examples/media-pathway/generated/loudness.json
+      terms: Dojo output, MIT licence
+    - name: The target and limits of EBU R 128
+      source: ebu/r128-loudness-normalisation (a free download; the script holds the three values and names the document)
+      terms: EBU publication, read free of charge; cited and linked, not copied
+  doneWhen:
+    - Your gain, remeasured loudness and true peak after the gain match /examples/media-pathway/generated/normalisation.json
+    - You state whether the gain alone meets the target and the true-peak limit, and the largest gain the limit allows
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any audio player and a spreadsheet
+      version:
+        unavailable: Not fixed; any player that opens a WAV file and any spreadsheet that opens CSV work
+      permissions: Plays or opens a copy of the files
+      cost:
+        unavailable: Depends on the apps you use; free ones work
+    - part: data
+      name: NASA’s Artemis II launch recording, Pad Camera Site 4 (WAV)
+      version: "Downloaded 2026-11-25, SHA-256 18b1c6c1…e838410d"
+      permissions: Read a copy
+      cost: Free (US government work, public domain)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against the EBU Tech 3341 test responses
+      permissions: Reads what you paste in; paste only the public recording’s numbers, never a client’s or a colleague’s unreleased material
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library reads WAV files and is enough for these filters, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A loudness meter in a digital audio workstation or a command-line audio tool
+      tradeoff: Faster on long programmes, but the meter is a closed box unless you check it with the Tech 3341 test signals yourself, which is the habit this pathway teaches. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains loudness normalisation and the true-peak limit and drafts the code that applies a gain and remeasures.
+      reviewGate: You run the code and keep it only if the remeasured loudness lands where the gain says it should.
+    - role: Learner as reviewer
+      responsibility: Checks that the gain in dB moves the loudness and the true peak by the same amount, and compares every value with the CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A value stays only if it matches the CI output at the precision shown.
+setup:
+  steps:
+    - Use the folder, Python and meter from MED-002.
+    - Download EBU R 128 from the EBU and open it beside the script.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/media_pathway.py . out"
+    expected: "normalisation.json gives a gain of 4.92 dB, -23.02 LUFS after the gain and a true peak of -6.06 dBTP"
+    result: passed
+    evidence: /examples/media-pathway/generated/normalisation.json, recomputed by CI on every pipeline
+    date: "2026-11-25"
+prompts:
+  - id: plan-the-gain
+    title: Plan the gain before you touch the file
+    purpose: Know whether a gain alone can meet a loudness target and a peak limit.
+    text: |-
+      A recording measures <integrated> LUFS with a true peak of <true peak> dBTP. EBU R 128 asks for -23.0 LUFS (+/-0.5 LU when the programme is not live) and a true peak no higher than -1 dBTP.
+      Tell me the gain that reaches the target, the true peak after that gain, and the largest gain the peak limit allows. If the two disagree, tell me what a delivery engineer would do, and do not tell me it is compliant.
+exercise:
+  title: Artemis II Live Launch Coverage, Pad Camera Site 4 (NASA audio)
+  resourceId: nasa/artemis-ii-launch-audio
+  terms: US government work, public domain. NASA content is generally not subject to US copyright and may be used in a factual manner that does not imply endorsement.
+execution:
+  steps:
+    - actor: Explaining assistant
+      action: Drafts the gain calculation and the code that applies it and remeasures.
+      handoff: You run the meter on the gained recording and compare.
+    - actor: Learner
+      action: Compute the gain to -23.0 LUFS, remeasure, and check the true peak after the gain against -1 dBTP.
+    - actor: Learner
+      action: Work out the largest gain the true-peak limit allows and the loudness it would give.
+verification:
+  checks:
+    - action: Plan the normalisation with the pathway script
+      expected: "Measured -27.92 LUFS, outside -23.0 +/-0.5 LU as delivered; gain 4.92 dB; remeasured -23.02 LUFS; true peak after the gain -6.06 dBTP, within -1 dBTP; the limit would allow up to 9.98 dB"
+      result: passed
+      evidence: /examples/media-pathway/generated/normalisation.json, recomputed by CI on every pipeline
+      date: "2026-11-25"
+    - action: Your own code reproduces the same values
+      expected: The same gain, loudness and true peak at the precision shown
+      result: not-run
+  failures:
+    - observed: The remeasured loudness is not exactly the measured loudness plus the gain
+      correction: A gain moves every block by the same amount, so the same blocks pass the gates, but the gain is applied to the samples and the meter runs again in floating point. A difference in the second decimal is rounding; more than that means the gain was applied in the wrong unit.
+    - observed: The gain to the target would put the true peak above -1 dBTP
+      correction: A gain alone cannot meet both. The programme needs its peaks reduced first, for example with a true-peak limiter, which this pathway does not cover; never clip the samples to fit.
+adaptation:
+  variations:
+    - change: Plan the normalisation of the Tech 3341 case 19 tone (true peak +3 dBTP while its samples stay just below full scale)
+      effect: Its sample peak hides an inter-sample peak of about 3 dB, so a ceiling set from the sample peak would let it through.
+randori:
+  challenge: See the media Randori recipe, MED-R01.
+  constraints:
+    - The plan states both the loudness and the true peak after the gain
+  evaluation: The gain, the remeasured loudness and the true peak match the CI output.
+maintenance:
+  cadence: Every six months, or when the ITU or the EBU revise BS.1770, Tech 3341 or R 128
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on NASA’s public recording, not a broadcast compliance check. No broadcast audio engineer or delivery quality-control specialist has reviewed it, and a real delivery needs the checks its broadcaster or platform asks for.
+    - Broadcasters and platforms publish their own delivery targets; this pathway uses only the R 128 values it read and does not list others.
