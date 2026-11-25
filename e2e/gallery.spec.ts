@@ -4,7 +4,7 @@ import { expect, test, type Page } from '@playwright/test';
 // The Gallery (#87). Runs in both Playwright projects: desktop (1440 px) and mobile (Pixel 7, 390 px).
 
 const GALLERY = '/gallery';
-const ENTRIES = ['fnd-001-stack-comparison', 'pocket-garden-prototype', 'ifc-wall-quantity-trace', 'bim-pathway-edited-model', 'reconstructed-3d-office', 'pocket-invoice-penpot-file', 'agriculture-irrigation-estimate', 'science-trend-with-uncertainty', 'finance-apr-and-schedule', 'manufacturing-control-limits-and-variation'];
+const ENTRIES = ['fnd-001-stack-comparison', 'pocket-garden-prototype', 'ifc-wall-quantity-trace', 'bim-pathway-edited-model', 'reconstructed-3d-office', 'pocket-invoice-penpot-file', 'agriculture-irrigation-estimate', 'science-trend-with-uncertainty', 'finance-apr-and-schedule', 'manufacturing-control-limits-and-variation', 'media-loudness-and-normalisation'];
 
 async function setTheme(page: Page, theme: 'light' | 'dark'): Promise<void> {
   await page.emulateMedia({ colorScheme: theme });
@@ -93,7 +93,7 @@ test('outcome and field filters compose and never hide the shared foundation', a
 
   await field.selectOption('architecture-bim');
   expect(await visibleIds(page)).toEqual(['fnd-001-stack-comparison', 'ifc-wall-quantity-trace', 'bim-pathway-edited-model']);
-  await expect(status).toHaveText('Showing 3 of 10 artifacts.');
+  await expect(status).toHaveText('Showing 3 of 11 artifacts.');
   await expect(empty).toBeHidden();
   await expect(page).toHaveURL(/field=architecture-bim/);
 
@@ -116,7 +116,7 @@ test('outcome and field filters compose and never hide the shared foundation', a
   await expect(page.locator('[data-shared-foundations]')).toBeVisible();
 
   await page.getByRole('button', { name: 'Show everything' }).click();
-  await expect(status).toHaveText('Showing all 10 artifacts.');
+  await expect(status).toHaveText('Showing all 11 artifacts.');
   expect(await visibleIds(page)).toEqual(ENTRIES);
 });
 

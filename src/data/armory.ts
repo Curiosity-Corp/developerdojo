@@ -899,7 +899,7 @@ export const armoryStackRecipes: ArmoryStackRecipeInput[] = [
   {
     id: 'python-standard-library',
     title: 'Python and its standard library',
-    summary: 'The stack of the agriculture, science, finance and manufacturing pathways: one Python script that needs no packages, so it runs offline on any machine with Python 3.12 or later, and a spreadsheet to look at the CSV results.',
+    summary: 'The stack of the agriculture, science, finance, manufacturing and media pathways: one Python script that needs no packages, so it runs offline on any machine with Python 3.12 or later, and a spreadsheet to look at the CSV results.',
     components: [
       { learnerChoice: 'Python 3.12 or later, with no extra packages', kind: 'cli', role: 'Runs the pathway script: reads the input record, reproduces the published worked examples and computes every result' },
       { learnerChoice: 'Any spreadsheet app or a text editor', kind: 'application', role: 'Opens the input record and the CSV and JSON results so you can check a row yourself' },

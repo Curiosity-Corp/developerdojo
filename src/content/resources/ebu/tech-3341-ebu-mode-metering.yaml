@@ -1,0 +1,9 @@
+title: "EBU Tech 3341 (2023): Loudness metering, 'EBU Mode' metering to supplement EBU R 128 loudness normalisation"
+provider: "EBU"
+url: "https://tech.ebu.ch/docs/tech/tech3341.pdf"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [creative-media]
+summary: "How a loudness meter must behave: momentary (0.4 s), short-term (3 s) and integrated loudness, the scales it shows, and a table of minimum-requirements test signals with the reading and tolerance a meter must give for each. You can synthesize most of them from their description and check your own meter. Free to download from the EBU."
+verifiedOn: 2026-11-25

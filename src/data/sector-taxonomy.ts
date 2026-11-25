@@ -7,7 +7,7 @@ import { checkSectorTaxonomy, sectorGroupSchema, type SectorGroup } from '../lib
  */
 export const sectorGroupInputs = [
   { id: 'digital-ux', name: 'Digital products and UX', fieldIds: ['software', 'ux', 'data', 'cybersecurity'], nextPack: 'A data or security pack needs an openly licensed dataset or system to work on, reference results a script can reproduce, and a reviewer for any real security finding.' },
-  { id: 'spatial-media', name: 'Spatial design and media', fieldIds: ['3d', 'media'], nextPack: 'Needs openly licensed source files (models, captures, footage) whose licence allows changes, and checks a script can rerun on them.' },
+  { id: 'spatial-media', name: 'Spatial design and media', fieldIds: ['3d', 'media'], nextPack: 'A 3D pack needs openly licensed models or captures whose licence allows changes, and a published method or reference results a script can rerun, as the media pathway does with the EBU loudness test signals.' },
   { id: 'built-environment', name: 'Built environment', fieldIds: ['architecture-bim', 'construction'], nextPack: 'A construction pack needs open schedule or asset data, and the same qualified-review limits as the BIM pathway.' },
   { id: 'industrial-hardware', name: 'Industrial and hardware', fieldIds: ['manufacturing', 'aerospace'], nextPack: 'An aerospace or transport pack needs a public record or published method with worked examples to reproduce, as the manufacturing pathway does with the NIST/SEMATECH e-Handbook, and an engineer named for any real use.' },
   { id: 'robotics', name: 'Robotics and autonomy', fieldIds: ['robotics'], nextPack: 'Simulation only: an open robot model and scenario, with results CI can rerun, and safety review named for anything on real hardware.' },

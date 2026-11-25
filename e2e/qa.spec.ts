@@ -136,6 +136,9 @@ const REFLOW_ROUTES = [
   // The manufacturing pathway and its widest recipe page (#93).
   '/katas/manufacturing-pathway/',
   '/katas/mfg-002-control-limits/',
+  // The media pathway and its widest recipe page (#93).
+  '/katas/media-pathway/',
+  '/katas/med-002-measure-loudness/',
   // Optional Ignite Curiosity journeys (#83).
   '/journeys/',
   '/journeys/robotics/',

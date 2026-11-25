@@ -1,0 +1,178 @@
+# Media pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/media-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job media_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Media pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a broadcast audio engineer, a delivery quality-control specialist or a mastering engineer yet.
+summary: "Open NASA’s public-domain launch recording, read what its WAV header says about channels, sample rate and bit depth, and measure its sample peak, RMS level and DC offset per channel, before any loudness meter is involved."
+metadata:
+  id: MED-001
+  title: "Inspect a recording: its format, its peaks and its channels"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - inspect-audio-recording
+  artifactTypes:
+    - audio-inspection
+  domainIds:
+    - media
+  capabilityIds:
+    - analyze-data
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - nasa/artemis-ii-launch-audio
+    - itu/bs-1770-loudness-and-true-peak
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: Recommendation ITU-R BS.1770-5, Algorithms to measure audio programme loudness and true-peak audio level
+      version: "BS.1770-5 (11/2023); read 2026-11-25"
+      applicability: "The input the method expects: linear PCM, up to five channels, at the 48 kHz its filter coefficients are published for. Used here to decide whether the recording can be measured as it is."
+      reviewScope: "What the listed checks test: that the header and the sample statistics match the CI output. No claim that the recording meets any delivery specification."
+      sourceResourceId: itu/bs-1770-loudness-and-true-peak
+  verificationEvidence:
+    - description: The header fields, per-channel sample peak, RMS level, DC offset and count of full-scale samples, matching the CI output
+      method: automated-check
+    - description: The learner states whether the two channels carry different signals and why that matters for a loudness reading
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Reads channels, sample rate, bit depth and duration from the WAV header and checks them against the file size
+    - stage: adapt
+      criterion: Computes sample peak, RMS level and DC offset in dBFS and percent of full scale for each channel and matches the CI output
+    - stage: demonstrate
+      criterion: Explains to a reviewer why a sample peak is not the true peak and why identical channels change a loudness reading
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: a loudness meter written from ITU-R BS.1770-5, checked against EBU Tech 3341’s published test responses, then used on NASA’s Artemis II launch recording to measure its loudness and true peak and work out its EBU R 128 normalisation, all computed by the site’s CI."
+  href: /katas/media-pathway
+  provenance:
+    creator: NASA Kennedy Space Center (recording); ITU and EBU (method and test signals); Developer Dojo maintainers (script and results)
+    source: Recommendation ITU-R BS.1770-5, EBU Tech 3341 and EBU R 128 (read 2026-11-25), and NASA’s Artemis II launch recording from Pad Camera Site 4; results from /examples/media-pathway/tools/media_pathway.py
+    license: Recording a US government work in the public domain; ITU and EBU documents cited and linked, not copied; script and outputs MIT
+    date: "2026-11-25"
+brief:
+  goal: A plain account of what the recording is, sample by sample, before you measure its loudness.
+  audience: Learners who make or deliver audio or video and want to check a file rather than trust the meter in their editor.
+  inputs:
+    - name: NASA’s Artemis II launch recording, Pad Camera Site 4
+      source: /examples/media-pathway/inputs/artemis-ii-launch-pad-camera-site-4.wav
+      terms: US government work, public domain
+  doneWhen:
+    - Your channels, sample rate, bit depth, frame count and duration match /examples/media-pathway/generated/inspection.json
+    - Your sample peak, RMS level and DC offset for each channel match it at the precision shown
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any audio player and a spreadsheet
+      version:
+        unavailable: Not fixed; any player that opens a WAV file and any spreadsheet that opens CSV work
+      permissions: Plays or opens a copy of the files
+      cost:
+        unavailable: Depends on the apps you use; free ones work
+    - part: data
+      name: NASA’s Artemis II launch recording, Pad Camera Site 4 (WAV)
+      version: "Downloaded 2026-11-25, SHA-256 18b1c6c1…e838410d"
+      permissions: Read a copy
+      cost: Free (US government work, public domain)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against the EBU Tech 3341 test responses
+      permissions: Reads what you paste in; paste only the public recording’s numbers, never a client’s or a colleague’s unreleased material
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library reads WAV files and is enough for these filters, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A loudness meter in a digital audio workstation or a command-line audio tool
+      tradeoff: Faster on long programmes, but the meter is a closed box unless you check it with the Tech 3341 test signals yourself, which is the habit this pathway teaches. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains the WAV header and dBFS and drafts Python that reads the samples.
+      reviewGate: You run the code and keep it only if its header fields match the file size and its levels match the CI output.
+    - role: Learner as reviewer
+      responsibility: Checks one number by hand, such as the duration from the frame count, and compares every value with the CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A value stays only if it matches the CI output at the precision shown.
+setup:
+  steps:
+    - Install Python 3.12 or later; nothing else is needed.
+    - Download the recording and the script from /katas/media-pathway into one folder, keeping the inputs/ and tools/ folders.
+    - Listen to the recording once at a comfortable level before you measure it.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/media_pathway.py . out"
+    expected: "The script reports 59 reference checks passed and writes inspection.json with 2 channels, 48000 Hz, 16-bit and 1582381 frames"
+    result: passed
+    evidence: /examples/media-pathway/generated/inspection.json, recomputed by CI on every pipeline
+    date: "2026-11-25"
+prompts:
+  - id: read-the-header
+    title: Read a WAV file without an audio library
+    purpose: Know what a file holds before a meter summarises it.
+    text: |-
+      I have a 16-bit PCM WAV file. Explain what its header says (channels, sample rate, bits per sample, data size) and how to check them against each other.
+      Then give me Python, standard library only, that prints those fields and, for each channel, the sample peak in dBFS, the RMS level in dBFS, the DC offset in percent of full scale and how many samples sit at full scale.
+      If you are not sure, say so.
+exercise:
+  title: Artemis II Live Launch Coverage, Pad Camera Site 4 (NASA audio)
+  resourceId: nasa/artemis-ii-launch-audio
+  terms: US government work, public domain. NASA content is generally not subject to US copyright and may be used in a factual manner that does not imply endorsement.
+execution:
+  steps:
+    - actor: Explaining assistant
+      action: Drafts the code that reads the header and the samples.
+      handoff: You run it and check the duration against the frame count and the sample rate.
+    - actor: Learner
+      action: Compute the sample peak, RMS level, DC offset and full-scale count for each channel, and compare the two channels.
+    - actor: Learner
+      action: Write down why the recording can be measured with the BS.1770-5 coefficients as it is.
+verification:
+  checks:
+    - action: Inspect the recording with the pathway script
+      expected: "2 channels, 48000 Hz, 16-bit, 1582381 frames (32.966 s); each channel: sample peak -10.99 dBFS, RMS -32.32 dBFS, DC offset -0.0354 % of full scale, no sample at full scale; the two channels are identical"
+      result: passed
+      evidence: /examples/media-pathway/generated/inspection.json, recomputed by CI on every pipeline
+      date: "2026-11-25"
+    - action: Your own code reproduces the same values
+      expected: The same header fields and levels at the precision shown
+      result: not-run
+  failures:
+    - observed: The duration you compute is twice or half the length you hear
+      correction: A frame holds one sample for every channel. Divide the data size by channels times bytes per sample to get frames, then by the sample rate to get seconds.
+    - observed: The levels come out above 0 dBFS
+      correction: Divide 16-bit samples by 32768, the full-scale value, before taking 20 log10 of the peak or the RMS.
+adaptation:
+  variations:
+    - change: Inspect a recording of your own voice, made on your phone and exported as WAV
+      effect: Check its sample rate first; the BS.1770-5 coefficients are published for 48 kHz and other rates need coefficients designed for them, which this pathway does not cover.
+randori:
+  challenge: See the media Randori recipe, MED-R01.
+  constraints:
+    - Every header field is checked against the file size
+  evaluation: The header fields and levels match the CI output.
+maintenance:
+  cadence: Every six months, or when the ITU or the EBU revise BS.1770, Tech 3341 or R 128
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on NASA’s public recording, not a broadcast compliance check. No broadcast audio engineer or delivery quality-control specialist has reviewed it, and a real delivery needs the checks its broadcaster or platform asks for.
+    - The recording is served unchanged, at the hash the pack records.

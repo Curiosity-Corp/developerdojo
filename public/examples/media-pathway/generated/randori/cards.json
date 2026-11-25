@@ -1,0 +1,19 @@
+{
+  "A": {
+    "title": "Leave out the K-weighting: the same gates on the plain mean square",
+    "integrated_LUFS": "-27.87",
+    "changeFromBS1770_LU": "0.05"
+  },
+  "B": {
+    "title": "Leave out the relative gate: only the -70 LUFS absolute gate",
+    "integrated_LUFS": "-30.06",
+    "changeFromBS1770_LU": "-2.14"
+  },
+  "C": {
+    "title": "Deliver the left channel alone as a mono file (the two channels are identical)",
+    "integrated_LUFS": "-30.93",
+    "changeFromBS1770_LU": "-3.01",
+    "gainToTarget_dB": "7.93",
+    "truePeakAfterThatGain_dBTP": "-3.05"
+  }
+}

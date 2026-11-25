@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectorPackEvidence from '../../components/SectorPackEvidence.astro';
+// Every number on this page is read from the files CI recomputes
+// (/examples/media-pathway/tools/media_pathway.py, job media_pathway).
+import manifest from '../../../public/examples/media-pathway/generated/manifest.json';
+import referenceChecks from '../../../public/examples/media-pathway/generated/reference-checks.json';
+import inspection from '../../../public/examples/media-pathway/generated/inspection.json';
+import loudness from '../../../public/examples/media-pathway/generated/loudness.json';
+import normalisation from '../../../public/examples/media-pathway/generated/normalisation.json';
+import cards from '../../../public/examples/media-pathway/generated/randori/cards.json';
+
+const EX = '/examples/media-pathway';
+const GEN = `${EX}/generated`;
+const AUDIO = 'inputs/artemis-ii-launch-pad-camera-site-4.wav';
+const audioSha = (manifest.inputs as Record<string, string>)[AUDIO];
+if (!audioSha) throw new Error(`The media manifest has no hash for ${AUDIO}`);
+const steps = [
+  { id: 'MED-001', href: '/katas/med-001-inspect-recording', title: 'Inspect a recording', does: 'Read the WAV header, then measure each channel’s sample peak, RMS level and DC offset, and notice that the two channels are the same.' },
+  { id: 'MED-002', href: '/katas/med-002-measure-loudness', title: 'Measure loudness and true peak', does: 'Build a meter from ITU-R BS.1770-5, check it against the EBU Tech 3341 test signals, then measure the recording.' },
+  { id: 'MED-003', href: '/katas/med-003-normalise-loudness', title: 'Normalise to EBU R 128', does: 'Work out the gain to -23.0 LUFS, remeasure, and check the true peak after the gain against -1 dBTP.' },
+  { id: 'MED-R01', href: '/katas/med-r01-randori', title: 'Media Randori: an unseen change', does: 'A partner reveals one changed choice after you start; predict how the loudness moves, then recompute.' },
+];
+const header = inspection.header;
+const cardRows = Object.entries(cards).map(([id, card]) => ({ id, title: card.title, integrated: card.integrated_LUFS, change: card.changeFromBS1770_LU }));
+const signed = (value: number | string) => (Number(value) > 0 ? `+${value}` : String(value));
+const cases = [...new Set(referenceChecks.checks.map((check) => check.case))];
+const sources = {
+  bs1770: 'https://www.itu.int/rec/R-REC-BS.1770',
+  tech3341: 'https://tech.ebu.ch/docs/tech/tech3341.pdf',
+  r128: 'https://tech.ebu.ch/docs/r/r128.pdf',
+  recording: 'https://commons.wikimedia.org/wiki/File:Artemis_II_Live_Launch_Coverage_-_Pad_Camera_Site_4_(KSC-20260401-AU-LMM01-0001-Artemis_II_Live_Launch_Coverage_Pad_Camera_Site_4).wav',
+  nasaMedia: 'https://www.nasa.gov/nasa-brand-center/images-and-media/',
+};
+---
+<BaseLayout title="Media pathway: from a recording to a measured, normalised programme loudness" description="Follow a media pathway: inspect a real NASA recording, measure its loudness and true peak with a meter you first check against the EBU Tech 3341 test signals, and plan its EBU R 128 normalisation, every number computed in CI.">
+  <PageHero compact eyebrow="Media · Pathway" title="From a recording to a measured, normalised programme loudness" accent="." subtitle="Four katas on audio loudness, on NASA’s public-domain launch recording and the methods of ITU-R BS.1770-5, EBU Tech 3341 and EBU R 128. Each step has a file you can open and a result that CI computes again on every pipeline." ctas={[
+    { label: 'Start with MED-001', href: '/katas/med-001-inspect-recording', icon: 'play' },
+    { label: 'Download the loudness series', href: `${GEN}/loudness-series.csv`, variant: 'ghost', icon: 'arrow-right' },
+  ]} />
+
+  <section class="section" aria-labelledby="outcome-title"><div class="container narrow">
+    <p class="eyebrow">01 / The files</p>
+    <h2 id="outcome-title">One recording, a meter checked first, every number rerun</h2>
+    <p>The recording is NASA’s audio of the Artemis II launch from a camera site at the pad: {header.duration_s} seconds of stereo at {header.sampleRate_Hz} Hz. Recommendation ITU-R BS.1770-5 defines how to measure its loudness and true peak, EBU Tech 3341 publishes test signals with the reading a meter must give for each, and EBU R 128 sets the target. The script checks its meter against those test signals before it measures anything else.</p>
+    <ul class="links">
+      <li><a href={`${EX}/${AUDIO}`} download>The recording</a> (WAV, {Math.round(header.bytes / 1e5) / 10} MB): NASA’s file, unchanged.</li>
+      <li><a href={`${GEN}/loudness-series.csv`} download>Momentary and short-term loudness every 100 ms</a> (CSV) and <a href={`${GEN}/loudness.json`}>the loudness readings</a> (JSON).</li>
+      <li><a href={`${GEN}/inspection.json`}>The recording inspection</a> and <a href={`${GEN}/normalisation.json`}>the normalisation plan</a> (JSON).</li>
+      <li><a href={`${GEN}/summary.md`}>The result summary</a> (Markdown) and every result under <a href={`${GEN}/manifest.json`}>the manifest</a>, with the method and the input hash.</li>
+      <li><a href={`${EX}/tools/media_pathway.py`}>The pathway script</a> (Python 3.12, standard library only, MIT), so you can rerun every number yourself.</li>
+      <li><a href={`${EX}/README.md`}>README</a>: sources, terms, how to rerun the checks, and what they do not cover.</li>
+    </ul>
+  </div></section>
+
+  <section class="section" aria-labelledby="steps-title"><div class="container narrow">
+    <p class="eyebrow">02 / The steps</p>
+    <h2 id="steps-title">Four katas, in order</h2>
+    <p>Each kata has a brief, prompts, checks and the evidence for the checks the Dojo has run. They are drafts: the Dojo built the example and CI checks it, and no learner has run them yet. Do the foundations first: <a href="/katas/compare-instructions">Compare AI instructions</a> and <a href="/katas/context-trap">Spot a context trap</a>.</p>
+    <ol class="steps">
+      {steps.map((step) => <li><a href={step.href}><span class="step-id">{step.id}</span> {step.title}</a><p>{step.does}</p></li>)}
+    </ol>
+  </div></section>
+
+  <section class="section" aria-labelledby="checks-title"><div class="container narrow">
+    <p class="eyebrow">03 / The checks</p>
+    <h2 id="checks-title">Check the meter, then use it</h2>
+    <p>These results come from CI: the pipeline reruns <code>/examples/media-pathway/tools/media_pathway.py</code> and fails if any output differs from the published files.</p>
+
+    <h3 id="reference-title">Reference checks: the EBU Tech 3341 test signals</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="reference-caption">
+      <table>
+        <caption id="reference-caption">Test signals synthesized from their description in Tech 3341, the published reading with its tolerance, and the script’s reading</caption>
+        <thead><tr><th scope="col">Case</th><th scope="col">Reading</th><th scope="col">Published</th><th scope="col">Computed</th><th scope="col">Result</th></tr></thead>
+        <tbody>
+          {referenceChecks.checks.map((check) => <tr><td>{check.case}</td><td>{check.quantity}</td><td>{check.expected}</td><td>{check.computed}</td><td data-reference-check={check.id}>{check.status === 'pass' ? 'Pass' : 'Fail'}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p><strong>{referenceChecks.passed} passed, {referenceChecks.failed} failed</strong>, from test cases {cases.join(', ')}. The script stops without writing any result if one reading falls outside its tolerance, so every number below was measured by a meter that passed these tests. Cases 7 and 8 need the EBU’s authentic programme files, cases 11 and 14 are for live meters, and cases 20 to 23 need a filter Tech 3341 does not specify, so they are not run. <a href={`${GEN}/reference-checks.json`}>Result (JSON)</a>.</p>
+
+    <h3 id="record-title">The recording (MED-001)</h3>
+    <p>{header.channels} channels, {header.sampleRate_Hz} Hz, {header.bitsPerSample}-bit PCM, {header.frames} frames. Each channel peaks at {inspection.channels[0]?.samplePeak_dBFS} dBFS with an RMS level of {inspection.channels[0]?.rms_dBFS} dBFS, and no sample reaches full scale. The two channels are <span data-channels-identical>{inspection.channelsIdentical ? 'identical' : 'different'}</span>: this is dual mono, which matters in the Randori. <a href={`${GEN}/inspection.json`}>Result (JSON)</a>.</p>
+
+    <h3 id="loudness-title">Loudness and true peak (MED-002)</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="loudness-caption">
+      <table>
+        <caption id="loudness-caption">The recording measured by ITU-R BS.1770-5 and the EBU Mode windows</caption>
+        <thead><tr><th scope="col">Reading</th><th scope="col">Value</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Integrated loudness</th><td data-loudness="integrated">{loudness.integrated_LUFS} LUFS</td></tr>
+          <tr><th scope="row">Gating blocks used</th><td>{loudness.gatingBlocksUsed} of {loudness.gatingBlocks} (relative gate {loudness.relativeGate_LUFS} LUFS)</td></tr>
+          <tr><th scope="row">Highest momentary loudness (0.4 s)</th><td>{loudness.maxMomentary_LUFS} LUFS</td></tr>
+          <tr><th scope="row">Highest short-term loudness (3 s)</th><td>{loudness.maxShortTerm_LUFS} LUFS</td></tr>
+          <tr><th scope="row">Maximum true peak</th><td data-loudness="true-peak">{loudness.maxTruePeak_dBTP} dBTP</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The sound builds, peaks and fades out over the half-minute. The relative gate leaves out the quietest blocks of the start and the fade, so the integrated loudness describes the launch rather than the quiet around it; the series shows each block’s neighbourhood. <a href={`${GEN}/loudness.json`}>Result (JSON)</a>, <a href={`${GEN}/loudness-series.csv`} download>loudness every 100 ms (CSV)</a>.</p>
+
+    <h3 id="normalisation-title">Normalisation to EBU R 128 (MED-003)</h3>
+    <p>R 128 asks for {normalisation.target_LUFS} LUFS, within ±{normalisation.toleranceNotLive_LU} LU for a programme that is not live, and a true peak no higher than {normalisation.maxTruePeak_dBTP} dBTP. As delivered, the recording is {normalisation.withinToleranceAsDelivered ? 'within' : 'outside'} that tolerance. A gain of <strong data-gain>{signed(normalisation.gain_dB)} dB</strong> brings it to {normalisation.remeasuredAfterGain_LUFS} LUFS, remeasured after the gain, with its true peak at {normalisation.truePeakAfterGain_dBTP} dBTP: {normalisation.truePeakWithinLimitAfterGain ? 'within the limit, so a gain alone is enough here' : 'over the limit, so a gain alone is not enough'}. The limit would allow up to {normalisation.gainAllowedByTruePeak_dB} dB. <a href={`${GEN}/normalisation.json`}>Result (JSON)</a>.</p>
+
+    <h3 id="randori-title">Randori cards</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="randori-caption">
+      <table>
+        <caption id="randori-caption">Each card changes one choice of the MED-002 measurement ({loudness.integrated_LUFS} LUFS integrated)</caption>
+        <thead><tr><th scope="col">Card</th><th scope="col">Change</th><th scope="col">Integrated</th><th scope="col">Change</th></tr></thead>
+        <tbody>
+          {cardRows.map((card) => <tr><th scope="row">{card.id}</th><td>{card.title}</td><td>{card.integrated} LUFS</td><td data-randori-card={card.id}>{signed(card.change)} LU</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>The partner keeps this table hidden until the learner has written a prediction; see <a href="/katas/med-r01-randori">MED-R01</a>. With card C, the gain to the target grows to {cards.C.gainToTarget_dB} dB. <a href={`${GEN}/randori/cards.json`}>Result (JSON)</a>.</p>
+  </div></section>
+
+  <section class="section" aria-labelledby="tools-title"><div class="container narrow">
+    <p class="eyebrow">04 / The tools and sources</p>
+    <h2 id="tools-title">No packages, public sources</h2>
+    <p>The script uses only the Python 3.12 standard library, so it runs offline with nothing to install. Any audio player plays the recording, and a spreadsheet opens the loudness series. The Armory lists the stack recipe <a href="/armory/registry#recipe-python-standard-library">Python standard library</a>.</p>
+    <ul class="links">
+      <li><a href={sources.bs1770}>Recommendation ITU-R BS.1770-5</a> (11/2023), Algorithms to measure audio programme loudness and true-peak audio level: the K-weighting coefficients, channel weights, gating and the true-peak annex. A free download from the ITU.</li>
+      <li><a href={sources.tech3341}>EBU Tech 3341</a> (V4, November 2023), Loudness metering, ‘EBU Mode’ metering: the momentary and short-term windows and the minimum-requirements test signals.</li>
+      <li><a href={sources.r128}>EBU R 128</a> (V5, November 2023), Loudness normalisation and permitted maximum level of audio signals: the target and the true-peak limit.</li>
+      <li><a href={sources.recording}>The recording on Wikimedia Commons</a>, released by NASA Kennedy Space Center.</li>
+    </ul>
+  </div></section>
+
+  <SectorPackEvidence pack="media" eyebrow="05 / What is checked" facts={{ audioSha: audioSha.slice(0, 12), referenceChecks: referenceChecks.passed, integrated: loudness.integrated_LUFS, truePeak: loudness.maxTruePeak_dBTP, gain: normalisation.gain_dB, remeasured: normalisation.remeasuredAfterGain_LUFS, truePeakAfter: normalisation.truePeakAfterGain_dBTP }} />
+
+  <section class="section" aria-labelledby="credits-title"><div class="container narrow">
+    <p class="eyebrow">06 / Credits</p>
+    <h2 id="credits-title">Credits and terms</h2>
+    <ul>
+      <li>Recording: NASA Kennedy Space Center, Artemis II Live Launch Coverage, Pad Camera Site 4, 1 April 2026. A US government work in the public domain; <a href={sources.nasaMedia}>NASA’s media guidelines</a> ask that its name and insignia not imply endorsement, and nothing here does.</li>
+      <li>Method and test signals: ITU (Recommendation ITU-R BS.1770-5) and EBU (Tech 3341, R 128), read on 25 November 2026. Cited and linked; their text is not copied here beyond the coefficients and values the method needs, each named by its table.</li>
+      <li>The pathway script and its outputs: Developer Dojo, MIT licence.</li>
+    </ul>
+  </div></section>
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 68rem; }
+  .eyebrow { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .links li { margin-bottom: var(--space-2, .5rem); }
+  .table-wrap { overflow-x: auto; margin-block: var(--space-6, 1.5rem); }
+  .table-wrap:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  table { width: 100%; border-collapse: collapse; }
+  caption { text-align: left; font-weight: 800; margin-bottom: var(--space-2, .5rem); }
+  th, td { text-align: left; vertical-align: top; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+  code { overflow-wrap: anywhere; }
+  h2, h3, p, li, a { overflow-wrap: anywhere; }
+  .steps { padding-left: 0; list-style: none; display: grid; gap: var(--space-4, 1rem); }
+  .steps li { min-width: 0; padding: var(--space-4, 1rem); background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); }
+  .steps a { font-weight: 800; }
+  .steps p { margin: .25rem 0 0; }
+  .step-id { display: inline-block; min-width: 4.5rem; color: var(--rust-text); }
+</style>

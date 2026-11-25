@@ -33,6 +33,11 @@ export const transferPractice = {
       reference: 'The NIST/SEMATECH e-Handbook’s printed factor table and case study results, which the code must reproduce before it sets any control limit.',
       gate: { recipe: 'mfg-002-control-limits', role: 'Explaining assistant' },
     },
+    {
+      packId: 'media',
+      reference: 'EBU Tech 3341’s published test signals and readings, which the meter must give within their tolerances before it measures any recording.',
+      gate: { recipe: 'med-002-measure-loudness', role: 'Explaining assistant' },
+    },
   ],
   selfCheck: [
     'I can name this field’s independent reference and show one assistant output it rejected or corrected.',

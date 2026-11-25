@@ -1,0 +1,194 @@
+# Media pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/media-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job media_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Media pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a broadcast audio engineer, a delivery quality-control specialist or a mastering engineer yet.
+summary: "Build a loudness meter from ITU-R BS.1770-5: K-weighting, channel weights, 400 ms gating blocks and the two gates, momentary and short-term windows and the true-peak over-sampler. Check it against EBU Tech 3341’s published test responses before you trust it, then measure the NASA recording."
+metadata:
+  id: MED-002
+  title: "Measure programme loudness and true peak, with a meter you checked yourself"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - measure-programme-loudness
+  artifactTypes:
+    - loudness-measurement
+  domainIds:
+    - media
+  capabilityIds:
+    - analyze-data
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - itu/bs-1770-loudness-and-true-peak
+    - ebu/tech-3341-ebu-mode-metering
+    - nasa/artemis-ii-launch-audio
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: Recommendation ITU-R BS.1770-5, Algorithms to measure audio programme loudness and true-peak audio level
+      version: "BS.1770-5 (11/2023); read 2026-11-25"
+      applicability: "The K-weighting coefficients of Tables 1 and 2, the channel weights of Table 3, the gated loudness of equations 1 to 7 and the true-peak filter of Annex 2, at 48 kHz, for one to five channels"
+      reviewScope: "What the listed checks test: that the meter gives the EBU Tech 3341 test responses within their tolerances, and that its readings of the recording match the CI output. No claim that the meter is a certified or calibrated instrument."
+      sourceResourceId: itu/bs-1770-loudness-and-true-peak
+    - name: EBU Tech 3341, Loudness metering, ‘EBU Mode’ metering to supplement EBU R 128 loudness normalisation
+      version: "V4 (November 2023); read 2026-11-25"
+      applicability: "The momentary (0.4 s) and short-term (3 s) windows, and the minimum-requirements test signals that are defined by their tones: cases 1 to 6, 9, 10, 12 and 13, and true-peak cases 15 to 19"
+      reviewScope: "What the listed checks test: that the synthesized test signals give the published responses within the published tolerances. Cases 7 and 8 (authentic programmes), 11 and 14 (live meters) and 20 to 23 were not run."
+      sourceResourceId: ebu/tech-3341-ebu-mode-metering
+  verificationEvidence:
+    - description: The 59 Tech 3341 test responses within their tolerances, and the integrated, momentary, short-term and true-peak readings of the recording, matching the CI output
+      method: automated-check
+    - description: The learner explains which gating blocks the relative gate removed from the recording and why
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces Tech 3341 cases 1 and 2 (a 1 kHz tone at -23 and -33 dBFS reads -23.0 and -33.0 LUFS) with a K-weighting filter built from Tables 1 and 2
+    - stage: adapt
+      criterion: Adds the gates, the 0.4 s and 3 s windows and the true-peak filter, and passes all 59 checks before measuring the recording
+    - stage: demonstrate
+      criterion: Explains to a reviewer why the integrated loudness of the recording differs from its average momentary loudness, and why a sample peak can read below the true peak
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: a loudness meter written from ITU-R BS.1770-5, checked against EBU Tech 3341’s published test responses, then used on NASA’s Artemis II launch recording to measure its loudness and true peak and work out its EBU R 128 normalisation, all computed by the site’s CI."
+  href: /katas/media-pathway
+  provenance:
+    creator: NASA Kennedy Space Center (recording); ITU and EBU (method and test signals); Developer Dojo maintainers (script and results)
+    source: Recommendation ITU-R BS.1770-5, EBU Tech 3341 and EBU R 128 (read 2026-11-25), and NASA’s Artemis II launch recording from Pad Camera Site 4; results from /examples/media-pathway/tools/media_pathway.py
+    license: Recording a US government work in the public domain; ITU and EBU documents cited and linked, not copied; script and outputs MIT
+    date: "2026-11-25"
+brief:
+  goal: A loudness reading of the recording from a meter that has passed the published test signals first.
+  audience: Learners who finished MED-001 and want to know what a loudness meter does rather than read its number.
+  inputs:
+    - name: NASA’s Artemis II launch recording, Pad Camera Site 4
+      source: /examples/media-pathway/inputs/artemis-ii-launch-pad-camera-site-4.wav
+      terms: US government work, public domain
+    - name: The filter coefficients and equations of BS.1770-5 and the test signals of Tech 3341, Table 1
+      source: itu/bs-1770-loudness-and-true-peak and ebu/tech-3341-ebu-mode-metering (free downloads; the script holds the coefficients and names the table of each)
+      terms: ITU and EBU publications, read free of charge; cited and linked, not copied
+  doneWhen:
+    - Your meter gives every Tech 3341 test response the script checks, within its tolerance
+    - Your integrated, highest momentary, highest short-term and true-peak readings match /examples/media-pathway/generated/loudness.json
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any audio player and a spreadsheet
+      version:
+        unavailable: Not fixed; any player that opens a WAV file and any spreadsheet that opens CSV work
+      permissions: Plays or opens a copy of the files
+      cost:
+        unavailable: Depends on the apps you use; free ones work
+    - part: data
+      name: NASA’s Artemis II launch recording, Pad Camera Site 4 (WAV)
+      version: "Downloaded 2026-11-25, SHA-256 18b1c6c1…e838410d"
+      permissions: Read a copy
+      cost: Free (US government work, public domain)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against the EBU Tech 3341 test responses
+      permissions: Reads what you paste in; paste only the public recording’s numbers, never a client’s or a colleague’s unreleased material
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library reads WAV files and is enough for these filters, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A loudness meter in a digital audio workstation or a command-line audio tool
+      tradeoff: Faster on long programmes, but the meter is a closed box unless you check it with the Tech 3341 test signals yourself, which is the habit this pathway teaches. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains K-weighting, gating and over-sampling and drafts Python for the filters and the gates.
+      reviewGate: You run the code and keep it only if it gives the Tech 3341 test responses within their tolerances.
+    - role: Learner as reviewer
+      responsibility: Works out by hand why a -23 dBFS stereo tone reads -23 LUFS, and compares every reading with the CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A reading stays only if the meter passed the test signals first.
+setup:
+  steps:
+    - Use the folder and Python from MED-001.
+    - Download BS.1770-5 from the ITU and Tech 3341 from the EBU and open them beside the script.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/media_pathway.py . out"
+    expected: "59 reference checks pass, including case 1 at -22.99 LUFS and case 19 at 3.03 dBTP"
+    result: passed
+    evidence: /examples/media-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+    date: "2026-11-25"
+prompts:
+  - id: build-the-meter
+    title: Build the meter, then test it before you use it
+    purpose: Know what a loudness number means and prove your meter gives it.
+    text: |-
+      Explain the loudness measurement of Recommendation ITU-R BS.1770-5 step by step: the two K-weighting filters, the channel weights, the 400 ms gating blocks with 75 % overlap, the -70 LKFS absolute gate and the relative gate 10 LU below.
+      Then give me Python, standard library only, for a 48 kHz stereo meter that reports integrated, momentary (0.4 s) and short-term (3 s) loudness. I will check it against the test signals of EBU Tech 3341 before I trust it, so use the coefficients I paste from the Recommendation, not ones you remember.
+      If you are not sure, say so.
+exercise:
+  title: Artemis II Live Launch Coverage, Pad Camera Site 4 (NASA audio)
+  resourceId: nasa/artemis-ii-launch-audio
+  terms: US government work, public domain. NASA content is generally not subject to US copyright and may be used in a factual manner that does not imply endorsement.
+execution:
+  steps:
+    - actor: Explaining assistant
+      action: Drafts the K-weighting filters, the gates, the windows and the true-peak filter.
+      handoff: You synthesize the Tech 3341 test tones and run the meter on them.
+    - actor: Learner
+      action: Fix the meter until every test response is within its tolerance, then measure the recording.
+    - actor: Learner
+      action: Compare the integrated loudness with the highest momentary and short-term readings and explain the gap.
+verification:
+  checks:
+    - action: Check the meter against the Tech 3341 test signals with the pathway script
+      expected: "59 of 59 within tolerance: loudness cases 1 to 6, 9, 10, 12 and 13 within +/-0.1 LU of their published readings, and true-peak cases 15 to 19 within +0.2/-0.4 dB"
+      result: passed
+      evidence: /examples/media-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+      date: "2026-11-25"
+    - action: Measure the recording
+      expected: "Integrated -27.92 LUFS (193 of 326 gating blocks used, relative gate -40.06 LUFS); highest momentary -23.14 LUFS; highest short-term -23.85 LUFS; true peak -10.98 dBTP"
+      result: passed
+      evidence: /examples/media-pathway/generated/loudness.json, recomputed by CI on every pipeline
+      date: "2026-11-25"
+    - action: Your own code reproduces the same values
+      expected: The same test responses and readings at the precision shown
+      result: not-run
+  failures:
+    - observed: The 1 kHz test tone reads about 0.7 LU too loud or too quiet
+      correction: The -0.691 in equation 2 cancels the K-weighting gain at 997 Hz. Check that you kept it, and that the two filters are in series with the coefficients of Tables 1 and 2.
+    - observed: Test case 13 reads low for some of its 20 segments
+      correction: A 400 ms tone fills a momentary window only when the window lines up with it. A file-based meter must look at every window position, not only every 100 ms.
+    - observed: The true peak equals the sample peak on the test tones
+      correction: Over-sample by four through the four phases of the Annex 2 filter and take the largest absolute value of the interpolated samples, not of the original ones.
+adaptation:
+  variations:
+    - change: Measure a 5.0 recording
+      effect: Weight the surround channels by 1.41 (Table 3) and check against test case 6 first.
+randori:
+  challenge: See the media Randori recipe, MED-R01.
+  constraints:
+    - The meter passes every Tech 3341 check before it measures the recording
+  evaluation: The test responses and readings match the CI output.
+maintenance:
+  cadence: Every six months, or when the ITU or the EBU revise BS.1770, Tech 3341 or R 128
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on NASA’s public recording, not a broadcast compliance check. No broadcast audio engineer or delivery quality-control specialist has reviewed it, and a real delivery needs the checks its broadcaster or platform asks for.
+    - The true-peak tones are tapered with a linear 10 ms fade; Tech 3341 asks for a taper without fixing its shape.
+    - The meter runs at 48 kHz only. Loudness range (EBU Tech 3342) is not covered.

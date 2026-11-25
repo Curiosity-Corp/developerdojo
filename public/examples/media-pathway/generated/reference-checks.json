@@ -1,0 +1,479 @@
+{
+  "source": "EBU Tech 3341 (V4, November 2023), minimum requirements test signals; ITU-R BS.1770-5",
+  "passed": 59,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "case1-M",
+      "case": 1,
+      "quantity": "Momentary loudness, highest",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case1-S",
+      "case": 1,
+      "quantity": "Short-term loudness, highest",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case1-I",
+      "case": 1,
+      "quantity": "Integrated loudness",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case2-M",
+      "case": 2,
+      "quantity": "Momentary loudness, highest",
+      "expected": "-33.0 +/-0.1 LUFS",
+      "computed": "-32.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case2-S",
+      "case": 2,
+      "quantity": "Short-term loudness, highest",
+      "expected": "-33.0 +/-0.1 LUFS",
+      "computed": "-32.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case2-I",
+      "case": 2,
+      "quantity": "Integrated loudness",
+      "expected": "-33.0 +/-0.1 LUFS",
+      "computed": "-32.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case3-I",
+      "case": 3,
+      "quantity": "Integrated loudness",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-23.01 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case4-I",
+      "case": 4,
+      "quantity": "Integrated loudness",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-23.01 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case5-I",
+      "case": 5,
+      "quantity": "Integrated loudness",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.98 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case6-I",
+      "case": 6,
+      "quantity": "Integrated loudness, 5.0 channels",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-23.02 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case9-S-low",
+      "case": 9,
+      "quantity": "Short-term loudness after 3 s, lowest",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case9-S-high",
+      "case": 9,
+      "quantity": "Short-term loudness after 3 s, highest",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-00",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 1 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-01",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 2 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-02",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 3 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-03",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 4 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-04",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 5 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-05",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 6 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-06",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 7 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-07",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 8 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-08",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 9 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-09",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 10 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-10",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 11 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-11",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 12 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-12",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 13 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-13",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 14 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-14",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 15 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-15",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 16 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-16",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 17 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-17",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 18 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-18",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 19 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case10-19",
+      "case": 10,
+      "quantity": "Short-term loudness, highest, segment 20 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case12-M-low",
+      "case": 12,
+      "quantity": "Momentary loudness after 1 s, lowest",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.96 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case12-M-high",
+      "case": 12,
+      "quantity": "Momentary loudness after 1 s, highest",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.96 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-00",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 1 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-01",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 2 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-02",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 3 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-03",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 4 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-04",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 5 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-05",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 6 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-06",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 7 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-07",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 8 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-08",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 9 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-09",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 10 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-10",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 11 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-11",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 12 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-12",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 13 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-13",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 14 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-14",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 15 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-15",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 16 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-16",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 17 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-17",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 18 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-18",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 19 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case13-19",
+      "case": 13,
+      "quantity": "Momentary loudness, highest, segment 20 of 20",
+      "expected": "-23.0 +/-0.1 LUFS",
+      "computed": "-22.99 LUFS",
+      "status": "pass"
+    },
+    {
+      "id": "case15-TP",
+      "case": 15,
+      "quantity": "Maximum true-peak level",
+      "expected": "-6.0 +0.2/-0.4 dBTP",
+      "computed": "-6.22 dBTP",
+      "status": "pass"
+    },
+    {
+      "id": "case16-TP",
+      "case": 16,
+      "quantity": "Maximum true-peak level",
+      "expected": "-6.0 +0.2/-0.4 dBTP",
+      "computed": "-5.98 dBTP",
+      "status": "pass"
+    },
+    {
+      "id": "case17-TP",
+      "case": 17,
+      "quantity": "Maximum true-peak level",
+      "expected": "-6.0 +0.2/-0.4 dBTP",
+      "computed": "-6.31 dBTP",
+      "status": "pass"
+    },
+    {
+      "id": "case18-TP",
+      "case": 18,
+      "quantity": "Maximum true-peak level",
+      "expected": "-6.0 +0.2/-0.4 dBTP",
+      "computed": "-6.03 dBTP",
+      "status": "pass"
+    },
+    {
+      "id": "case19-TP",
+      "case": 19,
+      "quantity": "Maximum true-peak level",
+      "expected": "3.0 +0.2/-0.4 dBTP",
+      "computed": "3.03 dBTP",
+      "status": "pass"
+    }
+  ]
+}

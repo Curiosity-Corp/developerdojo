@@ -1,0 +1,28 @@
+{
+  "header": {
+    "format": "PCM WAV (RIFF), integer samples",
+    "channels": 2,
+    "sampleRate_Hz": 48000,
+    "bitsPerSample": 16,
+    "frames": 1582381,
+    "duration_s": "32.966",
+    "bytes": 6343708
+  },
+  "channels": [
+    {
+      "channel": "left",
+      "samplePeak_dBFS": "-10.99",
+      "rms_dBFS": "-32.32",
+      "dcOffset_percentFS": "-0.0354",
+      "samplesAtFullScale": 0
+    },
+    {
+      "channel": "right",
+      "samplePeak_dBFS": "-10.99",
+      "rms_dBFS": "-32.32",
+      "dcOffset_percentFS": "-0.0354",
+      "samplesAtFullScale": 0
+    }
+  ],
+  "channelsIdentical": true
+}

@@ -1,2 +1,3 @@
 # Served byte for byte and hash-pinned (CRLF, as published): never let git rewrite line endings.
 public/examples/manufacturing-pathway/inputs/lithogra-data-rows.dat -text
+public/examples/media-pathway/inputs/*.wav binary

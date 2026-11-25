@@ -42,6 +42,9 @@ export const galleryOutcomeLabels: Record<string, string> = {
   'inspect-process-record': 'Inspect a process record',
   'set-control-limits': 'Set control limits on a process record',
   'separate-variation-sources': 'Split process variation into its sources',
+  'inspect-audio-recording': 'Inspect an audio recording',
+  'measure-programme-loudness': 'Measure programme loudness and true peak',
+  'normalise-loudness': 'Plan a loudness normalisation',
   'check-apr-tolerance': 'Check an annual percentage rate against its tolerance',
 };
 
@@ -380,5 +383,39 @@ export const galleryEntries: GalleryEntryInput[] = [
     fieldIds: ['manufacturing'],
     kataId: 'MFG-002',
     exercise: { title: 'Follow the manufacturing pathway', href: '/katas/manufacturing-pathway' },
+  },
+  {
+    id: 'media-loudness-and-normalisation',
+    title: 'The loudness, true peak and R 128 normalisation of a NASA launch recording',
+    summary: 'The MED-002 and MED-003 worked example. A loudness meter written from ITU-R BS.1770-5 first gives the EBU Tech 3341 test responses within their tolerances, then measures NASA’s Artemis II launch recording and plans the gain that brings it to the EBU R 128 target, with its true peak checked.',
+    form: 'native',
+    artifact: {
+      format: 'Loudness readings and a normalisation plan (JSON), the momentary and short-term loudness every 100 ms (CSV) and a one-page summary (Markdown)',
+      files: [
+        { label: 'Read the results summary', href: '/examples/media-pathway/generated/summary.md' },
+        { label: 'Download the loudness series (CSV)', href: '/examples/media-pathway/generated/loudness-series.csv' },
+        { label: 'Download the normalisation plan (JSON)', href: '/examples/media-pathway/generated/normalisation.json' },
+      ],
+    },
+    provenance: {
+      creator: 'Developer Dojo maintainers (script and results); NASA Kennedy Space Center (recording); ITU and EBU (method and test signals)',
+      madeWith: 'A Python 3.12 script with no packages, published next to the results, written from ITU-R BS.1770-5 and EBU Tech 3341.',
+      source: 'NASA’s Artemis II launch recording from Pad Camera Site 4, and Recommendation ITU-R BS.1770-5, EBU Tech 3341 and EBU R 128, read on 2026-11-25.',
+      rights: 'The recording is a US government work in the public domain. The ITU and EBU documents are cited and linked, not copied. The script and results are Dojo material under the MIT licence.',
+      rightsHref: '/examples/media-pathway/README.md',
+      created: '2026-11-25',
+    },
+    verification: {
+      method: 'automated-check',
+      date: '2026-11-25',
+      checked: 'Every pipeline reruns the script, which first checks its meter against the EBU Tech 3341 test signals defined by their tones, and fails if any output differs from the published files.',
+      notChecked: 'No real programme or delivery is checked, and nothing here says one meets EBU R 128 or a broadcaster’s or platform’s specification. No learner and no broadcast audio engineer, delivery quality-control specialist or mastering engineer review.',
+      evidenceHref: '/katas/media-pathway',
+      nextCheck: QUARTERLY,
+    },
+    outcomeIds: ['measure-programme-loudness'],
+    fieldIds: ['media'],
+    kataId: 'MED-002',
+    exercise: { title: 'Follow the media pathway', href: '/katas/media-pathway' },
   },
 ];
