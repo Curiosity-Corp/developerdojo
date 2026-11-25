@@ -1,0 +1,181 @@
+# Finance pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/finance-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job finance_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Finance pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a consumer-credit compliance specialist, lawyer or accountant yet.
+summary: Start from Appendix J example (c)(1)(i); a partner reveals one changed term after you begin. Predict whether the annual percentage rate moves beyond the 1/8-point tolerance, then recompute and explain the difference.
+metadata:
+  id: FIN-R01
+  title: "Finance Randori: an unseen change of terms"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - compute-apr
+  artifactTypes:
+    - apr-calculation
+  domainIds:
+    - finance
+  capabilityIds:
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - cfpb/regulation-z-appendix-j
+    - cfpb/regulation-z-1026-22
+    - cfpb/regulation-z-1026-18
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: Regulation Z (Truth in Lending), 12 CFR part 1026, Appendix J and 1026.22
+      version: "eCFR for 2026-11-23; Appendix J and 1026.22 unchanged there since 2017-01-01"
+      applicability: "The general equation and iteration of Appendix J and the tolerance of 1026.22(a)(2), recomputed under each changed term on the Randori cards"
+      reviewScope: "What the listed checks test: that each card’s result matches the CI output. No claim that any card describes a real loan."
+      sourceResourceId: cfpb/regulation-z-appendix-j
+  verificationEvidence:
+    - description: For the card drawn, a written prediction, the recomputed annual percentage rate and an explanation of any gap between them
+      method: automated-check
+    - description: A Sensei or partner checks that the prediction was written before the recompute and that the explanation names the term of the equation that moved
+      method: sensei-review
+  beltCriteria:
+    - stage: practice
+      criterion: Handles card C, whose result Appendix J itself prints as example (c)(3)(i), and explains why a larger final payment raises the rate
+    - stage: adapt
+      criterion: Handles card A or B and predicts the direction of the change correctly
+    - stage: demonstrate
+      criterion: Writes a fourth card for a partner and predicts its result before running it
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: US Regulation Z’s own worked examples reproduced number for number, one of them amortized to the cent with its disclosure figures, and every annual percentage rate checked against the tolerance read from the regulation’s text, all computed by the site’s CI."
+  href: /katas/finance-pathway
+  provenance:
+    creator: Consumer Financial Protection Bureau (Regulation Z); Developer Dojo maintainers (script and results)
+    source: Regulation Z, 12 CFR part 1026, Appendix J (read 2026-11-25) and 1026.22 (eCFR for 2026-11-23); results from /examples/finance-pathway/tools/finance_pathway.py
+    license: Regulation Z is a US government work, not under US copyright (17 U.S.C. 105); script and outputs MIT
+    date: "2026-11-25"
+brief:
+  goal: Meet one changed term you did not see in advance, with a prediction first and a recompute after.
+  audience: Learners who finished FIN-003, working with a partner or Sensei.
+  inputs:
+    - name: Your FIN-002 rate for example (c)(1)(i)
+      source: Your own output, or /examples/finance-pathway/generated/apr.json
+      terms: Dojo output, MIT licence
+    - name: The Randori cards
+      source: The table on /katas/finance-pathway (the partner keeps it; the learner sees only the drawn card)
+      terms: Dojo content, MIT licence
+  doneWhen:
+    - Your prediction (direction, rough size, and inside or beyond the tolerance) is written before you recompute
+    - Your recomputed rate matches /examples/finance-pathway/generated/randori/cards.json for the card
+    - You name the term of the equation the card changed and explain any gap between prediction and result
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: Regulation Z, 12 CFR 1026.22, from the eCFR
+      version: "eCFR for 2026-11-23, SHA-256 ed61b93a…2db0d7e"
+      permissions: Read a copy
+      cost: Free (US government work)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against Appendix J’s worked examples
+      permissions: Reads what you paste in; paste only the regulation’s examples, never a real borrower’s loan
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library is enough for these formulas, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A spreadsheet's RATE function or an online loan calculator
+      tradeoff: Faster for a regular loan, but neither counts an odd first period by Appendix J's rules, and a calculator hides its method. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Partner or Sensei
+      responsibility: Draws one card after the learner starts and keeps the others hidden.
+      reviewGate: Asks for the prediction, the recompute and the explanation.
+    - role: Learner
+      responsibility: Reads the card, predicts, changes only the one term and recomputes.
+      dependsOn:
+        - Partner or Sensei
+      reviewGate: The prediction is written down before the recompute runs.
+setup:
+  steps:
+    - Use the folder and Python from FIN-003.
+    - The partner opens the Randori table on /katas/finance-pathway; the learner does not.
+  auth: None.
+  smokeTest:
+    action: Recompute all three cards with the pathway script
+    expected: "Card A -0.74, card B +1.01, card C +0.81 percentage points against the 9.69 % baseline"
+    result: passed
+    evidence: /examples/finance-pathway/generated/randori/cards.json, recomputed by CI on every pipeline
+    date: "2026-11-25"
+prompts:
+  - id: predict-first
+    title: Predict before you compute
+    purpose: Make the learner commit to a reading of the equation before the code answers.
+    text: |-
+      A loan of $5,000 repaid in 24 monthly payments of $230 has an annual percentage rate of 9.69 % by Regulation Z, Appendix J. One term changes: <paste the card>.
+      Do not compute anything yet. Tell me which term of the general equation this changes, whether the rate goes up or down, roughly by how much, and whether it stays within 1/8 of a percentage point, with your reasoning. Then I will recompute.
+exercise:
+  title: Regulation Z, Appendix J (12 CFR part 1026)
+  resourceId: cfpb/regulation-z-appendix-j
+  terms: A US government work, not under copyright in the US (17 U.S.C. 105). Free to read and reuse.
+execution:
+  steps:
+    - actor: Partner or Sensei
+      action: Waits until the learner has started, then reveals one card.
+      handoff: The learner writes a prediction.
+    - actor: Learner
+      action: Changes only what the card says, recomputes and compares with the prediction.
+    - actor: Partner or Sensei
+      action: Reviews the prediction, the result and the explanation.
+verification:
+  checks:
+    - action: Recompute the three cards with the pathway script
+      expected: "A (first payment a month later): 8.95 %; B (amount financed $4,950): 10.69 %; C (final payment $280): 10.50 %, as Appendix J (c)(3)(i) prints; all three beyond the tolerance"
+      result: passed
+      evidence: /examples/finance-pathway/generated/randori/cards.json
+      date: "2026-11-25"
+    - action: A learner meets a drawn card with a prediction written first
+      expected: Prediction, recompute and explanation
+      result: not-run
+  failures:
+    - observed: Card B is predicted to leave the rate unchanged because the payments do not change
+      correction: The rate relates what the borrower receives to what they pay. A prepaid finance charge lowers the amount financed, so the same payments buy less credit and the rate rises.
+adaptation:
+  variations:
+    - change: The partner draws two cards
+      effect: Apply one at a time and recompute after each, so you know which change moved what.
+randori:
+  challenge: Meet one changed term you have not seen, revealed after you start, on Appendix J example (c)(1)(i).
+  constraints:
+    - Write your prediction before you compute
+    - Change only what the card says
+    - Name the term of the equation that moved
+  evaluation: The recompute matches the CI result for the card, and the partner agrees the explanation names what moved.
+maintenance:
+  cadence: Every six months, or when the Consumer Financial Protection Bureau amends Appendix J or 1026.22
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on the regulation’s own examples, not a compliance review. No compliance specialist, lawyer or accountant has reviewed it, and a real loan disclosure needs the review its lender’s compliance function and counsel require.
+    - Appendix J’s examples use dates in 1978 and are illustrative; they are not a current rate or offer.
+    - Cards A and B are practice changes to the regulation’s example, not real loans; card C is Appendix J’s own example (c)(3)(i).

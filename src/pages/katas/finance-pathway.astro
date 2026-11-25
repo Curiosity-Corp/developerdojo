@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectorPackEvidence from '../../components/SectorPackEvidence.astro';
+// Every number on this page is read from the files CI recomputes
+// (/examples/finance-pathway/tools/finance_pathway.py, job finance_pathway).
+import manifest from '../../../public/examples/finance-pathway/generated/manifest.json';
+import referenceChecks from '../../../public/examples/finance-pathway/generated/reference-checks.json';
+import aprs from '../../../public/examples/finance-pathway/generated/apr.json';
+import disclosure from '../../../public/examples/finance-pathway/generated/disclosure.json';
+import tolerance from '../../../public/examples/finance-pathway/generated/tolerance.json';
+import cards from '../../../public/examples/finance-pathway/generated/randori/cards.json';
+
+const EX = '/examples/finance-pathway';
+const GEN = `${EX}/generated`;
+const REGULATION = 'inputs/ecfr-12-cfr-1026-22.xml';
+const regulationSha = (manifest.inputs as Record<string, string>)[REGULATION];
+if (!regulationSha) throw new Error(`The finance manifest has no hash for ${REGULATION}`);
+const steps = [
+  { id: 'FIN-001', href: '/katas/fin-001-amortization-schedule', title: 'Amortize a loan to the cent', does: 'A month-by-month schedule for one of the regulation’s examples, and the four figures a disclosure shows.' },
+  { id: 'FIN-002', href: '/katas/fin-002-annual-percentage-rate', title: 'Compute the annual percentage rate', does: 'Count the unit-periods from the dates, then solve the regulation’s equation by its own iteration and reproduce every worked example.' },
+  { id: 'FIN-003', href: '/katas/fin-003-apr-tolerance', title: 'Check the rate against its tolerance', does: 'Read the tolerance from the regulation’s text, work out which disclosed rates count as accurate, and test a common shortcut.' },
+  { id: 'FIN-R01', href: '/katas/fin-r01-randori', title: 'Finance Randori: an unseen change', does: 'A partner reveals one changed term after you start; predict whether the rate moves beyond the tolerance, then recompute.' },
+];
+const examples = Object.entries(aprs).map(([id, row]) => ({ id, ...row, ...tolerance.examples[id as keyof typeof tolerance.examples] }));
+const outside = examples.filter((row) => !row.ignoringOddDaysWithinTolerance);
+const cardRows = Object.entries(cards).map(([id, card]) => ({ id, ...card }));
+const notedChecks = (referenceChecks.checks as { id: string; note?: string }[]).filter((check) => check.note);
+const signed = (value: string) => (Number(value) > 0 ? `+${value}` : value);
+const money = (value: string) => `$${Number(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+const sources = {
+  appendixJ: 'https://www.consumerfinance.gov/rules-policy/regulations/1026/j/',
+  section22: 'https://www.consumerfinance.gov/rules-policy/regulations/1026/22/',
+  section18: 'https://www.consumerfinance.gov/rules-policy/regulations/1026/18/',
+  section4: 'https://www.consumerfinance.gov/rules-policy/regulations/1026/4/',
+  ecfr: 'https://www.ecfr.gov/current/title-12/chapter-X/part-1026',
+  usc105: 'https://www.copyright.gov/title17/92chap1.html#105',
+};
+---
+<BaseLayout title="Finance pathway: from a loan’s terms to a checked annual percentage rate" description="Follow a finance pathway: amortize a loan to the cent, compute its annual percentage rate by the method of US Regulation Z, Appendix J, and check it against the regulation's tolerance, every result computed in CI.">
+  <PageHero compact eyebrow="Finance · Pathway" title="From a loan’s terms to a checked annual percentage rate" accent="." subtitle="Four katas on the method US law prescribes for the cost of a loan, and the regulation’s own worked examples. Each step has a file you can open and a result that CI computes again on every pipeline." ctas={[
+    { label: 'Start with FIN-001', href: '/katas/fin-001-amortization-schedule', icon: 'play' },
+    { label: 'Download the schedule', href: `${GEN}/schedule.csv`, variant: 'ghost', icon: 'arrow-right' },
+  ]} />
+
+  <section class="section" aria-labelledby="outcome-title"><div class="container narrow">
+    <p class="eyebrow">01 / The files</p>
+    <h2 id="outcome-title">One regulation, its own examples, every number rerun</h2>
+    <p>The method is Regulation Z, the US Truth in Lending rule (12 CFR part 1026). Appendix J sets out the actuarial method for the annual percentage rate of a loan, with worked examples and the rates they give; 1026.22 says how close a disclosed rate must be. The script reproduces the appendix’s examples before it computes anything else.</p>
+    <ul class="links">
+      <li><a href={`${EX}/${REGULATION}`} download>12 CFR 1026.22</a> (XML, as the eCFR served it), unchanged. The script reads the tolerances from it.</li>
+      <li><a href={`${GEN}/schedule.csv`} download>The payment schedule</a> (CSV) and <a href={`${GEN}/disclosure.json`}>its disclosure figures</a> (JSON).</li>
+      <li><a href={`${GEN}/apr.json`}>The annual percentage rates</a> (JSON) and <a href={`${GEN}/tolerance.json`}>the tolerance check</a> (JSON).</li>
+      <li><a href={`${GEN}/summary.md`}>The result summary</a> (Markdown) and every result under <a href={`${GEN}/manifest.json`}>the manifest</a>, with the method and the input hash.</li>
+      <li><a href={`${EX}/tools/finance_pathway.py`}>The pathway script</a> (Python 3.12, standard library only, MIT), so you can rerun every number yourself.</li>
+      <li><a href={`${EX}/README.md`}>README</a>: sources, terms, how to rerun the checks, and what they do not cover.</li>
+    </ul>
+  </div></section>
+
+  <section class="section" aria-labelledby="steps-title"><div class="container narrow">
+    <p class="eyebrow">02 / The steps</p>
+    <h2 id="steps-title">Four katas, in order</h2>
+    <p>Each kata has a brief, prompts, checks and the evidence for the checks the Dojo has run. They are drafts: the Dojo built the example and CI checks it, and no learner has run them yet. Do the foundations first: <a href="/katas/compare-instructions">Compare AI instructions</a> and <a href="/katas/context-trap">Spot a context trap</a>.</p>
+    <ol class="steps">
+      {steps.map((step) => <li><a href={step.href}><span class="step-id">{step.id}</span> {step.title}</a><p>{step.does}</p></li>)}
+    </ol>
+  </div></section>
+
+  <section class="section" aria-labelledby="checks-title"><div class="container narrow">
+    <p class="eyebrow">03 / The checks</p>
+    <h2 id="checks-title">Reproduce the method, then use it</h2>
+    <p>These results come from CI: the pipeline reruns <code>/examples/finance-pathway/tools/finance_pathway.py</code> and fails if any output differs from the published files.</p>
+
+    <h3 id="reference-title">Reference checks: Appendix J’s own worked examples</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="reference-caption">
+      <table>
+        <caption id="reference-caption">Published values and the script’s values, rounded as published</caption>
+        <thead><tr><th scope="col">Source</th><th scope="col">Quantity</th><th scope="col">Published</th><th scope="col">Computed</th><th scope="col">Result</th></tr></thead>
+        <tbody>
+          {referenceChecks.checks.map((check) => <tr><td>{check.source}</td><td>{check.quantity}</td><td>{check.published}</td><td>{check.computed}</td><td data-reference-check={check.id}>{check.status === 'pass' ? 'Pass' : 'Fail'}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p><strong>{referenceChecks.passed} passed, {referenceChecks.failed} failed.</strong> The script stops without writing any result if one check fails, so every number below was computed by code that reproduces the regulation’s examples. The examples use dates in 1978 and are illustrative, not current offers. <a href={`${GEN}/reference-checks.json`}>Result (JSON)</a>.</p>
+    {notedChecks.length > 0 && <p data-reference-note>Values marked with a note: {notedChecks[0]?.note}.</p>}
+
+    <h3 id="apr-title">Annual percentage rates (FIN-002)</h3>
+    <p>For each example, t is the number of whole unit-periods from the advance to the first payment and f the fraction left over, counted from the dates by Appendix J (b)(5).</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="apr-caption">
+      <table>
+        <caption id="apr-caption">Appendix J examples, recomputed</caption>
+        <thead><tr><th scope="col">Example</th><th scope="col">Terms</th><th scope="col">Advance, first payment</th><th scope="col">t</th><th scope="col">f</th><th scope="col">Annual percentage rate</th></tr></thead>
+        <tbody>
+          {examples.map((row) => <tr><th scope="row">{row.paragraph}</th><td>{money(row.amountAdvanced)}; {row.payments} payments of {money(row.payment)}{row.finalPayment ? `, the last ${money(row.finalPayment)}` : ''}; unit-period {row.unitPeriod}</td><td>{row.advancedOn}, {row.firstPaymentOn}</td><td>{row.t}</td><td>{row.f}</td><td data-apr={row.id}>{row.apr_percent} %</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p><a href={`${GEN}/apr.json`}>Rates with six decimals (JSON)</a>.</p>
+
+    <h3 id="schedule-title">A schedule and its disclosure figures (FIN-001)</h3>
+    <p>{disclosure.example}, amortized at its unrounded periodic rate. {disclosure.rounding} {disclosure.assumption}</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="disclosure-caption">
+      <table>
+        <caption id="disclosure-caption">Disclosure figures, as 12 CFR 1026.18 names them</caption>
+        <thead><tr><th scope="col">Figure</th><th scope="col">Value</th><th scope="col">Defined in</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Amount financed</th><td>{money(disclosure.amountFinanced)}</td><td>{disclosure.disclosureTerms.amountFinanced}</td></tr>
+          <tr><th scope="row">Finance charge</th><td data-disclosure="finance-charge">{money(disclosure.financeCharge)}</td><td>{disclosure.disclosureTerms.financeCharge}</td></tr>
+          <tr><th scope="row">Total of payments</th><td>{money(disclosure.totalOfPayments)}</td><td>{disclosure.disclosureTerms.totalOfPayments}</td></tr>
+          <tr><th scope="row">Annual percentage rate</th><td>{disclosure.annualPercentageRate} %</td><td>{disclosure.disclosureTerms.annualPercentageRate}</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Interest in the schedule adds up to {money(disclosure.interestInSchedule)}; the balance after the last payment is <span data-schedule-balance>{money(disclosure.balanceAfterLastPayment)}</span>, what rounding interest to the cent each month leaves. <a href={`${GEN}/schedule.csv`} download>All 24 rows (CSV)</a>.</p>
+
+    <h3 id="tolerance-title">The tolerance (FIN-003)</h3>
+    <p>12 CFR 1026.22(a)(2), as served: “{tolerance.regular.text}” By (a)(3), an odd first period and an irregular first or final payment do not make a transaction irregular, so every example uses {tolerance.regular.percentagePoints} percentage point. The last two columns show what happens when the odd days are ignored and the first payment is treated as exactly one unit-period after the advance.</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="tolerance-caption">
+      <table>
+        <caption id="tolerance-caption">Accurate disclosures and the odd-days shortcut</caption>
+        <thead><tr><th scope="col">Example</th><th scope="col">Rate</th><th scope="col">Accurate disclosures</th><th scope="col">Odd days ignored</th><th scope="col">Within tolerance</th></tr></thead>
+        <tbody>
+          {examples.map((row) => <tr><th scope="row">{row.paragraph}</th><td>{row.apr_percent} %</td><td>{row.accurateDisclosures_percent[0]} to {row.accurateDisclosures_percent[1]} %</td><td>{row.ignoringOddDays_percent} % ({signed(row.ignoringOddDaysDifference_percentagePoints)})</td><td data-odd-days={row.id}>{row.ignoringOddDaysWithinTolerance ? 'Yes' : 'No'}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>Ignoring the odd days moves the rate beyond the tolerance in {outside.length} of {examples.length} examples: counting time the way Appendix J does is not a detail. <a href={`${GEN}/tolerance.json`}>Result (JSON)</a>.</p>
+
+    <h3 id="randori-title">Randori cards</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="randori-caption">
+      <table>
+        <caption id="randori-caption">Each card changes one term of example (c)(1)(i), whose rate is {aprs['c1-i'].apr_percent} %</caption>
+        <thead><tr><th scope="col">Card</th><th scope="col">Change</th><th scope="col">Rate</th><th scope="col">Change, percentage points</th><th scope="col">Beyond the tolerance</th></tr></thead>
+        <tbody>
+          {cardRows.map((card) => <tr><th scope="row">{card.id}</th><td>{card.title}</td><td>{card.apr_percent} %</td><td data-randori-card={card.id}>{signed(card.change_percentagePoints)}</td><td>{card.beyondTolerance ? 'Yes' : 'No'}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>The partner keeps this table hidden until the learner has written a prediction; see <a href="/katas/fin-r01-randori">FIN-R01</a>. <a href={`${GEN}/randori/cards.json`}>Result (JSON)</a>.</p>
+  </div></section>
+
+  <section class="section" aria-labelledby="tools-title"><div class="container narrow">
+    <p class="eyebrow">04 / The tools and sources</p>
+    <h2 id="tools-title">No packages, public sources</h2>
+    <p>The script uses only the Python 3.12 standard library, so it runs offline with nothing to install. A spreadsheet works for checking one row of the schedule by hand. The Armory lists the stack recipe <a href="/armory/registry#recipe-python-standard-library">Python standard library</a>.</p>
+    <ul class="links">
+      <li><a href={sources.appendixJ}>Regulation Z, Appendix J</a>: the general equation (b)(8), counting unit-periods between dates (b)(5), the iteration (b)(9) and the worked examples in (c)(1) and (c)(3).</li>
+      <li><a href={sources.section22}>12 CFR 1026.22</a>: what the annual percentage rate is and the tolerances in (a)(2) and (a)(3).</li>
+      <li><a href={sources.section18}>12 CFR 1026.18</a>: the disclosure figures, and <a href={sources.section4}>12 CFR 1026.4</a>: what a real finance charge includes.</li>
+      <li><a href={sources.ecfr}>The eCFR</a>, where the served copy of 1026.22 comes from. It is an editorial compilation, not the official legal edition.</li>
+    </ul>
+  </div></section>
+
+  <SectorPackEvidence pack="finance" eyebrow="05 / What is checked" facts={{ regulationSha: regulationSha.slice(0, 12), referenceChecks: referenceChecks.passed, outsideTolerance: outside.length, examples: examples.length }} />
+
+  <section class="section" aria-labelledby="credits-title"><div class="container narrow">
+    <p class="eyebrow">06 / Credits</p>
+    <h2 id="credits-title">Credits and terms</h2>
+    <ul>
+      <li>Method, worked examples and tolerances: Regulation Z, 12 CFR part 1026, Appendix J and 1026.22, published by the Consumer Financial Protection Bureau; read 25 November 2026, and 1026.22 served from the eCFR for 23 November 2026. A US government work, not under copyright in the US (<a href={sources.usc105}>17 U.S.C. 105</a>). Nothing here implies endorsement by the Bureau.</li>
+      <li>The pathway script and its outputs: Developer Dojo, MIT licence.</li>
+    </ul>
+  </div></section>
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 68rem; }
+  .eyebrow { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .links li { margin-bottom: var(--space-2, .5rem); }
+  .table-wrap { overflow-x: auto; margin-block: var(--space-6, 1.5rem); }
+  .table-wrap:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  table { width: 100%; border-collapse: collapse; }
+  caption { text-align: left; font-weight: 800; margin-bottom: var(--space-2, .5rem); }
+  th, td { text-align: left; vertical-align: top; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+  code { overflow-wrap: anywhere; }
+  h2, h3, p, li, a { overflow-wrap: anywhere; }
+  .steps { padding-left: 0; list-style: none; display: grid; gap: var(--space-4, 1rem); }
+  .steps li { min-width: 0; padding: var(--space-4, 1rem); background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); }
+  .steps a { font-weight: 800; }
+  .steps p { margin: .25rem 0 0; }
+  .step-id { display: inline-block; min-width: 4.5rem; color: var(--rust-text); }
+</style>

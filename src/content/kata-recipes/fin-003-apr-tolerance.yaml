@@ -1,0 +1,180 @@
+# Finance pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/finance-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job finance_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Finance pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a consumer-credit compliance specialist, lawyer or accountant yet.
+summary: "Check an annual percentage rate against the tolerance US Regulation Z allows: read the tolerance from the regulation’s text, work out which disclosed rates count as accurate, and see what a common shortcut, ignoring the odd days before the first payment, does to the rate."
+metadata:
+  id: FIN-003
+  title: "Check an annual percentage rate against the Regulation Z tolerance"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - check-apr-tolerance
+  artifactTypes:
+    - tolerance-check
+  domainIds:
+    - finance
+  capabilityIds:
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - cfpb/regulation-z-appendix-j
+    - cfpb/regulation-z-1026-22
+    - cfpb/regulation-z-1026-18
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: Regulation Z (Truth in Lending), 12 CFR part 1026, Appendix J and 1026.22
+      version: "eCFR for 2026-11-23; Appendix J and 1026.22 unchanged there since 2017-01-01"
+      applicability: "The accuracy tolerances of 1026.22(a)(2) and (a)(3), read from the served text, applied to Appendix J’s own worked examples for practice"
+      reviewScope: "What the listed checks test: that the tolerance read and the ranges computed match the CI output. No claim about any real disclosure."
+      sourceResourceId: cfpb/regulation-z-appendix-j
+  verificationEvidence:
+    - description: For each Appendix J example, the tolerance that applies, the lowest and highest disclosed rate that counts as accurate, and the rate with the odd days ignored, matching /examples/finance-pathway/generated/tolerance.json
+      method: automated-check
+    - description: The tolerance is quoted from 12 CFR 1026.22(a) with its paragraph, not typed from memory
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Reads the tolerance from 1026.22(a)(2), works out the accurate range for each example, and finds the examples where ignoring the odd days moves the rate beyond it
+    - stage: adapt
+      criterion: Explains from 1026.22(a)(3) why an odd first period or an odd final payment does not make a transaction irregular, and which features would
+    - stage: demonstrate
+      criterion: Explains to a reviewer why a rate inside the tolerance on these examples says nothing about whether a real disclosure is accurate
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: US Regulation Z’s own worked examples reproduced number for number, one of them amortized to the cent with its disclosure figures, and every annual percentage rate checked against the tolerance read from the regulation’s text, all computed by the site’s CI."
+  href: /katas/finance-pathway
+  provenance:
+    creator: Consumer Financial Protection Bureau (Regulation Z); Developer Dojo maintainers (script and results)
+    source: Regulation Z, 12 CFR part 1026, Appendix J (read 2026-11-25) and 1026.22 (eCFR for 2026-11-23); results from /examples/finance-pathway/tools/finance_pathway.py
+    license: Regulation Z is a US government work, not under US copyright (17 U.S.C. 105); script and outputs MIT
+    date: "2026-11-25"
+brief:
+  goal: For each Appendix J example, the range of disclosed annual percentage rates that counts as accurate, and whether the odd-days shortcut stays inside it.
+  audience: Learners who finished FIN-002 and want to know how precise a disclosed rate has to be, and why.
+  inputs:
+    - name: 12 CFR 1026.22, from the eCFR for 2026-11-23
+      source: /examples/finance-pathway/inputs/ecfr-12-cfr-1026-22.xml
+      terms: US government work; free to reuse
+    - name: Your FIN-002 rates
+      source: Your own output, or /examples/finance-pathway/generated/apr.json
+      terms: Dojo output, MIT licence
+  doneWhen:
+    - You quote the tolerance sentence of 1026.22(a)(2) and say why it, not (a)(3), applies to every example
+    - Your accurate ranges match /examples/finance-pathway/generated/tolerance.json
+    - You name the examples where ignoring the odd days moves the rate beyond the tolerance
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: Regulation Z, 12 CFR 1026.22, from the eCFR
+      version: "eCFR for 2026-11-23, SHA-256 ed61b93a…2db0d7e"
+      permissions: Read a copy
+      cost: Free (US government work)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against Appendix J’s worked examples
+      permissions: Reads what you paste in; paste only the regulation’s examples, never a real borrower’s loan
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library is enough for these formulas, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A spreadsheet's RATE function or an online loan calculator
+      tradeoff: Faster for a regular loan, but neither counts an odd first period by Appendix J's rules, and a calculator hides its method. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains the tolerance paragraphs you paste in and drafts the code that reads them.
+      reviewGate: You keep its reading only if it quotes the paragraph it relies on.
+    - role: Learner as reviewer
+      responsibility: Works out the ranges and compares them with the CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A range stays only if it matches the CI output.
+setup:
+  steps:
+    - Use the folder and Python from FIN-002.
+    - Open inputs/ecfr-12-cfr-1026-22.xml in a text editor, or 12 CFR 1026.22 on the Consumer Financial Protection Bureau's site.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/finance_pathway.py . out"
+    expected: "out/tolerance.json reads 0.125 percentage point for a regular transaction from 1026.22(a)(2)"
+    result: passed
+    evidence: /examples/finance-pathway/generated/tolerance.json, recomputed by CI on every pipeline
+    date: "2026-11-25"
+prompts:
+  - id: explain-tolerance
+    title: Explain the tolerance
+    purpose: Read the rule before you apply it.
+    text: |-
+      Here is 12 CFR 1026.22(a)(2) and (a)(3) from Regulation Z: <paste the two paragraphs>.
+      For a loan whose annual percentage rate is 11.8165 % by Appendix J, with a long first period, which tolerance applies and why? Which disclosed rates, to two decimals, would count as accurate?
+      Quote the words you rely on. If you are not sure, say so.
+exercise:
+  title: Regulation Z, 12 CFR 1026.22
+  resourceId: cfpb/regulation-z-1026-22
+  terms: A US government work, not under copyright in the US (17 U.S.C. 105). Free to read and reuse.
+execution:
+  steps:
+    - actor: Learner
+      action: Read 1026.22(a)(1) to (a)(3) and decide which tolerance applies to each Appendix J example.
+    - actor: Explaining assistant
+      action: Drafts the code that reads the tolerance from the text and works out each range.
+      handoff: You run it and compare the ranges with the CI output.
+    - actor: Learner
+      action: Recompute each rate with t = 1 and f = 0 and compare it with the range.
+verification:
+  checks:
+    - action: Apply the tolerance to every example with the pathway script
+      expected: "1/8 point for all seven; for example (c)(1)(i) disclosed rates from 9.57 to 9.81 % count as accurate; ignoring the odd days moves the rate beyond the tolerance in 5 of 7 examples, by up to 3.51 points for the weekly example (c)(1)(v)"
+      result: passed
+      evidence: /examples/finance-pathway/generated/tolerance.json, recomputed by CI on every pipeline
+      date: "2026-11-25"
+    - action: Your own ranges match the CI output
+      expected: Same lowest and highest accurate rate for every example
+      result: not-run
+  failures:
+    - observed: You apply the 1/4-point tolerance to example (c)(1)(ii) because its first period is long
+      correction: 1026.22(a)(3) says an irregular first period, or an irregular first or final payment, does not make a transaction irregular; the 1/8-point tolerance applies.
+adaptation:
+  variations:
+    - change: Round the exact rate to two decimals before applying the tolerance
+      effect: A range edge can move by a hundredth; the script applies the tolerance to the unrounded rate.
+randori:
+  challenge: See the finance Randori recipe, FIN-R01.
+  constraints:
+    - Every range matches the CI output
+  evaluation: The ranges match the CI output and the tolerance is quoted with its paragraph.
+maintenance:
+  cadence: Every six months, or when the Consumer Financial Protection Bureau amends Appendix J or 1026.22
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on the regulation’s own examples, not a compliance review. No compliance specialist, lawyer or accountant has reviewed it, and a real loan disclosure needs the review its lender’s compliance function and counsel require.
+    - Appendix J’s examples use dates in 1978 and are illustrative; they are not a current rate or offer.
+    - The mortgage tolerances of 1026.22(a)(4) and (a)(5), and the finance-charge tolerances they rely on, are not covered.

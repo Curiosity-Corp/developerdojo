@@ -1,0 +1,9 @@
+title: "Regulation Z, Appendix J: annual percentage rate computations for closed-end credit (12 CFR part 1026)"
+provider: "Consumer Financial Protection Bureau"
+url: "https://www.consumerfinance.gov/rules-policy/regulations/1026/j/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [data-analytics]
+summary: "The US federal method for the annual percentage rate of a loan: the actuarial general equation, how to count unit-periods between dates, an iteration to solve it, and worked examples with their published rates that you can reproduce. A US government work, free to read and reuse."
+verifiedOn: 2026-11-25

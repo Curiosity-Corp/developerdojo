@@ -1,0 +1,20 @@
+{
+  "A": {
+    "title": "The first payment moves one month later, to 10 March 1978",
+    "apr_percent": "8.95",
+    "change_percentagePoints": "-0.74",
+    "beyondTolerance": true
+  },
+  "B": {
+    "title": "$50 of the $5,000 is a prepaid finance charge, so the amount financed is $4,950",
+    "apr_percent": "10.69",
+    "change_percentagePoints": "1.01",
+    "beyondTolerance": true
+  },
+  "C": {
+    "title": "The final payment is $280 instead of $230 (Appendix J (c)(3) example (i))",
+    "apr_percent": "10.50",
+    "change_percentagePoints": "0.81",
+    "beyondTolerance": true
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "example": "Appendix J (c)(1) example (i)",
+  "assumption": "Appendix J gives only the amount advanced; the box treats it as the amount financed, with no prepaid finance charge and nothing else financed.",
+  "amountFinanced": "5000.00",
+  "totalOfPayments": "5520.00",
+  "financeCharge": "520.00",
+  "annualPercentageRate": "9.69",
+  "periodicRate": "0.0080714234",
+  "interestInSchedule": "520.02",
+  "balanceAfterLastPayment": "0.02",
+  "rounding": "Interest each month is the balance times the periodic rate, rounded half up to the cent; the balance after the last payment shows what that rounding leaves.",
+  "disclosureTerms": {
+    "amountFinanced": "12 CFR 1026.18(b)",
+    "financeCharge": "12 CFR 1026.18(d)",
+    "annualPercentageRate": "12 CFR 1026.18(e)",
+    "totalOfPayments": "12 CFR 1026.18(h)"
+  }
+}

@@ -2,7 +2,7 @@
 
 A sector pack is one field's pathway: a short run of specialization katas on real files, ending in a Randori, with
 results that CI computes and a plain list of what was checked and what was not (#93). The UX pathway (#91), the BIM
-pathway (#92), the agriculture pathway (#93) and the science pathway (#93) are the four packs today. This guide is the
+pathway (#92), the agriculture pathway (#93), the science pathway (#93) and the finance pathway (#93) are the five packs today. This guide is the
 template for the next one. The kata contract and the taxonomy rules are in [kata-metadata.md](kata-metadata.md) and
 [kata-taxonomy.md](kata-taxonomy.md); this page does not repeat them.
 
@@ -11,20 +11,20 @@ A pack adds a field's practice. It never copies a foundation: every pack kata bu
 
 ## The parts of a pack
 
-| Part | Where | UX | BIM | Agriculture | Science |
-| --- | --- | --- | --- | --- | --- |
-| Pack record | `src/data/sector-packs.ts` | `ux` | `bim` | `agriculture` | `science` |
-| Pathway page | `src/pages/katas/<field>-pathway.astro` | `ux-pathway` | `bim-pathway` | `agriculture-pathway` | `science-pathway` |
-| Recipe pages (practice katas) | `src/content/kata-recipes/<prefix>-00N-*.yaml` | UX-001 to UX-005 | BIM-001 to BIM-008 | AGR-001 to AGR-003 | SCI-001 to SCI-003 |
-| Randori | `src/content/kata-recipes/<prefix>-r01-randori.yaml` | UX-R01 | BIM-R01, and the specialist BIM-R02 | AGR-R01 | SCI-R01 |
-| Inputs, script, outputs, README | `public/examples/<field>-pathway/` | Penpot file and tokens | buildingSMART IFC, IDS, coordination brief, review gates | NOAA weather record | NASA GISTEMP record |
-| CI check | `.gitlab-ci.yml` | `ux_pathway`, `test`, `e2e` | `bim_pathway` | `agriculture_pathway` | `science_pathway` |
-| Verified / not verified | pack record, rendered by `src/components/SectorPackEvidence.astro` | section 05 | section 06 | section 06 | section 06 |
-| Armory | `armoryStackRecipes` (and entries) in `src/data/armory.ts` | `penpot-and-browser` | `ifcopenshell-and-python` | `python-standard-library` | `python-standard-library` |
-| Gallery entry | `src/data/gallery.ts` | `pocket-invoice-penpot-file` | `bim-pathway-edited-model` | `agriculture-irrigation-estimate` | `science-trend-with-uncertainty` |
-| Directory card | `src/data/kata-directory.ts` | yes | yes | yes | yes |
-| External resources | `src/content/resources/<publisher>/*.yaml` | Penpot docs | buildingSMART, IfcOpenShell | NOAA, FAO | NASA, BIPM (GUM), NIST |
-| Tests | `tests/<field>-pathway.test.ts`, `e2e/<field>-pathway.spec.ts` | yes | yes | yes | yes |
+| Part | Where | UX | BIM | Agriculture | Science | Finance |
+| --- | --- | --- | --- | --- | --- | --- |
+| Pack record | `src/data/sector-packs.ts` | `ux` | `bim` | `agriculture` | `science` | `finance` |
+| Pathway page | `src/pages/katas/<field>-pathway.astro` | `ux-pathway` | `bim-pathway` | `agriculture-pathway` | `science-pathway` | `finance-pathway` |
+| Recipe pages (practice katas) | `src/content/kata-recipes/<prefix>-00N-*.yaml` | UX-001 to UX-005 | BIM-001 to BIM-008 | AGR-001 to AGR-003 | SCI-001 to SCI-003 | FIN-001 to FIN-003 |
+| Randori | `src/content/kata-recipes/<prefix>-r01-randori.yaml` | UX-R01 | BIM-R01, and the specialist BIM-R02 | AGR-R01 | SCI-R01 | FIN-R01 |
+| Inputs, script, outputs, README | `public/examples/<field>-pathway/` | Penpot file and tokens | buildingSMART IFC, IDS, coordination brief, review gates | NOAA weather record | NASA GISTEMP record | Regulation Z, 12 CFR 1026.22 (eCFR) |
+| CI check | `.gitlab-ci.yml` | `ux_pathway`, `test`, `e2e` | `bim_pathway` | `agriculture_pathway` | `science_pathway` | `finance_pathway` |
+| Verified / not verified | pack record, rendered by `src/components/SectorPackEvidence.astro` | section 05 | section 06 | section 06 | section 06 | section 05 |
+| Armory | `armoryStackRecipes` (and entries) in `src/data/armory.ts` | `penpot-and-browser` | `ifcopenshell-and-python` | `python-standard-library` | `python-standard-library` | `python-standard-library` |
+| Gallery entry | `src/data/gallery.ts` | `pocket-invoice-penpot-file` | `bim-pathway-edited-model` | `agriculture-irrigation-estimate` | `science-trend-with-uncertainty` | `finance-apr-and-schedule` |
+| Directory card | `src/data/kata-directory.ts` | yes | yes | yes | yes | yes |
+| External resources | `src/content/resources/<publisher>/*.yaml` | Penpot docs | buildingSMART, IfcOpenShell | NOAA, FAO | NASA, BIPM (GUM), NIST | CFPB (Regulation Z) |
+| Tests | `tests/<field>-pathway.test.ts`, `e2e/<field>-pathway.spec.ts` | yes | yes | yes | yes | yes |
 
 ## The pack record
 

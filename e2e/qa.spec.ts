@@ -130,6 +130,9 @@ const REFLOW_ROUTES = [
   // The science pathway and its widest recipe page (#93).
   '/katas/science-pathway/',
   '/katas/sci-002-uncertainty-budget/',
+  // The finance pathway and its widest recipe page (#93).
+  '/katas/finance-pathway/',
+  '/katas/fin-003-apr-tolerance/',
   // Optional Ignite Curiosity journeys (#83).
   '/journeys/',
   '/journeys/robotics/',

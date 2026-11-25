@@ -325,6 +325,78 @@ export const sectorPackInputs: SectorPackInput[] = [
     sourcesCheckedOn: '2026-11-21',
     trackingIssue: 93,
   },
+  {
+    id: 'finance',
+    title: 'Finance: from a loan’s terms to a checked annual percentage rate',
+    fieldIds: ['finance'],
+    pathway: '/katas/finance-pathway',
+    kataIds: ['FIN-001', 'FIN-002', 'FIN-003'],
+    randoriKataId: 'FIN-R01',
+    foundationKataIds: ['PRACTICE-001', 'PRACTICE-002'],
+    examples: { dir: '/examples/finance-pathway', readme: '/examples/finance-pathway/README.md' },
+    inputs: [
+      {
+        name: '12 CFR 1026.22, determination of annual percentage rate (Regulation Z), from the eCFR',
+        path: '/examples/finance-pathway/inputs/ecfr-12-cfr-1026-22.xml',
+        source: 'https://www.ecfr.gov/api/versioner/v1/full/2026-11-23/title-12.xml?part=1026&section=1026.22',
+        terms: 'The Code of Federal Regulations is a US government work, not subject to copyright in the US (17 U.S.C. 105). The eCFR is an editorial compilation, not the official legal edition. This copy, for 2026-11-23, is pinned by its hash.',
+        sha256: 'ed61b93aa82d23aa6f02600936871b1e00432b34507fdd9c681fbbbaf2db0d7e',
+      },
+    ],
+    checks: [
+      {
+        name: 'The Appendix J worked examples, the unit-periods, the annual percentage rates, the schedule and disclosure figures, the tolerance and the Randori cards',
+        ciJob: 'finance_pathway',
+        runs: 'public/examples/finance-pathway/tools/finance_pathway.py',
+        outputs: [
+          '/examples/finance-pathway/generated/reference-checks.json',
+          '/examples/finance-pathway/generated/apr.json',
+          '/examples/finance-pathway/generated/schedule.csv',
+          '/examples/finance-pathway/generated/disclosure.json',
+          '/examples/finance-pathway/generated/tolerance.json',
+          '/examples/finance-pathway/generated/randori/cards.json',
+          '/examples/finance-pathway/generated/manifest.json',
+          '/examples/finance-pathway/generated/summary.md',
+        ],
+      },
+    ],
+    verified: [
+      'The regulation text is the file the eCFR served for 2026-11-23, unchanged (SHA-256 {regulationSha}…, checked by the site’s tests), and the script reads the tolerances from it.',
+      { text: 'The script reproduces {referenceChecks} published values from Appendix J’s worked examples (the iteration of paragraph (b)(9), and the unit-periods and annual percentage rates of the examples in (c)(1) and (c)(3)) and refuses to write any result if one differs.', evidence: '/examples/finance-pathway/generated/reference-checks.json' },
+      { text: 'Ignoring the odd days before the first payment moves the annual percentage rate beyond the 1/8-point tolerance in {outsideTolerance} of {examples} examples.', evidence: '/examples/finance-pathway/generated/tolerance.json' },
+      { text: 'On every pipeline, CI reruns the script with Python 3.12 and fails if any output differs from the files on this page.', evidence: '/examples/finance-pathway/generated/summary.md' },
+    ],
+    notVerified: [
+      'Any real loan, fee or disclosure. The examples are the regulation’s own, with dates in 1978; nothing here says that a real disclosure or calculation tool meets Regulation Z.',
+      'What belongs in a real finance charge (12 CFR 1026.4). The worked example has no fees, so its amount financed is the amount advanced.',
+      'Multiple advances, irregular payment series, the United States Rule method, open-end credit and the extra tolerances for mortgage loans (1026.22(a)(4) and (a)(5)).',
+      'State law, and any rule outside Regulation Z that a real loan is also subject to.',
+      'Use by real learners: no learner has run these katas yet.',
+    ],
+    ontology: [
+      { term: 'Amount financed', meaning: 'The credit provided to the borrower: the loan amount, plus other amounts financed that are not finance charges, minus any prepaid finance charge (12 CFR 1026.18(b)).' },
+      { term: 'Finance charge', meaning: 'The cost of the credit as a dollar amount (12 CFR 1026.18(d)); in the worked example, the total of payments minus the amount financed.' },
+      { term: 'Total of payments', meaning: 'What the borrower will have paid after making every scheduled payment (12 CFR 1026.18(h)).' },
+      { term: 'Annual percentage rate', meaning: 'The cost of credit as a yearly rate, relating the amount and timing of what the borrower receives to the amount and timing of the payments (12 CFR 1026.22(a)(1)).' },
+      { term: 'Unit-period', meaning: 'The period between payments that occurs most often in a transaction, such as a month or a week; the annual percentage rate is the rate per unit-period times the unit-periods per year (Appendix J).' },
+      { term: 'Odd first period', meaning: 'A first period that is longer or shorter than a unit-period, counted as whole unit-periods t plus a fraction f (Appendix J).' },
+      { term: 'Tolerance', meaning: 'How far a disclosed annual percentage rate may differ from the computed one and still count as accurate: 1/8 of 1 percentage point in a regular transaction (12 CFR 1026.22(a)(2)).' },
+    ],
+    procedures: [
+      { name: 'Amortize a closed-end loan to the cent and state its disclosure figures', kataIds: ['FIN-001'] },
+      { name: 'Count unit-periods from the dates and compute the annual percentage rate by the actuarial method of Appendix J', kataIds: ['FIN-002'] },
+      { name: 'Check a disclosed annual percentage rate against the Regulation Z tolerance', kataIds: ['FIN-003'] },
+    ],
+    professionalReview: { required: true, limit: 'None. No compliance specialist, lawyer or accountant has reviewed this pathway; a real loan disclosure needs the review its lender’s compliance function and counsel require.', reviewers: [
+      { role: 'Consumer-credit compliance specialist', scope: 'Whether a real disclosure meets Regulation Z, including which fees belong in the finance charge and which tolerance applies.', state: 'none-available' },
+      { role: 'Lawyer admitted where the credit is offered', scope: 'How Regulation Z and state law apply to a real transaction.', state: 'none-available' },
+      { role: 'Accountant', scope: 'Whether a schedule’s rounding and interest method suit a real loan’s books.', state: 'none-available' },
+    ] },
+    armory: { stackRecipeIds: ['python-standard-library'], entryIds: [] },
+    galleryEntryIds: ['finance-apr-and-schedule'],
+    sourcesCheckedOn: '2026-11-25',
+    trackingIssue: 93,
+  },
 ];
 
 /** The packs, validated for shape. Cross-references are checked by the build and the tests. */

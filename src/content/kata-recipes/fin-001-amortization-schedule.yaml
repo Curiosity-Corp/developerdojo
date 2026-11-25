@@ -1,0 +1,180 @@
+# Finance pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/finance-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job finance_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Finance pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a consumer-credit compliance specialist, lawyer or accountant yet.
+summary: "Turn a loan’s terms into a month-by-month payment schedule to the cent, and from it the four figures a US closed-end credit disclosure shows: amount financed, finance charge, total of payments and annual percentage rate."
+metadata:
+  id: FIN-001
+  title: "Amortize a loan to the cent and state its disclosure figures"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - amortize-loan
+  artifactTypes:
+    - amortization-schedule
+  domainIds:
+    - finance
+  capabilityIds:
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - cfpb/regulation-z-appendix-j
+    - cfpb/regulation-z-1026-22
+    - cfpb/regulation-z-1026-18
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: Regulation Z (Truth in Lending), 12 CFR part 1026, Appendix J and 1026.22
+      version: "eCFR for 2026-11-23; Appendix J and 1026.22 unchanged there since 2017-01-01"
+      applicability: "The definitions of amount financed, finance charge, annual percentage rate and total of payments (1026.18(b), (d), (e) and (h)) and the actuarial method of Appendix J, used on Appendix J’s own example (c)(1)(i) for practice"
+      reviewScope: "What the listed checks test: that the schedule and figures match the CI output for the regulation’s example. No claim about any real loan or disclosure."
+      sourceResourceId: cfpb/regulation-z-appendix-j
+  verificationEvidence:
+    - description: A 24-row schedule for Appendix J example (c)(1)(i) whose dates, interest, principal and balances match /examples/finance-pathway/generated/schedule.csv, as the CI output does
+      method: automated-check
+    - description: Each disclosure figure names the paragraph of 12 CFR 1026.18 that defines it and how it was computed
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces the schedule and the four disclosure figures, and explains why the balance after the last payment is not exactly zero
+    - stage: adapt
+      criterion: Builds the schedule for another example of Appendix J (c)(1), with its own unit-period and dates
+    - stage: demonstrate
+      criterion: Explains to a reviewer which fees a real finance charge could include that the example leaves out, and why the figures are then not a real disclosure
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: US Regulation Z’s own worked examples reproduced number for number, one of them amortized to the cent with its disclosure figures, and every annual percentage rate checked against the tolerance read from the regulation’s text, all computed by the site’s CI."
+  href: /katas/finance-pathway
+  provenance:
+    creator: Consumer Financial Protection Bureau (Regulation Z); Developer Dojo maintainers (script and results)
+    source: Regulation Z, 12 CFR part 1026, Appendix J (read 2026-11-25) and 1026.22 (eCFR for 2026-11-23); results from /examples/finance-pathway/tools/finance_pathway.py
+    license: Regulation Z is a US government work, not under US copyright (17 U.S.C. 105); script and outputs MIT
+    date: "2026-11-25"
+brief:
+  goal: A payment schedule for Appendix J example (c)(1)(i), to the cent, and its four disclosure figures.
+  audience: Learners who have done the foundations and want to read a loan as a cash flow, not a single rate.
+  inputs:
+    - name: The terms of Appendix J example (c)(1)(i)
+      source: "cfpb/regulation-z-appendix-j (paragraph (c)(1), example (i): $5,000 advanced on 10 January 1978, 24 monthly payments of $230 from 10 February 1978)"
+      terms: US government work; free to reuse
+  doneWhen:
+    - Your schedule has 24 rows, one per payment, with date, payment, interest, principal and balance
+    - The interest each month is the balance times the periodic rate, rounded to the cent, and the balance after the last payment matches /examples/finance-pathway/generated/schedule.csv
+    - "Your figures match /examples/finance-pathway/generated/disclosure.json: amount financed $5,000.00, finance charge $520.00, total of payments $5,520.00, annual percentage rate 9.69 %"
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: Regulation Z, 12 CFR 1026.22, from the eCFR
+      version: "eCFR for 2026-11-23, SHA-256 ed61b93a…2db0d7e"
+      permissions: Read a copy
+      cost: Free (US government work)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against Appendix J’s worked examples
+      permissions: Reads what you paste in; paste only the regulation’s examples, never a real borrower’s loan
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library is enough for these formulas, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A spreadsheet's RATE function or an online loan calculator
+      tradeoff: Faster for a regular loan, but neither counts an odd first period by Appendix J's rules, and a calculator hides its method. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains an amortization schedule and a Regulation Z disclosure term you paste in, and drafts the Python for the schedule.
+      reviewGate: You run the code and keep it only if its schedule matches the CI output row for row.
+    - role: Learner as reviewer
+      responsibility: Builds the schedule and the figures and compares each with the CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A figure stays only if you can name the paragraph that defines it.
+setup:
+  steps:
+    - Download the pathway folder from /katas/finance-pathway, or copy the script and the input into a new folder.
+    - Check that Python 3.12 or later runs with python3 --version.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/finance_pathway.py . out"
+    expected: "20 reference checks pass, and out/schedule.csv ends with a balance of 0.02 after payment 24"
+    result: passed
+    evidence: /examples/finance-pathway/generated/schedule.csv, recomputed by CI on every pipeline
+    date: "2026-11-25"
+prompts:
+  - id: explain-schedule
+    title: Explain the schedule
+    purpose: Understand how each payment splits into interest and principal before you trust code that does it.
+    text: |-
+      A loan of $5,000 is repaid in 24 monthly payments of $230. Its annual percentage rate by Regulation Z, Appendix J is about 9.69 %.
+      Explain how to build a month-by-month schedule: the interest each month, the principal, the new balance, and why rounding interest to the cent leaves a small balance at the end.
+      Then name the paragraphs of 12 CFR 1026.18 that define the amount financed, the finance charge and the total of payments, and give me Python, standard library only, for the schedule.
+      If you are not sure, say so.
+exercise:
+  title: Regulation Z, Appendix J (12 CFR part 1026)
+  resourceId: cfpb/regulation-z-appendix-j
+  terms: A US government work, not under copyright in the US (17 U.S.C. 105). Free to read and reuse.
+execution:
+  steps:
+    - actor: Learner
+      action: Read Appendix J example (c)(1)(i) and 12 CFR 1026.18 (b), (d), (e) and (h), and write the terms into a script or spreadsheet.
+    - actor: Explaining assistant
+      action: Drafts the code for the schedule.
+      handoff: You run it and compare every row with the CI schedule.
+    - actor: Learner
+      action: Compute the four disclosure figures and compare them with the CI output.
+verification:
+  checks:
+    - action: Build the schedule and the disclosure figures with the pathway script
+      expected: "24 rows; balance 0.02 after the last payment; amount financed 5000.00, finance charge 520.00, total of payments 5520.00, annual percentage rate 9.69 %"
+      result: passed
+      evidence: /examples/finance-pathway/generated/disclosure.json, recomputed by CI on every pipeline
+      date: "2026-11-25"
+    - action: Your own schedule matches the CI output
+      expected: Same interest, principal and balance in every row
+      result: not-run
+  failures:
+    - observed: The interest in the first month comes out as $41.67 or another round figure
+      correction: That uses a nominal rate such as 10 % divided by 12. The schedule uses the periodic rate that the annual percentage rate implies, the rate Appendix J's iteration finds, divided by 12.
+    - observed: The finance charge differs from the interest column's sum by a few cents
+      correction: The finance charge is the total of payments minus the amount financed. The schedule's interest also carries its cent rounding, which the balance after the last payment shows.
+adaptation:
+  variations:
+    - change: Use example (c)(3)(i), where the final payment is $280
+      effect: The total of payments and the finance charge rise by $50, and so does the annual percentage rate; FIN-002 computes it.
+randori:
+  challenge: See the finance Randori recipe, FIN-R01.
+  constraints:
+    - Every figure matches the CI output
+  evaluation: The schedule and figures match the CI output.
+maintenance:
+  cadence: Every six months, or when the Consumer Financial Protection Bureau amends Appendix J or 1026.22
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on the regulation’s own examples, not a compliance review. No compliance specialist, lawyer or accountant has reviewed it, and a real loan disclosure needs the review its lender’s compliance function and counsel require.
+    - Appendix J’s examples use dates in 1978 and are illustrative; they are not a current rate or offer.
+    - The example has no fees, so its amount financed is the amount advanced; a real loan’s finance charge can include fees (12 CFR 1026.4).

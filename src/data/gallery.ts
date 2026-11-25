@@ -37,6 +37,9 @@ export const galleryOutcomeLabels: Record<string, string> = {
   'inspect-research-record': 'Inspect a published research record',
   'evaluate-measurement-uncertainty': 'Evaluate measurement uncertainty',
   'fit-line-with-uncertainty': 'Fit a line and report its uncertainty',
+  'amortize-loan': 'Amortize a loan and state its disclosure figures',
+  'compute-apr': 'Compute an annual percentage rate',
+  'check-apr-tolerance': 'Check an annual percentage rate against its tolerance',
 };
 
 /** The outcome vocabulary the gallery browses. */
@@ -306,5 +309,39 @@ export const galleryEntries: GalleryEntryInput[] = [
     fieldIds: ['science'],
     kataId: 'SCI-003',
     exercise: { title: 'Follow the science pathway', href: '/katas/science-pathway' },
+  },
+  {
+    id: 'finance-apr-and-schedule',
+    title: 'A loan’s annual percentage rate and payment schedule, by the method of Regulation Z',
+    summary: 'The FIN-001 and FIN-002 worked example. The terms of a worked example from US Regulation Z, Appendix J become an annual percentage rate computed by the regulation’s own iteration, a month-by-month schedule to the cent and the four disclosure figures, after the script reproduces every published example.',
+    form: 'native',
+    artifact: {
+      format: 'Payment schedule (CSV), annual percentage rates and disclosure figures (JSON) and a one-page summary (Markdown)',
+      files: [
+        { label: 'Read the results summary', href: '/examples/finance-pathway/generated/summary.md' },
+        { label: 'Download the payment schedule (CSV)', href: '/examples/finance-pathway/generated/schedule.csv' },
+        { label: 'Download the annual percentage rates (JSON)', href: '/examples/finance-pathway/generated/apr.json' },
+      ],
+    },
+    provenance: {
+      creator: 'Developer Dojo maintainers (script and results); Consumer Financial Protection Bureau (Regulation Z, its method and worked examples)',
+      madeWith: 'A Python 3.12 script with no packages, published next to the results, using the actuarial method of Regulation Z, Appendix J.',
+      source: 'Regulation Z (12 CFR part 1026): the worked examples of Appendix J, and the text of 1026.22 as the eCFR served it for 2026-11-23.',
+      rights: 'The regulation is a US government work, not under copyright in the US. The script and results are Dojo material under the MIT licence.',
+      rightsHref: '/examples/finance-pathway/README.md',
+      created: '2026-11-25',
+    },
+    verification: {
+      method: 'automated-check',
+      date: '2026-11-25',
+      checked: 'Every pipeline reruns the script, which first reproduces the unit-periods and annual percentage rates Appendix J publishes in its worked examples, and fails if any output differs from the published files.',
+      notChecked: 'No real loan, fee or disclosure is checked, and nothing here says one meets Regulation Z. No learner and no compliance specialist, lawyer or accountant review.',
+      evidenceHref: '/katas/finance-pathway',
+      nextCheck: QUARTERLY,
+    },
+    outcomeIds: ['compute-apr'],
+    fieldIds: ['finance'],
+    kataId: 'FIN-002',
+    exercise: { title: 'Follow the finance pathway', href: '/katas/finance-pathway' },
   },
 ];
