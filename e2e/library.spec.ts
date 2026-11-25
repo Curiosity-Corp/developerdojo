@@ -67,6 +67,7 @@ test('resources filter by skill, provider, cost and format with JavaScript', asy
   await page.goto('/library/resources');
   const total = await page.locator('[data-resource]').count();
   expect(total).toBeGreaterThan(0);
+  const initialOrder = await page.locator('[data-resource]').evaluateAll((els) => els.map((el) => el.id));
   const form = page.locator('#resource-filters');
   await expect(form).toBeVisible();
   await expect(page.locator('#resource-status')).toHaveText(`${total} resources`);
@@ -75,6 +76,11 @@ test('resources filter by skill, provider, cost and format with JavaScript', asy
   const formatFilter = form.locator('select[name="format"]');
   await expect(providerFilter).toHaveAccessibleName('Provider');
   await expect(formatFilter).toHaveAccessibleName('Format');
+
+  // Every card's provider and format, read before filtering: the list then holds only the matching cards.
+  const cards = await page
+    .locator('[data-resource]')
+    .evaluateAll((els) => els.map((el) => ({ provider: el.getAttribute('data-provider') ?? '', format: el.getAttribute('data-format') ?? '' })));
 
   // Pick the first card's provider: only that provider's cards stay.
   const provider = (await page.locator('[data-resource]').first().getAttribute('data-provider')) ?? '';
@@ -89,13 +95,11 @@ test('resources filter by skill, provider, cost and format with JavaScript', asy
   for (const card of await visible.all()) {
     await expect(card).toHaveAttribute('data-provider', provider);
   }
+  await expect(page.locator('#resource-status')).toHaveText(
+    `${cards.filter((card) => card.provider === provider).length} of ${total} resources`,
+  );
   await expect(page).toHaveURL(/provider=/);
 
-  // Find a provider and a format that no single card shares (needs two or more cards). The empty
-  // message shows for that pair. Only options that exist are offered, so pick from the cards.
-  const cards = await page
-    .locator('[data-resource]')
-    .evaluateAll((els) => els.map((el) => ({ provider: el.getAttribute('data-provider') ?? '', format: el.getAttribute('data-format') ?? '' })));
   const pairs = new Set(cards.map((card) => JSON.stringify([card.provider, card.format])));
   const formats = new Set(cards.map((card) => card.format));
   let clash: { provider: string; format: string } | undefined;
@@ -113,6 +117,8 @@ test('resources filter by skill, provider, cost and format with JavaScript', asy
   }
   await form.getByRole('button', { name: 'Clear filters' }).click();
   await expect(page.locator('#resource-status')).toHaveText(`${total} resources`);
+  // Clearing puts every card back, in catalogue order.
+  expect(await page.locator('[data-resource]').evaluateAll((els) => els.map((el) => el.id))).toEqual(initialOrder);
   await expect(page.locator('#resource-empty')).toBeHidden();
 });
 

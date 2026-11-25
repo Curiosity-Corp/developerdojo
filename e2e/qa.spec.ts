@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { performance } from 'node:perf_hooks';
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
+import { recordCatalogMetric } from './catalog-metrics';
 
 // Routes come from the sitemap of the BUILT site, so a new page is covered the moment it exists.
 function sitemapRoutes(): string[] {
@@ -342,9 +343,9 @@ test.describe('accessibility (WCAG 2.1 AA, no serious or critical violations)', 
               .options({ resultTypes: ['violations'] })
               .analyze();
           } finally {
-            if (catalogMetrics) console.info('[catalog-diagnostics] scan finished or interrupted', JSON.stringify({
-              ...catalogMetrics, scanElapsedMs: Math.round(performance.now() - scanStarted),
-            }));
+            if (catalogMetrics) recordCatalogMetric('scan', testInfo, {
+              route, ...catalogMetrics, scanElapsedMs: Math.round(performance.now() - scanStarted), finished: results !== undefined,
+            });
           }
           const bad = results.violations
             .filter((v) => v.impact === 'serious' || v.impact === 'critical')

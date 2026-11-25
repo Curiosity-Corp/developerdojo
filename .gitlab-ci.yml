@@ -266,6 +266,7 @@ e2e:
     paths:
       - blob-report
       - test-results
+      - catalog-metrics
     expire_in: 7 days
 
 # One HTML report for the whole suite, merged from the shard blob reports (also after a red shard).
@@ -280,10 +281,13 @@ e2e:report:
     - when: always
   script:
     - npx playwright merge-reports --reporter html ./blob-report
+    # The catalogue load, filter and scan timings every shard recorded, as one table (#113).
+    - node scripts/catalog-metrics-report.mjs catalog-metrics
   artifacts:
     when: always
     paths:
       - playwright-report
+      - catalog-metrics
     expire_in: 7 days
 
 # Production e2e (hypervoid/admiral#123): the read-only production subset of the suite (playwright.config.ts
