@@ -1,0 +1,188 @@
+# Manufacturing pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/manufacturing-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job manufacturing_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Manufacturing pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a quality engineer, statistician or process engineer yet.
+summary: "Reproduce the handbook’s nested analysis of variance for the lithography record, solve its expected mean squares for the cassette, wafer and site variance components, then reproduce the handbook’s capability example and see how far the within-wafer sigma would overstate capability."
+metadata:
+  id: MFG-003
+  title: "Split the variation into its sources, and see which sigma a capability index must use"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - separate-variation-sources
+  artifactTypes:
+    - variance-components
+  domainIds:
+    - manufacturing
+  capabilityIds:
+    - analyze-data
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - nist/handbook-process-monitoring-and-control
+    - nist/handbook-lithography-case-study
+    - nist/engineering-statistics-handbook
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: NIST/SEMATECH e-Handbook of Statistical Methods, chapter 6 (Process or Product Monitoring and Control)
+      version: "Web edition last updated 2022-04-27, DOI 10.18434/M32189; read 2026-11-25"
+      applicability: "The nested analysis of variance and variance components of section 6.6.1.3 and the capability indices and rejects table of section 6.1.6, used on the handbook’s own case study and example for practice"
+      reviewScope: "What the listed checks test: that the code reproduces the sums of squares, mean squares, variance components and capability values the handbook publishes. No claim that any real process is capable."
+      sourceResourceId: nist/handbook-process-monitoring-and-control
+  verificationEvidence:
+    - description: The sums of squares, mean squares and three variance components of section 6.6.1.3 and the capability example and rejects table of section 6.1.6, as the CI output does
+      method: automated-check
+    - description: The learner states each source’s share of the variance and which sigma a capability index for single sites would need
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces the nested analysis of variance and the three variance components of section 6.6.1.3
+    - stage: adapt
+      criterion: Reproduces the capability example of section 6.1.6 and the rejects table, and explains the noted 64 ppm
+    - stage: demonstrate
+      criterion: Explains to a reviewer why a capability index computed with the within-wafer sigma would overstate the capability of single sites, and by how much for this record
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: the NIST/SEMATECH e-Handbook’s lithography case study reproduced number for number, its control chart factors rebuilt from the distribution of the range, control limits set with two different subgroups, and the line-width variation split into cassette, wafer and site, all computed by the site’s CI."
+  href: /katas/manufacturing-pathway
+  provenance:
+    creator: NIST/SEMATECH e-Handbook of Statistical Methods (method, case study and data); Developer Dojo maintainers (script and results)
+    source: NIST/SEMATECH e-Handbook of Statistical Methods, chapter 6 and the data rows of LITHOGRA.DAT (read 2026-11-25); results from /examples/manufacturing-pathway/tools/manufacturing_pathway.py
+    license: NIST public information, copied with credit (nist.gov copyright statement); script and outputs MIT
+    date: "2026-11-25"
+brief:
+  goal: The variance of the lithography record split into cassette, wafer and site, and the handbook’s capability example reproduced, so you know which sigma a capability claim needs.
+  audience: Learners who finished MFG-002 and want to know where the variation in a process comes from.
+  inputs:
+    - name: The data rows of LITHOGRA.DAT, handbook section 6.6.1
+      source: /examples/manufacturing-pathway/inputs/lithogra-data-rows.dat
+      terms: NIST public information; may be copied with credit
+    - name: The capability example and rejects table of section 6.1.6
+      source: nist/handbook-process-monitoring-and-control (the script holds the printed values)
+      terms: NIST public information; may be copied with credit
+  doneWhen:
+    - Your sums of squares, mean squares and variance components match section 6.6.1.3
+    - Your Cp, k, Cpk, Cpu, Cpl and rejects match section 6.1.6, with the one noted unit
+    - You state each source’s share and the overstatement ratio in /examples/manufacturing-pathway/generated/variation.json
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV and data files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: The data rows of LITHOGRA.DAT, NIST/SEMATECH e-Handbook section 6.6.1
+      version: "Downloaded 2026-11-25, data rows SHA-256 d7c27b04…7e7c2204"
+      permissions: Read a copy
+      cost: Free (NIST public information)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against the handbook’s published values
+      permissions: Reads what you paste in; paste only the handbook’s case study, never a real plant’s or supplier’s records
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library is enough for these formulas, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A statistics package or a spreadsheet control chart template
+      tradeoff: Faster to draw the chart, but a template hides which sigma it uses and which subgroup it assumes, the two choices this pathway is about. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains the nested model and its expected mean squares and drafts Python for the analysis of variance.
+      reviewGate: You run the code and keep it only if it reproduces the handbook’s printed values.
+    - role: Learner as reviewer
+      responsibility: Solves the three expected mean square equations by hand from the printed mean squares and compares every value with the handbook and the CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A value stays only if it matches sections 6.6.1.3 and 6.1.6 at the precision printed, or the one noted unit.
+setup:
+  steps:
+    - Use the folder and Python from MFG-002.
+    - Open handbook sections 6.6.1.3 and 6.1.6 beside the script.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/manufacturing_pathway.py . out"
+    expected: "60 reference checks pass, including the variance components 0.2645, 0.04997 and 0.1755 and Cpk = 0.6667"
+    result: passed
+    evidence: /examples/manufacturing-pathway/generated/variation.json, recomputed by CI on every pipeline
+    date: "2026-11-25"
+prompts:
+  - id: explain-components
+    title: Explain the variance components
+    purpose: Understand the nested model before you trust the numbers it gives.
+    text: |-
+      450 line widths are measured at 5 sites on each of 3 wafers in each of 30 cassettes. Explain the nested random-effects model for cassette, wafer within cassette and site within wafer, and the expected mean square of each source.
+      Then give me Python, standard library only, that computes the sums of squares, mean squares and variance components, so I can check you against section 6.6.1.3 of the NIST/SEMATECH e-Handbook.
+      If you are not sure, say so.
+exercise:
+  title: NIST/SEMATECH e-Handbook of Statistical Methods, section 6.6.1, Lithography Process
+  resourceId: nist/handbook-lithography-case-study
+  terms: NIST public information; may be copied and distributed with credit. Nothing here implies endorsement by NIST.
+execution:
+  steps:
+    - actor: Learner
+      action: Solve the expected mean square equations of section 6.6.1.3 by hand from the printed mean squares.
+    - actor: Explaining assistant
+      action: Drafts the code for the analysis of variance and the capability indices.
+      handoff: You run it and compare every value with the handbook.
+    - actor: Learner
+      action: Work out each source’s share and the ratio of the total sigma to the X-bar chart’s sigma, and compare with the CI output.
+verification:
+  checks:
+    - action: Reproduce sections 6.6.1.3 and 6.1.6 with the pathway script
+      expected: "Sums of squares 127.40293, 25.52089, 63.17865; mean squares 4.3932, 0.4253, 0.1755; components 0.2645, 0.04997, 0.1755; Cp 1.0, k 0.3333, Cpk 0.6667, Cpu 0.6667, Cpl 1.3333; rejects 0.27 %, 64 ppm (noted), 0.6 ppm, 2 ppb"
+      result: passed
+      evidence: /examples/manufacturing-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+      date: "2026-11-25"
+    - action: Work out the shares and the overstatement
+      expected: "Cassette 54.0 %, wafer 10.2 %, site 35.8 % of 0.48999; a capability index on the X-bar chart’s sigma would be 1.61 times too large for single sites"
+      result: passed
+      evidence: /examples/manufacturing-pathway/generated/variation.json, recomputed by CI on every pipeline
+      date: "2026-11-25"
+    - action: Your own code reproduces the same values
+      expected: The same values at the precision the handbook prints
+      result: not-run
+  failures:
+    - observed: The wafer component comes out as 0.4253 or 0.0851
+      correction: That is the wafer mean square, or the mean square divided by 5 without subtracting the site mean square first. The component is (MS wafer - MS site) / 5.
+    - observed: The rejects at Cp 1.33 come out as 63 ppm, not 64
+      correction: Limits 4 sigma either side leave 2 x Phi(-4) = 63.3 ppm outside; the handbook prints 64. The reference check accepts one unit in the last digit and says so.
+adaptation:
+  variations:
+    - change: Compute the components for the cleaned line width column
+      effect: Compare the shares with the raw column’s and say which source the cleaning changed.
+randori:
+  challenge: See the manufacturing Randori recipe, MFG-R01.
+  constraints:
+    - Every value matches the handbook at the precision printed, or the noted unit
+  evaluation: The values match the CI output and the handbook.
+maintenance:
+  cadence: Every six months, or when NIST changes the handbook’s chapter 6 or the case study’s data file
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on the handbook’s own case study, not an engineering review. No quality engineer, statistician or process engineer has reviewed it, and a real process needs the review its quality system requires.
+    - The served data are the 450 rows of LITHOGRA.DAT without its header, which names the person who supplied the data.
+    - The case study publishes no specification limits for line width, so no capability index is computed for it; the capability example is the handbook’s own.

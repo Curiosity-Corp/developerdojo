@@ -133,6 +133,9 @@ const REFLOW_ROUTES = [
   // The finance pathway and its widest recipe page (#93).
   '/katas/finance-pathway/',
   '/katas/fin-003-apr-tolerance/',
+  // The manufacturing pathway and its widest recipe page (#93).
+  '/katas/manufacturing-pathway/',
+  '/katas/mfg-002-control-limits/',
   // Optional Ignite Curiosity journeys (#83).
   '/journeys/',
   '/journeys/robotics/',

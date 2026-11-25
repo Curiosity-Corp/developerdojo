@@ -1,0 +1,179 @@
+# Manufacturing pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/manufacturing-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job manufacturing_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Manufacturing pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a quality engineer, statistician or process engineer yet.
+summary: "Open a real semiconductor process record, work out how it is grouped (cassettes, wafers, sites), check that nothing is missing, and reproduce the numerical summary the NIST/SEMATECH e-Handbook publishes for it before you chart anything."
+metadata:
+  id: MFG-001
+  title: "Inspect a process record: the structure and summary of the handbook’s lithography case study"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - inspect-process-record
+  artifactTypes:
+    - process-record-inspection
+  domainIds:
+    - manufacturing
+  capabilityIds:
+    - analyze-data
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - nist/handbook-process-monitoring-and-control
+    - nist/handbook-lithography-case-study
+    - nist/engineering-statistics-handbook
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: NIST/SEMATECH e-Handbook of Statistical Methods, chapter 6 (Process or Product Monitoring and Control)
+      version: "Web edition last updated 2022-04-27, DOI 10.18434/M32189; read 2026-11-25"
+      applicability: "The numerical summary and data structure of the lithography case study, section 6.6.1.2, recomputed from its data file for practice"
+      reviewScope: "What the listed checks test: that the code reproduces the summary the handbook publishes. No claim about any real process."
+      sourceResourceId: nist/handbook-process-monitoring-and-control
+  verificationEvidence:
+    - description: The record’s grouping and completeness, and its eight summary values matching handbook section 6.6.1.2, as the CI output does
+      method: automated-check
+    - description: Each summary value names the section that publishes it, and the units are stated
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces the eight summary values of section 6.6.1.2 and states the record’s grouping and units
+    - stage: adapt
+      criterion: Finds which site has the lowest mean and relates it to what the handbook’s box plots show
+    - stage: demonstrate
+      criterion: Explains to a reviewer why a lag-1 autocorrelation of 0.61 means the 450 values are not independent draws
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: the NIST/SEMATECH e-Handbook’s lithography case study reproduced number for number, its control chart factors rebuilt from the distribution of the range, control limits set with two different subgroups, and the line-width variation split into cassette, wafer and site, all computed by the site’s CI."
+  href: /katas/manufacturing-pathway
+  provenance:
+    creator: NIST/SEMATECH e-Handbook of Statistical Methods (method, case study and data); Developer Dojo maintainers (script and results)
+    source: NIST/SEMATECH e-Handbook of Statistical Methods, chapter 6 and the data rows of LITHOGRA.DAT (read 2026-11-25); results from /examples/manufacturing-pathway/tools/manufacturing_pathway.py
+    license: NIST public information, copied with credit (nist.gov copyright statement); script and outputs MIT
+    date: "2026-11-25"
+brief:
+  goal: The lithography record’s structure checked and its numerical summary reproduced at the five decimals the handbook prints.
+  audience: Learners who finished the foundation katas and want to read a production record before they trust a chart of it.
+  inputs:
+    - name: The data rows of LITHOGRA.DAT, handbook section 6.6.1
+      source: /examples/manufacturing-pathway/inputs/lithogra-data-rows.dat (450 rows, unchanged; the header is left out because it names a person)
+      terms: NIST public information; may be copied with credit
+  doneWhen:
+    - You state the grouping (30 cassettes, 3 wafers each, 5 sites each), the units (micrometres) and that nothing is missing
+    - Your mean, median, minimum, maximum, range, standard deviation and lag-1 autocorrelation match section 6.6.1.2 and /examples/manufacturing-pathway/generated/inspection.json
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV and data files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: The data rows of LITHOGRA.DAT, NIST/SEMATECH e-Handbook section 6.6.1
+      version: "Downloaded 2026-11-25, data rows SHA-256 d7c27b04…7e7c2204"
+      permissions: Read a copy
+      cost: Free (NIST public information)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against the handbook’s published values
+      permissions: Reads what you paste in; paste only the handbook’s case study, never a real plant’s or supplier’s records
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library is enough for these formulas, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A statistics package or a spreadsheet control chart template
+      tradeoff: Faster to draw the chart, but a template hides which sigma it uses and which subgroup it assumes, the two choices this pathway is about. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains the columns of the record and drafts Python that reads it and computes the summary.
+      reviewGate: You run the code and keep it only if it reproduces the handbook’s printed values.
+    - role: Learner as reviewer
+      responsibility: Checks the grouping by hand for one cassette and compares every summary value with the handbook and the CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A value stays only if it matches section 6.6.1.2 at the precision printed.
+setup:
+  steps:
+    - Download the pathway folder from /katas/manufacturing-pathway, or copy the script and the input into a new folder.
+    - Check that Python 3.12 or later runs with python3 --version.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/manufacturing_pathway.py . out"
+    expected: "60 reference checks pass, and out/inspection.json reports 450 rows, a mean of 2.53228 and a standard deviation of 0.69376"
+    result: passed
+    evidence: /examples/manufacturing-pathway/generated/inspection.json, recomputed by CI on every pipeline
+    date: "2026-11-25"
+prompts:
+  - id: explain-record
+    title: Explain the record before you summarise it
+    purpose: Know what one row means before you compute anything from 450 of them.
+    text: |-
+      Here are the first 15 rows of a process record: cassette, wafer, site (1 Top to 5 Bottom), line width in micrometres, run sequence, cleaned line width.
+      <paste 15 rows>
+      Explain how the measurements are grouped and what a lag-1 autocorrelation would tell me about them. Then give me Python, standard library only, that checks every cassette has three wafers with five sites each and prints the mean, median, minimum, maximum, range, sample standard deviation and lag-1 autocorrelation of the raw line width.
+      If you are not sure, say so.
+exercise:
+  title: NIST/SEMATECH e-Handbook of Statistical Methods, section 6.6.1, Lithography Process
+  resourceId: nist/handbook-lithography-case-study
+  terms: NIST public information; may be copied and distributed with credit. Nothing here implies endorsement by NIST.
+execution:
+  steps:
+    - actor: Learner
+      action: Open the data file in a spreadsheet and read the grouping of cassette 1 by hand.
+    - actor: Explaining assistant
+      action: Drafts the code for the checks and the summary.
+      handoff: You run it and compare every value with section 6.6.1.2.
+    - actor: Learner
+      action: Compare with the CI output and note which site has the lowest mean.
+verification:
+  checks:
+    - action: Reproduce the numerical summary of section 6.6.1.2 with the pathway script
+      expected: "n 450; mean 2.53228; median 2.45334; minimum 0.74655; maximum 5.16867; range 4.42212; standard deviation 0.69376; autocorrelation 0.60726"
+      result: passed
+      evidence: /examples/manufacturing-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+      date: "2026-11-25"
+    - action: Your own code reproduces the same values
+      expected: The same eight values at the precision the handbook prints
+      result: not-run
+  failures:
+    - observed: The standard deviation comes out as 0.69299 instead of 0.69376
+      correction: That is the population formula (divide by n). The handbook uses the sample standard deviation (divide by n - 1).
+    - observed: The autocorrelation is a little different from 0.60726
+      correction: Section 1.3.5.12 divides the lag-1 sum of products by the sum of squares of all n values about the overall mean; do not use two separate means or divide by n - 1 on one side only.
+adaptation:
+  variations:
+    - change: Summarise the cleaned line width column instead of the raw one
+      effect: The level drops while the spread changes little; the Randori card A asks what that does to the control limits.
+randori:
+  challenge: See the manufacturing Randori recipe, MFG-R01.
+  constraints:
+    - Every summary value matches section 6.6.1.2 at the precision printed
+  evaluation: The values match the CI output and the handbook.
+maintenance:
+  cadence: Every six months, or when NIST changes the handbook’s chapter 6 or the case study’s data file
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on the handbook’s own case study, not an engineering review. No quality engineer, statistician or process engineer has reviewed it, and a real process needs the review its quality system requires.
+    - The served data are the 450 rows of LITHOGRA.DAT without its header, which names the person who supplied the data.

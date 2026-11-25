@@ -39,6 +39,9 @@ export const galleryOutcomeLabels: Record<string, string> = {
   'fit-line-with-uncertainty': 'Fit a line and report its uncertainty',
   'amortize-loan': 'Amortize a loan and state its disclosure figures',
   'compute-apr': 'Compute an annual percentage rate',
+  'inspect-process-record': 'Inspect a process record',
+  'set-control-limits': 'Set control limits on a process record',
+  'separate-variation-sources': 'Split process variation into its sources',
   'check-apr-tolerance': 'Check an annual percentage rate against its tolerance',
 };
 
@@ -343,5 +346,39 @@ export const galleryEntries: GalleryEntryInput[] = [
     fieldIds: ['finance'],
     kataId: 'FIN-002',
     exercise: { title: 'Follow the finance pathway', href: '/katas/finance-pathway' },
+  },
+  {
+    id: 'manufacturing-control-limits-and-variation',
+    title: 'Control limits and the sources of variation for a semiconductor process record',
+    summary: 'The MFG-002 and MFG-003 worked example. The lithography case study of the NIST/SEMATECH e-Handbook becomes X-bar and s limits for 90 wafers, an individuals chart on 30 cassette means and a split of the variation into cassette, wafer and site, after the script reproduces the handbook’s own published values.',
+    form: 'native',
+    artifact: {
+      format: 'Wafer subgroups (CSV), control limits and variance components (JSON) and a one-page summary (Markdown)',
+      files: [
+        { label: 'Read the results summary', href: '/examples/manufacturing-pathway/generated/summary.md' },
+        { label: 'Download the wafer subgroups (CSV)', href: '/examples/manufacturing-pathway/generated/subgroups.csv' },
+        { label: 'Download the control limits (JSON)', href: '/examples/manufacturing-pathway/generated/control-limits.json' },
+      ],
+    },
+    provenance: {
+      creator: 'Developer Dojo maintainers (script and results); NIST/SEMATECH e-Handbook of Statistical Methods (method, case study and data)',
+      madeWith: 'A Python 3.12 script with no packages, published next to the results, using the methods of the handbook’s chapter 6.',
+      source: 'NIST/SEMATECH e-Handbook of Statistical Methods, chapter 6, and the 450 data rows of its file LITHOGRA.DAT, read on 2026-11-25.',
+      rights: 'The handbook and its data are NIST public information, copied with credit. The script and results are Dojo material under the MIT licence.',
+      rightsHref: '/examples/manufacturing-pathway/README.md',
+      created: '2026-11-25',
+    },
+    verification: {
+      method: 'automated-check',
+      date: '2026-11-25',
+      checked: 'Every pipeline reruns the script, which first reproduces the values the handbook publishes for the case study, the chart factors and its worked examples, and fails if any output differs from the published files.',
+      notChecked: 'No real process, part or quality system is checked, and nothing here says one is in control or capable. No learner and no quality engineer, statistician or process engineer review.',
+      evidenceHref: '/katas/manufacturing-pathway',
+      nextCheck: QUARTERLY,
+    },
+    outcomeIds: ['set-control-limits'],
+    fieldIds: ['manufacturing'],
+    kataId: 'MFG-002',
+    exercise: { title: 'Follow the manufacturing pathway', href: '/katas/manufacturing-pathway' },
   },
 ];

@@ -397,6 +397,77 @@ export const sectorPackInputs: SectorPackInput[] = [
     sourcesCheckedOn: '2026-11-25',
     trackingIssue: 93,
   },
+  {
+    id: 'manufacturing',
+    title: 'Manufacturing: from a process record to control limits and the sources of variation',
+    fieldIds: ['manufacturing'],
+    pathway: '/katas/manufacturing-pathway',
+    kataIds: ['MFG-001', 'MFG-002', 'MFG-003'],
+    randoriKataId: 'MFG-R01',
+    foundationKataIds: ['PRACTICE-001', 'PRACTICE-002'],
+    examples: { dir: '/examples/manufacturing-pathway', readme: '/examples/manufacturing-pathway/README.md' },
+    inputs: [
+      {
+        name: 'The 450 data rows of LITHOGRA.DAT, the lithography case study of the NIST/SEMATECH e-Handbook of Statistical Methods (section 6.6.1)',
+        path: '/examples/manufacturing-pathway/inputs/lithogra-data-rows.dat',
+        source: 'https://www.itl.nist.gov/div898/handbook/datasets/LITHOGRA.DAT',
+        terms: 'NIST public information: material on NIST sites not marked as copyrighted may be distributed or copied, with credit. The rows are served byte for byte; the file’s 25-line header is left out because it names a person. The whole file downloaded on 2026-11-25 has SHA-256 777cd684…d0f1fc; these rows are pinned by their own hash.',
+        sha256: 'd7c27b047ed06606dbd3aaf8deead0a094a1a628cebf2ee2f002f7ed7e7c2204',
+      },
+    ],
+    checks: [
+      {
+        name: 'The handbook’s published values, the record inspection, the control limits, the variance components and the Randori cards',
+        ciJob: 'manufacturing_pathway',
+        runs: 'public/examples/manufacturing-pathway/tools/manufacturing_pathway.py',
+        outputs: [
+          '/examples/manufacturing-pathway/generated/reference-checks.json',
+          '/examples/manufacturing-pathway/generated/inspection.json',
+          '/examples/manufacturing-pathway/generated/control-limits.json',
+          '/examples/manufacturing-pathway/generated/subgroups.csv',
+          '/examples/manufacturing-pathway/generated/variation.json',
+          '/examples/manufacturing-pathway/generated/randori/cards.json',
+          '/examples/manufacturing-pathway/generated/manifest.json',
+          '/examples/manufacturing-pathway/generated/summary.md',
+        ],
+      },
+    ],
+    verified: [
+      'The process record is the 450 data rows of the handbook’s file, unchanged (SHA-256 {dataSha}…, checked by the site’s tests).',
+      { text: 'The script reproduces {referenceChecks} values the handbook publishes (the case study’s summary, analysis of variance and variance components, the X-bar and R factor table rebuilt from the range distribution, c4, the individuals chart example, and the capability example and rejects table) and refuses to write any result if one differs. Two printed values are one unit off in their last digit, and the checks say why.', evidence: '/examples/manufacturing-pathway/generated/reference-checks.json' },
+      { text: 'With the wafer as subgroup, {outsideWafer} of 90 wafer means fall outside the X-bar and s limits: the cassette-to-cassette variation, {cassetteShare} % of the total, is not in those limits.', evidence: '/examples/manufacturing-pathway/generated/variation.json' },
+      { text: 'On every pipeline, CI reruns the script with Python 3.12 and fails if any output differs from the files on this page.', evidence: '/examples/manufacturing-pathway/generated/summary.md' },
+    ],
+    notVerified: [
+      'Any real process, part or quality system. The record is the handbook’s case study; nothing here says that a real process is in control or capable, or that a chart meets ISO 7870-2 or any other standard.',
+      'A capability index for the case study: it publishes no specification limits, so none is computed for its line widths.',
+      'Attribute charts, CUSUM and EWMA charts, run rules beyond the three-sigma limits, measurement system analysis and non-normal capability.',
+      'The text of ISO 7870-2:2023, which is cited but was not read.',
+      'Use by real learners: no learner has run these katas yet.',
+    ],
+    ontology: [
+      { term: 'Subgroup', meaning: 'The measurements charted together as one point, such as the five sites of a wafer; the limits carry only the variation within subgroups (handbook 6.3.2.1).' },
+      { term: 'Control limits', meaning: 'Lines three standard deviations of the charted statistic either side of its centre, computed from the process’s own data, which tell whether a process is in statistical control (handbook 6.3.2).' },
+      { term: 'Specification limits', meaning: 'The limits a part must meet to work as intended, set by its design, not by the process; not the same as control limits (handbook 6.3.2).' },
+      { term: 'Moving range', meaning: 'The absolute difference between two successive individual values; its average divided by 1.128 estimates sigma for an individuals chart (handbook 6.3.2.2).' },
+      { term: 'Variance component', meaning: 'The share of the total variance that comes from one source, such as cassette, wafer or site, estimated from a nested analysis of variance (handbook 6.6.1.3).' },
+      { term: 'Process capability (Cp, Cpk)', meaning: 'How the spread and centring of a process in control compare with its specification limits: Cp = (USL - LSL) / 6 sigma, and Cpk the smaller of the distances to each limit over 3 sigma (handbook 6.1.6).' },
+    ],
+    procedures: [
+      { name: 'Inspect a process record: its grouping, completeness and numerical summary', kataIds: ['MFG-001'] },
+      { name: 'Set Shewhart control limits from the process’s own data, with a subgroup you can defend', kataIds: ['MFG-002'] },
+      { name: 'Split the variation into its sources and choose the sigma a capability index uses', kataIds: ['MFG-003'] },
+    ],
+    professionalReview: { required: true, limit: 'None. No quality engineer, statistician or process engineer has reviewed this pathway; a real process needs the review its quality system requires.', reviewers: [
+      { role: 'Quality engineer', scope: 'Whether a real control plan’s charts, subgroups and reaction rules suit the process and its customer’s requirements.', state: 'none-available' },
+      { role: 'Industrial statistician', scope: 'Whether the variance components, the sigma used and the normality assumptions hold for real data.', state: 'none-available' },
+      { role: 'Process engineer for the process', scope: 'What a signal on a real chart means for the equipment, and which variation can be removed.', state: 'none-available' },
+    ] },
+    armory: { stackRecipeIds: ['python-standard-library'], entryIds: [] },
+    galleryEntryIds: ['manufacturing-control-limits-and-variation'],
+    sourcesCheckedOn: '2026-11-25',
+    trackingIssue: 93,
+  },
 ];
 
 /** The packs, validated for shape. Cross-references are checked by the build and the tests. */
