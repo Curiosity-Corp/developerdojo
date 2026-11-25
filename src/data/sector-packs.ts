@@ -52,7 +52,7 @@ export const sectorPackInputs: SectorPackInput[] = [
       { text: 'On every pipeline, CI redraws the style guide, the component sheet ({componentCount} components) and {hifiScreenCount} high-fidelity screens, and audits all {hifiDrawingCount} drawings: {hifiDrawingsPassed} passed; lowest text contrast {minTextContrast}:1, lowest control boundary {minControlContrast}:1.', evidence: '/examples/ux-pathway/generated/fidelity-report.md' },
       'The site’s browser tests measure every line of text in the high-fidelity screens against the room it was laid out for, in the font the CI browser renders.',
       { text: 'On every pipeline, CI rechecks three worked Randori rounds, one per hidden constraint that a flow can show (a 30-second undo, a second person who must agree first, a dropped connection): the first sitemap of each misses its constraint, the adapted one meets it, and the changes between them are computed.', evidence: '/examples/ux-pathway/generated/randori/randori.md' },
-      { text: 'In every state, at 390 px and at 1440 px, the site’s browser tests compare each element of the working page with its group in the high-fidelity screen: colour, type size and weight, fill, border, control height and order must match, and the geometry is recorded.', evidence: '/examples/ux-pathway/visual-fidelity-report.md' },
+      'In every state, at 390 px and at 1440 px, the site’s browser tests compare each element of the working page with its group in the high-fidelity screen: colour, type size and weight, fill, border, control height and order must match, and the geometry is recorded in the report attached to each test run.',
     ],
     notVerified: [
       'Penpot cloud (penpot.app): the file was checked on a self-hosted instance only.',
