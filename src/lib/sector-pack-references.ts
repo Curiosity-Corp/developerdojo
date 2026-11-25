@@ -10,7 +10,18 @@ import type { SectorPackReferences } from './sector-pack';
 export interface PackRecipe {
   slug: string;
   status: string;
-  metadata: { id: string; layer: string; domainIds?: readonly string[]; foundationKataIds?: readonly string[]; stackRecipeIds?: readonly string[]; professionalReviewRequired: boolean };
+  metadata: {
+    id: string;
+    title: string;
+    layer: string;
+    domainIds?: readonly string[];
+    foundationKataIds?: readonly string[];
+    stackRecipeIds?: readonly string[];
+    professionalReviewRequired: boolean;
+    artifactTypes: readonly string[];
+    standards?: readonly { name: string; version: string }[];
+    beltCriteria?: readonly { stage: string }[];
+  };
 }
 
 /** Today's references for checkSectorPacks (#93), from the same registries the site renders. */
@@ -18,8 +29,10 @@ export function sectorPackReferences(recipes: readonly PackRecipe[], handWritten
   return {
     fieldIds: fields.map((field) => field.id),
     recipes: recipes.map(({ slug, status, metadata }) => ({
-      id: metadata.id, slug, status, layer: metadata.layer, domainIds: metadata.domainIds ?? [], foundationKataIds: metadata.foundationKataIds ?? [],
-      stackRecipeIds: metadata.stackRecipeIds ?? [], professionalReviewRequired: metadata.professionalReviewRequired,
+      id: metadata.id, slug, title: metadata.title, status, layer: metadata.layer, domainIds: metadata.domainIds ?? [], foundationKataIds: metadata.foundationKataIds ?? [],
+      stackRecipeIds: metadata.stackRecipeIds ?? [], professionalReviewRequired: metadata.professionalReviewRequired, artifactTypes: metadata.artifactTypes,
+      standards: (metadata.standards ?? []).map(({ name, version }) => ({ name, version })),
+      beltStages: [...new Set((metadata.beltCriteria ?? []).map((criterion) => criterion.stage))],
     })),
     foundationKataIds: [
       ...kataCatalog.filter((entry) => entry.metadata.layer === 'foundation').map((entry) => entry.metadata.id),

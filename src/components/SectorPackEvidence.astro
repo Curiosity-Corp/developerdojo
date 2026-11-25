@@ -1,9 +1,12 @@
 ---
 import { sectorPack } from '../data/sector-packs';
-import { fillEvidence, type EvidenceItem } from '../lib/sector-pack';
+import { fillEvidence, packTemplate, REVIEW_STATE_LABELS, type EvidenceItem } from '../lib/sector-pack';
+import { sectorPackReferences } from '../lib/sector-pack-references';
+import { handWrittenKataSlugs, loadKataRecipes } from '../lib/kata-recipe-content';
 
-// The "Verified, and not verified" section every sector pathway shows (#93, docs/sector-packs.md). The lists live
-// in the pack record; numbers the page computes from CI output are passed as facts and fill {placeholders}.
+// The "Verified, and not verified" section every sector pathway shows (#93, docs/sector-packs.md), followed by the
+// field template: terms, procedures, standards, native artifacts, belt criteria and where qualified review stands.
+// The lists live in the pack record and its recipes; numbers the page computes from CI output fill {placeholders}.
 interface Props {
   pack: string;
   eyebrow: string;
@@ -14,6 +17,12 @@ const pack = sectorPack(packId);
 const line = (item: EvidenceItem) => (typeof item === 'string' ? { text: fillEvidence(item, facts, pack.id) } : { text: fillEvidence(item.text, facts, pack.id), evidence: item.evidence });
 const verified = pack.verified.map(line);
 const notVerified = pack.notVerified.map(line);
+const recipes = sectorPackReferences((await loadKataRecipes()).map((item) => ({ slug: item.slug, status: item.recipe.status, metadata: item.recipe.metadata })), handWrittenKataSlugs).recipes;
+const template = packTemplate(pack, recipes);
+const kataHref = new Map(template.katas.map((kata) => [kata.id, '/katas/' + kata.slug]));
+const kataLink = (id: string) => ({ id, href: kataHref.get(id) });
+const artifactName = (slug: string) => slug.replace(/-/g, ' ');
+const beltCounts = (['practice', 'adapt', 'demonstrate'] as const).map((stage) => ({ stage, katas: template.katas.filter((kata) => kata.beltStages.includes(stage)).length }));
 ---
 <section class="section" aria-labelledby="evidence-title" data-sector-pack={pack.id}><div class="container narrow">
   <p class="eyebrow">{eyebrow}</p>
@@ -29,9 +38,48 @@ const notVerified = pack.notVerified.map(line);
   <p class="review" data-professional-review={pack.professionalReview.required ? 'required' : 'not-required'}><strong>Professional review:</strong> {pack.professionalReview.limit}</p>
 </div></section>
 
+<section class="section" aria-labelledby="template-title" data-sector-template={pack.id}><div class="container narrow">
+  <p class="eyebrow">The field template</p>
+  <h2 id="template-title">What this field adds to the shared foundations</h2>
+  <p>Every sector pathway follows the same template: the field's own terms and procedures, the standards its work is read against, the files it produces, belt criteria, and the qualified review a real use needs. The katas build on the shared foundations and do not repeat them.</p>
+  <h3>Terms of the field</h3>
+  <dl class="terms" data-template="ontology">
+    {pack.ontology.map((entry) => <div><dt>{entry.term}</dt><dd>{entry.meaning}</dd></div>)}
+  </dl>
+  <h3>Procedures practised</h3>
+  <ol data-template="procedures">
+    {pack.procedures.map((procedure) => <li>{procedure.name} ({procedure.kataIds.map(kataLink).map((kata, index) => <>{index > 0 && ', '}{kata.href ? <a href={kata.href}>{kata.id}</a> : kata.id}</>)})</li>)}
+  </ol>
+  <h3>Standards cited, by version</h3>
+  <ul data-template="standards">
+    {template.standards.map((standard) => <li>{standard.name}, {standard.version} (read against in {standard.kataIds.join(', ')})</li>)}
+  </ul>
+  <p class="note">Citing a standard says which edition the work is read against. It never says the work meets it.</p>
+  <h3>Native files the katas produce</h3>
+  <p data-template="artifacts">{template.artifactTypes.map(artifactName).join(', ')}.</p>
+  <h3>Belt criteria</h3>
+  <p data-template="belts">{beltCounts.map((count) => count.katas + ' of ' + template.katas.length + ' katas have a ' + count.stage + ' criterion').join('; ')}. Each recipe page lists them. Belts are proposed practice stages, not credentials.</p>
+  <h3>Qualified review</h3>
+  <div class="table-wrap"><table data-template="review">
+    <thead><tr><th scope="col">Reviewer</th><th scope="col">What they would check</th><th scope="col">State</th></tr></thead>
+    <tbody>
+      {pack.professionalReview.reviewers.map((reviewer) => (
+        <tr data-review-state={reviewer.state}><th scope="row">{reviewer.role}</th><td>{reviewer.scope}</td><td>{REVIEW_STATE_LABELS[reviewer.state]}{reviewer.evidence && <> (<a href={reviewer.evidence}>review</a>)</>}</td></tr>
+      ))}
+    </tbody>
+  </table></div>
+</div></section>
+
 <style>
   .eyebrow { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
   .narrow { max-width: 68rem; }
   li, p { overflow-wrap: anywhere; }
+  .terms { display: grid; gap: var(--space-3, .75rem); margin: 0; }
+  .terms dt { font-weight: 800; }
+  .terms dd { margin: 0; }
+  .note { color: var(--ink-muted, inherit); }
+  .table-wrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; vertical-align: top; padding: .5rem; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
   .review { padding: var(--space-4, 1rem); background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); }
 </style>

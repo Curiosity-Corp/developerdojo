@@ -37,6 +37,12 @@ metadata:
     - nist/engineering-statistics-handbook
   crossFieldTransfers:
     - data
+  standards:
+    - name: Guide to the expression of uncertainty in measurement (GUM)
+      version: JCGM 100:2008
+      applicability: "Type A evaluation (clause 4.2), propagation with correlated inputs (clause 5.2) and the worked example of Annex H.2, used on the GUM’s own illustrative data for practice"
+      reviewScope: "What the listed checks test: that the code reproduces the published values of Tables H.2 to H.4. No claim about any real measurement, instrument or calibration."
+      sourceResourceId: bipm/gum-jcgm-100-2008
   verificationEvidence:
     - description: An uncertainty budget for R, X and Z whose estimates, combined standard uncertainties and correlations match the GUM's Table H.3, as the CI output does
       method: automated-check

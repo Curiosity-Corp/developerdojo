@@ -41,9 +41,42 @@ A pack adds a field's practice. It never copies a foundation: every pack kata bu
   words). A line may point at an evidence file. `{placeholders}` are filled from numbers the page reads from CI
   output, so no number is typed twice.
 - `notVerified` lists what nobody checked, including "no learner has run these katas yet" until one has.
+- `ontology` defines the field's terms once (at least three, each in plain words); `procedures` names the field's
+  own procedures with the pack katas that practise them. Every practice kata practises at least one procedure.
 - `professionalReview.required` must equal `professionalReviewRequired` on every pack kata; `limit` says in plain
   words that nothing was professionally reviewed or approved, and who a real project needs.
+- `professionalReview.reviewers` names each kind of qualified reviewer a real use needs, what they would check and
+  where that stands: `none-available`, `requested`, `in-review` or `reviewed`. Only `reviewed` carries an `evidence`
+  path, the written review, and it must exist. Today every reviewer of every pack is `none-available`; the site
+  says so in the pack's review table.
 - `trackingIssue` is for maintainers and is never shown on the site.
+
+## The field template
+
+The pack record and its recipes together make the field template every pathway page shows (rendered after the
+evidence lists by `src/components/SectorPackEvidence.astro`). The pack holds what belongs to the field; the recipes
+hold what belongs to a kata, and `packTemplate` in `src/lib/sector-pack.ts` collects it, so nothing is typed twice.
+
+| Template part | Source |
+| --- | --- |
+| Ontology (terms of the field) | pack `ontology` |
+| Native artifacts and tools | recipe `artifactTypes`; pack `armory` |
+| Domain procedures | pack `procedures` |
+| Scoped, versioned standards | recipe `standards` (name, version, applicability, review scope) |
+| Examples and evidence | pack `inputs`, `checks`, `verified`, `notVerified`; recipe `verificationEvidence` |
+| Qualified-review needs and state | pack `professionalReview` |
+| Belt criteria | recipe `beltCriteria` |
+| Shared foundations | pack `foundationKataIds`, recipe `foundationKataIds` |
+
+## The sector plan
+
+`src/data/sector-taxonomy.ts` places every field of `src/lib/fields.ts` in one of ten groups: digital products and
+UX; spatial design and media; built environment; industrial and hardware; robotics; science and engineering; health
+and life sciences; business and public service; energy, agriculture and natural resources; learning and
+communications. Each group records what its next pack needs. A group in the plan is not a course: what is delivered
+is derived from the packs (a pack counts for the group of its first field) and the fields' tracks
+(`sectorCoverage` in `src/lib/sector-taxonomy.ts`), and `/fields#sector-plan` shows the two apart. A new field
+must join a group, or the build fails.
 
 ## What the build enforces
 
@@ -91,7 +124,9 @@ pack check job.
 7. **Write the pathway page.** Read every number from `generated/`. Render the evidence section with
    `<SectorPackEvidence pack="<id>" eyebrow="NN / What is checked" facts={...} />`. Credit every source. No person,
    client, host, node, repository path or issue link on the page.
-8. **Add the gallery entry and the directory card**, then the pack record in `src/data/sector-packs.ts`.
+8. **Add the gallery entry and the directory card**, then the pack record in `src/data/sector-packs.ts`, with its
+   terms, procedures and reviewers. Record each reviewer as `none-available` until a qualified person has actually
+   agreed to review; never contact anyone outside the maintainers from the site.
 9. **Test.** `tests/<field>-pathway.test.ts` pins the numbers the recipes quote; `e2e/<field>-pathway.spec.ts`
    checks the page and that every file it offers is served; add the page and its widest recipe to the reflow routes
    in `e2e/qa.spec.ts`; update the gallery counts in `e2e/gallery.spec.ts`.

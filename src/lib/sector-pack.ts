@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { dimensionId, kataId } from './kata-schema';
+import { BELT_STAGES, dimensionId, kataId } from './kata-schema';
 
 /**
  * Sector packs (#93): the shape every non-software pathway follows, extracted from the UX (#91) and BIM (#92)
@@ -27,6 +27,23 @@ export type EvidenceItem = z.infer<typeof evidenceItem>;
 
 /** Words that claim an approval no pack can give. A verified line states what a check did, never that work is approved. */
 export const APPROVAL_CLAIM = /\b(complian|certif|approv|accredit|endorse|guarantee)/i;
+
+/**
+ * Where a qualified review stands, so "verified" names a review state and not only CI. none-available: no qualified
+ * reviewer is available to the Dojo for this pack. requested: one has been asked and has not started. in-review: one
+ * is reviewing. reviewed: one has finished, and the evidence path holds their written result.
+ */
+export const REVIEW_STATES = ['none-available', 'requested', 'in-review', 'reviewed'] as const;
+export type ReviewState = (typeof REVIEW_STATES)[number];
+export const REVIEW_STATE_LABELS: Record<ReviewState, string> = {
+  'none-available': 'No qualified reviewer available yet',
+  requested: 'Requested, not started',
+  'in-review': 'In review',
+  reviewed: 'Reviewed',
+};
+
+/** One kind of qualified reviewer a real use of the pack's work needs, what they would check, and where that stands. */
+const reviewerSchema = z.strictObject({ role: text, scope: text, state: z.enum(REVIEW_STATES), evidence: sitePath.optional() });
 
 export const sectorPackSchema = z.strictObject({
   id: dimensionId,
@@ -58,8 +75,19 @@ export const sectorPackSchema = z.strictObject({
   checks: z.array(z.strictObject({ name: text, ciJob: z.string().regex(/^[a-z0-9_:-]+$/), runs: text, outputs: z.array(sitePath).min(1) })).min(1),
   verified: z.array(evidenceItem).min(1),
   notVerified: z.array(evidenceItem).min(1),
-  /** required mirrors professionalReviewRequired on every kata. limit says, in plain words, what no one has approved. */
-  professionalReview: z.strictObject({ required: z.boolean(), limit: text }),
+  /**
+   * The field's ontology: the terms a learner must use correctly, each in plain words. Recipes and pages use these
+   * terms; the pack is where they are defined once.
+   */
+  ontology: z.array(z.strictObject({ term: text, meaning: text })).min(3),
+  /** The field's own procedures the pack practises, each with the pack katas that practise it, in order. */
+  procedures: z.array(z.strictObject({ name: text, kataIds: z.array(kataId).min(1) })).min(1),
+  /**
+   * required mirrors professionalReviewRequired on every kata. limit says, in plain words, what no one has approved.
+   * reviewers names each kind of qualified review a real use needs and its state; a pack that needs none still names
+   * the review a real product would get.
+   */
+  professionalReview: z.strictObject({ required: z.boolean(), limit: text, reviewers: z.array(reviewerSchema).min(1) }),
   armory: z.strictObject({ stackRecipeIds: z.array(dimensionId).min(1), entryIds: z.array(dimensionId) }),
   galleryEntryIds: z.array(dimensionId).min(1),
   /** The date every source the pack cites was last opened. Never backdated. */
@@ -75,6 +103,22 @@ export const sectorPackSchema = z.strictObject({
     if (!/-R\d{2}$/.test(id)) ctx.addIssue({ code: 'custom', path: ['specialistRandoriKataIds', index], message: 'a Randori kata ID ends in -R01, -R02 and so on' });
     if (id === pack.randoriKataId) ctx.addIssue({ code: 'custom', path: ['specialistRandoriKataIds', index], message: 'the main Randori is already randoriKataId' });
   });
+  const packKatas = new Set([...pack.kataIds, pack.randoriKataId, ...pack.specialistRandoriKataIds]);
+  pack.procedures.forEach((procedure, index) => {
+    procedure.kataIds.forEach((id, kataIndex) => {
+      if (!packKatas.has(id)) ctx.addIssue({ code: 'custom', path: ['procedures', index, 'kataIds', kataIndex], message: id + ' is not a kata of this pack' });
+    });
+  });
+  const terms = new Set<string>();
+  pack.ontology.forEach((entry, index) => {
+    const key = entry.term.toLowerCase();
+    if (terms.has(key)) ctx.addIssue({ code: 'custom', path: ['ontology', index, 'term'], message: 'the term ' + entry.term + ' is defined twice' });
+    terms.add(key);
+  });
+  pack.professionalReview.reviewers.forEach((reviewer, index) => {
+    if (reviewer.state === 'reviewed' && !reviewer.evidence) ctx.addIssue({ code: 'custom', path: ['professionalReview', 'reviewers', index, 'evidence'], message: 'a reviewed state needs the evidence path of the written review' });
+    if (reviewer.state !== 'reviewed' && reviewer.evidence) ctx.addIssue({ code: 'custom', path: ['professionalReview', 'reviewers', index, 'evidence'], message: 'only a reviewed state carries review evidence' });
+  });
   pack.verified.forEach((item, index) => {
     const line = typeof item === 'string' ? item : item.text;
     if (APPROVAL_CLAIM.test(line)) ctx.addIssue({ code: 'custom', path: ['verified', index], message: 'a verified line says what a check did; it never claims compliance, certification or approval' });
@@ -84,10 +128,26 @@ export const sectorPackSchema = z.strictObject({
 export type SectorPackInput = z.input<typeof sectorPackSchema>;
 export type SectorPack = z.output<typeof sectorPackSchema>;
 
+/** A recipe as the pack check and the field template see it. */
+export interface PackRecipeReference {
+  id: string;
+  slug: string;
+  title: string;
+  layer: string;
+  status: string;
+  domainIds: readonly string[];
+  foundationKataIds: readonly string[];
+  stackRecipeIds: readonly string[];
+  professionalReviewRequired: boolean;
+  artifactTypes: readonly string[];
+  standards: readonly { name: string; version: string }[];
+  beltStages: readonly string[];
+}
+
 /** What a pack is checked against: today's recipes, pages, gallery, Armory and files. */
 export interface SectorPackReferences {
   fieldIds: readonly string[];
-  recipes: readonly { id: string; slug: string; layer: string; domainIds: readonly string[]; foundationKataIds: readonly string[]; stackRecipeIds: readonly string[]; professionalReviewRequired: boolean; status: string }[];
+  recipes: readonly PackRecipeReference[];
   /** IDs of every foundation kata, from the catalog and the recipes. */
   foundationKataIds: readonly string[];
   /** Routes of the hand-written pages in src/pages/katas. */
@@ -137,6 +197,14 @@ export function checkSectorPacks(input: unknown, refs: SectorPackReferences): st
       if (!pack.foundationKataIds.some((foundation) => recipe.foundationKataIds.includes(foundation))) problems.push(p + ': ' + id + ' builds on none of the pack foundations (' + pack.foundationKataIds.join(', ') + ')');
       if (!pack.armory.stackRecipeIds.some((stack) => recipe.stackRecipeIds.includes(stack))) problems.push(p + ': ' + id + ' uses none of the pack stack recipes (' + pack.armory.stackRecipeIds.join(', ') + ')');
       if (recipe.status === 'fixture') problems.push(p + ': ' + id + ' is a fixture; a pack is made of real recipes');
+      if (recipe.beltStages.length === 0) problems.push(p + ': ' + id + ' has no belt criteria; add beltCriteria to its recipe');
+    }
+    for (const id of pack.kataIds) if (!pack.procedures.some((procedure) => procedure.kataIds.includes(id))) problems.push(p + ': ' + id + ' practises none of the pack procedures; add it to one');
+    const template = packTemplate(pack, refs.recipes);
+    if (template.standards.length === 0) problems.push(p + ': no pack kata names a versioned standard; add one to a recipe\'s standards, with its version');
+    for (const stage of BELT_STAGES) if (!template.beltStages.includes(stage)) problems.push(p + ': no pack kata has a ' + stage + ' belt criterion');
+    for (const reviewer of pack.professionalReview.reviewers) {
+      if (reviewer.evidence && !refs.fileExists(reviewer.evidence)) problems.push(p + ': review evidence ' + reviewer.evidence + ' does not exist');
     }
     for (const id of pack.armory.stackRecipeIds) if (!refs.armoryStackRecipeIds.includes(id)) problems.push(p + ': stack recipe ' + id + ' is not in the Armory (src/data/armory.ts)');
     for (const id of pack.armory.entryIds) if (!refs.armoryEntryIds.includes(id)) problems.push(p + ': Armory entry ' + id + ' does not exist (src/data/armory.ts)');
@@ -156,6 +224,37 @@ export function checkSectorPacks(input: unknown, refs: SectorPackReferences): st
     }
   }
   return problems;
+}
+
+/**
+ * The parts of the field template a pack takes from its recipes rather than repeating them: the standards the katas
+ * are read against (name and version, each once), the native artifacts they produce and the belt stages they cover.
+ */
+export interface PackTemplate {
+  katas: readonly PackRecipeReference[];
+  standards: readonly { name: string; version: string; kataIds: readonly string[] }[];
+  artifactTypes: readonly string[];
+  beltStages: readonly string[];
+}
+
+export function packTemplate(pack: Pick<SectorPack, 'kataIds' | 'randoriKataId' | 'specialistRandoriKataIds'>, recipes: readonly PackRecipeReference[]): PackTemplate {
+  const byId = new Map(recipes.map((recipe) => [recipe.id, recipe]));
+  const katas = [...pack.kataIds, pack.randoriKataId, ...pack.specialistRandoriKataIds].flatMap((id) => byId.get(id) ?? []);
+  const standards = new Map<string, { name: string; version: string; kataIds: string[] }>();
+  for (const kata of katas) {
+    for (const standard of kata.standards) {
+      const key = standard.name + '\u0000' + standard.version;
+      const entry = standards.get(key) ?? { name: standard.name, version: standard.version, kataIds: [] };
+      entry.kataIds.push(kata.id);
+      standards.set(key, entry);
+    }
+  }
+  return {
+    katas,
+    standards: [...standards.values()],
+    artifactTypes: [...new Set(katas.flatMap((kata) => kata.artifactTypes))],
+    beltStages: BELT_STAGES.filter((stage) => katas.some((kata) => kata.beltStages.includes(stage))),
+  };
 }
 
 export function assertSectorPacks(input: unknown, refs: SectorPackReferences): void {
