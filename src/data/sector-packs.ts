@@ -590,7 +590,7 @@ export const sectorPackInputs: SectorPackInput[] = [
     ],
     verified: [
       'The page is the one Wikibooks served, unchanged (SHA-256 {pageSha}…, checked by the site’s tests).',
-      { text: 'Before it checks the page, the script runs its four rules on every approved W3C test case for them and gives all {referenceChecks} their published outcome (2779a5, b5c3f8, bf051a and b4f0c3), and refuses to write any result if one differs.', evidence: '/examples/education-pathway/generated/reference-checks.json' },
+      { text: 'Before it checks the page, the script runs its four rules on each of the W3C’s published test cases for them and gives all {referenceChecks} their published outcome (2779a5, b5c3f8, bf051a and b4f0c3), and refuses to write any result if one differs.', evidence: '/examples/education-pathway/generated/reference-checks.json' },
       { text: 'On the page, rule 2779a5 is {title}, b5c3f8 {lang}, bf051a {langValid} and b4f0c3 {viewport}; by the rules’ outcome mapping, WCAG 2.2 criteria 1.4.4, 2.4.2 and 3.1.1 all need further testing and none is shown not satisfied.', evidence: '/examples/education-pathway/generated/report.json' },
       { text: 'On every pipeline, CI reruns the script with Python 3.12 and fails if any output differs from the files on this page.', evidence: '/examples/education-pathway/generated/summary.md' },
     ],

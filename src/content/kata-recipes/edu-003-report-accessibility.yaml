@@ -163,7 +163,7 @@ verification:
     - observed: The report says the page meets 2.4.2 because rule 2779a5 passed
       correction: The rule only checks that a non-empty title exists. Whether it describes the page is rule c4a8a4, which needs a person, so the criterion still needs further testing.
     - observed: The report says 1.4.4 passed
-      correction: Rule b4f0c3 was inapplicable: the viewport sets neither maximum-scale nor user-scalable. Inapplicable says nothing about whether the text resizes; test it at 200 % zoom in a browser.
+      correction: "Rule b4f0c3 was inapplicable: the viewport sets neither maximum-scale nor user-scalable. Inapplicable says nothing about whether the text resizes; test it at 200 % zoom in a browser."
 adaptation:
   variations:
     - change: Write the report for a school that must meet WCAG 2.1 Level AA under 28 CFR 35.200
