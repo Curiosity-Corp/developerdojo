@@ -38,6 +38,11 @@ export const transferPractice = {
       reference: 'EBU Tech 3341’s published test signals and readings, which the meter must give within their tolerances before it measures any recording.',
       gate: { recipe: 'med-002-measure-loudness', role: 'Explaining assistant' },
     },
+    {
+      packId: 'education',
+      reference: 'The W3C’s approved ACT test cases, which every rule must give its expected outcome before it checks any learning page.',
+      gate: { recipe: 'edu-002-run-act-rules', role: 'Explaining assistant' },
+    },
   ],
   selfCheck: [
     'I can name this field’s independent reference and show one assistant output it rejected or corrected.',

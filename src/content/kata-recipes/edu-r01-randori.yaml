@@ -1,0 +1,184 @@
+# Education pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/education-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job education_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Education pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a digital accessibility specialist, an assistive technology user or an education accessibility compliance reviewer yet.
+summary: "Start from the EDU-002 outcomes on the textbook page; a partner reveals one change to the page after you begin. Predict which rule changes and which WCAG success criterion becomes not satisfied, then rerun and explain."
+metadata:
+  id: EDU-R01
+  title: "Education Randori: an unseen change to a learning page"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - run-accessibility-rules
+  artifactTypes:
+    - rule-outcomes
+  domainIds:
+    - education
+  capabilityIds:
+    - test-accessibility
+    - validate-information
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+    - licensed-sample-only
+  externalResources:
+    - w3c/act-rules-test-cases
+    - w3c/wcag-22-recommendation
+    - wikibooks/high-school-mathematics-extensions-matrices
+  crossFieldTransfers:
+    - ux
+  standards:
+    - name: W3C ACT Rules 2779a5, b5c3f8, bf051a and b4f0c3, mapped to WCAG 2.2
+      version: "As in EDU-002; WCAG 2.2 W3C Recommendation, 12 December 2024; read 2026-11-25"
+      applicability: "The four rules rerun on a copy of the page with the one change each card makes, and the outcome mapping to success criteria 1.4.4, 2.4.2 and 3.1.1"
+      reviewScope: "What the listed checks test: that each card’s outcomes match the CI output. The changed copies are practice faults, not findings about the real page."
+      sourceResourceId: w3c/act-rules-test-cases
+  verificationEvidence:
+    - description: For the card drawn, a written prediction, the rerun outcomes and an explanation of any gap
+      method: automated-check
+    - description: A Sensei or partner checks that the prediction was written before the rerun and that the explanation names the rule that moved
+      method: sensei-review
+  beltCriteria:
+    - stage: practice
+      criterion: Handles card D and explains why an empty title fails rule 2779a5 and so 2.4.2
+    - stage: adapt
+      criterion: Handles card A and predicts that rule bf051a becomes inapplicable, not failed, when the lang attribute goes
+    - stage: demonstrate
+      criterion: Writes a fifth card for a partner and predicts its outcomes before running it
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: an open-textbook chapter from Wikibooks inspected as served, four W3C ACT rules checked against the W3C’s own test cases and then run on it, and the outcomes mapped to WCAG 2.2, all computed by the site’s CI."
+  href: /katas/education-pathway
+  provenance:
+    creator: Wikibooks contributors (the textbook page); W3C (WCAG 2.2, ACT rules and test cases); IANA (language subtag registry); Developer Dojo maintainers (script and results)
+    source: The Wikibooks page High School Mathematics Extensions/Matrices, revision 266672, WCAG 2.2 and the W3C ACT Rules (read 2026-11-25); results from /examples/education-pathway/tools/education_pathway.py
+    license: Page CC BY-SA 4.0 (Wikibooks contributors), served unchanged; ACT test cases under the W3C Software and Document License; script and outputs MIT
+    date: "2026-11-25"
+brief:
+  goal: Meet one change to the page you did not see in advance, with a prediction first and a rerun after.
+  audience: Learners who finished EDU-003, working with a partner or Sensei.
+  inputs:
+    - name: Your EDU-002 outcomes on the page
+      source: Your own output, or /examples/education-pathway/generated/rules.json
+      terms: Dojo output, MIT licence
+    - name: The Randori cards
+      source: The table on /katas/education-pathway (the partner keeps it; the learner sees only the drawn card)
+      terms: Dojo content, MIT licence
+  doneWhen:
+    - Your prediction (which rules change, and which success criterion becomes not satisfied) is written before you rerun
+    - Your rerun matches /examples/education-pathway/generated/randori/cards.json for the card
+    - You name the rule that moved and explain any gap between prediction and result
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: A web browser and a text editor
+      version:
+        unavailable: Not fixed; any browser that shows a page’s source and any editor that opens HTML work
+      permissions: Opens a copy of the files
+      cost:
+        unavailable: Depends on the apps you use; free ones work
+    - part: data
+      name: The Wikibooks page High School Mathematics Extensions/Matrices (HTML)
+      version: "Revision 266672, downloaded 2026-11-25, SHA-256 c42e87b5…d1dcd099"
+      permissions: Read a copy
+      cost: Free (CC BY-SA 4.0)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain HTML or draft a parser, and every count it gives is checked against the CI output
+      permissions: Reads what you paste in; paste only the public page, never a student’s work, grades or records
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library has an HTML parser, runs offline with nothing to install, and gives the same counts on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A browser extension or an online accessibility checker
+      tradeoff: Faster and it renders the page, but you cannot see what it counted or why. Not tried for this pathway, so their results are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Partner or Sensei
+      responsibility: Draws one card after the learner starts and keeps the others hidden.
+      reviewGate: Asks for the prediction, the rerun and the explanation.
+    - role: Learner
+      responsibility: Reads the card, predicts, makes only that change to a copy of the page and reruns the rules.
+      dependsOn:
+        - Partner or Sensei
+      reviewGate: The prediction is written down before the rerun.
+setup:
+  steps:
+    - Use the folder, Python and rules from EDU-003.
+    - The partner opens the Randori table on /katas/education-pathway; the learner does not.
+  auth: None.
+  smokeTest:
+    action: Recompute all four cards with the pathway script
+    expected: "A: b5c3f8 passed to failed, bf051a passed to inapplicable, 3.1.1 not satisfied; B: bf051a passed to failed, 3.1.1 not satisfied; C: b4f0c3 inapplicable to failed, 1.4.4 not satisfied; D: 2779a5 passed to failed, 2.4.2 not satisfied"
+    result: passed
+    evidence: /examples/education-pathway/generated/randori/cards.json, recomputed by CI on every pipeline
+    date: "2026-11-25"
+prompts:
+  - id: predict-first
+    title: Predict before you rerun
+    purpose: Make the learner commit to a reading of the rules before the code answers.
+    text: |-
+      Four ACT rules on a textbook page gave: 2779a5 passed, b5c3f8 passed, bf051a passed, b4f0c3 inapplicable. One change is made to the page: <paste the card>.
+      Do not run anything yet. Tell me which rule outcomes change, to what, and which WCAG 2.2 success criterion becomes not satisfied, and why. Then I will rerun.
+exercise:
+  title: High School Mathematics Extensions, Matrices (Wikibooks)
+  resourceId: wikibooks/high-school-mathematics-extensions-matrices
+  terms: CC BY-SA 4.0, Wikibooks contributors. Attribute the page and keep the licence on anything you share that copies it.
+execution:
+  steps:
+    - actor: Partner or Sensei
+      action: Waits until the learner has started, then reveals one card.
+      handoff: The learner writes a prediction.
+    - actor: Learner
+      action: Makes only the change the card describes to a copy of the page, reruns the rules and compares with the prediction.
+    - actor: Partner or Sensei
+      action: Reviews the prediction, the result and the explanation.
+verification:
+  checks:
+    - action: Recompute the four cards with the pathway script
+      expected: "A (no lang attribute): b5c3f8 failed and bf051a inapplicable, 3.1.1 not satisfied; B (lang=\"english\"): bf051a failed, 3.1.1 not satisfied; C (maximum-scale=1 added): b4f0c3 failed, 1.4.4 not satisfied; D (empty title): 2779a5 failed, 2.4.2 not satisfied"
+      result: passed
+      evidence: /examples/education-pathway/generated/randori/cards.json
+      date: "2026-11-25"
+    - action: A learner meets a drawn card with a prediction written first
+      expected: Prediction, rerun and explanation
+      result: not-run
+  failures:
+    - observed: Card A is predicted to fail both language rules
+      correction: Rule bf051a applies only when lang is present and not empty. Without lang it is inapplicable; rule b5c3f8 is the one that fails, and one failure is enough for 3.1.1.
+    - observed: Card C is predicted to change nothing because the page already sets a viewport
+      correction: The page’s viewport sets only width, so b4f0c3 was inapplicable. Adding maximum-scale=1 makes it apply, and 1 is below 2, so it fails.
+adaptation:
+  variations:
+    - change: The partner draws two cards
+      effect: Apply one at a time and rerun after each, so you know which change moved what.
+randori:
+  challenge: Meet one change to the textbook page you have not seen, revealed after you start, on the EDU-002 outcomes.
+  constraints:
+    - Write your prediction before you rerun
+    - Change only what the card says, on a copy of the page
+    - Name the rule that moved
+  evaluation: The rerun matches the CI result for the card, and the partner agrees the explanation names what moved.
+maintenance:
+  cadence: Every six months, or when the W3C revises WCAG or the ACT rules, or Wikibooks changes the page
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on one openly licensed textbook page, not an accessibility conformance claim or a legal compliance check. No accessibility specialist has reviewed it.
+    - The cards are practice faults on a copy of the page, not findings about the real page.

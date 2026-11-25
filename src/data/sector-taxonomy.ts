@@ -15,7 +15,7 @@ export const sectorGroupInputs = [
   { id: 'health-life-sciences', name: 'Health and life sciences', fieldIds: ['health', 'biotechnology'], nextPack: 'Public, non-identifying data only, simulation for any lab work, and a qualified reviewer named for anything near clinical use.' },
   { id: 'business-public-service', name: 'Business and public service', fieldIds: ['finance', 'public-service'], nextPack: 'A public-service pack needs public records or published rules cited by version and jurisdiction, as the finance pathway does with Regulation Z, and a legal reviewer named for real use.' },
   { id: 'energy-agriculture', name: 'Energy, agriculture and natural resources', fieldIds: ['energy', 'agriculture'], nextPack: 'An energy pack needs a public metered or modelled dataset and a published calculation method with worked examples to reproduce.' },
-  { id: 'learning-communications', name: 'Learning and communications', fieldIds: ['education'], nextPack: 'Needs an openly licensed curriculum or assessment framework and a way to check learning materials that does not involve real learners’ data.' },
+  { id: 'learning-communications', name: 'Learning and communications', fieldIds: ['education'], nextPack: 'An assessment pack needs an openly licensed assessment framework with published scoring examples to reproduce, and no real learner’s data, as the education pathway checks a public textbook page against the W3C’s own test cases.' },
 ] as const;
 
 const problems = checkSectorTaxonomy(sectorGroupInputs, fields.map((field) => field.id));

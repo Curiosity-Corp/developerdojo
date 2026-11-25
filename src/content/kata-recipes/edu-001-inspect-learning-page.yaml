@@ -1,0 +1,177 @@
+# Education pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/education-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job education_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Education pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a digital accessibility specialist, an assistive technology user or an education accessibility compliance reviewer yet.
+summary: "Open a real open-textbook page as a browser receives it and write down what an accessibility check will need: its title, its language, its viewport, its headings in order, every image’s alternative text and its tables, before you judge anything."
+metadata:
+  id: EDU-001
+  title: "Inspect a learning page before you check it"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - inspect-learning-page
+  artifactTypes:
+    - page-inspection
+  domainIds:
+    - education
+  capabilityIds:
+    - test-accessibility
+    - validate-information
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+    - licensed-sample-only
+  externalResources:
+    - wikibooks/high-school-mathematics-extensions-matrices
+    - w3c/wcag-22-recommendation
+  crossFieldTransfers:
+    - ux
+  standards:
+    - name: Web Content Accessibility Guidelines (WCAG) 2.2
+      version: "W3C Recommendation, 12 December 2024; read 2026-11-25"
+      applicability: "The page parts that success criteria 1.4.4 Resize text, 2.4.2 Page Titled and 3.1.1 Language of Page depend on: the title element, the lang attribute of the html element and the viewport, plus the headings, images and tables a later check will need"
+      reviewScope: "What the listed checks test: that the inspection of the served page matches the CI output. The inspection counts and lists; it judges no success criterion."
+      sourceResourceId: w3c/wcag-22-recommendation
+  verificationEvidence:
+    - description: The page’s revision, title, lang, viewport, heading outline, image alt counts, links and tables, matching the CI output
+      method: automated-check
+    - description: The learner explains which of the counted items an automated rule can decide and which need a person
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Finds the title, the lang attribute and the viewport of the served page by reading its HTML, without a tool
+    - stage: adapt
+      criterion: Lists the heading outline and the image alt counts and matches /examples/education-pathway/generated/inspection.json
+    - stage: demonstrate
+      criterion: Explains to a reviewer why an image with an empty alt and an image with no alt are different findings, and which one needs a person to judge
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: an open-textbook chapter from Wikibooks inspected as served, four W3C ACT rules checked against the W3C’s own test cases and then run on it, and the outcomes mapped to WCAG 2.2, all computed by the site’s CI."
+  href: /katas/education-pathway
+  provenance:
+    creator: Wikibooks contributors (the textbook page); W3C (WCAG 2.2, ACT rules and test cases); IANA (language subtag registry); Developer Dojo maintainers (script and results)
+    source: The Wikibooks page High School Mathematics Extensions/Matrices, revision 266672, WCAG 2.2 and the W3C ACT Rules (read 2026-11-25); results from /examples/education-pathway/tools/education_pathway.py
+    license: Page CC BY-SA 4.0 (Wikibooks contributors), served unchanged; ACT test cases under the W3C Software and Document License; script and outputs MIT
+    date: "2026-11-25"
+brief:
+  goal: An inspection of the page’s structure that a later accessibility check can rely on, made before any judgement.
+  audience: Teachers, instructional designers and learning technologists who publish course pages and want to check them, and developers who build learning sites.
+  inputs:
+    - name: The Wikibooks page High School Mathematics Extensions/Matrices, as served
+      source: /examples/education-pathway/inputs/matrices.html
+      terms: CC BY-SA 4.0, Wikibooks contributors
+  doneWhen:
+    - You have written down the title, the lang and dir of the html element and the viewport
+    - Your heading outline and image counts match /examples/education-pathway/generated/inspection.json
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: A web browser and a text editor
+      version:
+        unavailable: Not fixed; any browser that shows a page’s source and any editor that opens HTML work
+      permissions: Opens a copy of the files
+      cost:
+        unavailable: Depends on the apps you use; free ones work
+    - part: data
+      name: The Wikibooks page High School Mathematics Extensions/Matrices (HTML)
+      version: "Revision 266672, downloaded 2026-11-25, SHA-256 c42e87b5…d1dcd099"
+      permissions: Read a copy
+      cost: Free (CC BY-SA 4.0)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain HTML or draft a parser, and every count it gives is checked against the CI output
+      permissions: Reads what you paste in; paste only the public page, never a student’s work, grades or records
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library has an HTML parser, runs offline with nothing to install, and gives the same counts on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A browser extension or an online accessibility checker
+      tradeoff: Faster and it renders the page, but you cannot see what it counted or why. Not tried for this pathway, so their results are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains the parts of an HTML page that accessibility rules read and drafts Python that lists them.
+      reviewGate: You keep its code only if its counts match the CI output.
+    - role: Learner as reviewer
+      responsibility: Reads the page source by hand for the title, lang and viewport, and compares every count with the CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A count stays only if you can point to it in the HTML.
+setup:
+  steps:
+    - Download the pathway folder from /examples/education-pathway, or only inputs/matrices.html and tools/education_pathway.py.
+    - Install Python 3.12 or later; nothing else.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/education_pathway.py . out"
+    expected: "36 reference checks pass and out/inspection.json lists revision 266672 with 16 headings and 26 images"
+    result: passed
+    evidence: /examples/education-pathway/generated/inspection.json, recomputed by CI on every pipeline
+    date: "2026-11-25"
+prompts:
+  - id: list-before-judging
+    title: List the page’s parts before you judge them
+    purpose: Separate what the page contains from what you think of it.
+    text: |-
+      I have the HTML of a textbook page as a browser receives it. Give me Python, standard library only, that lists: the first title element, the lang and dir attributes of the html element, every meta viewport, every heading (h1 to h6) in order with its text, every img with whether it has an alt attribute and whether it is empty, the number of links and the number of tables with captions.
+      Ignore title elements inside svg and math. Do not judge whether anything is accessible yet. If you are not sure how the HTML parser treats a case, say so.
+exercise:
+  title: High School Mathematics Extensions, Matrices (Wikibooks)
+  resourceId: wikibooks/high-school-mathematics-extensions-matrices
+  terms: CC BY-SA 4.0, Wikibooks contributors. Attribute the page and keep the licence on anything you share that copies it.
+execution:
+  steps:
+    - actor: Learner
+      action: Open inputs/matrices.html in a text editor and find the title, the html element and the viewport by hand.
+    - actor: Explaining assistant
+      action: Drafts the parser that lists the headings, images, links and tables.
+      handoff: You run it and compare with the CI output.
+    - actor: Learner
+      action: Mark which items a rule could decide by itself and which need a person.
+verification:
+  checks:
+    - action: Inspect the page with the pathway script
+      expected: "Revision 266672, 177,873 bytes; title “High School Mathematics Extensions/Matrices - Wikibooks, open books for an open world”; lang en, dir ltr; viewport width=1120; 16 headings (1 h1, 6 h2, 8 h3, 1 h4) with no skipped level; 26 images (24 with alt text, 2 with an empty alt, 0 without alt); 155 links; 2 tables, 0 captions"
+      result: passed
+      evidence: /examples/education-pathway/generated/inspection.json, recomputed by CI on every pipeline
+      date: "2026-11-25"
+    - action: Your own code reproduces the same inspection
+      expected: The same counts and outline
+      result: not-run
+  failures:
+    - observed: Your parser finds more than one title
+      correction: SVG images can carry their own title element. Leave out elements inside svg and math; the rules read the first HTML title only.
+    - observed: Your counts differ from what the browser shows after the page loads
+      correction: The page’s scripts change it after it arrives. This pathway reads the page as served, and says so; a rendered check is a different test.
+adaptation:
+  variations:
+    - change: Inspect a page from your own course site, if it is public and has no learner data on it
+      effect: Run the same inspection; never paste a page that shows students’ names, work or grades into an assistant.
+randori:
+  challenge: See the education Randori recipe, EDU-R01.
+  constraints:
+    - Inspect before you judge
+  evaluation: The counts match the CI output.
+maintenance:
+  cadence: Every six months, or when the W3C revises WCAG or the ACT rules, or Wikibooks changes the page
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on one openly licensed textbook page, not an accessibility conformance claim or a legal compliance check. No accessibility specialist has reviewed it.
+    - The page is read as served, before its scripts run.

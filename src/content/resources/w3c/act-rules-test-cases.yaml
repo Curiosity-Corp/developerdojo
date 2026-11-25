@@ -1,0 +1,9 @@
+title: "W3C ACT Rules and their test cases"
+provider: "W3C"
+url: "https://www.w3.org/WAI/standards-guidelines/act/rules/"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [brand-web-design]
+summary: "Accessibility Conformance Testing rules: each one states exactly what it applies to, what it expects, and how its outcome maps to a WCAG success criterion, with passed, failed and inapplicable example pages anyone can download and check their own tool against."
+verifiedOn: 2026-11-25

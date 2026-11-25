@@ -1,0 +1,100 @@
+{
+  "bytes": 177873,
+  "revision": 266672,
+  "title": "High School Mathematics Extensions/Matrices - Wikibooks, open books for an open world",
+  "titleElements": 1,
+  "htmlLang": "en",
+  "htmlDir": "ltr",
+  "viewport": [
+    "width=1120"
+  ],
+  "headings": {
+    "count": 16,
+    "byLevel": {
+      "h1": 1,
+      "h2": 6,
+      "h3": 8,
+      "h4": 1,
+      "h5": 0,
+      "h6": 0
+    },
+    "outline": [
+      {
+        "level": 2,
+        "text": "Contents"
+      },
+      {
+        "level": 1,
+        "text": "High School Mathematics Extensions/Matrices"
+      },
+      {
+        "level": 2,
+        "text": "Introduction"
+      },
+      {
+        "level": 3,
+        "text": "Elements"
+      },
+      {
+        "level": 3,
+        "text": "Summary"
+      },
+      {
+        "level": 3,
+        "text": "Matrix addition & Multiplication by a scalar"
+      },
+      {
+        "level": 2,
+        "text": "Matrix Multiplication"
+      },
+      {
+        "level": 3,
+        "text": "Exercises"
+      },
+      {
+        "level": 3,
+        "text": "Multiplication of non-vector matrices"
+      },
+      {
+        "level": 4,
+        "text": "Diagonal matrices"
+      },
+      {
+        "level": 3,
+        "text": "Exercises"
+      },
+      {
+        "level": 2,
+        "text": "The Identity & multiplication laws"
+      },
+      {
+        "level": 2,
+        "text": "Determinant and Inverses"
+      },
+      {
+        "level": 3,
+        "text": "Inverses"
+      },
+      {
+        "level": 3,
+        "text": "Solving simultaneous equations"
+      },
+      {
+        "level": 2,
+        "text": "Other Sections"
+      }
+    ],
+    "skippedLevels": []
+  },
+  "images": {
+    "count": 26,
+    "withAltText": 24,
+    "withEmptyAlt": 2,
+    "withoutAlt": 0
+  },
+  "links": 155,
+  "tables": {
+    "count": 2,
+    "captions": 0
+  }
+}

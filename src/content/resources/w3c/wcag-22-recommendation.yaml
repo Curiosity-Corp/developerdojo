@@ -1,0 +1,9 @@
+title: "Web Content Accessibility Guidelines (WCAG) 2.2 (W3C Recommendation, 12 December 2024)"
+provider: "W3C"
+url: "https://www.w3.org/TR/WCAG22/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [brand-web-design]
+summary: "The versioned standard itself: every success criterion with its level (A, AA, AAA), and the conformance requirements. The education pathway checks three of them, 1.4.4 Resize text, 2.4.2 Page Titled and 3.1.1 Language of Page, on a textbook page."
+verifiedOn: 2026-11-25

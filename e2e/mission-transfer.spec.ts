@@ -11,6 +11,7 @@ const FIELDS = [
   { id: 'finance', name: 'Finance', randori: 'FIN-R01' },
   { id: 'manufacturing', name: 'Manufacturing', randori: 'MFG-R01' },
   { id: 'media', name: 'Media', randori: 'MED-R01' },
+  { id: 'education', name: 'Education', randori: 'EDU-R01' },
 ];
 
 test('a learner chooses a field and gets its transfer practice sheet in the editable brief', async ({ page }) => {

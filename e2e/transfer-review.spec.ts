@@ -12,6 +12,7 @@ const FIELDS = [
   { id: 'finance', name: 'Finance' },
   { id: 'manufacturing', name: 'Manufacturing' },
   { id: 'media', name: 'Media' },
+  { id: 'education', name: 'Education' },
 ];
 const panel = (page: Page) => page.locator('[data-subject-panel]:visible');
 const UNSEEN = 'Fifteen minutes in, the reviewer swapped the model file for a later revision with two walls moved.';
