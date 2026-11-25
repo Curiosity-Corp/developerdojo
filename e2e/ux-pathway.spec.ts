@@ -317,3 +317,68 @@ test('the UX pathway shows the worked Randori rounds and serves their drawings',
   }
   expect((await request.get(base + 'randori.md')).status()).toBe(200);
 });
+
+interface ScreenRound { id: string; first: { constraint: { failures: string[] } }; screens: { first: string[]; adapted: string[] } }
+
+/**
+ * Walks one screen with the Tab key, as a keyboard user does, and returns what breaks the two screen cards: a control
+ * Tab never reaches, focus that jumps back up or left against the order of reading, and more than one action (a
+ * submit button) on the screen. Positions come from the rendered page, not from the flow file.
+ */
+async function walkScreen(page: Page): Promise<string[]> {
+  const total = await page.locator('main a[href], main button, main input').count();
+  const visits: { name: string; top: number; left: number }[] = [];
+  for (let press = 0; press <= total; press += 1) {
+    await page.keyboard.press('Tab');
+    const at = await page.evaluate(() => {
+      const element = document.activeElement;
+      if (!element || !element.closest('main')) return null;
+      // Where a reader meets the control: its place on the screen grid (the label around a field, the form around a button).
+      const box = (element.closest('main > *') ?? element).getBoundingClientRect();
+      return { name: element.getAttribute('data-control') ?? element.outerHTML, top: Math.round(box.top + window.scrollY), left: Math.round(box.left) };
+    });
+    if (!at || visits.some((v) => v.name === at.name)) break;
+    visits.push(at);
+  }
+  const problems: string[] = [];
+  if (visits.length !== total) problems.push('keyboard: Tab reaches ' + visits.length + ' of ' + total + ' controls');
+  const backwards = visits.slice(1).some((v, i) => v.top < visits[i].top - 4 || (Math.abs(v.top - visits[i].top) <= 4 && v.left < visits[i].left));
+  if (backwards) problems.push('focus: ' + visits.map((v) => v.name).join(', '));
+  const actions = await page.locator('main button').count();
+  if (actions > 1) problems.push('actions: ' + actions);
+  return problems;
+}
+
+// The kind of problem the layout check in tools/ux_randori.mjs names for a state: focus order or the action count.
+const kindOf = (failure: string): string => {
+  const [state, what] = failure.split(': ');
+  return state + ' ' + (what.startsWith('focus') ? 'focus' : 'actions');
+};
+
+test('a browser walks the screen round with the Tab key: the first version fails, the adapted one passes', async ({ page, request }) => {
+  const record = await (await request.get('/examples/ux-pathway/generated/randori/rounds.json')).json() as { rounds: ScreenRound[] };
+  const rounds = record.rounds.filter((round) => round.screens.first.length > 0);
+  expect(rounds.length).toBeGreaterThan(0);
+  for (const round of rounds) {
+    const found: Record<'first' | 'adapted', string[]> = { first: [], adapted: [] };
+    for (const which of ['first', 'adapted'] as const) {
+      for (const file of round.screens[which]) {
+        await page.goto('/examples/ux-pathway/generated/' + file);
+        await expect(page.locator('main')).toBeVisible();
+        const state = file.replace(/^.*\/([^/]+)\.html$/, '$1');
+        for (const problem of await walkScreen(page)) found[which].push(state + ' ' + problem.split(':')[0]);
+      }
+    }
+    expect(found.adapted, round.id + ' adapted').toEqual([]);
+    expect(found.first.length, round.id + ' first').toBeGreaterThan(0);
+    // The browser finds the same problems on the same screens as the layout check did.
+    expect(found.first.sort(), round.id + ' first').toEqual(round.first.constraint.failures.map(kindOf).sort());
+  }
+  await page.goto('/katas/ux-pathway/');
+  for (const round of rounds) {
+    const row = page.locator('tr[data-randori-round="' + round.id + '"]');
+    await expect(row.locator('a[href="/examples/ux-pathway/generated/' + round.screens.first[0] + '"]')).toHaveCount(1);
+    await expect(row.locator('a[href="/examples/ux-pathway/generated/' + round.screens.adapted[0] + '"]')).toHaveCount(1);
+  }
+});
+

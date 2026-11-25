@@ -11,8 +11,11 @@
  *   - the first flow must fail that check, or the constraint changed nothing and the card proves nothing;
  *   - what the constraint changed (states and transitions added and removed) is computed, not written by hand.
  *
+ * A constraint about the screens (focus order, one action per screen) is checked twice: here from the layout each
+ * state declares, and in a browser (e2e/ux-pathway.spec.ts), which walks every generated HTML screen with the Tab key.
+ *
  * Writes randori/<round>-first-sitemap.svg, randori/<round>-adapted-sitemap.svg, randori/<round>-adapted-journey.svg,
- * randori/rounds.json and randori/randori.md.
+ * randori/rounds.json and randori/randori.md, and for a screen constraint randori/<round>-first|adapted/<state>.html.
  */
 
 function check(id, description, failures) {
@@ -21,6 +24,30 @@ function check(id, description, failures) {
 
 function fields(state) {
   return state.elements.filter((element) => element.type === 'field');
+}
+
+/**
+ * Where each element sits: its row and column on the screen. A state either places every element (place: { row,
+ * col }) or none, and then the elements stack in one column in the order they are listed.
+ */
+function placed(state) {
+  const count = state.elements.filter((element) => element.place).length;
+  if (count !== 0 && count !== state.elements.length) throw new Error('ux_randori: state "' + state.id + '" places ' + count + ' of its ' + state.elements.length + ' elements; place all or none');
+  return state.elements.map((element, index) => ({ element, index, row: element.place ? element.place.row : index + 1, col: element.place ? element.place.col : 1 }));
+}
+
+/** The controls a keyboard reaches: fields and buttons, in the order they are listed (the order of the page's code). */
+function controls(state) {
+  return placed(state).filter((p) => p.element.type === 'field' || p.element.type === 'button');
+}
+
+/** An action is a button whose transition takes effect (commits); a button that only moves to another screen is a link. */
+function isAction(flow, state, element) {
+  return element.type === 'button' && flow.transitions.some((t) => t.from === state.id && t.to === element.to && t.commits);
+}
+
+function controlName(element) {
+  return element.label;
 }
 
 /**
@@ -71,6 +98,22 @@ export const CONSTRAINT_CHECKS = {
       return failures;
     },
   },
+  'keyboard-focus-one-action': {
+    description: 'On every screen, focus moves through the controls in the order a reader meets them (top to bottom, then left to right), and no screen has more than one action (a control that takes effect). Checked here from the layout of each state, and in a browser, which walks every screen with the Tab key.',
+    screens: true,
+    run(flow, { commits }) {
+      const failures = [];
+      if (commits.length === 0) failures.push('no transition is marked commits, so no screen has an action');
+      for (const state of flow.states) {
+        const listed = controls(state);
+        const read = [...listed].sort((a, b) => a.row - b.row || a.col - b.col || a.index - b.index);
+        if (listed.some((p, i) => p !== read[i])) failures.push(state.id + ': focus goes ' + listed.map((p) => controlName(p.element)).join(', ') + '; reading goes ' + read.map((p) => controlName(p.element)).join(', '));
+        const actions = state.elements.filter((element) => isAction(flow, state, element));
+        if (actions.length > 1) failures.push(state.id + ': ' + actions.length + ' actions (' + actions.map(controlName).join(', ') + ')');
+      }
+      return failures;
+    },
+  },
   'offline-keeps-input': {
     description: 'Every state with a field has an offline state that keeps each field and its value, with a way back or on once the connection returns.',
     run(flow, { byId, out }) {
@@ -112,6 +155,60 @@ export function diffFlows(first, adapted) {
   };
 }
 
+function esc(value) {
+  return String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+const SCREEN_CSS = [
+  'body { margin: 0; font: 1rem/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #1b1f24; background: #fff; }',
+  '.note { margin: 0; padding: 0.5rem 1rem; background: #f1f3f5; color: #3d4752; font-size: 0.875rem; }',
+  'main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 9rem); gap: 0.75rem 1rem; align-items: start; max-width: 36rem; margin: 1.5rem auto; padding: 0 1rem; }',
+  'h1 { margin: 0; font-size: 1.5rem; } p { margin: 0; }',
+  'label { display: grid; gap: 0.25rem; font-weight: 600; } input { font: inherit; padding: 0.5rem; border: 1px solid #5c6670; border-radius: 4px; }',
+  'form { margin: 0; } button { font: inherit; font-weight: 700; padding: 0.625rem 1rem; border-radius: 4px; border: 2px solid #1a4fd6; width: 100%; }',
+  'button.primary { background: #1a4fd6; color: #fff; } button.secondary { background: #fff; color: #1a4fd6; }',
+  'a { color: #1a4fd6; } a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid #b3261e; outline-offset: 2px; }',
+].join('\n');
+
+/**
+ * One state as a plain HTML page, for the browser check of a screen constraint. Elements are written in the order
+ * they are listed, which is the order focus follows, and placed in a two-column grid where the state says, which is
+ * the order a reader follows. An action is a submit button; a button that only moves on is a link.
+ */
+export function screenHtml(flow, state, roundId, which) {
+  const when = { first: 'first version, before the constraint', adapted: 'adapted version, after the constraint' };
+  const body = placed(state).map(({ element, row, col }) => {
+    const where = element.place ? ' style="grid-row: ' + row + '; grid-column: ' + col + ';"' : ' style="grid-column: 1 / -1;"';
+    const name = ' data-control="' + esc(element.label || element.text || '') + '"';
+    if (element.type === 'heading') return '<h1' + where + '>' + esc(element.text) + '</h1>';
+    if (element.type === 'text') return '<p' + where + '>' + esc(element.text) + '</p>';
+    if (element.type === 'field') return '<label' + where + '>' + esc(element.label) + ' <input name="' + esc(element.label) + '" value="' + esc(element.value || '') + '"' + name + '></label>';
+    if (element.type === 'button' && isAction(flow, state, element)) return '<form action="' + esc(element.to) + '.html" method="get"' + where + '><button type="submit" class="' + esc(element.variant) + '"' + name + '>' + esc(element.label) + '</button></form>';
+    if (element.type === 'button') return '<p' + where + '><a href="' + esc(element.to) + '.html"' + name + '>' + esc(element.label) + '</a></p>';
+    throw new Error('ux_randori: state "' + state.id + '" has an element of unknown type "' + element.type + '"');
+  });
+  return [
+    '<!doctype html>',
+    '<html lang="en">',
+    '<head>',
+    '<meta charset="utf-8">',
+    '<meta name="viewport" content="width=device-width, initial-scale=1">',
+    '<title>' + esc(state.title) + ': Randori round ' + esc(roundId) + ', ' + when[which] + '</title>',
+    '<style>',
+    SCREEN_CSS,
+    '</style>',
+    '</head>',
+    '<body data-round="' + esc(roundId) + '" data-version="' + which + '" data-state="' + esc(state.id) + '">',
+    '<p class="note">Worked UX Randori round ' + esc(roundId) + ', ' + when[which] + '. A wireframe screen for the keyboard check, not a working app.</p>',
+    '<main>',
+    ...body,
+    '</main>',
+    '</body>',
+    '</html>',
+    '',
+  ].join('\n');
+}
+
 function summarise(flow, structure, constraint) {
   return {
     states: flow.states.length,
@@ -142,7 +239,7 @@ function markdown(rounds) {
     '',
     'Generated by tools/ux_randori.mjs (called by tools/ux_pathway.mjs) from inputs/randori-rounds.json. Do not edit: change the input and rerun the script.',
     '',
-    'Each round answers one partner card from the UX-R01 download twice: the first sitemap, drawn before the hidden constraint was revealed, and the adapted one that meets it. Both must pass every structural check of the flow script; the adapted one must pass the check for its constraint, and the first must fail it, or the constraint changed nothing.',
+    'Each round answers a partner card from the UX-R01 download (the screen round plays the two screen cards together) twice: the first sitemap, drawn before the hidden constraint was revealed, and the adapted one that meets it. Both must pass every structural check of the flow script; the adapted one must pass the check for its constraint, and the first must fail it, or the constraint changed nothing.',
     '',
     '**Not unseen for the authors.** The maintainers who wrote the cards also wrote these answers, so the constraint was never hidden from them. No partner has walked these flows. Use the rounds after your own session, to compare, not as a model to copy first.',
     '',
@@ -178,13 +275,14 @@ function markdown(rounds) {
       '',
       'Drawings: ' + r.files.join(', ') + '.',
       '',
+      ...(r.screens.first.length ? ['Screens, walked with the Tab key in a browser on every pipeline: ' + r.screens.first.concat(r.screens.adapted).join(', ') + '.', ''] : []),
     );
   }
   lines.push(
     '## Not checked here',
     '',
     '- Whether a person can use the adapted flow. That is the partner walk in the kata: a moderated test, with notes on where they stopped.',
-    '- The two keyboard and reading constraints on the cards (focus order, one action per screen) are about the screens, not the flow, so no flow check can prove them.',
+    '- Whether a screen reader announces the screens well, or whether a reader of English as a second language understands the words. The screen check proves focus order and the number of actions, not that.',
     '- Whether the 30-second Undo, the approval or the offline copy work in software. These are flows and wireframes, not a working app.',
     '',
   );
@@ -217,6 +315,18 @@ export function renderRandori(input, draw) {
     }
     names.push('randori/' + round.id + '-adapted-journey.svg');
     files.push([names[names.length - 1], draw.journeySvg(round.adapted)]);
+    const screens = { first: [], adapted: [] };
+    if (CONSTRAINT_CHECKS[round.constraint.id].screens) {
+      for (const which of ['first', 'adapted']) {
+        const flow = round[which];
+        const order = [flow.start, ...flow.states.map((state) => state.id).filter((id) => id !== flow.start)];
+        for (const id of order) {
+          const name = 'randori/' + round.id + '-' + which + '/' + id + '.html';
+          screens[which].push(name);
+          files.push([name, screenHtml(flow, flow.states.find((state) => state.id === id), round.id, which)]);
+        }
+      }
+    }
     failures.push(...roundFailures(round, results.first, results.adapted));
     rounds.push({
       id: round.id,
@@ -228,6 +338,7 @@ export function renderRandori(input, draw) {
       adapted: results.adapted,
       diff: diffFlows(round.first, round.adapted),
       files: names,
+      screens,
     });
   }
   const pass = failures.length === 0;

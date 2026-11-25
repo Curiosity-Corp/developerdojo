@@ -1,5 +1,5 @@
 {
-  "about": "Worked UX Randori rounds (UX-R01) for the partner cards in the kata download. Each round is one brief and one hidden constraint: the first flow is the sitemap drawn before the constraint was revealed, the adapted flow is the one that meets it. Written by the Dojo maintainers, who also wrote the cards, so the constraint was not hidden from them. tools/ux_randori.mjs checks both flows and records what the constraint changed.",
+  "about": "Worked UX Randori rounds (UX-R01) for the partner cards in the kata download. Each round is one brief and one hidden constraint: the first flow is the sitemap drawn before the constraint was revealed, the adapted flow is the one that meets it. Written by the Dojo maintainers, who also wrote the cards, so the constraint was not hidden from them. tools/ux_randori.mjs checks both flows and records what the constraint changed. A round whose constraint is about the screens (place on an element: its row and column on the screen) is also written out as one HTML page per state, which a browser test walks with the Tab key.",
   "rounds": [
     {
       "id": "A",
@@ -413,6 +413,117 @@
           { "from": "pay-offline", "to": "pay", "kind": "back", "trigger": "Back" },
           { "from": "paid", "to": "permission", "kind": "back", "trigger": "Change my answer" },
           { "from": "not-going", "to": "permission", "kind": "back", "trigger": "Change my answer" }
+        ]
+      }
+    },
+    {
+      "id": "D",
+      "brief": "A tool-lending shelf for neighbours: borrow a drill, return it, report it broken.",
+      "constraint": { "id": "keyboard-focus-one-action", "text": "Every screen must work with a keyboard only, and the order of focus must match the order of reading. Half the users read English as a second language; no screen may have more than one action." },
+      "changed": "This round plays the two screen cards together, because one walk through the screens checks both. Borrow moved from the top right corner to beside the date, so focus reaches it after the date, where a reader does. The loan screen kept one action, Return it; reporting a broken tool moved to its own screen, reached by a link, with one action of its own.",
+      "first": {
+        "product": { "name": "Tool shelf", "job": "A neighbour borrows a drill, returns it, and reports it broken.", "audience": "Neighbours on a phone or a computer, some with a keyboard only, half reading English as a second language." },
+        "screens": [
+          { "id": "shelf", "name": "Shelf" },
+          { "id": "tool", "name": "Tool" },
+          { "id": "loan", "name": "My loan" }
+        ],
+        "start": "shelf",
+        "states": [
+          { "id": "shelf", "screen": "shelf", "kind": "screen", "title": "Tools on the shelf", "purpose": "What can be borrowed now.", "elements": [
+            { "type": "heading", "text": "Tools on the shelf" },
+            { "type": "text", "text": "Borrow a tool for up to 7 days." },
+            { "type": "button", "label": "Drill", "variant": "link", "to": "tool" }
+          ] },
+          { "id": "tool", "screen": "tool", "kind": "screen", "title": "Drill", "purpose": "One tool: whether it is free, and until when it can be borrowed. Borrow sits in the top right corner, beside the title.", "elements": [
+            { "type": "heading", "text": "Drill", "place": { "row": 1, "col": 1 } },
+            { "type": "text", "text": "Free to borrow. Bring it back within 7 days.", "place": { "row": 2, "col": 1 } },
+            { "type": "field", "label": "Return by", "value": "Friday", "place": { "row": 3, "col": 1 } },
+            { "type": "button", "label": "Borrow", "variant": "primary", "to": "borrowed", "place": { "row": 1, "col": 2 } },
+            { "type": "button", "label": "Back to the shelf", "variant": "link", "to": "shelf", "place": { "row": 4, "col": 1 } }
+          ] },
+          { "id": "borrowed", "screen": "loan", "kind": "success", "title": "You have the drill", "purpose": "The loan, with a return and a broken report on the same screen.", "elements": [
+            { "type": "heading", "text": "You have the drill" },
+            { "type": "text", "text": "Bring it back by Friday." },
+            { "type": "field", "label": "Anything wrong with it?", "value": "The chuck slips" },
+            { "type": "button", "label": "Return it", "variant": "primary", "to": "returned" },
+            { "type": "button", "label": "Report it broken", "variant": "secondary", "to": "reported" }
+          ] },
+          { "id": "returned", "screen": "loan", "kind": "success", "title": "Returned. Thank you", "purpose": "Confirms the return.", "elements": [
+            { "type": "heading", "text": "Returned. Thank you" },
+            { "type": "text", "text": "The drill is back on the shelf." },
+            { "type": "button", "label": "Back to the shelf", "variant": "link", "to": "shelf" }
+          ] },
+          { "id": "reported", "screen": "loan", "kind": "success", "title": "Thanks, we told the owner", "purpose": "Confirms the report and says what happens next.", "elements": [
+            { "type": "heading", "text": "Thanks, we told the owner" },
+            { "type": "text", "text": "Keep the drill until the owner replies." },
+            { "type": "button", "label": "Back to the shelf", "variant": "link", "to": "shelf" }
+          ] }
+        ],
+        "transitions": [
+          { "from": "shelf", "to": "tool", "kind": "forward", "trigger": "Drill" },
+          { "from": "tool", "to": "borrowed", "kind": "forward", "trigger": "Borrow", "commits": true },
+          { "from": "tool", "to": "shelf", "kind": "back", "trigger": "Back to the shelf" },
+          { "from": "borrowed", "to": "returned", "kind": "forward", "trigger": "Return it", "commits": true },
+          { "from": "borrowed", "to": "reported", "kind": "branch", "trigger": "Report it broken", "commits": true },
+          { "from": "returned", "to": "shelf", "kind": "back", "trigger": "Back to the shelf" },
+          { "from": "reported", "to": "shelf", "kind": "back", "trigger": "Back to the shelf" }
+        ]
+      },
+      "adapted": {
+        "product": { "name": "Tool shelf", "job": "A neighbour borrows a drill, returns it, and reports it broken.", "audience": "Neighbours on a phone or a computer, some with a keyboard only, half reading English as a second language." },
+        "screens": [
+          { "id": "shelf", "name": "Shelf" },
+          { "id": "tool", "name": "Tool" },
+          { "id": "loan", "name": "My loan" }
+        ],
+        "start": "shelf",
+        "states": [
+          { "id": "shelf", "screen": "shelf", "kind": "screen", "title": "Tools on the shelf", "purpose": "What can be borrowed now.", "elements": [
+            { "type": "heading", "text": "Tools on the shelf" },
+            { "type": "text", "text": "Borrow a tool for up to 7 days." },
+            { "type": "button", "label": "Drill", "variant": "link", "to": "tool" }
+          ] },
+          { "id": "tool", "screen": "tool", "kind": "screen", "title": "Drill", "purpose": "One tool: whether it is free, and until when it can be borrowed. Borrow sits beside the date, after it in reading and in focus.", "elements": [
+            { "type": "heading", "text": "Drill", "place": { "row": 1, "col": 1 } },
+            { "type": "text", "text": "Free to borrow. Bring it back within 7 days.", "place": { "row": 2, "col": 1 } },
+            { "type": "field", "label": "Return by", "value": "Friday", "place": { "row": 3, "col": 1 } },
+            { "type": "button", "label": "Borrow", "variant": "primary", "to": "borrowed", "place": { "row": 3, "col": 2 } },
+            { "type": "button", "label": "Back to the shelf", "variant": "link", "to": "shelf", "place": { "row": 4, "col": 1 } }
+          ] },
+          { "id": "borrowed", "screen": "loan", "kind": "success", "title": "You have the drill", "purpose": "The loan, with one action: return it. A link leads to the broken report.", "elements": [
+            { "type": "heading", "text": "You have the drill" },
+            { "type": "text", "text": "Bring it back by Friday." },
+            { "type": "button", "label": "Return it", "variant": "primary", "to": "returned" },
+            { "type": "button", "label": "Report it broken", "variant": "link", "to": "report" }
+          ] },
+          { "id": "report", "screen": "loan", "kind": "screen", "title": "What is wrong with the drill?", "purpose": "The broken report on its own screen, with one action.", "elements": [
+            { "type": "heading", "text": "What is wrong with the drill?" },
+            { "type": "field", "label": "What is wrong", "value": "The chuck slips" },
+            { "type": "button", "label": "Send the report", "variant": "primary", "to": "reported" },
+            { "type": "button", "label": "Back to my loan", "variant": "link", "to": "borrowed" }
+          ] },
+          { "id": "returned", "screen": "loan", "kind": "success", "title": "Returned. Thank you", "purpose": "Confirms the return.", "elements": [
+            { "type": "heading", "text": "Returned. Thank you" },
+            { "type": "text", "text": "The drill is back on the shelf." },
+            { "type": "button", "label": "Back to the shelf", "variant": "link", "to": "shelf" }
+          ] },
+          { "id": "reported", "screen": "loan", "kind": "success", "title": "Thanks, we told the owner", "purpose": "Confirms the report and says what happens next.", "elements": [
+            { "type": "heading", "text": "Thanks, we told the owner" },
+            { "type": "text", "text": "Keep the drill until the owner replies." },
+            { "type": "button", "label": "Back to the shelf", "variant": "link", "to": "shelf" }
+          ] }
+        ],
+        "transitions": [
+          { "from": "shelf", "to": "tool", "kind": "forward", "trigger": "Drill" },
+          { "from": "tool", "to": "borrowed", "kind": "forward", "trigger": "Borrow", "commits": true },
+          { "from": "tool", "to": "shelf", "kind": "back", "trigger": "Back to the shelf" },
+          { "from": "borrowed", "to": "returned", "kind": "forward", "trigger": "Return it", "commits": true },
+          { "from": "borrowed", "to": "report", "kind": "branch", "trigger": "Report it broken" },
+          { "from": "report", "to": "reported", "kind": "forward", "trigger": "Send the report", "commits": true },
+          { "from": "report", "to": "borrowed", "kind": "back", "trigger": "Back to my loan" },
+          { "from": "returned", "to": "shelf", "kind": "back", "trigger": "Back to the shelf" },
+          { "from": "reported", "to": "shelf", "kind": "back", "trigger": "Back to the shelf" }
         ]
       }
     }

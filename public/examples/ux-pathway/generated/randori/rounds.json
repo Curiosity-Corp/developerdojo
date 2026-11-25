@@ -60,7 +60,11 @@
         "randori/A-first-sitemap.svg",
         "randori/A-adapted-sitemap.svg",
         "randori/A-adapted-journey.svg"
-      ]
+      ],
+      "screens": {
+        "first": [],
+        "adapted": []
+      }
     },
     {
       "id": "B",
@@ -118,7 +122,11 @@
         "randori/B-first-sitemap.svg",
         "randori/B-adapted-sitemap.svg",
         "randori/B-adapted-journey.svg"
-      ]
+      ],
+      "screens": {
+        "first": [],
+        "adapted": []
+      }
     },
     {
       "id": "C",
@@ -176,7 +184,84 @@
         "randori/C-first-sitemap.svg",
         "randori/C-adapted-sitemap.svg",
         "randori/C-adapted-journey.svg"
-      ]
+      ],
+      "screens": {
+        "first": [],
+        "adapted": []
+      }
+    },
+    {
+      "id": "D",
+      "brief": "A tool-lending shelf for neighbours: borrow a drill, return it, report it broken.",
+      "constraint": {
+        "id": "keyboard-focus-one-action",
+        "text": "Every screen must work with a keyboard only, and the order of focus must match the order of reading. Half the users read English as a second language; no screen may have more than one action."
+      },
+      "constraintCheck": "On every screen, focus moves through the controls in the order a reader meets them (top to bottom, then left to right), and no screen has more than one action (a control that takes effect). Checked here from the layout of each state, and in a browser, which walks every screen with the Tab key.",
+      "changed": "This round plays the two screen cards together, because one walk through the screens checks both. Borrow moved from the top right corner to beside the date, so focus reaches it after the date, where a reader does. The loan screen kept one action, Return it; reporting a broken tool moved to its own screen, reached by a link, with one action of its own.",
+      "first": {
+        "states": 5,
+        "transitions": 7,
+        "structure": {
+          "pass": true,
+          "failed": []
+        },
+        "constraint": {
+          "pass": false,
+          "failures": [
+            "tool: focus goes Return by, Borrow, Back to the shelf; reading goes Borrow, Return by, Back to the shelf",
+            "borrowed: 2 actions (Return it, Report it broken)"
+          ]
+        }
+      },
+      "adapted": {
+        "states": 6,
+        "transitions": 9,
+        "structure": {
+          "pass": true,
+          "failed": []
+        },
+        "constraint": {
+          "pass": true,
+          "failures": []
+        }
+      },
+      "diff": {
+        "statesAdded": [
+          "report"
+        ],
+        "statesRemoved": [],
+        "transitionsAdded": [
+          "borrowed > report",
+          "report > reported",
+          "report > borrowed"
+        ],
+        "transitionsRemoved": [
+          "borrowed > reported"
+        ]
+      },
+      "files": [
+        "randori/D-first-sitemap.svg",
+        "randori/D-adapted-sitemap.svg",
+        "randori/D-adapted-journey.svg"
+      ],
+      "screens": {
+        "first": [
+          "randori/D-first/shelf.html",
+          "randori/D-first/tool.html",
+          "randori/D-first/borrowed.html",
+          "randori/D-first/returned.html",
+          "randori/D-first/reported.html"
+        ],
+        "adapted": [
+          "randori/D-adapted/shelf.html",
+          "randori/D-adapted/tool.html",
+          "randori/D-adapted/borrowed.html",
+          "randori/D-adapted/report.html",
+          "randori/D-adapted/returned.html",
+          "randori/D-adapted/reported.html"
+        ]
+      }
     }
   ]
 }

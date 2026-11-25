@@ -5,7 +5,7 @@
     "inputs/contrast-pairs.json": "536220ae89b3c892fac3fa4902c6278f1d0b50643e75be315ebda0a18e3695f1",
     "pocket-invoice-tokens.json": "9855e7ba68d906fc9bb761bb9da20dd720511214810ab028c477a46736d55a4b",
     "inputs/brand.json": "d4ee1d75e0549268d25e58baaff157fae56bb6657d18fee153ecd436818ffee5",
-    "inputs/randori-rounds.json": "5a046e9e3b1056a07cb60eeb213e665c4576232d0e493c908e21ba3f203d18c0"
+    "inputs/randori-rounds.json": "2a9e6c4797b703eb22e00d3e6cea55344e816c3f810f557bf97b420e57066b8c"
   },
   "outputs": [
     "components.svg",
@@ -24,6 +24,20 @@
     "randori/C-adapted-journey.svg",
     "randori/C-adapted-sitemap.svg",
     "randori/C-first-sitemap.svg",
+    "randori/D-adapted-journey.svg",
+    "randori/D-adapted-sitemap.svg",
+    "randori/D-adapted/borrowed.html",
+    "randori/D-adapted/report.html",
+    "randori/D-adapted/reported.html",
+    "randori/D-adapted/returned.html",
+    "randori/D-adapted/shelf.html",
+    "randori/D-adapted/tool.html",
+    "randori/D-first-sitemap.svg",
+    "randori/D-first/borrowed.html",
+    "randori/D-first/reported.html",
+    "randori/D-first/returned.html",
+    "randori/D-first/shelf.html",
+    "randori/D-first/tool.html",
     "randori/randori.md",
     "randori/rounds.json",
     "screens/desktop/discard-dialog.svg",
@@ -252,6 +266,18 @@
     "randori/C-adapted-journey.svg": {
       "width": 1129,
       "height": 1266
+    },
+    "randori/D-first-sitemap.svg": {
+      "width": 1000,
+      "height": 688
+    },
+    "randori/D-adapted-sitemap.svg": {
+      "width": 1000,
+      "height": 840
+    },
+    "randori/D-adapted-journey.svg": {
+      "width": 1129,
+      "height": 2236
     }
   }
 }

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="688" viewBox="0 0 1000 688" role="img" aria-labelledby="title desc" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+<title id="title">Randori D, before the constraint: Tool shelf sitemap: 5 states and 7 transitions</title>
+<desc id="desc">One column per screen. Each box is a state; each numbered line is a transition, listed with its cause in the transition table. Lines are styled by kind: see the legend.</desc>
+<defs><marker id="arrow-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#212121"/></marker><marker id="arrow-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#616161"/></marker></defs>
+<rect x="0" y="0" width="1000" height="688" fill="#ffffff"/>
+<text x="204" y="36" font-size="14" font-weight="700" fill="#212121" text-anchor="middle">Shelf</text>
+<text x="500" y="36" font-size="14" font-weight="700" fill="#212121" text-anchor="middle">Tool</text>
+<text x="796" y="36" font-size="14" font-weight="700" fill="#212121" text-anchor="middle">My loan</text>
+<g data-state="shelf"><rect x="112" y="64" width="184" height="104" rx="6" fill="#ffffff" stroke="#212121" stroke-width="2"/><text x="124" y="86" font-size="14" font-weight="700" fill="#212121">Tools on the shelf</text><text x="124" y="108" font-size="12" fill="#424242">Screen</text><text x="124" y="124" font-size="11" fill="#616161" font-family="ui-monospace, Menlo, Consolas, monospace">shelf</text></g>
+<g data-state="tool"><rect x="408" y="64" width="184" height="104" rx="6" fill="#ffffff" stroke="#212121" stroke-width="2"/><text x="420" y="86" font-size="14" font-weight="700" fill="#212121">Drill</text><text x="420" y="108" font-size="12" fill="#424242">Screen</text><text x="420" y="124" font-size="11" fill="#616161" font-family="ui-monospace, Menlo, Consolas, monospace">tool</text></g>
+<g data-state="borrowed"><rect x="704" y="64" width="184" height="104" rx="6" fill="#ffffff" stroke="#212121" stroke-width="4"/><text x="716" y="86" font-size="14" font-weight="700" fill="#212121">You have the drill</text><text x="716" y="108" font-size="12" fill="#424242">Success</text><text x="716" y="124" font-size="11" fill="#616161" font-family="ui-monospace, Menlo, Consolas, monospace">borrowed</text></g>
+<g data-state="returned"><rect x="704" y="216" width="184" height="104" rx="6" fill="#ffffff" stroke="#212121" stroke-width="4"/><text x="716" y="238" font-size="14" font-weight="700" fill="#212121">Returned. Thank you</text><text x="716" y="260" font-size="12" fill="#424242">Success</text><text x="716" y="276" font-size="11" fill="#616161" font-family="ui-monospace, Menlo, Consolas, monospace">returned</text></g>
+<g data-state="reported"><rect x="704" y="368" width="184" height="104" rx="6" fill="#ffffff" stroke="#212121" stroke-width="4"/><text x="716" y="390" font-size="14" font-weight="700" fill="#212121">Thanks, we told the</text><text x="716" y="408" font-size="14" font-weight="700" fill="#212121">owner</text><text x="716" y="430" font-size="12" fill="#424242">Success</text><text x="716" y="446" font-size="11" fill="#616161" font-family="ui-monospace, Menlo, Consolas, monospace">reported</text></g>
+<path d="M296 85 L408 99" fill="none" stroke="#212121" stroke-width="2" marker-end="url(#arrow-ink)" data-transition="1"><title>1. shelf to tool: Drill</title></path>
+<circle cx="352" cy="92" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="352" y="96" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">1</text>
+<path d="M592 116 L704 116" fill="none" stroke="#212121" stroke-width="2" marker-end="url(#arrow-ink)" data-transition="2"><title>2. tool to borrowed: Borrow</title></path>
+<circle cx="648" cy="116" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="648" y="120" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">2</text>
+<path d="M408 133 L296 106" fill="none" stroke="#424242" stroke-width="2" stroke-dasharray="10 4 2 4" marker-end="url(#arrow-grey)" data-transition="3"><title>3. tool to shelf: Back to the shelf</title></path>
+<circle cx="352" cy="120" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="352" y="124" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">3</text>
+<path d="M888 99 H902 V268 H888" fill="none" stroke="#212121" stroke-width="2" marker-end="url(#arrow-ink)" data-transition="4"><title>4. borrowed to returned: Return it</title></path>
+<circle cx="902" cy="184" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="902" y="188" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">4</text>
+<path d="M888 133 H914 V420 H888" fill="none" stroke="#616161" stroke-width="2" marker-end="url(#arrow-grey)" data-transition="5"><title>5. borrowed to reported: Report it broken</title></path>
+<circle cx="914" cy="277" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="914" y="281" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">5</text>
+<path d="M704 268 H606 V496 H310 V126 H296" fill="none" stroke="#424242" stroke-width="2" stroke-dasharray="10 4 2 4" marker-end="url(#arrow-grey)" data-transition="6"><title>6. returned to shelf: Back to the shelf</title></path>
+<circle cx="458" cy="496" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="458" y="500" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">6</text>
+<path d="M704 420 H618 V522 H322 V147 H296" fill="none" stroke="#424242" stroke-width="2" stroke-dasharray="10 4 2 4" marker-end="url(#arrow-grey)" data-transition="7"><title>7. reported to shelf: Back to the shelf</title></path>
+<circle cx="470" cy="522" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="470" y="526" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">7</text>
+<path d="M24 588 H72" fill="none" stroke="#212121" stroke-width="2" marker-end="url(#arrow-ink)" data-kind="forward"/>
+<text x="84" y="593" font-size="14" fill="#212121">Forward</text>
+<path d="M168 588 H216" fill="none" stroke="#616161" stroke-width="2" marker-end="url(#arrow-grey)" data-kind="branch"/>
+<text x="228" y="593" font-size="14" fill="#212121">Branch</text>
+<path d="M304 588 H352" fill="none" stroke="#212121" stroke-width="2" stroke-dasharray="7 4" marker-end="url(#arrow-ink)" data-kind="error"/>
+<text x="364" y="593" font-size="14" fill="#212121">Error</text>
+<path d="M432 588 H480" fill="none" stroke="#212121" stroke-width="2" stroke-dasharray="2 3" marker-end="url(#arrow-ink)" data-kind="recover"/>
+<text x="492" y="593" font-size="14" fill="#212121">Recover</text>
+<path d="M576 588 H624" fill="none" stroke="#424242" stroke-width="2" stroke-dasharray="10 4 2 4" marker-end="url(#arrow-grey)" data-kind="back"/>
+<text x="636" y="593" font-size="14" fill="#212121">Back</text>
+<path d="M696 588 H744" fill="none" stroke="#616161" stroke-width="3" marker-end="url(#arrow-grey)" data-kind="overlay-open"/>
+<text x="756" y="593" font-size="14" fill="#212121">Open dialog</text>
+<path d="M24 616 H72" fill="none" stroke="#616161" stroke-width="3" stroke-dasharray="4 4" marker-end="url(#arrow-grey)" data-kind="overlay-close"/>
+<text x="84" y="621" font-size="14" fill="#212121">Close dialog</text>
+<text x="24" y="648" font-size="14" fill="#424242">Box borders: solid for a screen, thick for success, dashed for an error, dotted for a branch outside this flow, grey for a dialog or an empty state.</text>
+</svg>
