@@ -59,7 +59,14 @@ function refsIn(html) {
   return refs;
 }
 
-const files = (await walk(root)).filter((f) => extname(f) === '.html');
+// A pathway's inputs/ folder holds third-party files served byte for byte and hash-pinned (a textbook page, W3C
+// test cases): their links point into the site they came from, and editing them would break the pins. Links TO
+// them from the site's own pages are still checked; only the links inside them are not.
+const VERBATIM_INPUT = /^examples\/[^/]+-pathway\/inputs\//;
+const relative = (file) => file.slice(root.length + 1).replace(/\\/g, '/');
+const allHtml = (await walk(root)).filter((f) => extname(f) === '.html');
+const files = allHtml.filter((f) => !VERBATIM_INPUT.test(relative(f)));
+const verbatimInputs = allHtml.length - files.length;
 const problems = [];
 let checked = 0;
 const external = new Set();
@@ -93,7 +100,7 @@ for (const file of files) {
   }
 }
 
-console.log(`Checked ${checked} internal references across ${files.length} pages; ${external.size} distinct external links not fetched.`);
+console.log(`Checked ${checked} internal references across ${files.length} pages; ${external.size} distinct external links not fetched; ${verbatimInputs} verbatim pathway input files not scanned.`);
 if (problems.length > 0) {
   console.error(`\n${problems.length} problem(s):`);
   for (const p of [...new Set(problems)]) console.error(`  ${p}`);
