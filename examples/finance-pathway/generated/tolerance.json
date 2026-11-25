@@ -1,0 +1,93 @@
+{
+  "source": "12 CFR 1026.22(a), as served in inputs/ecfr-12-cfr-1026-22.xml",
+  "regular": {
+    "paragraph": "1026.22(a)(2)",
+    "percentagePoints": "0.125",
+    "text": "(2) As a general rule, the annual percentage rate shall be considered accurate if it is not more than 1/8 of 1 percentage point above or below the annual percentage rate determined in accordance with paragraph (a)(1) of this section."
+  },
+  "irregular": {
+    "paragraph": "1026.22(a)(3)",
+    "percentagePoints": "0.25",
+    "text": "(3) In an irregular transaction, the annual percentage rate shall be considered accurate if it is not more than 1/4 of 1 percentage point above or below the annual percentage rate determined in accordance with paragraph (a)(1) of this section."
+  },
+  "irregularDefinition": "an irregular transaction is one that includes one or more of the following features: multiple advances, irregular payment periods, or irregular payment amounts (other than an irregular first period or an irregular first or final payment).",
+  "examples": {
+    "c1-i": {
+      "tolerance_percentagePoints": "0.125",
+      "tolerance": "regular: an odd first period and an irregular first or final payment do not make a transaction irregular (1026.22(a)(3))",
+      "accurateDisclosures_percent": [
+        "9.57",
+        "9.81"
+      ],
+      "ignoringOddDays_percent": "9.69",
+      "ignoringOddDaysDifference_percentagePoints": "0.00",
+      "ignoringOddDaysWithinTolerance": true
+    },
+    "c1-ii": {
+      "tolerance_percentagePoints": "0.125",
+      "tolerance": "regular: an odd first period and an irregular first or final payment do not make a transaction irregular (1026.22(a)(3))",
+      "accurateDisclosures_percent": [
+        "11.70",
+        "11.94"
+      ],
+      "ignoringOddDays_percent": "12.25",
+      "ignoringOddDaysDifference_percentagePoints": "0.43",
+      "ignoringOddDaysWithinTolerance": false
+    },
+    "c1-iii": {
+      "tolerance_percentagePoints": "0.125",
+      "tolerance": "regular: an odd first period and an irregular first or final payment do not make a transaction irregular (1026.22(a)(3))",
+      "accurateDisclosures_percent": [
+        "10.22",
+        "10.46"
+      ],
+      "ignoringOddDays_percent": "9.83",
+      "ignoringOddDaysDifference_percentagePoints": "-0.50",
+      "ignoringOddDaysWithinTolerance": false
+    },
+    "c1-iv": {
+      "tolerance_percentagePoints": "0.125",
+      "tolerance": "regular: an odd first period and an irregular first or final payment do not make a transaction irregular (1026.22(a)(3))",
+      "accurateDisclosures_percent": [
+        "8.85",
+        "9.09"
+      ],
+      "ignoringOddDays_percent": "9.20",
+      "ignoringOddDaysDifference_percentagePoints": "0.23",
+      "ignoringOddDaysWithinTolerance": false
+    },
+    "c1-v": {
+      "tolerance_percentagePoints": "0.125",
+      "tolerance": "regular: an odd first period and an irregular first or final payment do not make a transaction irregular (1026.22(a)(3))",
+      "accurateDisclosures_percent": [
+        "14.84",
+        "15.08"
+      ],
+      "ignoringOddDays_percent": "18.47",
+      "ignoringOddDaysDifference_percentagePoints": "3.51",
+      "ignoringOddDaysWithinTolerance": false
+    },
+    "c3-i": {
+      "tolerance_percentagePoints": "0.125",
+      "tolerance": "regular: an odd first period and an irregular first or final payment do not make a transaction irregular (1026.22(a)(3))",
+      "accurateDisclosures_percent": [
+        "10.38",
+        "10.62"
+      ],
+      "ignoringOddDays_percent": "10.50",
+      "ignoringOddDaysDifference_percentagePoints": "0.00",
+      "ignoringOddDaysWithinTolerance": true
+    },
+    "c3-ii": {
+      "tolerance_percentagePoints": "0.125",
+      "tolerance": "regular: an odd first period and an irregular first or final payment do not make a transaction irregular (1026.22(a)(3))",
+      "accurateDisclosures_percent": [
+        "12.10",
+        "12.34"
+      ],
+      "ignoringOddDays_percent": "11.76",
+      "ignoringOddDaysDifference_percentagePoints": "-0.47",
+      "ignoringOddDaysWithinTolerance": false
+    }
+  }
+}

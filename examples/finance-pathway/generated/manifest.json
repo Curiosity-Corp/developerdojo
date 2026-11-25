@@ -1,0 +1,24 @@
+{
+  "script": "tools/finance_pathway.py",
+  "python": "3.12",
+  "inputs": {
+    "inputs/ecfr-12-cfr-1026-22.xml": "ed61b93aa82d23aa6f02600936871b1e00432b34507fdd9c681fbbbaf2db0d7e"
+  },
+  "method": {
+    "referenceChecks": "Regulation Z, 12 CFR part 1026, Appendix J: the iteration of paragraph (b)(9) and the examples of paragraphs (c)(1) and (c)(3)",
+    "unitPeriods": "Appendix J (b)(5)(ii) to (iv): full unit-periods and the fraction from the dates of the advance and the first payment",
+    "apr": "Appendix J (b)(8) general equation, solved by the (b)(9) iteration until the rate changes by less than 1e-10 percent",
+    "tolerance": "12 CFR 1026.22(a)(2) and (a)(3), read from the served text",
+    "schedule": "interest each unit-period is the balance times the unrounded periodic rate, rounded half up to the cent"
+  },
+  "outputs": [
+    "apr.json",
+    "disclosure.json",
+    "manifest.json",
+    "randori/cards.json",
+    "reference-checks.json",
+    "schedule.csv",
+    "summary.md",
+    "tolerance.json"
+  ]
+}

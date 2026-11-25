@@ -1,0 +1,172 @@
+{
+  "source": "Regulation Z, 12 CFR part 1026, Appendix J",
+  "passed": 20,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "b9-A1",
+      "source": "Appendix J (b)(9)",
+      "quantity": "A′ at the first estimate, 12.50 %",
+      "published": "1004.674391",
+      "computed": "1004.6744",
+      "status": "pass",
+      "note": "Appendix J prints this from a 10-digit calculator; compared at 4 decimals"
+    },
+    {
+      "id": "b9-A2",
+      "source": "Appendix J (b)(9)",
+      "quantity": "A″ at 12.60 %",
+      "published": "1003.235366",
+      "computed": "1003.2354",
+      "status": "pass",
+      "note": "Appendix J prints this from a 10-digit calculator; compared at 4 decimals"
+    },
+    {
+      "id": "b9-I1",
+      "source": "Appendix J (b)(9)",
+      "quantity": "Interpolated rate after step 3, %",
+      "published": "12.82483042",
+      "computed": "12.8248",
+      "status": "pass",
+      "note": "Appendix J prints this from a 10-digit calculator; compared at 4 decimals"
+    },
+    {
+      "id": "b9-I2",
+      "source": "Appendix J (b)(9)",
+      "quantity": "Rate after the first iteration, %",
+      "published": "12.82557859",
+      "computed": "12.8256",
+      "status": "pass",
+      "note": "Appendix J prints this from a 10-digit calculator; compared at 4 decimals"
+    },
+    {
+      "id": "b9-I3",
+      "source": "Appendix J (b)(9)",
+      "quantity": "Rate after the second iteration, %",
+      "published": "12.82557529",
+      "computed": "12.8256",
+      "status": "pass",
+      "note": "Appendix J prints this from a 10-digit calculator; compared at 4 decimals"
+    },
+    {
+      "id": "b9-APR",
+      "source": "Appendix J (b)(9)",
+      "quantity": "Annual percentage rate, %",
+      "published": "12.83",
+      "computed": "12.83",
+      "status": "pass"
+    },
+    {
+      "id": "c1-i-tf",
+      "source": "Appendix J (c)(1) example (i)",
+      "quantity": "Unit-periods from the advance to the first payment",
+      "published": "t = 1; f = 0",
+      "computed": "t = 1; f = 0",
+      "status": "pass"
+    },
+    {
+      "id": "c1-i-APR",
+      "source": "Appendix J (c)(1) example (i)",
+      "quantity": "Annual percentage rate, %",
+      "published": "9.69",
+      "computed": "9.69",
+      "status": "pass"
+    },
+    {
+      "id": "c1-ii-tf",
+      "source": "Appendix J (c)(1) example (ii)",
+      "quantity": "Unit-periods from the advance to the first payment",
+      "published": "t = 1; f = 19/30",
+      "computed": "t = 1; f = 19/30",
+      "status": "pass"
+    },
+    {
+      "id": "c1-ii-APR",
+      "source": "Appendix J (c)(1) example (ii)",
+      "quantity": "Annual percentage rate, %",
+      "published": "11.82",
+      "computed": "11.82",
+      "status": "pass"
+    },
+    {
+      "id": "c1-iii-tf",
+      "source": "Appendix J (c)(1) example (iii)",
+      "quantity": "Unit-periods from the advance to the first payment",
+      "published": "t = 0; f = 6/15",
+      "computed": "t = 0; f = 6/15",
+      "status": "pass"
+    },
+    {
+      "id": "c1-iii-APR",
+      "source": "Appendix J (c)(1) example (iii)",
+      "quantity": "Annual percentage rate, %",
+      "published": "10.34",
+      "computed": "10.34",
+      "status": "pass"
+    },
+    {
+      "id": "c1-iv-tf",
+      "source": "Appendix J (c)(1) example (iv)",
+      "quantity": "Unit-periods from the advance to the first payment",
+      "published": "t = 1; f = 39/90",
+      "computed": "t = 1; f = 39/90",
+      "status": "pass"
+    },
+    {
+      "id": "c1-iv-APR",
+      "source": "Appendix J (c)(1) example (iv)",
+      "quantity": "Annual percentage rate, %",
+      "published": "8.97",
+      "computed": "8.97",
+      "status": "pass"
+    },
+    {
+      "id": "c1-v-tf",
+      "source": "Appendix J (c)(1) example (v)",
+      "quantity": "Unit-periods from the advance to the first payment",
+      "published": "t = 4; f = 4/7",
+      "computed": "t = 4; f = 4/7",
+      "status": "pass"
+    },
+    {
+      "id": "c1-v-APR",
+      "source": "Appendix J (c)(1) example (v)",
+      "quantity": "Annual percentage rate, %",
+      "published": "14.96",
+      "computed": "14.96",
+      "status": "pass"
+    },
+    {
+      "id": "c3-i-tf",
+      "source": "Appendix J (c)(3) example (i)",
+      "quantity": "Unit-periods from the advance to the first payment",
+      "published": "t = 1; f = 0",
+      "computed": "t = 1; f = 0",
+      "status": "pass"
+    },
+    {
+      "id": "c3-i-APR",
+      "source": "Appendix J (c)(3) example (i)",
+      "quantity": "Annual percentage rate, %",
+      "published": "10.50",
+      "computed": "10.50",
+      "status": "pass"
+    },
+    {
+      "id": "c3-ii-tf",
+      "source": "Appendix J (c)(3) example (ii)",
+      "quantity": "Unit-periods from the advance to the first payment",
+      "published": "t = 0; f = 8/14",
+      "computed": "t = 0; f = 8/14",
+      "status": "pass"
+    },
+    {
+      "id": "c3-ii-APR",
+      "source": "Appendix J (c)(3) example (ii)",
+      "quantity": "Annual percentage rate, %",
+      "published": "12.22",
+      "computed": "12.22",
+      "status": "pass"
+    }
+  ]
+}

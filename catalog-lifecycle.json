@@ -398,6 +398,68 @@
       "state": "verified"
     },
     {
+      "id": "FIN-001",
+      "surface": "recipe",
+      "title": "Amortize a loan to the cent and state its disclosure figures",
+      "href": "/katas/fin-001-amortization-schedule",
+      "area": "artifact-validity",
+      "maintainerRole": "Finance pathway maintainer",
+      "provenance": [
+        "The terms of Appendix J example (c)(1)(i): cfpb/regulation-z-appendix-j (paragraph (c)(1), example (i): $5,000 advanced on 10 January 1978, 24 monthly payments of $230 from 10 February 1978)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a consumer-credit compliance specialist, lawyer or accountant yet.",
+      "verifiedOn": "2026-11-25",
+      "dueOn": "2027-02-23",
+      "state": "verified"
+    },
+    {
+      "id": "FIN-002",
+      "surface": "recipe",
+      "title": "Compute an annual percentage rate by the actuarial method of Regulation Z, Appendix J",
+      "href": "/katas/fin-002-annual-percentage-rate",
+      "area": "artifact-validity",
+      "maintainerRole": "Finance pathway maintainer",
+      "provenance": [
+        "The worked examples of Appendix J, paragraphs (b)(9), (c)(1) and (c)(3): cfpb/regulation-z-appendix-j (the examples are printed as images; the script holds the same terms and names each paragraph)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a consumer-credit compliance specialist, lawyer or accountant yet.",
+      "verifiedOn": "2026-11-25",
+      "dueOn": "2027-02-23",
+      "state": "verified"
+    },
+    {
+      "id": "FIN-003",
+      "surface": "recipe",
+      "title": "Check an annual percentage rate against the Regulation Z tolerance",
+      "href": "/katas/fin-003-apr-tolerance",
+      "area": "artifact-validity",
+      "maintainerRole": "Finance pathway maintainer",
+      "provenance": [
+        "12 CFR 1026.22, from the eCFR for 2026-11-23: /examples/finance-pathway/inputs/ecfr-12-cfr-1026-22.xml",
+        "Your FIN-002 rates: Your own output, or /examples/finance-pathway/generated/apr.json"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a consumer-credit compliance specialist, lawyer or accountant yet.",
+      "verifiedOn": "2026-11-25",
+      "dueOn": "2027-02-23",
+      "state": "verified"
+    },
+    {
+      "id": "FIN-R01",
+      "surface": "recipe",
+      "title": "Finance Randori: an unseen change of terms",
+      "href": "/katas/fin-r01-randori",
+      "area": "artifact-validity",
+      "maintainerRole": "Finance pathway maintainer",
+      "provenance": [
+        "Your FIN-002 rate for example (c)(1)(i): Your own output, or /examples/finance-pathway/generated/apr.json",
+        "The Randori cards: The table on /katas/finance-pathway (the partner keeps it; the learner sees only the drawn card)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a consumer-credit compliance specialist, lawyer or accountant yet.",
+      "verifiedOn": "2026-11-25",
+      "dueOn": "2027-02-23",
+      "state": "verified"
+    },
+    {
       "id": "FND-001",
       "surface": "recipe",
       "title": "Build a working prototype, then change one stack variable",
