@@ -1,0 +1,9 @@
+title: "IANA Language Subtag Registry"
+provider: "IANA"
+url: "https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [brand-web-design]
+summary: "The list of language, script and region subtags that language tags such as en, fr or de-CH are built from, dated by its File-Date. A tool decides whether a page's lang attribute names a known language by looking it up here."
+verifiedOn: 2026-11-25

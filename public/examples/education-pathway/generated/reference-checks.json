@@ -1,0 +1,350 @@
+{
+  "source": "W3C ACT Rules test cases (testcases.json, approved cases), downloaded 2026-11-25",
+  "rules": {
+    "2779a5": {
+      "name": "HTML page has non-empty title",
+      "successCriterion": "2.4.2"
+    },
+    "b5c3f8": {
+      "name": "HTML page has lang attribute",
+      "successCriterion": "3.1.1"
+    },
+    "bf051a": {
+      "name": "HTML page lang attribute has valid language tag",
+      "successCriterion": "3.1.1"
+    },
+    "b4f0c3": {
+      "name": "Meta viewport allows for zoom",
+      "successCriterion": "1.4.4"
+    }
+  },
+  "languageSubtagRegistry": "2026-11-18",
+  "passed": 36,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "bf051a-passed-1",
+      "rule": "bf051a",
+      "case": "Passed Example 1",
+      "file": "testcases/bf051a/7d8c4fd028c504d10c4e5e9bd7183c139549e1a1.html",
+      "expected": "passed",
+      "computed": "passed",
+      "status": "pass"
+    },
+    {
+      "id": "bf051a-passed-2",
+      "rule": "bf051a",
+      "case": "Passed Example 2",
+      "file": "testcases/bf051a/a49f11c86ad81c4d42700dfca58a7eeec377f02e.html",
+      "expected": "passed",
+      "computed": "passed",
+      "status": "pass"
+    },
+    {
+      "id": "bf051a-failed-1",
+      "rule": "bf051a",
+      "case": "Failed Example 1",
+      "file": "testcases/bf051a/b7a35f8080e756776877bca013a910dafde8ef73.html",
+      "expected": "failed",
+      "computed": "failed",
+      "status": "pass"
+    },
+    {
+      "id": "bf051a-failed-2",
+      "rule": "bf051a",
+      "case": "Failed Example 2",
+      "file": "testcases/bf051a/5c998eef8cb13a8f577dade1a3b9fe591bc69204.html",
+      "expected": "failed",
+      "computed": "failed",
+      "status": "pass"
+    },
+    {
+      "id": "bf051a-failed-3",
+      "rule": "bf051a",
+      "case": "Failed Example 3",
+      "file": "testcases/bf051a/0f73e7179e17f050380f0ea350d2551611820fd5.html",
+      "expected": "failed",
+      "computed": "failed",
+      "status": "pass"
+    },
+    {
+      "id": "bf051a-failed-4",
+      "rule": "bf051a",
+      "case": "Failed Example 4",
+      "file": "testcases/bf051a/b64d767d873269ff00966630e34ab198fc24368f.html",
+      "expected": "failed",
+      "computed": "failed",
+      "status": "pass"
+    },
+    {
+      "id": "bf051a-inapplicable-1",
+      "rule": "bf051a",
+      "case": "Inapplicable Example 1",
+      "file": "testcases/bf051a/1b73557d29073ecd327790ca1a6e343b4395b2ab.svg",
+      "expected": "inapplicable",
+      "computed": "inapplicable",
+      "status": "pass"
+    },
+    {
+      "id": "2779a5-passed-1",
+      "rule": "2779a5",
+      "case": "Passed Example 1",
+      "file": "testcases/2779a5/7f9f315b5041f3726662bf269613c43678af99d4.html",
+      "expected": "passed",
+      "computed": "passed",
+      "status": "pass"
+    },
+    {
+      "id": "2779a5-passed-2",
+      "rule": "2779a5",
+      "case": "Passed Example 2",
+      "file": "testcases/2779a5/64771c390e57375a822a7223362ea7bb859c0a96.html",
+      "expected": "passed",
+      "computed": "passed",
+      "status": "pass"
+    },
+    {
+      "id": "2779a5-passed-3",
+      "rule": "2779a5",
+      "case": "Passed Example 3",
+      "file": "testcases/2779a5/6b3d2e2147cfc618b744f2dabfaf2e66327055d7.html",
+      "expected": "passed",
+      "computed": "passed",
+      "status": "pass"
+    },
+    {
+      "id": "2779a5-passed-4",
+      "rule": "2779a5",
+      "case": "Passed Example 4",
+      "file": "testcases/2779a5/efa1e0438bb515332ec6b4d943044c336ca77fab.html",
+      "expected": "passed",
+      "computed": "passed",
+      "status": "pass"
+    },
+    {
+      "id": "2779a5-passed-5",
+      "rule": "2779a5",
+      "case": "Passed Example 5",
+      "file": "testcases/2779a5/0ad882dffaf6edd16058119e1c513b4746b0ac27.html",
+      "expected": "passed",
+      "computed": "passed",
+      "status": "pass"
+    },
+    {
+      "id": "2779a5-failed-1",
+      "rule": "2779a5",
+      "case": "Failed Example 1",
+      "file": "testcases/2779a5/820fb18c9bb20fb1a940a0806a87c6f6e468bb5b.html",
+      "expected": "failed",
+      "computed": "failed",
+      "status": "pass"
+    },
+    {
+      "id": "2779a5-failed-2",
+      "rule": "2779a5",
+      "case": "Failed Example 2",
+      "file": "testcases/2779a5/314d991fa5328e41f8a806bfbac84d748b41f7ed.html",
+      "expected": "failed",
+      "computed": "failed",
+      "status": "pass"
+    },
+    {
+      "id": "2779a5-failed-3",
+      "rule": "2779a5",
+      "case": "Failed Example 3",
+      "file": "testcases/2779a5/5fd6fda771cf8810eef5166464622d6979e0406e.html",
+      "expected": "failed",
+      "computed": "failed",
+      "status": "pass"
+    },
+    {
+      "id": "2779a5-failed-4",
+      "rule": "2779a5",
+      "case": "Failed Example 4",
+      "file": "testcases/2779a5/a14968698b0e95b6624f187d4538e320e4fa8952.html",
+      "expected": "failed",
+      "computed": "failed",
+      "status": "pass"
+    },
+    {
+      "id": "2779a5-failed-5",
+      "rule": "2779a5",
+      "case": "Failed Example 5",
+      "file": "testcases/2779a5/4eeff9c95f15e90ca5abc972079112d1ea5c3d51.html",
+      "expected": "failed",
+      "computed": "failed",
+      "status": "pass"
+    },
+    {
+      "id": "2779a5-inapplicable-1",
+      "rule": "2779a5",
+      "case": "Inapplicable Example 1",
+      "file": "testcases/2779a5/ecc29b73e37b6a125b3fd9767068dcaa368d467a.svg",
+      "expected": "inapplicable",
+      "computed": "inapplicable",
+      "status": "pass"
+    },
+    {
+      "id": "b4f0c3-passed-1",
+      "rule": "b4f0c3",
+      "case": "Passed Example 1",
+      "file": "testcases/b4f0c3/312146d84331c7214ed6919391ad955098eff516.html",
+      "expected": "passed",
+      "computed": "passed",
+      "status": "pass"
+    },
+    {
+      "id": "b4f0c3-passed-2",
+      "rule": "b4f0c3",
+      "case": "Passed Example 2",
+      "file": "testcases/b4f0c3/d143bfe343ecf75bceb92b6fc9807cc5f453b319.html",
+      "expected": "passed",
+      "computed": "passed",
+      "status": "pass"
+    },
+    {
+      "id": "b4f0c3-passed-3",
+      "rule": "b4f0c3",
+      "case": "Passed Example 3",
+      "file": "testcases/b4f0c3/4ade33e41dda291c9078e56ca2a95c4825dbc1fe.html",
+      "expected": "passed",
+      "computed": "passed",
+      "status": "pass"
+    },
+    {
+      "id": "b4f0c3-failed-1",
+      "rule": "b4f0c3",
+      "case": "Failed Example 1",
+      "file": "testcases/b4f0c3/accc6adf094723693593ca3c6308f81945930dae.html",
+      "expected": "failed",
+      "computed": "failed",
+      "status": "pass"
+    },
+    {
+      "id": "b4f0c3-failed-2",
+      "rule": "b4f0c3",
+      "case": "Failed Example 2",
+      "file": "testcases/b4f0c3/a1240b31761f65c92a8f6d08ed7105ee822d0ebc.html",
+      "expected": "failed",
+      "computed": "failed",
+      "status": "pass"
+    },
+    {
+      "id": "b4f0c3-failed-3",
+      "rule": "b4f0c3",
+      "case": "Failed Example 3",
+      "file": "testcases/b4f0c3/c7e4980eb42d0b138684ac1e28318a197d86ccfc.html",
+      "expected": "failed",
+      "computed": "failed",
+      "status": "pass"
+    },
+    {
+      "id": "b4f0c3-failed-4",
+      "rule": "b4f0c3",
+      "case": "Failed Example 4",
+      "file": "testcases/b4f0c3/e5695989a43a3297cf6b78182014c7a3848ff7e1.html",
+      "expected": "failed",
+      "computed": "failed",
+      "status": "pass"
+    },
+    {
+      "id": "b4f0c3-inapplicable-1",
+      "rule": "b4f0c3",
+      "case": "Inapplicable Example 1",
+      "file": "testcases/b4f0c3/824fa57ab563edbac93384a58e21b3045bd71c65.html",
+      "expected": "inapplicable",
+      "computed": "inapplicable",
+      "status": "pass"
+    },
+    {
+      "id": "b4f0c3-inapplicable-2",
+      "rule": "b4f0c3",
+      "case": "Inapplicable Example 2",
+      "file": "testcases/b4f0c3/fe4a93d2631e7c54f1c00e3c56e04c927b5144c1.html",
+      "expected": "inapplicable",
+      "computed": "inapplicable",
+      "status": "pass"
+    },
+    {
+      "id": "b4f0c3-inapplicable-3",
+      "rule": "b4f0c3",
+      "case": "Inapplicable Example 3",
+      "file": "testcases/b4f0c3/3a2c170ad31b2c0c387e06c8a3bf7e5409dcdb60.html",
+      "expected": "inapplicable",
+      "computed": "inapplicable",
+      "status": "pass"
+    },
+    {
+      "id": "b4f0c3-inapplicable-4",
+      "rule": "b4f0c3",
+      "case": "Inapplicable Example 4",
+      "file": "testcases/b4f0c3/a36115d7110156fde2fe6187dbb49402096f82fb.html",
+      "expected": "inapplicable",
+      "computed": "inapplicable",
+      "status": "pass"
+    },
+    {
+      "id": "b5c3f8-passed-1",
+      "rule": "b5c3f8",
+      "case": "Passed Example 1",
+      "file": "testcases/b5c3f8/0fac26928e2bf6b7db6c7f46a1e0ab50aaa8a7c1.html",
+      "expected": "passed",
+      "computed": "passed",
+      "status": "pass"
+    },
+    {
+      "id": "b5c3f8-failed-1",
+      "rule": "b5c3f8",
+      "case": "Failed Example 1",
+      "file": "testcases/b5c3f8/473352935acf2463b14dbd8e38073e913eeb5c08.html",
+      "expected": "failed",
+      "computed": "failed",
+      "status": "pass"
+    },
+    {
+      "id": "b5c3f8-failed-2",
+      "rule": "b5c3f8",
+      "case": "Failed Example 2",
+      "file": "testcases/b5c3f8/98681b2a7949e49b2da1b353f70e688528fe7ddc.html",
+      "expected": "failed",
+      "computed": "failed",
+      "status": "pass"
+    },
+    {
+      "id": "b5c3f8-failed-3",
+      "rule": "b5c3f8",
+      "case": "Failed Example 3",
+      "file": "testcases/b5c3f8/4ea0280617a1b71dcc327356484f8767919b0f40.html",
+      "expected": "failed",
+      "computed": "failed",
+      "status": "pass"
+    },
+    {
+      "id": "b5c3f8-failed-4",
+      "rule": "b5c3f8",
+      "case": "Failed Example 4",
+      "file": "testcases/b5c3f8/4f94c3e26f43701d91db403fe26cd8894bdc8ccf.html",
+      "expected": "failed",
+      "computed": "failed",
+      "status": "pass"
+    },
+    {
+      "id": "b5c3f8-inapplicable-1",
+      "rule": "b5c3f8",
+      "case": "Inapplicable Example 1",
+      "file": "testcases/b5c3f8/b584aa8aeb33814a0ecb63fd9ed4d97f2211f837.svg",
+      "expected": "inapplicable",
+      "computed": "inapplicable",
+      "status": "pass"
+    },
+    {
+      "id": "b5c3f8-inapplicable-2",
+      "rule": "b5c3f8",
+      "case": "Inapplicable Example 2",
+      "file": "testcases/b5c3f8/58847c387d3b2cfa7e57c6ed613a8f31569cfd30.xml",
+      "expected": "inapplicable",
+      "computed": "inapplicable",
+      "status": "pass"
+    }
+  ]
+}

@@ -232,6 +232,24 @@ media_pathway:
       - media-pathway-out
     expire_in: 30 days
 
+education_pathway:
+  stage: validate
+  image: python:3.12-slim
+  needs: []
+  rules:
+    - !reference [.skip-in-production-e2e, rules]
+    - when: on_success
+  script:
+    # Standard library only: nothing to install. The page, the registry and the W3C test cases are committed and
+    # hash-pinned; tools/fetch_input.py is for maintainers and never runs here.
+    - python -I public/examples/education-pathway/tools/education_pathway.py public/examples/education-pathway education-pathway-out
+    - diff -r education-pathway-out public/examples/education-pathway/generated
+  artifacts:
+    when: always
+    paths:
+      - education-pathway-out
+    expire_in: 30 days
+
 # Blocking: dist/ link check. Every internal href/src/srcset in the built pages must resolve.
 links:
   extends: .node
@@ -377,7 +395,7 @@ e2e:production:
 # Internal GitLab Pages preview of the built site.
 pages:
   stage: deploy
-  needs: [check, test, ux_pathway, bim_pathway, agriculture_pathway, science_pathway, finance_pathway, manufacturing_pathway, media_pathway, build, e2e, links]
+  needs: [check, test, ux_pathway, bim_pathway, agriculture_pathway, science_pathway, finance_pathway, manufacturing_pathway, media_pathway, education_pathway, build, e2e, links]
   interruptible: false
   script:
     - sha256sum -c search-index.sha256
@@ -399,7 +417,7 @@ pages:
 # event lists evaluated at build time) always reaches GitHub Pages.
 publish_github_pages:
   stage: deploy
-  needs: [check, test, ux_pathway, bim_pathway, agriculture_pathway, science_pathway, finance_pathway, manufacturing_pathway, media_pathway, build, e2e, links]
+  needs: [check, test, ux_pathway, bim_pathway, agriculture_pathway, science_pathway, finance_pathway, manufacturing_pathway, media_pathway, education_pathway, build, e2e, links]
   interruptible: false
   resource_group: github-pages-release
   variables:

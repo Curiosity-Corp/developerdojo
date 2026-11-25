@@ -45,6 +45,9 @@ export const galleryOutcomeLabels: Record<string, string> = {
   'inspect-audio-recording': 'Inspect an audio recording',
   'measure-programme-loudness': 'Measure programme loudness and true peak',
   'normalise-loudness': 'Plan a loudness normalisation',
+  'inspect-learning-page': 'Inspect a learning page',
+  'run-accessibility-rules': 'Run accessibility rules on a learning page',
+  'report-accessibility-outcomes': 'Report accessibility rule outcomes against WCAG',
   'check-apr-tolerance': 'Check an annual percentage rate against its tolerance',
 };
 
@@ -417,5 +420,39 @@ export const galleryEntries: GalleryEntryInput[] = [
     fieldIds: ['media'],
     kataId: 'MED-002',
     exercise: { title: 'Follow the media pathway', href: '/katas/media-pathway' },
+  },
+  {
+    id: 'education-accessibility-report',
+    title: 'Four W3C accessibility rules and a WCAG 2.2 report on an open textbook page',
+    summary: 'The EDU-002 and EDU-003 worked example. Four ACT rules written from their W3C definitions first give all 36 approved W3C test cases their expected outcome, then check a Wikibooks textbook chapter, and the outcomes are mapped to WCAG 2.2 without claiming more than they test.',
+    form: 'native',
+    artifact: {
+      format: 'Rule outcomes and a WCAG 2.2 report (JSON), the page inspection (JSON) and a one-page summary (Markdown)',
+      files: [
+        { label: 'Read the results summary', href: '/examples/education-pathway/generated/summary.md' },
+        { label: 'Download the WCAG 2.2 report (JSON)', href: '/examples/education-pathway/generated/report.json' },
+        { label: 'Download the rule outcomes (JSON)', href: '/examples/education-pathway/generated/rules.json' },
+      ],
+    },
+    provenance: {
+      creator: 'Developer Dojo maintainers (script and results); Wikibooks contributors (textbook page); W3C (WCAG 2.2, ACT rules and test cases); IANA (language subtag registry)',
+      madeWith: 'A Python 3.12 script with no packages, published next to the results, written from the W3C ACT rule definitions.',
+      source: 'The Wikibooks page High School Mathematics Extensions/Matrices (revision 266672), WCAG 2.2, the W3C ACT Rules and their test cases, and the IANA Language Subtag Registry, read on 2026-11-25.',
+      rights: 'The page is CC BY-SA 4.0 (Wikibooks contributors), served unchanged. The ACT test cases are under the W3C Software and Document License. The script and results are Dojo material under the MIT licence.',
+      rightsHref: '/examples/education-pathway/README.md',
+      created: '2026-11-25',
+    },
+    verification: {
+      method: 'automated-check',
+      date: '2026-11-25',
+      checked: 'Every pipeline reruns the script, which first checks its four rules against the approved W3C test cases, and fails if any output differs from the published files.',
+      notChecked: 'No conformance or legal compliance claim for the page or any site; every WCAG criterion beyond the three the rules touch is untested. No learner and no accessibility specialist, assistive technology user or legal reviewer review.',
+      evidenceHref: '/katas/education-pathway',
+      nextCheck: QUARTERLY,
+    },
+    outcomeIds: ['report-accessibility-outcomes'],
+    fieldIds: ['education'],
+    kataId: 'EDU-003',
+    exercise: { title: 'Follow the education pathway', href: '/katas/education-pathway' },
   },
 ];

@@ -1,0 +1,196 @@
+# Education pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/education-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job education_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Education pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a digital accessibility specialist, an assistive technology user or an education accessibility compliance reviewer yet.
+summary: "Write four W3C ACT rules from their published definitions: page title, page language present, page language valid and viewport zoom. Check them against every approved W3C test case before you trust them, then run them on the textbook page."
+metadata:
+  id: EDU-002
+  title: "Run accessibility rules you checked against the W3C’s own test cases"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - run-accessibility-rules
+  artifactTypes:
+    - rule-outcomes
+  domainIds:
+    - education
+  capabilityIds:
+    - test-accessibility
+    - validate-information
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+    - licensed-sample-only
+  externalResources:
+    - w3c/act-rules-test-cases
+    - iana/language-subtag-registry
+    - wikibooks/high-school-mathematics-extensions-matrices
+  crossFieldTransfers:
+    - ux
+  standards:
+    - name: W3C ACT Rules 2779a5, b5c3f8, bf051a and b4f0c3
+      version: "2779a5 and b5c3f8 of 31 August 2023, bf051a proposed version of 21 June 2022, b4f0c3 of 25 October 2022; read 2026-11-25"
+      applicability: "Each rule’s applicability, expectations and definitions, on documents served as text/html, read before any script runs"
+      reviewScope: "What the listed checks test: that the rules give the W3C’s expected outcome for all 36 approved test cases, and that their outcomes on the page match the CI output. No claim that the rules are a complete accessibility test."
+      sourceResourceId: w3c/act-rules-test-cases
+    - name: IANA Language Subtag Registry
+      version: "File-Date 2026-11-18; downloaded 2026-11-25"
+      applicability: "The subtags of Type language, which decide whether a lang value has a known primary language tag (rule bf051a)"
+      reviewScope: "What the listed checks test: the bf051a test cases, including a three-letter code and a grandfathered tag that must fail."
+      sourceResourceId: iana/language-subtag-registry
+  verificationEvidence:
+    - description: The 36 approved W3C test cases give their expected outcome, and the four rules’ outcomes on the page match the CI output
+      method: automated-check
+    - description: The learner explains why lang="eng" fails rule bf051a when lang="en-US-GB" passes
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Writes rule 2779a5 and passes its 11 approved test cases, including the page whose first title is empty and whose second is not
+    - stage: adapt
+      criterion: Adds b5c3f8, bf051a with the registry and b4f0c3, and passes all 36 test cases before running the rules on the page
+    - stage: demonstrate
+      criterion: Explains to a reviewer why the viewport rule is inapplicable to the page rather than passed, and what that leaves untested
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: an open-textbook chapter from Wikibooks inspected as served, four W3C ACT rules checked against the W3C’s own test cases and then run on it, and the outcomes mapped to WCAG 2.2, all computed by the site’s CI."
+  href: /katas/education-pathway
+  provenance:
+    creator: Wikibooks contributors (the textbook page); W3C (WCAG 2.2, ACT rules and test cases); IANA (language subtag registry); Developer Dojo maintainers (script and results)
+    source: The Wikibooks page High School Mathematics Extensions/Matrices, revision 266672, WCAG 2.2 and the W3C ACT Rules (read 2026-11-25); results from /examples/education-pathway/tools/education_pathway.py
+    license: Page CC BY-SA 4.0 (Wikibooks contributors), served unchanged; ACT test cases under the W3C Software and Document License; script and outputs MIT
+    date: "2026-11-25"
+brief:
+  goal: The four rules’ outcomes on the textbook page, from rules that passed the W3C’s test cases first.
+  audience: Learners who finished EDU-001 and want to know what an automated accessibility checker decides, rather than read its verdict.
+  inputs:
+    - name: The W3C ACT test case index and the 36 approved test cases of the four rules
+      source: /examples/education-pathway/inputs/act-rules/testcases.json
+      terms: W3C Software and Document License; the notice is in inputs/act-rules/NOTICE.md
+    - name: The IANA Language Subtag Registry
+      source: /examples/education-pathway/inputs/language-subtag-registry.txt
+      terms: IANA registry, published for anyone to use
+    - name: The Wikibooks page, as served
+      source: /examples/education-pathway/inputs/matrices.html
+      terms: CC BY-SA 4.0, Wikibooks contributors
+  doneWhen:
+    - Your rules give every approved test case its expected outcome
+    - Your outcomes on the page match /examples/education-pathway/generated/rules.json
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: A web browser and a text editor
+      version:
+        unavailable: Not fixed; any browser that shows a page’s source and any editor that opens HTML work
+      permissions: Opens a copy of the files
+      cost:
+        unavailable: Depends on the apps you use; free ones work
+    - part: data
+      name: The Wikibooks page High School Mathematics Extensions/Matrices (HTML)
+      version: "Revision 266672, downloaded 2026-11-25, SHA-256 c42e87b5…d1dcd099"
+      permissions: Read a copy
+      cost: Free (CC BY-SA 4.0)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain HTML or draft a parser, and every count it gives is checked against the CI output
+      permissions: Reads what you paste in; paste only the public page, never a student’s work, grades or records
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library has an HTML parser, runs offline with nothing to install, and gives the same counts on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A browser extension or an online accessibility checker
+      tradeoff: Faster and it renders the page, but you cannot see what it counted or why. Not tried for this pathway, so their results are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains each rule’s applicability and expectations and drafts Python for them.
+      reviewGate: You run the code and keep it only if every approved W3C test case gives its expected outcome.
+    - role: Learner as reviewer
+      responsibility: Reads each rule page and decides by hand the outcome of three test cases per rule before running the code.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: An outcome on the page stays only if the rules passed the test cases first.
+setup:
+  steps:
+    - Use the folder and Python from EDU-001.
+    - Open the four rule pages on the W3C site beside the script.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/education_pathway.py . out"
+    expected: "36 reference checks pass: 2779a5 11, b5c3f8 7, bf051a 7, b4f0c3 11"
+    result: passed
+    evidence: /examples/education-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+    date: "2026-11-25"
+prompts:
+  - id: write-the-rules
+    title: Write the rules from their definitions, then test them
+    purpose: Know exactly what an automated rule decides and prove your code decides it.
+    text: |-
+      Here are the applicability, expectations and definitions of the W3C ACT rule <paste the rule>. Explain them in plain words, then give me Python, standard library only, that returns passed, failed or inapplicable for one HTML file.
+      I will check it against the rule’s approved test cases from the W3C before I use it, so follow the text I pasted, not what you remember about the rule. If the text leaves a case open, say so.
+exercise:
+  title: High School Mathematics Extensions, Matrices (Wikibooks)
+  resourceId: wikibooks/high-school-mathematics-extensions-matrices
+  terms: CC BY-SA 4.0, Wikibooks contributors. Attribute the page and keep the licence on anything you share that copies it.
+execution:
+  steps:
+    - actor: Explaining assistant
+      action: Drafts the four rules from the text you paste.
+      handoff: You run them on the W3C test cases.
+    - actor: Learner
+      action: Fix the rules until every approved test case gives its expected outcome, then run them on the page.
+    - actor: Learner
+      action: Write down which outcomes are passed, which failed and which inapplicable, and why.
+verification:
+  checks:
+    - action: Check the rules against the W3C test cases with the pathway script
+      expected: "36 of 36 give the expected outcome: 2779a5 11 cases, b5c3f8 7, bf051a 7, b4f0c3 11; the .svg and .xml cases are inapplicable because they are not text/html"
+      result: passed
+      evidence: /examples/education-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+      date: "2026-11-25"
+    - action: Run the rules on the page
+      expected: "2779a5 passed, b5c3f8 passed (lang=en), bf051a passed (en is a language subtag in the registry of 2026-11-18), b4f0c3 inapplicable (the viewport is width=1120, with neither maximum-scale nor user-scalable)"
+      result: passed
+      evidence: /examples/education-pathway/generated/rules.json, recomputed by CI on every pipeline
+      date: "2026-11-25"
+    - action: Your own code reproduces the same outcomes
+      expected: The same outcome for every test case and for the page
+      result: not-run
+  failures:
+    - observed: Rule bf051a passes lang="eng"
+      correction: The registry lists English as en. A three-letter code with a two-letter equivalent is not in it, so eng is not a known primary language tag, as the rule’s assumptions say.
+    - observed: Rule b4f0c3 passes maximum-scale=yes
+      correction: Yes is not a number, so it does not allow zoom of 2 or more. Only device-width, device-height, a negative number or a number of 2 or more pass.
+    - observed: Rule 2779a5 passes a page whose first title is empty and whose second one has text
+      correction: The rule reads the first HTML title element only. Check the first, not any.
+adaptation:
+  variations:
+    - change: Add the rule HTML page title is descriptive (c4a8a4)
+      effect: It needs a person to judge, so your code can only collect the titles; write down who decides.
+randori:
+  challenge: See the education Randori recipe, EDU-R01.
+  constraints:
+    - The rules pass every approved W3C test case before they run on the page
+  evaluation: The test case outcomes and the page outcomes match the CI output.
+maintenance:
+  cadence: Every six months, or when the W3C revises WCAG or the ACT rules, IANA updates the registry, or Wikibooks changes the page
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on one openly licensed textbook page, not an accessibility conformance claim or a legal compliance check. No accessibility specialist has reviewed it.
+    - Four rules only; every other WCAG success criterion is untested.

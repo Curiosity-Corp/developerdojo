@@ -1,0 +1,181 @@
+# Education pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/education-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job education_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Education pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a digital accessibility specialist, an assistive technology user or an education accessibility compliance reviewer yet.
+summary: "Turn rule outcomes into what they do and do not say about WCAG 2.2: apply the outcome mapping of each ACT rule, write which success criteria are not satisfied and which need further testing, and list what nothing here tested."
+metadata:
+  id: EDU-003
+  title: "Report what the rules say about WCAG 2.2, and what they leave untested"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - report-accessibility-outcomes
+  artifactTypes:
+    - accessibility-report
+  domainIds:
+    - education
+  capabilityIds:
+    - test-accessibility
+    - validate-information
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+    - licensed-sample-only
+  externalResources:
+    - w3c/wcag-22-recommendation
+    - w3c/act-rules-test-cases
+    - wikibooks/high-school-mathematics-extensions-matrices
+  crossFieldTransfers:
+    - ux
+  standards:
+    - name: Web Content Accessibility Guidelines (WCAG) 2.2
+      version: "W3C Recommendation, 12 December 2024; read 2026-11-25"
+      applicability: "Success criteria 1.4.4 Resize text (AA), 2.4.2 Page Titled (A) and 3.1.1 Language of Page (A), through the outcome mapping each ACT rule page gives: any failed outcome means not satisfied; passed and inapplicable mean further testing is needed"
+      reviewScope: "What the listed checks test: that the report follows the mapping and matches the CI output. No conformance claim for the page or any site, and no legal advice."
+      sourceResourceId: w3c/wcag-22-recommendation
+  verificationEvidence:
+    - description: The conclusion for each of the three success criteria and the list of what is not tested, matching the CI output
+      method: automated-check
+    - description: A reviewer checks that the report claims nothing the rules did not test
+      method: sensei-review
+  beltCriteria:
+    - stage: practice
+      criterion: Writes the conclusion for each of the three success criteria from the rule outcomes and the mapping
+    - stage: adapt
+      criterion: Lists at least three success criteria the rules did not test and says who or what could test each
+    - stage: demonstrate
+      criterion: Explains to a reviewer why four passed or inapplicable rules do not make the page conform to WCAG 2.2, or to WCAG 2.1 Level AA as 28 CFR 35.200 asks of US public entities
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: an open-textbook chapter from Wikibooks inspected as served, four W3C ACT rules checked against the W3C’s own test cases and then run on it, and the outcomes mapped to WCAG 2.2, all computed by the site’s CI."
+  href: /katas/education-pathway
+  provenance:
+    creator: Wikibooks contributors (the textbook page); W3C (WCAG 2.2, ACT rules and test cases); IANA (language subtag registry); Developer Dojo maintainers (script and results)
+    source: The Wikibooks page High School Mathematics Extensions/Matrices, revision 266672, WCAG 2.2 and the W3C ACT Rules (read 2026-11-25); results from /examples/education-pathway/tools/education_pathway.py
+    license: Page CC BY-SA 4.0 (Wikibooks contributors), served unchanged; ACT test cases under the W3C Software and Document License; script and outputs MIT
+    date: "2026-11-25"
+brief:
+  goal: A short accessibility report on the textbook page that says what was checked, what it found and what it did not check.
+  audience: Learners who finished EDU-002, and anyone who has to tell a school or a course team what an automated check means.
+  inputs:
+    - name: Your EDU-002 rule outcomes
+      source: Your own output, or /examples/education-pathway/generated/rules.json
+      terms: Dojo output, MIT licence
+    - name: WCAG 2.2 and the outcome mapping on each ACT rule page
+      source: w3c/wcag-22-recommendation and w3c/act-rules-test-cases
+      terms: W3C publications, read free of charge; cited and linked
+  doneWhen:
+    - Your conclusions match /examples/education-pathway/generated/report.json
+    - Your report names what it did not test, and claims no conformance
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: A web browser and a text editor
+      version:
+        unavailable: Not fixed; any browser that shows a page’s source and any editor that opens HTML work
+      permissions: Opens a copy of the files
+      cost:
+        unavailable: Depends on the apps you use; free ones work
+    - part: data
+      name: The Wikibooks page High School Mathematics Extensions/Matrices (HTML)
+      version: "Revision 266672, downloaded 2026-11-25, SHA-256 c42e87b5…d1dcd099"
+      permissions: Read a copy
+      cost: Free (CC BY-SA 4.0)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain HTML or draft a parser, and every count it gives is checked against the CI output
+      permissions: Reads what you paste in; paste only the public page, never a student’s work, grades or records
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library has an HTML parser, runs offline with nothing to install, and gives the same counts on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A browser extension or an online accessibility checker
+      tradeoff: Faster and it renders the page, but you cannot see what it counted or why. Not tried for this pathway, so their results are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Drafts the report from the rule outcomes and the mapping you paste.
+      reviewGate: You strike every sentence that claims more than the rules tested.
+    - role: Learner as reviewer
+      responsibility: Checks each conclusion against the mapping and adds what was not tested.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: The report says "further testing needed" wherever a rule did not fail.
+setup:
+  steps:
+    - Use the folder and the outcomes from EDU-002.
+    - Open WCAG 2.2 at success criteria 1.4.4, 2.4.2 and 3.1.1.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/education_pathway.py . out"
+    expected: "out/report.json lists 1.4.4, 2.4.2 and 3.1.1, each with further testing needed, and no failed criterion"
+    result: passed
+    evidence: /examples/education-pathway/generated/report.json, recomputed by CI on every pipeline
+    date: "2026-11-25"
+prompts:
+  - id: claim-no-more
+    title: Report the outcomes, and claim no more
+    purpose: Keep an automated result from turning into a conformance claim.
+    text: |-
+      Four automated accessibility rules gave these outcomes on a textbook page: <paste rules.json>. Each rule page maps its outcomes to a WCAG 2.2 success criterion: any failed outcome means the criterion is not satisfied; passed and inapplicable outcomes mean further testing is needed.
+      Draft a short report with one line per success criterion, then a list of what these rules did not test. Do not say the page is accessible or conforms to anything. If you are not sure what a criterion covers, say so.
+exercise:
+  title: High School Mathematics Extensions, Matrices (Wikibooks)
+  resourceId: wikibooks/high-school-mathematics-extensions-matrices
+  terms: CC BY-SA 4.0, Wikibooks contributors. Attribute the page and keep the licence on anything you share that copies it.
+execution:
+  steps:
+    - actor: Explaining assistant
+      action: Drafts the report from the outcomes and the mapping.
+      handoff: You compare it with the mapping, line by line.
+    - actor: Learner
+      action: Strike every claim the rules do not support, and add the untested criteria.
+    - actor: Learner
+      action: Compare the conclusions with the CI output.
+verification:
+  checks:
+    - action: Map the page’s outcomes to WCAG 2.2 with the pathway script
+      expected: "1.4.4 Resize text (AA): further testing needed (b4f0c3 inapplicable); 2.4.2 Page Titled (A): further testing needed (2779a5 passed); 3.1.1 Language of Page (A): further testing needed (b5c3f8 and bf051a passed); no criterion not satisfied"
+      result: passed
+      evidence: /examples/education-pathway/generated/report.json, recomputed by CI on every pipeline
+      date: "2026-11-25"
+    - action: A reviewer reads your report for claims the rules do not support
+      expected: No conformance claim; every untested criterion named as untested
+      result: not-run
+  failures:
+    - observed: The report says the page meets 2.4.2 because rule 2779a5 passed
+      correction: The rule only checks that a non-empty title exists. Whether it describes the page is rule c4a8a4, which needs a person, so the criterion still needs further testing.
+    - observed: The report says 1.4.4 passed
+      correction: "Rule b4f0c3 was inapplicable: the viewport sets neither maximum-scale nor user-scalable. Inapplicable says nothing about whether the text resizes; test it at 200 % zoom in a browser."
+adaptation:
+  variations:
+    - change: Write the report for a school that must meet WCAG 2.1 Level AA under 28 CFR 35.200
+      effect: The three criteria are in WCAG 2.1 too, so the conclusions stay the same; the list of untested criteria grows to all of Level A and AA.
+randori:
+  challenge: See the education Randori recipe, EDU-R01.
+  constraints:
+    - Claim nothing the rules did not test
+  evaluation: The conclusions match the CI output and a reviewer finds no unsupported claim.
+maintenance:
+  cadence: Every six months, or when the W3C revises WCAG or the ACT rules, or Wikibooks changes the page
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on one openly licensed textbook page, not an accessibility conformance claim, legal advice or a compliance check. No accessibility specialist or legal reviewer has reviewed it.
+    - The report covers three success criteria through four rules; every other criterion is untested.

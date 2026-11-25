@@ -10,6 +10,7 @@ test('every sector pathway shows its field template and where qualified review s
     ['/katas/finance-pathway/', 'finance', 'Amount financed', '12 CFR part 1026'],
     ['/katas/manufacturing-pathway/', 'manufacturing', 'Subgroup', 'NIST/SEMATECH e-Handbook'],
     ['/katas/media-pathway/', 'media', 'K-weighting', 'ITU-R BS.1770'],
+    ['/katas/education-pathway/', 'education', 'Outcome mapping', 'WCAG 2.2'],
   ] as const) {
     await page.goto(route);
     const template = page.locator(`[data-sector-template="${id}"]`);
@@ -32,7 +33,7 @@ test('the fields page keeps the sector plan apart from what is delivered', async
   await page.goto('/fields/');
   const plan = page.locator('[data-sector-plan]');
   await expect(plan.locator('tbody tr')).toHaveCount(10);
-  await expect(plan.locator('[data-coverage="sector-pathway"]')).toHaveCount(7);
+  await expect(plan.locator('[data-coverage="sector-pathway"]')).toHaveCount(8);
   await expect(plan.locator('[data-group="business-public-service"]').getByRole('link', { name: /Finance: from a loan’s terms/ })).toHaveAttribute('href', '/katas/finance-pathway');
   await expect(plan.locator('[data-group="business-public-service"]')).not.toContainText('In the plan only, no course yet');
   await expect(plan.locator('[data-group="science-engineering"]').getByRole('link', { name: /Science and research: from a published record/ })).toHaveAttribute('href', '/katas/science-pathway');
@@ -41,7 +42,9 @@ test('the fields page keeps the sector plan apart from what is delivered', async
   await expect(plan.locator('[data-group="industrial-hardware"]')).not.toContainText('In the plan only, no course yet');
   await expect(plan.locator('[data-group="spatial-media"]').getByRole('link', { name: /Media: from a recording/ })).toHaveAttribute('href', '/katas/media-pathway');
   await expect(plan.locator('[data-group="spatial-media"]')).not.toContainText('In the plan only, no course yet');
-  await expect(plan.locator('[data-group="learning-communications"]')).toContainText('In the plan only, no course yet');
+  await expect(plan.locator('[data-group="learning-communications"]').getByRole('link', { name: /Education: from a learning page/ })).toHaveAttribute('href', '/katas/education-pathway');
+  await expect(plan.locator('[data-group="learning-communications"]')).not.toContainText('In the plan only, no course yet');
+  await expect(plan.locator('[data-coverage="planned"]')).toHaveCount(0);
   await expect(plan.locator('[data-group="robotics"]')).toContainText('Related track only, no sector pathway yet');
 });
 

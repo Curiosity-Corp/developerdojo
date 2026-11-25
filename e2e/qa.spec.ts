@@ -139,6 +139,9 @@ const REFLOW_ROUTES = [
   // The media pathway and its widest recipe page (#93).
   '/katas/media-pathway/',
   '/katas/med-002-measure-loudness/',
+  // The education pathway and its widest recipe page (#93).
+  '/katas/education-pathway/',
+  '/katas/edu-002-run-act-rules/',
   // Optional Ignite Curiosity journeys (#83).
   '/journeys/',
   '/journeys/robotics/',

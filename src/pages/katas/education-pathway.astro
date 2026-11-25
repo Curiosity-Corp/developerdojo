@@ -1,0 +1,173 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectorPackEvidence from '../../components/SectorPackEvidence.astro';
+// Every number on this page is read from the files CI recomputes
+// (/examples/education-pathway/tools/education_pathway.py, job education_pathway).
+import manifest from '../../../public/examples/education-pathway/generated/manifest.json';
+import referenceChecks from '../../../public/examples/education-pathway/generated/reference-checks.json';
+import inspection from '../../../public/examples/education-pathway/generated/inspection.json';
+import rules from '../../../public/examples/education-pathway/generated/rules.json';
+import report from '../../../public/examples/education-pathway/generated/report.json';
+import cards from '../../../public/examples/education-pathway/generated/randori/cards.json';
+
+const EX = '/examples/education-pathway';
+const GEN = `${EX}/generated`;
+const PAGE = 'inputs/matrices.html';
+const pageSha = (manifest.inputs as Record<string, string>)[PAGE];
+if (!pageSha) throw new Error(`The education manifest has no hash for ${PAGE}`);
+const steps = [
+  { id: 'EDU-001', href: '/katas/edu-001-inspect-learning-page', title: 'Inspect a learning page', does: 'Read an open textbook page as a reader’s browser receives it: its title, language, viewport, headings, images, links and tables.' },
+  { id: 'EDU-002', href: '/katas/edu-002-run-act-rules', title: 'Run accessibility rules', does: 'Build four W3C ACT rules, check them against every approved W3C test case, then run them on the page.' },
+  { id: 'EDU-003', href: '/katas/edu-003-report-accessibility', title: 'Report against WCAG 2.2', does: 'Map each rule outcome to its success criterion, and write down what the rules leave untested.' },
+  { id: 'EDU-R01', href: '/katas/edu-r01-randori', title: 'Education Randori: an unseen change', does: 'A partner reveals one change to the page after you start; predict which rule and criterion move, then recompute.' },
+];
+const ruleRows = Object.entries(rules).map(([id, rule]) => ({ id, name: rule.name, outcome: rule.outcome, criterion: referenceChecks.rules[id as keyof typeof referenceChecks.rules].successCriterion }));
+const cardRows = Object.entries(cards).map(([id, card]) => ({
+  id,
+  title: card.title,
+  rules: Object.entries(card.rulesChanged).map(([rule, change]) => `${rule}: ${change.replace(' -> ', ' → ')}`).join('; '),
+  criteria: Object.entries(card.criteriaChanged).map(([criterion, change]) => `${criterion}: ${change.replace(' -> ', ' → ')}`).join('; '),
+}));
+const levels = inspection.headings.byLevel;
+const sources = {
+  wcag22: 'https://www.w3.org/TR/WCAG22/',
+  actRules: 'https://www.w3.org/WAI/standards-guidelines/act/rules/',
+  testcases: 'https://www.w3.org/WAI/content-assets/wcag-act-rules/testcases.json',
+  registry: 'https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry',
+  ecfr: 'https://www.ecfr.gov/current/title-28/chapter-I/part-35/subpart-H/section-35.200',
+  page: 'https://en.wikibooks.org/wiki/High_School_Mathematics_Extensions/Matrices',
+  history: 'https://en.wikibooks.org/w/index.php?title=High_School_Mathematics_Extensions/Matrices&action=history',
+  ccBySa: 'https://creativecommons.org/licenses/by-sa/4.0/',
+};
+const outcomeLabel = (outcome: string) => outcome.charAt(0).toUpperCase() + outcome.slice(1);
+---
+<BaseLayout title="Education pathway: from a learning page to a checked accessibility report" description="Follow an education pathway: inspect an open textbook page, run four W3C accessibility rules you first check against the W3C’s own test cases, and report what they show about WCAG 2.2, every result computed in CI.">
+  <PageHero compact eyebrow="Education · Pathway" title="From a learning page to a checked accessibility report" accent="." subtitle="Four katas on web accessibility for learning material, on an openly licensed Wikibooks chapter and the W3C’s WCAG 2.2 and ACT rules. Each step has a file you can open and a result that CI computes again on every pipeline." ctas={[
+    { label: 'Start with EDU-001', href: '/katas/edu-001-inspect-learning-page', icon: 'play' },
+    { label: 'Open the report', href: `${GEN}/report.json`, variant: 'ghost', icon: 'arrow-right' },
+  ]} />
+
+  <section class="section" aria-labelledby="outcome-title"><div class="container narrow">
+    <p class="eyebrow">01 / The files</p>
+    <h2 id="outcome-title">One textbook page, rules checked first, every result rerun</h2>
+    <p>The page is the Wikibooks chapter “High School Mathematics Extensions/Matrices” (revision {inspection.revision}), saved exactly as Wikibooks served it to a reader: {Math.round(inspection.bytes / 1e2) / 10} kB of HTML. WCAG 2.2 states the success criteria, and the W3C’s ACT rules state exactly how to test parts of them, each with published test cases and their expected outcomes. The script checks its rules against those test cases before it looks at the page.</p>
+    <ul class="links">
+      <li><a href={`${EX}/${PAGE}`} download>The page</a> (HTML): Wikibooks’ file, unchanged, CC BY-SA 4.0.</li>
+      <li><a href={`${EX}/inputs/act-rules/testcases.json`}>The W3C test case index</a> with the {referenceChecks.checks.length} approved test cases used, and <a href={`${EX}/inputs/language-subtag-registry.txt`}>the IANA Language Subtag Registry</a> (File-Date {referenceChecks.languageSubtagRegistry}).</li>
+      <li><a href={`${GEN}/inspection.json`}>The page inspection</a>, <a href={`${GEN}/rules.json`}>the rule outcomes</a> and <a href={`${GEN}/report.json`}>the WCAG report</a> (JSON).</li>
+      <li><a href={`${GEN}/summary.md`}>The result summary</a> (Markdown) and every result under <a href={`${GEN}/manifest.json`}>the manifest</a>, with the method and every input hash.</li>
+      <li><a href={`${EX}/tools/education_pathway.py`}>The pathway script</a> (Python 3.12, standard library only, MIT), so you can rerun every result yourself.</li>
+      <li><a href={`${EX}/README.md`}>README</a>: sources, terms, how to rerun the checks, and what they do not cover.</li>
+    </ul>
+  </div></section>
+
+  <section class="section" aria-labelledby="steps-title"><div class="container narrow">
+    <p class="eyebrow">02 / The steps</p>
+    <h2 id="steps-title">Four katas, in order</h2>
+    <p>Each kata has a brief, prompts, checks and the evidence for the checks the Dojo has run. They are drafts: the Dojo built the example and CI checks it, and no learner has run them yet. Do the foundations first: <a href="/katas/compare-instructions">Compare AI instructions</a> and <a href="/katas/context-trap">Spot a context trap</a>.</p>
+    <ol class="steps">
+      {steps.map((step) => <li><a href={step.href}><span class="step-id">{step.id}</span> {step.title}</a><p>{step.does}</p></li>)}
+    </ol>
+  </div></section>
+
+  <section class="section" aria-labelledby="checks-title"><div class="container narrow">
+    <p class="eyebrow">03 / The checks</p>
+    <h2 id="checks-title">Check the rules, then use them</h2>
+    <p>These results come from CI: the pipeline reruns <code>/examples/education-pathway/tools/education_pathway.py</code> and fails if any output differs from the published files.</p>
+
+    <h3 id="reference-title">Reference checks: the W3C test cases</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="reference-caption">
+      <table>
+        <caption id="reference-caption">Every approved W3C test case of the four rules, the outcome the W3C publishes and the script’s outcome</caption>
+        <thead><tr><th scope="col">Rule</th><th scope="col">Test case</th><th scope="col">Published</th><th scope="col">Computed</th><th scope="col">Result</th></tr></thead>
+        <tbody>
+          {referenceChecks.checks.map((check) => <tr><td>{check.rule}</td><td>{check.case}</td><td>{check.expected}</td><td>{check.computed}</td><td data-reference-check={check.id}>{check.status === 'pass' ? 'Pass' : 'Fail'}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p><strong>{referenceChecks.passed} passed, {referenceChecks.failed} failed</strong>. The script stops without writing any result if one outcome differs, so every outcome below comes from rules that gave the W3C’s answer on all of its test cases. <a href={`${GEN}/reference-checks.json`}>Result (JSON)</a>.</p>
+
+    <h3 id="inspect-title">The page (EDU-001)</h3>
+    <p>Title: “<span data-inspection="title">{inspection.title}</span>”. Language <code data-inspection="lang">{inspection.htmlLang}</code>, direction {inspection.htmlDir}, viewport <code>{inspection.viewport.join(', ')}</code>. {inspection.headings.count} headings ({levels.h1} h1, {levels.h2} h2, {levels.h3} h3, {levels.h4} h4), {inspection.headings.skippedLevels.length === 0 ? 'with no level skipped' : `skipping ${inspection.headings.skippedLevels.length} levels`}; {inspection.images.count} images, {inspection.images.withAltText} with alternative text, {inspection.images.withEmptyAlt} with an empty one (marked decorative) and {inspection.images.withoutAlt} without; {inspection.links} links; {inspection.tables.count} tables, {inspection.tables.captions} with a caption. The counts say what is there, not whether it is right: that needs a person. <a href={`${GEN}/inspection.json`}>Result (JSON)</a>.</p>
+
+    <h3 id="rules-title">Rule outcomes (EDU-002)</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="rules-caption">
+      <table>
+        <caption id="rules-caption">The four ACT rules on the page as served</caption>
+        <thead><tr><th scope="col">Rule</th><th scope="col">Name</th><th scope="col">Criterion</th><th scope="col">Outcome</th></tr></thead>
+        <tbody>
+          {ruleRows.map((rule) => <tr><th scope="row">{rule.id}</th><td>{rule.name}</td><td>{rule.criterion}</td><td data-rule={rule.id}>{outcomeLabel(rule.outcome)}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>Rule b4f0c3 is inapplicable because the page’s viewport sets neither <code>user-scalable</code> nor <code>maximum-scale</code>: inapplicable means nothing matched, not that zoom was tested. <a href={`${GEN}/rules.json`}>Result (JSON)</a>.</p>
+
+    <h3 id="report-title">What it shows about WCAG 2.2 (EDU-003)</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="report-caption">
+      <table>
+        <caption id="report-caption">Each success criterion, its rules’ outcomes and the conclusion the outcome mapping allows</caption>
+        <thead><tr><th scope="col">Success criterion</th><th scope="col">Level</th><th scope="col">Rules</th><th scope="col">Conclusion</th></tr></thead>
+        <tbody>
+          {report.criteria.map((criterion) => <tr><th scope="row">{criterion.successCriterion} {criterion.name}</th><td>{criterion.level}</td><td>{Object.entries(criterion.rules).map(([rule, outcome]) => `${rule} ${outcome}`).join(', ')}</td><td data-criterion={criterion.successCriterion}>{criterion.conclusion}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>No rule failed, so no criterion is shown not satisfied; and because a rule tests only part of a criterion, none is shown satisfied either. Not tested: {report.notTested.join('; ')}. This is practice on one textbook page, not an accessibility conformance claim or a legal compliance check. <a href={`${GEN}/report.json`}>Result (JSON)</a>.</p>
+
+    <h3 id="randori-title">Randori cards</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="randori-caption">
+      <table>
+        <caption id="randori-caption">Each card makes one change to an in-memory copy of the page and reruns the rules</caption>
+        <thead><tr><th scope="col">Card</th><th scope="col">Change</th><th scope="col">Rules that move</th><th scope="col">Criterion that moves</th></tr></thead>
+        <tbody>
+          {cardRows.map((card) => <tr><th scope="row">{card.id}</th><td>{card.title}</td><td>{card.rules}</td><td data-randori-card={card.id}>{card.criteria}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>The partner keeps this table hidden until the learner has written a prediction; see <a href="/katas/edu-r01-randori">EDU-R01</a>. Card A shows why inapplicable is not passed: without a <code>lang</code> attribute, rule bf051a has nothing to check. <a href={`${GEN}/randori/cards.json`}>Result (JSON)</a>.</p>
+  </div></section>
+
+  <section class="section" aria-labelledby="tools-title"><div class="container narrow">
+    <p class="eyebrow">04 / The tools and sources</p>
+    <h2 id="tools-title">No packages, public sources</h2>
+    <p>The script uses only the Python 3.12 standard library, so it runs offline with nothing to install. Any browser opens the page, and any text editor shows its source. The Armory lists the stack recipe <a href="/armory/registry#recipe-python-standard-library">Python standard library</a>.</p>
+    <ul class="links">
+      <li><a href={sources.wcag22}>Web Content Accessibility Guidelines (WCAG) 2.2</a>, W3C Recommendation, 12 December 2024: success criteria 1.4.4 Resize text, 2.4.2 Page Titled and 3.1.1 Language of Page.</li>
+      <li><a href={sources.actRules}>W3C ACT Rules</a>: 2779a5 HTML page has non-empty title, b5c3f8 HTML page has lang attribute, bf051a HTML page lang attribute has valid language tag and b4f0c3 Meta viewport allows for zoom, with their outcome mapping, and <a href={sources.testcases}>their test cases</a>.</li>
+      <li><a href={sources.registry}>IANA Language Subtag Registry</a>, File-Date {referenceChecks.languageSubtagRegistry}: the language subtags that make a known primary language tag.</li>
+      <li>Why it matters in education: in the United States, <a href={sources.ecfr}>28 CFR 35.200</a> requires state and local government entities, which include public schools and universities, to make their web content meet WCAG 2.1 Level A and AA from 26 April 2027 or 26 April 2028, depending on their size. The three criteria checked here are in WCAG 2.0, 2.1 and 2.2.</li>
+    </ul>
+  </div></section>
+
+  <SectorPackEvidence pack="education" eyebrow="05 / What is checked" facts={{ pageSha: pageSha.slice(0, 12), referenceChecks: referenceChecks.passed, title: rules['2779a5'].outcome, lang: rules.b5c3f8.outcome, langValid: rules.bf051a.outcome, viewport: rules.b4f0c3.outcome }} />
+
+  <section class="section" aria-labelledby="credits-title"><div class="container narrow">
+    <p class="eyebrow">06 / Credits</p>
+    <h2 id="credits-title">Credits and terms</h2>
+    <ul>
+      <li>The page: “<a href={sources.page}>High School Mathematics Extensions/Matrices</a>”, Wikibooks, revision {inspection.revision}, by the Wikibooks contributors listed in <a href={sources.history}>its history</a>, under <a href={sources.ccBySa}>CC BY-SA 4.0</a>. Served here unchanged; the Randori copies are changed in memory only and never published.</li>
+      <li>Test cases: W3C ACT Rules, © W3C, under the W3C Software and Document License; <a href={`${EX}/inputs/act-rules/NOTICE.md`}>the full notice</a> travels with the copies.</li>
+      <li>Standards and registry: W3C (WCAG 2.2, ACT rules) and IANA (Language Subtag Registry), read on 25 November 2026. Cited and linked; their text is not copied here beyond the rule names and the values the method needs.</li>
+      <li>The pathway script and its outputs: Developer Dojo, MIT licence.</li>
+    </ul>
+  </div></section>
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 68rem; }
+  .eyebrow { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .links li { margin-bottom: var(--space-2, .5rem); }
+  .table-wrap { overflow-x: auto; margin-block: var(--space-6, 1.5rem); }
+  .table-wrap:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  table { width: 100%; border-collapse: collapse; }
+  caption { text-align: left; font-weight: 800; margin-bottom: var(--space-2, .5rem); }
+  th, td { text-align: left; vertical-align: top; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+  code { overflow-wrap: anywhere; }
+  h2, h3, p, li, a { overflow-wrap: anywhere; }
+  .steps { padding-left: 0; list-style: none; display: grid; gap: var(--space-4, 1rem); }
+  .steps li { min-width: 0; padding: var(--space-4, 1rem); background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); }
+  .steps a { font-weight: 800; }
+  .steps p { margin: .25rem 0 0; }
+  .step-id { display: inline-block; min-width: 4.5rem; color: var(--rust-text); }
+</style>
