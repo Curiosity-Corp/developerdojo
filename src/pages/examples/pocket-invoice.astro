@@ -69,7 +69,7 @@ const sendError = errorSummaryItems('send-error')[0] ?? '';
   <section class="section" aria-label="Pocket Invoice example"><div class="container">
     <noscript><p class="pi-noscript">This example needs JavaScript to move between screens. The first screen is shown below.</p></noscript>
     <div class="pi" style={tokenStyle} data-pocket-invoice data-current-state="signup">
-      <div class="pi-bar" aria-hidden="true">Pocket Invoice</div>
+      <div class="pi-bar" aria-hidden="true"><span class="pi-mark">P</span><span data-wordmark>Pocket Invoice</span></div>
       <div class="pi-body">
 
         <section class="pi-screen" data-screen="start" aria-labelledby="pi-start-title">
@@ -367,17 +367,27 @@ const sendError = errorSummaryItems('send-error')[0] ?? '';
     background: var(--pi-color-surface-page); color: var(--pi-color-text-default);
     border: var(--pi-border-width-thin) solid var(--pi-color-border-input); border-radius: var(--pi-radius-card);
     font-family: "Source Sans Pro", "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
-    font-size: var(--pi-font-size-m); line-height: 1.5;
+    font-size: var(--pi-font-size-s); line-height: 1.5;
   }
-  .pi-bar { padding: var(--pi-spacing-3) var(--pi-space-page); background: var(--pi-color-text-default); color: var(--pi-color-text-inverse); font-weight: var(--pi-font-weight-bold); }
+  .pi-bar {
+    display: flex; align-items: center; gap: var(--pi-spacing-3); box-sizing: border-box; height: calc(var(--pi-size-control) + 2 * var(--pi-spacing-2));
+    padding: 0 var(--pi-space-page); background: var(--pi-color-surface-card); color: var(--pi-color-text-default);
+    border-bottom: var(--pi-border-width-thin) solid var(--pi-color-border-subtle); font-size: var(--pi-font-size-m); font-weight: var(--pi-font-weight-bold);
+  }
+  .pi-mark {
+    display: grid; place-items: center; width: var(--pi-spacing-8); height: var(--pi-spacing-8); border-radius: var(--pi-radius-card);
+    background: var(--pi-color-action-primary); color: var(--pi-color-text-inverse);
+  }
   .pi-body { padding: var(--pi-space-page); }
-  .pi :global(h2) { margin: 0 0 var(--pi-space-stack); font-size: var(--pi-font-size-xl); line-height: 1.2; color: var(--pi-color-text-default); }
+  .pi :global(h2) { margin: 0 0 var(--pi-space-stack); font-size: var(--pi-font-size-l); line-height: 1.2; color: var(--pi-color-text-default); }
+  /* The design's two widths: font.size.l for a page heading on a phone and in a dialog, font.size.xl on a desktop. */
+  @media (min-width: 48rem) { .pi :global(.pi-screen h2) { font-size: var(--pi-font-size-xl); } }
   .pi :global(h2:focus) { outline: none; }
   .pi :global(h2:focus-visible) { outline: 3px solid var(--pi-color-focus-ring); outline-offset: 4px; }
-  .pi p { margin: 0 0 var(--pi-space-stack); color: var(--pi-color-text-default); }
+  .pi p { margin: 0 0 var(--pi-space-stack); color: var(--pi-color-text-muted); }
   .pi code { color: inherit; }
   .pi-field { margin-bottom: var(--pi-space-stack); }
-  .pi-field-error { padding-left: var(--pi-spacing-4); border-left: var(--pi-border-width-bar) solid var(--pi-color-border-error); }
+  .pi-field-error { padding-left: var(--pi-spacing-3); border-left: var(--pi-border-width-bar) solid var(--pi-color-border-error); }
   .pi label { display: block; font-weight: var(--pi-font-weight-bold); color: var(--pi-color-text-default); }
   .pi .pi-hint { margin: 0; font-size: var(--pi-font-size-s); color: var(--pi-color-text-muted); }
   .pi .pi-error { margin: 0; font-weight: var(--pi-font-weight-bold); color: var(--pi-color-text-error); }
@@ -386,7 +396,7 @@ const sendError = errorSummaryItems('send-error')[0] ?? '';
     font: inherit; color: var(--pi-color-text-default); background: var(--pi-color-surface-card);
     border: var(--pi-border-width-thick) solid var(--pi-color-border-input); border-radius: var(--pi-radius-control);
   }
-  .pi input[aria-invalid="true"] { border-color: var(--pi-color-border-error); border-width: 3px; }
+  .pi input[aria-invalid="true"] { border-color: var(--pi-color-border-error); }
   .pi input:focus-visible, .pi button:focus-visible, .pi a:focus-visible { outline: 3px solid var(--pi-color-focus-ring); outline-offset: 2px; }
   .pi-actions { display: flex; flex-wrap: wrap; gap: var(--pi-spacing-4); }
   .pi-button {
@@ -395,15 +405,18 @@ const sendError = errorSummaryItems('send-error')[0] ?? '';
     background: var(--pi-color-action-primary); border: var(--pi-border-width-thick) solid var(--pi-color-action-primary); border-radius: var(--pi-radius-control);
   }
   .pi-button:hover { background: var(--pi-color-action-primary-hover); border-color: var(--pi-color-action-primary-hover); }
-  .pi-secondary { color: var(--pi-color-action-primary); background: var(--pi-color-surface-card); }
+  .pi-secondary { color: var(--pi-color-text-default); background: var(--pi-color-surface-card); border-color: var(--pi-color-border-input); }
   .pi-secondary:hover { color: var(--pi-color-text-inverse); }
+  /* On a phone every button fills the column, as in the design; on a desktop it is as wide as its label. */
+  @media (max-width: 47.99rem) { .pi-button { width: 100%; } }
   .pi-link { padding: 0; min-height: 24px; cursor: pointer; font: inherit; color: var(--pi-color-text-link); background: none; border: 0; text-decoration: underline; }
   .pi a { color: var(--pi-color-text-link); }
-  .pi-error-summary { margin-bottom: var(--pi-space-stack); padding: var(--pi-spacing-4); background: var(--pi-color-surface-error); border: var(--pi-border-width-bar) solid var(--pi-color-border-error); }
+  .pi-error-summary { margin-bottom: var(--pi-space-stack); padding: var(--pi-spacing-4); background: var(--pi-color-surface-card); border: var(--pi-border-width-bar) solid var(--pi-color-border-error); }
   .pi-error-summary:focus { outline: 3px solid var(--pi-color-focus-ring); outline-offset: 2px; }
-  .pi-error-title { margin: 0 0 var(--pi-spacing-2); font-size: var(--pi-font-size-l); color: var(--pi-color-text-default); }
+  .pi-error-title { margin: 0 0 var(--pi-spacing-2); font-size: var(--pi-font-size-m); color: var(--pi-color-text-default); }
   .pi-error-summary ul { margin: 0; padding-left: 0; list-style: none; }
-  .pi-error-summary :global(a) { color: var(--pi-color-text-error); font-weight: var(--pi-font-weight-bold); }
+  /* Under .pi so the summary's links outrank the plain link colour of .pi a: red and bold, as in the design. */
+  .pi .pi-error-summary :global(a) { color: var(--pi-color-text-error); font-weight: var(--pi-font-weight-bold); }
   .pi-success { margin-bottom: var(--pi-space-stack); padding: var(--pi-spacing-4); background: var(--pi-color-surface-success); border-left: var(--pi-border-width-bar) solid var(--pi-color-text-success); }
   .pi-success p { margin: 0; }
   .pi-summary { margin: 0 0 var(--pi-space-stack); }
@@ -416,7 +429,7 @@ const sendError = errorSummaryItems('send-error')[0] ?? '';
   .pi-dialog {
     width: min(30rem, calc(100vw - 2rem)); padding: var(--pi-space-page); color: var(--pi-color-text-default); background: var(--pi-color-surface-card);
     border: var(--pi-border-width-thick) solid var(--pi-color-text-default); border-radius: var(--pi-radius-card);
-    font-family: "Source Sans Pro", "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif; font-size: var(--pi-font-size-m); line-height: 1.5;
+    font-family: "Source Sans Pro", "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif; font-size: var(--pi-font-size-s); line-height: 1.5;
   }
   .pi-dialog::backdrop { background: rgb(16 24 40 / 60%); }
   @media (prefers-reduced-motion: no-preference) { .pi-button { transition: background-color .15s; } }
