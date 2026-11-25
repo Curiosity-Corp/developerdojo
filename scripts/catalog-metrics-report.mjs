@@ -46,11 +46,11 @@ const scanTotal = scans.filter((r) => !r.retry).reduce((sum, r) => sum + (r.scan
 lines.push('', `Summed scan time (first attempts): ${ms(scanTotal)} over ${scans.filter((r) => !r.retry).length} parts.`, '');
 
 // Site search start-up (#112): the header search from opening to the first result, split into its stages.
-lines.push('## Site search start-up (header search, fresh browser context)', '', '| Project | CPU | Cold to first result (wall) | Module import | Index init | Query to results | Query to first preview | Pagefind requests (KiB) | Long tasks (total) | Script | Warm to first result | Runner |', '|---|---|---|---|---|---|---|---|---|---|---|---|');
-for (const r of byKind('search')) {
+lines.push('## Site search start-up (header search, fresh browser context)', '', '| Project | CPU | Network | Cold to first result (wall) | Module import | Index init | Query to results | Query to first preview | Pagefind requests (KiB) | Long tasks (total) | Script | Warm to first result | Runner |', '|---|---|---|---|---|---|---|---|---|---|---|---|---|');
+for (const r of byKind('search').sort((a, b) => `${a.project}${a.cpuThrottle}${a.network}`.localeCompare(`${b.project}${b.cpuThrottle}${b.network}`))) {
   const requests = Object.entries(r.cold?.pagefindRequests ?? {}).map(([kind, v]) => `${kind} ${v.requests}x ${Math.round(v.transferBytes / 1024)}`).join(', ') || 'none';
   const s = r.cold?.stagesMs ?? {};
-  lines.push(`| ${r.project}${r.retry ? ` (retry ${r.retry})` : ''} | ${r.cpuThrottle}x | ${ms(r.cold?.wallToResultMs)} | ${ms(s.moduleImport)} | ${ms(s.indexInit)} | ${ms(s.queryToSearched)} | ${ms(s.queryToFirstResult)} | ${requests} | ${r.cold?.longTasks ?? '?'} (${ms(r.cold?.longTaskTotalMs)}) | ${ms(r.cold?.scriptMs)} | ${ms(r.warm?.wallToResultMs)} | ${runner(r)} |`);
+  lines.push(`| ${r.project}${r.retry ? ` (retry ${r.retry})` : ''} | ${r.cpuThrottle}x | ${r.network ?? 'unthrottled'} | ${ms(r.cold?.wallToResultMs)} | ${ms(s.moduleImport)} | ${ms(s.indexInit)} | ${ms(s.queryToSearched)} | ${ms(s.queryToFirstResult)} | ${requests} | ${r.cold?.longTasks ?? '?'} (${ms(r.cold?.longTaskTotalMs)}) | ${ms(r.cold?.scriptMs)} | ${ms(r.warm?.wallToResultMs)} | ${runner(r)} |`);
 }
 lines.push('');
 

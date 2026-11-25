@@ -56,14 +56,30 @@ function stagesSince(since: number) {
   };
 }
 
-for (const cpuThrottle of [1, 4]) {
-  test(`header search starts and shows a result (CPU ${cpuThrottle}x)`, async ({ page, browserName, isMobile }, testInfo) => {
+// Slow 4G as Chrome DevTools defines it: 150 ms latency, 1.6 Mbit/s down, 750 kbit/s up. A cold search is a chain
+// of dependent requests (module, entry, WASM and metadata, index chunk, fragments), so latency adds up per link.
+const SLOW_4G = { offline: false, latency: 150, downloadThroughput: (1.6 * 1024 * 1024) / 8, uploadThroughput: (750 * 1024) / 8 };
+const RUNS = [
+  { cpuThrottle: 1, network: 'unthrottled' },
+  { cpuThrottle: 4, network: 'unthrottled' },
+  { cpuThrottle: 4, network: 'slow 4G' },
+] as const;
+
+for (const { cpuThrottle, network } of RUNS) {
+  const title = network === 'unthrottled' ? `CPU ${cpuThrottle}x` : `CPU ${cpuThrottle}x, ${network}`;
+  test(`header search starts and shows a result (${title})`, async ({ page, browserName, isMobile }, testInfo) => {
     test.skip(browserName !== 'chromium', 'CPU throttling needs the Chrome DevTools Protocol');
     test.slow();
     const cdp = await page.context().newCDPSession(page);
     await cdp.send('Emulation.setCPUThrottlingRate', { rate: cpuThrottle });
     await cdp.send('Performance.enable');
+    if (network === 'slow 4G') {
+      await cdp.send('Network.enable');
+      await cdp.send('Network.emulateNetworkConditions', SLOW_4G);
+    }
     await page.addInitScript(() => {
+      // The home page loads more than the default 250 resources; keep room for every Pagefind request.
+      performance.setResourceTimingBufferSize(2000);
       const w = window as unknown as { __search: { longTasks: { start: number; duration: number }[] } };
       w.__search = { longTasks: [] };
       new PerformanceObserver((list) => {
@@ -107,6 +123,7 @@ for (const cpuThrottle of [1, 4]) {
     recordCatalogMetric('search', testInfo, {
       route: '/',
       cpuThrottle,
+      network,
       emulatedMobile: isMobile,
       pageLoad,
       cold: { query: 'orbital', wallToResultMs: coldWallMs, scriptMs: Math.round((scriptAfter - scriptBefore) * 1000), ...cold },
