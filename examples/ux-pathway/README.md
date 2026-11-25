@@ -16,7 +16,7 @@ invoicing app for practice: no real company, person or customer.
 | tools/ux_pathway.mjs | The flow script: JavaScript for Node.js, no packages to install. It reads the inputs and the token file, draws the SVG files and checks the flow. |
 | tools/ux_hifi.mjs | The high-fidelity part of the script, called by ux_pathway.mjs: the style guide, the components, the screens at two widths, and the fidelity audit. (ux_hifi.d.mts gives its types to the site's tests.) |
 | tools/ux_randori.mjs | The Randori part of the script, called by ux_pathway.mjs: checks each worked round's first and adapted flow, including one check per hidden constraint, and records what the constraint changed. (ux_randori.d.mts and ux_pathway.d.mts give types to the site's tests.) |
-| inputs/randori-rounds.json | Three worked UX Randori rounds, one per partner card whose constraint a flow can show: the first sitemap and the adapted one, in the same format as the flow file. Written by the maintainers, who also wrote the cards. |
+| inputs/randori-rounds.json | Four worked UX Randori rounds: one per partner card whose constraint a flow can show, and one that plays the two screen cards (focus order, one action per screen). Each has the first sitemap and the adapted one, in the same format as the flow file; place on an element gives its row and column on the screen. Written by the maintainers, who also wrote the cards. |
 | tools/design_tokens.mjs | Reads the token file, resolves aliases and computes WCAG 2 contrast; shared by both scripts. |
 | generated/sitemap.svg | The sitemap: states grouped by screen, numbered arrows, error and recovery arrows dashed. |
 | generated/journey.svg | Every low-fidelity screen on one canvas, each arrow starting at the button that causes it. |
@@ -26,7 +26,7 @@ invoicing app for practice: no real company, person or customer.
 | generated/screens/phone/, generated/screens/desktop/ | One high-fidelity screen per state at 390 px and at 1440 px, built from the components. |
 | generated/journey-high.svg | Every high-fidelity phone screen on one canvas, with the same numbered arrows as journey.svg. |
 | generated/fidelity-report.json, generated/fidelity-report.md | The audit of every high-fidelity drawing (token use, text and boundary contrast, control size, components) and what it does not measure. |
-| generated/randori/ | Each round's first and adapted sitemap and adapted screens (SVG), rounds.json and randori.md: what the checks found before and after the constraint. |
+| generated/randori/ | Each round's first and adapted sitemap and adapted screens (SVG), rounds.json and randori.md: what the checks found before and after the constraint. For the screen round, one HTML page per state of each version (D-first/, D-adapted/), which the site's browser test walks with the Tab key. |
 | generated/flow-checks.json, generated/summary.md | The result of every flow and contrast check, as JSON and as a table. |
 | generated/manifest.json | The generated files, the size of each drawing and the SHA-256 of each input. |
 
