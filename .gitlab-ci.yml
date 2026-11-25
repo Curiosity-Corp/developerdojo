@@ -248,18 +248,42 @@ catalog_lifecycle:
 
 # Blocking: Playwright e2e over the built site: every route, nav/footer links, image wiring, no
 # horizontal scroll at 390, and the axe-core WCAG 2.1 AA scan (zero serious/critical) in light and dark.
+# The suite (~2,900 tests, desktop and mobile, incl. the blocking contrast scan) took ~2.3 h on one
+# runner pod and hit the 1 h job limit (#113). It runs as parallel shards: Playwright --shard splits the
+# fullyParallel tests evenly by count, so every test runs in exactly one shard. 8 shards keep each near
+# 17 min, well inside the limit on a loaded runner. Raise `parallel` when the suite grows past ~25 min
+# per shard. Each shard writes a blob report; e2e:report merges them into the one HTML report.
 e2e:
   extends: .node
   stage: e2e
   needs: [build]
+  parallel: 8
   script:
     - sha256sum -c search-index.sha256
-    - npx playwright test
+    - npx playwright test --shard="$CI_NODE_INDEX/$CI_NODE_TOTAL"
+  artifacts:
+    when: always
+    paths:
+      - blob-report
+      - test-results
+    expire_in: 7 days
+
+# One HTML report for the whole suite, merged from the shard blob reports (also after a red shard).
+e2e:report:
+  extends: .node
+  stage: e2e
+  needs:
+    - job: e2e
+      artifacts: true
+  rules:
+    - !reference [.skip-in-production-e2e, rules]
+    - when: always
+  script:
+    - npx playwright merge-reports --reporter html ./blob-report
   artifacts:
     when: always
     paths:
       - playwright-report
-      - test-results
     expire_in: 7 days
 
 # Production e2e (hypervoid/admiral#123): the read-only production subset of the suite (playwright.config.ts
