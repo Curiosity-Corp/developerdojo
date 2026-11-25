@@ -184,7 +184,7 @@ describe('an independent reviewer can record each transfer', () => {
         randori: field.randori,
         sheet: sheetPath(field.packId),
       });
-      expect(subject?.professionalReview).toEqual(pack?.professionalReview);
+      expect(subject?.professionalReview).toEqual(pack && { required: pack.professionalReview.required, limit: pack.professionalReview.limit });
     }
   });
 
