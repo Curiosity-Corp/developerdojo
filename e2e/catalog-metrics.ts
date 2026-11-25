@@ -1,4 +1,4 @@
-// Catalogue measurements (#113): each record is one JSON file under catalog-metrics/, kept as a CI artifact
+// Catalogue and site-search measurements (#113, #112): each record is one JSON file under catalog-metrics/, kept as a CI artifact
 // of the e2e shard that wrote it. e2e:report merges every shard's files with scripts/catalog-metrics-report.mjs.
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { cpus, loadavg, totalmem } from 'node:os';
@@ -19,7 +19,7 @@ const runner = () => ({
   loadAverage1m: Math.round((loadavg()[0] ?? 0) * 100) / 100,
 });
 
-export function recordCatalogMetric(kind: 'load' | 'interaction' | 'scan', testInfo: TestInfo, data: Record<string, unknown>): void {
+export function recordCatalogMetric(kind: 'load' | 'interaction' | 'scan' | 'search', testInfo: TestInfo, data: Record<string, unknown>): void {
   const record = {
     kind,
     test: testInfo.titlePath.slice(1).join(' > '),
