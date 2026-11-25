@@ -131,7 +131,9 @@ describe('the screen round (focus order and one action per screen)', () => {
 
   it('refuses a screen that places some elements and not others', () => {
     const half = round('D').adapted;
-    delete state(half, 'tool').elements[0].place;
+    const heading = state(half, 'tool').elements[0];
+    if (!heading) throw new Error('the tool screen has no elements');
+    delete heading.place;
     expect(() => checkConstraint(half, 'keyboard-focus-one-action')).toThrow(/places 4 of its 5 elements/);
   });
 

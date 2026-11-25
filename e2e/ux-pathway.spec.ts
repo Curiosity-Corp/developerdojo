@@ -342,7 +342,10 @@ async function walkScreen(page: Page): Promise<string[]> {
   }
   const problems: string[] = [];
   if (visits.length !== total) problems.push('keyboard: Tab reaches ' + visits.length + ' of ' + total + ' controls');
-  const backwards = visits.slice(1).some((v, i) => v.top < visits[i].top - 4 || (Math.abs(v.top - visits[i].top) <= 4 && v.left < visits[i].left));
+  const backwards = visits.some((v, i) => {
+    const before = visits[i - 1];
+    return before !== undefined && (v.top < before.top - 4 || (Math.abs(v.top - before.top) <= 4 && v.left < before.left));
+  });
   if (backwards) problems.push('focus: ' + visits.map((v) => v.name).join(', '));
   const actions = await page.locator('main button').count();
   if (actions > 1) problems.push('actions: ' + actions);
@@ -352,7 +355,7 @@ async function walkScreen(page: Page): Promise<string[]> {
 // The kind of problem the layout check in tools/ux_randori.mjs names for a state: focus order or the action count.
 const kindOf = (failure: string): string => {
   const [state, what] = failure.split(': ');
-  return state + ' ' + (what.startsWith('focus') ? 'focus' : 'actions');
+  return state + ' ' + (what?.startsWith('focus') ? 'focus' : 'actions');
 };
 
 test('a browser walks the screen round with the Tab key: the first version fails, the adapted one passes', async ({ page, request }) => {
