@@ -24,7 +24,7 @@ Pathway: Science and research: from a published record to a result with its unce
 
 ## Transfer record
 - Foundation technique that transfers: An assistant may draft, explain or write code, but nothing it produces is kept until a check it did not write confirms it: an independently checkable answer, the source file itself or a published worked example. (from PRACTICE-001 and PRACTICE-002)
-- Specialist capabilities and standards that change: Reference: The GUM’s printed worked examples, which the code must reproduce before it touches the temperature record. Capabilities: Analyze data; Calculate. Standards: none recorded on these katas.
+- Specialist capabilities and standards that change: Reference: The GUM’s printed worked examples, which the code must reproduce before it touches the temperature record. Capabilities: Analyze data; Calculate. Standards: Guide to the expression of uncertainty in measurement (GUM) (JCGM 100:2008).
 - Independent rubric result: Unavailable until an independent reviewer records it.
   - MD-1 Transfer to an unseen tool family or field: Unavailable. Given a brief the learner has not seen, in a tool family or field other than the one practiced, the learner chooses and adapts a stack, and the result passes checks the reviewer chose.
     - [ ] The actual artifacts:
