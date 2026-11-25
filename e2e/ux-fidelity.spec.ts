@@ -309,6 +309,10 @@ test('the working page matches its high-fidelity design in every state', async (
   await go('invoice-new', 'discard-dialog');
   await compareState(page, 'discard-dialog', width, rows, geometry);
   await page.keyboard.press('Escape');
+  // The design's invoice-new-error state: the client name left empty and an amount of 0, the other two fields filled.
+  await app.getByLabel('Client email').fill('accounts@harbour-bakery.example');
+  await app.getByLabel('What the work was').fill('Menu redesign, two rounds of changes');
+  await app.getByLabel(/Amount in US dollars/).fill('0');
   await go('invoice-new', 'invoice-review');
   await compareState(page, 'invoice-new-error', width, rows, geometry);
   await app.getByLabel('Client name').fill('Harbour Bakery');

@@ -415,7 +415,8 @@ const sendError = errorSummaryItems('send-error')[0] ?? '';
   .pi-error-summary:focus { outline: 3px solid var(--pi-color-focus-ring); outline-offset: 2px; }
   .pi-error-title { margin: 0 0 var(--pi-spacing-2); font-size: var(--pi-font-size-m); color: var(--pi-color-text-default); }
   .pi-error-summary ul { margin: 0; padding-left: 0; list-style: none; }
-  .pi-error-summary :global(a) { color: var(--pi-color-text-error); font-weight: var(--pi-font-weight-bold); }
+  /* Under .pi so the summary's links outrank the plain link colour of .pi a: red and bold, as in the design. */
+  .pi .pi-error-summary :global(a) { color: var(--pi-color-text-error); font-weight: var(--pi-font-weight-bold); }
   .pi-success { margin-bottom: var(--pi-space-stack); padding: var(--pi-spacing-4); background: var(--pi-color-surface-success); border-left: var(--pi-border-width-bar) solid var(--pi-color-text-success); }
   .pi-success p { margin: 0; }
   .pi-summary { margin: 0 0 var(--pi-space-stack); }
