@@ -1,0 +1,175 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectorPackEvidence from '../../components/SectorPackEvidence.astro';
+// Every number on this page is read from the files CI recomputes
+// (/examples/manufacturing-pathway/tools/manufacturing_pathway.py, job manufacturing_pathway).
+import manifest from '../../../public/examples/manufacturing-pathway/generated/manifest.json';
+import referenceChecks from '../../../public/examples/manufacturing-pathway/generated/reference-checks.json';
+import inspection from '../../../public/examples/manufacturing-pathway/generated/inspection.json';
+import control from '../../../public/examples/manufacturing-pathway/generated/control-limits.json';
+import variation from '../../../public/examples/manufacturing-pathway/generated/variation.json';
+import cards from '../../../public/examples/manufacturing-pathway/generated/randori/cards.json';
+
+const EX = '/examples/manufacturing-pathway';
+const GEN = `${EX}/generated`;
+const DATA = 'inputs/lithogra-data-rows.dat';
+const dataSha = (manifest.inputs as Record<string, string>)[DATA];
+if (!dataSha) throw new Error(`The manufacturing manifest has no hash for ${DATA}`);
+const steps = [
+  { id: 'MFG-001', href: '/katas/mfg-001-inspect-process-record', title: 'Inspect a process record', does: 'Work out how 450 line widths are grouped, check nothing is missing, and reproduce the handbook’s numerical summary.' },
+  { id: 'MFG-002', href: '/katas/mfg-002-control-limits', title: 'Set control limits and choose the subgroup', does: 'Rebuild the chart factor table from the range distribution, then set limits with the wafer as subgroup and chart the cassette means on their own.' },
+  { id: 'MFG-003', href: '/katas/mfg-003-sources-of-variation', title: 'Split the variation into its sources', does: 'Reproduce the nested analysis of variance and the handbook’s capability example, and see which sigma a capability index must use.' },
+  { id: 'MFG-R01', href: '/katas/mfg-r01-randori', title: 'Manufacturing Randori: an unseen change', does: 'A partner reveals one changed choice after you start; predict how the limits and the points outside them move, then recompute.' },
+];
+const sources = ['cassette', 'wafer', 'site'] as const;
+const sourceNames = { cassette: 'Cassette', wafer: 'Wafer within cassette', site: 'Site within wafer' };
+const cardRows = Object.entries(cards).map(([id, card]) => ({ id, ...card }));
+const notedChecks = (referenceChecks.checks as { id: string; quantity: string; note?: string }[]).filter((check) => check.note);
+const signed = (value: number | string) => (Number(value) > 0 ? `+${value}` : String(value));
+const summary = inspection.summary;
+const handbook = {
+  home: 'https://www.itl.nist.gov/div898/handbook/',
+  capability: 'https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc16.htm',
+  variables: 'https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc32.htm',
+  xbar: 'https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc321.htm',
+  individuals: 'https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc322.htm',
+  caseStudy: 'https://www.itl.nist.gov/div898/handbook/pmc/section6/pmc61.htm',
+  data: 'https://www.itl.nist.gov/div898/handbook/datasets/LITHOGRA.DAT',
+  copyright: 'https://www.nist.gov/disclaimer',
+  iso: 'https://www.iso.org/standard/78859.html',
+};
+---
+<BaseLayout title="Manufacturing pathway: from a process record to control limits and the sources of variation" description="Follow a manufacturing pathway: inspect a real semiconductor process record, set Shewhart control limits with factors you compute yourself, and split the variation into its sources, after reproducing the NIST/SEMATECH e-Handbook's own results, every number computed in CI.">
+  <PageHero compact eyebrow="Manufacturing · Pathway" title="From a process record to control limits and the sources of variation" accent="." subtitle="Four katas on statistical process control, on a real semiconductor record and the published results of the NIST/SEMATECH e-Handbook. Each step has a file you can open and a result that CI computes again on every pipeline." ctas={[
+    { label: 'Start with MFG-001', href: '/katas/mfg-001-inspect-process-record', icon: 'play' },
+    { label: 'Download the wafer subgroups', href: `${GEN}/subgroups.csv`, variant: 'ghost', icon: 'arrow-right' },
+  ]} />
+
+  <section class="section" aria-labelledby="outcome-title"><div class="container narrow">
+    <p class="eyebrow">01 / The files</p>
+    <h2 id="outcome-title">One process record, the handbook’s results, every number rerun</h2>
+    <p>The record is the lithography case study of the NIST/SEMATECH e-Handbook of Statistical Methods: the width of a line on silicon wafers, measured at five sites on three wafers in each of thirty cassettes. The handbook publishes its summary, its analysis of variance and the methods for control charts and capability, with worked examples. The script reproduces those values before it computes anything else.</p>
+    <ul class="links">
+      <li><a href={`${EX}/${DATA}`} download>The process record</a>: the {inspection.structure.rows} data rows of the handbook’s file, unchanged. The file’s header is left out because it names a person; the README describes its columns.</li>
+      <li><a href={`${GEN}/subgroups.csv`} download>The 90 wafer subgroups</a> (CSV) and <a href={`${GEN}/control-limits.json`}>the control limits</a> (JSON).</li>
+      <li><a href={`${GEN}/inspection.json`}>The record inspection</a> and <a href={`${GEN}/variation.json`}>the variance components</a> (JSON).</li>
+      <li><a href={`${GEN}/summary.md`}>The result summary</a> (Markdown) and every result under <a href={`${GEN}/manifest.json`}>the manifest</a>, with the method and the input hash.</li>
+      <li><a href={`${EX}/tools/manufacturing_pathway.py`}>The pathway script</a> (Python 3.12, standard library only, MIT), so you can rerun every number yourself.</li>
+      <li><a href={`${EX}/README.md`}>README</a>: sources, terms, how to rerun the checks, and what they do not cover.</li>
+    </ul>
+  </div></section>
+
+  <section class="section" aria-labelledby="steps-title"><div class="container narrow">
+    <p class="eyebrow">02 / The steps</p>
+    <h2 id="steps-title">Four katas, in order</h2>
+    <p>Each kata has a brief, prompts, checks and the evidence for the checks the Dojo has run. They are drafts: the Dojo built the example and CI checks it, and no learner has run them yet. Do the foundations first: <a href="/katas/compare-instructions">Compare AI instructions</a> and <a href="/katas/context-trap">Spot a context trap</a>.</p>
+    <ol class="steps">
+      {steps.map((step) => <li><a href={step.href}><span class="step-id">{step.id}</span> {step.title}</a><p>{step.does}</p></li>)}
+    </ol>
+  </div></section>
+
+  <section class="section" aria-labelledby="checks-title"><div class="container narrow">
+    <p class="eyebrow">03 / The checks</p>
+    <h2 id="checks-title">Reproduce the handbook, then use its methods</h2>
+    <p>These results come from CI: the pipeline reruns <code>/examples/manufacturing-pathway/tools/manufacturing_pathway.py</code> and fails if any output differs from the published files.</p>
+
+    <h3 id="reference-title">Reference checks: the handbook’s published values</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="reference-caption">
+      <table>
+        <caption id="reference-caption">Published values and the script’s values, rounded as published</caption>
+        <thead><tr><th scope="col">Source</th><th scope="col">Quantity</th><th scope="col">Published</th><th scope="col">Computed</th><th scope="col">Result</th></tr></thead>
+        <tbody>
+          {referenceChecks.checks.map((check) => <tr><td>{check.source}</td><td>{check.quantity}</td><td>{check.published}</td><td>{check.computed}</td><td data-reference-check={check.id}>{check.status === 'pass' ? 'Pass' : 'Fail'}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p><strong>{referenceChecks.passed} passed, {referenceChecks.failed} failed.</strong> The script stops without writing any result if one check fails, so every number below was computed by code that reproduces the handbook. The chart factors are not copied from the table: the script works out d2 and d3 from the distribution of the range of normal samples. <a href={`${GEN}/reference-checks.json`}>Result (JSON)</a>.</p>
+    <ul data-reference-note>
+      {notedChecks.map((check) => <li><strong>{check.quantity}:</strong> {check.note}</li>)}
+    </ul>
+
+    <h3 id="record-title">The record (MFG-001)</h3>
+    <p>{inspection.structure.rows} line widths in micrometres: {inspection.structure.cassettes} cassettes, {inspection.structure.wafersPerCassette} wafers in each, {inspection.structure.sitesPerWafer} sites on each wafer, and nothing missing. Mean {summary.mean}, standard deviation {summary.standardDeviation}, lag-1 autocorrelation {summary.autocorrelation}: successive values are far from independent, because the record is grouped. The <span data-lowest-site>{inspection.lowestSite.toLowerCase()}</span> site has the lowest mean. <a href={`${GEN}/inspection.json`}>Result (JSON)</a>.</p>
+
+    <h3 id="limits-title">Control limits and the choice of subgroup (MFG-002)</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="limits-caption">
+      <table>
+        <caption id="limits-caption">Three-sigma limits on line width, micrometres</caption>
+        <thead><tr><th scope="col">Chart</th><th scope="col">Subgroup</th><th scope="col">Centre</th><th scope="col">Limits</th><th scope="col">Points outside</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">X-bar, sigma from s-bar / c4</th><td>Wafer, n = {control.xbarS.n}</td><td>{control.xbarS.center}</td><td>{control.xbarS.LCL} to {control.xbarS.UCL}</td><td data-limits="xbar-s">{control.xbarS.meansBeyondLimits} of 90</td></tr>
+          <tr><th scope="row">X-bar, sigma from R-bar / d2</th><td>Wafer, n = {control.xbarR.n}</td><td>{control.xbarR.center}</td><td>{control.xbarR.LCL} to {control.xbarR.UCL}</td><td>{control.xbarR.meansBeyondLimits} of 90</td></tr>
+          <tr><th scope="row">Individuals, sigma from the moving range</th><td>Cassette mean</td><td>{control.lotMeans.center}</td><td>{control.lotMeans.LCL} to {control.lotMeans.UCL}</td><td data-limits="lot-means">{control.lotMeans.beyondLimits.length} of {control.lotMeans.points} ({control.lotMeans.beyondLimits.join(', ')})</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>With the wafer as subgroup, the limits carry only the variation between the five sites of a wafer, while the wafer means also move from cassette to cassette, so many of them fall outside. That is the handbook’s point in section 6.6.1.4: chart the lot means with limits from the lot-to-lot variation. The s chart (upper limit {control.xbarS.sUCL}) has no lower limit for n = 5, as the handbook notes. <a href={`${GEN}/control-limits.json`}>Result (JSON)</a>, <a href={`${GEN}/subgroups.csv`} download>wafer subgroups (CSV)</a>.</p>
+
+    <h3 id="variation-title">The sources of variation (MFG-003)</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="variation-caption">
+      <table>
+        <caption id="variation-caption">Variance components of line width, from the nested analysis of variance</caption>
+        <thead><tr><th scope="col">Source</th><th scope="col">Degrees of freedom</th><th scope="col">Mean square</th><th scope="col">Component, µm²</th><th scope="col">Share</th></tr></thead>
+        <tbody>
+          {sources.map((key) => <tr><th scope="row">{sourceNames[key]}</th><td>{variation.anova[key].df}</td><td>{variation.anova[key].meanSquare}</td><td>{variation.components[key].variance}</td><td data-share={key}>{variation.components[key].share_percent} %</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>The total is {variation.totalVariance} µm², a standard deviation of {variation.totalSd_um} µm. The X-bar and s chart’s sigma is {variation.xbarSChartSigma_um} µm. A capability index divides by its sigma, so one computed with the chart’s sigma would be <strong data-overstatement>{variation.overstatement.ratio}</strong> times too large for single sites. {variation.noSpecification} The handbook’s own example (USL 20, LSL 8, mean 16, s 2) gives Cp {variation.capabilityExample.Cp} and Cpk {variation.capabilityExample.Cpk}. <a href={`${GEN}/variation.json`}>Result (JSON)</a>.</p>
+
+    <h3 id="randori-title">Randori cards</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="randori-caption">
+      <table>
+        <caption id="randori-caption">Each card changes one choice of the X-bar and s chart with the wafer as subgroup ({control.xbarS.meansBeyondLimits} of 90 means outside)</caption>
+        <thead><tr><th scope="col">Card</th><th scope="col">Change</th><th scope="col">Centre</th><th scope="col">Half-width change</th><th scope="col">Means outside</th><th scope="col">Change</th></tr></thead>
+        <tbody>
+          {cardRows.map((card) => <tr><th scope="row">{card.id}</th><td>{card.title}</td><td>{card.center}</td><td>{signed(card.halfWidthChange_percent)} %</td><td>{card.meansBeyondLimits} of {card.subgroups}</td><td data-randori-card={card.id}>{signed(card.changeInMeansBeyond)}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>The partner keeps this table hidden until the learner has written a prediction; see <a href="/katas/mfg-r01-randori">MFG-R01</a>. <a href={`${GEN}/randori/cards.json`}>Result (JSON)</a>.</p>
+  </div></section>
+
+  <section class="section" aria-labelledby="tools-title"><div class="container narrow">
+    <p class="eyebrow">04 / The tools and sources</p>
+    <h2 id="tools-title">No packages, public sources</h2>
+    <p>The script uses only the Python 3.12 standard library, so it runs offline with nothing to install. A spreadsheet works for checking one subgroup by hand. The Armory lists the stack recipe <a href="/armory/registry#recipe-python-standard-library">Python standard library</a>.</p>
+    <ul class="links">
+      <li><a href={handbook.home}>NIST/SEMATECH e-Handbook of Statistical Methods</a>, web edition last updated 27 April 2022 (DOI 10.18434/M32189).</li>
+      <li>Section <a href={handbook.capability}>6.1.6, process capability</a>: the indices, the capability example and the table of rejects.</li>
+      <li>Sections <a href={handbook.variables}>6.3.2</a>, <a href={handbook.xbar}>6.3.2.1</a> and <a href={handbook.individuals}>6.3.2.2</a>: variables control charts, c4, the factor table and the individuals chart example.</li>
+      <li>Section <a href={handbook.caseStudy}>6.6.1, the lithography case study</a>, and its <a href={handbook.data}>data file</a>.</li>
+      <li><a href={handbook.iso}>ISO 7870-2:2023</a>, Control charts, Part 2: Shewhart control charts, the current international standard for these charts. Cited only: the Dojo has not read its text, and nothing here claims conformance to it.</li>
+    </ul>
+  </div></section>
+
+  <SectorPackEvidence pack="manufacturing" eyebrow="05 / What is checked" facts={{ dataSha: dataSha.slice(0, 12), referenceChecks: referenceChecks.passed, outsideWafer: control.xbarS.meansBeyondLimits, cassetteShare: variation.components.cassette.share_percent }} />
+
+  <section class="section" aria-labelledby="credits-title"><div class="container narrow">
+    <p class="eyebrow">06 / Credits</p>
+    <h2 id="credits-title">Credits and terms</h2>
+    <ul>
+      <li>Methods, worked examples, case study and data: NIST/SEMATECH e-Handbook of Statistical Methods, https://www.itl.nist.gov/div898/handbook/, 25 November 2026. NIST public information, copied with credit under <a href={handbook.copyright}>NIST’s copyright statement</a>. Nothing here implies endorsement by NIST.</li>
+      <li>The pathway script and its outputs: Developer Dojo, MIT licence.</li>
+    </ul>
+  </div></section>
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 68rem; }
+  .eyebrow { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .links li { margin-bottom: var(--space-2, .5rem); }
+  .table-wrap { overflow-x: auto; margin-block: var(--space-6, 1.5rem); }
+  .table-wrap:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  table { width: 100%; border-collapse: collapse; }
+  caption { text-align: left; font-weight: 800; margin-bottom: var(--space-2, .5rem); }
+  th, td { text-align: left; vertical-align: top; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+  code { overflow-wrap: anywhere; }
+  h2, h3, p, li, a { overflow-wrap: anywhere; }
+  .steps { padding-left: 0; list-style: none; display: grid; gap: var(--space-4, 1rem); }
+  .steps li { min-width: 0; padding: var(--space-4, 1rem); background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); }
+  .steps a { font-weight: 800; }
+  .steps p { margin: .25rem 0 0; }
+  .step-id { display: inline-block; min-width: 4.5rem; color: var(--rust-text); }
+</style>

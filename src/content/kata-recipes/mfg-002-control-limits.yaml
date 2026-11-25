@@ -1,0 +1,187 @@
+# Manufacturing pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/manufacturing-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job manufacturing_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Manufacturing pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a quality engineer, statistician or process engineer yet.
+summary: "Rebuild the handbook’s X-bar and R factor table from the distribution of the range of normal samples, reproduce its individuals chart example, then set X-bar and s limits on the lithography record with the wafer as subgroup and see why the cassette means need limits of their own."
+metadata:
+  id: MFG-002
+  title: "Set Shewhart control limits, with factors you computed yourself, and choose the subgroup"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - set-control-limits
+  artifactTypes:
+    - control-chart-limits
+  domainIds:
+    - manufacturing
+  capabilityIds:
+    - analyze-data
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - nist/handbook-process-monitoring-and-control
+    - nist/handbook-lithography-case-study
+    - nist/engineering-statistics-handbook
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: NIST/SEMATECH e-Handbook of Statistical Methods, chapter 6 (Process or Product Monitoring and Control)
+      version: "Web edition last updated 2022-04-27, DOI 10.18434/M32189; read 2026-11-25"
+      applicability: "The X-bar and s, X-bar and R and individuals charts of sections 6.3.2.1 and 6.3.2.2, their factor table and examples, and the subgroup discussion of section 6.6.1.4, used on the lithography case study for practice"
+      reviewScope: "What the listed checks test: that the code reproduces the factors and the individuals chart example the handbook publishes, and that the limits match the CI output. No claim that any real process is in control."
+      sourceResourceId: nist/handbook-process-monitoring-and-control
+  verificationEvidence:
+    - description: The 27 factors of the X-bar and R table and the individuals chart example matching sections 6.3.2.1 and 6.3.2.2, and the limits for the lithography record, as the CI output does
+      method: automated-check
+    - description: The learner states which subgroup each chart uses and what variation its limits carry
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces A2, D3 and D4 for n = 2 to 10 and the individuals chart example of section 6.3.2.2
+    - stage: adapt
+      criterion: Sets X-bar and s limits on the lithography record with the wafer as subgroup and explains why so many wafer means fall outside them
+    - stage: demonstrate
+      criterion: Explains to a reviewer why the cassette means need limits from the lot-to-lot variation, as section 6.6.1.4 says, and what the individuals chart on them shows
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: the NIST/SEMATECH e-Handbook’s lithography case study reproduced number for number, its control chart factors rebuilt from the distribution of the range, control limits set with two different subgroups, and the line-width variation split into cassette, wafer and site, all computed by the site’s CI."
+  href: /katas/manufacturing-pathway
+  provenance:
+    creator: NIST/SEMATECH e-Handbook of Statistical Methods (method, case study and data); Developer Dojo maintainers (script and results)
+    source: NIST/SEMATECH e-Handbook of Statistical Methods, chapter 6 and the data rows of LITHOGRA.DAT (read 2026-11-25); results from /examples/manufacturing-pathway/tools/manufacturing_pathway.py
+    license: NIST public information, copied with credit (nist.gov copyright statement); script and outputs MIT
+    date: "2026-11-25"
+brief:
+  goal: The factor table rebuilt from first principles, then control limits for the lithography record that you can defend for the subgroup you chose.
+  audience: Learners who finished MFG-001 and want to compute control limits rather than take them from a template.
+  inputs:
+    - name: The data rows of LITHOGRA.DAT, handbook section 6.6.1
+      source: /examples/manufacturing-pathway/inputs/lithogra-data-rows.dat
+      terms: NIST public information; may be copied with credit
+    - name: The factor table of section 6.3.2.1 and the flow-rate example of section 6.3.2.2
+      source: nist/handbook-process-monitoring-and-control (the script holds the printed values and names the section of each)
+      terms: NIST public information; may be copied with credit
+  doneWhen:
+    - Your A2, D3 and D4 match the handbook’s table for n = 2 to 10, with the one D4 the reference checks note
+    - Your X-bar and s limits for the wafer subgroups and your individuals limits for the cassette means match /examples/manufacturing-pathway/generated/control-limits.json
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV and data files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: The data rows of LITHOGRA.DAT, NIST/SEMATECH e-Handbook section 6.6.1
+      version: "Downloaded 2026-11-25, data rows SHA-256 d7c27b04…7e7c2204"
+      permissions: Read a copy
+      cost: Free (NIST public information)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against the handbook’s published values
+      permissions: Reads what you paste in; paste only the handbook’s case study, never a real plant’s or supplier’s records
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library is enough for these formulas, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A statistics package or a spreadsheet control chart template
+      tradeoff: Faster to draw the chart, but a template hides which sigma it uses and which subgroup it assumes, the two choices this pathway is about. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains d2, d3 and c4 and drafts Python for the integrals and the limits.
+      reviewGate: You run the code and keep it only if it reproduces the handbook’s printed values.
+    - role: Learner as reviewer
+      responsibility: Works out one limit by hand from s-bar and c4 and compares every factor and limit with the handbook and the CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A factor stays only if it matches the handbook’s table at three decimals, or within the one noted unit.
+setup:
+  steps:
+    - Use the folder and Python from MFG-001.
+    - Open handbook sections 6.3.2, 6.3.2.1, 6.3.2.2 and 6.6.1.4 beside the script.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/manufacturing_pathway.py . out"
+    expected: "60 reference checks pass, including A2 = 0.577 for n = 5 and the individuals limits 45.8159 to 55.8041"
+    result: passed
+    evidence: /examples/manufacturing-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+    date: "2026-11-25"
+prompts:
+  - id: explain-factors
+    title: Explain where the factors come from
+    purpose: Understand a factor table before you trust the limits built on it.
+    text: |-
+      Control chart tables give A2, D3 and D4 for each subgroup size n. Explain what d2 and d3 are for samples of n from a normal distribution, and how A2, D3 and D4 follow from them.
+      Then give me Python, standard library only, that computes d2 and d3 by numerical integration for n = 2 to 10, so I can check you against the NIST/SEMATECH e-Handbook’s table in section 6.3.2.1.
+      If you are not sure, say so.
+exercise:
+  title: NIST/SEMATECH e-Handbook of Statistical Methods, section 6.6.1, Lithography Process
+  resourceId: nist/handbook-lithography-case-study
+  terms: NIST public information; may be copied and distributed with credit. Nothing here implies endorsement by NIST.
+execution:
+  steps:
+    - actor: Explaining assistant
+      action: Drafts the code for d2, d3, the factors and c4.
+      handoff: You run it and compare every factor with section 6.3.2.1.
+    - actor: Learner
+      action: Reproduce the individuals chart example, then set the X-bar and s limits with the wafer as subgroup and count the means outside them.
+    - actor: Learner
+      action: Chart the 30 cassette means as individuals and compare with section 6.6.1.4.
+verification:
+  checks:
+    - action: Reproduce the factor table and the individuals chart example with the pathway script
+      expected: "A2 1.880 to 0.308, D3 0 to 0.223, D4 3.267 to 1.777 for n = 2 to 10 (D4 for n = 5 within one unit, noted); individuals mean 50.81, average moving range 1.8778, limits 45.8159 and 55.8041"
+      result: passed
+      evidence: /examples/manufacturing-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+      date: "2026-11-25"
+    - action: Set the limits for the lithography record
+      expected: "X-bar and s, wafer as subgroup: centre 2.5323, limits 1.9507 to 3.1139, 27 of 90 means outside; individuals on the cassette means: limits 1.1417 to 3.9229, cassette 27 outside"
+      result: passed
+      evidence: /examples/manufacturing-pathway/generated/control-limits.json, recomputed by CI on every pipeline
+      date: "2026-11-25"
+    - action: Your own code reproduces the same values
+      expected: The same factors and limits at the precision shown
+      result: not-run
+  failures:
+    - observed: Most wafer means fall outside the X-bar limits, so the process looks badly out of control
+      correction: The limits carry only the variation within a wafer, while the means also move from cassette to cassette. Section 6.6.1.4 charts the lot means with limits from the lot-to-lot variation instead.
+    - observed: The s chart has a negative lower limit
+      correction: For n = 5 the lower limit is below zero, so it is set to zero; the handbook notes there is no lower limit for this subgroup size.
+adaptation:
+  variations:
+    - change: Use the cassette (15 measurements) as the subgroup
+      effect: The limits narrow; the Randori card B asks whether fewer means fall outside them and why.
+randori:
+  challenge: See the manufacturing Randori recipe, MFG-R01.
+  constraints:
+    - Every factor matches the handbook’s table, or the one noted unit
+  evaluation: The factors and limits match the CI output and the handbook.
+maintenance:
+  cadence: Every six months, or when NIST changes the handbook’s chapter 6 or the case study’s data file
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on the handbook’s own case study, not an engineering review. No quality engineer, statistician or process engineer has reviewed it, and a real process needs the review its quality system requires.
+    - The served data are the 450 rows of LITHOGRA.DAT without its header, which names the person who supplied the data.
+    - Section 6.6.1.4 recommends charting the lot means with lot-to-lot limits; the individuals chart on the cassette means is one standard way to do that, chosen by the Dojo.

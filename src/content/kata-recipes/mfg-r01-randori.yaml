@@ -1,0 +1,182 @@
+# Manufacturing pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/manufacturing-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job manufacturing_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Manufacturing pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a quality engineer, statistician or process engineer yet.
+summary: "Start from the MFG-002 X-bar and s chart with the wafer as subgroup; a partner reveals one changed choice after you begin. Predict how the limits and the count of means outside them change, then recompute and explain the difference."
+metadata:
+  id: MFG-R01
+  title: "Manufacturing Randori: an unseen change of subgroup or data"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - set-control-limits
+  artifactTypes:
+    - control-chart-limits
+  domainIds:
+    - manufacturing
+  capabilityIds:
+    - analyze-data
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - nist/handbook-process-monitoring-and-control
+    - nist/handbook-lithography-case-study
+    - nist/engineering-statistics-handbook
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: NIST/SEMATECH e-Handbook of Statistical Methods, chapter 6 (Process or Product Monitoring and Control)
+      version: "Web edition last updated 2022-04-27, DOI 10.18434/M32189; read 2026-11-25"
+      applicability: "The X-bar and s and X-bar and R limits of section 6.3.2.1, recomputed under each changed choice on the Randori cards"
+      reviewScope: "What the listed checks test: that each card’s result matches the CI output. No claim that any card describes a real process."
+      sourceResourceId: nist/handbook-process-monitoring-and-control
+  verificationEvidence:
+    - description: For the card drawn, a written prediction, the recomputed limits and count of means outside them, and an explanation of any gap
+      method: automated-check
+    - description: A Sensei or partner checks that the prediction was written before the recompute and that the explanation names the choice that moved the limits
+      method: sensei-review
+  beltCriteria:
+    - stage: practice
+      criterion: Handles card C and explains why the range and the standard deviation give slightly different sigmas
+    - stage: adapt
+      criterion: Handles card A or B and predicts the direction of the change in the count of means outside the limits correctly
+    - stage: demonstrate
+      criterion: Writes a fourth card for a partner and predicts its result before running it
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: the NIST/SEMATECH e-Handbook’s lithography case study reproduced number for number, its control chart factors rebuilt from the distribution of the range, control limits set with two different subgroups, and the line-width variation split into cassette, wafer and site, all computed by the site’s CI."
+  href: /katas/manufacturing-pathway
+  provenance:
+    creator: NIST/SEMATECH e-Handbook of Statistical Methods (method, case study and data); Developer Dojo maintainers (script and results)
+    source: NIST/SEMATECH e-Handbook of Statistical Methods, chapter 6 and the data rows of LITHOGRA.DAT (read 2026-11-25); results from /examples/manufacturing-pathway/tools/manufacturing_pathway.py
+    license: NIST public information, copied with credit (nist.gov copyright statement); script and outputs MIT
+    date: "2026-11-25"
+brief:
+  goal: Meet one changed choice you did not see in advance, with a prediction first and a recompute after.
+  audience: Learners who finished MFG-003, working with a partner or Sensei.
+  inputs:
+    - name: Your MFG-002 limits for the wafer subgroups
+      source: Your own output, or /examples/manufacturing-pathway/generated/control-limits.json
+      terms: Dojo output, MIT licence
+    - name: The Randori cards
+      source: The table on /katas/manufacturing-pathway (the partner keeps it; the learner sees only the drawn card)
+      terms: Dojo content, MIT licence
+  doneWhen:
+    - Your prediction (direction and rough size of the change in the limits, and in the count of means outside them) is written before you recompute
+    - Your recomputed result matches /examples/manufacturing-pathway/generated/randori/cards.json for the card
+    - You name the choice the card changed and explain any gap between prediction and result
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV and data files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: The data rows of LITHOGRA.DAT, NIST/SEMATECH e-Handbook section 6.6.1
+      version: "Downloaded 2026-11-25, data rows SHA-256 d7c27b04…7e7c2204"
+      permissions: Read a copy
+      cost: Free (NIST public information)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against the handbook’s published values
+      permissions: Reads what you paste in; paste only the handbook’s case study, never a real plant’s or supplier’s records
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library is enough for these formulas, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A statistics package or a spreadsheet control chart template
+      tradeoff: Faster to draw the chart, but a template hides which sigma it uses and which subgroup it assumes, the two choices this pathway is about. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Partner or Sensei
+      responsibility: Draws one card after the learner starts and keeps the others hidden.
+      reviewGate: Asks for the prediction, the recompute and the explanation.
+    - role: Learner
+      responsibility: Reads the card, predicts, changes only the one choice and recomputes.
+      dependsOn:
+        - Partner or Sensei
+      reviewGate: The prediction is written down before the recompute runs.
+setup:
+  steps:
+    - Use the folder and Python from MFG-003.
+    - The partner opens the Randori table on /katas/manufacturing-pathway; the learner does not.
+  auth: None.
+  smokeTest:
+    action: Recompute all three cards with the pathway script
+    expected: "Against 27 of 90 wafer means outside the baseline limits: card A 19 (-8), card B 14 of 30 (-13), card C 25 (-2)"
+    result: passed
+    evidence: /examples/manufacturing-pathway/generated/randori/cards.json, recomputed by CI on every pipeline
+    date: "2026-11-25"
+prompts:
+  - id: predict-first
+    title: Predict before you compute
+    purpose: Make the learner commit to a reading of the chart before the code answers.
+    text: |-
+      An X-bar and s chart on 450 line widths, with the wafer (5 sites) as subgroup, has limits 1.9507 to 3.1139 micrometres, and 27 of 90 wafer means fall outside them. One choice changes: <paste the card>.
+      Do not compute anything yet. Tell me whether the limits move or get wider or narrower, roughly by how much, and whether more or fewer means will fall outside them, with your reasoning. Then I will recompute.
+exercise:
+  title: NIST/SEMATECH e-Handbook of Statistical Methods, section 6.6.1, Lithography Process
+  resourceId: nist/handbook-lithography-case-study
+  terms: NIST public information; may be copied and distributed with credit. Nothing here implies endorsement by NIST.
+execution:
+  steps:
+    - actor: Partner or Sensei
+      action: Waits until the learner has started, then reveals one card.
+      handoff: The learner writes a prediction.
+    - actor: Learner
+      action: Changes only what the card says, recomputes and compares with the prediction.
+    - actor: Partner or Sensei
+      action: Reviews the prediction, the result and the explanation.
+verification:
+  checks:
+    - action: Recompute the three cards with the pathway script
+      expected: "A (cleaned column): centre 2.0813, half-width +0.3 %, 19 outside; B (cassette as subgroup): half-width -38.1 %, 14 of 30 outside; C (sigma from R-bar / d2): half-width +4.1 %, 25 outside"
+      result: passed
+      evidence: /examples/manufacturing-pathway/generated/randori/cards.json
+      date: "2026-11-25"
+    - action: A learner meets a drawn card with a prediction written first
+      expected: Prediction, recompute and explanation
+      result: not-run
+  failures:
+    - observed: Card B is predicted to put more cassette means outside the limits because the limits are narrower
+      correction: The limits narrow, but cassette means average over three wafers and fifteen sites, so they move less too. Count before you conclude, and remember that the within-cassette sigma still leaves out the lot-to-lot variation.
+adaptation:
+  variations:
+    - change: The partner draws two cards
+      effect: Apply one at a time and recompute after each, so you know which change moved what.
+randori:
+  challenge: Meet one changed choice you have not seen, revealed after you start, on the MFG-002 X-bar and s chart of the lithography record.
+  constraints:
+    - Write your prediction before you compute
+    - Change only what the card says
+    - Name the choice that moved the limits
+  evaluation: The recompute matches the CI result for the card, and the partner agrees the explanation names what moved.
+maintenance:
+  cadence: Every six months, or when NIST changes the handbook’s chapter 6 or the case study’s data file
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on the handbook’s own case study, not an engineering review. No quality engineer, statistician or process engineer has reviewed it, and a real process needs the review its quality system requires.
+    - The served data are the 450 rows of LITHOGRA.DAT without its header, which names the person who supplied the data.
+    - The cards are practice changes to the handbook’s case study, not real process decisions.

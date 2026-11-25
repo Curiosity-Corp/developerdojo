@@ -1,0 +1,9 @@
+title: "6. Process or Product Monitoring and Control (NIST/SEMATECH e-Handbook of Statistical Methods)"
+provider: "NIST"
+url: "https://www.itl.nist.gov/div898/handbook/pmc/pmc.htm"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [data-analytics]
+summary: "The handbook chapter on statistical process control: process capability (6.1.6), Shewhart charts for variables with their factor tables (6.3.2.1), individuals charts (6.3.2.2) and worked case studies. Each method has a worked example whose numbers you can reproduce. NIST public information, free to read and copy with credit."
+verifiedOn: 2026-11-25

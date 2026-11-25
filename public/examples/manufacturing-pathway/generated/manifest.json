@@ -1,0 +1,23 @@
+{
+  "script": "tools/manufacturing_pathway.py",
+  "python": "3.12",
+  "inputs": {
+    "inputs/lithogra-data-rows.dat": "d7c27b047ed06606dbd3aaf8deead0a094a1a628cebf2ee2f002f7ed7e7c2204"
+  },
+  "method": {
+    "referenceChecks": "NIST/SEMATECH e-Handbook of Statistical Methods: sections 6.6.1.2 and 6.6.1.3 (lithography case study), 6.3.2.1 (factor table), 6.3.2 (c4), 6.3.2.2 (individuals chart example) and 6.1.6 (capability example and rejects)",
+    "factors": "d2 and d3 from the distribution of the range of n normal observations, Simpson's rule with step 0.01; A2 = 3 / (d2 sqrt(n)), D3 = max(0, 1 - 3 d3 / d2), D4 = 1 + 3 d3 / d2",
+    "controlLimits": "X-bar and s, and X-bar and R, three-sigma limits (6.3.2.1) with the wafer as subgroup; individuals chart (6.3.2.2) on the cassette means",
+    "varianceComponents": "Nested random-effects analysis of variance, mean squares equated to expected mean squares (6.6.1.3)"
+  },
+  "outputs": [
+    "control-limits.json",
+    "inspection.json",
+    "manifest.json",
+    "randori/cards.json",
+    "reference-checks.json",
+    "subgroups.csv",
+    "summary.md",
+    "variation.json"
+  ]
+}

@@ -28,6 +28,11 @@ export const transferPractice = {
       reference: 'Appendix J’s printed worked examples, which the code must reproduce before it computes any other annual percentage rate.',
       gate: { recipe: 'fin-002-annual-percentage-rate', role: 'Explaining assistant' },
     },
+    {
+      packId: 'manufacturing',
+      reference: 'The NIST/SEMATECH e-Handbook’s printed factor table and case study results, which the code must reproduce before it sets any control limit.',
+      gate: { recipe: 'mfg-002-control-limits', role: 'Explaining assistant' },
+    },
   ],
   selfCheck: [
     'I can name this field’s independent reference and show one assistant output it rejected or corrected.',

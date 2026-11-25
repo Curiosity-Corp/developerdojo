@@ -1,0 +1,9 @@
+title: "6.6.1 Lithography Process case study (NIST/SEMATECH e-Handbook of Statistical Methods)"
+provider: "NIST"
+url: "https://www.itl.nist.gov/div898/handbook/pmc/section6/pmc61.htm"
+cost: "free"
+format: "book"
+level: "intermediate"
+skills: [data-analytics]
+summary: "A semiconductor case study: 450 line widths measured at five sites on three wafers in each of 30 cassettes. It shows how the choice of subgroup changes a control chart and splits the variation into cassette, wafer and site components, with the data file and published results to reproduce."
+verifiedOn: 2026-11-25

@@ -1,0 +1,29 @@
+{
+  "A": {
+    "title": "Use the cleaned line width column instead of the raw one",
+    "subgroups": 90,
+    "center": "2.0813",
+    "halfWidth": "0.5836",
+    "halfWidthChange_percent": "0.3",
+    "meansBeyondLimits": 19,
+    "changeInMeansBeyond": -8
+  },
+  "B": {
+    "title": "Use the cassette (15 measurements) as the subgroup instead of the wafer",
+    "subgroups": 30,
+    "center": "2.5323",
+    "halfWidth": "0.3598",
+    "halfWidthChange_percent": "-38.1",
+    "meansBeyondLimits": 14,
+    "changeInMeansBeyond": -13
+  },
+  "C": {
+    "title": "Estimate sigma from the average range (R-bar / d2) instead of s-bar / c4",
+    "subgroups": 90,
+    "center": "2.5323",
+    "halfWidth": "0.6056",
+    "halfWidthChange_percent": "4.1",
+    "meansBeyondLimits": 25,
+    "changeInMeansBeyond": -2
+  }
+}

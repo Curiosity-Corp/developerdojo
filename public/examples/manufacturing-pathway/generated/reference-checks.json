@@ -1,0 +1,489 @@
+{
+  "source": "NIST/SEMATECH e-Handbook of Statistical Methods, chapter 6",
+  "passed": 60,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "litho-n",
+      "source": "Handbook 6.6.1.2",
+      "quantity": "Sample size",
+      "published": "450",
+      "computed": "450",
+      "status": "pass"
+    },
+    {
+      "id": "litho-mean",
+      "source": "Handbook 6.6.1.2",
+      "quantity": "Mean, micrometres",
+      "published": "2.53228",
+      "computed": "2.53228",
+      "status": "pass"
+    },
+    {
+      "id": "litho-median",
+      "source": "Handbook 6.6.1.2",
+      "quantity": "Median, micrometres",
+      "published": "2.45334",
+      "computed": "2.45334",
+      "status": "pass"
+    },
+    {
+      "id": "litho-minimum",
+      "source": "Handbook 6.6.1.2",
+      "quantity": "Minimum, micrometres",
+      "published": "0.74655",
+      "computed": "0.74655",
+      "status": "pass"
+    },
+    {
+      "id": "litho-maximum",
+      "source": "Handbook 6.6.1.2",
+      "quantity": "Maximum, micrometres",
+      "published": "5.16867",
+      "computed": "5.16867",
+      "status": "pass"
+    },
+    {
+      "id": "litho-range",
+      "source": "Handbook 6.6.1.2",
+      "quantity": "Range, micrometres",
+      "published": "4.42212",
+      "computed": "4.42212",
+      "status": "pass"
+    },
+    {
+      "id": "litho-standardDeviation",
+      "source": "Handbook 6.6.1.2",
+      "quantity": "Standard deviation, micrometres",
+      "published": "0.69376",
+      "computed": "0.69376",
+      "status": "pass"
+    },
+    {
+      "id": "litho-autocorrelation",
+      "source": "Handbook 6.6.1.2",
+      "quantity": "Autocorrelation (lag 1)",
+      "published": "0.60726",
+      "computed": "0.60726",
+      "status": "pass"
+    },
+    {
+      "id": "anova-ss-cassette",
+      "source": "Handbook 6.6.1.3",
+      "quantity": "Sum of squares, Cassette",
+      "published": "127.40293",
+      "computed": "127.40293",
+      "status": "pass"
+    },
+    {
+      "id": "anova-ms-cassette",
+      "source": "Handbook 6.6.1.3",
+      "quantity": "Mean square, Cassette",
+      "published": "4.3932",
+      "computed": "4.3932",
+      "status": "pass"
+    },
+    {
+      "id": "anova-ss-wafer",
+      "source": "Handbook 6.6.1.3",
+      "quantity": "Sum of squares, Wafer (cassette)",
+      "published": "25.52089",
+      "computed": "25.52089",
+      "status": "pass"
+    },
+    {
+      "id": "anova-ms-wafer",
+      "source": "Handbook 6.6.1.3",
+      "quantity": "Mean square, Wafer (cassette)",
+      "published": "0.4253",
+      "computed": "0.4253",
+      "status": "pass"
+    },
+    {
+      "id": "anova-ss-site",
+      "source": "Handbook 6.6.1.3",
+      "quantity": "Sum of squares, Site (cassette, wafer)",
+      "published": "63.17865",
+      "computed": "63.17865",
+      "status": "pass"
+    },
+    {
+      "id": "anova-ms-site",
+      "source": "Handbook 6.6.1.3",
+      "quantity": "Mean square, Site (cassette, wafer)",
+      "published": "0.1755",
+      "computed": "0.1755",
+      "status": "pass"
+    },
+    {
+      "id": "component-cassette",
+      "source": "Handbook 6.6.1.3",
+      "quantity": "Variance component, cassette",
+      "published": "0.2645",
+      "computed": "0.2645",
+      "status": "pass"
+    },
+    {
+      "id": "component-wafer",
+      "source": "Handbook 6.6.1.3",
+      "quantity": "Variance component, wafer",
+      "published": "0.04997",
+      "computed": "0.04997",
+      "status": "pass"
+    },
+    {
+      "id": "component-site",
+      "source": "Handbook 6.6.1.3",
+      "quantity": "Variance component, site",
+      "published": "0.1755",
+      "computed": "0.1755",
+      "status": "pass"
+    },
+    {
+      "id": "A2-2",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "A2, n = 2",
+      "published": "1.880",
+      "computed": "1.880",
+      "status": "pass"
+    },
+    {
+      "id": "D3-2",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "D3, n = 2",
+      "published": "0",
+      "computed": "0",
+      "status": "pass"
+    },
+    {
+      "id": "D4-2",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "D4, n = 2",
+      "published": "3.267",
+      "computed": "3.267",
+      "status": "pass"
+    },
+    {
+      "id": "A2-3",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "A2, n = 3",
+      "published": "1.023",
+      "computed": "1.023",
+      "status": "pass"
+    },
+    {
+      "id": "D3-3",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "D3, n = 3",
+      "published": "0",
+      "computed": "0",
+      "status": "pass"
+    },
+    {
+      "id": "D4-3",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "D4, n = 3",
+      "published": "2.575",
+      "computed": "2.575",
+      "status": "pass"
+    },
+    {
+      "id": "A2-4",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "A2, n = 4",
+      "published": "0.729",
+      "computed": "0.729",
+      "status": "pass"
+    },
+    {
+      "id": "D3-4",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "D3, n = 4",
+      "published": "0",
+      "computed": "0",
+      "status": "pass"
+    },
+    {
+      "id": "D4-4",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "D4, n = 4",
+      "published": "2.282",
+      "computed": "2.282",
+      "status": "pass"
+    },
+    {
+      "id": "A2-5",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "A2, n = 5",
+      "published": "0.577",
+      "computed": "0.577",
+      "status": "pass"
+    },
+    {
+      "id": "D3-5",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "D3, n = 5",
+      "published": "0",
+      "computed": "0",
+      "status": "pass"
+    },
+    {
+      "id": "D4-5",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "D4, n = 5",
+      "published": "2.115",
+      "computed": "2.114",
+      "status": "pass",
+      "note": "The range distribution gives D4 = 2.114499 (d2 = 2.32593, d3 = 0.86408), which rounds to 2.114; the handbook prints 2.115. Accepted within one unit of the last printed digit."
+    },
+    {
+      "id": "A2-6",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "A2, n = 6",
+      "published": "0.483",
+      "computed": "0.483",
+      "status": "pass"
+    },
+    {
+      "id": "D3-6",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "D3, n = 6",
+      "published": "0",
+      "computed": "0",
+      "status": "pass"
+    },
+    {
+      "id": "D4-6",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "D4, n = 6",
+      "published": "2.004",
+      "computed": "2.004",
+      "status": "pass"
+    },
+    {
+      "id": "A2-7",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "A2, n = 7",
+      "published": "0.419",
+      "computed": "0.419",
+      "status": "pass"
+    },
+    {
+      "id": "D3-7",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "D3, n = 7",
+      "published": "0.076",
+      "computed": "0.076",
+      "status": "pass"
+    },
+    {
+      "id": "D4-7",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "D4, n = 7",
+      "published": "1.924",
+      "computed": "1.924",
+      "status": "pass"
+    },
+    {
+      "id": "A2-8",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "A2, n = 8",
+      "published": "0.373",
+      "computed": "0.373",
+      "status": "pass"
+    },
+    {
+      "id": "D3-8",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "D3, n = 8",
+      "published": "0.136",
+      "computed": "0.136",
+      "status": "pass"
+    },
+    {
+      "id": "D4-8",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "D4, n = 8",
+      "published": "1.864",
+      "computed": "1.864",
+      "status": "pass"
+    },
+    {
+      "id": "A2-9",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "A2, n = 9",
+      "published": "0.337",
+      "computed": "0.337",
+      "status": "pass"
+    },
+    {
+      "id": "D3-9",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "D3, n = 9",
+      "published": "0.184",
+      "computed": "0.184",
+      "status": "pass"
+    },
+    {
+      "id": "D4-9",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "D4, n = 9",
+      "published": "1.816",
+      "computed": "1.816",
+      "status": "pass"
+    },
+    {
+      "id": "A2-10",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "A2, n = 10",
+      "published": "0.308",
+      "computed": "0.308",
+      "status": "pass"
+    },
+    {
+      "id": "D3-10",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "D3, n = 10",
+      "published": "0.223",
+      "computed": "0.223",
+      "status": "pass"
+    },
+    {
+      "id": "D4-10",
+      "source": "Handbook 6.3.2.1",
+      "quantity": "D4, n = 10",
+      "published": "1.777",
+      "computed": "1.777",
+      "status": "pass"
+    },
+    {
+      "id": "c4-10",
+      "source": "Handbook 6.3.2",
+      "quantity": "c4, n = 10",
+      "published": "0.9727",
+      "computed": "0.9727",
+      "status": "pass"
+    },
+    {
+      "id": "factorial-3.5",
+      "source": "Handbook 6.3.2",
+      "quantity": "(3.5)!",
+      "published": "11.632",
+      "computed": "11.632",
+      "status": "pass"
+    },
+    {
+      "id": "individuals-mean",
+      "source": "Handbook 6.3.2.2",
+      "quantity": "Mean flow rate",
+      "published": "50.81",
+      "computed": "50.81",
+      "status": "pass"
+    },
+    {
+      "id": "individuals-MR",
+      "source": "Handbook 6.3.2.2",
+      "quantity": "Average moving range",
+      "published": "1.8778",
+      "computed": "1.8778",
+      "status": "pass"
+    },
+    {
+      "id": "individuals-d2",
+      "source": "Handbook 6.3.2.2",
+      "quantity": "d2 for n = 2",
+      "published": "1.128",
+      "computed": "1.128",
+      "status": "pass"
+    },
+    {
+      "id": "individuals-UCL",
+      "source": "Handbook 6.3.2.2",
+      "quantity": "Upper control limit",
+      "published": "55.8041",
+      "computed": "55.8041",
+      "status": "pass"
+    },
+    {
+      "id": "individuals-LCL",
+      "source": "Handbook 6.3.2.2",
+      "quantity": "Lower control limit",
+      "published": "45.8159",
+      "computed": "45.8159",
+      "status": "pass"
+    },
+    {
+      "id": "capability-Cp",
+      "source": "Handbook 6.1.6",
+      "quantity": "Cp, USL 20, LSL 8, mean 16, s 2",
+      "published": "1.0",
+      "computed": "1.0",
+      "status": "pass"
+    },
+    {
+      "id": "capability-k",
+      "source": "Handbook 6.1.6",
+      "quantity": "k, USL 20, LSL 8, mean 16, s 2",
+      "published": "0.3333",
+      "computed": "0.3333",
+      "status": "pass"
+    },
+    {
+      "id": "capability-Cpk",
+      "source": "Handbook 6.1.6",
+      "quantity": "Cpk, USL 20, LSL 8, mean 16, s 2",
+      "published": "0.6667",
+      "computed": "0.6667",
+      "status": "pass"
+    },
+    {
+      "id": "capability-Cpu",
+      "source": "Handbook 6.1.6",
+      "quantity": "Cpu, USL 20, LSL 8, mean 16, s 2",
+      "published": "0.6667",
+      "computed": "0.6667",
+      "status": "pass"
+    },
+    {
+      "id": "capability-Cpl",
+      "source": "Handbook 6.1.6",
+      "quantity": "Cpl, USL 20, LSL 8, mean 16, s 2",
+      "published": "1.3333",
+      "computed": "1.3333",
+      "status": "pass"
+    },
+    {
+      "id": "rejects-6",
+      "source": "Handbook 6.1.6",
+      "quantity": "Rejects at Cp 1.00 (limits 6 sigma apart), %",
+      "published": "0.27",
+      "computed": "0.27",
+      "status": "pass"
+    },
+    {
+      "id": "rejects-8",
+      "source": "Handbook 6.1.6",
+      "quantity": "Rejects at Cp 1.33 (limits 8 sigma apart), ppm",
+      "published": "64",
+      "computed": "63",
+      "status": "pass",
+      "note": "Limits 4 sigma either side leave 2 x Phi(-4) = 63.3 ppm outside, which rounds to 63; the handbook prints 64. Accepted within one unit of the last printed digit."
+    },
+    {
+      "id": "rejects-10",
+      "source": "Handbook 6.1.6",
+      "quantity": "Rejects at Cp 1.66 (limits 10 sigma apart), ppm",
+      "published": "0.6",
+      "computed": "0.6",
+      "status": "pass"
+    },
+    {
+      "id": "rejects-12",
+      "source": "Handbook 6.1.6",
+      "quantity": "Rejects at Cp 2.00 (limits 12 sigma apart), ppb",
+      "published": "2",
+      "computed": "2",
+      "status": "pass"
+    }
+  ]
+}
