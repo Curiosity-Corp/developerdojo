@@ -50,8 +50,11 @@ const { id, label = 'Search the whole site' } = Astro.props;
   }
   interface PagefindApi {
     init: () => Promise<void>;
+    // Optional: start-up and speed tuning only. Search works with a module that has just init and search.
+    options?: (options: { noWorker?: boolean }) => Promise<void>;
     search: (term: string) => Promise<PagefindSearch>;
     debouncedSearch: (term: string, options?: object, wait?: number) => Promise<PagefindSearch | null>;
+    preload?: (term: string) => Promise<void>;
   }
 
   let vocabulary: Promise<string[]> | undefined;
@@ -77,6 +80,12 @@ const { id, label = 'Search the whole site' } = Astro.props;
     if (!pagefind) mark('load-start');
     pagefind ??= import(/* @vite-ignore */ url).then(async (api: PagefindApi) => {
       mark('module-ready');
+      // Run Pagefind on the main thread, not in its Web Worker (#112). The worker has to download its own script
+      // before it fetches the entry, WASM and metadata, and Pagefind gives that whole start-up 5 seconds: on a slow
+      // phone with a cold cache it can run out, throw the worker away and start every load again on the main
+      // thread, leaving "Searching…" up for many seconds. This index is small enough that a search on the main
+      // thread takes a few milliseconds, and the main-thread instance starts loading its index here, on intent.
+      await api.options?.({ noWorker: true });
       await api.init();
       mark('init-ready');
       return api;
@@ -189,6 +198,8 @@ const { id, label = 'Search the whole site' } = Astro.props;
       try {
         const api = await loadPagefind();
         mark('query-api-ready');
+        // Fetch this term's index chunk while the debounce waits, so the search does not start with a round trip.
+        void api.preload?.(term).catch(() => undefined);
         let search = await api.debouncedSearch(term, {}, 150);
         if (ticket !== latest) return;
         // Pagefind's debounce is shared by all panels using this module. Another
@@ -266,6 +277,14 @@ const { id, label = 'Search the whole site' } = Astro.props;
     // Start loading on explicit search intent, so it can initialize while the learner types.
     input.addEventListener('focus', () => { void loadPagefind().catch(() => undefined); });
     input.addEventListener('input', () => void run());
+  }
+
+  // The header search button: a pointer resting on it, a touch starting on it or keyboard focus on it is intent to
+  // search. A cold search on a phone is a chain of dependent requests (module, entry, WASM and metadata), so start
+  // that chain here rather than when the dialog has opened and its box takes focus.
+  const warm = (): void => { void loadPagefind().catch(() => undefined); };
+  for (const opener of document.querySelectorAll<HTMLElement>('[data-search-open]')) {
+    for (const type of ['pointerenter', 'pointerdown', 'focus'] as const) opener.addEventListener(type, warm, { once: true, passive: true });
   }
 </script>
 

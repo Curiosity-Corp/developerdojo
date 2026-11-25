@@ -26,7 +26,7 @@ test('search warms its index when the learner opens it', async ({ page, isMobile
 
 test('two search panels can finish when Pagefind supersedes a request', async ({ page, isMobile }) => {
   // Simulate Pagefind's documented shared debounce cancellation deterministically.
-  // The ordinary search tests below still exercise the real index and worker.
+  // The ordinary search tests below still exercise the real index.
   await page.route('**/pagefind/pagefind.js', (route) => route.fulfill({
     contentType: 'text/javascript',
     body: `
