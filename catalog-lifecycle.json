@@ -478,6 +478,69 @@
       "state": "verified"
     },
     {
+      "id": "MED-001",
+      "surface": "recipe",
+      "title": "Inspect a recording: its format, its peaks and its channels",
+      "href": "/katas/med-001-inspect-recording",
+      "area": "artifact-validity",
+      "maintainerRole": "Media pathway maintainer",
+      "provenance": [
+        "NASA’s Artemis II launch recording, Pad Camera Site 4: /examples/media-pathway/inputs/artemis-ii-launch-pad-camera-site-4.wav"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a broadcast audio engineer, a delivery quality-control specialist or a mastering engineer yet.",
+      "verifiedOn": "2026-11-25",
+      "dueOn": "2027-02-23",
+      "state": "verified"
+    },
+    {
+      "id": "MED-002",
+      "surface": "recipe",
+      "title": "Measure programme loudness and true peak, with a meter you checked yourself",
+      "href": "/katas/med-002-measure-loudness",
+      "area": "artifact-validity",
+      "maintainerRole": "Media pathway maintainer",
+      "provenance": [
+        "NASA’s Artemis II launch recording, Pad Camera Site 4: /examples/media-pathway/inputs/artemis-ii-launch-pad-camera-site-4.wav",
+        "The filter coefficients and equations of BS.1770-5 and the test signals of Tech 3341, Table 1: itu/bs-1770-loudness-and-true-peak and ebu/tech-3341-ebu-mode-metering (free downloads; the script holds the coefficients and names the table of each)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a broadcast audio engineer, a delivery quality-control specialist or a mastering engineer yet.",
+      "verifiedOn": "2026-11-25",
+      "dueOn": "2027-02-23",
+      "state": "verified"
+    },
+    {
+      "id": "MED-003",
+      "surface": "recipe",
+      "title": "Normalise to EBU R 128 and check the true-peak limit",
+      "href": "/katas/med-003-normalise-loudness",
+      "area": "artifact-validity",
+      "maintainerRole": "Media pathway maintainer",
+      "provenance": [
+        "Your MED-002 readings of the recording: Your own output, or /examples/media-pathway/generated/loudness.json",
+        "The target and limits of EBU R 128: ebu/r128-loudness-normalisation (a free download; the script holds the three values and names the document)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a broadcast audio engineer, a delivery quality-control specialist or a mastering engineer yet.",
+      "verifiedOn": "2026-11-25",
+      "dueOn": "2027-02-23",
+      "state": "verified"
+    },
+    {
+      "id": "MED-R01",
+      "surface": "recipe",
+      "title": "Media Randori: an unseen change to the meter or the delivery",
+      "href": "/katas/med-r01-randori",
+      "area": "artifact-validity",
+      "maintainerRole": "Media pathway maintainer",
+      "provenance": [
+        "Your MED-002 reading of the recording: Your own output, or /examples/media-pathway/generated/loudness.json",
+        "The Randori cards: The table on /katas/media-pathway (the partner keeps it; the learner sees only the drawn card)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a broadcast audio engineer, a delivery quality-control specialist or a mastering engineer yet.",
+      "verifiedOn": "2026-11-25",
+      "dueOn": "2027-02-23",
+      "state": "verified"
+    },
+    {
       "id": "MFG-001",
       "surface": "recipe",
       "title": "Inspect a process record: the structure and summary of the handbook’s lithography case study",
