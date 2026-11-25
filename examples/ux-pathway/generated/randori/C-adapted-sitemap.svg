@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="586" viewBox="0 0 1000 586" role="img" aria-labelledby="title desc" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+<title id="title">Randori C, after the constraint: Class trip form sitemap: 6 states and 12 transitions</title>
+<desc id="desc">One column per screen. Each box is a state; each numbered line is a transition, listed with its cause in the transition table. Lines are styled by kind: see the legend.</desc>
+<defs><marker id="arrow-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#212121"/></marker><marker id="arrow-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#616161"/></marker></defs>
+<rect x="0" y="0" width="1000" height="586" fill="#ffffff"/>
+<text x="204" y="36" font-size="14" font-weight="700" fill="#212121" text-anchor="middle">Permission</text>
+<text x="500" y="36" font-size="14" font-weight="700" fill="#212121" text-anchor="middle">Payment</text>
+<text x="796" y="36" font-size="14" font-weight="700" fill="#212121" text-anchor="middle">Answer recorded</text>
+<g data-state="permission"><rect x="112" y="114" width="184" height="104" rx="6" fill="#ffffff" stroke="#212121" stroke-width="2"/><text x="124" y="136" font-size="14" font-weight="700" fill="#212121">Science museum trip,</text><text x="124" y="154" font-size="14" font-weight="700" fill="#212121">Friday 12 June</text><text x="124" y="176" font-size="12" fill="#424242">Screen</text><text x="124" y="192" font-size="11" fill="#616161" font-family="ui-monospace, Menlo, Consolas, monospace">permission</text></g>
+<g data-state="permission-offline"><rect x="112" y="266" width="184" height="104" rx="6" fill="#ffffff" stroke="#212121" stroke-width="3" stroke-dasharray="7 4"/><text x="124" y="288" font-size="14" font-weight="700" fill="#212121">You are offline: your</text><text x="124" y="306" font-size="14" font-weight="700" fill="#212121">answers are kept</text><text x="124" y="328" font-size="12" fill="#424242">Error</text><text x="124" y="344" font-size="11" fill="#616161" font-family="ui-monospace, Menlo, Consolas, monospace">permission-offline</text></g>
+<g data-state="pay"><rect x="408" y="114" width="184" height="104" rx="6" fill="#ffffff" stroke="#212121" stroke-width="2"/><text x="420" y="136" font-size="14" font-weight="700" fill="#212121">Pay 12.50 for the trip</text><text x="420" y="158" font-size="12" fill="#424242">Screen</text><text x="420" y="174" font-size="11" fill="#616161" font-family="ui-monospace, Menlo, Consolas, monospace">pay</text></g>
+<g data-state="pay-offline"><rect x="408" y="266" width="184" height="104" rx="6" fill="#ffffff" stroke="#212121" stroke-width="3" stroke-dasharray="7 4"/><text x="420" y="288" font-size="14" font-weight="700" fill="#212121">You are offline: you</text><text x="420" y="306" font-size="14" font-weight="700" fill="#212121">have not been charged</text><text x="420" y="328" font-size="12" fill="#424242">Error</text><text x="420" y="344" font-size="11" fill="#616161" font-family="ui-monospace, Menlo, Consolas, monospace">pay-offline</text></g>
+<g data-state="paid"><rect x="704" y="114" width="184" height="104" rx="6" fill="#ffffff" stroke="#212121" stroke-width="4"/><text x="716" y="136" font-size="14" font-weight="700" fill="#212121">Alex is going on the</text><text x="716" y="154" font-size="14" font-weight="700" fill="#212121">trip</text><text x="716" y="176" font-size="12" fill="#424242">Success</text><text x="716" y="192" font-size="11" fill="#616161" font-family="ui-monospace, Menlo, Consolas, monospace">paid</text></g>
+<g data-state="not-going"><rect x="704" y="266" width="184" height="104" rx="6" fill="#ffffff" stroke="#212121" stroke-width="4"/><text x="716" y="288" font-size="14" font-weight="700" fill="#212121">Thanks, we have your</text><text x="716" y="306" font-size="14" font-weight="700" fill="#212121">answer</text><text x="716" y="328" font-size="12" fill="#424242">Success</text><text x="716" y="344" font-size="11" fill="#616161" font-family="ui-monospace, Menlo, Consolas, monospace">not-going</text></g>
+<path d="M296 127 L408 140" fill="none" stroke="#212121" stroke-width="2" marker-end="url(#arrow-ink)" data-transition="1"><title>1. permission to pay: Yes, Alex can go</title></path>
+<circle cx="352" cy="134" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="352" y="138" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">1</text>
+<path d="M296 192 H310 V90 H606 V301 H704" fill="none" stroke="#616161" stroke-width="2" marker-end="url(#arrow-grey)" data-transition="2"><title>2. permission to not-going: No, Alex will not go</title></path>
+<circle cx="458" cy="90" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="458" y="94" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">2</text>
+<path d="M296 166 H322 V292 H296" fill="none" stroke="#212121" stroke-width="2" stroke-dasharray="7 4" marker-end="url(#arrow-ink)" data-transition="3"><title>3. permission to permission-offline: The connection drops when the answer is sent</title></path>
+<circle cx="322" cy="229" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="322" y="233" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">3</text>
+<path d="M296 344 L408 192" fill="none" stroke="#212121" stroke-width="2" stroke-dasharray="2 3" marker-end="url(#arrow-ink)" data-transition="4"><title>4. permission-offline to pay: Try again with a signal</title></path>
+<circle cx="352" cy="268" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="352" y="272" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">4</text>
+<path d="M296 318 H334 V179 H296" fill="none" stroke="#424242" stroke-width="2" stroke-dasharray="10 4 2 4" marker-end="url(#arrow-grey)" data-transition="5"><title>5. permission-offline to permission: Back to the form</title></path>
+<circle cx="334" cy="249" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="334" y="253" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">5</text>
+<path d="M592 140 L704 166" fill="none" stroke="#212121" stroke-width="2" marker-end="url(#arrow-ink)" data-transition="6"><title>6. pay to paid: Pay 12.50</title></path>
+<circle cx="648" cy="153" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="648" y="157" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">6</text>
+<path d="M592 166 H618 V292 H592" fill="none" stroke="#212121" stroke-width="2" stroke-dasharray="7 4" marker-end="url(#arrow-ink)" data-transition="7"><title>7. pay to pay-offline: The connection drops when the payment is sent</title></path>
+<circle cx="618" cy="229" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="618" y="233" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">7</text>
+<path d="M408 166 L296 140" fill="none" stroke="#424242" stroke-width="2" stroke-dasharray="10 4 2 4" marker-end="url(#arrow-grey)" data-transition="8"><title>8. pay to permission: Change my answer</title></path>
+<circle cx="352" cy="153" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="352" y="157" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">8</text>
+<path d="M592 344 L704 192" fill="none" stroke="#212121" stroke-width="2" stroke-dasharray="2 3" marker-end="url(#arrow-ink)" data-transition="9"><title>9. pay-offline to paid: Try again with a signal</title></path>
+<circle cx="648" cy="268" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="648" y="272" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">9</text>
+<path d="M592 318 H630 V192 H592" fill="none" stroke="#424242" stroke-width="2" stroke-dasharray="10 4 2 4" marker-end="url(#arrow-grey)" data-transition="10"><title>10. pay-offline to pay: Back</title></path>
+<circle cx="630" cy="255" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="630" y="259" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">10</text>
+<path d="M704 140 H642 V394 H346 V153 H296" fill="none" stroke="#424242" stroke-width="2" stroke-dasharray="10 4 2 4" marker-end="url(#arrow-grey)" data-transition="11"><title>11. paid to permission: Change my answer</title></path>
+<circle cx="494" cy="394" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="494" y="398" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">11</text>
+<path d="M704 335 H654 V420 H358 V205 H296" fill="none" stroke="#424242" stroke-width="2" stroke-dasharray="10 4 2 4" marker-end="url(#arrow-grey)" data-transition="12"><title>12. not-going to permission: Change my answer</title></path>
+<circle cx="506" cy="420" r="11" fill="#ffffff" stroke="#212121" stroke-width="1.5"/><text x="506" y="424" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">12</text>
+<path d="M24 486 H72" fill="none" stroke="#212121" stroke-width="2" marker-end="url(#arrow-ink)" data-kind="forward"/>
+<text x="84" y="491" font-size="14" fill="#212121">Forward</text>
+<path d="M168 486 H216" fill="none" stroke="#616161" stroke-width="2" marker-end="url(#arrow-grey)" data-kind="branch"/>
+<text x="228" y="491" font-size="14" fill="#212121">Branch</text>
+<path d="M304 486 H352" fill="none" stroke="#212121" stroke-width="2" stroke-dasharray="7 4" marker-end="url(#arrow-ink)" data-kind="error"/>
+<text x="364" y="491" font-size="14" fill="#212121">Error</text>
+<path d="M432 486 H480" fill="none" stroke="#212121" stroke-width="2" stroke-dasharray="2 3" marker-end="url(#arrow-ink)" data-kind="recover"/>
+<text x="492" y="491" font-size="14" fill="#212121">Recover</text>
+<path d="M576 486 H624" fill="none" stroke="#424242" stroke-width="2" stroke-dasharray="10 4 2 4" marker-end="url(#arrow-grey)" data-kind="back"/>
+<text x="636" y="491" font-size="14" fill="#212121">Back</text>
+<path d="M696 486 H744" fill="none" stroke="#616161" stroke-width="3" marker-end="url(#arrow-grey)" data-kind="overlay-open"/>
+<text x="756" y="491" font-size="14" fill="#212121">Open dialog</text>
+<path d="M24 514 H72" fill="none" stroke="#616161" stroke-width="3" stroke-dasharray="4 4" marker-end="url(#arrow-grey)" data-kind="overlay-close"/>
+<text x="84" y="519" font-size="14" fill="#212121">Close dialog</text>
+<text x="24" y="546" font-size="14" fill="#424242">Box borders: solid for a screen, thick for success, dashed for an error, dotted for a branch outside this flow, grey for a dialog or an empty state.</text>
+</svg>
