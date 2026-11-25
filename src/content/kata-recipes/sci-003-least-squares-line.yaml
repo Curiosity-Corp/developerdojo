@@ -38,6 +38,12 @@ metadata:
     - nist/engineering-statistics-handbook
   crossFieldTransfers:
     - data
+  standards:
+    - name: Guide to the expression of uncertainty in measurement (GUM)
+      version: JCGM 100:2008
+      applicability: "The least-squares calibration example of Annex H.3, reproduced on its own data and then applied to a 30-year fit of a published record for practice"
+      reviewScope: "What the listed checks test: that the code reproduces Table H.6 and that the fit of the record matches the CI output. The slope uncertainty assumes independent residuals; no claim about the uncertainty of the record itself."
+      sourceResourceId: bipm/gum-jcgm-100-2008
   verificationEvidence:
     - description: A fit report for the 1991-2020 annual means whose slope, standard uncertainty and residual autocorrelation match the CI output, after the GUM's Annex H.3 values are reproduced
       method: automated-check

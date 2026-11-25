@@ -4,7 +4,7 @@ import { basename, join } from 'node:path';
 import { parse as parseYaml } from 'yaml';
 import { describe, expect, it } from 'vitest';
 import { sectorPackInputs, sectorPacks } from '../src/data/sector-packs';
-import { checkSectorPacks, fillEvidence, SectorPackError, type SectorPackInput, type SectorPackReferences } from '../src/lib/sector-pack';
+import { checkSectorPacks, fillEvidence, packTemplate, SectorPackError, type SectorPackInput, type SectorPackReferences } from '../src/lib/sector-pack';
 import { sectorPackReferences, type PackRecipe } from '../src/lib/sector-pack-references';
 
 // Sector packs (#93, docs/sector-packs.md). The build runs checkSectorPacks against the loaded recipes; these tests
@@ -72,6 +72,20 @@ describe('sector packs', () => {
       const needs = /needs: \[([^\]]*)\]/.exec(jobScript(deploy))?.[1]?.split(',').map((job) => job.trim()) ?? [];
       for (const job of jobs) expect(needs, deploy + ' needs ' + job).toContain(job);
     }
+  });
+
+  it('fills every pack template: terms, procedures, a versioned standard, native files, all belt stages and a review state', () => {
+    for (const candidate of sectorPacks) {
+      const template = packTemplate(candidate, refs.recipes);
+      expect(candidate.ontology.length, candidate.id).toBeGreaterThanOrEqual(3);
+      expect(candidate.procedures.flatMap((procedure) => procedure.kataIds), candidate.id).toEqual(expect.arrayContaining(candidate.kataIds));
+      expect(template.standards.length, candidate.id).toBeGreaterThan(0);
+      expect(template.artifactTypes.length, candidate.id).toBeGreaterThan(0);
+      expect(template.beltStages, candidate.id).toEqual(['practice', 'adapt', 'demonstrate']);
+      // No qualified reviewer is available to the Dojo yet; a change here needs the written review as evidence.
+      expect(candidate.professionalReview.reviewers.map((reviewer) => reviewer.state), candidate.id).toEqual(candidate.professionalReview.reviewers.map(() => 'none-available'));
+    }
+    expect(packTemplate(sectorPacks.find((candidate) => candidate.id === 'science')!, refs.recipes).standards).toEqual([{ name: 'Guide to the expression of uncertainty in measurement (GUM)', version: 'JCGM 100:2008', kataIds: ['SCI-002', 'SCI-003', 'SCI-R01'] }]);
   });
 
   it('keeps the agriculture record hash in the manifest the page reads', () => {
@@ -149,6 +163,36 @@ describe('sector pack check failures', () => {
     if (!Array.isArray(inputs)) throw new Error('agriculture has a real input');
     changed.inputs = [{ ...inputs[0]!, source: 'http://example.org/data.csv', sha256: 'abc' }];
     expect(problemsWith(changed)).toMatch(/inputs/);
+  });
+
+  it('rejects a procedure naming a kata outside the pack, a practice kata in no procedure, and a term defined twice', () => {
+    const changed = pack('agriculture');
+    changed.procedures = [{ name: 'Inspect', kataIds: ['AGR-001', 'BIM-001'] }, { name: 'Estimate', kataIds: ['AGR-002'] }];
+    changed.ontology = [...changed.ontology, { term: 'effective rainfall', meaning: 'Again.' }];
+    const problems = problemsWith(changed);
+    expect(problems).toMatch(/BIM-001 is not a kata of this pack/);
+    expect(problems).toMatch(/the term effective rainfall is defined twice/);
+    const uncovered = pack('agriculture');
+    uncovered.procedures = [{ name: 'Inspect', kataIds: ['AGR-001'] }, { name: 'Estimate', kataIds: ['AGR-002'] }];
+    expect(problemsWith(uncovered)).toMatch(/AGR-003 practises none of the pack procedures/);
+  });
+
+  it('requires a review state with evidence before a pack can say a qualified reviewer reviewed it', () => {
+    const changed = pack('science');
+    changed.professionalReview = { ...changed.professionalReview, reviewers: [{ role: 'Metrologist', scope: 'The budget.', state: 'reviewed' }] };
+    expect(problemsWith(changed)).toMatch(/a reviewed state needs the evidence path of the written review/);
+    changed.professionalReview = { ...changed.professionalReview, reviewers: [{ role: 'Metrologist', scope: 'The budget.', state: 'reviewed', evidence: '/examples/science-pathway/review.md' }] };
+    expect(problemsWith(changed)).toMatch(/review evidence \/examples\/science-pathway\/review.md does not exist/);
+    changed.professionalReview = { ...changed.professionalReview, reviewers: [] };
+    expect(problemsWith(changed)).toMatch(/professionalReview\.reviewers/);
+  });
+
+  it('requires a versioned standard and belt criteria at every stage across the pack katas', () => {
+    const bare = refs.recipes.map((recipe) => (recipe.id.startsWith('SCI-') ? { ...recipe, standards: [], beltStages: recipe.id === 'SCI-001' ? [] : ['practice'] } : recipe));
+    const problems = checkSectorPacks(sectorPackInputs, { ...refs, recipes: bare }).join('\n');
+    expect(problems).toMatch(/science: no pack kata names a versioned standard/);
+    expect(problems).toMatch(/science: SCI-001 has no belt criteria/);
+    expect(problems).toMatch(/science: no pack kata has a demonstrate belt criterion/);
   });
 
   it('fills placeholders from facts and fails the build when a fact is missing', () => {

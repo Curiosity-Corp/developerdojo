@@ -63,7 +63,7 @@ describe('the subjects a reviewer can record', () => {
     for (const pack of sectorPacks) {
       for (const stage of map.specialistBelts.reviewedStages) {
         const found = subject(`belt:${pack.id}:${stage}`);
-        expect(found.professionalReview).toEqual(pack.professionalReview);
+        expect(found.professionalReview).toEqual({ required: pack.professionalReview.required, limit: pack.professionalReview.limit });
         expect(found.criteria.map((criterion) => criterion.id)).toEqual([...map.specialistBelts.criteria.map((criterion) => criterion.id), `BELT-${stage.toUpperCase()}`]);
       }
     }

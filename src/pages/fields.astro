@@ -10,6 +10,9 @@ import KataRecipeLinks from '../components/KataRecipeLinks.astro';
 import LifecycleNotice from '../components/LifecycleNotice.astro';
 import { loadCatalogLifecycle } from '../lib/catalog-lifecycle-content';
 import { loadKataRecipes } from '../lib/kata-recipe-content';
+import { sectorGroups } from '../data/sector-taxonomy';
+import { sectorPacks } from '../data/sector-packs';
+import { COVERAGE_LABELS, sectorCoverage } from '../lib/sector-taxonomy';
 
 const recipes = await loadKataRecipes();
 const recipesFor = (fieldId: string) => recipes.filter(({ recipe }) => recipe.metadata.domainIds.includes(fieldId) || recipe.metadata.crossFieldTransfers.includes(fieldId));
@@ -21,6 +24,7 @@ const validatedKatas = validateKataCatalog(kataCatalog, {
 });
 const { katas: kataLifecycle } = await loadCatalogLifecycle();
 const foundations = new Map(validatedKatas.filter((kata) => kata.metadata.layer === 'foundation').map((kata) => [kata.metadata.id, kata]));
+const coverage = sectorCoverage(sectorGroups, fields, sectorPacks);
 const practice: Record<string, { href: string; label: string }> = {
   science: { href: '/katas/industry-workshops#vegetation', label: 'Investigate a vegetation signal' },
   agriculture: { href: '/katas/industry-workshops#vegetation', label: 'Investigate a vegetation signal' },
@@ -55,6 +59,31 @@ const practice: Record<string, { href: string; label: string }> = {
       </ul>
     </div>
   </section>
+  <section class="section" aria-labelledby="sector-plan-title" id="sector-plan">
+    <div class="container">
+      <h2 id="sector-plan-title">Sector plan and what is delivered</h2>
+      <p class="plan-intro">Every field above sits in one of ten sector groups. A group in the plan is not a course: the last column shows only what you can follow today. A sector pathway is a run of katas on real, openly licensed files whose results CI recomputes, with a plain list of what was and was not checked.</p>
+      <div class="table-wrap">
+        <table data-sector-plan>
+          <thead><tr><th scope="col">Sector group</th><th scope="col">Fields in the plan</th><th scope="col">Delivered today</th></tr></thead>
+          <tbody>
+            {coverage.map((row) => (
+              <tr data-coverage={row.coverage} data-group={row.group.id}>
+                <th scope="row">{row.group.name}</th>
+                <td>{row.fields.map((field, index) => <>{index > 0 && ', '}<a href={'#' + field.id}>{field.name}</a></>)}</td>
+                <td>
+                  <strong>{COVERAGE_LABELS[row.coverage]}</strong>
+                  {row.pathways.length > 0 && <ul>{row.pathways.map((pathway) => <li><a href={pathway.href}>{pathway.title}</a></li>)}</ul>}
+                  {row.pathways.length === 0 && row.tracks.length > 0 && <ul>{row.tracks.map((track) => <li><a href={track.href}>{track.fieldName} track</a></li>)}</ul>}
+                  <p class="next">Before a {row.pathways.length > 0 ? 'next' : 'first'} pathway: {row.group.nextPack}</p>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
   <section class="section review">
     <div class="container">
       <SectionHeader title="Expert review matters" intro="In regulated or safety-critical work, a generated artifact needs independent validation and any approvals required from qualified professionals. Practice in the Dojo does not grant a license or authorize professional work." />
@@ -69,4 +98,11 @@ const practice: Record<string, { href: string; label: string }> = {
   .fields p { margin: 0 0 var(--space-3); }
   .fields a, .review a { font-weight: 700; }
   .review { background: var(--paper-raised); }
+  .plan-intro { max-width: 68rem; }
+  .table-wrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; vertical-align: top; padding: var(--space-3); border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+  td ul { margin: var(--space-2) 0; padding-left: 1.25rem; }
+  .next { margin: var(--space-2) 0 0; color: var(--ink-muted); }
+  td a { font-weight: 700; }
 </style>
