@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Merges the resource-catalogue measurements every e2e shard wrote to catalog-metrics/*.json (#113) into
+// Merges the resource-catalogue and site-search measurements every e2e shard wrote to catalog-metrics/*.json (#113) into
 // catalog-metrics/summary.json and a readable catalog-metrics/summary.md: load, filter response and
 // accessibility-scan time, each with the resource count and the runner it ran on.
 // Usage: node scripts/catalog-metrics-report.mjs [dir]   (default: catalog-metrics)
@@ -44,6 +44,15 @@ for (const r of scans) {
 }
 const scanTotal = scans.filter((r) => !r.retry).reduce((sum, r) => sum + (r.scanElapsedMs ?? 0), 0);
 lines.push('', `Summed scan time (first attempts): ${ms(scanTotal)} over ${scans.filter((r) => !r.retry).length} parts.`, '');
+
+// Site search start-up (#112): the header search from opening to the first result, split into its stages.
+lines.push('## Site search start-up (header search, fresh browser context)', '', '| Project | CPU | Cold to first result (wall) | Module import | Index init | Query to results | Query to first preview | Pagefind requests (KiB) | Long tasks (total) | Script | Warm to first result | Runner |', '|---|---|---|---|---|---|---|---|---|---|---|---|');
+for (const r of byKind('search')) {
+  const requests = Object.entries(r.cold?.pagefindRequests ?? {}).map(([kind, v]) => `${kind} ${v.requests}x ${Math.round(v.transferBytes / 1024)}`).join(', ') || 'none';
+  const s = r.cold?.stagesMs ?? {};
+  lines.push(`| ${r.project}${r.retry ? ` (retry ${r.retry})` : ''} | ${r.cpuThrottle}x | ${ms(r.cold?.wallToResultMs)} | ${ms(s.moduleImport)} | ${ms(s.indexInit)} | ${ms(s.queryToSearched)} | ${ms(s.queryToFirstResult)} | ${requests} | ${r.cold?.longTasks ?? '?'} (${ms(r.cold?.longTaskTotalMs)}) | ${ms(r.cold?.scriptMs)} | ${ms(r.warm?.wallToResultMs)} | ${runner(r)} |`);
+}
+lines.push('');
 
 writeFileSync(join(dir, 'summary.json'), `${JSON.stringify(records, null, 2)}\n`);
 writeFileSync(join(dir, 'summary.md'), `${lines.join('\n')}\n`);

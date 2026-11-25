@@ -64,12 +64,21 @@ const { id, label = 'Search the whole site' } = Astro.props;
     return vocabulary;
   }
 
+  // Named timing marks for each start-up stage, read by the search performance check in CI (#112).
+  // They cost one timestamp each and change nothing a learner sees.
+  const mark = (name: string): void => {
+    try { performance.mark(`search:${name}`); } catch { /* User Timing is unavailable: timing is optional. */ }
+  };
+
   let pagefind: Promise<PagefindApi> | undefined;
   function loadPagefind(): Promise<PagefindApi> {
     // The index is generated after the Astro build, so the bundler must not try to resolve it.
     const url = '/pagefind/pagefind.js';
+    if (!pagefind) mark('load-start');
     pagefind ??= import(/* @vite-ignore */ url).then(async (api: PagefindApi) => {
+      mark('module-ready');
       await api.init();
+      mark('init-ready');
       return api;
     }).catch((error: unknown) => {
       // A failed preload must not permanently poison the shared promise.
@@ -176,8 +185,10 @@ const { id, label = 'Search the whole site' } = Astro.props;
         }
         suggestions.append(label, list);
       }
+      mark('query-start');
       try {
         const api = await loadPagefind();
+        mark('query-api-ready');
         let search = await api.debouncedSearch(term, {}, 150);
         if (ticket !== latest) return;
         // Pagefind's debounce is shared by all panels using this module. Another
@@ -185,6 +196,7 @@ const { id, label = 'Search the whole site' } = Astro.props;
         // Use an independent search in that case, rather than leaving it waiting.
         if (search === null) search = await api.search(term);
         if (ticket !== latest) return;
+        mark('query-searched');
         let correction: string | null = null;
         if (search.results.length === 0) {
           const proposed = correctSearch(term, await loadVocabulary());
@@ -218,7 +230,10 @@ const { id, label = 'Search the whole site' } = Astro.props;
           await Promise.all(selected.slice(start, end).map(async (result, offset) => {
             try {
               const data = await result.data();
-              if (ticket === latest) appendResult(results, data, start + offset);
+              if (ticket === latest) {
+                appendResult(results, data, start + offset);
+                mark('query-result');
+              }
             } catch {
               if (ticket === latest) { failures += 1; showStatus(true); }
             }
