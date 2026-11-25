@@ -9,7 +9,7 @@ const FIELDS = [
   { id: 'agriculture', name: 'Agriculture', randori: 'AGR-R01' },
   { id: 'science', name: 'Science and research', randori: 'SCI-R01' },
   { id: 'finance', name: 'Finance', randori: 'FIN-R01' },
-  { id: 'manufacturing', name: 'Manufacturing and product design', randori: 'MFG-R01' },
+  { id: 'manufacturing', name: 'Manufacturing', randori: 'MFG-R01' },
 ];
 
 test('a learner chooses a field and gets its transfer practice sheet in the editable brief', async ({ page }) => {
