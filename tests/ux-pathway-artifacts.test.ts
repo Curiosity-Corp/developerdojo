@@ -55,7 +55,7 @@ describe('the generated low-fidelity files', () => {
   });
 
   it('were made from the inputs published beside them', () => {
-    expect(Object.keys(manifest.inputs).sort()).toEqual(['inputs/brand.json', 'inputs/contrast-pairs.json', 'inputs/pocket-invoice-flow.json', 'pocket-invoice-tokens.json']);
+    expect(Object.keys(manifest.inputs).sort()).toEqual(['inputs/brand.json', 'inputs/contrast-pairs.json', 'inputs/pocket-invoice-flow.json', 'inputs/randori-rounds.json', 'pocket-invoice-tokens.json']);
     for (const [name, sha] of Object.entries(manifest.inputs)) expect(createHash('sha256').update(readFileSync(DIR + name)).digest('hex'), name).toBe(sha);
   });
 });
