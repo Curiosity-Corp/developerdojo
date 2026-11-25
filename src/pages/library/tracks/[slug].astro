@@ -5,14 +5,20 @@ import PageHero from '../../../components/PageHero.astro';
 import SectionHeader from '../../../components/SectionHeader.astro';
 import TrackProgress from '../../../components/TrackProgress.astro';
 import { loadContent, lessonsOfTrack } from '../../../lib/content';
+import { loadJourneys } from '../../../lib/journey-content';
 import { GROUP_LABELS, LESSON_LEVEL_LABELS, SKILL_LABELS } from '../../../lib/labels';
 
 export async function getStaticPaths() {
-  const { tracks, lessons } = await loadContent();
+  const [{ tracks, lessons }, journeys] = await Promise.all([loadContent(), loadJourneys()]);
+  // The journeys whose Ignite Curiosity page links to this track (ignite.linksToTracks, #83): a reader who
+  // arrives here from Ignite Curiosity is shown the journey for the program they came from.
+  const arrivals = (slug: string) =>
+    journeys.filter((journey) => journey.ignite.linksToTracks.includes(slug)).map((journey) => ({ id: journey.id, title: journey.title, program: journey.ignite.program }));
   return tracks.map((track) => ({
     params: { slug: track.id },
     props: {
       track,
+      journeys: arrivals(track.id),
       lessons: lessonsOfTrack(lessons, track.id).map((lesson) => ({
         id: lesson.id,
         title: lesson.data.title,
@@ -24,7 +30,7 @@ export async function getStaticPaths() {
   }));
 }
 
-const { track, lessons } = Astro.props;
+const { track, journeys, lessons } = Astro.props;
 const { Content } = await render(track);
 const data = track.data;
 ---
@@ -48,6 +54,21 @@ const data = track.data;
         <ul>
           {data.outcomes.map((outcome) => <li>{outcome}</li>)}
         </ul>
+        {
+          journeys.length > 0 && (
+            <section class="arrival" aria-labelledby="arrival-title" data-ignite-arrival>
+              <h3 id="arrival-title">Coming from Ignite Curiosity?</h3>
+              <p>This track is part of a journey from one of its programs. The journey pairs each SPARK step with Dojo practice. It is optional and needs no account.</p>
+              <ul>
+                {journeys.map((journey) => (
+                  <li>
+                    <a href={`/journeys/${journey.id}`}>{journey.title}</a> <span class="program">({journey.program})</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
       </aside>
     </div>
   </section>
@@ -115,6 +136,21 @@ const data = track.data;
   }
   .facts dd {
     margin: 0 0 var(--space-3);
+  }
+  .arrival {
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--line);
+  }
+  .arrival p,
+  .arrival ul {
+    margin: 0 0 var(--space-2);
+  }
+  .arrival ul {
+    padding-left: var(--space-5);
+  }
+  .program {
+    color: var(--ink-muted);
   }
   .lesson-list {
     display: grid;

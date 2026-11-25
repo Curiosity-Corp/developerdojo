@@ -34,6 +34,7 @@ the build failing.
 | The steps follow the SPARK order | `journeySchema` | `tests/journeys.test.ts` |
 | The Ignite link is an `https://ignitecuriosity.org/` page with no query or fragment | `journeySchema` | `tests/journeys.test.ts`, `e2e/journeys.spec.ts` |
 | Each core focus has a journey whose links back match the core-focus tracks | `tests/journeys.test.ts` | same |
+| A track an Ignite page links to shows the journey for that program | the track page (`ignite.linksToTracks`) | `e2e/journeys.spec.ts` |
 | The journey pages save nothing, set no cookie and call no other host | the page code; no writer exists | `tests/journeys.test.ts`, `e2e/journeys.spec.ts` |
 
 ## Privacy and youth
@@ -63,6 +64,12 @@ and biotechnology pages loaded a Google Analytics tag; that is recorded for Igni
 
 Both Ignite pages say the path is an offering being prepared; the journey pages say so too. Direct entry works in
 both directions: every Dojo track and kata opens on its own, and the Ignite pages need nothing from the Dojo.
+
+**Arriving from Ignite Curiosity.** Each track in a journey's `ignite.linksToTracks` (the tracks its Ignite page links
+to) shows a "Coming from Ignite Curiosity?" note that links the journey for that program. The note is on the track
+page for every visitor: it reads no referrer or query, so arriving from Ignite changes nothing and shares nothing.
+`e2e/journeys.spec.ts` enters each such track directly, with nothing saved, follows the note to the journey and checks
+that no cookie, storage or outside request appeared; a track Ignite does not link shows no note.
 
 The Ignite pages do not yet link to the journey pages themselves. That reciprocal change belongs to Ignite
 Curiosity and its own review; the exact proposal is on ignite-curiosity#23. A Dojo link alone does not complete the

@@ -24,6 +24,46 @@ test.describe('journeys index', () => {
   });
 });
 
+// The other direction: Ignite Curiosity's program page links to these Dojo tracks (ignite.linksToTracks).
+// A reader who follows that link lands on the track directly, with nothing saved, and finds the journey
+// for the program they came from. Reaching the track this way needs no Ignite referrer or query: the
+// arrival note is on the track page for everyone.
+for (const journey of igniteJourneys) {
+  for (const slug of journey.ignite.linksToTracks) {
+    test(`arriving from Ignite Curiosity on track ${slug} leads to journey ${journey.id}`, async ({ page, context, baseURL }) => {
+      const outside: string[] = [];
+      page.on('request', (request) => {
+        const url = new URL(request.url());
+        if (!['http:', 'https:'].includes(url.protocol)) return;
+        if (url.origin !== new URL(baseURL ?? '').origin) outside.push(request.url());
+      });
+      const response = await page.goto(`/library/tracks/${slug}/`);
+      expect(response?.status()).toBe(200);
+      const arrival = page.locator('[data-ignite-arrival]');
+      await expect(arrival.getByRole('heading')).toHaveText('Coming from Ignite Curiosity?');
+      await arrival.locator(`a[href="/journeys/${journey.id}"]`).click();
+      await expect(page).toHaveURL(new RegExp(`/journeys/${journey.id}/?$`));
+      await expect(page.locator('h1')).toHaveText(journey.title);
+      await expect(page.locator(`main a[href="/library/tracks/${slug}"]`).first()).toBeVisible();
+      await page.waitForLoadState('load');
+      expect(outside).toEqual([]);
+      expect(await context.cookies()).toEqual([]);
+      expect(await page.evaluate(() => Object.keys(localStorage))).toEqual([]);
+    });
+  }
+}
+
+test('a track no Ignite Curiosity page links to shows no arrival note', async ({ page }) => {
+  const linked = new Set(igniteJourneys.flatMap((journey) => journey.ignite.linksToTracks));
+  await page.goto('/library/tracks/');
+  const slugs = await page.locator('main a[href^="/library/tracks/"]').evaluateAll((links) => links.map((a) => (a.getAttribute('href') ?? '').replace(/^\/library\/tracks\//, '').replace(/\/$/, '')));
+  const unlinked = slugs.find((slug) => slug && !linked.has(slug));
+  if (!unlinked) throw new Error('every listed track is linked from Ignite Curiosity; pick another check');
+  await page.goto(`/library/tracks/${unlinked}/`);
+  await expect(page.locator('h1')).toBeVisible();
+  await expect(page.locator('[data-ignite-arrival]')).toHaveCount(0);
+});
+
 for (const journey of igniteJourneys) {
   test.describe(`journey ${journey.id}`, () => {
     test('opens directly with nothing saved, sets no cookie, calls no other host and saves nothing', async ({ page, context, baseURL }) => {
