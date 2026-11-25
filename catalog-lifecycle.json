@@ -478,6 +478,69 @@
       "state": "verified"
     },
     {
+      "id": "MFG-001",
+      "surface": "recipe",
+      "title": "Inspect a process record: the structure and summary of the handbook’s lithography case study",
+      "href": "/katas/mfg-001-inspect-process-record",
+      "area": "artifact-validity",
+      "maintainerRole": "Manufacturing pathway maintainer",
+      "provenance": [
+        "The data rows of LITHOGRA.DAT, handbook section 6.6.1: /examples/manufacturing-pathway/inputs/lithogra-data-rows.dat (450 rows, unchanged; the header is left out because it names a person)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a quality engineer, statistician or process engineer yet.",
+      "verifiedOn": "2026-11-25",
+      "dueOn": "2027-02-23",
+      "state": "verified"
+    },
+    {
+      "id": "MFG-002",
+      "surface": "recipe",
+      "title": "Set Shewhart control limits, with factors you computed yourself, and choose the subgroup",
+      "href": "/katas/mfg-002-control-limits",
+      "area": "artifact-validity",
+      "maintainerRole": "Manufacturing pathway maintainer",
+      "provenance": [
+        "The data rows of LITHOGRA.DAT, handbook section 6.6.1: /examples/manufacturing-pathway/inputs/lithogra-data-rows.dat",
+        "The factor table of section 6.3.2.1 and the flow-rate example of section 6.3.2.2: nist/handbook-process-monitoring-and-control (the script holds the printed values and names the section of each)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a quality engineer, statistician or process engineer yet.",
+      "verifiedOn": "2026-11-25",
+      "dueOn": "2027-02-23",
+      "state": "verified"
+    },
+    {
+      "id": "MFG-003",
+      "surface": "recipe",
+      "title": "Split the variation into its sources, and see which sigma a capability index must use",
+      "href": "/katas/mfg-003-sources-of-variation",
+      "area": "artifact-validity",
+      "maintainerRole": "Manufacturing pathway maintainer",
+      "provenance": [
+        "The data rows of LITHOGRA.DAT, handbook section 6.6.1: /examples/manufacturing-pathway/inputs/lithogra-data-rows.dat",
+        "The capability example and rejects table of section 6.1.6: nist/handbook-process-monitoring-and-control (the script holds the printed values)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a quality engineer, statistician or process engineer yet.",
+      "verifiedOn": "2026-11-25",
+      "dueOn": "2027-02-23",
+      "state": "verified"
+    },
+    {
+      "id": "MFG-R01",
+      "surface": "recipe",
+      "title": "Manufacturing Randori: an unseen change of subgroup or data",
+      "href": "/katas/mfg-r01-randori",
+      "area": "artifact-validity",
+      "maintainerRole": "Manufacturing pathway maintainer",
+      "provenance": [
+        "Your MFG-002 limits for the wafer subgroups: Your own output, or /examples/manufacturing-pathway/generated/control-limits.json",
+        "The Randori cards: The table on /katas/manufacturing-pathway (the partner keeps it; the learner sees only the drawn card)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a quality engineer, statistician or process engineer yet.",
+      "verifiedOn": "2026-11-25",
+      "dueOn": "2027-02-23",
+      "state": "verified"
+    },
+    {
       "id": "SCI-001",
       "surface": "recipe",
       "title": "Inspect a published research record: columns, units, gaps and internal consistency",
