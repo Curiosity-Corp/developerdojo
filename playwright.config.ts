@@ -20,7 +20,12 @@ export default defineConfig({
   timeout: process.env['CI'] ? 60_000 : 30_000,
   forbidOnly: Boolean(process.env['CI']),
   retries: process.env['CI'] ? 1 : 0,
-  reporter: process.env['CI'] ? [['list'], ['html', { open: 'never' }]] : 'list',
+  // A sharded CI job (GitLab `parallel`, #113) writes a per-shard blob report that e2e:report merges.
+  reporter: process.env['CI_NODE_INDEX']
+    ? [['list'], ['blob', { outputFile: `blob-report/report-${process.env['CI_NODE_INDEX']}.zip` }]]
+    : process.env['CI']
+      ? [['list'], ['html', { open: 'never' }]]
+      : 'list',
   use: {
     baseURL: productionBaseURL ?? `http://127.0.0.1:${port}`,
     // A trace snapshots the DOM at every step. On the resources catalogue (12k+ nodes) that
