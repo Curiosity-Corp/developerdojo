@@ -171,8 +171,8 @@ const sources = {
 
   <section class="section" aria-labelledby="randori-title"><div class="container narrow">
     <p class="eyebrow">05 / Randori</p>
-    <h2 id="randori-title">{randori.rounds.length} worked Randori rounds: one hidden constraint each</h2>
-    <p>In the <a href="/katas/ux-r01-randori">UX Randori</a>, a partner reads you a brief you have not seen, and reveals one constraint only after your first sitemap. These rounds answer {randori.rounds.length} of the partner cards twice: the first sitemap, and the one that meets the constraint. The flow script checks both: each must pass every structural check, the adapted one must pass a check written for its constraint, and the first must fail it.</p>
+    <h2 id="randori-title">{randori.rounds.length} worked Randori rounds: what each hidden constraint changed</h2>
+    <p>In the <a href="/katas/ux-r01-randori">UX Randori</a>, a partner reads you a brief you have not seen, and reveals one constraint only after your first sitemap. These rounds answer {randori.rounds.length} of the partner cards twice: the first sitemap, and the one that meets the constraint. The flow script checks both: each must pass every structural check, the adapted one must pass a check written for its constraint, and the first must fail it. The round that plays the two screen cards (focus order, one action per screen) is also written as one HTML page per screen, and a browser walks each page with the Tab key on every pipeline.</p>
     <p class="note"><strong>Do your own round first.</strong> The maintainers who wrote the cards also wrote these answers, so the constraint was not hidden from them, and no partner has walked these flows yet.</p>
     <div class="table-wrap" tabindex="0" role="region" aria-labelledby="randori-caption">
       <table>
@@ -187,7 +187,7 @@ const sources = {
               <td>{round.first.states} states; {round.first.constraint.failures.length} {round.first.constraint.failures.length === 1 ? 'problem' : 'problems'}</td>
               <td>{round.adapted.states} states; {round.adapted.constraint.pass ? 'constraint met' : 'constraint missed'}</td>
               <td>{changeCount(round.diff)} states and transitions added or removed</td>
-              <td><a href={RANDORI + round.id + '-first-sitemap.svg'}>first sitemap</a>, <a href={RANDORI + round.id + '-adapted-sitemap.svg'}>adapted sitemap</a>, <a href={RANDORI + round.id + '-adapted-journey.svg'}>adapted screens</a></td>
+              <td><a href={RANDORI + round.id + '-first-sitemap.svg'}>first sitemap</a>, <a href={RANDORI + round.id + '-adapted-sitemap.svg'}>adapted sitemap</a>, <a href={RANDORI + round.id + '-adapted-journey.svg'}>adapted screens</a>{round.screens.first.length > 0 && <>; keyboard pages: <a href={'/examples/ux-pathway/generated/' + round.screens.first[0]}>first</a>, <a href={'/examples/ux-pathway/generated/' + round.screens.adapted[0]}>adapted</a></>}</td>
             </tr>
           ))}
         </tbody>
