@@ -1,0 +1,180 @@
+# Finance pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/finance-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job finance_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Finance pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a consumer-credit compliance specialist, lawyer or accountant yet.
+summary: "Compute a loan’s annual percentage rate the way US Regulation Z requires: count the unit-periods from the dates, write the actuarial equation and solve it by the regulation’s own iteration, then reproduce every worked example Appendix J publishes."
+metadata:
+  id: FIN-002
+  title: "Compute an annual percentage rate by the actuarial method of Regulation Z, Appendix J"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - compute-apr
+  artifactTypes:
+    - apr-calculation
+  domainIds:
+    - finance
+  capabilityIds:
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - cfpb/regulation-z-appendix-j
+    - cfpb/regulation-z-1026-22
+    - cfpb/regulation-z-1026-18
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: Regulation Z (Truth in Lending), 12 CFR part 1026, Appendix J and 1026.22
+      version: "eCFR for 2026-11-23; Appendix J and 1026.22 unchanged there since 2017-01-01"
+      applicability: "The general equation (b)(8), the counting of unit-periods between dates (b)(5) and the iteration (b)(9) of Appendix J, used on its own worked examples in (c)(1) and (c)(3) for practice"
+      reviewScope: "What the listed checks test: that the code reproduces the unit-periods and annual percentage rates Appendix J publishes. No claim about any real loan or calculation tool."
+      sourceResourceId: cfpb/regulation-z-appendix-j
+  verificationEvidence:
+    - description: Unit-periods t and f and annual percentage rates for the seven Appendix J examples and the (b)(9) iteration that match the published values, as the CI output does
+      method: automated-check
+    - description: Each rate names the paragraph of Appendix J it reproduces and the dates its unit-periods came from
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces the (b)(9) iteration and the five (c)(1) examples, with t and f worked out from the dates
+    - stage: adapt
+      criterion: Extends the equation to an irregular final payment and reproduces both (c)(3) examples
+    - stage: demonstrate
+      criterion: Explains to a reviewer why Appendix J counts a long first period as whole unit-periods plus a fraction, and what the result would be if the odd days were ignored
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: US Regulation Z’s own worked examples reproduced number for number, one of them amortized to the cent with its disclosure figures, and every annual percentage rate checked against the tolerance read from the regulation’s text, all computed by the site’s CI."
+  href: /katas/finance-pathway
+  provenance:
+    creator: Consumer Financial Protection Bureau (Regulation Z); Developer Dojo maintainers (script and results)
+    source: Regulation Z, 12 CFR part 1026, Appendix J (read 2026-11-25) and 1026.22 (eCFR for 2026-11-23); results from /examples/finance-pathway/tools/finance_pathway.py
+    license: Regulation Z is a US government work, not under US copyright (17 U.S.C. 105); script and outputs MIT
+    date: "2026-11-25"
+brief:
+  goal: The annual percentage rate of every Appendix J worked example, reproduced to the two decimals the regulation prints, with the unit-periods counted from the dates.
+  audience: Learners who finished FIN-001 and want to compute the rate a disclosure must show, not take it from a calculator.
+  inputs:
+    - name: The worked examples of Appendix J, paragraphs (b)(9), (c)(1) and (c)(3)
+      source: cfpb/regulation-z-appendix-j (the examples are printed as images; the script holds the same terms and names each paragraph)
+      terms: US government work; free to reuse
+  doneWhen:
+    - You count t and f from the dates of the advance and the first payment by Appendix J (b)(5), and they match what each example prints
+    - You solve the general equation by the (b)(9) iteration
+    - Your annual percentage rates match Appendix J at two decimals and /examples/finance-pathway/generated/apr.json
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: Regulation Z, 12 CFR 1026.22, from the eCFR
+      version: "eCFR for 2026-11-23, SHA-256 ed61b93a…2db0d7e"
+      permissions: Read a copy
+      cost: Free (US government work)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against Appendix J’s worked examples
+      permissions: Reads what you paste in; paste only the regulation’s examples, never a real borrower’s loan
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library is enough for these formulas, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: A spreadsheet's RATE function or an online loan calculator
+      tradeoff: Faster for a regular loan, but neither counts an odd first period by Appendix J's rules, and a calculator hides its method. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains Appendix J's general equation and its rules for counting unit-periods, and drafts the Python for them.
+      reviewGate: You run the code and keep it only if it reproduces Appendix J's printed values.
+    - role: Learner as reviewer
+      responsibility: Counts the unit-periods by hand for at least two examples and compares every rate with Appendix J and the CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A rate stays only if it matches Appendix J at two decimals.
+setup:
+  steps:
+    - Use the folder and Python from FIN-001.
+    - Open Appendix J beside the script, at paragraphs (b)(5), (b)(8), (b)(9), (c)(1) and (c)(3).
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/finance_pathway.py . out"
+    expected: "20 reference checks pass, including the (b)(9) rate of 12.83 % and t = 1; f = 19/30 for example (c)(1)(ii)"
+    result: passed
+    evidence: /examples/finance-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+    date: "2026-11-25"
+prompts:
+  - id: explain-unit-periods
+    title: Explain the unit-periods
+    purpose: Understand how Appendix J counts time before you trust code that does it.
+    text: |-
+      A loan is advanced on 10 February 1978 and repaid monthly from 1 April 1978.
+      Using Regulation Z, Appendix J, paragraph (b)(5), explain how many whole unit-periods t and what fraction f lie between the advance and the first payment, and how they enter the general equation of paragraph (b)(8).
+      Then give me Python, standard library only, that solves the equation by the iteration of paragraph (b)(9), so I can check you against the appendix's own examples.
+      If you are not sure, say so.
+exercise:
+  title: Regulation Z, Appendix J (12 CFR part 1026)
+  resourceId: cfpb/regulation-z-appendix-j
+  terms: A US government work, not under copyright in the US (17 U.S.C. 105). Free to read and reuse.
+execution:
+  steps:
+    - actor: Learner
+      action: Read Appendix J (b)(5) to (b)(9) and count t and f by hand for examples (c)(1)(ii) and (c)(1)(v).
+    - actor: Explaining assistant
+      action: Drafts the code for the unit-periods, the general equation and the iteration.
+      handoff: You run it and compare every value with Appendix J.
+    - actor: Learner
+      action: Reproduce all seven examples and the (b)(9) iteration, and compare with the CI output.
+verification:
+  checks:
+    - action: Reproduce Appendix J's worked examples with the pathway script
+      expected: "(b)(9) 12.83 %; (c)(1) 9.69, 11.82, 10.34, 8.97 and 14.96 %; (c)(3) 10.50 and 12.22 %; every t and f as printed"
+      result: passed
+      evidence: /examples/finance-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+      date: "2026-11-25"
+    - action: Your own code reproduces the same values
+      expected: Same t, f and rates at the precision Appendix J prints
+      result: not-run
+  failures:
+    - observed: Every rate comes out a little low, for example 8.95 % instead of 9.69 % for example (c)(1)(i)
+      correction: Appendix J's annuity factor is paid at the start of each period (a-umlaut). Either use it with the 1 / (1 + i)^t factor as the appendix writes it, or discount each payment by its own number of unit-periods.
+    - observed: Example (c)(1)(iv) gives the wrong fraction
+      correction: For a multimonth unit-period, (b)(5)(iii) counts 30 days per full month plus the remaining days and divides by 90 for a quarter, giving t = 1 and f = 39/90.
+adaptation:
+  variations:
+    - change: Treat the first payment as exactly one unit-period after the advance (t = 1, f = 0)
+      effect: The rate moves; FIN-003 checks whether it stays within the tolerance.
+randori:
+  challenge: See the finance Randori recipe, FIN-R01.
+  constraints:
+    - Every rate matches Appendix J at two decimals
+  evaluation: The rates match the CI output and Appendix J.
+maintenance:
+  cadence: Every six months, or when the Consumer Financial Protection Bureau amends Appendix J or 1026.22
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on the regulation’s own examples, not a compliance review. No compliance specialist, lawyer or accountant has reviewed it, and a real loan disclosure needs the review its lender’s compliance function and counsel require.
+    - Appendix J’s examples use dates in 1978 and are illustrative; they are not a current rate or offer.
+    - Only a single advance with a regular payment series (with an odd first period or an odd final payment) is covered; multiple advances and the United States Rule method are not.

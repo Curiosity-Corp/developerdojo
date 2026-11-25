@@ -23,6 +23,11 @@ export const transferPractice = {
       reference: 'The GUM’s printed worked examples, which the code must reproduce before it touches the temperature record.',
       gate: { recipe: 'sci-002-uncertainty-budget', role: 'Explaining assistant' },
     },
+    {
+      packId: 'finance',
+      reference: 'Appendix J’s printed worked examples, which the code must reproduce before it computes any other annual percentage rate.',
+      gate: { recipe: 'fin-002-annual-percentage-rate', role: 'Explaining assistant' },
+    },
   ],
   selfCheck: [
     'I can name this field’s independent reference and show one assistant output it rejected or corrected.',

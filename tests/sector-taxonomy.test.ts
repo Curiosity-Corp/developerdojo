@@ -34,6 +34,7 @@ describe('sector taxonomy plan', () => {
     expect(coverage.get('built-environment')?.pathways.map((pathway) => pathway.packId)).toEqual(['bim']);
     expect(coverage.get('energy-agriculture')?.pathways.map((pathway) => pathway.packId)).toEqual(['agriculture']);
     expect(coverage.get('science-engineering')?.pathways.map((pathway) => pathway.packId)).toEqual(['science']);
+    expect(coverage.get('business-public-service')?.pathways.map((pathway) => pathway.packId)).toEqual(['finance']);
     expect(coverage.get('robotics')?.coverage).toBe('track');
     expect(coverage.get('spatial-media')?.coverage).toBe('planned');
     expect(coverage.get('learning-communications')?.coverage).toBe('planned');
