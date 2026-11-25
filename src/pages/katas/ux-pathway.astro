@@ -8,6 +8,7 @@ import { flattenTokens } from '../../lib/design-tokens';
 import flowChecks from '../../../public/examples/ux-pathway/generated/flow-checks.json';
 import manifest from '../../../public/examples/ux-pathway/generated/manifest.json';
 import fidelity from '../../../public/examples/ux-pathway/generated/fidelity-report.json';
+import randori from '../../../public/examples/ux-pathway/generated/randori/rounds.json';
 
 // The sitemap below is rendered from the same flow the Penpot file and the working example are built from.
 const tokenCount = flattenTokens(tokenFile).length;
@@ -19,6 +20,10 @@ const drawings: Record<string, { width: number; height: number }> = manifest.dra
 const hifiPassed = fidelity.files.filter((entry) => entry.pass).length;
 const componentCount = fidelity.files.find((entry) => entry.file === 'components.svg')?.components.length ?? 0;
 const hifiScreenCount = manifest.outputs.filter((name) => name.startsWith('screens/')).length;
+// The worked Randori rounds (UX-R01): checked by tools/ux_randori.mjs in the same CI job.
+const RANDORI = '/examples/ux-pathway/generated/randori/';
+if (!randori.pass) throw new Error('The UX Randori record says a round failed; rerun tools/ux_pathway.mjs');
+const changeCount = (diff: Record<string, string[]>): number => Object.values(diff).reduce((total, items) => total + items.length, 0);
 const ratio = (value: number | null): string => (value === null ? 'not measured' : value.toFixed(2));
 const hifiShots = [
   { name: 'screens/phone/signup.svg', alt: 'High-fidelity sign-up screen at 390 px: the Pocket Invoice app bar, the heading Create your workspace, two labelled fields and a full-width blue Create workspace button.' },
@@ -164,8 +169,38 @@ const sources = {
     </div>
   </div></section>
 
+  <section class="section" aria-labelledby="randori-title"><div class="container narrow">
+    <p class="eyebrow">05 / Randori</p>
+    <h2 id="randori-title">{randori.rounds.length} worked Randori rounds: one hidden constraint each</h2>
+    <p>In the <a href="/katas/ux-r01-randori">UX Randori</a>, a partner reads you a brief you have not seen, and reveals one constraint only after your first sitemap. These rounds answer {randori.rounds.length} of the partner cards twice: the first sitemap, and the one that meets the constraint. The flow script checks both: each must pass every structural check, the adapted one must pass a check written for its constraint, and the first must fail it.</p>
+    <p class="note"><strong>Do your own round first.</strong> The maintainers who wrote the cards also wrote these answers, so the constraint was not hidden from them, and no partner has walked these flows yet.</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="randori-caption">
+      <table>
+        <caption id="randori-caption">Each round: the brief, the hidden constraint, and what the flow check found before and after it</caption>
+        <thead><tr><th scope="col">Round</th><th scope="col">Brief</th><th scope="col">Hidden constraint</th><th scope="col">Before</th><th scope="col">After</th><th scope="col">Changes</th><th scope="col">Drawings</th></tr></thead>
+        <tbody>
+          {randori.rounds.map((round) => (
+            <tr data-randori-round={round.id}>
+              <th scope="row">{round.id}</th>
+              <td>{round.brief}</td>
+              <td>{round.constraint.text}</td>
+              <td>{round.first.states} states; {round.first.constraint.failures.length} {round.first.constraint.failures.length === 1 ? 'problem' : 'problems'}</td>
+              <td>{round.adapted.states} states; {round.adapted.constraint.pass ? 'constraint met' : 'constraint missed'}</td>
+              <td>{changeCount(round.diff)} states and transitions added or removed</td>
+              <td><a href={RANDORI + round.id + '-first-sitemap.svg'}>first sitemap</a>, <a href={RANDORI + round.id + '-adapted-sitemap.svg'}>adapted sitemap</a>, <a href={RANDORI + round.id + '-adapted-journey.svg'}>adapted screens</a></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <ul class="links">
+      <li><a href={RANDORI + 'randori.md'}>Read the rounds</a> (Markdown): what each check found before the constraint, and every state and transition it changed.</li>
+      <li><a href={RANDORI + 'rounds.json'}>The result</a> (JSON) and <a href="/examples/ux-pathway/inputs/randori-rounds.json">the flows</a> (JSON), in the same format as the Pocket Invoice flow.</li>
+    </ul>
+  </div></section>
+
   <section class="section" aria-labelledby="steps-title"><div class="container narrow">
-    <p class="eyebrow">05 / The steps</p>
+    <p class="eyebrow">06 / The steps</p>
     <h2 id="steps-title">Six katas, in order</h2>
     <p>Each kata has a brief, prompts, the checks that prove it is done and the evidence for the checks the Dojo has run. They are drafts: the Dojo built and checked the worked example, and no learner has run them yet. Do the foundations first: <a href="/katas/compare-instructions">Compare AI instructions</a> and <a href="/katas/context-trap">Spot a context trap</a>.</p>
     <ol class="steps">
@@ -174,7 +209,7 @@ const sources = {
   </div></section>
 
   <section class="section" aria-labelledby="tools-title"><div class="container narrow">
-    <p class="eyebrow">06 / The tools</p>
+    <p class="eyebrow">07 / The tools</p>
     <h2 id="tools-title">Penpot, and what Figma would cost</h2>
     <p>The pathway uses Penpot because it is open source, runs in a browser, can be self-hosted, and its free plan has no file limits. Facts below are from each publisher’s own pages, checked on 20 November 2026 (the SVG row on 21 November 2026). Plans change: check the source before you rely on one.</p>
     <div class="table-wrap" tabindex="0" role="region" aria-labelledby="tools-caption">
@@ -195,10 +230,10 @@ const sources = {
     </div>
   </div></section>
 
-  <SectorPackEvidence pack="ux" eyebrow="07 / What is checked" facts={{ componentCount, hifiScreenCount, hifiDrawingCount: fidelity.files.length, hifiDrawingsPassed: hifiPassed, minTextContrast: ratio(fidelity.totals.minTextContrast), minControlContrast: ratio(fidelity.totals.minControlContrast), tokenCount, transitionCount: TRANSITIONS.length, stateCount: STATES.length, flowCheckCount: flowChecks.checks.length, flowChecksPassed, contrastPairCount: flowChecks.contrast.length }} />
+  <SectorPackEvidence pack="ux" eyebrow="08 / What is checked" facts={{ componentCount, hifiScreenCount, hifiDrawingCount: fidelity.files.length, hifiDrawingsPassed: hifiPassed, minTextContrast: ratio(fidelity.totals.minTextContrast), minControlContrast: ratio(fidelity.totals.minControlContrast), tokenCount, transitionCount: TRANSITIONS.length, stateCount: STATES.length, flowCheckCount: flowChecks.checks.length, flowChecksPassed, contrastPairCount: flowChecks.contrast.length }} />
 
   <section class="section" aria-labelledby="credits-title"><div class="container narrow">
-    <p class="eyebrow">08 / Credits</p>
+    <p class="eyebrow">09 / Credits</p>
     <h2 id="credits-title">Credits and terms</h2>
     <ul>
       <li>{PRODUCT.name}, its flow, tokens, Penpot file, SVG drawings, prototype, script and working example: Developer Dojo, MIT licence.</li>

@@ -297,3 +297,23 @@ test('the UX pathway serves the open files the flow script generated', async ({ 
   }
   await expect(page.locator('a[href="/examples/pocket-invoice-prototype/"]')).toBeVisible();
 });
+
+test('the UX pathway shows the worked Randori rounds and serves their drawings', async ({ page, request }) => {
+  const base = '/examples/ux-pathway/generated/randori/';
+  const record = await (await request.get(base + 'rounds.json')).json() as { pass: boolean; rounds: { id: string; files: string[] }[] };
+  expect(record.pass).toBe(true);
+  expect(record.rounds.length).toBeGreaterThan(0);
+  await page.goto('/katas/ux-pathway/');
+  await expect(page.locator('#randori-title')).toContainText(record.rounds.length + ' worked Randori rounds');
+  for (const round of record.rounds) {
+    const row = page.locator('tr[data-randori-round="' + round.id + '"]');
+    await expect(row).toContainText('constraint met');
+    for (const file of round.files) {
+      await expect(row.locator('a[href="/examples/ux-pathway/generated/' + file + '"]')).toHaveCount(1);
+      const response = await request.get('/examples/ux-pathway/generated/' + file);
+      expect(response.status(), file).toBe(200);
+      expect(await response.text(), file).toContain('<svg');
+    }
+  }
+  expect((await request.get(base + 'randori.md')).status()).toBe(200);
+});

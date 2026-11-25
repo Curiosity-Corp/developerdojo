@@ -1,0 +1,420 @@
+{
+  "about": "Worked UX Randori rounds (UX-R01) for the partner cards in the kata download. Each round is one brief and one hidden constraint: the first flow is the sitemap drawn before the constraint was revealed, the adapted flow is the one that meets it. Written by the Dojo maintainers, who also wrote the cards, so the constraint was not hidden from them. tools/ux_randori.mjs checks both flows and records what the constraint changed.",
+  "rounds": [
+    {
+      "id": "A",
+      "brief": "A library app: a member reserves a book, is told when it is ready, and can cancel.",
+      "constraint": { "id": "undo-30s", "text": "The user must be able to undo the last action for 30 seconds." },
+      "changed": "Reserving and cancelling now show Undo for 30 seconds. The confirmation dialog before cancelling is gone: Undo protects the user better, with one step fewer.",
+      "first": {
+        "product": { "name": "Library reservations", "job": "A member reserves a book, hears when it is ready, and can cancel.", "audience": "Library members on a phone or a computer." },
+        "screens": [
+          { "id": "catalogue", "name": "Catalogue" },
+          { "id": "book", "name": "Book" },
+          { "id": "reservations", "name": "My reservations" }
+        ],
+        "start": "search",
+        "states": [
+          { "id": "search", "screen": "catalogue", "kind": "screen", "title": "Find a book", "purpose": "The member searches by title or author.", "elements": [
+            { "type": "heading", "text": "Find a book" },
+            { "type": "field", "label": "Title or author", "value": "The Night Garden" },
+            { "type": "button", "label": "Search", "variant": "primary", "to": "results" }
+          ] },
+          { "id": "results", "screen": "catalogue", "kind": "screen", "title": "2 books found", "purpose": "The matches, with whether a copy is on the shelf.", "elements": [
+            { "type": "heading", "text": "2 books found" },
+            { "type": "button", "label": "The Night Garden", "variant": "link", "to": "book" },
+            { "type": "button", "label": "Change the search", "variant": "link", "to": "search" }
+          ] },
+          { "id": "book", "screen": "book", "kind": "screen", "title": "The Night Garden", "purpose": "One book: whether it is on loan and how long the wait is.", "elements": [
+            { "type": "heading", "text": "The Night Garden" },
+            { "type": "text", "text": "All 3 copies are on loan. The wait is about 2 weeks." },
+            { "type": "button", "label": "Reserve", "variant": "primary", "to": "reserved" },
+            { "type": "button", "label": "Back to the results", "variant": "link", "to": "results" }
+          ] },
+          { "id": "reserved", "screen": "reservations", "kind": "success", "title": "Reserved", "purpose": "Says what happens next.", "elements": [
+            { "type": "heading", "text": "Reserved" },
+            { "type": "text", "text": "We will email you when it is ready to collect." },
+            { "type": "button", "label": "My reservations", "variant": "primary", "to": "my-reservations" }
+          ] },
+          { "id": "my-reservations", "screen": "reservations", "kind": "screen", "title": "My reservations", "purpose": "Every reservation and its place in the queue.", "elements": [
+            { "type": "heading", "text": "My reservations" },
+            { "type": "text", "text": "The Night Garden: waiting, number 2 in the queue." },
+            { "type": "button", "label": "Cancel reservation", "variant": "secondary", "to": "cancel-dialog" },
+            { "type": "button", "label": "Find another book", "variant": "link", "to": "search" }
+          ] },
+          { "id": "cancel-dialog", "screen": "reservations", "kind": "overlay", "title": "Cancel this reservation?", "purpose": "Asks before the member loses their place.", "elements": [
+            { "type": "heading", "text": "Cancel this reservation?" },
+            { "type": "text", "text": "You lose your place in the queue." },
+            { "type": "button", "label": "Keep it", "variant": "primary", "to": "my-reservations" },
+            { "type": "button", "label": "Cancel reservation", "variant": "secondary", "to": "cancelled" }
+          ] },
+          { "id": "cancelled", "screen": "reservations", "kind": "success", "title": "Reservation cancelled", "purpose": "Confirms the cancellation.", "elements": [
+            { "type": "heading", "text": "Reservation cancelled" },
+            { "type": "button", "label": "Find another book", "variant": "primary", "to": "search" }
+          ] },
+          { "id": "ready", "screen": "reservations", "kind": "screen", "title": "Ready to collect", "purpose": "Where the email sends the member when the book comes back.", "elements": [
+            { "type": "heading", "text": "Ready to collect" },
+            { "type": "text", "text": "Collect The Night Garden from the front desk within 7 days." },
+            { "type": "button", "label": "My reservations", "variant": "link", "to": "my-reservations" }
+          ] }
+        ],
+        "transitions": [
+          { "from": "search", "to": "results", "kind": "forward", "trigger": "Search" },
+          { "from": "results", "to": "book", "kind": "forward", "trigger": "Choose a book" },
+          { "from": "results", "to": "search", "kind": "back", "trigger": "Change the search" },
+          { "from": "book", "to": "reserved", "kind": "forward", "trigger": "Reserve", "commits": true },
+          { "from": "book", "to": "results", "kind": "back", "trigger": "Back to the results" },
+          { "from": "reserved", "to": "my-reservations", "kind": "forward", "trigger": "My reservations" },
+          { "from": "my-reservations", "to": "cancel-dialog", "kind": "overlay-open", "trigger": "Cancel reservation" },
+          { "from": "my-reservations", "to": "search", "kind": "back", "trigger": "Find another book" },
+          { "from": "my-reservations", "to": "ready", "kind": "branch", "trigger": "The book comes back; the email links here" },
+          { "from": "cancel-dialog", "to": "my-reservations", "kind": "overlay-close", "trigger": "Keep it, or Escape" },
+          { "from": "cancel-dialog", "to": "cancelled", "kind": "forward", "trigger": "Cancel reservation", "commits": true },
+          { "from": "cancelled", "to": "search", "kind": "forward", "trigger": "Find another book" },
+          { "from": "ready", "to": "my-reservations", "kind": "back", "trigger": "My reservations" }
+        ]
+      },
+      "adapted": {
+        "product": { "name": "Library reservations", "job": "A member reserves a book, hears when it is ready, and can cancel.", "audience": "Library members on a phone or a computer." },
+        "screens": [
+          { "id": "catalogue", "name": "Catalogue" },
+          { "id": "book", "name": "Book" },
+          { "id": "reservations", "name": "My reservations" }
+        ],
+        "start": "search",
+        "states": [
+          { "id": "search", "screen": "catalogue", "kind": "screen", "title": "Find a book", "purpose": "The member searches by title or author.", "elements": [
+            { "type": "heading", "text": "Find a book" },
+            { "type": "field", "label": "Title or author", "value": "The Night Garden" },
+            { "type": "button", "label": "Search", "variant": "primary", "to": "results" }
+          ] },
+          { "id": "results", "screen": "catalogue", "kind": "screen", "title": "2 books found", "purpose": "The matches, with whether a copy is on the shelf.", "elements": [
+            { "type": "heading", "text": "2 books found" },
+            { "type": "button", "label": "The Night Garden", "variant": "link", "to": "book" },
+            { "type": "button", "label": "Change the search", "variant": "link", "to": "search" }
+          ] },
+          { "id": "book", "screen": "book", "kind": "screen", "title": "The Night Garden", "purpose": "One book: whether it is on loan and how long the wait is.", "elements": [
+            { "type": "heading", "text": "The Night Garden" },
+            { "type": "text", "text": "All 3 copies are on loan. The wait is about 2 weeks." },
+            { "type": "button", "label": "Reserve", "variant": "primary", "to": "reserved" },
+            { "type": "button", "label": "Back to the results", "variant": "link", "to": "results" }
+          ] },
+          { "id": "reserved", "screen": "reservations", "kind": "success", "title": "Reserved", "purpose": "Says what happens next, and offers Undo for 30 seconds.", "undoSeconds": 30, "elements": [
+            { "type": "heading", "text": "Reserved" },
+            { "type": "text", "text": "We will email you when it is ready to collect. You can undo this for 30 seconds." },
+            { "type": "button", "label": "Undo", "variant": "secondary", "to": "book" },
+            { "type": "button", "label": "My reservations", "variant": "primary", "to": "my-reservations" }
+          ] },
+          { "id": "my-reservations", "screen": "reservations", "kind": "screen", "title": "My reservations", "purpose": "Every reservation and its place in the queue.", "elements": [
+            { "type": "heading", "text": "My reservations" },
+            { "type": "text", "text": "The Night Garden: waiting, number 2 in the queue." },
+            { "type": "button", "label": "Cancel reservation", "variant": "secondary", "to": "cancelled" },
+            { "type": "button", "label": "Find another book", "variant": "link", "to": "search" }
+          ] },
+          { "id": "cancelled", "screen": "reservations", "kind": "success", "title": "Reservation cancelled", "purpose": "Confirms the cancellation and offers Undo for 30 seconds, so no dialog asks first.", "undoSeconds": 30, "elements": [
+            { "type": "heading", "text": "Reservation cancelled" },
+            { "type": "text", "text": "Changed your mind? Undo within 30 seconds to keep your place." },
+            { "type": "button", "label": "Undo", "variant": "secondary", "to": "my-reservations" },
+            { "type": "button", "label": "Find another book", "variant": "primary", "to": "search" }
+          ] },
+          { "id": "ready", "screen": "reservations", "kind": "screen", "title": "Ready to collect", "purpose": "Where the email sends the member when the book comes back.", "elements": [
+            { "type": "heading", "text": "Ready to collect" },
+            { "type": "text", "text": "Collect The Night Garden from the front desk within 7 days." },
+            { "type": "button", "label": "My reservations", "variant": "link", "to": "my-reservations" }
+          ] }
+        ],
+        "transitions": [
+          { "from": "search", "to": "results", "kind": "forward", "trigger": "Search" },
+          { "from": "results", "to": "book", "kind": "forward", "trigger": "Choose a book" },
+          { "from": "results", "to": "search", "kind": "back", "trigger": "Change the search" },
+          { "from": "book", "to": "reserved", "kind": "forward", "trigger": "Reserve", "commits": true },
+          { "from": "book", "to": "results", "kind": "back", "trigger": "Back to the results" },
+          { "from": "reserved", "to": "book", "kind": "back", "trigger": "Undo, within 30 seconds", "undo": true },
+          { "from": "reserved", "to": "my-reservations", "kind": "forward", "trigger": "My reservations" },
+          { "from": "my-reservations", "to": "cancelled", "kind": "forward", "trigger": "Cancel reservation", "commits": true },
+          { "from": "my-reservations", "to": "search", "kind": "back", "trigger": "Find another book" },
+          { "from": "my-reservations", "to": "ready", "kind": "branch", "trigger": "The book comes back; the email links here" },
+          { "from": "cancelled", "to": "my-reservations", "kind": "back", "trigger": "Undo, within 30 seconds", "undo": true },
+          { "from": "cancelled", "to": "search", "kind": "forward", "trigger": "Find another book" },
+          { "from": "ready", "to": "my-reservations", "kind": "back", "trigger": "My reservations" }
+        ]
+      }
+    },
+    {
+      "id": "B",
+      "brief": "A tool-lending shelf for neighbours: borrow a drill, return it, report it broken.",
+      "constraint": { "id": "second-person-approval", "text": "A second person (a parent, a manager) must approve before the action takes effect." },
+      "changed": "Borrow becomes Ask to borrow. A new waiting screen holds the request until the shelf keeper approves or declines it, and the borrower can withdraw it; the loan starts only after approval.",
+      "first": {
+        "product": { "name": "Tool shelf", "job": "A neighbour borrows a drill, returns it, or reports it broken.", "audience": "Neighbours on a phone." },
+        "screens": [
+          { "id": "shelf", "name": "Shelf" },
+          { "id": "tool", "name": "Tool" },
+          { "id": "loans", "name": "My loans" }
+        ],
+        "start": "shelf",
+        "states": [
+          { "id": "shelf", "screen": "shelf", "kind": "screen", "title": "Tools on the shelf", "purpose": "What can be borrowed today.", "elements": [
+            { "type": "heading", "text": "Tools on the shelf" },
+            { "type": "button", "label": "Cordless drill", "variant": "link", "to": "tool" },
+            { "type": "button", "label": "My loans", "variant": "link", "to": "my-loans" }
+          ] },
+          { "id": "tool", "screen": "tool", "kind": "screen", "title": "Cordless drill", "purpose": "One tool, and how long it can be kept.", "elements": [
+            { "type": "heading", "text": "Cordless drill" },
+            { "type": "field", "label": "Return by", "value": "Saturday 6 June" },
+            { "type": "button", "label": "Borrow", "variant": "primary", "to": "borrowed" },
+            { "type": "button", "label": "Back to the shelf", "variant": "link", "to": "shelf" }
+          ] },
+          { "id": "borrowed", "screen": "loans", "kind": "success", "title": "You have the drill", "purpose": "The loan has started; says when it is due.", "elements": [
+            { "type": "heading", "text": "You have the drill" },
+            { "type": "text", "text": "Return it by Saturday 6 June." },
+            { "type": "button", "label": "My loans", "variant": "primary", "to": "my-loans" }
+          ] },
+          { "id": "my-loans", "screen": "loans", "kind": "screen", "title": "My loans", "purpose": "What the neighbour has, and when each is due.", "elements": [
+            { "type": "heading", "text": "My loans" },
+            { "type": "text", "text": "Cordless drill, due Saturday 6 June." },
+            { "type": "button", "label": "I have returned it", "variant": "primary", "to": "returned" },
+            { "type": "button", "label": "Report it broken", "variant": "secondary", "to": "report" },
+            { "type": "button", "label": "Back to the shelf", "variant": "link", "to": "shelf" }
+          ] },
+          { "id": "report", "screen": "loans", "kind": "screen", "title": "Report the drill broken", "purpose": "Says what went wrong, so the next borrower is warned.", "elements": [
+            { "type": "heading", "text": "Report the drill broken" },
+            { "type": "field", "label": "What happened", "value": "The chuck does not close." },
+            { "type": "button", "label": "Send report", "variant": "primary", "to": "reported" },
+            { "type": "button", "label": "Cancel", "variant": "link", "to": "my-loans" }
+          ] },
+          { "id": "report-error", "screen": "loans", "kind": "error", "title": "Report the drill broken: say what happened", "purpose": "Names the missing answer and keeps the page as it was.", "elements": [
+            { "type": "error-summary", "items": ["Say what happened to the drill"] },
+            { "type": "heading", "text": "Report the drill broken" },
+            { "type": "field", "label": "What happened", "value": "", "error": "Say what happened to the drill" },
+            { "type": "button", "label": "Send report", "variant": "primary", "to": "reported" },
+            { "type": "button", "label": "Cancel", "variant": "link", "to": "my-loans" }
+          ] },
+          { "id": "reported", "screen": "loans", "kind": "success", "title": "Thanks, the keeper will check it", "purpose": "Confirms the report.", "elements": [
+            { "type": "heading", "text": "Thanks, the keeper will check it" },
+            { "type": "button", "label": "Back to the shelf", "variant": "primary", "to": "shelf" }
+          ] },
+          { "id": "returned", "screen": "loans", "kind": "success", "title": "Returned", "purpose": "Confirms the return.", "elements": [
+            { "type": "heading", "text": "Returned" },
+            { "type": "button", "label": "Back to the shelf", "variant": "primary", "to": "shelf" }
+          ] }
+        ],
+        "transitions": [
+          { "from": "shelf", "to": "tool", "kind": "forward", "trigger": "Choose a tool" },
+          { "from": "shelf", "to": "my-loans", "kind": "branch", "trigger": "My loans" },
+          { "from": "tool", "to": "borrowed", "kind": "forward", "trigger": "Borrow", "commits": true },
+          { "from": "tool", "to": "shelf", "kind": "back", "trigger": "Back to the shelf" },
+          { "from": "borrowed", "to": "my-loans", "kind": "forward", "trigger": "My loans" },
+          { "from": "my-loans", "to": "returned", "kind": "forward", "trigger": "I have returned it" },
+          { "from": "my-loans", "to": "report", "kind": "branch", "trigger": "Report it broken" },
+          { "from": "my-loans", "to": "shelf", "kind": "back", "trigger": "Back to the shelf" },
+          { "from": "report", "to": "reported", "kind": "forward", "trigger": "Send report with what happened" },
+          { "from": "report", "to": "report-error", "kind": "error", "trigger": "Send report with the box empty" },
+          { "from": "report", "to": "my-loans", "kind": "back", "trigger": "Cancel" },
+          { "from": "report-error", "to": "reported", "kind": "recover", "trigger": "Say what happened and send" },
+          { "from": "report-error", "to": "my-loans", "kind": "back", "trigger": "Cancel" },
+          { "from": "reported", "to": "shelf", "kind": "forward", "trigger": "Back to the shelf" },
+          { "from": "returned", "to": "shelf", "kind": "forward", "trigger": "Back to the shelf" }
+        ]
+      },
+      "adapted": {
+        "product": { "name": "Tool shelf", "job": "A neighbour borrows a drill, returns it, or reports it broken.", "audience": "Neighbours on a phone." },
+        "screens": [
+          { "id": "shelf", "name": "Shelf" },
+          { "id": "tool", "name": "Tool" },
+          { "id": "loans", "name": "My loans" }
+        ],
+        "start": "shelf",
+        "states": [
+          { "id": "shelf", "screen": "shelf", "kind": "screen", "title": "Tools on the shelf", "purpose": "What can be borrowed today.", "elements": [
+            { "type": "heading", "text": "Tools on the shelf" },
+            { "type": "button", "label": "Cordless drill", "variant": "link", "to": "tool" },
+            { "type": "button", "label": "My loans", "variant": "link", "to": "my-loans" }
+          ] },
+          { "id": "tool", "screen": "tool", "kind": "screen", "title": "Cordless drill", "purpose": "One tool, and how long it can be kept. The shelf keeper approves every loan.", "elements": [
+            { "type": "heading", "text": "Cordless drill" },
+            { "type": "text", "text": "The shelf keeper approves every loan." },
+            { "type": "field", "label": "Return by", "value": "Saturday 6 June" },
+            { "type": "button", "label": "Ask to borrow", "variant": "primary", "to": "requested" },
+            { "type": "button", "label": "Back to the shelf", "variant": "link", "to": "shelf" }
+          ] },
+          { "id": "requested", "screen": "loans", "kind": "screen", "title": "Waiting for the keeper", "purpose": "Holds the request until the shelf keeper answers; nothing is lent yet.", "awaits": "keeper", "elements": [
+            { "type": "heading", "text": "Waiting for the keeper" },
+            { "type": "text", "text": "The drill is not yours yet. We will tell you when the shelf keeper answers." },
+            { "type": "button", "label": "Withdraw the request", "variant": "link", "to": "tool" }
+          ] },
+          { "id": "declined", "screen": "loans", "kind": "screen", "title": "The keeper said no", "purpose": "Gives the keeper's reason and a way on.", "elements": [
+            { "type": "heading", "text": "The keeper said no" },
+            { "type": "text", "text": "The drill is booked for a repair this week." },
+            { "type": "button", "label": "Back to the shelf", "variant": "primary", "to": "shelf" }
+          ] },
+          { "id": "borrowed", "screen": "loans", "kind": "success", "title": "You have the drill", "purpose": "The keeper approved and the loan has started; says when it is due.", "elements": [
+            { "type": "heading", "text": "You have the drill" },
+            { "type": "text", "text": "The keeper approved. Return it by Saturday 6 June." },
+            { "type": "button", "label": "My loans", "variant": "primary", "to": "my-loans" }
+          ] },
+          { "id": "my-loans", "screen": "loans", "kind": "screen", "title": "My loans", "purpose": "What the neighbour has, and when each is due.", "elements": [
+            { "type": "heading", "text": "My loans" },
+            { "type": "text", "text": "Cordless drill, due Saturday 6 June." },
+            { "type": "button", "label": "I have returned it", "variant": "primary", "to": "returned" },
+            { "type": "button", "label": "Report it broken", "variant": "secondary", "to": "report" },
+            { "type": "button", "label": "Back to the shelf", "variant": "link", "to": "shelf" }
+          ] },
+          { "id": "report", "screen": "loans", "kind": "screen", "title": "Report the drill broken", "purpose": "Says what went wrong, so the next borrower is warned.", "elements": [
+            { "type": "heading", "text": "Report the drill broken" },
+            { "type": "field", "label": "What happened", "value": "The chuck does not close." },
+            { "type": "button", "label": "Send report", "variant": "primary", "to": "reported" },
+            { "type": "button", "label": "Cancel", "variant": "link", "to": "my-loans" }
+          ] },
+          { "id": "report-error", "screen": "loans", "kind": "error", "title": "Report the drill broken: say what happened", "purpose": "Names the missing answer and keeps the page as it was.", "elements": [
+            { "type": "error-summary", "items": ["Say what happened to the drill"] },
+            { "type": "heading", "text": "Report the drill broken" },
+            { "type": "field", "label": "What happened", "value": "", "error": "Say what happened to the drill" },
+            { "type": "button", "label": "Send report", "variant": "primary", "to": "reported" },
+            { "type": "button", "label": "Cancel", "variant": "link", "to": "my-loans" }
+          ] },
+          { "id": "reported", "screen": "loans", "kind": "success", "title": "Thanks, the keeper will check it", "purpose": "Confirms the report.", "elements": [
+            { "type": "heading", "text": "Thanks, the keeper will check it" },
+            { "type": "button", "label": "Back to the shelf", "variant": "primary", "to": "shelf" }
+          ] },
+          { "id": "returned", "screen": "loans", "kind": "success", "title": "Returned", "purpose": "Confirms the return.", "elements": [
+            { "type": "heading", "text": "Returned" },
+            { "type": "button", "label": "Back to the shelf", "variant": "primary", "to": "shelf" }
+          ] }
+        ],
+        "transitions": [
+          { "from": "shelf", "to": "tool", "kind": "forward", "trigger": "Choose a tool" },
+          { "from": "shelf", "to": "my-loans", "kind": "branch", "trigger": "My loans" },
+          { "from": "tool", "to": "requested", "kind": "forward", "trigger": "Ask to borrow", "commits": true },
+          { "from": "tool", "to": "shelf", "kind": "back", "trigger": "Back to the shelf" },
+          { "from": "requested", "to": "borrowed", "kind": "forward", "trigger": "The shelf keeper approves", "actor": "keeper" },
+          { "from": "requested", "to": "declined", "kind": "branch", "trigger": "The shelf keeper declines", "actor": "keeper" },
+          { "from": "requested", "to": "tool", "kind": "back", "trigger": "Withdraw the request" },
+          { "from": "declined", "to": "shelf", "kind": "forward", "trigger": "Back to the shelf" },
+          { "from": "borrowed", "to": "my-loans", "kind": "forward", "trigger": "My loans" },
+          { "from": "my-loans", "to": "returned", "kind": "forward", "trigger": "I have returned it" },
+          { "from": "my-loans", "to": "report", "kind": "branch", "trigger": "Report it broken" },
+          { "from": "my-loans", "to": "shelf", "kind": "back", "trigger": "Back to the shelf" },
+          { "from": "report", "to": "reported", "kind": "forward", "trigger": "Send report with what happened" },
+          { "from": "report", "to": "report-error", "kind": "error", "trigger": "Send report with the box empty" },
+          { "from": "report", "to": "my-loans", "kind": "back", "trigger": "Cancel" },
+          { "from": "report-error", "to": "reported", "kind": "recover", "trigger": "Say what happened and send" },
+          { "from": "report-error", "to": "my-loans", "kind": "back", "trigger": "Cancel" },
+          { "from": "reported", "to": "shelf", "kind": "forward", "trigger": "Back to the shelf" },
+          { "from": "returned", "to": "shelf", "kind": "forward", "trigger": "Back to the shelf" }
+        ]
+      }
+    },
+    {
+      "id": "C",
+      "brief": "A class trip form: a parent gives permission, pays, and can change their answer.",
+      "constraint": { "id": "offline-keeps-input", "text": "The user may lose their connection at any step; nothing they typed may be lost." },
+      "changed": "Each screen with a field gets an offline state that shows the answers kept on the device and a way on once the connection is back: Try again sends them, Back returns to the form.",
+      "first": {
+        "product": { "name": "Class trip form", "job": "A parent gives permission for a trip, pays, and can change their answer.", "audience": "Parents on a phone, often on a weak signal." },
+        "screens": [
+          { "id": "form", "name": "Permission" },
+          { "id": "pay", "name": "Payment" },
+          { "id": "done", "name": "Answer recorded" }
+        ],
+        "start": "permission",
+        "states": [
+          { "id": "permission", "screen": "form", "kind": "screen", "title": "Science museum trip, Friday 12 June", "purpose": "The parent says yes or no and gives what the school must know.", "elements": [
+            { "type": "heading", "text": "Science museum trip, Friday 12 June" },
+            { "type": "field", "label": "Child's name", "value": "Alex Lee" },
+            { "type": "field", "label": "Medical needs or allergies", "value": "Peanuts" },
+            { "type": "button", "label": "Yes, Alex can go", "variant": "primary", "to": "pay" },
+            { "type": "button", "label": "No, Alex will not go", "variant": "secondary", "to": "not-going" }
+          ] },
+          { "id": "pay", "screen": "pay", "kind": "screen", "title": "Pay 12.50 for the trip", "purpose": "The trip costs 12.50; the parent pays by card.", "elements": [
+            { "type": "heading", "text": "Pay 12.50 for the trip" },
+            { "type": "field", "label": "Name on the card", "value": "Jo Lee" },
+            { "type": "button", "label": "Pay 12.50", "variant": "primary", "to": "paid" },
+            { "type": "button", "label": "Change my answer", "variant": "link", "to": "permission" }
+          ] },
+          { "id": "paid", "screen": "done", "kind": "success", "title": "Alex is going on the trip", "purpose": "Confirms the answer and the payment.", "elements": [
+            { "type": "heading", "text": "Alex is going on the trip" },
+            { "type": "text", "text": "We sent a receipt by email." },
+            { "type": "button", "label": "Change my answer", "variant": "link", "to": "permission" }
+          ] },
+          { "id": "not-going", "screen": "done", "kind": "success", "title": "Thanks, we have your answer", "purpose": "Confirms the no, and that it can change.", "elements": [
+            { "type": "heading", "text": "Thanks, we have your answer" },
+            { "type": "text", "text": "Alex will stay at school that day." },
+            { "type": "button", "label": "Change my answer", "variant": "link", "to": "permission" }
+          ] }
+        ],
+        "transitions": [
+          { "from": "permission", "to": "pay", "kind": "forward", "trigger": "Yes, Alex can go" },
+          { "from": "permission", "to": "not-going", "kind": "branch", "trigger": "No, Alex will not go" },
+          { "from": "pay", "to": "paid", "kind": "forward", "trigger": "Pay 12.50" },
+          { "from": "pay", "to": "permission", "kind": "back", "trigger": "Change my answer" },
+          { "from": "paid", "to": "permission", "kind": "back", "trigger": "Change my answer" },
+          { "from": "not-going", "to": "permission", "kind": "back", "trigger": "Change my answer" }
+        ]
+      },
+      "adapted": {
+        "product": { "name": "Class trip form", "job": "A parent gives permission for a trip, pays, and can change their answer.", "audience": "Parents on a phone, often on a weak signal." },
+        "screens": [
+          { "id": "form", "name": "Permission" },
+          { "id": "pay", "name": "Payment" },
+          { "id": "done", "name": "Answer recorded" }
+        ],
+        "start": "permission",
+        "states": [
+          { "id": "permission", "screen": "form", "kind": "screen", "title": "Science museum trip, Friday 12 June", "purpose": "The parent says yes or no and gives what the school must know. Answers are saved on the device as they are typed.", "elements": [
+            { "type": "heading", "text": "Science museum trip, Friday 12 June" },
+            { "type": "field", "label": "Child's name", "value": "Alex Lee" },
+            { "type": "field", "label": "Medical needs or allergies", "value": "Peanuts" },
+            { "type": "button", "label": "Yes, Alex can go", "variant": "primary", "to": "pay" },
+            { "type": "button", "label": "No, Alex will not go", "variant": "secondary", "to": "not-going" }
+          ] },
+          { "id": "permission-offline", "screen": "form", "kind": "error", "title": "You are offline: your answers are kept", "purpose": "The connection dropped on send; every answer stays, and Try again sends it once the connection is back.", "offline": true, "elements": [
+            { "type": "error-summary", "items": ["You are offline. Your answers are saved on this phone; try again when you have a signal."] },
+            { "type": "heading", "text": "Science museum trip, Friday 12 June" },
+            { "type": "field", "label": "Child's name", "value": "Alex Lee" },
+            { "type": "field", "label": "Medical needs or allergies", "value": "Peanuts" },
+            { "type": "button", "label": "Try again", "variant": "primary", "to": "pay" },
+            { "type": "button", "label": "Back to the form", "variant": "link", "to": "permission" }
+          ] },
+          { "id": "pay", "screen": "pay", "kind": "screen", "title": "Pay 12.50 for the trip", "purpose": "The trip costs 12.50; the parent pays by card.", "elements": [
+            { "type": "heading", "text": "Pay 12.50 for the trip" },
+            { "type": "field", "label": "Name on the card", "value": "Jo Lee" },
+            { "type": "button", "label": "Pay 12.50", "variant": "primary", "to": "paid" },
+            { "type": "button", "label": "Change my answer", "variant": "link", "to": "permission" }
+          ] },
+          { "id": "pay-offline", "screen": "pay", "kind": "error", "title": "You are offline: you have not been charged", "purpose": "The connection dropped on payment; says no money was taken, keeps the name, and Try again pays once.", "offline": true, "elements": [
+            { "type": "error-summary", "items": ["You are offline. You have not been charged; try again when you have a signal."] },
+            { "type": "heading", "text": "Pay 12.50 for the trip" },
+            { "type": "field", "label": "Name on the card", "value": "Jo Lee" },
+            { "type": "button", "label": "Try again", "variant": "primary", "to": "paid" },
+            { "type": "button", "label": "Back", "variant": "link", "to": "pay" }
+          ] },
+          { "id": "paid", "screen": "done", "kind": "success", "title": "Alex is going on the trip", "purpose": "Confirms the answer and the payment.", "elements": [
+            { "type": "heading", "text": "Alex is going on the trip" },
+            { "type": "text", "text": "We sent a receipt by email." },
+            { "type": "button", "label": "Change my answer", "variant": "link", "to": "permission" }
+          ] },
+          { "id": "not-going", "screen": "done", "kind": "success", "title": "Thanks, we have your answer", "purpose": "Confirms the no, and that it can change.", "elements": [
+            { "type": "heading", "text": "Thanks, we have your answer" },
+            { "type": "text", "text": "Alex will stay at school that day." },
+            { "type": "button", "label": "Change my answer", "variant": "link", "to": "permission" }
+          ] }
+        ],
+        "transitions": [
+          { "from": "permission", "to": "pay", "kind": "forward", "trigger": "Yes, Alex can go" },
+          { "from": "permission", "to": "not-going", "kind": "branch", "trigger": "No, Alex will not go" },
+          { "from": "permission", "to": "permission-offline", "kind": "error", "trigger": "The connection drops when the answer is sent" },
+          { "from": "permission-offline", "to": "pay", "kind": "recover", "trigger": "Try again with a signal" },
+          { "from": "permission-offline", "to": "permission", "kind": "back", "trigger": "Back to the form" },
+          { "from": "pay", "to": "paid", "kind": "forward", "trigger": "Pay 12.50" },
+          { "from": "pay", "to": "pay-offline", "kind": "error", "trigger": "The connection drops when the payment is sent" },
+          { "from": "pay", "to": "permission", "kind": "back", "trigger": "Change my answer" },
+          { "from": "pay-offline", "to": "paid", "kind": "recover", "trigger": "Try again with a signal" },
+          { "from": "pay-offline", "to": "pay", "kind": "back", "trigger": "Back" },
+          { "from": "paid", "to": "permission", "kind": "back", "trigger": "Change my answer" },
+          { "from": "not-going", "to": "permission", "kind": "back", "trigger": "Change my answer" }
+        ]
+      }
+    }
+  ]
+}

@@ -10,6 +10,7 @@
  *         <pack>/inputs/contrast-pairs.json        the token colour pairs and the contrast each must meet
  *         <pack>/pocket-invoice-tokens.json        the design tokens (W3C DTCG draft format, as Penpot imports it)
  *         <pack>/inputs/brand.json                 the brand: name, wordmark, voice, rules and the two layout widths
+ *         <pack>/inputs/randori-rounds.json        worked UX Randori rounds: a first and an adapted flow per hidden constraint
  * Writes  <out>/sitemap.svg                         every state and numbered transition, grouped by screen
  *         <out>/journey.svg                         every low-fidelity screen on one canvas, connected
  *         <out>/wireframes/<state>.svg              one greyscale 390 px screen per state
@@ -20,6 +21,7 @@
  *         <out>/screens/phone|desktop/<state>.svg   each state in high fidelity at 390 px and at 1440 px
  *         <out>/journey-high.svg                    every high-fidelity phone screen on one canvas, connected
  *         <out>/fidelity-report.json, .md           the visual-fidelity check of those drawings against the tokens
+ *         <out>/randori/...                         each Randori round's sitemaps and journey, rounds.json, randori.md (ux_randori.mjs)
  *
  * Every file is written even when a check fails, so you can see what failed; the exit code is then 1.
  * The site's CI reruns this script on every pipeline and fails if its output differs from generated/.
@@ -31,6 +33,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { contrast, flattenTokens, resolveToken } from './design_tokens.mjs';
 import { renderHifi } from './ux_hifi.mjs';
+import { renderRandori } from './ux_randori.mjs';
 
 export { contrast };
 
@@ -39,6 +42,7 @@ export const INPUTS = {
   pairs: 'inputs/contrast-pairs.json',
   tokens: 'pocket-invoice-tokens.json',
   brand: 'inputs/brand.json',
+  randori: 'inputs/randori-rounds.json',
 };
 
 const FONT = "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif";
@@ -463,7 +467,8 @@ function check(id, description, failures, detail) {
   return { id, description, pass: failures.length === 0, failures, ...(detail ? { detail } : {}) };
 }
 
-export function checkFlow(flow, tokenFile, pairs) {
+/** The structural checks of a flow: the ones every flow must pass, Pocket Invoice and the Randori rounds alike. */
+export function checkStructure(flow) {
   const ids = flow.states.map((state) => state.id);
   const kind = Object.fromEntries(flow.states.map((state) => [state.id, state.kind]));
   const out = (id) => flow.transitions.filter((t) => t.from === id);
@@ -488,6 +493,12 @@ export function checkFlow(flow, tokenFile, pairs) {
   checks.push(check('one-transition-per-pair', 'No two transitions join the same two states in the same direction.', numbered.filter((t, i) => pairKeys.indexOf(t.from + '>' + t.to) !== i).map((t) => 'transition ' + t.n)));
   const prototype = flow.states.flatMap((state) => prototypeOnly(flow, state).map((t) => t.n));
   checks.push(check('prototype-only-marked', 'Every transition that no button causes is drawn as a prototype-only link on its screen.', [], { transitions: prototype }));
+  return checks;
+}
+
+export function checkFlow(flow, tokenFile, pairs) {
+  const ids = flow.states.map((state) => state.id);
+  const checks = checkStructure(flow);
   const tokens = flattenTokens(tokenFile);
   const results = [];
   const contrastFailures = [];
@@ -549,7 +560,7 @@ function summary(result, outputs) {
 }
 
 /** Builds every output file from parsed inputs. Pure: no file system access. */
-export function render({ flow, tokens, pairs, brand, hashes }) {
+export function render({ flow, tokens, pairs, brand, randori: randoriRounds, hashes }) {
   const files = [];
   for (const state of flow.states) files.push(['wireframes/' + state.id + '.svg', wireframeSvg(flow, state)]);
   files.push(['sitemap.svg', sitemapSvg(flow)]);
@@ -559,6 +570,8 @@ export function render({ flow, tokens, pairs, brand, hashes }) {
   const hifi = renderHifi({ flow, tokenFile: tokens, pairs, brand });
   files.push(...hifi.files);
   files.push(['journey-high.svg', hifiJourneySvg(flow, hifi.phoneBoards, hifi.frameStroke)]);
+  const randori = renderRandori(randoriRounds, { checkStructure, sitemapSvg, journeySvg });
+  files.push(...randori.files);
   const outputs = [...files.map(([name]) => name), 'manifest.json', 'summary.md'].sort();
   const drawings = {};
   for (const [name, content] of files) {
@@ -568,7 +581,7 @@ export function render({ flow, tokens, pairs, brand, hashes }) {
   files.push(['manifest.json', JSON.stringify({ generator: 'tools/ux_pathway.mjs', inputs: hashes, outputs, drawings }, null, 2) + '\n']);
   files.push(['summary.md', summary(result, outputs)]);
   files.sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0));
-  return { files, failures: [...result.checks.filter((c) => !c.pass).map((c) => c.id + ': ' + c.failures.join(', ')), ...hifi.failures] };
+  return { files, failures: [...result.checks.filter((c) => !c.pass).map((c) => c.id + ': ' + c.failures.join(', ')), ...hifi.failures, ...randori.failures] };
 }
 
 // ---------------------------------------------------------------- command line
@@ -590,7 +603,7 @@ function main(argv) {
     loaded[key] = input.data;
     hashes[name] = createHash('sha256').update(input.raw).digest('hex');
   }
-  const { files, failures } = render({ flow: loaded.flow, tokens: loaded.tokens, pairs: loaded.pairs, brand: loaded.brand, hashes });
+  const { files, failures } = render({ flow: loaded.flow, tokens: loaded.tokens, pairs: loaded.pairs, brand: loaded.brand, randori: loaded.randori, hashes });
   for (const [name, content] of files) {
     const path = join(outDir, name);
     mkdirSync(dirname(path), { recursive: true });
