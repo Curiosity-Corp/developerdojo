@@ -9,3 +9,4 @@ production-e2e/
 *.log
 .env
 .env.*
+catalog-metrics/
