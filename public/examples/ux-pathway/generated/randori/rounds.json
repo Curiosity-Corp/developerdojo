@@ -1,0 +1,182 @@
+{
+  "generator": "tools/ux_randori.mjs",
+  "pass": true,
+  "rounds": [
+    {
+      "id": "A",
+      "brief": "A library app: a member reserves a book, is told when it is ready, and can cancel.",
+      "constraint": {
+        "id": "undo-30s",
+        "text": "The user must be able to undo the last action for 30 seconds."
+      },
+      "constraintCheck": "Every action that takes effect leads to a state that offers Undo for at least 30 seconds.",
+      "changed": "Reserving and cancelling now show Undo for 30 seconds. The confirmation dialog before cancelling is gone: Undo protects the user better, with one step fewer.",
+      "first": {
+        "states": 8,
+        "transitions": 13,
+        "structure": {
+          "pass": true,
+          "failed": []
+        },
+        "constraint": {
+          "pass": false,
+          "failures": [
+            "book > reserved: reserved offers no Undo for 30 seconds",
+            "book > reserved: no Undo transition leaves reserved",
+            "cancel-dialog > cancelled: cancelled offers no Undo for 30 seconds",
+            "cancel-dialog > cancelled: no Undo transition leaves cancelled"
+          ]
+        }
+      },
+      "adapted": {
+        "states": 7,
+        "transitions": 13,
+        "structure": {
+          "pass": true,
+          "failed": []
+        },
+        "constraint": {
+          "pass": true,
+          "failures": []
+        }
+      },
+      "diff": {
+        "statesAdded": [],
+        "statesRemoved": [
+          "cancel-dialog"
+        ],
+        "transitionsAdded": [
+          "reserved > book",
+          "my-reservations > cancelled",
+          "cancelled > my-reservations"
+        ],
+        "transitionsRemoved": [
+          "my-reservations > cancel-dialog",
+          "cancel-dialog > my-reservations",
+          "cancel-dialog > cancelled"
+        ]
+      },
+      "files": [
+        "randori/A-first-sitemap.svg",
+        "randori/A-adapted-sitemap.svg",
+        "randori/A-adapted-journey.svg"
+      ]
+    },
+    {
+      "id": "B",
+      "brief": "A tool-lending shelf for neighbours: borrow a drill, return it, report it broken.",
+      "constraint": {
+        "id": "second-person-approval",
+        "text": "A second person (a parent, a manager) must approve before the action takes effect."
+      },
+      "constraintCheck": "Every action that takes effect waits for a second person, who can approve or decline, and the approved state is entered only after that wait.",
+      "changed": "Borrow becomes Ask to borrow. A new waiting screen holds the request until the shelf keeper approves or declines it, and the borrower can withdraw it; the loan starts only after approval.",
+      "first": {
+        "states": 8,
+        "transitions": 15,
+        "structure": {
+          "pass": true,
+          "failed": []
+        },
+        "constraint": {
+          "pass": false,
+          "failures": [
+            "tool > borrowed: takes effect at once; no state waits for a second person"
+          ]
+        }
+      },
+      "adapted": {
+        "states": 10,
+        "transitions": 19,
+        "structure": {
+          "pass": true,
+          "failed": []
+        },
+        "constraint": {
+          "pass": true,
+          "failures": []
+        }
+      },
+      "diff": {
+        "statesAdded": [
+          "requested",
+          "declined"
+        ],
+        "statesRemoved": [],
+        "transitionsAdded": [
+          "tool > requested",
+          "requested > borrowed",
+          "requested > declined",
+          "requested > tool",
+          "declined > shelf"
+        ],
+        "transitionsRemoved": [
+          "tool > borrowed"
+        ]
+      },
+      "files": [
+        "randori/B-first-sitemap.svg",
+        "randori/B-adapted-sitemap.svg",
+        "randori/B-adapted-journey.svg"
+      ]
+    },
+    {
+      "id": "C",
+      "brief": "A class trip form: a parent gives permission, pays, and can change their answer.",
+      "constraint": {
+        "id": "offline-keeps-input",
+        "text": "The user may lose their connection at any step; nothing they typed may be lost."
+      },
+      "constraintCheck": "Every state with a field has an offline state that keeps each field and its value, with a way back or on once the connection returns.",
+      "changed": "Each screen with a field gets an offline state that shows the answers kept on the device and a way on once the connection is back: Try again sends them, Back returns to the form.",
+      "first": {
+        "states": 4,
+        "transitions": 6,
+        "structure": {
+          "pass": true,
+          "failed": []
+        },
+        "constraint": {
+          "pass": false,
+          "failures": [
+            "permission: no offline state; what was typed would be lost",
+            "pay: no offline state; what was typed would be lost"
+          ]
+        }
+      },
+      "adapted": {
+        "states": 6,
+        "transitions": 12,
+        "structure": {
+          "pass": true,
+          "failed": []
+        },
+        "constraint": {
+          "pass": true,
+          "failures": []
+        }
+      },
+      "diff": {
+        "statesAdded": [
+          "permission-offline",
+          "pay-offline"
+        ],
+        "statesRemoved": [],
+        "transitionsAdded": [
+          "permission > permission-offline",
+          "permission-offline > pay",
+          "permission-offline > permission",
+          "pay > pay-offline",
+          "pay-offline > paid",
+          "pay-offline > pay"
+        ],
+        "transitionsRemoved": []
+      },
+      "files": [
+        "randori/C-first-sitemap.svg",
+        "randori/C-adapted-sitemap.svg",
+        "randori/C-adapted-journey.svg"
+      ]
+    }
+  ]
+}

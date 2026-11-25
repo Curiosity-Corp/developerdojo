@@ -54,6 +54,17 @@ Ratios are rounded down to two decimals, so a ratio shown never overstates the r
 - journey-high.svg
 - journey.svg
 - manifest.json
+- randori/A-adapted-journey.svg
+- randori/A-adapted-sitemap.svg
+- randori/A-first-sitemap.svg
+- randori/B-adapted-journey.svg
+- randori/B-adapted-sitemap.svg
+- randori/B-first-sitemap.svg
+- randori/C-adapted-journey.svg
+- randori/C-adapted-sitemap.svg
+- randori/C-first-sitemap.svg
+- randori/randori.md
+- randori/rounds.json
 - screens/desktop/discard-dialog.svg
 - screens/desktop/invoice-new-error.svg
 - screens/desktop/invoice-new.svg
