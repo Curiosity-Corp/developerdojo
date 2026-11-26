@@ -398,6 +398,70 @@
       "state": "verified"
     },
     {
+      "id": "EDU-001",
+      "surface": "recipe",
+      "title": "Inspect a learning page before you check it",
+      "href": "/katas/edu-001-inspect-learning-page",
+      "area": "artifact-validity",
+      "maintainerRole": "Education pathway maintainer",
+      "provenance": [
+        "The Wikibooks page High School Mathematics Extensions/Matrices, as served: /examples/education-pathway/inputs/matrices.html"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a digital accessibility specialist, an assistive technology user or an education accessibility compliance reviewer yet.",
+      "verifiedOn": "2026-11-25",
+      "dueOn": "2027-02-23",
+      "state": "verified"
+    },
+    {
+      "id": "EDU-002",
+      "surface": "recipe",
+      "title": "Run accessibility rules you checked against the W3C’s own test cases",
+      "href": "/katas/edu-002-run-act-rules",
+      "area": "artifact-validity",
+      "maintainerRole": "Education pathway maintainer",
+      "provenance": [
+        "The W3C ACT test case index and the 36 approved test cases of the four rules: /examples/education-pathway/inputs/act-rules/testcases.json",
+        "The IANA Language Subtag Registry: /examples/education-pathway/inputs/language-subtag-registry.txt",
+        "The Wikibooks page, as served: /examples/education-pathway/inputs/matrices.html"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a digital accessibility specialist, an assistive technology user or an education accessibility compliance reviewer yet.",
+      "verifiedOn": "2026-11-25",
+      "dueOn": "2027-02-23",
+      "state": "verified"
+    },
+    {
+      "id": "EDU-003",
+      "surface": "recipe",
+      "title": "Report what the rules say about WCAG 2.2, and what they leave untested",
+      "href": "/katas/edu-003-report-accessibility",
+      "area": "artifact-validity",
+      "maintainerRole": "Education pathway maintainer",
+      "provenance": [
+        "Your EDU-002 rule outcomes: Your own output, or /examples/education-pathway/generated/rules.json",
+        "WCAG 2.2 and the outcome mapping on each ACT rule page: w3c/wcag-22-recommendation and w3c/act-rules-test-cases"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a digital accessibility specialist, an assistive technology user or an education accessibility compliance reviewer yet.",
+      "verifiedOn": "2026-11-25",
+      "dueOn": "2027-02-23",
+      "state": "verified"
+    },
+    {
+      "id": "EDU-R01",
+      "surface": "recipe",
+      "title": "Education Randori: an unseen change to a learning page",
+      "href": "/katas/edu-r01-randori",
+      "area": "artifact-validity",
+      "maintainerRole": "Education pathway maintainer",
+      "provenance": [
+        "Your EDU-002 outcomes on the page: Your own output, or /examples/education-pathway/generated/rules.json",
+        "The Randori cards: The table on /katas/education-pathway (the partner keeps it; the learner sees only the drawn card)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a digital accessibility specialist, an assistive technology user or an education accessibility compliance reviewer yet.",
+      "verifiedOn": "2026-11-25",
+      "dueOn": "2027-02-23",
+      "state": "verified"
+    },
+    {
       "id": "FIN-001",
       "surface": "recipe",
       "title": "Amortize a loan to the cent and state its disclosure figures",

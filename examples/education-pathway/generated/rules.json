@@ -1,0 +1,40 @@
+{
+  "2779a5": {
+    "name": "HTML page has non-empty title",
+    "outcome": "passed",
+    "targets": [
+      {
+        "target": "html",
+        "outcome": "passed",
+        "why": "first title: High School Mathematics Extensions/Matrices - Wikibooks, open books for an open world"
+      }
+    ]
+  },
+  "b5c3f8": {
+    "name": "HTML page has lang attribute",
+    "outcome": "passed",
+    "targets": [
+      {
+        "target": "html",
+        "outcome": "passed",
+        "why": "lang=en"
+      }
+    ]
+  },
+  "bf051a": {
+    "name": "HTML page lang attribute has valid language tag",
+    "outcome": "passed",
+    "targets": [
+      {
+        "target": "html",
+        "outcome": "passed",
+        "why": "lang=en: primary subtag is a language subtag in the registry"
+      }
+    ]
+  },
+  "b4f0c3": {
+    "name": "Meta viewport allows for zoom",
+    "outcome": "inapplicable",
+    "targets": []
+  }
+}

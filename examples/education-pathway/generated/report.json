@@ -1,0 +1,41 @@
+{
+  "standard": "WCAG 2.2 (W3C Recommendation, 12 December 2024)",
+  "page": "Wikibooks, High School Mathematics Extensions/Matrices, revision 266672, as served",
+  "criteria": [
+    {
+      "successCriterion": "1.4.4",
+      "name": "Resize text",
+      "level": "AA",
+      "rules": {
+        "b4f0c3": "inapplicable"
+      },
+      "conclusion": "further testing needed"
+    },
+    {
+      "successCriterion": "2.4.2",
+      "name": "Page Titled",
+      "level": "A",
+      "rules": {
+        "2779a5": "passed"
+      },
+      "conclusion": "further testing needed"
+    },
+    {
+      "successCriterion": "3.1.1",
+      "name": "Language of Page",
+      "level": "A",
+      "rules": {
+        "b5c3f8": "passed",
+        "bf051a": "passed"
+      },
+      "conclusion": "further testing needed"
+    }
+  ],
+  "failedCriteria": [],
+  "outcomeMapping": "ACT rule pages: any failed outcome means the success criterion is not satisfied; passed and inapplicable outcomes mean further testing is needed",
+  "notTested": [
+    "Every other WCAG 2.2 success criterion, including 1.1.1 Non-text Content (alternative text), 1.3.1 Info and Relationships (headings and tables) and 1.4.3 Contrast (Minimum)",
+    "Whether the title describes the page (ACT rule c4a8a4) and whether lang matches the language of the text (ACT rule ucwvc8): both need a person",
+    "The page after its scripts run, in a browser, with assistive technology"
+  ]
+}
