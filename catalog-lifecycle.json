@@ -542,6 +542,71 @@
       "state": "verified"
     },
     {
+      "id": "HLT-001",
+      "surface": "recipe",
+      "title": "Inspect a growth reference: what CDC’s BMI-for-age tables hold and how age selects a row",
+      "href": "/katas/hlt-001-inspect-growth-reference",
+      "area": "artifact-validity",
+      "maintainerRole": "Health pathway maintainer",
+      "provenance": [
+        "CDC 2000 growth charts, BMI-for-age data file: /examples/health-pathway/inputs/bmiagerev.csv (unchanged)",
+        "CDC 2022 Extended BMI-for-age growth charts, data file: /examples/health-pathway/inputs/bmi-age-2022.csv (unchanged)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a paediatrician, registered dietitian or epidemiologist yet.",
+      "verifiedOn": "2026-11-26",
+      "dueOn": "2027-02-24",
+      "state": "verified"
+    },
+    {
+      "id": "HLT-002",
+      "surface": "recipe",
+      "title": "Compute a BMI-for-age percentile and z-score with CDC’s LMS and extended methods",
+      "href": "/katas/hlt-002-bmi-for-age-percentile",
+      "area": "artifact-validity",
+      "maintainerRole": "Health pathway maintainer",
+      "provenance": [
+        "Both CDC BMI-for-age data files: /examples/health-pathway/inputs/ (unchanged)",
+        "The four worked examples of CDC’s Extended BMI-for-age data files page: cdc/extended-bmi-for-age-data-files (the script holds the printed values and names the example of each)",
+        "Six fictional children: /examples/health-pathway/scenario/children.csv"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a paediatrician, registered dietitian or epidemiologist yet.",
+      "verifiedOn": "2026-11-26",
+      "dueOn": "2027-02-24",
+      "state": "verified"
+    },
+    {
+      "id": "HLT-003",
+      "surface": "recipe",
+      "title": "Report BMI-for-age categories with their limits stated",
+      "href": "/katas/hlt-003-bmi-category-report",
+      "area": "artifact-validity",
+      "maintainerRole": "Health pathway maintainer",
+      "provenance": [
+        "Your HLT-002 scores: Your own output, or /examples/health-pathway/generated/scores.json",
+        "CDC, Child and teen BMI categories: cdc/child-and-teen-bmi-categories"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a paediatrician, registered dietitian or epidemiologist yet.",
+      "verifiedOn": "2026-11-26",
+      "dueOn": "2027-02-24",
+      "state": "verified"
+    },
+    {
+      "id": "HLT-R01",
+      "surface": "recipe",
+      "title": "Health Randori: an unseen change of method, row or cut-off",
+      "href": "/katas/hlt-r01-randori",
+      "area": "artifact-validity",
+      "maintainerRole": "Health pathway maintainer",
+      "provenance": [
+        "Your HLT-002 and HLT-003 scores: Your own output, or /examples/health-pathway/generated/scores.json",
+        "The Randori cards: The table on /katas/health-pathway (the partner keeps it; the learner sees only the drawn card)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a paediatrician, registered dietitian or epidemiologist yet.",
+      "verifiedOn": "2026-11-26",
+      "dueOn": "2027-02-24",
+      "state": "verified"
+    },
+    {
       "id": "MED-001",
       "surface": "recipe",
       "title": "Inspect a recording: its format, its peaks and its channels",

@@ -1,0 +1,7 @@
+child,sex,age,completedMonths,height_cm,weight_kg,bmi,method,z,percentile,percentOfP95,category,table_agemos
+A,female,9 years 6 months,114,132.0,27.0,15.50,LMS,-0.548,29.18,69.2,healthy weight,114.5
+B,male,4 years 2 months,50,103.0,14.6,13.76,LMS,-1.931,2.67,77.2,underweight,50.5
+C,female,15 years 4 months,184,160.0,66.0,25.78,LMS,1.295,90.24,90.8,overweight,184.5
+D,male,7 years 8 months,92,125.0,34.0,21.76,extended,1.881,97.00,110.2,obesity,92.5
+E,male,12 years 0 months,144,150.0,80.0,35.56,extended,2.939,99.84,146.7,severe obesity,144.5
+F,female,1 year 11 months,23,86.0,12.0,16.22,unavailable,unavailable,unavailable,unavailable,unavailable,unavailable

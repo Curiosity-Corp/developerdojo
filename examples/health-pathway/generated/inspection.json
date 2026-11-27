@@ -1,0 +1,168 @@
+{
+  "source": "CDC National Center for Health Statistics: BMI-for-age data files of the CDC 2000 growth charts (bmiagerev.csv) and of the 2022 Extended BMI-for-age growth charts (bmi-age-2022.csv)",
+  "measurement": "Body mass index (BMI), kg/m2, by sex (1 male, 2 female) and age in months",
+  "files": {
+    "inputs/bmiagerev.csv": {
+      "lines": 440,
+      "dataRows": 438,
+      "repeatedHeaderLines": [
+        221
+      ],
+      "lineEndings": "CRLF",
+      "columns": [
+        "Sex",
+        "Agemos",
+        "L",
+        "M",
+        "S",
+        "P3",
+        "P5",
+        "P10",
+        "P25",
+        "P50",
+        "P75",
+        "P85",
+        "P90",
+        "P95",
+        "P97"
+      ],
+      "note": "The header line is repeated before the rows for girls; a reader that does not skip it reads a row of text."
+    },
+    "inputs/bmi-age-2022.csv": {
+      "lines": 439,
+      "dataRows": 438,
+      "repeatedHeaderLines": [],
+      "lineEndings": "CRLF",
+      "columns": [
+        "sex",
+        "agemos",
+        "L",
+        "M",
+        "S",
+        "sigma",
+        "P3",
+        "P5",
+        "P10",
+        "P25",
+        "P50",
+        "P75",
+        "P85",
+        "P90",
+        "P95",
+        "P98",
+        "P99",
+        "P99_9",
+        "P99_99",
+        "pct120ofP95",
+        "Z2neg",
+        "Z1_5neg",
+        "Z1neg",
+        "Z0_5neg",
+        "Z0",
+        "Z0_5",
+        "Z1",
+        "Z1_5",
+        "Z2",
+        "Z2_5",
+        "Z3",
+        "Z3_5",
+        "Z4",
+        "Z4_5",
+        "Z5"
+      ]
+    }
+  },
+  "rowsPerSex": {
+    "male": 219,
+    "female": 219
+  },
+  "ageRange": {
+    "firstAgemos": 24.0,
+    "lastAgemos": 240.5
+  },
+  "halfMonthRule": "Age is listed at the half month: 48.5 months stands for 48.0 up to, not including, 49.0 months (CDC).",
+  "rowsOffTheRule": [
+    24.0,
+    240.0
+  ],
+  "rowsOffTheRuleNote": "Each file also has a row at exactly 24.0 and 240.0 months for each sex. A child's age in completed months plus 0.5 never selects them.",
+  "scoredAges": {
+    "firstCompletedMonth": 24,
+    "lastCompletedMonth": 239,
+    "note": "CDC's child and teen BMI categories cover ages 2 through 19; from age 20 the adult categories apply, so the 240.0 and 240.5 rows are not used here."
+  },
+  "negativeL": 438,
+  "medianEqualsP50": 438,
+  "zCeilingRange": {
+    "lowest": "2.785",
+    "highest": "11.861"
+  },
+  "sameAs2000": {
+    "rows": 438,
+    "identicalLMS": 1314,
+    "agreeingPercentiles": 3942,
+    "rule": "L, M and S are the same text in both files, and the 3rd to 95th percentiles agree at the decimals the 2022 file prints, as CDC states."
+  },
+  "categoriesExampleAcrossAgeTwelve": [
+    {
+      "agemos": 144.5,
+      "percentile": "96.00",
+      "rounded": "96"
+    },
+    {
+      "agemos": 145.5,
+      "percentile": "95.93",
+      "rounded": "96"
+    },
+    {
+      "agemos": 146.5,
+      "percentile": "95.86",
+      "rounded": "96"
+    },
+    {
+      "agemos": 147.5,
+      "percentile": "95.79",
+      "rounded": "96"
+    },
+    {
+      "agemos": 148.5,
+      "percentile": "95.72",
+      "rounded": "96"
+    },
+    {
+      "agemos": 149.5,
+      "percentile": "95.65",
+      "rounded": "96"
+    },
+    {
+      "agemos": 150.5,
+      "percentile": "95.58",
+      "rounded": "96"
+    },
+    {
+      "agemos": 151.5,
+      "percentile": "95.51",
+      "rounded": "96"
+    },
+    {
+      "agemos": 152.5,
+      "percentile": "95.44",
+      "rounded": "95"
+    },
+    {
+      "agemos": 153.5,
+      "percentile": "95.38",
+      "rounded": "95"
+    },
+    {
+      "agemos": 154.5,
+      "percentile": "95.32",
+      "rounded": "95"
+    },
+    {
+      "agemos": 155.5,
+      "percentile": "95.25",
+      "rounded": "95"
+    }
+  ]
+}
