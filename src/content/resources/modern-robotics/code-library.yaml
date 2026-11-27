@@ -1,0 +1,9 @@
+title: "Modern Robotics: Mechanics, Planning, and Control, code library (Python, modern_robotics/core.py)"
+provider: "Modern Robotics"
+url: "https://github.com/NxRLab/ModernRobotics/blob/36f0f1b47118f026ac76f406e1881edaba9389f2/packages/Python/modern_robotics/core.py"
+cost: "free"
+format: "docs"
+level: "advanced"
+skills: [robot-software]
+summary: "The MIT-licensed code that accompanies the Modern Robotics textbook (Cambridge University Press, 2017): rigid-body motions, product-of-exponentials forward kinematics, space and body Jacobians and Newton-Raphson inverse kinematics, each with a worked example printed in its docstring. The robotics pathway reproduces those printed examples before it computes anything on the UR5."
+verifiedOn: 2026-11-27

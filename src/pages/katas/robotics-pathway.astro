@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectorPackEvidence from '../../components/SectorPackEvidence.astro';
+// Every number on this page is read from the files CI recomputes
+// (/examples/robotics-pathway/tools/robotics_pathway.py, job robotics_pathway).
+import manifest from '../../../public/examples/robotics-pathway/generated/manifest.json';
+import referenceChecks from '../../../public/examples/robotics-pathway/generated/reference-checks.json';
+import inspection from '../../../public/examples/robotics-pathway/generated/inspection.json';
+import poses from '../../../public/examples/robotics-pathway/generated/poses.json';
+import ik from '../../../public/examples/robotics-pathway/generated/ik.json';
+import cards from '../../../public/examples/robotics-pathway/generated/randori/cards.json';
+
+const EX = '/examples/robotics-pathway';
+const GEN = `${EX}/generated`;
+const MODEL = 'inputs/ur5-default-kinematics.yaml';
+const LICENCE = 'inputs/ur-description-LICENSE.txt';
+const modelSha = (manifest.inputs as Record<string, string>)[MODEL];
+if (!modelSha) throw new Error(`The robotics manifest has no hash for ${MODEL}`);
+const steps = [
+  { id: 'ROB-001', href: '/katas/rob-001-inspect-robot-model', title: 'Inspect a robot model', does: 'Read the UR5’s open description entry by entry: units, conventions, which numbers are the manufacturer’s DH lengths, and what the file does not hold.' },
+  { id: 'ROB-002', href: '/katas/rob-002-forward-kinematics', title: 'Forward kinematics three ways', does: 'Reproduce the Modern Robotics code library’s worked examples, then compute five poses by the joint chain, the DH table and the product of exponentials, and find the singular ones.' },
+  { id: 'ROB-003', href: '/katas/rob-003-inverse-kinematics', title: 'Inverse kinematics, checked', does: 'Find joint angles for target poses by Newton-Raphson, check each by the joint chain, and report a target out of reach as no solution.' },
+  { id: 'ROB-R01', href: '/katas/rob-r01-randori', title: 'Robotics Randori: an unseen change', does: 'A partner reveals one changed assumption after you start; predict what moves and by how much, then recompute.' },
+];
+/** One row of ik.json. A failed solve has no joint angles and no check by the chain, but says why. */
+type Solve = {
+  target: string; guess: string; success: boolean; iterations: number; distanceFromShoulder_m: string;
+  thetas_rad: string[] | null; checkByChain?: { orientationError_mrad: string; positionError_mm: string }; reason?: string;
+};
+const solves = ik.solutions as Solve[];
+const failed = solves.find((solve) => !solve.success);
+if (!failed?.reason) throw new Error('The robotics joint solutions have no failed solve with its reason');
+const dhEqual = inspection.dhTable.fileEntries.filter((entry: { equal: boolean }) => entry.equal).length;
+const cardA = cards.A;
+const cardD = cards.D;
+const sources = {
+  description: 'https://github.com/UniversalRobots/Universal_Robots_ROS2_Description',
+  dh: 'https://www.universal-robots.com/articles/ur/application-installation/dh-parameters-for-calculations-of-kinematics-and-dynamics/',
+  library: 'https://github.com/NxRLab/ModernRobotics',
+  rep103: 'https://www.ros.org/reps/rep-0103.html',
+};
+---
+<BaseLayout title="Robotics pathway: from an open robot model to a checked pose and joint solution" description="Follow a robotics pathway: read the open UR5 robot description, reproduce the Modern Robotics code library's worked examples, compute poses three ways that agree and joint solutions checked by another method, every number computed in CI. Simulation only, not a safety assessment.">
+  <PageHero compact eyebrow="Robotics · Pathway" title="From an open robot model to a checked pose and joint solution" accent="." subtitle="Four katas on the open UR5 robot description, in simulation. Each step has a file you can open and a result that CI computes again on every pipeline. Nothing here moves a real robot or is a safety assessment." ctas={[
+    { label: 'Start with ROB-001', href: '/katas/rob-001-inspect-robot-model', icon: 'play' },
+    { label: 'Download the poses', href: `${GEN}/poses.csv`, variant: 'ghost', icon: 'arrow-right' },
+  ]} />
+
+  <section class="section" aria-labelledby="outcome-title"><div class="container narrow">
+    <p class="eyebrow">01 / The files</p>
+    <h2 id="outcome-title">One open robot model, every number rerun</h2>
+    <p>The Universal Robots ROS 2 Description publishes the kinematics of the UR5 arm as a small file: where each of its six joints sits on the link before it. Robot software computes every pose from numbers like these. The script first reproduces every value the Modern Robotics code library prints in its worked examples and checks the file against the manufacturer’s DH table, then computes poses and joint solutions for configurations and targets the Dojo wrote.</p>
+    <p class="notice" data-robotics-notice><strong>Simulation only.</strong> No real robot moved. Nothing on this page is a risk assessment, a safety function or a check against a robot safety standard, and no robot cell should be planned from it. Never send these joint angles to a real arm.</p>
+    <ul class="links">
+      <li><a href={`${EX}/${MODEL}`} download>The UR5 kinematics file</a> (YAML) and <a href={`${EX}/${LICENCE}`} download>its licence</a>: the Universal Robots ROS 2 Description’s files, unchanged.</li>
+      <li><a href={`${EX}/scenario/configurations.csv`} download>Five joint configurations</a> and <a href={`${EX}/scenario/targets.csv`} download>three target poses with their initial guesses</a> (CSV).</li>
+      <li><a href={`${GEN}/poses.csv`} download>The poses</a> (CSV), <a href={`${GEN}/poses.json`}>the same with the agreement of the three methods</a> and <a href={`${GEN}/ik.json`}>the joint solutions</a> (JSON).</li>
+      <li><a href={`${GEN}/inspection.json`}>The model inspection</a> and <a href={`${GEN}/reference-checks.json`}>the reference checks</a> (JSON).</li>
+      <li><a href={`${GEN}/summary.md`}>The result summary</a> (Markdown) and every result under <a href={`${GEN}/manifest.json`}>the manifest</a>, with the method and the input hashes.</li>
+      <li><a href={`${EX}/tools/robotics_pathway.py`}>The pathway script</a> (Python 3.12, standard library only, MIT), so you can rerun every number yourself.</li>
+      <li><a href={`${EX}/README.md`}>README</a>: sources, terms, how to rerun the checks, and what they do not cover.</li>
+    </ul>
+  </div></section>
+
+  <section class="section" aria-labelledby="steps-title"><div class="container narrow">
+    <p class="eyebrow">02 / The steps</p>
+    <h2 id="steps-title">Four katas, in order</h2>
+    <p>Each kata has a brief, prompts, checks and the evidence for the checks the Dojo has run. They are drafts: the Dojo built the example and CI checks it, and no learner has run them yet. Do the foundations first: <a href="/katas/compare-instructions">Compare AI instructions</a> and <a href="/katas/context-trap">Spot a context trap</a>. The <a href="/library/tracks/robot-software">robot software track</a> goes on to ROS 2 and simulators.</p>
+    <ol class="steps">
+      {steps.map((step) => <li><a href={step.href}><span class="step-id">{step.id}</span> {step.title}</a><p>{step.does}</p></li>)}
+    </ol>
+  </div></section>
+
+  <section class="section" aria-labelledby="checks-title"><div class="container narrow">
+    <p class="eyebrow">03 / The checks</p>
+    <h2 id="checks-title">Reproduce the published examples, then compute</h2>
+    <p>These results come from CI: the pipeline reruns <code>/examples/robotics-pathway/tools/robotics_pathway.py</code> and fails if any output differs from the published files.</p>
+
+    <h3 id="reference-title">Reference checks: the library’s worked examples</h3>
+    <p><strong data-reference-total>{referenceChecks.passed} of {referenceChecks.passed + referenceChecks.failed}</strong> values printed in the worked examples of {referenceChecks.functions.length} functions ({referenceChecks.functions.join(', ')}) are reproduced when rounded as printed. The script stops without writing any result if one differs. <a href={`${GEN}/reference-checks.json`}>Every value (JSON)</a>.</p>
+
+    <h3 id="model-title">The model (ROB-001)</h3>
+    <p>{inspection.units} {inspection.convention}</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="dh-caption">
+      <table>
+        <caption id="dh-caption">The UR5 DH lengths and the file entries that hold them</caption>
+        <thead><tr><th scope="col">DH length</th><th scope="col">Manufacturer’s value, m</th><th scope="col">File entry</th><th scope="col">Result</th></tr></thead>
+        <tbody>
+          {inspection.dhTable.fileEntries.map((entry: { parameter: string; publishedValue_m: number; fileEntry: string; sign: string; equal: boolean }) => <tr><th scope="row">{entry.parameter}</th><td>{entry.publishedValue_m}</td><td>{entry.sign === '-' ? 'minus ' : ''}<code>{entry.fileEntry}</code></td><td data-dh-check={entry.parameter}>{entry.equal ? 'Equal' : 'Differs'}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p><span data-dh-equal>{dhEqual} of 6</span> are equal. {inspection.numericalResidueNote} The sum of the link lengths, <span data-reach-bound>{inspection.reachBound_m} m</span>, bounds how far the end of the arm can be from the shoulder. Not in the file: {inspection.notInTheFile} <a href={`${GEN}/inspection.json`}>Result (JSON)</a>.</p>
+
+    <h3 id="poses-title">Forward kinematics, three ways (ROB-002)</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="poses-caption">
+      <table>
+        <caption id="poses-caption">Pose of the last link for five configurations; the three methods agree within {poses.agreement.largestDisagreement} m</caption>
+        <thead><tr><th scope="col">Configuration</th><th scope="col">Joint angles, rad</th><th scope="col">Position x, y, z, m</th><th scope="col">Roll, pitch, yaw, rad</th><th scope="col">det Js</th></tr></thead>
+        <tbody>
+          {poses.configurations.map((pose) => <tr><th scope="row">{pose.configuration}</th><td>{pose.thetas_rad.join(', ')}</td><td data-pose={pose.configuration}>{pose.position_m.join(', ')}</td><td>{pose.rpy_rad.join(', ')}</td><td data-det={pose.configuration}>{pose.detJs}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>The methods are the file’s joint chain, the manufacturer’s DH table and the product of exponentials with screw axes read from the file; they share no code beyond matrix products. Where the determinant of the Jacobian is zero the arm is singular: stretched out, straight up, or with the wrist straight so that two joint axes line up. <a href={`${GEN}/poses.json`}>Result (JSON)</a>, <a href={`${GEN}/poses.csv`} download>poses (CSV)</a>.</p>
+
+    <h3 id="ik-title">Inverse kinematics, checked by the chain (ROB-003)</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="ik-caption">
+      <table>
+        <caption id="ik-caption">Newton-Raphson from each initial guess, at most 20 steps; each solution checked again by the joint chain</caption>
+        <thead><tr><th scope="col">Target, guess</th><th scope="col">Steps</th><th scope="col">Joint solution, rad</th><th scope="col">Error by the chain</th></tr></thead>
+        <tbody>
+          {solves.map((solve) => <tr><th scope="row">{solve.target}, {solve.guess}</th><td>{solve.iterations}</td><td data-ik={`${solve.target}-${solve.guess}`}>{solve.thetas_rad ? solve.thetas_rad.join(', ') : 'No solution'}</td><td>{solve.checkByChain ? `${solve.checkByChain.orientationError_mrad} mrad, ${solve.checkByChain.positionError_mm} mm` : '—'}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>The same pick target gives two solutions, one with the elbow the other way; both reach it, and which one a cell uses is a planning and safety decision. For the last target: <span data-ik-reason>{failed.reason}</span> <a href={`${GEN}/ik.json`}>Result (JSON)</a>.</p>
+
+    <h3 id="randori-title">Randori cards</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="randori-caption">
+      <table>
+        <caption id="randori-caption">Each card changes one assumption</caption>
+        <thead><tr><th scope="col">Card</th><th scope="col">Change</th><th scope="col">Result</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">A</th><td>{cardA.title}. {cardA.change}</td><td data-randori-card="A">The last link moves {cardA.positionChange_mm} mm and turns {cardA.orientationChange_deg}°</td></tr>
+          <tr><th scope="row">B</th><td>{cards.B.title}. {cards.B.change}</td><td data-randori-card="B">The last link moves {cards.B.positionChange_mm} mm</td></tr>
+          <tr><th scope="row">C</th><td>{cards.C.title}. {cards.C.change}</td><td data-randori-card="C">The last link moves {cards.C.positionChange_mm} mm and does not turn</td></tr>
+          <tr><th scope="row">D</th><td>{cardD.title}. {cardD.change}</td><td data-randori-card="D">det Js {cardD.detJsBefore} to {cardD.detJsAfter}. {cardD.consequence}</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The partner keeps this table hidden until the learner has written a prediction; see <a href="/katas/rob-r01-randori">ROB-R01</a>. <a href={`${GEN}/randori/cards.json`}>Result (JSON)</a>.</p>
+  </div></section>
+
+  <section class="section" aria-labelledby="tools-title"><div class="container narrow">
+    <p class="eyebrow">04 / The tools and sources</p>
+    <h2 id="tools-title">No packages, open sources</h2>
+    <p>Six joints need only small matrices, so the script uses only the Python 3.12 standard library and runs offline with nothing to install. The Armory lists the stack recipe <a href="/armory/registry#recipe-python-standard-library">Python standard library</a>.</p>
+    <ul class="links">
+      <li><a href={sources.description}>Universal Robots ROS 2 Description</a>: the UR5 kinematics file, pinned to a commit, BSD-3-Clause.</li>
+      <li>Universal Robots, <a href={sources.dh}>DH parameters for calculations of kinematics and dynamics</a>, read on 27 November 2026: the UR5 table, cited for its numbers.</li>
+      <li>The <a href={sources.library}>code library of Modern Robotics: Mechanics, Planning, and Control</a> (Cambridge University Press, 2017), MIT licence: the worked examples in its docstrings, cited for their printed values. Its code is not copied.</li>
+      <li><a href={sources.rep103}>REP 103, Standard Units of Measure and Coordinate Conventions</a>: metres, radians, right-handed frames and fixed-axis roll, pitch and yaw.</li>
+      <li>ISO 10218-1 and ISO 10218-2, the safety standards for industrial robots and their integration, are named only: their text was not read, and nothing here is checked against them.</li>
+    </ul>
+  </div></section>
+
+  <SectorPackEvidence pack="robotics" eyebrow="05 / What is checked" facts={{ modelSha: modelSha.slice(0, 12), referenceChecks: referenceChecks.passed, functions: referenceChecks.functions.length, dhEqual, configurations: poses.configurations.length, agreement: poses.agreement.largestDisagreement, beyondDistance: Number(failed.distanceFromShoulder_m).toFixed(3) }} />
+
+  <section class="section" aria-labelledby="credits-title"><div class="container narrow">
+    <p class="eyebrow">06 / Credits</p>
+    <h2 id="credits-title">Credits and terms</h2>
+    <ul>
+      <li>UR5 kinematics file: the Universal Robots ROS 2 Description, BSD-3-Clause, served unchanged with <a href={`${EX}/${LICENCE}`}>its licence</a>. Nothing here implies endorsement by Universal Robots.</li>
+      <li>DH table: Universal Robots, cited and linked, not copied. Worked examples: the Modern Robotics code library, MIT licence, cited. REP 103: placed in the public domain.</li>
+      <li>The configurations, targets, pathway script and its outputs: Developer Dojo, MIT licence.</li>
+    </ul>
+  </div></section>
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 68rem; }
+  .eyebrow { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .notice { padding: var(--space-4, 1rem); background: var(--paper-raised); border: 1px solid var(--line); border-left: 4px solid var(--rust-text); border-radius: var(--radius); }
+  .links li { margin-bottom: var(--space-2, .5rem); }
+  .table-wrap { overflow-x: auto; margin-block: var(--space-6, 1.5rem); }
+  .table-wrap:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  table { width: 100%; border-collapse: collapse; }
+  caption { text-align: left; font-weight: 800; margin-bottom: var(--space-2, .5rem); }
+  th, td { text-align: left; vertical-align: top; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+  code { overflow-wrap: anywhere; }
+  h2, h3, p, li, a { overflow-wrap: anywhere; }
+  .steps { padding-left: 0; list-style: none; display: grid; gap: var(--space-4, 1rem); }
+  .steps li { min-width: 0; padding: var(--space-4, 1rem); background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); }
+  .steps a { font-weight: 800; }
+  .steps p { margin: .25rem 0 0; }
+  .step-id { display: inline-block; min-width: 4.5rem; color: var(--rust-text); }
+</style>

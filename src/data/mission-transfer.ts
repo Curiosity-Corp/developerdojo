@@ -48,6 +48,11 @@ export const transferPractice = {
       reference: 'CDC’s printed worked examples and the columns of its growth chart tables, which the code must reproduce before it scores any fictional child.',
       gate: { recipe: 'hlt-002-bmi-for-age-percentile', role: 'Explaining assistant' },
     },
+    {
+      packId: 'robotics',
+      reference: 'The values printed in the Modern Robotics code library’s worked examples and Universal Robots’ DH table, which the code must reproduce before it computes any pose.',
+      gate: { recipe: 'rob-002-forward-kinematics', role: 'Explaining assistant' },
+    },
   ],
   selfCheck: [
     'I can name this field’s independent reference and show one assistant output it rejected or corrected.',

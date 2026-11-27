@@ -37,14 +37,14 @@ function jobScript(name: string): string {
 }
 
 describe('sector packs', () => {
-  it('has the UX, BIM, agriculture, science, finance, manufacturing, media, education and health packs, and every one passes the build check', () => {
-    expect(sectorPacks.map((candidate) => candidate.id)).toEqual(['ux', 'bim', 'agriculture', 'science', 'finance', 'manufacturing', 'media', 'education', 'health']);
+  it('has the UX, BIM, agriculture, science, finance, manufacturing, media, education, health and robotics packs, and every one passes the build check', () => {
+    expect(sectorPacks.map((candidate) => candidate.id)).toEqual(['ux', 'bim', 'agriculture', 'science', 'finance', 'manufacturing', 'media', 'education', 'health', 'robotics']);
     expect(checkSectorPacks(sectorPackInputs, refs)).toEqual([]);
   });
 
   it('has at least one non-software sector with a real, hashed input', () => {
     const real = sectorPacks.filter((candidate) => Array.isArray(candidate.inputs) && !candidate.fieldIds.some((field) => ['software', 'ux', 'data'].includes(field)));
-    expect(real.map((candidate) => candidate.id)).toEqual(['bim', 'agriculture', 'science', 'finance', 'manufacturing', 'media', 'education', 'health']);
+    expect(real.map((candidate) => candidate.id)).toEqual(['bim', 'agriculture', 'science', 'finance', 'manufacturing', 'media', 'education', 'health', 'robotics']);
   });
 
   it('serves every input unchanged, at the hash the pack records', () => {

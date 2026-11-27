@@ -1,0 +1,201 @@
+# Robotics pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/robotics-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job robotics_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Robotics pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a robotics safety engineer, controls engineer or robot integrator yet.
+summary: "Reproduce the Modern Robotics code library’s worked examples, then compute the UR5’s end-effector pose for five joint configurations three ways (the URDF joint chain, the manufacturer’s DH table and the product of exponentials) and show they agree, and find where the Jacobian loses rank."
+metadata:
+  id: ROB-002
+  title: "Compute forward kinematics three ways and show they agree"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - compute-forward-kinematics
+  artifactTypes:
+    - pose-table
+  domainIds:
+    - robotics
+  capabilityIds:
+    - inspect-model
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+    - licensed-sample-only
+  externalResources:
+    - universal-robots/ur5-ros2-description-kinematics
+    - universal-robots/dh-parameters
+    - modern-robotics/code-library
+    - ros/rep-103-standard-units-and-coordinate-conventions
+  crossFieldTransfers:
+    - manufacturing
+    - aerospace
+  standards:
+    - name: Modern Robotics code library (Python)
+      version: "packages/Python/modern_robotics/core.py at commit 36f0f1b4…89f2, read 2026-11-27"
+      applicability: "The product-of-exponentials forward kinematics and the space and body Jacobians, and their printed worked examples, reproduced for practice"
+      reviewScope: "What the listed checks test: that the code reproduces every printed value and that three methods agree on the UR5. No claim about any real arm’s accuracy."
+      sourceResourceId: modern-robotics/code-library
+    - name: Universal Robots ROS 2 Description, UR5 default kinematics
+      version: "config/ur5/default_kinematics.yaml at commit 0eb1a861…070c (SHA-256 4559bd02…e9c3ac), downloaded 2026-11-27"
+      applicability: "The nominal UR5 joint chain that the three methods are computed from"
+      reviewScope: "What the listed checks test: that the poses match the CI output. A calibrated arm differs from the nominal model."
+      sourceResourceId: universal-robots/ur5-ros2-description-kinematics
+    - name: REP 103, Standard Units of Measure and Coordinate Conventions
+      version: "Status Active; created 2010-10-07, post-history 2014-12-31; read 2026-11-27"
+      applicability: "Metres, radians and the fixed-axis roll, pitch and yaw in which the poses are reported"
+      reviewScope: "What the listed checks test: that every pose is reported in REP 103 units and order."
+      sourceResourceId: ros/rep-103-standard-units-and-coordinate-conventions
+  verificationEvidence:
+    - description: Every printed value of the library’s worked examples reproduced, and the pose of each configuration by three methods agreeing within 1e-9, as the CI output does
+      method: automated-check
+      standards:
+        - Modern Robotics code library (Python)
+        - Universal Robots ROS 2 Description, UR5 default kinematics
+    - description: The learner explains why the determinant of the Jacobian is zero at three of the five configurations
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces the library’s FKinSpace, FKinBody and Jacobian examples at the precision printed
+    - stage: adapt
+      criterion: Computes the five UR5 poses by the joint chain and by the product of exponentials and matches the CI output
+    - stage: demonstrate
+      criterion: Adds the DH method, shows all three agree, and explains to a reviewer which configurations are singular and why
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: the open UR5 description checked against the manufacturer’s DH table, the code checked against every value printed in the Modern Robotics code library’s worked examples, then poses by three methods and joint solutions checked by a fourth, all computed by the site’s CI. Simulation only, not a safety assessment."
+  href: /katas/robotics-pathway
+  provenance:
+    creator: Universal Robots ROS 2 Description maintainers (UR5 kinematics file); Developer Dojo maintainers (configurations, targets, script and results)
+    source: config/ur5/default_kinematics.yaml of the Universal Robots ROS 2 Description (BSD-3-Clause, commit 0eb1a861…070c, downloaded 2026-11-27); worked examples of the Modern Robotics code library and Universal Robots’ UR5 DH table, cited; results from /examples/robotics-pathway/tools/robotics_pathway.py
+    license: UR5 kinematics file BSD-3-Clause, served unchanged with its licence; configurations, targets, script and outputs MIT
+    date: "2026-11-27"
+brief:
+  goal: The pose of each configuration, computed three independent ways that agree, and the configurations where the arm loses a direction of motion.
+  audience: Learners who finished ROB-001.
+  inputs:
+    - name: The UR5 kinematics file
+      source: /examples/robotics-pathway/inputs/ur5-default-kinematics.yaml (unchanged)
+      terms: BSD-3-Clause
+    - name: Five joint configurations
+      source: /examples/robotics-pathway/scenario/configurations.csv
+      terms: Written by the Dojo, MIT licence
+    - name: The library’s worked examples
+      source: modern-robotics/code-library (the script holds the printed values and names the function of each)
+      terms: MIT licence; cited, not copied
+  doneWhen:
+    - Your code reproduces every printed value of the library’s worked examples
+    - Your poses match /examples/robotics-pathway/generated/poses.json
+    - The three methods agree within 1e-9 at every configuration
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any text editor or spreadsheet
+      version:
+        unavailable: Not fixed; anything that opens YAML, CSV and JSON as text works
+      permissions: Opens a copy of the files
+      cost:
+        unavailable: Depends on the editor you use; free ones work
+    - part: data
+      name: UR5 default kinematics of the Universal Robots ROS 2 Description
+      version: "Commit 0eb1a861…070c, SHA-256 4559bd02…e9c3ac, downloaded 2026-11-27"
+      permissions: Read a copy; keep its BSD-3-Clause licence with it
+      cost: Free (BSD-3-Clause)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against the published worked examples
+      permissions: Reads what you paste in; paste only the open UR5 file and the Dojo’s configurations, never a real cell’s layout, a customer’s program or controller credentials
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: "Kinematics on six joints needs only small matrices, so the standard library (math) is enough: nothing to install, it runs offline, and it gives the same numbers on every machine. CI runs the identical script on every pipeline."
+  alternatives:
+    - name: The Modern Robotics library itself, with NumPy, or a ROS 2 stack with the URDF and tf2
+      tradeoff: "Faster to write and closer to production, but the learner then checks a library against itself; writing the few functions here and reproducing the library’s printed examples is the point. Not run for this pathway, so no numbers from them are compared here."
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains the product of exponentials and the DH convention and drafts matrix code for both.
+      reviewGate: You keep its code only if it reproduces the library’s printed examples.
+    - role: Learner as reviewer
+      responsibility: Compares the three methods at every configuration and the Jacobian determinants with the CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A pose stays only if all three methods and the CI output agree.
+setup:
+  steps:
+    - Use the folder and Python from ROB-001.
+    - Open the library’s docstrings for FKinSpace, FKinBody, JacobianSpace and JacobianBody beside the script.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/robotics_pathway.py . out"
+    expected: "188 of 188 worked-example values pass, including FKinSpace’s z 1.68584073; three methods agree within 2.9e-10 m at 5 configurations"
+    result: passed
+    evidence: /examples/robotics-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+    date: "2026-11-27"
+prompts:
+  - id: explain-poe
+    title: Explain the product of exponentials
+    purpose: Understand where screw axes come from before you trust a pose.
+    text: |-
+      A six-joint arm has these joint origins: <paste the file>. Each joint turns about its own z axis.
+      Explain how to get each joint’s screw axis S = (w, -w x q) from the chain at zero, and the home pose M. Then give me Python, standard library only, for the matrix exponential of a twist and for T = e^[S1]theta1 ... e^[S6]theta6 M, so I can check you against the Modern Robotics library’s printed FKinSpace example.
+      If you are not sure, say so.
+exercise:
+  title: Modern Robotics code library, FKinSpace and JacobianSpace worked examples
+  resourceId: modern-robotics/code-library
+  terms: MIT licence; its printed numbers are used as checks, and its code is not copied.
+execution:
+  steps:
+    - actor: Explaining assistant
+      action: Drafts the code for the matrix exponential, both forward kinematics and the Jacobian.
+      handoff: You run it on the library’s printed examples and compare every value.
+    - actor: Learner
+      action: Compute the five configurations by the joint chain and by the product of exponentials.
+    - actor: Learner
+      action: Add the DH method and compare all three, then the Jacobian determinants, with the CI output.
+verification:
+  checks:
+    - action: Reproduce the worked examples and the poses with the pathway script
+      expected: "188 of 188 printed values; reach pose x -0.496712, y -0.328511, z 0.303252 m; det Js -0.097153 at reach and 0 at home, upright and wrist-straight"
+      result: passed
+      evidence: /examples/robotics-pathway/generated/poses.json, recomputed by CI on every pipeline
+      date: "2026-11-27"
+    - action: Your own code reproduces the same values
+      expected: The same examples and poses at the precision shown
+      result: not-run
+  failures:
+    - observed: The DH method and the joint chain differ by about 0.19 m
+      correction: Check d5’s sign. The file puts it on the y axis with the opposite sign; Randori card C shows the size of this mistake.
+    - observed: The product of exponentials gives the right position but the wrong orientation
+      correction: M must be the full home pose of the last link, its rotation as well as its position.
+adaptation:
+  variations:
+    - change: Compute the body Jacobian instead of the space Jacobian
+      effect: Its determinant is the same, since the two differ by an adjoint, whose determinant is 1.
+randori:
+  challenge: See the robotics Randori recipe, ROB-R01.
+  constraints:
+    - Three methods agree within 1e-9
+  evaluation: The poses match the CI output and the library’s printed examples.
+maintenance:
+  cadence: Every six months, or when the Universal Robots ROS 2 Description changes the UR5 kinematics file or the Modern Robotics library changes a worked example
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - Simulation only. No real robot moved, and nothing here is a risk assessment, a safety function or a check against a robot safety standard. No robotics safety engineer, controls engineer or integrator has reviewed it.
+    - Never send commands from this kata to a real robot, and never paste a real cell’s layout, program or controller credentials into an assistant.

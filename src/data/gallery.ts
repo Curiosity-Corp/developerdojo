@@ -55,6 +55,9 @@ export const galleryOutcomeLabels: Record<string, string> = {
   'inspect-growth-reference': 'Inspect a growth reference table',
   'compute-bmi-for-age': 'Compute a BMI-for-age percentile with CDC’s methods',
   'report-bmi-category': 'Report BMI-for-age categories with their limits',
+  'inspect-robot-model': 'Inspect a robot model',
+  'compute-forward-kinematics': 'Compute a robot pose by forward kinematics',
+  'solve-inverse-kinematics': 'Solve and check a robot’s inverse kinematics',
   'check-apr-tolerance': 'Check an annual percentage rate against its tolerance',
 };
 
@@ -495,5 +498,40 @@ export const galleryEntries: GalleryEntryInput[] = [
     fieldIds: ['health'],
     kataId: 'HLT-002',
     exercise: { title: 'Follow the health pathway', href: '/katas/health-pathway' },
+  },
+  {
+    id: 'robotics-ur5-poses-and-joint-solutions',
+    title: 'Poses and joint solutions of an open UR5 robot model, computed three ways and checked against published worked examples',
+    summary: 'The ROB-002 and ROB-003 worked example. The UR5 kinematics file of the Universal Robots ROS 2 Description is checked against the manufacturer’s DH table and the code against every value printed in the Modern Robotics code library’s worked examples; then five poses are computed three ways that agree, and joint solutions are found by Newton-Raphson and checked by the joint chain. Simulation only, not a safety assessment.',
+    form: 'native',
+    artifact: {
+      format: 'Poses per configuration (CSV and JSON), joint solutions (JSON), the reference checks (JSON) and a one-page summary (Markdown)',
+      files: [
+        { label: 'Read the results summary', href: '/examples/robotics-pathway/generated/summary.md' },
+        { label: 'Download the poses (CSV)', href: '/examples/robotics-pathway/generated/poses.csv' },
+        { label: 'Download the joint solutions (JSON)', href: '/examples/robotics-pathway/generated/ik.json' },
+        { label: 'Download the reference checks (JSON)', href: '/examples/robotics-pathway/generated/reference-checks.json' },
+      ],
+    },
+    provenance: {
+      creator: 'Developer Dojo maintainers (configurations, targets, script and results); the Universal Robots ROS 2 Description maintainers (UR5 kinematics file)',
+      madeWith: 'A Python 3.12 script with no packages, published next to the results, using the product of exponentials and Newton-Raphson as the Modern Robotics code library documents them.',
+      source: 'The UR5 kinematics file of the Universal Robots ROS 2 Description, pinned to a commit; Universal Robots’ DH parameters page; the Modern Robotics code library’s worked examples; REP 103 for units and conventions; read on 2026-11-27.',
+      rights: 'The UR5 kinematics file is BSD-3-Clause and is served unchanged with its licence; the DH table and the library’s examples are cited, not copied. The configurations, targets, script and results are Dojo material under the MIT licence.',
+      rightsHref: '/examples/robotics-pathway/README.md',
+      created: '2026-11-27',
+    },
+    verification: {
+      method: 'automated-check',
+      date: '2026-11-27',
+      checked: 'Every pipeline reruns the script, which first reproduces every value printed in the library’s worked examples and checks the file against the DH table, and fails if any output differs from the published files.',
+      notChecked: 'No real robot moved: nothing here is a risk assessment, a safety function or a check against a robot safety standard. No joint limits, collisions, dynamics or tool. No learner and no robotics safety engineer, controls engineer or integrator review.',
+      evidenceHref: '/katas/robotics-pathway',
+      nextCheck: QUARTERLY,
+    },
+    outcomeIds: ['compute-forward-kinematics'],
+    fieldIds: ['robotics'],
+    kataId: 'ROB-002',
+    exercise: { title: 'Follow the robotics pathway', href: '/katas/robotics-pathway' },
   },
 ];

@@ -1,0 +1,9 @@
+title: "DH parameters for calculations of kinematics and dynamics"
+provider: "Universal Robots"
+url: "https://www.universal-robots.com/articles/ur/application-installation/dh-parameters-for-calculations-of-kinematics-and-dynamics/"
+cost: "free"
+format: "article"
+level: "intermediate"
+skills: [robot-software]
+summary: "The manufacturer's Denavit-Hartenberg tables (a, d and alpha for each joint), masses and centres of mass for its arms, including the UR5. The robotics pathway cites the UR5 table and checks that every length in it is a number of the open ROS 2 description; the page itself is not copied."
+verifiedOn: 2026-11-27
