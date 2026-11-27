@@ -1,0 +1,203 @@
+# UX pathway (M9): a draft recipe. The worked example and its checks are on /katas/ux-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given; not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: UX pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/91
+review:
+  unavailable: Built and checked by the Dojo maintainers; no independent review yet.
+summary: Take the whole pathway to a product you have not seen, from a sitemap with errors to tokens, a clickable prototype and a QA record, and show the evidence for each step.
+metadata:
+  id: UX-009
+  title: "Transfer task: from user need to a tested prototype"
+  layer: specialization
+  professionalReviewRequired: false
+  outcomeIds:
+    - transfer-ux-pathway
+  artifactTypes:
+    - ux-proof-package
+  domainIds:
+    - ux
+  capabilityIds:
+    - map-flows
+    - design-systems
+    - design-interaction
+    - test-accessibility
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+    - FND-001
+  stackRecipeIds:
+    - penpot-and-browser
+    - assistant-and-browser
+  pathwayIds:
+    - personas-and-journeys
+    - brand-website-and-mockups
+  constraintIds:
+    - fictional-data
+    - no-personal-data
+    - no-paid-tools
+  externalResources:
+    - gov-uk/start-by-learning-user-needs
+    - w3c/wcag-quickref
+  standards:
+    - name: Web Content Accessibility Guidelines (WCAG)
+      version: "2.2"
+      applicability: The learner’s practice screens only
+      reviewScope: "What the learner’s checks test: contrast computed from the tokens, keyboard focus and axe rules in a browser. No conformance claim for any product."
+      sourceResourceId: w3c/wcag-quickref
+  verificationEvidence:
+    - description: The learner’s flow file passes every structural check of the pathway script, their token pairs pass contrast, and their usability tasks pass or record findings
+      method: automated-check
+      standards:
+        - Web Content Accessibility Guidelines (WCAG)
+    - description: A partner who has not seen the brief clicks through the prototype from the start and completes two tasks without help
+      method: peer-review
+  beltCriteria:
+    - stage: practice
+      criterion: Follows the Pocket Invoice example from UX-001 to UX-008 and can point to the file and the check for each step
+    - stage: adapt
+      criterion: Runs the pathway script on a flow of their own with its own tokens and tasks
+    - stage: demonstrate
+      criterion: Delivers a proof package for an unseen brief, with each step’s file and check, and a partner walk
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: the same script and checks run on Pocket Invoice and on four Randori flows the maintainers wrote."
+  href: /katas/ux-pathway
+  provenance:
+    creator: Developer Dojo maintainers
+    source: The pathway script, run on the Pocket Invoice flow and on the worked Randori rounds
+    license: MIT
+    date: "2026-11-26"
+brief:
+  goal: "A proof package for a product you have not seen: user need, sitemap with errors, connected low-fidelity screens, a token file with contrast checked, components, a clickable prototype, a fidelity note, a usability walkthrough and a QA record."
+  audience: Learners who have done UX-001 to UX-008 on the example.
+  inputs:
+    - name: The UX pathway example files and script
+      source: /examples/ux-pathway/README.md
+      terms: Dojo content, MIT licence
+    - name: Learning about users and their needs (GOV.UK Service Manual)
+      source: gov-uk/start-by-learning-user-needs
+      terms: Open Government Licence v3.0 unless the page says otherwise; linked, not copied
+    - name: WCAG 2.2 quick reference
+      source: w3c/wcag-quickref
+      terms: Read on the publisher’s site under its terms
+  doneWhen:
+    - The package starts from one user need written in the user’s words
+    - Each step has a file a partner can open and a check with its result, or not run
+    - The flow passes every structural check, the token pairs pass contrast, and the prototype reaches every transition
+    - What was not checked is listed, and nothing not run is called passed
+stack:
+  components:
+    - part: tool
+      name: Penpot (self-hosted or penpot.app), the pathway script and a browser
+      version: Penpot 2.18; the script of 2026-11-26
+      permissions: Edit one practice project of your own; run the script in one folder
+      cost: "Penpot Professional plan: $0, up to 8 members and 10 GB, no file limits (penpot.app/pricing, checked 2026-11-20). The script is free."
+    - part: harness
+      name: Any chat assistant in a browser
+      version:
+        unavailable: Not fixed; any assistant can draft the text, and its version changes the wording, not the checks
+      permissions: Reads only what you paste into it; it never touches the design file
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+    - part: instructions
+      name: The prompts of UX-001 to UX-008
+      version: Draft, 2026-11-26
+      permissions: None
+      cost: None
+    - part: data
+      name: An invented product from a brief you have not seen
+      version: Your own
+      permissions: Fictional; no real company, person or customer
+      cost: None
+  rationale: The transfer shows whether the pathway, not only the example, was learned. The same open files and script work on any flow written in the same shape, so a partner can rerun every check.
+  alternatives:
+    - name: Do the whole package in Figma
+      tradeoff: Possible, but the free Starter plan limits some features, and the Dojo’s files are Penpot and SVG only (figma.com/pricing, checked 2026-11-20). Not tried for this pathway.
+      tested: false
+agents:
+  roles:
+    - role: Drafting assistant
+      responsibility: Drafts text for each step (states, scenarios, error messages) when you ask, one step at a time.
+      reviewGate: You check each draft against the brief and the step’s done-when list before it goes into your files.
+    - role: Reviewer
+      responsibility: Opens every file in the package, reruns the script, and clicks through the prototype.
+      dependsOn:
+        - Drafting assistant
+      reviewGate: A finding counts only when the reviewer names the file and the check it is about.
+setup:
+  steps:
+    - Ask a partner for a brief you have not seen (the UX Randori cards work).
+    - Copy the UX pathway example folder and replace the flow, tokens, brand and task files with your own as you go.
+  auth: Your own Penpot account, if you draw in Penpot.
+  smokeTest:
+    action: Run the pathway script on the example folder before you change anything.
+    expected: Every check passes, so any later failure comes from your files.
+    result: passed
+    evidence: /examples/ux-pathway/generated/summary.md, rerun by the ux_pathway CI job on every pipeline
+    date: "2026-11-26"
+prompts:
+  - id: user-need
+    title: Write the user need
+    purpose: Starts the package from a need, not a screen.
+    text: |-
+      Here is a brief for a product: <paste the brief>.
+      Write one user need in the form: As a <kind of user>, I need <to do something>, so that <reason>.
+      Then list three questions I should ask a real user before I trust it.
+      Do not invent research findings.
+exercise:
+  title: Learning about users and their needs (GOV.UK Service Manual)
+  resourceId: gov-uk/start-by-learning-user-needs
+  terms: Read on the publisher’s site. GOV.UK Service Manual guidance is published under the Open Government Licence v3.0 unless it says otherwise; the Dojo credits it and copies no text. If a course or programme you take part in uses this guidance, follow its rules on AI assistance, and do not submit work an assistant wrote where those rules forbid it.
+execution:
+  steps:
+    - actor: Learner
+      action: Write the user need with the prompt, then do UX-001 to UX-008 on your brief, one step at a time.
+      handoff: After each step, run the script and keep its output with the step’s file.
+    - actor: Reviewer
+      action: Open every file, rerun the script, click through the prototype and do two tasks without help.
+      handoff: You fix each finding, or record it with a decision.
+verification:
+  checks:
+    - action: Run the pathway script on flows other than Pocket Invoice
+      expected: The same structural checks run unchanged on the four worked Randori flows, and each adapted flow passes them
+      result: passed
+      evidence: /examples/ux-pathway/generated/randori/randori.md, rerun by the ux_pathway CI job on every pipeline
+      date: "2026-11-25"
+    - action: Your proof package for an unseen brief
+      expected: Every step has a file and a check; the script passes on your files; a partner completes two tasks without help
+      result: not-run
+adaptation:
+  variations:
+    - change: The brief is for a public service, not a business.
+      effect: The user need and the error messages change; a service may have to work for everyone, so accessibility checks matter more.
+    - change: You must use a component library you did not design.
+      effect: Map its tokens to yours first, and list every value that has none.
+randori:
+  challenge: "See the UX Randori recipe: the transfer task can start from one of its briefs."
+  constraints:
+    - Fictional data only
+    - Nothing not run is called passed
+  evaluation: A partner opens every file, reruns the checks and completes two tasks without help.
+maintenance:
+  cadence: Every six months, with the rest of the pathway
+  caveats:
+    - "This recipe is a draft: no learner has done the transfer task yet, and no package has been reviewed."
+    - The Dojo issues no belt or certificate for it; belt stages are proposed practice stages.
+    - No native Penpot or Figma file is produced by the script; drawing in a design tool is your own step.
+downloads:
+  - filename: proof-package-checklist.md
+    description: The proof package as a list you can tick off.
+    content: |
+      # UX proof package
+
+      - [ ] User need, in the user's words
+      - [ ] Sitemap with branches and error states (UX-001)
+      - [ ] Connected low-fidelity screens (UX-002)
+      - [ ] Token file with contrast checked (UX-003)
+      - [ ] Components and a style guide (UX-004)
+      - [ ] Built screens with an accessibility check (UX-005)
+      - [ ] Clickable prototype with overlays and back paths (UX-006)
+      - [ ] Fidelity note: what matched, what did not, what was not measured (UX-007)
+      - [ ] Usability walkthrough and one session (UX-008)
+      - [ ] A partner walked it; nothing not run is called passed

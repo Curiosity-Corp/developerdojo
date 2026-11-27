@@ -1,0 +1,246 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContrastCheck from '../../components/ContrastCheck.astro';
+import { PRODUCT } from '../../data/pocket-invoice';
+import tokenFile from '../../data/pocket-invoice-tokens.json';
+import { cssCustomProperties, resolveTokens } from '../../lib/design-tokens';
+import brand from '../../../public/examples/ux-pathway/inputs/brand.json';
+import flowChecks from '../../../public/examples/ux-pathway/generated/flow-checks.json';
+import fidelity from '../../../public/examples/ux-pathway/generated/fidelity-report.json';
+
+// UX-003 and UX-004 (#91): the Pocket Invoice brand and style guide as a web page a learner can open and inspect.
+// Every value on it is read from the UX-003 token file (src/data/pocket-invoice-tokens.json, the same file the
+// Penpot file, the SVG drawings, the prototype and the working example use) and the brand file; every specimen is
+// styled only with the --pi-* custom properties set from that file, so the browser's inspector shows the token
+// behind each colour, size and space. e2e/ux-style-guide.spec.ts compares computed styles with the token values.
+const tokens = resolveTokens(tokenFile);
+const tokenStyle = cssCustomProperties(tokens, 'pi');
+const all = [...tokens.values()];
+const cssName = (name: string): string => '--pi-' + name.replaceAll('.', '-');
+const aliasOf = (value: string): string | null => /^\{([^{}]+)\}$/.exec(value)?.[1] ?? null;
+const colours = (set: string) => all.filter((t) => t.type === 'color' && t.set === set);
+const ofType = (type: string) => all.filter((t) => t.type === type);
+const px = (value: string): string => (/^\d+(\.\d+)?$/.test(value) ? value + ' px' : value);
+const textPairs = flowChecks.contrast.filter((pair) => pair.minimum >= 4.5);
+const otherPairs = flowChecks.contrast.filter((pair) => pair.minimum < 4.5);
+
+// The component sheet (generated/components.svg) names these; each must have a specimen below, or the build fails.
+const SPECIMENS = ['AppBar', 'Heading/Page', 'Heading/Section', 'Text/Body', 'Button/Primary', 'Button/Secondary', 'Button/Link', 'Field/Default', 'Field/Error', 'ErrorSummary', 'SummaryList', 'Table', 'Dialog'];
+const drawn = fidelity.files.find((entry) => entry.file === 'components.svg')?.components ?? [];
+const missing = drawn.filter((name) => !SPECIMENS.includes(name));
+if (drawn.length === 0 || missing.length) throw new Error('Pocket Invoice style guide: no specimen for ' + (missing.join(', ') || 'the component sheet'));
+---
+<BaseLayout title="Pocket Invoice style guide: tokens and components" description="The Pocket Invoice brand and style guide as a web page: colour, type, spacing and size tokens with their contrast, and every component styled only with those tokens.">
+  <section class="section intro" aria-labelledby="sg-title"><div class="container narrow">
+    <p class="eyebrow">UX-003 and UX-004 · Style guide</p>
+    <h1 id="sg-title">{PRODUCT.name} style guide</h1>
+    <p>The brand, the design tokens and the components of the UX pathway’s example, built as a web page. Every colour, size and space here comes from the same token file as the Penpot file, the SVG drawings, the clickable prototype and the working example. Open your browser’s inspector on any specimen: its styles are <code>--pi-*</code> custom properties, one per token, so you can see which token draws what.</p>
+    <ul class="links">
+      <li><a href="/examples/ux-pathway/pocket-invoice-tokens.json" download>Download the token file</a> (JSON, {all.length} tokens) and <a href="/examples/ux-pathway/inputs/brand.json" download>the brand file</a> (JSON).</li>
+      <li>The same guide as a drawing: <a href="/examples/ux-pathway/generated/style-guide.svg">style guide</a> and <a href="/examples/ux-pathway/generated/components.svg">component sheet</a> (SVG).</li>
+      <li>The components in use: <a href="/examples/pocket-invoice-prototype/?fidelity=high">the clickable prototype in high fidelity</a> and <a href="/examples/pocket-invoice/">the working example</a>.</li>
+    </ul>
+  </div></section>
+
+  <div class="container narrow" style={tokenStyle} data-style-guide>
+    <section class="block" aria-labelledby="brand-title">
+      <h2 id="brand-title">Brand</h2>
+      <div class="canvas">
+        <p class="wordmark" data-specimen="Wordmark"><span class="mark" aria-hidden="true">{brand.wordmark.mark}</span>{brand.name}</p>
+        <p class="tagline">{brand.tagline}</p>
+      </div>
+      <p>{brand.wordmark.about}</p>
+      <h3>Voice</h3>
+      <ul>{brand.voice.map((line) => <li>{line}</li>)}</ul>
+      <h3>Rules</h3>
+      <ul>{brand.rules.map((line) => <li>{line}</li>)}</ul>
+    </section>
+
+    <section class="block" aria-labelledby="colour-title">
+      <h2 id="colour-title">Colour</h2>
+      <p>Core colours are the palette. Semantic colours name a job (text, surface, border, action, focus) and point at a core colour; screens use only semantic colours, so a change of palette is one edit.</p>
+      {(['semantic', 'core'] as const).map((set) => (
+        <div class="table-wrap" tabindex="0" role="region" aria-labelledby={'colour-' + set}>
+          <table>
+            <caption id={'colour-' + set}>{set === 'semantic' ? 'Semantic colours' : 'Core colours'}</caption>
+            <thead><tr><th scope="col">Swatch</th><th scope="col">Token</th><th scope="col">CSS property</th><th scope="col">Value</th><th scope="col">{set === 'semantic' ? 'Points at' : 'Note'}</th></tr></thead>
+            <tbody>
+              {colours(set).map((token) => (
+                <tr data-token={token.name}>
+                  <td><span class="swatch" aria-hidden="true" style={'background:var(' + cssName(token.name) + ')'}></span></td>
+                  <td><code>{token.name}</code></td>
+                  <td><code>{cssName(token.name)}</code></td>
+                  <td><code>{token.resolved}</code></td>
+                  <td>{set === 'semantic' ? <code>{aliasOf(token.value) ?? token.value}</code> : (token.description ?? '')}{set === 'semantic' && token.description ? ' ' + token.description : ''}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))}
+      <h3>Contrast</h3>
+      <p>Each pair below is computed from the token values on every pipeline: {flowChecks.contrast.filter((pair) => pair.pass).length} of {flowChecks.contrast.length} meet their minimum. Text needs 4.5:1 (WCAG 2.2, 1.4.3); borders, focus rings and controls need 3:1 (1.4.11). Ratios are rounded down.</p>
+      <div class="table-wrap" tabindex="0" role="region" aria-labelledby="contrast-caption">
+        <table>
+          <caption id="contrast-caption">Token colour pairs and their contrast</caption>
+          <thead><tr><th scope="col">Sample</th><th scope="col">Foreground</th><th scope="col">Background</th><th scope="col">Ratio</th><th scope="col">Minimum</th></tr></thead>
+          <tbody>
+            {textPairs.map((pair) => (
+              <tr data-contrast-pair>
+                <td><span class="pair-text" style={'color:var(' + cssName(pair.foreground) + ');background:var(' + cssName(pair.background) + ')'}>Send invoice</span></td>
+                <td><code>{pair.foreground}</code></td><td><code>{pair.background}</code></td><td>{pair.ratio?.toFixed(2)}:1</td><td>{pair.minimum}:1</td>
+              </tr>
+            ))}
+            {otherPairs.map((pair) => (
+              <tr data-contrast-pair>
+                <td><span class="pair-edge" aria-hidden="true" style={'border-color:var(' + cssName(pair.foreground) + ');background:var(' + cssName(pair.background) + ')'}></span></td>
+                <td><code>{pair.foreground}</code></td><td><code>{pair.background}</code></td><td>{pair.ratio?.toFixed(2)}:1</td><td>{pair.minimum}:1</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="type-title">
+      <h2 id="type-title">Typography</h2>
+      <p>Family <code>font.family.base</code>: {tokens.get('font.family.base')?.resolved}, with the system sans-serif as the fallback when it is not installed. Weights: {ofType('fontWeights').map((t) => t.name + ' ' + t.resolved).join(', ')}.</p>
+      <div class="canvas type-scale">
+        {ofType('fontSizes').slice().reverse().map((token) => (
+          <p data-token={token.name} style={'font-size:var(' + cssName(token.name) + ');font-weight:var(--pi-font-weight-' + (Number(token.resolved) >= 24 ? 'bold' : 'regular') + ')'}>
+            <span class="type-name">{token.name} · {px(token.resolved)}</span> Your invoice was sent
+          </p>
+        ))}
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="space-title">
+      <h2 id="space-title">Spacing, corners, borders and size</h2>
+      <div class="table-wrap" tabindex="0" role="region" aria-labelledby="space-caption">
+        <table>
+          <caption id="space-caption">Spacing, radius, border and size tokens</caption>
+          <thead><tr><th scope="col">Sample</th><th scope="col">Token</th><th scope="col">Value</th></tr></thead>
+          <tbody>
+            {ofType('spacing').map((token) => (
+              <tr data-token={token.name}><td><span class="bar" aria-hidden="true" style={'width:var(' + cssName(token.name) + ')'}></span></td><td><code>{token.name}</code>{aliasOf(token.value) && <> → <code>{aliasOf(token.value)}</code></>}</td><td>{px(token.resolved)}</td></tr>
+            ))}
+            {ofType('borderRadius').map((token) => (
+              <tr data-token={token.name}><td><span class="corner" aria-hidden="true" style={'border-radius:var(' + cssName(token.name) + ')'}></span></td><td><code>{token.name}</code>{aliasOf(token.value) && <> → <code>{aliasOf(token.value)}</code></>}</td><td>{px(token.resolved)}</td></tr>
+            ))}
+            {ofType('borderWidth').map((token) => (
+              <tr data-token={token.name}><td><span class="edge" aria-hidden="true" style={'border-top-width:var(' + cssName(token.name) + ')'}></span></td><td><code>{token.name}</code></td><td>{px(token.resolved)}</td></tr>
+            ))}
+            {ofType('sizing').map((token) => (
+              <tr data-token={token.name}><td><span class="control" aria-hidden="true" style={'height:var(' + cssName(token.name) + ')'}></span></td><td><code>{token.name}</code>{token.description && <> · {token.description}</>}</td><td>{px(token.resolved)}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="components-title">
+      <h2 id="components-title">Components</h2>
+      <p>The {drawn.length} components of the component sheet, as HTML and CSS. They are specimens: buttons here do nothing and fields are read-only. Use the <a href="/examples/pocket-invoice-prototype/?fidelity=high">prototype</a> to click through them in context.</p>
+      <div class="specimens">
+        <figure data-specimen="AppBar"><div class="canvas flush"><p class="appbar"><span class="mark" aria-hidden="true">{brand.wordmark.mark}</span>{brand.name}<span class="nav">{brand.nav.label}</span></p></div><figcaption>AppBar</figcaption></figure>
+        <figure data-specimen="Heading/Page"><div class="canvas"><p class="h-page">Check the invoice</p></div><figcaption>Heading/Page</figcaption></figure>
+        <figure data-specimen="Heading/Section"><div class="canvas"><p class="h-section">Invoice details</p></div><figcaption>Heading/Section</figcaption></figure>
+        <figure data-specimen="Text/Body"><div class="canvas"><p class="body-text">We send your invoices from this address.</p></div><figcaption>Text/Body</figcaption></figure>
+        <figure data-specimen="Button/Primary"><div class="canvas"><span class="btn primary">Send invoice</span></div><figcaption>Button/Primary</figcaption></figure>
+        <figure data-specimen="Button/Secondary"><div class="canvas"><span class="btn secondary">Change details</span></div><figcaption>Button/Secondary</figcaption></figure>
+        <figure data-specimen="Button/Link"><div class="canvas"><span class="btn link">I already have an account</span></div><figcaption>Button/Link</figcaption></figure>
+        <figure data-specimen="Field/Default"><div class="canvas">
+          <div class="field"><label for="sg-email">Email address</label><p class="hint" id="sg-email-hint">We send your invoices from this address.</p><input id="sg-email" type="text" readonly value="sam@example.com" aria-describedby="sg-email-hint" /></div>
+        </div><figcaption>Field/Default</figcaption></figure>
+        <figure data-specimen="Field/Error"><div class="canvas">
+          <div class="field has-error"><label for="sg-client">Client name</label><p class="error" id="sg-client-error">Error: Enter the client name</p><input id="sg-client" type="text" readonly value="" aria-invalid="true" aria-describedby="sg-client-error" /></div>
+        </div><figcaption>Field/Error</figcaption></figure>
+        <figure data-specimen="ErrorSummary"><div class="canvas">
+          <div class="summary-box"><p class="summary-title">There is a problem</p><ul><li><a href="#sg-client">Enter the client name</a></li></ul></div>
+        </div><figcaption>ErrorSummary</figcaption></figure>
+        <figure data-specimen="SummaryList"><div class="canvas">
+          <dl class="summary-list"><div><dt>Client</dt><dd>Harbour Bakery</dd></div><div><dt>Amount</dt><dd>$480.00</dd></div><div><dt>Due</dt><dd>In 30 days</dd></div></dl>
+        </div><figcaption>SummaryList</figcaption></figure>
+        <figure data-specimen="Table"><div class="canvas"><div class="table-wrap flush" tabindex="0" role="region" aria-label="Table specimen">
+          <table class="pi-table"><thead><tr><th scope="col">Invoice</th><th scope="col">Client</th><th scope="col">Status</th></tr></thead><tbody><tr><td>INV-0001</td><td>Harbour Bakery</td><td>Sent</td></tr></tbody></table>
+        </div></div><figcaption>Table</figcaption></figure>
+        <figure data-specimen="Dialog"><div class="canvas backdrop">
+          <div class="dialog-box" role="group" aria-labelledby="sg-dialog-title"><p class="h-section" id="sg-dialog-title">Discard this invoice?</p><p class="body-text">What you typed will be lost.</p><span class="btn primary">Keep editing</span> <span class="btn secondary">Discard</span></div>
+        </div><figcaption>Dialog (a specimen, not a modal)</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="check-title">
+      <h2 id="check-title">Check a colour pair of your own</h2>
+      <p>Changed a token? Paste its value here, with the surface it sits on, before you change the token file.</p>
+      <ContrastCheck />
+    </section>
+
+    <p class="back"><a href="/katas/ux-003-tokens">UX-003: tokens</a> · <a href="/katas/ux-004-components">UX-004: components</a> · <a href="/katas/ux-pathway">The UX pathway</a></p>
+  </div>
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 68rem; }
+  .eyebrow { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .intro { padding-bottom: 1rem; }
+  #sg-title { overflow-wrap: break-word; }
+  .links li { margin-bottom: .5rem; }
+  .block { margin-block: 2.5rem; }
+  .back { margin-block: 2rem; }
+  .table-wrap { overflow-x: auto; margin-block: 1rem 1.5rem; }
+  .table-wrap:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  table { width: 100%; border-collapse: collapse; }
+  caption { text-align: left; font-weight: 800; margin-bottom: .5rem; }
+  th, td { text-align: left; vertical-align: middle; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+  .swatch { display: inline-block; width: 2.5rem; height: 2.5rem; border-radius: 6px; border: 1px solid var(--line); }
+  .pair-text { display: inline-block; padding: .4rem .75rem; font-weight: 700; border-radius: 4px; }
+  .pair-edge { display: inline-block; width: 3rem; height: 2rem; border: 2px solid; border-radius: 4px; }
+  .bar { display: inline-block; height: 1rem; background: var(--pi-color-action-primary); }
+  .corner { display: inline-block; width: 2.5rem; height: 2.5rem; border: var(--pi-border-width-thick) solid var(--pi-color-border-input); background: var(--pi-color-surface-card); }
+  .edge { display: block; width: 3rem; border-top-style: solid; border-top-color: var(--pi-color-border-error); }
+  .control { display: inline-block; width: 1rem; background: var(--pi-color-action-primary); vertical-align: middle; }
+
+  /* The specimens: only --pi-* token properties below this line, so the inspector shows each token at work. */
+  .canvas { padding: var(--pi-space-inset); background: var(--pi-color-surface-page); color: var(--pi-color-text-default); border: var(--pi-border-width-thin) solid var(--pi-color-border-subtle); border-radius: var(--pi-radius-card); font-family: var(--pi-font-family-base), system-ui, -apple-system, "Segoe UI", sans-serif; font-size: var(--pi-font-size-s); overflow-wrap: anywhere; }
+  .canvas.flush { padding: 0; }
+  .canvas p { margin: 0; }
+  .wordmark, .appbar { display: flex; align-items: center; gap: var(--pi-spacing-2); font-size: var(--pi-font-size-m); font-weight: var(--pi-font-weight-bold); color: var(--pi-color-text-default); }
+  .tagline { margin-top: var(--pi-space-stack-tight) !important; color: var(--pi-color-text-muted); }
+  .mark { display: inline-grid; place-items: center; width: 2rem; height: 2rem; border-radius: var(--pi-radius-card); background: var(--pi-color-action-primary); color: var(--pi-color-text-inverse); }
+  .appbar { flex-wrap: wrap; padding: var(--pi-spacing-3) var(--pi-space-inset); background: var(--pi-color-surface-card); border-bottom: var(--pi-border-width-thin) solid var(--pi-color-border-subtle); }
+  .appbar .nav { margin-left: auto; font-weight: var(--pi-font-weight-regular); color: var(--pi-color-text-link); text-decoration: underline; }
+  .type-scale p + p { margin-top: var(--pi-spacing-3); }
+  .type-name { display: block; font-size: var(--pi-font-size-s); font-weight: var(--pi-font-weight-regular); color: var(--pi-color-text-muted); }
+  .h-page { font-size: var(--pi-font-size-l); font-weight: var(--pi-font-weight-bold); }
+  .h-section { font-size: var(--pi-font-size-m); font-weight: var(--pi-font-weight-bold); }
+  .body-text { color: var(--pi-color-text-muted); }
+  .specimens { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: var(--pi-space-stack); }
+  .specimens figure { margin: 0; min-width: 0; }
+  .specimens figcaption { margin-top: .5rem; font-weight: 700; }
+  .btn { display: inline-flex; align-items: center; max-width: 100%; box-sizing: border-box; min-height: var(--pi-size-control); padding: var(--pi-spacing-3) var(--pi-space-inset); border-radius: var(--pi-radius-control); font-size: var(--pi-font-size-m); font-weight: var(--pi-font-weight-bold); }
+  .btn.primary { background: var(--pi-color-action-primary); color: var(--pi-color-text-inverse); }
+  .btn.secondary { background: var(--pi-color-surface-card); color: var(--pi-color-text-default); border: var(--pi-border-width-thick) solid var(--pi-color-border-input); }
+  .btn.link { min-height: 0; padding: 0; color: var(--pi-color-text-link); text-decoration: underline; font-weight: var(--pi-font-weight-regular); }
+  .field label { display: block; font-size: var(--pi-font-size-m); font-weight: var(--pi-font-weight-bold); margin-bottom: var(--pi-spacing-1); }
+  .field .hint { color: var(--pi-color-text-muted); margin-bottom: var(--pi-spacing-1); }
+  .field .error { color: var(--pi-color-text-error); font-weight: var(--pi-font-weight-bold); margin-bottom: var(--pi-spacing-1); }
+  .field input { box-sizing: border-box; width: 100%; min-height: var(--pi-size-control); padding: 0 var(--pi-spacing-3); font: inherit; color: var(--pi-color-text-default); background: var(--pi-color-surface-card); border: var(--pi-border-width-thick) solid var(--pi-color-border-input); border-radius: var(--pi-radius-control); }
+  .field input:focus-visible { outline: 3px solid var(--pi-color-focus-ring); outline-offset: 2px; }
+  .field.has-error { padding-left: var(--pi-space-inset); border-left: var(--pi-border-width-bar) solid var(--pi-color-border-error); }
+  .field.has-error input { border-color: var(--pi-color-border-error); }
+  .summary-box { padding: var(--pi-space-inset); background: var(--pi-color-surface-card); border: var(--pi-border-width-bar) solid var(--pi-color-border-error); }
+  .summary-title { font-size: var(--pi-font-size-m); font-weight: var(--pi-font-weight-bold); margin-bottom: var(--pi-spacing-2) !important; }
+  .summary-box ul { margin: 0; padding-left: var(--pi-spacing-6); }
+  .summary-box a { color: var(--pi-color-text-error); font-weight: var(--pi-font-weight-bold); }
+  .summary-box a:focus-visible { outline: 3px solid var(--pi-color-focus-ring); outline-offset: 2px; }
+  .summary-list { margin: 0; }
+  .summary-list div { display: grid; grid-template-columns: minmax(0, 40%) minmax(0, 1fr); gap: var(--pi-spacing-2); padding-block: var(--pi-spacing-2); border-bottom: var(--pi-border-width-thin) solid var(--pi-color-border-subtle); }
+  .summary-list dt { font-weight: var(--pi-font-weight-bold); }
+  .summary-list dd { margin: 0; color: var(--pi-color-text-muted); }
+  .table-wrap.flush { margin: 0; }
+  .pi-table th, .pi-table td { color: var(--pi-color-text-default); border-bottom: var(--pi-border-width-thin) solid var(--pi-color-border-subtle); padding: var(--pi-spacing-2) var(--pi-spacing-3) var(--pi-spacing-2) 0; }
+  .pi-table th { border-bottom: var(--pi-border-width-thick) solid var(--pi-color-text-default); }
+  .backdrop { background: var(--pi-color-text-muted); }
+  .dialog-box { display: grid; gap: var(--pi-spacing-3); justify-items: start; padding: var(--pi-space-page); background: var(--pi-color-surface-card); border: var(--pi-border-width-thin) solid var(--pi-color-border-input); border-radius: var(--pi-radius-card); }
+</style>

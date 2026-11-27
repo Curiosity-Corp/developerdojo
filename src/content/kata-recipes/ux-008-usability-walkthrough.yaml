@@ -1,0 +1,203 @@
+# UX pathway (M9): a draft recipe. The worked example and its checks are on /katas/ux-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given; not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: UX pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/91
+review:
+  unavailable: Built and checked by the Dojo maintainers; no independent review yet.
+summary: Write the tasks a person would try, walk each one through the flow to find the shortest path and the errors on the way, then plan a moderated session to see what people really do.
+metadata:
+  id: UX-008
+  title: Walk usability tasks and plan a session
+  layer: specialization
+  professionalReviewRequired: false
+  outcomeIds:
+    - walk-usability-tasks
+  artifactTypes:
+    - usability-walkthrough
+    - session-plan
+  domainIds:
+    - ux
+  capabilityIds:
+    - map-flows
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+    - FND-001
+  stackRecipeIds:
+    - penpot-and-browser
+    - assistant-and-browser
+  pathwayIds:
+    - personas-and-journeys
+    - brand-website-and-mockups
+  constraintIds:
+    - fictional-data
+    - no-personal-data
+    - no-paid-tools
+  externalResources:
+    - gov-uk/moderated-usability-testing
+    - gov-uk/find-user-research-participants
+  verificationEvidence:
+    - description: For each task, the script finds the shortest path through the flow and checks its step budget, that every step is a button and that every error on the way leads to the goal; the browser tests replay each path in the prototype at three widths
+      method: automated-check
+    - description: One moderated session with a participant who has not seen the design, recorded on the session sheet with no personal data
+      method: peer-review
+  beltCriteria:
+    - stage: practice
+      criterion: Reads the example walkthrough and explains the returning-user finding in their own words
+    - stage: adapt
+      criterion: Fixes the returning-user finding in the flow (a way from the sign-up error to sign in), reruns the script and removes the accepted finding
+    - stage: demonstrate
+      criterion: Writes tasks for the Randori flow, walks them, and runs one moderated session with the session sheet
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: seven Pocket Invoice tasks walked through the flow, one finding, and a blank session sheet."
+  href: /examples/ux-pathway/generated/usability/walkthrough.md
+  provenance:
+    creator: Developer Dojo maintainers
+    source: Generated from the Pocket Invoice flow and the task file by the pathway script
+    license: MIT
+    date: "2026-11-26"
+brief:
+  goal: A task file for your flow, a walkthrough that shows the shortest path and the errors on the way for each task, and a session sheet ready for a moderated session.
+  audience: Learners with a clickable prototype (UX-006) who have not run a usability session before.
+  inputs:
+    - name: Pocket Invoice usability tasks
+      source: /examples/ux-pathway/inputs/usability-tasks.json
+      terms: Dojo content, MIT licence
+    - name: Using moderated usability testing (GOV.UK Service Manual)
+      source: gov-uk/moderated-usability-testing
+      terms: Open Government Licence v3.0 unless the page says otherwise; linked, not copied
+    - name: Finding participants for user research (GOV.UK Service Manual)
+      source: gov-uk/find-user-research-participants
+      terms: Open Government Licence v3.0 unless the page says otherwise; linked, not copied
+  doneWhen:
+    - Each task is a scenario with a goal, not an instruction that names a button
+    - Each task has a start, a goal and a step budget, and the walkthrough passes or records each finding with a decision
+    - Every error a user can hit on the way to a goal either leads to the goal or is a recorded finding
+    - The session sheet asks for consent and records no name, email address or other personal data
+stack:
+  components:
+    - part: tool
+      name: The pathway script (Node.js, no packages) and the clickable prototype
+      version: The script and prototype of 2026-11-26
+      permissions: Runs on your own computer; reads and writes files in one folder
+      cost: None
+    - part: harness
+      name: Any chat assistant in a browser
+      version:
+        unavailable: Not fixed; any assistant can draft the text, and its version changes the wording, not the checks
+      permissions: Reads only what you paste into it
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+    - part: instructions
+      name: The prompts on this page
+      version: Draft, 2026-11-26
+      permissions: None
+      cost: None
+    - part: data
+      name: Pocket Invoice, an invented invoicing app
+      version: "Flow spec of 2026-11-20: 11 states, 19 transitions; 7 tasks of 2026-11-26"
+      permissions: Fictional; no real company, person or customer
+      cost: None
+  rationale: A walkthrough is cheap and repeatable, and it finds structural problems before anyone is asked to help. It cannot say what people do, so the kata ends with a plan for a session with a person, which the assistant cannot run for you.
+  alternatives:
+    - name: Unmoderated remote testing service
+      tradeoff: Reaches more people faster, usually on a paid plan, and sends recordings of participants to a third party. Out of scope for this practice kata; not tried.
+      tested: false
+    - name: Heuristic review by an assistant
+      tradeoff: Fast, but it is the assistant’s opinion, not evidence of what people do. Use it only to suggest tasks to walk.
+      tested: false
+agents:
+  roles:
+    - role: Drafting assistant
+      responsibility: Rewrites each task as a scenario that names the goal and never the button, and suggests what to watch for.
+      reviewGate: You check every scenario against the flow and remove any that names a control before it goes into the task file.
+    - role: Reviewer
+      responsibility: Reads the walkthrough and the session sheet and checks that every finding has a decision and that the sheet collects no personal data.
+      dependsOn:
+        - Drafting assistant
+      reviewGate: A finding counts only when the reviewer names the task and the state.
+setup:
+  steps:
+    - Download the task file, the flow file and the pathway script from the UX pathway page into one folder, with the token file.
+    - Run the script with Node.js and open usability/walkthrough.md in the output folder.
+  auth: None.
+  smokeTest:
+    action: Run the pathway script on the example folder.
+    expected: The script reports that every check passed, and the walkthrough shows 7 tasks and 1 recorded finding.
+    result: passed
+    evidence: /examples/ux-pathway/generated/usability/walkthrough.md, rerun and compared by the ux_pathway CI job on every pipeline
+    date: "2026-11-26"
+prompts:
+  - id: scenarios
+    title: Write task scenarios
+    purpose: Turns the jobs of your product into tasks a participant can try without being told which button to press.
+    text: |-
+      My product: <one sentence about who it is for and the job it does>.
+      Write five usability task scenarios for it. Each scenario gives a reason and a goal in the user's words, and never names a button, a link or a screen.
+      For each, add one thing a moderator should watch for.
+      Use no real company, person or customer.
+exercise:
+  title: Using moderated usability testing (GOV.UK Service Manual)
+  resourceId: gov-uk/moderated-usability-testing
+  terms: Read on the publisher’s site. GOV.UK Service Manual guidance is published under the Open Government Licence v3.0 unless it says otherwise; the Dojo credits it and copies no text. Run sessions with people yourself. If a course or programme you take part in uses this guidance, follow its rules on AI assistance, and do not submit a session report an assistant wrote where those rules forbid it.
+execution:
+  steps:
+    - actor: Drafting assistant
+      action: Write task scenarios with the prompt.
+      handoff: You remove any scenario that names a control and write the task file.
+    - actor: Learner
+      action: Run the script, read the walkthrough, and decide about each finding (fix the flow, or record it with a reason).
+      handoff: The walkthrough and the session sheet go to the reviewer.
+    - actor: Reviewer
+      action: Check each finding has a decision and the sheet collects no personal data.
+      handoff: You run one moderated session with the sheet, with consent, and keep the filled-in copy private.
+verification:
+  checks:
+    - action: Walk the seven Pocket Invoice tasks through the flow
+      expected: All 7 tasks within their step budget, every step a button; one finding recorded with its decision (a returning user who submits the sign-up form by mistake cannot reach sign in)
+      result: passed
+      evidence: /examples/ux-pathway/generated/usability/walkthrough.md, rerun and compared by the ux_pathway CI job on every pipeline
+      date: "2026-11-26"
+    - action: Replay each task’s path in the clickable prototype at 1440 px, 390 px and 320 px
+      expected: Each task ends at its goal in the computed number of steps; no sideways scrolling; every control big enough to press
+      result: passed
+      evidence: /examples/pocket-invoice-prototype/, replayed by the site’s browser tests on every pipeline
+      date: "2026-11-26"
+    - action: A moderated session with one participant who has not seen the design
+      expected: Each task marked completed, completed with help or not completed, with notes and no personal data
+      result: not-run
+    - action: Your own walkthrough of your own tasks
+      expected: Every task passes or has a recorded finding with a decision
+      result: not-run
+adaptation:
+  variations:
+    - change: Fix the returning-user finding in the Pocket Invoice flow.
+      effect: Add a way from the sign-up error to sign in, rerun the script, and remove the accepted finding; the script fails until you do both.
+    - change: Test with people who use a screen reader.
+      effect: Recruit through an accessibility organisation, allow more time per task, and test the built page, not the prototype.
+randori:
+  challenge: See the UX Randori recipe.
+  constraints:
+    - Tasks never name a button
+    - No personal data on the session sheet
+  evaluation: A partner reads your tasks and walkthrough and finds no task that names a control and no finding without a decision.
+maintenance:
+  cadence: Every six months, or when the GOV.UK guidance changes
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers, and no learner has run it yet."
+    - "No participant has done the example tasks: there is no completion rate, time on task or satisfaction score, and no usability finding from people is claimed."
+    - The walkthrough checks what the flow allows, not what people notice or understand.
+downloads:
+  - filename: usability-checklist.md
+    description: The walkthrough and session checks as a list you can tick off.
+    content: |
+      # Usability checks
+
+      - [ ] Each task is a scenario with a goal; none names a button
+      - [ ] Each task has a start, a goal and a step budget
+      - [ ] Every error on the way leads to the goal, or is a finding with a decision
+      - [ ] The session sheet asks for consent and records no personal data
+      - [ ] One moderated session run, notes kept private

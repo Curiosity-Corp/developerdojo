@@ -162,7 +162,7 @@ test('every Pocket Invoice state works, by keyboard, with no serious axe finding
 test('the UX pathway page links every step and serves real files', async ({ page, request }) => {
   await page.goto('/katas/ux-pathway/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('From sitemap to a tested screen');
-  for (const slug of ['ux-001-sitemap', 'ux-002-low-fidelity', 'ux-003-tokens', 'ux-004-components', 'ux-005-implement-and-qa', 'ux-r01-randori']) {
+  for (const slug of ['ux-001-sitemap', 'ux-002-low-fidelity', 'ux-003-tokens', 'ux-004-components', 'ux-005-implement-and-qa', 'ux-006-clickable-prototype', 'ux-007-visual-fidelity', 'ux-008-usability-walkthrough', 'ux-009-transfer', 'ux-r01-randori', 'fnd-001-stack-comparison']) {
     await expect(page.locator('a[href="/katas/' + slug + '"]').first()).toBeVisible();
     expect((await request.get('/katas/' + slug + '/')).status(), slug).toBe(200);
   }

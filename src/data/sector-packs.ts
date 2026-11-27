@@ -14,9 +14,9 @@ export const sectorPackInputs: SectorPackInput[] = [
     title: 'SaaS UX: from sitemap to a tested screen',
     fieldIds: ['ux'],
     pathway: '/katas/ux-pathway',
-    kataIds: ['UX-001', 'UX-002', 'UX-003', 'UX-004', 'UX-005'],
+    kataIds: ['UX-001', 'UX-002', 'UX-003', 'UX-004', 'UX-005', 'UX-006', 'UX-007', 'UX-008', 'UX-009'],
     randoriKataId: 'UX-R01',
-    foundationKataIds: ['PRACTICE-001', 'PRACTICE-002'],
+    foundationKataIds: ['PRACTICE-001', 'PRACTICE-002', 'FND-001'],
     examples: { dir: '/examples/ux-pathway', readme: '/examples/ux-pathway/README.md' },
     inputs: { none: 'Pocket Invoice is invented for practice. Its flow file, contrast pairs, tokens, Penpot file, drawings and screenshots are Dojo material under the MIT licence, generated from the site’s own data.' },
     checks: [
@@ -40,6 +40,24 @@ export const sectorPackInputs: SectorPackInput[] = [
         runs: 'public/examples/ux-pathway/tools/ux_pathway.mjs',
         outputs: ['/examples/ux-pathway/generated/randori/rounds.json', '/examples/ux-pathway/generated/randori/randori.md'],
       },
+      {
+        name: 'The same script walks the usability tasks through the flow (tools/ux_usability.mjs): each goal is reachable within its step budget, every step is a visible button, and every error on the way leads back to the goal or is a finding with a recorded decision',
+        ciJob: 'ux_pathway',
+        runs: 'public/examples/ux-pathway/tools/ux_pathway.mjs',
+        outputs: ['/examples/ux-pathway/generated/usability/tasks.json', '/examples/ux-pathway/generated/usability/walkthrough.md', '/examples/ux-pathway/generated/usability/session-sheet.md'],
+      },
+      {
+        name: 'The browser tests replay every usability task in the clickable prototype at 1440 px, 390 px and 320 px, with target-size, reflow and axe checks',
+        ciJob: 'e2e',
+        runs: 'e2e/ux-usability.spec.ts',
+        outputs: ['/examples/ux-pathway/generated/usability/tasks.json'],
+      },
+      {
+        name: 'The browser tests check the HTML style guide: a specimen for every component on the sheet, computed styles equal to the token values, axe in light and dark, and reflow at 320 px',
+        ciJob: 'e2e',
+        runs: 'e2e/ux-style-guide.spec.ts',
+        outputs: ['/examples/ux-pathway/pocket-invoice-tokens.json'],
+      },
     ],
     verified: [
       { text: 'The .penpot file imports into a self-hosted Penpot 2.18.7 with 4 pages, 11 state boards on each wireframe page, 8 components, 16 colours, 5 typographies and all {tokenCount} tokens.', evidence: '/examples/ux-pathway/penpot-import-check.json' },
@@ -53,6 +71,8 @@ export const sectorPackInputs: SectorPackInput[] = [
       'The site’s browser tests measure every line of text in the high-fidelity screens against the room it was laid out for, in the font the CI browser renders.',
       { text: 'On every pipeline, CI rechecks three worked Randori rounds, one per hidden constraint that a flow can show (a 30-second undo, a second person who must agree first, a dropped connection): the first sitemap of each misses its constraint, the adapted one meets it, and the changes between them are computed.', evidence: '/examples/ux-pathway/generated/randori/randori.md' },
       { text: 'A fourth worked round plays the two screen cards (focus in reading order, one action per screen). On every pipeline, a browser walks each of its screens with the Tab key and counts the actions: the first version fails on two screens, and the adapted one passes on all six.', evidence: '/examples/ux-pathway/generated/randori/randori.md' },
+      { text: 'On every pipeline, CI walks {usabilityTaskCount} usability tasks through the flow: {usabilityTasksPassed} passed every check, and {usabilityFindingCount} recorded as a finding with its decision. The site’s browser tests click each task’s path in the clickable prototype at 1440 px, 390 px and 320 px and check that it ends on the goal screen.', evidence: '/examples/ux-pathway/generated/usability/walkthrough.md' },
+      'The HTML style guide renders every colour, type, spacing and radius token and a specimen of each of the {componentCount} components; the site’s browser tests check the specimens’ computed colours against the token values, with axe checks for WCAG A and AA and reflow at 320 px.',
       'In every state, at 390 px and at 1440 px, the site’s browser tests compare each element of the working page with its group in the high-fidelity screen: colour, type size and weight, fill, border, control height and order must match, and the geometry is recorded in the report attached to each test run.',
     ],
     notVerified: [
@@ -81,6 +101,8 @@ export const sectorPackInputs: SectorPackInput[] = [
       { name: 'Draw low-fidelity screens and wire them into a flow', kataIds: ['UX-002'] },
       { name: 'Define a token set and check it for contrast', kataIds: ['UX-003'] },
       { name: 'Build components from the tokens, implement the screens and check them', kataIds: ['UX-004', 'UX-005'] },
+      { name: 'Wire a clickable prototype and check the build against the design', kataIds: ['UX-006', 'UX-007'] },
+      { name: 'Walk usability tasks, plan a moderated session, and repeat the path on a new product', kataIds: ['UX-008', 'UX-009'] },
     ],
     professionalReview: { required: false, limit: 'Not required for this invented practice product, and none was done. The automated checks are not an accessibility audit, and nothing here is a conformance statement for a real product.', reviewers: [
       { role: 'Accessibility specialist', scope: 'An accessibility audit of a real product against WCAG 2.2, with assistive technology and people who use it; the automated checks here are not one.', state: 'none-available' },

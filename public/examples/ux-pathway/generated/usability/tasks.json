@@ -1,0 +1,584 @@
+{
+  "product": "Pocket Invoice",
+  "tasks": [
+    {
+      "id": "T1",
+      "scenario": "You have just heard about Pocket Invoice. Get set up so you can start invoicing.",
+      "observe": "Does the participant understand what a workspace is before they name one?",
+      "start": "signup",
+      "startTitle": "Create your workspace",
+      "goal": "invoices-empty",
+      "goalTitle": "Invoices: none yet",
+      "maxSteps": 1,
+      "steps": [
+        {
+          "n": 1,
+          "from": "signup",
+          "to": "invoices-empty",
+          "kind": "forward",
+          "control": "Create workspace",
+          "variant": "primary",
+          "trigger": "Create workspace with a valid email address and a workspace name"
+        }
+      ],
+      "stepCount": 1,
+      "recoveries": [
+        {
+          "error": "signup-error",
+          "via": 2,
+          "steps": 1,
+          "path": [
+            3
+          ]
+        }
+      ],
+      "findings": [],
+      "pass": true,
+      "checks": [
+        {
+          "id": "states-exist",
+          "description": "The task starts, passes and ends at states in the flow.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "goal-reachable",
+          "description": "The goal can be reached from the start.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "within-budget",
+          "description": "The shortest path takes no more than 1 steps.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "steps-are-buttons",
+          "description": "Every step is a button on the screen, not a link that only the prototype has.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "errors-lead-to-goal",
+          "description": "Every error the user can hit on the way still leads to the goal, or is a finding with a recorded decision.",
+          "pass": true,
+          "failures": []
+        }
+      ]
+    },
+    {
+      "id": "T2",
+      "scenario": "Send your first invoice, for a menu redesign you finished, to the client who asked for it.",
+      "observe": "Does the participant check the invoice before sending, or look for a way to skip it?",
+      "start": "signup",
+      "startTitle": "Create your workspace",
+      "goal": "invoice-sent",
+      "goalTitle": "Invoice INV-0001 sent",
+      "maxSteps": 4,
+      "steps": [
+        {
+          "n": 1,
+          "from": "signup",
+          "to": "invoices-empty",
+          "kind": "forward",
+          "control": "Create workspace",
+          "variant": "primary",
+          "trigger": "Create workspace with a valid email address and a workspace name"
+        },
+        {
+          "n": 6,
+          "from": "invoices-empty",
+          "to": "invoice-new",
+          "kind": "forward",
+          "control": "Create your first invoice",
+          "variant": "primary",
+          "trigger": "Create your first invoice"
+        },
+        {
+          "n": 7,
+          "from": "invoice-new",
+          "to": "invoice-review",
+          "kind": "forward",
+          "control": "Check invoice",
+          "variant": "primary",
+          "trigger": "Check invoice with every field valid"
+        },
+        {
+          "n": 15,
+          "from": "invoice-review",
+          "to": "invoice-sent",
+          "kind": "forward",
+          "control": "Send invoice",
+          "variant": "primary",
+          "trigger": "Send invoice"
+        }
+      ],
+      "stepCount": 4,
+      "recoveries": [
+        {
+          "error": "signup-error",
+          "via": 2,
+          "steps": 4,
+          "path": [
+            3,
+            6,
+            7,
+            15
+          ]
+        },
+        {
+          "error": "invoice-new-error",
+          "via": 8,
+          "steps": 2,
+          "path": [
+            9,
+            15
+          ]
+        },
+        {
+          "error": "send-error",
+          "via": 16,
+          "steps": 3,
+          "path": [
+            17,
+            7,
+            15
+          ]
+        }
+      ],
+      "findings": [],
+      "pass": true,
+      "checks": [
+        {
+          "id": "states-exist",
+          "description": "The task starts, passes and ends at states in the flow.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "goal-reachable",
+          "description": "The goal can be reached from the start.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "within-budget",
+          "description": "The shortest path takes no more than 4 steps.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "steps-are-buttons",
+          "description": "Every step is a button on the screen, not a link that only the prototype has.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "errors-lead-to-goal",
+          "description": "Every error the user can hit on the way still leads to the goal, or is a finding with a recorded decision.",
+          "pass": true,
+          "failures": []
+        }
+      ]
+    },
+    {
+      "id": "T3",
+      "scenario": "You pressed Check invoice too early and the page shows problems. Get the invoice sent anyway.",
+      "observe": "Does the participant use the links in the error summary, or scroll to find the fields?",
+      "start": "invoice-new-error",
+      "startTitle": "New invoice: fix two problems",
+      "goal": "invoice-sent",
+      "goalTitle": "Invoice INV-0001 sent",
+      "maxSteps": 2,
+      "steps": [
+        {
+          "n": 9,
+          "from": "invoice-new-error",
+          "to": "invoice-review",
+          "kind": "recover",
+          "control": "Check invoice",
+          "variant": "primary",
+          "trigger": "Fix the fields and check the invoice"
+        },
+        {
+          "n": 15,
+          "from": "invoice-review",
+          "to": "invoice-sent",
+          "kind": "forward",
+          "control": "Send invoice",
+          "variant": "primary",
+          "trigger": "Send invoice"
+        }
+      ],
+      "stepCount": 2,
+      "recoveries": [
+        {
+          "error": "send-error",
+          "via": 16,
+          "steps": 3,
+          "path": [
+            17,
+            7,
+            15
+          ]
+        }
+      ],
+      "findings": [],
+      "pass": true,
+      "checks": [
+        {
+          "id": "states-exist",
+          "description": "The task starts, passes and ends at states in the flow.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "goal-reachable",
+          "description": "The goal can be reached from the start.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "within-budget",
+          "description": "The shortest path takes no more than 2 steps.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "steps-are-buttons",
+          "description": "Every step is a button on the screen, not a link that only the prototype has.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "errors-lead-to-goal",
+          "description": "Every error the user can hit on the way still leads to the goal, or is a finding with a recorded decision.",
+          "pass": true,
+          "failures": []
+        }
+      ]
+    },
+    {
+      "id": "T4",
+      "scenario": "The invoice did not go out. Find out why and send it again.",
+      "observe": "Does the participant trust that the other fields were kept?",
+      "start": "send-error",
+      "startTitle": "The invoice was not sent",
+      "goal": "invoice-sent",
+      "goalTitle": "Invoice INV-0001 sent",
+      "maxSteps": 3,
+      "steps": [
+        {
+          "n": 17,
+          "from": "send-error",
+          "to": "invoice-new",
+          "kind": "recover",
+          "control": "Change the email address",
+          "variant": "primary",
+          "trigger": "Change the email address"
+        },
+        {
+          "n": 7,
+          "from": "invoice-new",
+          "to": "invoice-review",
+          "kind": "forward",
+          "control": "Check invoice",
+          "variant": "primary",
+          "trigger": "Check invoice with every field valid"
+        },
+        {
+          "n": 15,
+          "from": "invoice-review",
+          "to": "invoice-sent",
+          "kind": "forward",
+          "control": "Send invoice",
+          "variant": "primary",
+          "trigger": "Send invoice"
+        }
+      ],
+      "stepCount": 3,
+      "recoveries": [
+        {
+          "error": "invoice-new-error",
+          "via": 8,
+          "steps": 2,
+          "path": [
+            9,
+            15
+          ]
+        },
+        {
+          "error": "send-error",
+          "via": 16,
+          "steps": 3,
+          "path": [
+            17,
+            7,
+            15
+          ]
+        }
+      ],
+      "findings": [],
+      "pass": true,
+      "checks": [
+        {
+          "id": "states-exist",
+          "description": "The task starts, passes and ends at states in the flow.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "goal-reachable",
+          "description": "The goal can be reached from the start.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "within-budget",
+          "description": "The shortest path takes no more than 3 steps.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "steps-are-buttons",
+          "description": "Every step is a button on the screen, not a link that only the prototype has.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "errors-lead-to-goal",
+          "description": "Every error the user can hit on the way still leads to the goal, or is a finding with a recorded decision.",
+          "pass": true,
+          "failures": []
+        }
+      ]
+    },
+    {
+      "id": "T5",
+      "scenario": "You started an invoice by mistake. Throw it away and go back to your list.",
+      "observe": "Does the participant expect the dialog, and is Discard clear about what is lost?",
+      "start": "invoice-new",
+      "startTitle": "New invoice",
+      "goal": "invoices-empty",
+      "goalTitle": "Invoices: none yet",
+      "via": "discard-dialog",
+      "maxSteps": 2,
+      "steps": [
+        {
+          "n": 10,
+          "from": "invoice-new",
+          "to": "discard-dialog",
+          "kind": "overlay-open",
+          "control": "Cancel",
+          "variant": "secondary",
+          "trigger": "Cancel"
+        },
+        {
+          "n": 13,
+          "from": "discard-dialog",
+          "to": "invoices-empty",
+          "kind": "back",
+          "control": "Discard",
+          "variant": "secondary",
+          "trigger": "Discard"
+        }
+      ],
+      "stepCount": 2,
+      "recoveries": [
+        {
+          "error": "invoice-new-error",
+          "via": 8,
+          "steps": 2,
+          "path": [
+            11,
+            13
+          ]
+        }
+      ],
+      "findings": [],
+      "pass": true,
+      "checks": [
+        {
+          "id": "states-exist",
+          "description": "The task starts, passes and ends at states in the flow.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "goal-reachable",
+          "description": "The goal can be reached from the start through discard-dialog.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "within-budget",
+          "description": "The shortest path takes no more than 2 steps.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "steps-are-buttons",
+          "description": "Every step is a button on the screen, not a link that only the prototype has.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "errors-lead-to-goal",
+          "description": "Every error the user can hit on the way still leads to the goal, or is a finding with a recorded decision.",
+          "pass": true,
+          "failures": []
+        }
+      ]
+    },
+    {
+      "id": "T6",
+      "scenario": "On the check screen you notice the amount is wrong. Fix it and come back to check again.",
+      "observe": "Does the participant expect the other values to still be there?",
+      "start": "invoice-review",
+      "startTitle": "Check the invoice",
+      "goal": "invoice-review",
+      "goalTitle": "Check the invoice",
+      "via": "invoice-new",
+      "maxSteps": 2,
+      "steps": [
+        {
+          "n": 14,
+          "from": "invoice-review",
+          "to": "invoice-new",
+          "kind": "back",
+          "control": "Change details",
+          "variant": "secondary",
+          "trigger": "Change details: every value is kept"
+        },
+        {
+          "n": 7,
+          "from": "invoice-new",
+          "to": "invoice-review",
+          "kind": "forward",
+          "control": "Check invoice",
+          "variant": "primary",
+          "trigger": "Check invoice with every field valid"
+        }
+      ],
+      "stepCount": 2,
+      "recoveries": [
+        {
+          "error": "send-error",
+          "via": 16,
+          "steps": 2,
+          "path": [
+            17,
+            7
+          ]
+        },
+        {
+          "error": "invoice-new-error",
+          "via": 8,
+          "steps": 1,
+          "path": [
+            9
+          ]
+        }
+      ],
+      "findings": [],
+      "pass": true,
+      "checks": [
+        {
+          "id": "states-exist",
+          "description": "The task starts, passes and ends at states in the flow.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "goal-reachable",
+          "description": "The goal can be reached from the start through invoice-new.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "within-budget",
+          "description": "The shortest path takes no more than 2 steps.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "steps-are-buttons",
+          "description": "Every step is a button on the screen, not a link that only the prototype has.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "errors-lead-to-goal",
+          "description": "Every error the user can hit on the way still leads to the goal, or is a finding with a recorded decision.",
+          "pass": true,
+          "failures": []
+        }
+      ]
+    },
+    {
+      "id": "T7",
+      "scenario": "You already have a Pocket Invoice account. Get to the place where you would sign in.",
+      "observe": "Does the participant find the way to sign in without filling in the form first?",
+      "start": "signup",
+      "startTitle": "Create your workspace",
+      "goal": "sign-in",
+      "goalTitle": "Sign in",
+      "maxSteps": 1,
+      "steps": [
+        {
+          "n": 4,
+          "from": "signup",
+          "to": "sign-in",
+          "kind": "branch",
+          "control": "I already have an account",
+          "variant": "link",
+          "trigger": "Choose I already have an account"
+        }
+      ],
+      "stepCount": 1,
+      "recoveries": [],
+      "findings": [
+        {
+          "check": "errors-lead-to-goal",
+          "item": "signup-error (transition 2)",
+          "decision": "Found by this walkthrough on 2026-11-26: a returning user who fills in the sign-up form by mistake reaches the sign-up error, which has no way to sign in. Recorded, not fixed here: the fix changes the flow, the Penpot file and its import check together, so it is left as the adapt exercise of UX-008."
+        }
+      ],
+      "pass": true,
+      "checks": [
+        {
+          "id": "states-exist",
+          "description": "The task starts, passes and ends at states in the flow.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "goal-reachable",
+          "description": "The goal can be reached from the start.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "within-budget",
+          "description": "The shortest path takes no more than 1 steps.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "steps-are-buttons",
+          "description": "Every step is a button on the screen, not a link that only the prototype has.",
+          "pass": true,
+          "failures": []
+        },
+        {
+          "id": "errors-lead-to-goal",
+          "description": "Every error the user can hit on the way still leads to the goal, or is a finding with a recorded decision.",
+          "pass": true,
+          "failures": []
+        }
+      ]
+    }
+  ],
+  "pass": true
+}

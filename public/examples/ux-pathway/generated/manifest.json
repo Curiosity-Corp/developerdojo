@@ -5,7 +5,8 @@
     "inputs/contrast-pairs.json": "536220ae89b3c892fac3fa4902c6278f1d0b50643e75be315ebda0a18e3695f1",
     "pocket-invoice-tokens.json": "9855e7ba68d906fc9bb761bb9da20dd720511214810ab028c477a46736d55a4b",
     "inputs/brand.json": "d4ee1d75e0549268d25e58baaff157fae56bb6657d18fee153ecd436818ffee5",
-    "inputs/randori-rounds.json": "2a9e6c4797b703eb22e00d3e6cea55344e816c3f810f557bf97b420e57066b8c"
+    "inputs/randori-rounds.json": "2a9e6c4797b703eb22e00d3e6cea55344e816c3f810f557bf97b420e57066b8c",
+    "inputs/usability-tasks.json": "dfed9d480c24d5f085269d7900f8e36ac0ff2a12d47520dffdce0d0699fbf7b1"
   },
   "outputs": [
     "components.svg",
@@ -66,6 +67,9 @@
     "style-guide.md",
     "style-guide.svg",
     "summary.md",
+    "usability/session-sheet.md",
+    "usability/tasks.json",
+    "usability/walkthrough.md",
     "wireframes/discard-dialog.svg",
     "wireframes/invoice-new-error.svg",
     "wireframes/invoice-new.svg",

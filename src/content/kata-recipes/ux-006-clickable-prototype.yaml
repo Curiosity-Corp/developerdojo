@@ -1,0 +1,203 @@
+# UX pathway (M9): a draft recipe. The worked example and its checks are on /katas/ux-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given; not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: UX pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/91
+review:
+  unavailable: Built and checked by the Dojo maintainers; no independent review yet.
+summary: Turn the connected screens into a prototype a person can click through, with a dialog over the screen, every state change and a way back from each step.
+metadata:
+  id: UX-006
+  title: Wire a clickable prototype with overlays and back paths
+  layer: specialization
+  professionalReviewRequired: false
+  outcomeIds:
+    - wire-clickable-prototype
+  artifactTypes:
+    - prototype
+  domainIds:
+    - ux
+  capabilityIds:
+    - design-interaction
+    - test-accessibility
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+    - FND-001
+  stackRecipeIds:
+    - penpot-and-browser
+    - assistant-and-browser
+  pathwayIds:
+    - personas-and-journeys
+    - brand-website-and-mockups
+  constraintIds:
+    - fictional-data
+    - no-personal-data
+    - no-paid-tools
+  externalResources:
+    - penpot/prototyping
+    - gov-uk/making-prototypes
+  verificationEvidence:
+    - description: A browser clicks every transition of the prototype, opens and closes the dialog with a button and with Escape, uses the browser's Back button, and runs axe for WCAG A and AA, in low and high fidelity
+      method: automated-check
+    - description: A partner who has not seen the flow completes the happy path and one error path without help
+      method: peer-review
+  beltCriteria:
+    - stage: practice
+      criterion: Clicks through every transition of the example prototype, including the dialog, Escape and Back
+    - stage: adapt
+      criterion: Adds an overlay of their own (for example a confirm-send dialog) with a way to close it and a way on
+    - stage: demonstrate
+      criterion: Wires the Randori flow as a prototype in which every state is reachable and every overlay closes
+  standards: []
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: the Pocket Invoice clickable prototype in low and high fidelity."
+  href: /examples/pocket-invoice-prototype/
+  provenance:
+    creator: Developer Dojo maintainers
+    source: Built in the site’s own stack from the Pocket Invoice flow and tokens
+    license: MIT
+    date: "2026-11-21"
+brief:
+  goal: A clickable prototype of your flow in which every transition works, the dialog opens over the screen it belongs to, and every step has a way back.
+  audience: Learners who have finished UX-002 and have connected low-fidelity screens.
+  inputs:
+    - name: Pocket Invoice clickable prototype
+      source: /examples/pocket-invoice-prototype/
+      terms: Dojo content, MIT licence
+    - name: Prototyping in Penpot
+      source: penpot/prototyping
+      terms: Read on the publisher’s site under its terms
+    - name: Making prototypes (GOV.UK Service Manual)
+      source: gov-uk/making-prototypes
+      terms: Open Government Licence v3.0 unless the page says otherwise; linked, not copied
+  doneWhen:
+    - Every transition in the sitemap can be clicked in the prototype
+    - The dialog opens over the screen underneath and closes with its button and with Escape
+    - Every screen has a way back, and the browser's Back button goes back one step
+    - Focus moves to the new screen's heading, or into the dialog, after each step
+stack:
+  components:
+    - part: tool
+      name: Penpot (self-hosted or penpot.app), or HTML in a browser
+      version: 2.18 (the example Penpot file was checked on a self-hosted 2.18.7)
+      permissions: Edit one practice project of your own
+      cost: "Penpot Professional plan: $0, up to 8 members and 10 GB, no file limits (penpot.app/pricing, checked 2026-11-20). Self-hosting is free under MPL-2.0; you pay for your own server."
+    - part: harness
+      name: Any chat assistant in a browser
+      version:
+        unavailable: Not fixed; any assistant can draft the text, and its version changes the wording, not the checks
+      permissions: Reads only what you paste into it; it never touches the design file
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+    - part: instructions
+      name: The prompts on this page
+      version: Draft, 2026-11-26
+      permissions: None
+      cost: None
+    - part: data
+      name: Pocket Invoice, an invented invoicing app
+      version: "Flow spec of 2026-11-20: 11 states, 19 transitions"
+      permissions: Fictional; no real company, person or customer
+      cost: None
+  rationale: Penpot prototypes run in View mode with overlays and back actions, and the Dojo's HTML prototype shows the same flow in a browser, so a learner can compare a design-tool prototype with a coded one. The assistant only drafts the interaction table; you wire and check it.
+  alternatives:
+    - name: Figma
+      tradeoff: Widely used, with overlays and back actions in prototypes. The free Starter plan limits some features (for example 20 MCP tool calls a month); Professional seats cost $3 to $16 a month (figma.com/pricing, checked 2026-11-20). The example has not been tried in Figma.
+      tested: false
+    - name: Penpot MCP server with an agent
+      tradeoff: "Lets an agent edit the open page directly, but uses a personal key with no permission scopes. Not run for this pathway: no native write by an agent was verified."
+      tested: false
+agents:
+  roles:
+    - role: Drafting assistant
+      responsibility: Turns your transition table into a list of interactions (trigger, destination, overlay or screen, way back).
+      reviewGate: You compare every interaction with the sitemap before it goes into the prototype.
+    - role: Reviewer
+      responsibility: Clicks through the prototype from the start and lists any transition that is missing, any overlay that does not close and any step with no way back.
+      dependsOn:
+        - Drafting assistant
+      reviewGate: A finding counts only when the reviewer can name the screen and the transition number it is about.
+setup:
+  steps:
+    - Open the Pocket Invoice clickable prototype in a browser.
+    - Open your connected low-fidelity screens from UX-002 next to it, in Penpot or as HTML.
+  auth: None for the example. Your own Penpot account if you build in Penpot.
+  smokeTest:
+    action: In the example prototype, choose Create your first invoice, then Cancel, then press Escape.
+    expected: The dialog opens over the new invoice form, and Escape closes it and returns to the form.
+    result: passed
+    evidence: /examples/pocket-invoice-prototype/, walked by the site’s browser tests on every pipeline
+    date: "2026-11-21"
+prompts:
+  - id: interactions
+    title: List the interactions
+    purpose: Turns the transition table into the interactions a prototype needs.
+    text: |-
+      Here is my sitemap as a table of transitions: number, from state, to state, kind, cause.
+      For each transition, write one prototype interaction: the screen, the control that starts it, the destination, whether the destination opens as an overlay over the current screen, and how the user gets back.
+      Mark any overlay with no way to close it, and any screen with no way back.
+      Do not invent states or transitions that are not in my table.
+exercise:
+  title: Prototyping (Penpot user guide)
+  resourceId: penpot/prototyping
+  terms: Read on the publisher’s site under its terms. Credited, not copied. If a course or programme you take part in uses this exercise, follow its rules on AI assistance, and do not submit work an assistant wrote where those rules forbid it.
+execution:
+  steps:
+    - actor: Learner
+      action: Click through the example prototype and note how each overlay opens and closes.
+      handoff: Paste your transition table into the drafting assistant.
+    - actor: Drafting assistant
+      action: List the interactions with the prompt.
+      handoff: You check the list against the sitemap and wire the prototype.
+    - actor: Learner
+      action: Wire every interaction in Penpot View mode or in HTML, with the dialog as an overlay.
+      handoff: The prototype goes to the reviewer.
+    - actor: Reviewer
+      action: Click through from the start, try Escape on every overlay and Back on every screen, and list gaps.
+      handoff: You fix each gap and note what changed.
+verification:
+  checks:
+    - action: Click every transition of the example prototype in low and in high fidelity, with the dialog, Escape and the browser’s Back button, and run axe
+      expected: All 19 transitions reached; focus on the new heading or in the dialog after each step; no axe violation for WCAG A and AA
+      result: passed
+      evidence: /examples/pocket-invoice-prototype/, walked by the site’s browser tests on every pipeline
+      date: "2026-11-21"
+    - action: Replay each usability task’s shortest path in the example prototype at 1440 px, 390 px and 320 px
+      expected: Every task ends at its goal in the number of steps the walkthrough computed, with no sideways scrolling
+      result: passed
+      evidence: /examples/ux-pathway/generated/usability/walkthrough.md, replayed by the site’s browser tests on every pipeline
+      date: "2026-11-26"
+    - action: Your own prototype passes the same click-through
+      expected: Every transition reached, every overlay closes, every step has a way back
+      result: not-run
+adaptation:
+  variations:
+    - change: Add a confirm-send dialog before the invoice goes out.
+      effect: A new overlay with two ways out; the sitemap, the transition table and the prototype all change together.
+    - change: The product must work on a phone held in one hand.
+      effect: Put the main action within thumb reach on every screen, and check that overlays still fit at 320 px.
+randori:
+  challenge: "See the UX Randori recipe: wire an unseen flow as a prototype after the hidden constraint is revealed."
+  constraints:
+    - Every overlay closes
+    - Every step has a way back
+  evaluation: A partner clicks through your prototype from the start and finds no missing transition or trapped overlay.
+maintenance:
+  cadence: Every six months, or when Penpot changes how prototypes or overlays work
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers, and no learner has run it yet."
+    - The example prototype is HTML in the site’s own stack. The Penpot View mode prototype was clicked through once by the import check on a self-hosted Penpot 2.18.7; Penpot cloud was not checked.
+    - Browser tests do not show that an agent can write to Penpot or Figma; no native write was verified.
+downloads:
+  - filename: prototype-checklist.md
+    description: The prototype checks as a list you can tick off.
+    content: |
+      # Prototype checks
+
+      - [ ] Every transition in the sitemap can be clicked
+      - [ ] Every overlay opens over the screen it belongs to
+      - [ ] Every overlay closes with its button and with Escape
+      - [ ] Every screen has a way back; the browser's Back button goes back one step
+      - [ ] Focus moves to the new heading, or into the dialog, after each step

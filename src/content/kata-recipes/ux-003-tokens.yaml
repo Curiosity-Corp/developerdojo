@@ -24,6 +24,7 @@ metadata:
   foundationKataIds:
     - PRACTICE-001
     - PRACTICE-002
+    - FND-001
   stackRecipeIds:
     - penpot-and-browser
     - assistant-and-browser
