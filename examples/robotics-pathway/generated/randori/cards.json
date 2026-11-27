@@ -1,0 +1,39 @@
+{
+  "A": {
+    "title": "The joint angles are given in degrees where the model expects radians",
+    "configuration": "reach",
+    "change": "The same six numbers in degrees, read as radians.",
+    "thetasAsTyped": [
+      "22.9183",
+      "-74.4845",
+      "91.6732",
+      "-108.8620",
+      "-90.0000",
+      "11.4592"
+    ],
+    "positionChange_mm": "807.64",
+    "orientationChange_deg": "151.911"
+  },
+  "B": {
+    "title": "The model rounded to the millimetre",
+    "configuration": "reach",
+    "change": "d1 0.089, a3 -0.392, d4 0.109, d5 0.095, d6 0.082 instead of the file's values.",
+    "positionChange_mm": "0.29",
+    "orientationChange_deg": "0.000"
+  },
+  "C": {
+    "title": "The sign of d5 copied from the DH table into the joint origin",
+    "configuration": "reach",
+    "change": "wrist_2.y set to +0.09465, the DH table's d5, instead of the file's -0.09465.",
+    "positionChange_mm": "189.30",
+    "orientationChange_deg": "0.000"
+  },
+  "D": {
+    "title": "The wrist turned to its singularity",
+    "configuration": "wrist-straight",
+    "change": "theta5 is 0, so the axes of joints 4 and 6 line up.",
+    "detJsBefore": "-0.097153",
+    "detJsAfter": "0.000000",
+    "consequence": "With a determinant of zero, the Jacobian has no inverse there: some end-effector motions need unbounded joint speeds, and a Newton step is not defined."
+  }
+}

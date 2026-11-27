@@ -1,0 +1,134 @@
+{
+  "frame": "wrist_3_link in base_link_inertia (DH frame 6 in DH frame 0); positions in metres, orientation as URDF roll, pitch, yaw in radians",
+  "agreement": {
+    "methods": [
+      "the file's URDF joint chain",
+      "Universal Robots' DH table",
+      "product of exponentials with screw axes from the file"
+    ],
+    "tolerance": 1e-09,
+    "largestDisagreement": "2.9e-10"
+  },
+  "configurations": [
+    {
+      "configuration": "home",
+      "thetas_rad": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "note": "Every joint at zero: the arm stretched out along the base x axis, as the file describes it.",
+      "position_m": [
+        "-0.817250",
+        "-0.191450",
+        "-0.005491"
+      ],
+      "rpy_rad": [
+        "1.570796",
+        "0.000000",
+        "0.000000"
+      ],
+      "detJs": "0.000000",
+      "largestDisagreement": "2.1e-10"
+    },
+    {
+      "configuration": "upright",
+      "thetas_rad": [
+        "0",
+        "-1.570796",
+        "0",
+        "-1.570796",
+        "0",
+        "0"
+      ],
+      "note": "Upper arm and forearm pointing straight up.",
+      "position_m": [
+        "0.000000",
+        "-0.191450",
+        "1.001059"
+      ],
+      "rpy_rad": [
+        "-1.570796",
+        "0.000001",
+        "3.141593"
+      ],
+      "detJs": "0.000000",
+      "largestDisagreement": "2.1e-10"
+    },
+    {
+      "configuration": "reach",
+      "thetas_rad": [
+        "0.4",
+        "-1.3",
+        "1.6",
+        "-1.9",
+        "-1.570796",
+        "0.2"
+      ],
+      "note": "A working pose in front of the base, the wrist pointing down.",
+      "position_m": [
+        "-0.496712",
+        "-0.328511",
+        "0.303252"
+      ],
+      "rpy_rad": [
+        "-3.112971",
+        "0.005801",
+        "1.770879"
+      ],
+      "detJs": "-0.097153",
+      "largestDisagreement": "2.7e-10"
+    },
+    {
+      "configuration": "side",
+      "thetas_rad": [
+        "-0.9",
+        "-1.0",
+        "1.2",
+        "-1.75",
+        "-1.570796",
+        "-0.6"
+      ],
+      "note": "A working pose to one side.",
+      "position_m": [
+        "-0.524965",
+        "0.485946",
+        "0.284606"
+      ],
+      "rpy_rad": [
+        "3.124428",
+        "0.011742",
+        "1.270696"
+      ],
+      "detJs": "-0.110114",
+      "largestDisagreement": "2.9e-10"
+    },
+    {
+      "configuration": "wrist-straight",
+      "thetas_rad": [
+        "0.4",
+        "-1.3",
+        "1.6",
+        "-1.9",
+        "0",
+        "0.2"
+      ],
+      "note": "The reach pose with joint 5 at zero, so the axes of joints 4 and 6 line up.",
+      "position_m": [
+        "-0.462450",
+        "-0.403379",
+        "0.385517"
+      ],
+      "rpy_rad": [
+        "1.570796",
+        "1.400000",
+        "0.400000"
+      ],
+      "detJs": "0.000000",
+      "largestDisagreement": "2.1e-10"
+    }
+  ]
+}

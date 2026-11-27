@@ -733,6 +733,71 @@
       "state": "verified"
     },
     {
+      "id": "ROB-001",
+      "surface": "recipe",
+      "title": "Inspect a robot model: what the UR5 description holds, in which units and conventions",
+      "href": "/katas/rob-001-inspect-robot-model",
+      "area": "artifact-validity",
+      "maintainerRole": "Robotics pathway maintainer",
+      "provenance": [
+        "The UR5 kinematics file and its licence: /examples/robotics-pathway/inputs/ (unchanged)",
+        "Universal Robots’ UR5 DH table: universal-robots/dh-parameters (cited; the script holds its numbers)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a robotics safety engineer, controls engineer or robot integrator yet.",
+      "verifiedOn": "2026-11-27",
+      "dueOn": "2027-02-25",
+      "state": "verified"
+    },
+    {
+      "id": "ROB-002",
+      "surface": "recipe",
+      "title": "Compute forward kinematics three ways and show they agree",
+      "href": "/katas/rob-002-forward-kinematics",
+      "area": "artifact-validity",
+      "maintainerRole": "Robotics pathway maintainer",
+      "provenance": [
+        "The UR5 kinematics file: /examples/robotics-pathway/inputs/ur5-default-kinematics.yaml (unchanged)",
+        "Five joint configurations: /examples/robotics-pathway/scenario/configurations.csv",
+        "The library’s worked examples: modern-robotics/code-library (the script holds the printed values and names the function of each)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a robotics safety engineer, controls engineer or robot integrator yet.",
+      "verifiedOn": "2026-11-27",
+      "dueOn": "2027-02-25",
+      "state": "verified"
+    },
+    {
+      "id": "ROB-003",
+      "surface": "recipe",
+      "title": "Solve inverse kinematics by Newton-Raphson and check every solution independently",
+      "href": "/katas/rob-003-inverse-kinematics",
+      "area": "artifact-validity",
+      "maintainerRole": "Robotics pathway maintainer",
+      "provenance": [
+        "The UR5 kinematics file: /examples/robotics-pathway/inputs/ur5-default-kinematics.yaml (unchanged)",
+        "Three target poses and four initial guesses: /examples/robotics-pathway/scenario/targets.csv"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a robotics safety engineer, controls engineer or robot integrator yet.",
+      "verifiedOn": "2026-11-27",
+      "dueOn": "2027-02-25",
+      "state": "verified"
+    },
+    {
+      "id": "ROB-R01",
+      "surface": "recipe",
+      "title": "Robotics Randori: an unseen change of unit, model or configuration",
+      "href": "/katas/rob-r01-randori",
+      "area": "artifact-validity",
+      "maintainerRole": "Robotics pathway maintainer",
+      "provenance": [
+        "Your ROB-002 poses: Your own output, or /examples/robotics-pathway/generated/poses.json",
+        "The Randori cards: The table on /katas/robotics-pathway (the partner keeps it; the learner sees only the drawn card)"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers and CI; no independent review, and no review by a robotics safety engineer, controls engineer or robot integrator yet.",
+      "verifiedOn": "2026-11-27",
+      "dueOn": "2027-02-25",
+      "state": "verified"
+    },
+    {
       "id": "SCI-001",
       "surface": "recipe",
       "title": "Inspect a published research record: columns, units, gaps and internal consistency",
