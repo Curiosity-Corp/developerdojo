@@ -5,9 +5,10 @@
  *
  * Reads the flow (src/data/pocket-invoice.ts) and the design tokens (src/data/pocket-invoice-tokens.json)
  * and writes, under public/examples/ux-pathway/:
- *   - pocket-invoice.penpot: a Penpot v3 file (ZIP of JSON) with four pages: the sitemap, low-fidelity
- *     boards for every state, the token sheet and main components, and high-fidelity boards for every
- *     state at 390 px plus three at 1280 px. Every transition in the flow is a prototype interaction.
+ *   - pocket-invoice.penpot: a Penpot v3 file (ZIP of JSON) with five pages: the sitemap, low-fidelity
+ *     boards for every state, the token sheet and main components, high-fidelity boards for every state
+ *     at 390 px and at 1280 px, and the high-fidelity journey: every phone screen on one canvas, joined by
+ *     the numbered transitions. Every transition in the flow is a prototype interaction on pages 02 and 04.
  *   - pocket-invoice-tokens.json: a copy of the tokens, for import into Penpot or any DTCG tool.
  *
  * @penpot/library 1.3.0 has no call for prototype flows, so postProcess() writes them into the page JSON
@@ -376,8 +377,6 @@ function drawTokensAndComponents(ctx: Ctx): void {
   }
 }
 
-const DESKTOP_STATES: StateId[] = ['signup', 'invoice-new-error', 'invoice-review'];
-
 /** Prototype flows to add to the exported pages: page id, flow name, starting board. */
 const FLOWS = [
   { page: id('page/low'), id: id('flow/low'), name: 'Low fidelity: send the first invoice', start: id('low/board/' + START_STATE) },
@@ -434,8 +433,11 @@ export async function build(): Promise<Uint8Array> {
 
   ctx.addPage({ id: id('page/high'), name: '04 High fidelity (390 px and 1280 px)' });
   drawFlowPage(ctx, 'high', HIGH, 390, 844, STATES, 160, 'High fidelity: every state at 390 px, styled with the tokens, linked as a prototype');
-  const desktop = STATES.filter((state) => DESKTOP_STATES.includes(state.id));
-  drawDesktop(ctx, desktop);
+  drawDesktop(ctx, STATES.filter((state) => state.kind !== 'overlay'));
+  ctx.closePage();
+
+  ctx.addPage({ id: id('page/journey'), name: '05 Journey on one canvas' });
+  drawJourney(ctx);
   ctx.closePage();
 
   ctx.addTokensLib(tokenFile);
@@ -443,12 +445,19 @@ export async function build(): Promise<Uint8Array> {
   return postProcess(await penpot.exportAsBytes(ctx));
 }
 
-/** Desktop boards: the same column, centred at 640 px wide inside a 1280 px board, the measure a reading line needs. */
+/**
+ * Desktop boards: the same column, centred at 640 px wide inside a 1280 px board, the measure a reading
+ * line needs. Every screen state gets one; the dialog is an overlay, so it has no desktop board of its own.
+ * Two rows of five and five, so the page stays a size a person can pan around.
+ */
 function drawDesktop(ctx: Ctx, states: FlowState[]): void {
-  const y0 = 1400;
-  addText(ctx, 'desktop/title', 'Section title', 'High fidelity at 1280 px: the same content in a 640 px column (no prototype links; the 390 px boards carry the flow)', { size: 24, weight: 700, color: '#1a1a1a' }, 0, y0 - 100, 2400);
+  const top = 1400;
+  addText(ctx, 'desktop/title', 'Section title', 'High fidelity at 1280 px: the same content in a 640 px column (no prototype links; the 390 px boards carry the flow)', { size: 24, weight: 700, color: '#1a1a1a' }, 0, top - 100, 2400);
+  const perRow = Math.ceil(states.length / 2);
+  const rowHeight = Math.max(...states.map((state) => Math.max(800, measure(state, HIGH, 640, null) + 96))) + 160;
   states.forEach((state, i) => {
-    const x = i * 1400;
+    const x = (i % perRow) * 1400;
+    const y0 = top + Math.floor(i / perRow) * rowHeight;
     const height = Math.max(800, measure(state, HIGH, 640, null) + 96);
     ctx.addBoard({ id: id('desktop/' + state.id), name: 'Desktop: ' + state.title + ' (' + state.id + ', 1280 px)', x, y: y0, width: 1280, height, fills: fill(HIGH.page) });
     ctx.addRect({ id: id('desktop/' + state.id + '/bar'), name: 'Header', x, y: y0, width: 1280, height: 64, fills: fill(HIGH.text) });
@@ -456,6 +465,58 @@ function drawDesktop(ctx: Ctx, states: FlowState[]): void {
     drawState(ctx, 'desktop', state, HIGH, null, x + 320, y0 + 64, 640);
     ctx.closeBoard();
   });
+}
+
+/**
+ * Page 05: the single-canvas journey. One root board holds a copy of every high-fidelity phone screen in
+ * flow order, left to right, and one numbered arrow per transition routed in its own lane above the
+ * screens (solid: forward, branch, recover and overlay-open; dashed: error, back and overlay-close).
+ * A legend under the screens gives each number its trigger. The copies carry no interactions: the
+ * clickable flow is on page 04, and this page is for reading the whole journey at once.
+ */
+function drawJourney(ctx: Ctx): void {
+  const SCREEN_W = 390; const GAP = 150; const LANE = 26;
+  const lanesTop = 220; const screensTop = lanesTop + TRANSITIONS.length * LANE + 60;
+  const xOf = new Map<StateId, number>(STATES.map((state, i) => [state.id, 80 + i * (SCREEN_W + GAP)]));
+  const widthOf = (state: FlowState) => (state.kind === 'overlay' ? SCREEN_W - 48 : SCREEN_W);
+  const heights = STATES.map((state) => Math.max(state.kind === 'overlay' ? 0 : 844, measure(state, HIGH, widthOf(state), null)));
+  const legendTop = screensTop + Math.max(...heights) + 100;
+  const canvasWidth = 80 + STATES.length * (SCREEN_W + GAP) - GAP + 80;
+  const half = Math.ceil(TRANSITIONS.length / 2);
+  const canvasHeight = legendTop + half * 30 + 80;
+  ctx.addBoard({ id: id('journey/board'), name: 'Journey: every high-fidelity screen on one canvas', x: 0, y: 0, width: canvasWidth, height: canvasHeight, fills: fill('#ffffff') });
+  addText(ctx, 'journey/title', 'Page title', 'Pocket Invoice: the whole high-fidelity journey on one canvas', { size: 32, weight: 700, color: '#1a1a1a' }, 80, 60, 2400);
+  addText(ctx, 'journey/intro', 'Intro', 'Every phone screen in flow order. Each numbered arrow is one transition, listed under the screens. Solid arrows move forward, branch, recover or open the dialog; dashed arrows are errors, back paths and closing the dialog. Press Play on page 04 to click through the same flow.', { size: 18, weight: 400, color: '#1a1a1a', lineHeight: 1.5 }, 80, 112, 2400);
+  STATES.forEach((state, i) => {
+    const x = xOf.get(state.id) ?? 0; const w = widthOf(state); const h = heights[i] ?? 844;
+    const overlay = state.kind === 'overlay';
+    ctx.addBoard({ id: id('journey/screen/' + state.id), name: state.id + ': ' + state.title, hideInViewer: true, x, y: screensTop, width: w, height: h, fills: fill(overlay ? HIGH.card : HIGH.page), strokes: stroke(HIGH.text, overlay ? 2 : 1), r1: overlay ? 8 : 0, r2: overlay ? 8 : 0, r3: overlay ? 8 : 0, r4: overlay ? 8 : 0 });
+    drawState(ctx, 'journey', state, HIGH, null, x, screensTop, w);
+    ctx.closeBoard();
+  });
+  // Spread the arrow ends along each screen's top edge, so arrows that share a screen do not overlap.
+  const ends = new Map<StateId, number>();
+  const nextEnd = (state: StateId): number => {
+    const k = ends.get(state) ?? 0; ends.set(state, k + 1);
+    return (xOf.get(state) ?? 0) + 24 + k * 34;
+  };
+  TRANSITIONS.forEach((tr, i) => {
+    const sx = nextEnd(tr.from); const dx = nextEnd(tr.to);
+    const laneY = lanesTop + i * LANE;
+    const dashed = tr.kind === 'error' || tr.kind === 'back' || tr.kind === 'overlay-close';
+    ctx.addPath({
+      id: id('journey/arrow/' + i), name: 'Transition ' + (i + 1) + ': ' + tr.from + ' to ' + tr.to + ' (' + tr.kind + ')',
+      content: [{ command: 'move-to', params: { x: sx, y: screensTop } }, { command: 'line-to', params: { x: sx, y: laneY } }, { command: 'line-to', params: { x: dx, y: laneY } }, { command: 'line-to', params: { x: dx, y: screensTop } }],
+      fills: [], strokes: [{ strokeColor: '#1a1a1a', strokeOpacity: 1, strokeWidth: 2, strokeAlignment: 'center', strokeStyle: dashed ? 'dashed' : 'solid', strokeCapEnd: 'triangle-arrow' }],
+    });
+    const bx = Math.min(sx, dx) + Math.abs(dx - sx) / 2 - 13;
+    ctx.addGroup({ id: id('journey/badge-group/' + i), name: 'Label ' + (i + 1) });
+    ctx.addRect({ id: id('journey/badge/' + i), name: 'Badge', x: bx, y: laneY - 11, width: 26, height: 22, fills: fill('#1a1a1a'), r1: 11, r2: 11, r3: 11, r4: 11 });
+    addText(ctx, 'journey/badge/' + i + '/n', 'Number', String(i + 1), { size: 13, weight: 700, color: '#ffffff' }, bx + 4, laneY - 8, 18);
+    ctx.closeGroup();
+    addText(ctx, 'journey/legend/' + i, 'Transition ' + (i + 1), (i + 1) + '. ' + tr.from + ' to ' + tr.to + ' (' + tr.kind + '): ' + tr.trigger, { size: 16, weight: 400, color: '#1a1a1a' }, i < half ? 80 : 1600, legendTop + (i % half) * 30, 1480);
+  });
+  ctx.closeBoard();
 }
 
 export const OUTPUTS = { penpot: OUT_DIR + 'pocket-invoice.penpot', tokens: OUT_DIR + 'pocket-invoice-tokens.json', tokensSource: TOKENS_SOURCE };

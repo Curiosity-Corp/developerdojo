@@ -59,6 +59,7 @@ const shots = [
   { src: '/examples/ux-pathway/screens/high-invoice-new-error.png', w: 390, h: 902, alt: 'High-fidelity new invoice screen with errors: a red-bordered summary titled There is a problem links to Enter the client name and Enter an amount greater than 0; both fields have a red bar and an Error message.' },
   { src: '/examples/ux-pathway/screens/high-invoice-review.png', w: 390, h: 844, alt: 'High-fidelity Check your invoice screen: a summary list of client, email, work, amount and due date, with Send invoice and Change details buttons.' },
   { src: '/examples/ux-pathway/screens/high-discard-dialog.png', w: 1000, h: 1400, alt: 'Penpot View mode showing the Discard this invoice? dialog over the new invoice screen, with Keep editing and Discard buttons.' },
+  { src: '/examples/ux-pathway/screens/journey.png', w: 2000, h: 700, alt: 'Penpot View mode showing page 05: all eleven high-fidelity phone screens in a row, joined above by numbered arrows, solid for forward steps and dashed for errors and back paths, with the numbered list of transitions underneath.' },
 ];
 const sources = {
   penpotPricing: 'https://penpot.app/pricing',
@@ -69,6 +70,7 @@ const sources = {
   penpotPlugins: 'https://help.penpot.app/plugins/create-a-plugin/',
   penpotMcp: 'https://help.penpot.app/mcp/',
   penpotLicence: 'https://github.com/penpot/penpot/blob/develop/LICENSE',
+  penpotExport: 'https://help.penpot.app/user-guide/export-import/export-import-files/',
   figmaPricing: 'https://www.figma.com/pricing/',
   figmaSvg: 'https://help.figma.com/hc/en-us/articles/360040030374-Import-files-into-the-file-browser',
   penpotMigration: 'https://help.penpot.app/user-guide/first-steps/migration-guide/',
@@ -88,15 +90,16 @@ const sources = {
     <p>{PRODUCT.name} is invented for practice. The same flow is drawn in an editable Penpot file and built as a working page, so you can compare the design and the result screen by screen.</p>
     <ul class="links">
       <li><a href="/examples/pocket-invoice/">Use the working example</a>: every screen and error state, with a keyboard or a mouse.</li>
-      <li><a href="/examples/ux-pathway/pocket-invoice.penpot" download>Download the Penpot file</a> (.penpot, about 0.5 MB): four pages, from sitemap to high fidelity.</li>
+      <li><a href="/examples/ux-pathway/pocket-invoice.penpot" download>Download the Penpot file</a> (.penpot, about 0.8 MB): five pages. 01 the sitemap with its branches and errors; 02 every state in low fidelity, clickable; 03 the tokens and main components; 04 every state in high fidelity at 390 px, clickable, and every screen at 1280 px; 05 the whole high-fidelity journey on one canvas, joined by numbered arrows. In Penpot, choose Import in Projects, open each page once, then press Play on page 02 or 04.</li>
       <li><a href="/examples/ux-pathway/pocket-invoice-tokens.json" download>Download the design tokens</a> (JSON, {tokenCount} tokens, Penpot’s token format).</li>
-      <li><a href="/examples/ux-pathway/penpot-import-check.json">Read the Penpot import check</a> (JSON): what was checked in Penpot, and what was not.</li>
+      <li><a href="/examples/ux-pathway/penpot-import-check.json">Read the Penpot import check</a> (JSON): what was checked in Penpot, including an export from Penpot and a second import, and what was not.</li>
+      <li><a href="/examples/ux-pathway/README.md">Read the file guide</a> (Markdown): every file, how to open it, its source and its licence.</li>
       <li><a href="/examples/ux-pathway/qa-report.md">Read the accessibility and responsive QA report</a> (Markdown): every state of the working page, from the site’s browser tests.</li>
     </ul>
     <div class="shots">
       {shots.map((shot) => <figure><img src={shot.src} width={shot.w} height={shot.h} alt={shot.alt} loading="lazy" /></figure>)}
     </div>
-    <p class="note">Screenshots from Penpot View mode, taken by the import check after the file was imported into a self-hosted Penpot 2.18.7.</p>
+    <p class="note">Screenshots from Penpot View mode, taken by the import check after the file was imported into a self-hosted Penpot 2.19.5.</p>
   </div></section>
 
   <section class="section" aria-labelledby="sitemap-title"><div class="container narrow">
@@ -267,16 +270,17 @@ const sources = {
   <section class="section" aria-labelledby="tools-title"><div class="container narrow">
     <p class="eyebrow">08 / The tools</p>
     <h2 id="tools-title">Penpot, and what Figma would cost</h2>
-    <p>The pathway uses Penpot because it is open source, runs in a browser, can be self-hosted, and its free plan has no file limits. Facts below are from each publisher’s own pages, checked on 20 November 2026 (the SVG row on 21 November 2026). Plans change: check the source before you rely on one.</p>
+    <p>The pathway uses Penpot because it is open source, runs in a browser, can be self-hosted, and its free plan has no file limits. Facts below are from each publisher’s own pages: Penpot’s checked on 27 November 2026, Figma’s on 20 November 2026 (the SVG row on 21 November 2026). Plans change: check the source before you rely on one. The Armory keeps the full <a href="/armory/registry#penpot">Penpot record</a>: version, licence, plans, permissions and the smoke test.</p>
     <div class="table-wrap" tabindex="0" role="region" aria-labelledby="tools-caption">
       <table>
         <caption id="tools-caption">Plans, hosting and agent access, from official pages</caption>
         <thead><tr><th scope="col">Fact</th><th scope="col">Penpot</th><th scope="col">Figma</th></tr></thead>
         <tbody>
-          <tr><th scope="row">Free plan</th><td>Professional: $0, “Free and fully featured”, up to 8 members, 10 GB (<a href={sources.penpotPricing}>pricing</a>)</td><td>Starter: free, unlimited drafts, 150 AI credits a day up to 500 a month (<a href={sources.figmaPricing}>pricing</a>)</td></tr>
-          <tr><th scope="row">Paid plans</th><td>Unlimited: $7 per editor a month, capped at $175 a month; Enterprise: $25 per member a month (<a href={sources.penpotPricing}>pricing</a>)</td><td>Professional: Full seat $16, Dev $12, Collab $3 a month; Organization and Enterprise cost more (<a href={sources.figmaPricing}>pricing</a>)</td></tr>
+          <tr><th scope="row">Free plan</th><td>Professional: $0, “Free and fully featured”, up to 8 team members and unlimited viewers, 10 GB, 7 days of autosaved versions and file recovery (<a href={sources.penpotPricing}>pricing</a>)</td><td>Starter: free, unlimited drafts, 150 AI credits a day up to 500 a month (<a href={sources.figmaPricing}>pricing</a>)</td></tr>
+          <tr><th scope="row">Paid plans</th><td>Unlimited: $7 per editor a month, capped at $175 a month, 25 GB, 30 days of versions; Enterprise: $25 per member a month, unlimited storage, 90 days (<a href={sources.penpotPricing}>pricing</a>)</td><td>Professional: Full seat $16, Dev $12, Collab $3 a month; Organization and Enterprise cost more (<a href={sources.figmaPricing}>pricing</a>)</td></tr>
           <tr><th scope="row">File limits</th><td>“No file limits” on every plan (<a href={sources.penpotPricing}>pricing</a>)</td><td>Unlimited files and projects on Professional and above (<a href={sources.figmaPricing}>pricing</a>)</td></tr>
           <tr><th scope="row">Self-hosting</th><td>Yes: Docker Compose, Kubernetes and other paths (<a href={sources.penpotSelfHost}>technical guide</a>, <a href={sources.penpotDocker}>Docker</a>)</td><td>Not offered on the pricing page</td></tr>
+          <tr><th scope="row">Own file format</th><td>.penpot: a ZIP archive with the pages, shapes, components, library and tokens as JSON; import limit 1 GB; boards also export as PNG, JPEG, WEBP, SVG or PDF (<a href={sources.penpotFormat}>file format</a>, <a href={sources.penpotExport}>export and import</a>). Export and re-import of the Pocket Invoice file was run on 2.19.5</td><td>Not checked for this pathway</td></tr>
           <tr><th scope="row">Licence</th><td>Mozilla Public License 2.0 (<a href={sources.penpotLicence}>licence</a>)</td><td>Proprietary</td></tr>
           <tr><th scope="row">Design tokens</th><td>W3C Design Tokens Community Group draft format; importing replaces the file’s global token set (<a href={sources.penpotTokens}>guide</a>)</td><td>Not checked for this pathway</td></tr>
           <tr><th scope="row">SVG from other tools</th><td>The migration guide says to export static assets as SVG, PNG or JPG “and place them in Penpot”; it does not say whether they stay editable (<a href={sources.penpotMigration}>migration guide</a>). Proposed, not run with these files</td><td>Recommends SVG “when moving content between design tools”; SVG marker and pattern elements are not imported (<a href={sources.figmaSvg}>import guide</a>). Proposed, not run with these files</td></tr>

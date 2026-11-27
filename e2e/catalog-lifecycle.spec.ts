@@ -20,7 +20,7 @@ test('the reported Claude Code change shows as review due with fallback advice',
   await expect(notice).toContainText('by the catalog maintainer');
   await expect(notice.locator('[data-lifecycle-fallback]')).toContainText('2.1.330');
   await expect(notice.locator('[data-lifecycle-fallback]')).toContainText('Check the linked source before you rely on it');
-  await expect(page.locator('[data-registry-entry] [data-lifecycle]')).toHaveCount(24);
+  await expect(page.locator('[data-registry-entry] [data-lifecycle]')).toHaveCount(25);
 });
 
 test('every kata recipe shows its lifecycle, with provenance on the recipe page', async ({ page }) => {

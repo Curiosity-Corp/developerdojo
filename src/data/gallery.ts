@@ -247,9 +247,9 @@ export const galleryEntries: GalleryEntryInput[] = [
     },
     verification: {
       method: 'automated-check',
-      date: '2026-11-20',
-      checked: 'Imported into a self-hosted Penpot 2.18.7: 4 pages, 11 state boards per wireframe page, 8 components, 16 colours, 5 typographies and all 54 tokens, and a 22-click View mode walk of both prototypes reached all 19 transitions. Every pipeline rebuilds the file and fails if it differs from the published copy or loses a board, an interaction or a token.',
-      notChecked: 'Penpot cloud, editing by a person, export to other formats, and writing through a plugin or the MCP server. No usability sessions have been run.',
+      date: '2026-11-27',
+      checked: 'Imported into a self-hosted Penpot 2.19.5: 5 pages, 11 state boards per wireframe page, 10 desktop boards, the journey on one canvas, 8 components, 16 colours, 5 typographies and all 54 tokens, and a 22-click View mode walk of both prototypes reached all 19 transitions; Penpot exported the file again as .penpot and the copy imported with the same pages, boards, interactions, components and tokens. Every pipeline rebuilds the file and fails if it differs from the published copy or loses a board, an interaction or a token.',
+      notChecked: 'Penpot cloud, editing by a person, export of boards to SVG, PDF or images, and writing through a plugin or the MCP server. No usability sessions have been run.',
       evidenceHref: '/examples/ux-pathway/penpot-import-check.json',
       nextCheck: '2027-05-20',
     },

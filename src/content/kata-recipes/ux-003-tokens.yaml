@@ -85,7 +85,7 @@ stack:
   components:
     - part: tool
       name: Penpot (self-hosted or penpot.app)
-      version: 2.18 (the example file was checked on a self-hosted 2.18.7)
+      version: 2.19 (the example file was checked on a self-hosted 2.19.5)
       permissions: Edit one practice project; importing tokens replaces that file’s global token set
       cost: "Penpot Professional plan: $0, up to 8 members and 10 GB, no file limits (penpot.app/pricing, checked 2026-11-20). Self-hosting is free under MPL-2.0; you pay for your own server."
     - part: harness
@@ -127,7 +127,7 @@ setup:
   steps:
     - "Open Penpot in a browser: sign up at penpot.app, or use your own self-hosted instance."
     - Download pocket-invoice.penpot from the UX pathway page and import it (Projects, then Import .penpot).
-    - Open each of the four pages once in the workspace before you use View mode, so Penpot lays out the text.
+    - Open each of the five pages once in the workspace before you use View mode, so Penpot lays out the text.
   auth: Your own Penpot account. The chat assistant needs no access to Penpot.
   smokeTest:
     action: Open the Tokens panel in the imported file.
@@ -196,5 +196,5 @@ maintenance:
   caveats:
     - "This recipe is a draft: the example was built and checked by the Dojo maintainers, and no learner has run it yet."
     - Penpot plans, versions and features change; check penpot.app/pricing and help.penpot.app before you rely on a limit.
-    - The example file was checked on a self-hosted Penpot 2.18.7. Penpot cloud (penpot.app) was not checked.
+    - The example file was checked on a self-hosted Penpot 2.19.5. Penpot cloud (penpot.app) was not checked.
     - Penpot imports tokens in the W3C Design Tokens Community Group draft format. The format is a draft and may change.

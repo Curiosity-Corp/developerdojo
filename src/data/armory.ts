@@ -15,6 +15,9 @@ const NEXT = '2027-02-20';
 /** The BIM pathway checks (#92) re-ran IfcOpenShell and added IfcTester a day later. */
 const BIM_CHECKED = '2026-11-21';
 const BIM_NEXT = '2027-02-20';
+/** Penpot (#91): versions, plans and licence read on this day, and the import, prototype and export run against 2.19.5. */
+const PENPOT_CHECKED = '2026-11-27';
+const PENPOT_NEXT = '2027-02-26';
 const docsOnly = (what: string) => ({ lastVerified: CHECKED, checked: `Documentation review: ${what}. Not installed or run for the Dojo.`, nextReview: NEXT });
 const notRun = (why: string) => ({ unavailable: `Not run for the Dojo: ${why}` });
 
@@ -456,6 +459,84 @@ export const armoryEntries: ArmoryEntryInput[] = [
     review: { lastVerified: BIM_CHECKED, checked: 'IfcTester documentation, PyPI metadata and the smoke test.', nextReview: BIM_NEXT },
   },
 
+  {
+    id: 'penpot', name: 'Penpot', kind: 'application', ecosystems: ['media'],
+    summary: 'An open-source design and prototyping tool that runs in the browser, on penpot.app or on your own server. Its files hold boards, components, design tokens and clickable prototype flows, and export as an open .penpot file.',
+    maintainer: { name: 'Penpot (Kaleidos)', status: 'official' },
+    executable: true,
+    sources: [
+      { label: 'Export and import Penpot files', role: 'documentation', url: 'https://help.penpot.app/user-guide/export-import/export-import-files/' },
+      { label: 'The .penpot file format', role: 'documentation', resourceId: 'penpot/file-format' },
+      { label: 'Exporting layers', role: 'documentation', url: 'https://help.penpot.app/user-guide/export-import/exporting-layers/' },
+      { label: 'Prototyping', role: 'documentation', resourceId: 'penpot/prototyping' },
+      { label: 'Design tokens', role: 'documentation', resourceId: 'penpot/design-tokens' },
+      { label: 'MCP server', role: 'documentation', resourceId: 'penpot/mcp-server' },
+      { label: 'Self-hosting with Docker', role: 'documentation', resourceId: 'penpot/self-host-docker' },
+      { label: 'Source repository', role: 'repository', url: 'https://github.com/penpot/penpot' },
+      { label: 'Release 2.19.5', role: 'release', url: 'https://github.com/penpot/penpot/releases' },
+      { label: 'Licence (MPL-2.0)', role: 'license', url: 'https://github.com/penpot/penpot/blob/develop/LICENSE' },
+      { label: 'Plans and pricing', role: 'pricing', url: 'https://penpot.app/pricing' },
+      { label: '@penpot/library 1.3.0, the official library for writing .penpot files', role: 'package', url: 'https://www.npmjs.com/package/@penpot/library' },
+    ],
+    version: { value: '2.19.5 (released 2026-11-24), tested self-hosted; @penpot/library 1.3.0 writes the file', checkedOn: PENPOT_CHECKED, how: 'GitHub releases API (latest release) and the running instance\'s version.txt; npm registry for the library.' },
+    license: 'MPL-2.0 for Penpot (the repository LICENSE file, as GitHub reports it) and for @penpot/library (npm licence field). penpot.app accounts also accept Penpot\'s terms of service.',
+    platforms: 'Any current desktop browser, on penpot.app or a self-hosted instance (Docker Compose, Kubernetes and other paths in the self-hosting guide). Tested: self-hosted 2.19.5 container images on Linux, driven by Chromium.',
+    cost: 'Self-hosted: free. penpot.app, as listed on its pricing page: Professional $0 (up to 8 team members and unlimited viewers, 10 GB storage, 7 days of autosaved versions and file recovery); Unlimited $7 per editor a month, capped at $175 a month (25 GB, 30 days); Enterprise $25 per member a month (unlimited storage, 90 days, SSO); a private server from $50,000 a year. Unlimited and Enterprise have a 14-day trial. The page lists no plan limit on the MCP server or plugins.',
+    auth: 'A Penpot account: on penpot.app, or on your own instance, where the administrator decides whether people can register. The MCP server needs a personal MCP key from your account.',
+    compatibility: [
+      { harness: 'Self-hosted Penpot 2.19.5 in Chromium (Playwright), the file written by @penpot/library 1.3.0', platform: 'Linux', evidence: 'smoke-test' },
+      { harness: 'penpot.app (Penpot cloud)', platform: 'Any current desktop browser', evidence: 'documented' },
+      { harness: 'Penpot MCP server with an MCP-capable agent, through the plugin in an open Penpot tab', platform: 'Any current desktop browser', evidence: 'documented' },
+    ],
+    permissions: {
+      read: 'Reads the files of the teams your account belongs to. Viewers on a shared link see the file in View mode only.',
+      write: 'Editors change files in the workspace; import creates a new file in a project you choose. The MCP server can create, rename, move, delete and restyle shapes on the page open in your browser, and its key has no permission scopes. Plugins ask for permissions such as content:write when you install them.',
+      execute: 'Runs in the browser tab. A self-hosted instance also runs the backend, frontend and database containers you start; plugins run their own code in your tab.',
+      network: 'Sends your files to the Penpot server you use (penpot.app or yours). A default self-hosted frontend fetches Google Fonts and dashboard templates from the internet unless the air-gapped configuration is on.',
+      minimal: 'Practise in a file and a team you can lose. Import a copy of a .penpot file rather than the only one, leave the MCP server off unless you are trying it on a practice file, and on your own instance keep registration closed after you create your account.',
+    },
+    operations: [
+      { action: 'create', description: 'Imported the Pocket Invoice .penpot file through the import-binfile API as a new file: five pages, 11 state boards on each prototype page, 8 main components, 16 library colours, 5 type styles and both token sets with the Light theme.', evidence: 'smoke-test' },
+      { action: 'navigate', description: 'Clicked through both prototypes in View mode: 22 clicks per flow reached every one of the 19 transitions, including the dialog overlay, its close action and every back path.', evidence: 'smoke-test' },
+      { action: 'edit', description: 'Opened every page in the workspace, where Penpot laid out the generated text and saved it to the file (at least 95% of text layers on each page).', evidence: 'smoke-test' },
+      { action: 'read', description: 'Exported the imported file again as .penpot (export-binfile) and imported that copy: same pages, boards, interactions, components and token sets.', evidence: 'smoke-test' },
+      { action: 'generate', description: 'Exports boards and layers as PNG, JPEG, WEBP, SVG or PDF, and all boards of a page as one PDF (needs the exporter service on a self-hosted instance).', evidence: 'documented' },
+      { action: 'edit', description: 'An AI agent can change the open page through the MCP server, or a plugin with write permission can.', evidence: 'documented' },
+    ],
+    setup: [
+      'Create a penpot.app account (the Professional plan is $0), or run your own instance with the self-hosting guide.',
+      'In Projects, choose Import, pick the .penpot file and confirm.',
+      'Open every page of an imported file once in the workspace before you use View mode, so Penpot lays out its text.',
+      'Press Play on a page with a flow to try the prototype.',
+    ],
+    smokeTest: {
+      date: PENPOT_CHECKED,
+      environment: 'Self-hosted Penpot 2.19.5 (official backend and frontend images, PostgreSQL 18, Valkey 8.1) on Linux, reachable only from the same machine; a throwaway account; Chromium through Playwright; the file written by @penpot/library 1.3.0.',
+      action: 'Import the Pocket Invoice file, check its structure against the flow, open every page in the workspace, click through both prototypes in View mode, then export the file as .penpot and import that copy, with the Dojo import check script.',
+      expected: 'Every check passes: five pages, a board per state, an interaction per transition, a 1280 px board per screen state, the journey canvas, components, library and tokens; every transition reached in View mode; the exported copy matches; no uncaught errors in the Penpot UI.',
+      observed: '21 of 21 checks passed. Penpot 2.19 changed the shape of the import API\'s end event and turns its admin console on by default, which blocks registration until it is set up or switched off; the check and this record cover both.',
+      result: 'passed',
+      evidence: ['/examples/armory/penpot.json'],
+    },
+    securityReview: {
+      date: PENPOT_CHECKED, scope: 'provenance',
+      checked: 'Publisher of the container images and the npm library, registry signatures, licence, and the MCP and plugin permission model in the documentation.',
+      findings: [
+        'The container images are published by the penpotapp organisation on Docker Hub; the tested digests are recorded in the evidence file.',
+        '@penpot/library 1.3.0 carries npm registry signatures but no npm provenance (SLSA) attestation.',
+        'The MCP key gives an agent write access to the open page with no permission scopes; a plugin\'s permissions are granted once, when it is installed.',
+        'Since 2.19 a default self-hosted backend starts with its admin console flag on; leave it on and configure it, or switch it off, before opening registration.',
+      ],
+      notChecked: 'No source audit, no image vulnerability scan and no test of the MCP server or any plugin.',
+    },
+    limitations: [
+      'Only a self-hosted 2.19.5 instance was used. penpot.app, the MCP server, plugins and exports to SVG, PDF or images were not run.',
+      'The smoke test imports, lays out, clicks and exports a generated file. No person has edited it in Penpot.',
+      'Plan prices and limits are read from the pricing page on the check date; Penpot can change them.',
+    ],
+    review: { lastVerified: PENPOT_CHECKED, checked: 'Penpot documentation, release, licence and pricing pages, npm metadata and the smoke test.', nextReview: PENPOT_NEXT },
+  },
+
   // ---- Candidates: real, source-checked, not listed until the gaps are closed ---------------------
   {
     id: 'gemini-cli', name: 'Gemini CLI', kind: 'harness',
@@ -881,7 +962,7 @@ export const armoryStackRecipes: ArmoryStackRecipeInput[] = [
     title: 'Penpot and a browser',
     summary: 'The UX pathway stack: Penpot, an open-source design tool that runs in the browser (penpot.app or self-hosted), and a browser to try the prototype and the built page.',
     components: [
-      { learnerChoice: 'Penpot: a penpot.app account (the Professional plan is $0) or your own self-hosted instance', kind: 'application', role: 'Holds the editable sitemap, wireframes, tokens, components and prototype' },
+      { entryId: 'penpot', role: 'Holds the editable sitemap, wireframes, tokens, components, the one-canvas journey and the clickable prototype (penpot.app, where the Professional plan is $0, or your own instance)' },
       { learnerChoice: 'A current web browser', kind: 'application', role: 'Runs Penpot and opens the built page so you can check it yourself' },
     ],
   },

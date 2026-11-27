@@ -60,7 +60,7 @@ export const sectorPackInputs: SectorPackInput[] = [
       },
     ],
     verified: [
-      { text: 'The .penpot file imports into a self-hosted Penpot 2.18.7 with 4 pages, 11 state boards on each wireframe page, 8 components, 16 colours, 5 typographies and all {tokenCount} tokens.', evidence: '/examples/ux-pathway/penpot-import-check.json' },
+      { text: 'The .penpot file imports into a self-hosted Penpot 2.19.5 with 5 pages, 11 state boards on each wireframe page, a 1280 px board per screen state, the journey on one canvas with 19 numbered arrows, 8 components, 16 colours, 5 typographies and all {tokenCount} tokens.', evidence: '/examples/ux-pathway/penpot-import-check.json' },
       'In Penpot View mode, a scripted browser clicked through all {transitionCount} transitions on both the low- and high-fidelity pages without an error.',
       'The file is generated from the same flow and tokens as the working example; the site’s tests rebuild it on every pipeline and fail if it differs from the published copy.',
       'Every text and control colour in the tokens meets its contrast ratio (4.5:1 for text, 3:1 for borders and focus), computed on every pipeline.',
@@ -107,7 +107,7 @@ export const sectorPackInputs: SectorPackInput[] = [
     professionalReview: { required: false, limit: 'Not required for this invented practice product, and none was done. The automated checks are not an accessibility audit, and nothing here is a conformance statement for a real product.', reviewers: [
       { role: 'Accessibility specialist', scope: 'An accessibility audit of a real product against WCAG 2.2, with assistive technology and people who use it; the automated checks here are not one.', state: 'none-available' },
     ] },
-    armory: { stackRecipeIds: ['penpot-and-browser'], entryIds: [] },
+    armory: { stackRecipeIds: ['penpot-and-browser'], entryIds: ['penpot'] },
     galleryEntryIds: ['pocket-invoice-penpot-file'],
     sourcesCheckedOn: '2026-11-21',
     trackingIssue: 91,
