@@ -1,0 +1,183 @@
+# Health pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/health-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job health_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Health pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a paediatrician, registered dietitian or epidemiologist yet.
+summary: "Place each fictional child in CDC’s child and teen BMI categories, including severe obesity at 120 % of the 95th percentile, reproduce the worked example on CDC’s categories page, and write a short report that says what the numbers are, what they are not, and who would need to review them."
+metadata:
+  id: HLT-003
+  title: "Report BMI-for-age categories with their limits stated"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - report-bmi-category
+  artifactTypes:
+    - bmi-category-report
+  domainIds:
+    - health
+  capabilityIds:
+    - analyze-data
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - cdc/extended-bmi-for-age-data-files
+    - cdc/growth-charts-bmi-for-age-2000
+    - cdc/child-and-teen-bmi-categories
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: CDC 2000 growth charts and 2022 Extended BMI-for-age growth charts, BMI-for-age data files and method
+      version: "bmiagerev.csv (SHA-256 cbeea0e8…d8e39f) and bmi-age-2022.csv (SHA-256 7f416a21…d166e5), downloaded 2026-11-26; method page last reviewed by CDC 2024-09-02, read 2026-11-26"
+      applicability: "CDC’s child and teen BMI categories for ages 2 through 19 and the adult cut-offs from age 20, applied to fictional children for practice"
+      reviewScope: "What the listed checks test: that each category follows CDC’s cut-offs and matches the CI output, and that the report states its limits. No claim about any real child; no screening, diagnosis or advice."
+      sourceResourceId: cdc/extended-bmi-for-age-data-files
+  verificationEvidence:
+    - description: Each fictional child’s category and per cent of the 95th percentile, and CDC’s categories example, as the CI output does
+      method: automated-check
+    - description: The report says that BMI is a screening measure, that the children are fictional, and that no qualified reviewer has checked it
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces CDC’s categories example (BMI 26.6, 96th percentile, obesity) and places the five scored children in their categories
+    - stage: adapt
+      criterion: Finds the child in severe obesity by per cent of the 95th percentile, not by percentile alone
+    - stage: demonstrate
+      criterion: Explains to a reviewer why the adult cut-offs must not be used for a child and what a paediatrician would add before any real decision
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: CDC’s BMI-for-age data files checked against CDC’s own worked examples and every printed column, then six fictional children scored with the LMS and extended methods and placed in CDC’s child and teen BMI categories, all computed by the site’s CI. Practice only, not a clinical assessment."
+  href: /katas/health-pathway
+  provenance:
+    creator: CDC National Center for Health Statistics (data files, method and categories); Developer Dojo maintainers (fictional children, script and results)
+    source: CDC BMI-for-age data files bmiagerev.csv and bmi-age-2022.csv, the Extended BMI-for-age data files page and the Child and teen BMI categories page (read 2026-11-26); results from /examples/health-pathway/tools/health_pathway.py
+    license: US government work in the public domain (CDC data files and pages; no logo used); fictional scenario, script and outputs MIT
+    date: "2026-11-26"
+brief:
+  goal: A category for each fictional child that follows CDC’s cut-offs, in a report that states its limits in person-first language.
+  audience: Learners who finished HLT-002 and want to turn a number into a statement others will read.
+  inputs:
+    - name: Your HLT-002 scores
+      source: Your own output, or /examples/health-pathway/generated/scores.json
+      terms: Dojo output, MIT licence
+    - name: CDC, Child and teen BMI categories
+      source: cdc/child-and-teen-bmi-categories
+      terms: US government work, public domain
+  doneWhen:
+    - Your categories and per cent of the 95th percentile match /examples/health-pathway/generated/scores.json
+    - CDC’s categories example (a 12-year-old girl, 5 feet and 136 pounds) gives BMI 26.6, the 96th percentile and obesity
+    - Your report says the children are fictional, that BMI is a screening measure and not a diagnosis, and that no qualified reviewer has checked it
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: CDC BMI-for-age data files of the 2000 and 2022 Extended growth charts
+      version: "Downloaded 2026-11-26: bmiagerev.csv SHA-256 cbeea0e8…d8e39f, bmi-age-2022.csv SHA-256 7f416a21…d166e5"
+      permissions: Read a copy
+      cost: Free (US government work, public domain)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against CDC’s published values
+      permissions: Reads what you paste in; paste only the CDC tables and the fictional children, never a real child’s measurements or any health record
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library has the normal distribution (statistics.NormalDist) these formulas need, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: An online BMI percentile calculator or a statistics package with growth-chart functions
+      tradeoff: Faster for one child, but a calculator hides which table, which age row and which method above the 95th percentile it uses, the three choices this pathway is about. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains CDC’s categories and helps word the report in plain, person-first language.
+      reviewGate: You keep a sentence only if it says no more than the numbers and CDC’s pages support.
+    - role: Learner as reviewer
+      responsibility: Checks each category against the cut-offs by hand and reads the report for any claim of diagnosis or advice.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A category stays only if its percentile and per cent of P95 put it there.
+setup:
+  steps:
+    - Use the folder and Python from HLT-002.
+    - Open CDC’s Extended BMI-for-age data files page and the Child and teen BMI categories page beside the script.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/health_pathway.py . out"
+    expected: "The categories example passes (BMI 26.6, 96th percentile, obesity), and out/scores.json gives child E 146.7 % of the 95th percentile, severe obesity"
+    result: passed
+    evidence: /examples/health-pathway/generated/scores.json, recomputed by CI on every pipeline
+    date: "2026-11-26"
+prompts:
+  - id: word-the-report
+    title: Word the report without overclaiming
+    purpose: Turn scores into sentences that say no more than the numbers support.
+    text: |-
+      Here are BMI-for-age results for six fictional children, computed with CDC’s growth charts:
+      <paste the table from summary.md>
+      Help me write a short report for a learner audience. Use CDC’s category names and person-first language, say that BMI is a screening measure and not a diagnosis, that the children are fictional, and that no paediatrician has reviewed it. Do not give advice about any child.
+      If a sentence claims more than the table shows, tell me.
+exercise:
+  title: CDC, Extended BMI-for-age growth charts, data files and worked examples
+  resourceId: cdc/extended-bmi-for-age-data-files
+  terms: US government work in the public domain; no CDC or HHS logo is used, and nothing here implies endorsement by CDC.
+execution:
+  steps:
+    - actor: Learner
+      action: Place each scored child in a category by the cut-offs, then check per cent of P95 for anyone at or above the 95th percentile.
+    - actor: Explaining assistant
+      action: Helps word the report.
+      handoff: You remove any sentence that claims more than the table shows.
+    - actor: Learner
+      action: Compare the categories with the CI output and reproduce CDC’s categories example.
+verification:
+  checks:
+    - action: Reproduce CDC’s categories example and place the fictional children with the pathway script
+      expected: "Example: BMI 26.6, 96th percentile, obesity. Children: A healthy weight; B underweight; C overweight; D obesity (110.2 % of P95); E severe obesity (146.7 % of P95); F unavailable"
+      result: passed
+      evidence: /examples/health-pathway/generated/scores.json, recomputed by CI on every pipeline
+      date: "2026-11-26"
+    - action: A reviewer reads your report for claims of diagnosis or advice
+      expected: None found, and every limit stated
+      result: not-run
+  failures:
+    - observed: Child E is reported as obesity because the percentile is above 95
+      correction: CDC lists severe obesity as its own category at 120 % of the 95th percentile or more. Child E is at 146.7 %.
+    - observed: The report says a child is obese
+      correction: CDC asks for person-first language, such as a child with obesity, and a category is a screening result, not a diagnosis.
+adaptation:
+  variations:
+    - change: Report the categories for a child just turned 20
+      effect: From age 20 the adult cut-offs of 18.5, 25 and 30 apply instead; Randori card D shows what happens when they are applied to a child.
+randori:
+  challenge: See the health Randori recipe, HLT-R01.
+  constraints:
+    - Every category follows CDC’s cut-offs, and the report states its limits
+  evaluation: The categories match the CI output and a reviewer finds no claim of diagnosis or advice.
+maintenance:
+  cadence: Every six months, or when CDC revises either data file, the method page or the BMI categories page
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on fictional children, not a clinical assessment, a diagnosis or medical advice. BMI is a screening measure, not a diagnosis. No paediatrician, registered dietitian or epidemiologist has reviewed it.
+    - Never paste a real child’s measurements, or any health record, into an assistant for this kata.

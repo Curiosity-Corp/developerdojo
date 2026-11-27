@@ -43,6 +43,11 @@ export const transferPractice = {
       reference: 'The W3C’s approved ACT test cases, which every rule must give its expected outcome before it checks any learning page.',
       gate: { recipe: 'edu-002-run-act-rules', role: 'Explaining assistant' },
     },
+    {
+      packId: 'health',
+      reference: 'CDC’s printed worked examples and the columns of its growth chart tables, which the code must reproduce before it scores any fictional child.',
+      gate: { recipe: 'hlt-002-bmi-for-age-percentile', role: 'Explaining assistant' },
+    },
   ],
   selfCheck: [
     'I can name this field’s independent reference and show one assistant output it rejected or corrected.',

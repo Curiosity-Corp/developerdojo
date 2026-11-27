@@ -250,6 +250,27 @@ education_pathway:
       - education-pathway-out
     expire_in: 30 days
 
+# Blocking: the health pathway (#93). Reproduces CDC's printed worked examples and every printed column of its two
+# BMI-for-age tables, then scores the fictional children and the Randori cards, and fails if any output differs from
+# the published files.
+health_pathway:
+  stage: validate
+  image: python:3.12-slim
+  needs: []
+  rules:
+    - !reference [.skip-in-production-e2e, rules]
+    - when: on_success
+  script:
+    # Standard library only: nothing to install. CDC's two files are committed and hash-pinned;
+    # tools/fetch_input.py is for maintainers and never runs here.
+    - python -I public/examples/health-pathway/tools/health_pathway.py public/examples/health-pathway health-pathway-out
+    - diff -r health-pathway-out public/examples/health-pathway/generated
+  artifacts:
+    when: always
+    paths:
+      - health-pathway-out
+    expire_in: 30 days
+
 # Blocking: dist/ link check. Every internal href/src/srcset in the built pages must resolve.
 links:
   extends: .node
@@ -395,7 +416,7 @@ e2e:production:
 # Internal GitLab Pages preview of the built site.
 pages:
   stage: deploy
-  needs: [check, test, ux_pathway, bim_pathway, agriculture_pathway, science_pathway, finance_pathway, manufacturing_pathway, media_pathway, education_pathway, build, e2e, links]
+  needs: [check, test, ux_pathway, bim_pathway, agriculture_pathway, science_pathway, finance_pathway, manufacturing_pathway, media_pathway, education_pathway, health_pathway, build, e2e, links]
   interruptible: false
   script:
     - sha256sum -c search-index.sha256
@@ -417,7 +438,7 @@ pages:
 # event lists evaluated at build time) always reaches GitHub Pages.
 publish_github_pages:
   stage: deploy
-  needs: [check, test, ux_pathway, bim_pathway, agriculture_pathway, science_pathway, finance_pathway, manufacturing_pathway, media_pathway, education_pathway, build, e2e, links]
+  needs: [check, test, ux_pathway, bim_pathway, agriculture_pathway, science_pathway, finance_pathway, manufacturing_pathway, media_pathway, education_pathway, health_pathway, build, e2e, links]
   interruptible: false
   resource_group: github-pages-release
   variables:

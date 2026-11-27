@@ -1,0 +1,455 @@
+{
+  "source": "CDC National Center for Health Statistics: Extended BMI-for-age growth charts data files page, Child and teen BMI categories page, and the two BMI-for-age data files",
+  "passed": 24,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "ex1-L",
+      "source": "CDC extended BMI data files, example 1",
+      "quantity": "L, girl, 114.5 months (file line 312)",
+      "published": "-2.257782149",
+      "computed": "-2.257782149",
+      "status": "pass"
+    },
+    {
+      "id": "ex1-M",
+      "source": "CDC extended BMI data files, example 1",
+      "quantity": "M, girl, 114.5 months (file line 312)",
+      "published": "16.57626713",
+      "computed": "16.57626713",
+      "status": "pass"
+    },
+    {
+      "id": "ex1-S",
+      "source": "CDC extended BMI data files, example 1",
+      "quantity": "S, girl, 114.5 months (file line 312)",
+      "published": "0.132796819",
+      "computed": "0.132796819",
+      "status": "pass"
+    },
+    {
+      "id": "ex1-P95",
+      "source": "CDC extended BMI data files, example 1",
+      "quantity": "P95, girl, 114.5 months (file line 312)",
+      "published": "22.3979",
+      "computed": "22.3979",
+      "status": "pass"
+    },
+    {
+      "id": "ex1-z",
+      "source": "CDC extended BMI data files, example 1",
+      "quantity": "z-score for BMI 21.2",
+      "published": "1.4215",
+      "computed": "1.4215",
+      "status": "pass"
+    },
+    {
+      "id": "ex1-percentile",
+      "source": "CDC extended BMI data files, example 1",
+      "quantity": "Percentile for BMI 21.2",
+      "published": "92.2",
+      "computed": "92.2",
+      "status": "pass"
+    },
+    {
+      "id": "ex2-P95",
+      "source": "CDC extended BMI data files, example 2",
+      "quantity": "P95, boy, 50.5 months (file line 29)",
+      "published": "17.8219",
+      "computed": "17.8219",
+      "status": "pass"
+    },
+    {
+      "id": "ex2-sigma",
+      "source": "CDC extended BMI data files, example 2",
+      "quantity": "Sigma, boy, 50.5 months, as printed in the text (file line 29)",
+      "published": "2.3983",
+      "computed": "2.3983",
+      "status": "pass"
+    },
+    {
+      "id": "ex2-sigma-formula",
+      "source": "CDC extended BMI data files, example 2",
+      "quantity": "Sigma, as printed in the formula (file line 29)",
+      "published": "2.398288",
+      "computed": "2.398288",
+      "status": "pass"
+    },
+    {
+      "id": "ex2-percentile",
+      "source": "CDC extended BMI data files, example 2",
+      "quantity": "Percentile for BMI 22.6",
+      "published": "99.7683",
+      "computed": "99.7683",
+      "status": "pass"
+    },
+    {
+      "id": "ex2-z",
+      "source": "CDC extended BMI data files, example 2",
+      "quantity": "z-score for BMI 22.6",
+      "published": "2.83",
+      "computed": "2.83",
+      "status": "pass"
+    },
+    {
+      "id": "ex3-L",
+      "source": "CDC extended BMI data files, example 3",
+      "quantity": "L, girl, 184.5 months (file line 382)",
+      "published": "-2.060616513",
+      "computed": "-2.060616513",
+      "status": "pass"
+    },
+    {
+      "id": "ex3-M",
+      "source": "CDC extended BMI data files, example 3",
+      "quantity": "M, girl, 184.5 months (file line 382)",
+      "published": "20.11172291",
+      "computed": "20.11172291",
+      "status": "pass"
+    },
+    {
+      "id": "ex3-S",
+      "source": "CDC extended BMI data files, example 3",
+      "quantity": "S, girl, 184.5 months (file line 382)",
+      "published": "0.150079322",
+      "computed": "0.150079322",
+      "status": "pass"
+    },
+    {
+      "id": "ex3-percentile",
+      "source": "CDC extended BMI data files, example 3",
+      "quantity": "Percentile at z-score 1.5",
+      "published": "93.3",
+      "computed": "93.3",
+      "status": "pass"
+    },
+    {
+      "id": "ex3-bmi",
+      "source": "CDC extended BMI data files, example 3",
+      "quantity": "BMI at z-score 1.5",
+      "published": "27.2",
+      "computed": "27.2",
+      "status": "pass"
+    },
+    {
+      "id": "ex4-P95",
+      "source": "CDC extended BMI data files, example 4",
+      "quantity": "P95, boy, 92.5 months (file line 71)",
+      "published": "19.7477",
+      "computed": "19.7477",
+      "status": "pass"
+    },
+    {
+      "id": "ex4-sigma",
+      "source": "CDC extended BMI data files, example 4",
+      "quantity": "Sigma, boy, 92.5 months, as printed in the text (file line 71)",
+      "published": "3.8373",
+      "computed": "3.8373",
+      "status": "pass"
+    },
+    {
+      "id": "ex4-sigma-formula",
+      "source": "CDC extended BMI data files, example 4",
+      "quantity": "Sigma, as printed in the formula (file line 71)",
+      "published": "3.837343",
+      "computed": "3.837343",
+      "status": "pass"
+    },
+    {
+      "id": "ex4-z",
+      "source": "CDC extended BMI data files, example 4",
+      "quantity": "z-score at the 98.7th percentile",
+      "published": "2.226",
+      "computed": "2.226",
+      "status": "pass"
+    },
+    {
+      "id": "ex4-bmi",
+      "source": "CDC extended BMI data files, example 4",
+      "quantity": "BMI at the 98.7th percentile",
+      "published": "24.1",
+      "computed": "24.1",
+      "status": "pass"
+    },
+    {
+      "id": "categories-bmi",
+      "source": "CDC child and teen BMI categories, example",
+      "quantity": "BMI, 5 feet and 136 pounds",
+      "published": "26.6",
+      "computed": "26.6",
+      "status": "pass"
+    },
+    {
+      "id": "categories-percentile",
+      "source": "CDC child and teen BMI categories, example",
+      "quantity": "Percentile, girl aged 12 (144.5 months)",
+      "published": "96",
+      "computed": "96",
+      "status": "pass"
+    },
+    {
+      "id": "categories-category",
+      "source": "CDC child and teen BMI categories, example",
+      "quantity": "BMI category",
+      "published": "obesity",
+      "computed": "obesity",
+      "status": "pass"
+    }
+  ],
+  "tables": {
+    "table2022": {
+      "file": "inputs/bmi-age-2022.csv",
+      "values": 12702,
+      "matchWhenRounded": 12654,
+      "withinOneUnit": 12702,
+      "columns": [
+        {
+          "column": "P3",
+          "method": "LMS",
+          "values": 438,
+          "matchWhenRounded": 438,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "P5",
+          "method": "LMS",
+          "values": 438,
+          "matchWhenRounded": 438,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "P10",
+          "method": "LMS",
+          "values": 438,
+          "matchWhenRounded": 438,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "P25",
+          "method": "LMS",
+          "values": 438,
+          "matchWhenRounded": 438,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "P50",
+          "method": "LMS",
+          "values": 438,
+          "matchWhenRounded": 438,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "P75",
+          "method": "LMS",
+          "values": 438,
+          "matchWhenRounded": 438,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "P85",
+          "method": "LMS",
+          "values": 438,
+          "matchWhenRounded": 438,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "P90",
+          "method": "LMS",
+          "values": 438,
+          "matchWhenRounded": 438,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "P95",
+          "method": "LMS",
+          "values": 438,
+          "matchWhenRounded": 438,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "P98",
+          "method": "extended",
+          "values": 438,
+          "matchWhenRounded": 437,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "P99",
+          "method": "extended",
+          "values": 438,
+          "matchWhenRounded": 434,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "P99_9",
+          "method": "extended",
+          "values": 438,
+          "matchWhenRounded": 436,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "P99_99",
+          "method": "extended",
+          "values": 438,
+          "matchWhenRounded": 431,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.51"
+        },
+        {
+          "column": "Z2neg",
+          "method": "LMS",
+          "values": 438,
+          "matchWhenRounded": 438,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "Z1_5neg",
+          "method": "LMS",
+          "values": 438,
+          "matchWhenRounded": 438,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "Z1neg",
+          "method": "LMS",
+          "values": 438,
+          "matchWhenRounded": 438,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "Z0_5neg",
+          "method": "LMS",
+          "values": 438,
+          "matchWhenRounded": 438,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "Z0",
+          "method": "LMS",
+          "values": 438,
+          "matchWhenRounded": 438,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "Z0_5",
+          "method": "LMS",
+          "values": 438,
+          "matchWhenRounded": 438,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "Z1",
+          "method": "LMS",
+          "values": 438,
+          "matchWhenRounded": 438,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "Z1_5",
+          "method": "LMS",
+          "values": 438,
+          "matchWhenRounded": 438,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "Z2",
+          "method": "extended",
+          "values": 438,
+          "matchWhenRounded": 437,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "Z2_5",
+          "method": "extended",
+          "values": 438,
+          "matchWhenRounded": 433,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.51"
+        },
+        {
+          "column": "Z3",
+          "method": "extended",
+          "values": 438,
+          "matchWhenRounded": 432,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.51"
+        },
+        {
+          "column": "Z3_5",
+          "method": "extended",
+          "values": 438,
+          "matchWhenRounded": 437,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.50"
+        },
+        {
+          "column": "Z4",
+          "method": "extended",
+          "values": 438,
+          "matchWhenRounded": 434,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.51"
+        },
+        {
+          "column": "Z4_5",
+          "method": "extended",
+          "values": 438,
+          "matchWhenRounded": 436,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.51"
+        },
+        {
+          "column": "Z5",
+          "method": "extended",
+          "values": 438,
+          "matchWhenRounded": 431,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.51"
+        },
+        {
+          "column": "pct120ofP95",
+          "method": "1.2 x P95",
+          "values": 438,
+          "matchWhenRounded": 430,
+          "withinOneUnit": 438,
+          "largestDifferenceInLastDigit": "0.54"
+        }
+      ],
+      "rule": "Each printed value is recomputed from the row's own L, M, S and sigma (the extended columns from the unrounded LMS 95th percentile). A value passes if it is within one unit of its last printed digit; most also match exactly when rounded."
+    },
+    "table2000": {
+      "file": "inputs/bmiagerev.csv",
+      "values": 4380,
+      "largestDifference": "2.5e-07",
+      "tolerance": "1e-06",
+      "rule": "Each printed percentile is recomputed from the row's L, M and S with the exact normal quantile. The file prints eight decimals, but L, M and S carry about nine significant digits, so a percentile passes within 0.000001 kg/m2."
+    },
+    "sameAs2000": {
+      "rows": 438,
+      "identicalLMS": 1314,
+      "agreeingPercentiles": 3942,
+      "rule": "L, M and S are the same text in both files, and the 3rd to 95th percentiles agree at the decimals the 2022 file prints, as CDC states."
+    }
+  }
+}

@@ -2,7 +2,7 @@
 
 A sector pack is one field's pathway: a short run of specialization katas on real files, ending in a Randori, with
 results that CI computes and a plain list of what was checked and what was not (#93). The UX pathway (#91), the BIM
-pathway (#92), the agriculture pathway (#93), the science pathway (#93), the finance pathway (#93), the manufacturing pathway (#93), the media pathway (#93) and the education pathway (#93) are the eight packs today. This guide is the
+pathway (#92), the agriculture pathway (#93), the science pathway (#93), the finance pathway (#93), the manufacturing pathway (#93), the media pathway (#93), the education pathway (#93) and the health pathway (#93) are the nine packs today. This guide is the
 template for the next one. The kata contract and the taxonomy rules are in [kata-metadata.md](kata-metadata.md) and
 [kata-taxonomy.md](kata-taxonomy.md); this page does not repeat them.
 
@@ -11,20 +11,20 @@ A pack adds a field's practice. It never copies a foundation: every pack kata bu
 
 ## The parts of a pack
 
-| Part | Where | UX | BIM | Agriculture | Science | Finance | Manufacturing | Media | Education |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Pack record | `src/data/sector-packs.ts` | `ux` | `bim` | `agriculture` | `science` | `finance` | `manufacturing` | `media` | `education` |
-| Pathway page | `src/pages/katas/<field>-pathway.astro` | `ux-pathway` | `bim-pathway` | `agriculture-pathway` | `science-pathway` | `finance-pathway` | `manufacturing-pathway` | `media-pathway` | `education-pathway` |
-| Recipe pages (practice katas) | `src/content/kata-recipes/<prefix>-00N-*.yaml` | UX-001 to UX-009 | BIM-001 to BIM-008 | AGR-001 to AGR-003 | SCI-001 to SCI-003 | FIN-001 to FIN-003 | MFG-001 to MFG-003 | MED-001 to MED-003 | EDU-001 to EDU-003 |
-| Randori | `src/content/kata-recipes/<prefix>-r01-randori.yaml` | UX-R01 | BIM-R01, and the specialist BIM-R02 | AGR-R01 | SCI-R01 | FIN-R01 | MFG-R01 | MED-R01 | EDU-R01 |
-| Inputs, script, outputs, README | `public/examples/<field>-pathway/` | Penpot file and tokens | buildingSMART IFC, IDS, coordination brief, review gates | NOAA weather record | NASA GISTEMP record | Regulation Z, 12 CFR 1026.22 (eCFR) | NIST/SEMATECH e-Handbook lithography record (LITHOGRA.DAT rows) | NASA Artemis II launch recording (WAV); ITU-R BS.1770-5 and EBU Tech 3341 test signals | Wikibooks textbook page (HTML); W3C ACT test cases; IANA Language Subtag Registry |
-| CI check | `.gitlab-ci.yml` | `ux_pathway`, `test`, `e2e` | `bim_pathway` | `agriculture_pathway` | `science_pathway` | `finance_pathway` | `manufacturing_pathway` | `media_pathway` | `education_pathway` |
-| Verified / not verified | pack record, rendered by `src/components/SectorPackEvidence.astro` | section 05 | section 06 | section 06 | section 06 | section 05 | section 05 | section 05 | section 05 |
-| Armory | `armoryStackRecipes` (and entries) in `src/data/armory.ts` | `penpot-and-browser` | `ifcopenshell-and-python` | `python-standard-library` | `python-standard-library` | `python-standard-library` | `python-standard-library` | `python-standard-library` | `python-standard-library` |
-| Gallery entry | `src/data/gallery.ts` | `pocket-invoice-penpot-file` | `bim-pathway-edited-model` | `agriculture-irrigation-estimate` | `science-trend-with-uncertainty` | `finance-apr-and-schedule` | `manufacturing-control-limits-and-variation` | `media-loudness-and-normalisation` | `education-accessibility-report` |
-| Directory card | `src/data/kata-directory.ts` | yes | yes | yes | yes | yes | yes | yes | yes |
-| External resources | `src/content/resources/<publisher>/*.yaml` | Penpot docs | buildingSMART, IfcOpenShell | NOAA, FAO | NASA, BIPM (GUM), NIST | CFPB (Regulation Z) | NIST (e-Handbook) | ITU (BS.1770), EBU (R 128, Tech 3341), NASA | W3C (WCAG 2.2, ACT rules), IANA, Wikibooks |
-| Tests | `tests/<field>-pathway.test.ts`, `e2e/<field>-pathway.spec.ts` | yes | yes | yes | yes | yes | yes | yes | yes |
+| Part | Where | UX | BIM | Agriculture | Science | Finance | Manufacturing | Media | Education | Health |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Pack record | `src/data/sector-packs.ts` | `ux` | `bim` | `agriculture` | `science` | `finance` | `manufacturing` | `media` | `education` | `health` |
+| Pathway page | `src/pages/katas/<field>-pathway.astro` | `ux-pathway` | `bim-pathway` | `agriculture-pathway` | `science-pathway` | `finance-pathway` | `manufacturing-pathway` | `media-pathway` | `education-pathway` | `health-pathway` |
+| Recipe pages (practice katas) | `src/content/kata-recipes/<prefix>-00N-*.yaml` | UX-001 to UX-009 | BIM-001 to BIM-008 | AGR-001 to AGR-003 | SCI-001 to SCI-003 | FIN-001 to FIN-003 | MFG-001 to MFG-003 | MED-001 to MED-003 | EDU-001 to EDU-003 | HLT-001 to HLT-003 |
+| Randori | `src/content/kata-recipes/<prefix>-r01-randori.yaml` | UX-R01 | BIM-R01, and the specialist BIM-R02 | AGR-R01 | SCI-R01 | FIN-R01 | MFG-R01 | MED-R01 | EDU-R01 | HLT-R01 |
+| Inputs, script, outputs, README | `public/examples/<field>-pathway/` | Penpot file and tokens | buildingSMART IFC, IDS, coordination brief, review gates | NOAA weather record | NASA GISTEMP record | Regulation Z, 12 CFR 1026.22 (eCFR) | NIST/SEMATECH e-Handbook lithography record (LITHOGRA.DAT rows) | NASA Artemis II launch recording (WAV); ITU-R BS.1770-5 and EBU Tech 3341 test signals | Wikibooks textbook page (HTML); W3C ACT test cases; IANA Language Subtag Registry | CDC BMI-for-age data files (2000 and 2022 extended growth charts); fictional children |
+| CI check | `.gitlab-ci.yml` | `ux_pathway`, `test`, `e2e` | `bim_pathway` | `agriculture_pathway` | `science_pathway` | `finance_pathway` | `manufacturing_pathway` | `media_pathway` | `education_pathway` | `health_pathway` |
+| Verified / not verified | pack record, rendered by `src/components/SectorPackEvidence.astro` | section 05 | section 06 | section 06 | section 06 | section 05 | section 05 | section 05 | section 05 | section 05 |
+| Armory | `armoryStackRecipes` (and entries) in `src/data/armory.ts` | `penpot-and-browser` | `ifcopenshell-and-python` | `python-standard-library` | `python-standard-library` | `python-standard-library` | `python-standard-library` | `python-standard-library` | `python-standard-library` | `python-standard-library` |
+| Gallery entry | `src/data/gallery.ts` | `pocket-invoice-penpot-file` | `bim-pathway-edited-model` | `agriculture-irrigation-estimate` | `science-trend-with-uncertainty` | `finance-apr-and-schedule` | `manufacturing-control-limits-and-variation` | `media-loudness-and-normalisation` | `education-accessibility-report` | `health-bmi-for-age-scores` |
+| Directory card | `src/data/kata-directory.ts` | yes | yes | yes | yes | yes | yes | yes | yes | yes |
+| External resources | `src/content/resources/<publisher>/*.yaml` | Penpot docs | buildingSMART, IfcOpenShell | NOAA, FAO | NASA, BIPM (GUM), NIST | CFPB (Regulation Z) | NIST (e-Handbook) | ITU (BS.1770), EBU (R 128, Tech 3341), NASA | W3C (WCAG 2.2, ACT rules), IANA, Wikibooks | CDC (growth chart data files, BMI categories) |
+| Tests | `tests/<field>-pathway.test.ts`, `e2e/<field>-pathway.spec.ts` | yes | yes | yes | yes | yes | yes | yes | yes | yes |
 
 ## The pack record
 

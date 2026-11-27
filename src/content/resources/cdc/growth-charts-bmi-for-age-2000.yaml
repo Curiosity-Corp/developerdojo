@@ -1,0 +1,9 @@
+title: "CDC 2000 growth charts: BMI-for-age data file (bmiagerev.csv)"
+provider: "CDC"
+url: "https://www.cdc.gov/growthcharts/data/zscore/bmiagerev.csv"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [data-analytics]
+summary: "The BMI-for-age reference of the CDC 2000 growth charts as a CSV file: L, M and S, and the 3rd to 97th percentiles, by sex and month of age from 2 to 20 years. The 2022 extended charts keep its values up to the 95th percentile. A US government work in the public domain."
+verifiedOn: 2026-11-26

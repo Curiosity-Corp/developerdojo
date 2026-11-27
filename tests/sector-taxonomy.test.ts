@@ -38,7 +38,9 @@ describe('sector taxonomy plan', () => {
     expect(coverage.get('industrial-hardware')?.pathways.map((pathway) => pathway.packId)).toEqual(['manufacturing']);
     expect(coverage.get('spatial-media')?.pathways.map((pathway) => pathway.packId)).toEqual(['media']);
     expect(coverage.get('learning-communications')?.pathways.map((pathway) => pathway.packId)).toEqual(['education']);
+    expect(coverage.get('health-life-sciences')?.pathways.map((pathway) => pathway.packId)).toEqual(['health']);
     expect(coverage.get('robotics')?.coverage).toBe('track');
+    expect(coverage.get('health-life-sciences')?.coverage).toBe('sector-pathway');
     expect(coverage.get('spatial-media')?.coverage).toBe('sector-pathway');
     expect(coverage.get('learning-communications')?.coverage).toBe('sector-pathway');
     const delivered = [...coverage.values()].filter((row) => row.coverage === 'sector-pathway').length;
