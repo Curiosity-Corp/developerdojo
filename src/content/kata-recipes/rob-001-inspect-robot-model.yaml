@@ -1,0 +1,194 @@
+# Robotics pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/robotics-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job robotics_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Robotics pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a robotics safety engineer, controls engineer or robot integrator yet.
+summary: "Open the UR5’s kinematics file from its open ROS 2 description, say what each of its 36 numbers is in metres or radians, find which six of them are the manufacturer’s DH lengths and which entries are numerical residue, and derive the screw axes and home pose, before you compute any pose."
+metadata:
+  id: ROB-001
+  title: "Inspect a robot model: what the UR5 description holds, in which units and conventions"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - inspect-robot-model
+  artifactTypes:
+    - robot-model-inspection
+  domainIds:
+    - robotics
+  capabilityIds:
+    - inspect-model
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+    - licensed-sample-only
+  externalResources:
+    - universal-robots/ur5-ros2-description-kinematics
+    - universal-robots/dh-parameters
+    - modern-robotics/code-library
+    - ros/rep-103-standard-units-and-coordinate-conventions
+  crossFieldTransfers:
+    - manufacturing
+    - aerospace
+  standards:
+    - name: REP 103, Standard Units of Measure and Coordinate Conventions
+      version: "Status Active; created 2010-10-07, post-history 2014-12-31; read 2026-11-27"
+      applicability: "Units (metres, radians), right-handed frames and fixed-axis roll, pitch and yaw, as the UR5 file uses them without stating them"
+      reviewScope: "What the listed checks test: that the learner reads every entry with the unit and rotation order REP 103 sets. No claim about any ROS package or real robot."
+      sourceResourceId: ros/rep-103-standard-units-and-coordinate-conventions
+    - name: Universal Robots ROS 2 Description, UR5 default kinematics
+      version: "config/ur5/default_kinematics.yaml at commit 0eb1a861…070c (SHA-256 4559bd02…e9c3ac), downloaded 2026-11-27"
+      applicability: "The six joint origins and the calibration hash of the nominal UR5 model, read for practice"
+      reviewScope: "What the listed checks test: that the file is read strictly, its DH lengths equal the manufacturer’s table and its screw axes and home pose match the CI output. No claim about any calibrated arm."
+      sourceResourceId: universal-robots/ur5-ros2-description-kinematics
+  verificationEvidence:
+    - description: The joint origins, units, conventions, the six DH lengths with their file entries, the residue entries, the screw axes and the home pose, as the CI output does
+      method: automated-check
+      standards:
+        - REP 103, Standard Units of Measure and Coordinate Conventions
+        - Universal Robots ROS 2 Description, UR5 default kinematics
+    - description: The learner states which file entry is d5 and why its sign is reversed
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Names the unit and meaning of every entry of the file and the order in which roll, pitch and yaw rotate
+    - stage: adapt
+      criterion: Maps the six DH lengths of the manufacturer’s table to the file’s entries, including d5’s sign, and explains the residue entries
+    - stage: demonstrate
+      criterion: Derives the six screw axes and the home pose from the file and explains to a reviewer what the file does not contain
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: the open UR5 description checked against the manufacturer’s DH table, the code checked against every value printed in the Modern Robotics code library’s worked examples, then poses by three methods and joint solutions checked by a fourth, all computed by the site’s CI. Simulation only, not a safety assessment."
+  href: /katas/robotics-pathway
+  provenance:
+    creator: Universal Robots ROS 2 Description maintainers (UR5 kinematics file); Developer Dojo maintainers (configurations, targets, script and results)
+    source: config/ur5/default_kinematics.yaml of the Universal Robots ROS 2 Description (BSD-3-Clause, commit 0eb1a861…070c, downloaded 2026-11-27); worked examples of the Modern Robotics code library and Universal Robots’ UR5 DH table, cited; results from /examples/robotics-pathway/tools/robotics_pathway.py
+    license: UR5 kinematics file BSD-3-Clause, served unchanged with its licence; configurations, targets, script and outputs MIT
+    date: "2026-11-27"
+brief:
+  goal: A written reading of the UR5 description that a robotics engineer would accept, entry by entry, before any pose is computed from it.
+  audience: Learners who finished the shared foundations and want to read a robot model rather than trust a viewer.
+  inputs:
+    - name: The UR5 kinematics file and its licence
+      source: /examples/robotics-pathway/inputs/ (unchanged)
+      terms: BSD-3-Clause
+    - name: Universal Robots’ UR5 DH table
+      source: universal-robots/dh-parameters (cited; the script holds its numbers)
+      terms: Manufacturer’s page, cited and linked, not copied
+  doneWhen:
+    - Every entry of the file has a unit and a meaning
+    - Your DH mapping and screw axes match /examples/robotics-pathway/generated/inspection.json
+    - You can say what the file does not hold (limits, tool, base turn, masses)
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any text editor or spreadsheet
+      version:
+        unavailable: Not fixed; anything that opens YAML, CSV and JSON as text works
+      permissions: Opens a copy of the files
+      cost:
+        unavailable: Depends on the editor you use; free ones work
+    - part: data
+      name: UR5 default kinematics of the Universal Robots ROS 2 Description
+      version: "Commit 0eb1a861…070c, SHA-256 4559bd02…e9c3ac, downloaded 2026-11-27"
+      permissions: Read a copy; keep its BSD-3-Clause licence with it
+      cost: Free (BSD-3-Clause)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against the published worked examples
+      permissions: Reads what you paste in; paste only the open UR5 file and the Dojo’s configurations, never a real cell’s layout, a customer’s program or controller credentials
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: "Kinematics on six joints needs only small matrices, so the standard library (math) is enough: nothing to install, it runs offline, and it gives the same numbers on every machine. CI runs the identical script on every pipeline."
+  alternatives:
+    - name: The Modern Robotics library itself, with NumPy, or a ROS 2 stack with the URDF and tf2
+      tradeoff: "Faster to write and closer to production, but the learner then checks a library against itself; writing the few functions here and reproducing the library’s printed examples is the point. Not run for this pathway, so no numbers from them are compared here."
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains URDF joint origins, the DH convention and screw axes, and drafts a strict reader for the file.
+      reviewGate: You keep its reading only where it matches the CI output entry by entry.
+    - role: Learner as reviewer
+      responsibility: Works out d5 and the home pose by hand from the file and compares them with the CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A reading stays only if it matches the CI output.
+setup:
+  steps:
+    - Make a folder and copy /examples/robotics-pathway/ into it, keeping inputs/, scenario/ and tools/.
+    - Install Python 3.12 or later; nothing else.
+    - Open REP 103 and the UR5 DH table beside the file.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/robotics_pathway.py . out"
+    expected: "188 of 188 worked-example values pass; 6 of 6 DH lengths equal; home pose x -0.817250, y -0.191450, z -0.005491 m"
+    result: passed
+    evidence: /examples/robotics-pathway/generated/inspection.json, recomputed by CI on every pipeline
+    date: "2026-11-27"
+prompts:
+  - id: read-the-model
+    title: Read the model before you use it
+    purpose: Make the units and conventions explicit before any number is computed.
+    text: |-
+      Here is a robot description file: <paste inputs/ur5-default-kinematics.yaml>. Each entry is a URDF joint origin.
+      For every entry, tell me its unit and what it means, and in which order roll, pitch and yaw rotate. Then tell me which entries are the d and a lengths of a standard DH table, and why one might carry the opposite sign.
+      If you are not sure, say so.
+exercise:
+  title: Universal Robots ROS 2 Description, UR5 default kinematics
+  resourceId: universal-robots/ur5-ros2-description-kinematics
+  terms: BSD-3-Clause; the file is served unchanged with its licence, and nothing here implies endorsement by Universal Robots.
+execution:
+  steps:
+    - actor: Learner
+      action: Read every entry with its unit and convention, writing them down.
+    - actor: Explaining assistant
+      action: Drafts the DH mapping and a strict reader.
+      handoff: You compare them with inspection.json.
+    - actor: Learner
+      action: Derive the screw axes and the home pose and compare with the CI output.
+verification:
+  checks:
+    - action: Read the file and compare it with the DH table with the pathway script
+      expected: "6 joint origins; d1 shoulder.z, a2 forearm.x, a3 wrist_1.x, d4 wrist_1.z, d5 minus wrist_2.y, d6 wrist_3.y, all equal; 2 residue entries under a nanometre; reach bound 1.10335 m"
+      result: passed
+      evidence: /examples/robotics-pathway/generated/inspection.json, recomputed by CI on every pipeline
+      date: "2026-11-27"
+    - action: Your own reading matches
+      expected: The same mapping, screw axes and home pose
+      result: not-run
+  failures:
+    - observed: wrist_2.z (-1.94e-11) is read as an offset of the wrist
+      correction: It is residue of converting the DH table into joint origins, smaller than a nanometre; the DH table has no such length.
+    - observed: The home pose is taken as the arm pointing up
+      correction: At all zeros the file’s arm lies along the base x axis; pointing up is the upright configuration, with joints 2 and 4 at -pi/2.
+adaptation:
+  variations:
+    - change: Read the UR10 or UR3 file of the same repository
+      effect: The same reader works if the shape is the same; the DH mapping must be checked again against that arm’s table.
+randori:
+  challenge: See the robotics Randori recipe, ROB-R01.
+  constraints:
+    - Every entry is read with its REP 103 unit
+  evaluation: The reading matches the CI output.
+maintenance:
+  cadence: Every six months, or when the Universal Robots ROS 2 Description changes the UR5 kinematics file or the Modern Robotics library changes a worked example
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - Simulation only. No real robot moved, and nothing here is a risk assessment, a safety function or a check against a robot safety standard. No robotics safety engineer, controls engineer or integrator has reviewed it.
+    - Never send commands from this kata to a real robot, and never paste a real cell’s layout, program or controller credentials into an assistant.

@@ -1,0 +1,26 @@
+{
+  "script": "tools/robotics_pathway.py",
+  "python": "3.12",
+  "inputs": {
+    "inputs/ur-description-LICENSE.txt": "143077f9f6a8de5a99f78c2c2472801fb53cf240277ef661642f079b9acdfff8",
+    "inputs/ur5-default-kinematics.yaml": "4559bd027c93ce7c0e2a343d6f71f742fe4a67ea9d7ef67535189f4efbe9c3ac",
+    "scenario/configurations.csv": "8889288dd14fdeb1e22b912d3703e9d6080a5ddc038f23358eebf1ed29efb31e",
+    "scenario/targets.csv": "6315a3d82c01d18de30271d07968de7a6b6e694ecbe30eda35feee8e77a9c17d"
+  },
+  "method": {
+    "referenceChecks": "Modern Robotics code library, docstring worked examples of MatrixExp3, MatrixLog3, MatrixExp6, MatrixLog6, TransInv, Adjoint, FKinBody, FKinSpace, JacobianBody, JacobianSpace, IKinBody and IKinSpace; Universal Robots' UR5 DH table",
+    "forwardKinematics": "URDF joint chain from the file; standard DH (Rz(theta) Tz(d) Tx(a) Rx(alpha)); product of exponentials T = e^[S1]theta1 ... e^[S6]theta6 M",
+    "inverseKinematics": "Newton-Raphson: theta <- theta + pinv(Js(theta)) Vs, with pinv = (J^T J)^-1 J^T; at most 20 steps; tolerances 0.001 rad and 0.1 mm",
+    "units": "metres and radians (REP 103)"
+  },
+  "outputs": [
+    "ik.json",
+    "inspection.json",
+    "manifest.json",
+    "poses.csv",
+    "poses.json",
+    "randori/cards.json",
+    "reference-checks.json",
+    "summary.md"
+  ]
+}

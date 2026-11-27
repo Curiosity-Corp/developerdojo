@@ -145,6 +145,9 @@ const REFLOW_ROUTES = [
   // The health pathway and its widest recipe page (#93).
   '/katas/health-pathway/',
   '/katas/hlt-002-bmi-for-age-percentile/',
+  // The robotics pathway and its widest recipe page (#93).
+  '/katas/robotics-pathway/',
+  '/katas/rob-003-inverse-kinematics/',
   // Optional Ignite Curiosity journeys (#83).
   '/journeys/',
   '/journeys/robotics/',

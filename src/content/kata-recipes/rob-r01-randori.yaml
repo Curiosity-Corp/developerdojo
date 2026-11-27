@@ -1,0 +1,190 @@
+# Robotics pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/robotics-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job robotics_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Robotics pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a robotics safety engineer, controls engineer or robot integrator yet.
+summary: "Start from the ROB-002 reach pose; a partner reveals one changed assumption after you begin (degrees for radians, a rounded model, a copied sign, or the wrist turned to its singularity). Predict what moves and by how much, then recompute and explain the difference."
+metadata:
+  id: ROB-R01
+  title: "Robotics Randori: an unseen change of unit, model or configuration"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - compute-forward-kinematics
+  artifactTypes:
+    - pose-table
+  domainIds:
+    - robotics
+  capabilityIds:
+    - inspect-model
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+    - licensed-sample-only
+  externalResources:
+    - universal-robots/ur5-ros2-description-kinematics
+    - universal-robots/dh-parameters
+    - modern-robotics/code-library
+    - ros/rep-103-standard-units-and-coordinate-conventions
+  crossFieldTransfers:
+    - manufacturing
+    - aerospace
+  standards:
+    - name: REP 103, Standard Units of Measure and Coordinate Conventions
+      version: "Status Active; created 2010-10-07, post-history 2014-12-31; read 2026-11-27"
+      applicability: "The units and conventions that cards A and C break, recomputed under each change"
+      reviewScope: "What the listed checks test: that each card’s result matches the CI output. No claim that any card describes a real robot."
+      sourceResourceId: ros/rep-103-standard-units-and-coordinate-conventions
+    - name: Modern Robotics code library (Python)
+      version: "packages/Python/modern_robotics/core.py at commit 36f0f1b4…89f2, read 2026-11-27"
+      applicability: "The forward kinematics and Jacobian used to recompute each card"
+      reviewScope: "What the listed checks test: that each card’s result matches the CI output."
+      sourceResourceId: modern-robotics/code-library
+  verificationEvidence:
+    - description: For the card drawn, a written prediction, the recomputed pose change or determinant, and an explanation of any gap
+      method: automated-check
+    - description: A Sensei or partner checks that the prediction was written before the recompute and that the explanation names the assumption that moved the result
+      method: sensei-review
+  beltCriteria:
+    - stage: practice
+      criterion: Handles card B and explains why rounding to the millimetre moves the last link by less than a millimetre here
+    - stage: adapt
+      criterion: Handles card A or C and predicts the size of the error to the right order of magnitude
+    - stage: demonstrate
+      criterion: Handles card D, explains what a zero determinant means for motion and for the solver, and writes a fifth card for a partner
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: the open UR5 description checked against the manufacturer’s DH table, the code checked against every value printed in the Modern Robotics code library’s worked examples, then poses by three methods and joint solutions checked by a fourth, all computed by the site’s CI. Simulation only, not a safety assessment."
+  href: /katas/robotics-pathway
+  provenance:
+    creator: Universal Robots ROS 2 Description maintainers (UR5 kinematics file); Developer Dojo maintainers (configurations, targets, script and results)
+    source: config/ur5/default_kinematics.yaml of the Universal Robots ROS 2 Description (BSD-3-Clause, commit 0eb1a861…070c, downloaded 2026-11-27); worked examples of the Modern Robotics code library and Universal Robots’ UR5 DH table, cited; results from /examples/robotics-pathway/tools/robotics_pathway.py
+    license: UR5 kinematics file BSD-3-Clause, served unchanged with its licence; configurations, targets, script and outputs MIT
+    date: "2026-11-27"
+brief:
+  goal: Meet one changed assumption you did not see in advance, with a prediction first and a recompute after.
+  audience: Learners who finished ROB-003, working with a partner or Sensei.
+  inputs:
+    - name: Your ROB-002 poses
+      source: Your own output, or /examples/robotics-pathway/generated/poses.json
+      terms: Dojo output, MIT licence
+    - name: The Randori cards
+      source: The table on /katas/robotics-pathway (the partner keeps it; the learner sees only the drawn card)
+      terms: Dojo content, MIT licence
+  doneWhen:
+    - Your prediction (what moves, and roughly how far or how much) is written before you recompute
+    - Your recomputed result matches /examples/robotics-pathway/generated/randori/cards.json for the card
+    - You name the assumption the card changed and explain any gap between prediction and result
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any text editor or spreadsheet
+      version:
+        unavailable: Not fixed; anything that opens YAML, CSV and JSON as text works
+      permissions: Opens a copy of the files
+      cost:
+        unavailable: Depends on the editor you use; free ones work
+    - part: data
+      name: UR5 default kinematics of the Universal Robots ROS 2 Description
+      version: "Commit 0eb1a861…070c, SHA-256 4559bd02…e9c3ac, downloaded 2026-11-27"
+      permissions: Read a copy; keep its BSD-3-Clause licence with it
+      cost: Free (BSD-3-Clause)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against the published worked examples
+      permissions: Reads what you paste in; paste only the open UR5 file and the Dojo’s configurations, never a real cell’s layout, a customer’s program or controller credentials
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: "Kinematics on six joints needs only small matrices, so the standard library (math) is enough: nothing to install, it runs offline, and it gives the same numbers on every machine. CI runs the identical script on every pipeline."
+  alternatives:
+    - name: The Modern Robotics library itself, with NumPy, or a ROS 2 stack with the URDF and tf2
+      tradeoff: "Faster to write and closer to production, but the learner then checks a library against itself; writing the few functions here and reproducing the library’s printed examples is the point. Not run for this pathway, so no numbers from them are compared here."
+      tested: false
+agents:
+  roles:
+    - role: Partner or Sensei
+      responsibility: Draws one card after the learner starts and keeps the others hidden.
+      reviewGate: Asks for the prediction, the recompute and the explanation.
+    - role: Learner
+      responsibility: Reads the card, predicts, changes only the one assumption and recomputes.
+      dependsOn:
+        - Partner or Sensei
+      reviewGate: The prediction is written down before the recompute runs.
+setup:
+  steps:
+    - Use the folder and Python from ROB-003.
+    - The partner opens the Randori table on /katas/robotics-pathway; the learner does not.
+  auth: None.
+  smokeTest:
+    action: Recompute all four cards with the pathway script
+    expected: "A (degrees read as radians): the last link moves 807.64 mm and turns 151.911 degrees; B (rounded model): 0.29 mm; C (d5 sign copied): 189.30 mm; D (wrist straight): det Js -0.097153 to 0"
+    result: passed
+    evidence: /examples/robotics-pathway/generated/randori/cards.json, recomputed by CI on every pipeline
+    date: "2026-11-27"
+prompts:
+  - id: predict-first
+    title: Predict before you compute
+    purpose: Make the learner commit to a reading of the model before the code answers.
+    text: |-
+      A six-joint arm’s end-effector pose, computed from its open description, is <paste the reach row from poses.json>. One assumption changes: <paste the card>.
+      Do not compute anything yet. Tell me what moves, roughly how far or how much, and why. Then I will recompute.
+exercise:
+  title: Modern Robotics code library, FKinSpace and JacobianSpace worked examples
+  resourceId: modern-robotics/code-library
+  terms: MIT licence; its printed numbers are used as checks, and its code is not copied.
+execution:
+  steps:
+    - actor: Partner or Sensei
+      action: Waits until the learner has started, then reveals one card.
+      handoff: The learner writes a prediction.
+    - actor: Learner
+      action: Changes only what the card says, recomputes and compares with the prediction.
+    - actor: Partner or Sensei
+      action: Reviews the prediction, the result and the explanation.
+verification:
+  checks:
+    - action: Recompute the four cards with the pathway script
+      expected: "A: 807.64 mm and 151.911 degrees; B: 0.29 mm, no turn; C: 189.30 mm, no turn; D: det Js 0"
+      result: passed
+      evidence: /examples/robotics-pathway/generated/randori/cards.json
+      date: "2026-11-27"
+    - action: A learner meets a drawn card with a prediction written first
+      expected: Prediction, recompute and explanation
+      result: not-run
+  failures:
+    - observed: Card C is predicted to turn the last link
+      correction: The sign of d5 shifts the wrist sideways along a joint axis; it moves the last link 189.30 mm but leaves its orientation unchanged.
+adaptation:
+  variations:
+    - change: The partner draws two cards
+      effect: Apply one at a time and recompute after each, so you know which change moved what.
+randori:
+  challenge: Meet one changed assumption you have not seen, revealed after you start, on the ROB-002 reach pose.
+  constraints:
+    - Write your prediction before you compute
+    - Change only what the card says
+    - Name the assumption that moved the result
+  evaluation: The recompute matches the CI result for the card, and the partner agrees the explanation names what moved.
+maintenance:
+  cadence: Every six months, or when the Universal Robots ROS 2 Description changes the UR5 kinematics file or the Modern Robotics library changes a worked example
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - Simulation only. No real robot moved, and nothing here is a risk assessment, a safety function or a check against a robot safety standard. No robotics safety engineer, controls engineer or integrator has reviewed it.
+    - Never send commands from this kata to a real robot, and never paste a real cell’s layout, program or controller credentials into an assistant.
+    - The cards are practice changes in simulation, not real robot faults.

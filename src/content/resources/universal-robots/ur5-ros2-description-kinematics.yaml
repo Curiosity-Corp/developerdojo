@@ -1,0 +1,9 @@
+title: "Universal Robots ROS 2 Description: UR5 default kinematics (config/ur5/default_kinematics.yaml)"
+provider: "Universal Robots"
+url: "https://github.com/UniversalRobots/Universal_Robots_ROS2_Description/blob/0eb1a861f7772fceb38510d90fa2f98ec668070c/config/ur5/default_kinematics.yaml"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [robot-software]
+summary: "The open robot description ROS 2 uses for the UR5 arm: the origin of each of its six joints as a translation in metres and a roll, pitch and yaw in radians, from which the URDF builds the arm's kinematic chain. Published under the BSD-3-Clause licence; the robotics pathway serves this file unchanged at the commit linked here."
+verifiedOn: 2026-11-27

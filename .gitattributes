@@ -3,3 +3,4 @@ public/examples/manufacturing-pathway/inputs/lithogra-data-rows.dat -text
 public/examples/media-pathway/inputs/*.wav binary
 public/examples/education-pathway/inputs/** -text
 public/examples/health-pathway/inputs/** -text
+public/examples/robotics-pathway/inputs/** -text

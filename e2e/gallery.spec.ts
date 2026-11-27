@@ -4,7 +4,7 @@ import { expect, test, type Page } from '@playwright/test';
 // The Gallery (#87). Runs in both Playwright projects: desktop (1440 px) and mobile (Pixel 7, 390 px).
 
 const GALLERY = '/gallery';
-const ENTRIES = ['fnd-001-stack-comparison', 'pocket-garden-prototype', 'ifc-wall-quantity-trace', 'bim-pathway-edited-model', 'reconstructed-3d-office', 'pocket-invoice-penpot-file', 'agriculture-irrigation-estimate', 'science-trend-with-uncertainty', 'finance-apr-and-schedule', 'manufacturing-control-limits-and-variation', 'media-loudness-and-normalisation', 'education-accessibility-report', 'health-bmi-for-age-scores'];
+const ENTRIES = ['fnd-001-stack-comparison', 'pocket-garden-prototype', 'ifc-wall-quantity-trace', 'bim-pathway-edited-model', 'reconstructed-3d-office', 'pocket-invoice-penpot-file', 'agriculture-irrigation-estimate', 'science-trend-with-uncertainty', 'finance-apr-and-schedule', 'manufacturing-control-limits-and-variation', 'media-loudness-and-normalisation', 'education-accessibility-report', 'health-bmi-for-age-scores', 'robotics-ur5-poses-and-joint-solutions'];
 
 async function setTheme(page: Page, theme: 'light' | 'dark'): Promise<void> {
   await page.emulateMedia({ colorScheme: theme });
@@ -34,7 +34,7 @@ test('native artifacts, rendered previews and planned outcomes are told apart', 
   await expect(card(page, 'reconstructed-3d-office').locator('[data-form="preview"]')).toHaveText('Rendered preview');
   await expect(card(page, 'reconstructed-3d-office').locator('[data-check="source-check"]')).toContainText('Source and terms checked');
   await expect(card(page, 'reconstructed-3d-office')).toContainText('The Dojo did not rebuild the scene.');
-  const planned = page.locator('[data-field-group="robotics"]');
+  const planned = page.locator('[data-field-group="aerospace"]');
   await expect(planned).toHaveAttribute('data-planned', 'true');
   await expect(planned).toContainText('No verified example in this field yet.');
   await expect(page.locator('[data-outcome-group="compare-instructions"]')).toContainText('No verified example yet.');
@@ -93,7 +93,7 @@ test('outcome and field filters compose and never hide the shared foundation', a
 
   await field.selectOption('architecture-bim');
   expect(await visibleIds(page)).toEqual(['fnd-001-stack-comparison', 'ifc-wall-quantity-trace', 'bim-pathway-edited-model']);
-  await expect(status).toHaveText('Showing 3 of 13 artifacts.');
+  await expect(status).toHaveText('Showing 3 of 14 artifacts.');
   await expect(empty).toBeHidden();
   await expect(page).toHaveURL(/field=architecture-bim/);
 
@@ -109,14 +109,14 @@ test('outcome and field filters compose and never hide the shared foundation', a
 
   // A field with no verified example: an honest empty state, the foundation still shown.
   await outcome.selectOption('');
-  await field.selectOption('robotics');
+  await field.selectOption('aerospace');
   expect(await visibleIds(page)).toEqual(['fnd-001-stack-comparison']);
   await expect(empty).toBeVisible();
-  await expect(empty).toContainText('No verified example in Robotics and autonomy yet. The shared foundation still applies.');
+  await expect(empty).toContainText('No verified example in Aerospace and transport yet. The shared foundation still applies.');
   await expect(page.locator('[data-shared-foundations]')).toBeVisible();
 
   await page.getByRole('button', { name: 'Show everything' }).click();
-  await expect(status).toHaveText('Showing all 13 artifacts.');
+  await expect(status).toHaveText('Showing all 14 artifacts.');
   expect(await visibleIds(page)).toEqual(ENTRIES);
 });
 

@@ -43,7 +43,7 @@ nightly schedule (02:00 UTC), which re-runs `master` so that date-filtered event
   published-name gate (`scripts/check-published-names.mjs`, #129), and fingerprints the Pagefind entry so later jobs
   can tell whether the index survived artifact transfer. `e2e` covers
   the routes, the nav, the 390 px reflow and axe WCAG 2.1 AA (zero serious/critical) in light and dark.
-- **Blocking pathway jobs:** `bim_pathway`, `ux_pathway`, `agriculture_pathway`, `science_pathway`, `finance_pathway`, `manufacturing_pathway`, `media_pathway`, `education_pathway` and `health_pathway` rerun each
+- **Blocking pathway jobs:** `bim_pathway`, `ux_pathway`, `agriculture_pathway`, `science_pathway`, `finance_pathway`, `manufacturing_pathway`, `media_pathway`, `education_pathway`, `health_pathway` and `robotics_pathway` rerun each
   pathway's script under `public/examples/<pathway>/tools/` and fail if any output differs from its committed
   `generated/` folder, so the results the kata pages show are what CI computed.
 - **`catalog_lifecycle`** (MRs, `master` and the weekly link-check schedule): writes the catalog refresh list from

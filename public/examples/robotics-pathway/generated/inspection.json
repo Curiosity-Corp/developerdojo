@@ -1,0 +1,245 @@
+{
+  "source": "Universal Robots ROS 2 Description, config/ur5/default_kinematics.yaml (BSD-3-Clause), unchanged",
+  "calibrationHash": "calib_209549117540498681",
+  "units": "Lengths in metres and angles in radians, the units REP 103 sets for ROS; the file states no units of its own.",
+  "convention": "Each entry is a URDF joint origin: x, y, z translate, then roll, pitch, yaw rotate about the fixed x, y and z axes (R = Rz(yaw) Ry(pitch) Rx(roll)); each joint then turns about its own z axis. Frames are right-handed (REP 103).",
+  "joints": [
+    {
+      "joint": "shoulder_pan",
+      "originOf": "shoulder",
+      "x": "0.0",
+      "y": "0.0",
+      "z": "0.089159",
+      "roll": "0.0",
+      "pitch": "0.0",
+      "yaw": "0.0"
+    },
+    {
+      "joint": "shoulder_lift",
+      "originOf": "upper_arm",
+      "x": "0.0",
+      "y": "0.0",
+      "z": "0.0",
+      "roll": "1.570796327",
+      "pitch": "0.0",
+      "yaw": "0.0"
+    },
+    {
+      "joint": "elbow",
+      "originOf": "forearm",
+      "x": "-0.425",
+      "y": "0.0",
+      "z": "0.0",
+      "roll": "0.0",
+      "pitch": "0.0",
+      "yaw": "0.0"
+    },
+    {
+      "joint": "wrist_1",
+      "originOf": "wrist_1",
+      "x": "-0.39225",
+      "y": "0.0",
+      "z": "0.10915",
+      "roll": "0.0",
+      "pitch": "0.0",
+      "yaw": "0.0"
+    },
+    {
+      "joint": "wrist_2",
+      "originOf": "wrist_2",
+      "x": "0.0",
+      "y": "-0.09465",
+      "z": "-1.941303950897609e-11",
+      "roll": "1.570796327",
+      "pitch": "0.0",
+      "yaw": "0.0"
+    },
+    {
+      "joint": "wrist_3",
+      "originOf": "wrist_3",
+      "x": "0.0",
+      "y": "0.0823",
+      "z": "-1.688001216681175e-11",
+      "roll": "1.570796326589793",
+      "pitch": "3.141592653589793",
+      "yaw": "3.141592653589793"
+    }
+  ],
+  "dhTable": {
+    "source": "Universal Robots, DH parameters for calculations of kinematics and dynamics, UR5 (read 2026-11-27)",
+    "a_m": [
+      0.0,
+      -0.425,
+      -0.39225,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "d_m": [
+      0.089159,
+      0.0,
+      0.0,
+      0.10915,
+      0.09465,
+      0.0823
+    ],
+    "alpha": [
+      "pi/2",
+      "0",
+      "0",
+      "pi/2",
+      "-pi/2",
+      "0"
+    ],
+    "fileEntries": [
+      {
+        "parameter": "d1",
+        "publishedValue_m": 0.089159,
+        "fileEntry": "shoulder.z",
+        "sign": "+",
+        "equal": true
+      },
+      {
+        "parameter": "a2",
+        "publishedValue_m": -0.425,
+        "fileEntry": "forearm.x",
+        "sign": "+",
+        "equal": true
+      },
+      {
+        "parameter": "a3",
+        "publishedValue_m": -0.39225,
+        "fileEntry": "wrist_1.x",
+        "sign": "+",
+        "equal": true
+      },
+      {
+        "parameter": "d4",
+        "publishedValue_m": 0.10915,
+        "fileEntry": "wrist_1.z",
+        "sign": "+",
+        "equal": true
+      },
+      {
+        "parameter": "d5",
+        "publishedValue_m": 0.09465,
+        "fileEntry": "wrist_2.y",
+        "sign": "-",
+        "equal": true
+      },
+      {
+        "parameter": "d6",
+        "publishedValue_m": 0.0823,
+        "fileEntry": "wrist_3.y",
+        "sign": "+",
+        "equal": true
+      }
+    ]
+  },
+  "numericalResidue": [
+    {
+      "entry": "wrist_2.z",
+      "value": "-1.941303950897609e-11"
+    },
+    {
+      "entry": "wrist_3.z",
+      "value": "-1.688001216681175e-11"
+    }
+  ],
+  "numericalResidueNote": "Entries such as wrist_2.z are not zero but smaller than a nanometre: residue of converting the DH table into joint origins, not a physical offset.",
+  "homePose": {
+    "position_m": [
+      "-0.817250",
+      "-0.191450",
+      "-0.005491"
+    ],
+    "rpy_rad": [
+      "1.570796",
+      "0.000000",
+      "0.000000"
+    ]
+  },
+  "screwAxes": [
+    {
+      "joint": "shoulder_pan",
+      "w": [
+        "0.000000",
+        "0.000000",
+        "1.000000"
+      ],
+      "v": [
+        "0.000000",
+        "0.000000",
+        "0.000000"
+      ]
+    },
+    {
+      "joint": "shoulder_lift",
+      "w": [
+        "0.000000",
+        "-1.000000",
+        "0.000000"
+      ],
+      "v": [
+        "0.089159",
+        "0.000000",
+        "0.000000"
+      ]
+    },
+    {
+      "joint": "elbow",
+      "w": [
+        "0.000000",
+        "-1.000000",
+        "0.000000"
+      ],
+      "v": [
+        "0.089159",
+        "0.000000",
+        "0.425000"
+      ]
+    },
+    {
+      "joint": "wrist_1",
+      "w": [
+        "0.000000",
+        "-1.000000",
+        "0.000000"
+      ],
+      "v": [
+        "0.089159",
+        "0.000000",
+        "0.817250"
+      ]
+    },
+    {
+      "joint": "wrist_2",
+      "w": [
+        "0.000000",
+        "0.000000",
+        "-1.000000"
+      ],
+      "v": [
+        "0.109150",
+        "-0.817250",
+        "0.000000"
+      ]
+    },
+    {
+      "joint": "wrist_3",
+      "w": [
+        "0.000000",
+        "-1.000000",
+        "0.000000"
+      ],
+      "v": [
+        "-0.005491",
+        "0.000000",
+        "0.817250"
+      ]
+    }
+  ],
+  "reachBound_m": "1.10335",
+  "reachBoundNote": "The sum of |a2|, |a3|, d4, d5 and d6: no tool point can be farther than this from the shoulder joint's origin (triangle inequality). It is a bound, not the arm's working range.",
+  "notInTheFile": "The URDF's base_link to base_link_inertia turn of pi about z, the flange and tool0 frames, joint limits, masses and any tool. Poses here are of wrist_3_link in base_link_inertia, which is DH frame 6 in DH frame 0."
+}
