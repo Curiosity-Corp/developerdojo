@@ -1111,6 +1111,33 @@
       "state": "verified"
     },
     {
+      "id": "penpot",
+      "surface": "armory",
+      "title": "Penpot",
+      "href": "/armory/registry#penpot",
+      "area": "integration-compatibility",
+      "maintainerRole": "Catalog maintainer",
+      "provenance": [
+        "Penpot (Kaleidos) (official)",
+        "Export and import Penpot files",
+        "The .penpot file format",
+        "Exporting layers",
+        "Prototyping",
+        "Design tokens",
+        "MCP server",
+        "Self-hosting with Docker",
+        "Source repository",
+        "Release 2.19.5",
+        "Licence (MPL-2.0)",
+        "Plans and pricing",
+        "@penpot/library 1.3.0, the official library for writing .penpot files"
+      ],
+      "checked": "Penpot documentation, release, licence and pricing pages, npm metadata and the smoke test.",
+      "verifiedOn": "2026-11-27",
+      "dueOn": "2027-02-25",
+      "state": "verified"
+    },
+    {
       "id": "gemini-cli",
       "surface": "armory",
       "title": "Gemini CLI",

@@ -5,11 +5,11 @@ invoicing app for practice: no real company, person or customer.
 
 | File | What it is |
 | --- | --- |
-| pocket-invoice.penpot | Editable Penpot file (format v3, a ZIP of JSON). Four pages: sitemap and flow, low fidelity, tokens and components, high fidelity. |
+| pocket-invoice.penpot | Editable Penpot file (format v3, a ZIP of JSON). Five pages: 01 sitemap and flow, with branches and errors; 02 low fidelity, every state at 390 px, clickable; 03 tokens and main components; 04 high fidelity, every state at 390 px (clickable, with the discard dialog as an overlay and every back path) and every screen at 1280 px; 05 the whole high-fidelity journey on one canvas, joined by numbered arrows. |
 | pocket-invoice-tokens.json | Design tokens in the W3C Design Tokens Community Group draft format, as Penpot imports them: sets core and semantic, theme Mode / Light. |
-| penpot-import-check.json | What was checked when the file was imported into Penpot, the result of each check, and what was not checked. |
+| penpot-import-check.json | What was checked when the file was imported into Penpot, exported from it and imported again, the result of each check, and what was not checked. |
 | qa-report.md | The accessibility and responsive QA report for every state of the working page, copied from one run of the site's browser tests. |
-| screens/ | Screenshots from Penpot View mode, taken by that check. |
+| screens/ | Screenshots from Penpot View mode, taken by that check; journey.png is page 05. |
 | inputs/pocket-invoice-flow.json | The flow as plain JSON: screens, the 11 states with their elements, and the 19 numbered transitions. Edit this to change the drawings. |
 | inputs/contrast-pairs.json | The text and control colour pairs the flow script checks against the token file, with their minimum ratios. |
 | inputs/brand.json | The brand: name, wordmark, voice, rules, the screens that show the signed-in navigation, and the phone and desktop layout widths. |
@@ -37,10 +37,20 @@ invoicing app for practice: no real company, person or customer.
 
 1. Sign in to Penpot (penpot.app, or your own self-hosted instance).
 2. In Projects, choose Import .penpot and pick pocket-invoice.penpot.
-3. Open each of the four pages once in the workspace before you use View mode. The file is generated
+3. Open each of the five pages once in the workspace before you use View mode. The file is generated
    outside Penpot, and Penpot lays out and saves its text the first time a page is opened. Until then,
    View mode shows boards without text.
-4. To try the prototype, open page 02 or 04 and press Play. Each page has one flow, starting at sign-up.
+4. To try the prototype, open page 02 or 04 and press Play. Each page has one flow, starting at sign-up. Cancel on
+   the new invoice screen opens the discard dialog as an overlay; Keep editing closes it, and every screen has its
+   way back.
+5. To read the whole journey at once, open page 05 and press Play, or stay in the workspace and zoom to fit.
+6. To keep your own edited copy, use the file menu's export as .penpot. The check below exported this file from
+   Penpot and imported the copy again with the same pages, boards, interactions, components and tokens.
+
+Penpot is open source under the Mozilla Public License 2.0. You can run it yourself, or use penpot.app, whose
+Professional plan is $0 (up to 8 team members, 10 GB, 7 days of version history; checked on 2026-11-27 on
+penpot.app/pricing). The Armory record (/armory/registry#penpot) lists the version tested, the plans, what an agent
+can write through the MCP server or a plugin, and what was not checked.
 
 The token file is already inside the .penpot file. Import pocket-invoice-tokens.json on its own only into a
 file of your own: importing tokens replaces that file's global token set.
@@ -65,7 +75,8 @@ tokens, so a browser's inspector shows the token behind each value.
 
 The .penpot file is generated from the same flow and tokens as the working example
 (/examples/pocket-invoice/), with Penpot's official library, @penpot/library. The site's tests rebuild it on
-every pipeline and fail if the published copy differs. CI also reruns the flow script on every pipeline and fails if
+every pipeline and fail if the published copy differs. A maintainer's check imports it into a self-hosted Penpot
+(last run on Penpot 2.19.5), and the tests fail if the published file is not the one that check passed. CI also reruns the flow script on every pipeline and fails if
 any file it writes differs from generated/.
 
 ## Licences and credits

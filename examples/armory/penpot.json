@@ -1,0 +1,118 @@
+{
+  "entry": "penpot",
+  "date": "2026-11-27",
+  "penpotVersion": "2.19.5",
+  "library": "@penpot/library@1.3.0",
+  "images": [
+    "docker.io/penpotapp/backend:2.19.5@sha256:270c857e3d3104e346be094d37acd4c341d3eb32a2f5fa9368c92030710b39a8",
+    "docker.io/penpotapp/frontend:2.19.5@sha256:5b7ad570f137162b0c4cae300e42a376c15e05cb6ec89404f67e43a0996d0107",
+    "docker.io/library/postgres:18-alpine",
+    "docker.io/valkey/valkey:8.1-alpine"
+  ],
+  "environment": "Self-hosted Penpot from the official container images, reachable only from the same machine; a throwaway account; Chromium through Playwright.",
+  "file": {
+    "name": "/examples/ux-pathway/pocket-invoice.penpot",
+    "sha256": "c7ad770edb452032f1d1b3fd34696bd7ec1799d74d146c0a052f11b0b7447e6f",
+    "source": "Developer Dojo, MIT licence, written with @penpot/library"
+  },
+  "importCheck": "/examples/ux-pathway/penpot-import-check.json",
+  "steps": [
+    "import-binfile as a new file",
+    "read the file back and check its structure against the flow",
+    "open every page in the workspace",
+    "click through both prototypes in View mode",
+    "export-binfile, then import the exported copy and compare"
+  ],
+  "checks": [
+    {
+      "name": "import",
+      "pass": true
+    },
+    {
+      "name": "pages",
+      "pass": true
+    },
+    {
+      "name": "desktop-04",
+      "pass": true
+    },
+    {
+      "name": "journey-05",
+      "pass": true
+    },
+    {
+      "name": "boards-02",
+      "pass": true
+    },
+    {
+      "name": "interactions-02",
+      "pass": true
+    },
+    {
+      "name": "flow-02",
+      "pass": true
+    },
+    {
+      "name": "boards-04",
+      "pass": true
+    },
+    {
+      "name": "interactions-04",
+      "pass": true
+    },
+    {
+      "name": "flow-04",
+      "pass": true
+    },
+    {
+      "name": "components",
+      "pass": true
+    },
+    {
+      "name": "library-colours",
+      "pass": true
+    },
+    {
+      "name": "library-typographies",
+      "pass": true
+    },
+    {
+      "name": "tokens",
+      "pass": true
+    },
+    {
+      "name": "text-layout-02",
+      "pass": true
+    },
+    {
+      "name": "text-layout-04",
+      "pass": true
+    },
+    {
+      "name": "text-layout-05",
+      "pass": true
+    },
+    {
+      "name": "prototype-walk-02",
+      "pass": true
+    },
+    {
+      "name": "prototype-walk-04",
+      "pass": true
+    },
+    {
+      "name": "export-round-trip",
+      "pass": true
+    },
+    {
+      "name": "no-page-errors",
+      "pass": true
+    }
+  ],
+  "notChecked": [
+    "Writing to Penpot through a plugin or the MCP server: the file is generated offline with @penpot/library and imported.",
+    "Penpot cloud (design.penpot.app): only a self-hosted instance was used.",
+    "Editing by a person: the check opens, lays out and clicks the file; it does not edit it.",
+    "Export of boards to SVG, PDF or PNG: those need Penpot's exporter service, which this check does not run. Export as .penpot is checked (export-round-trip)."
+  ]
+}
