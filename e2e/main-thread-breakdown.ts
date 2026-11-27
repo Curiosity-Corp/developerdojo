@@ -30,6 +30,8 @@ export type MainThreadBreakdown = {
 
 const BUCKETS: Record<string, keyof MainThreadBreakdown> = {
   ParseHTML: 'parseHtmlMs',
+  // Decoding the response's bytes into text for the parser.
+  'DecodedDataDocumentParser::AppendBytes': 'parseHtmlMs',
   UpdateLayoutTree: 'styleMs',
   RecalculateStyles: 'styleMs',
   ParseAuthorStyleSheet: 'styleMs',
@@ -77,17 +79,24 @@ function intervals(events: TraceEvent[]): Interval[] {
 }
 
 /**
- * Splits the main thread of the renderer that parsed `url` between `navigationStart` and `loadEventEnd`. Throws when
- * the trace has no parse of that URL or no load marks, so a broken measurement fails loudly instead of reporting 0.
+ * Splits the main thread of the page that navigated to `url`, from its `navigationStart` to its own frame's
+ * `loadEventEnd`. Other frames' marks are ignored. Time inside an event this file does not name (Chrome nests many
+ * internal events, such as HTMLDocumentParser::PumpTokenizer under ParseHTML) counts toward its nearest named
+ * ancestor, so it is not lost to "other". Throws when the trace does not hold that navigation, so a broken
+ * measurement fails loudly instead of reporting 0.
  */
 export function mainThreadBreakdown(events: TraceEvent[], url: string): MainThreadBreakdown {
-  const parse = events.find((e) => e.name === 'ParseHTML' && JSON.stringify(e.args ?? {}).includes(url));
-  if (!parse) throw new Error(`the trace has no ParseHTML event for ${url}`);
-  const thread = events.filter((e) => e.pid === parse.pid && e.tid === parse.tid);
-  const marks = (name: string) => events.filter((e) => e.name === name && e.pid === parse.pid).map((e) => e.ts);
-  const start = Math.max(...marks('navigationStart').filter((ts) => ts <= parse.ts));
-  const end = Math.min(...marks('loadEventEnd').filter((ts) => ts >= parse.ts));
-  if (!Number.isFinite(start) || !Number.isFinite(end)) throw new Error(`the trace has no navigationStart or loadEventEnd mark for ${url}`);
+  const data = (event: TraceEvent) => (event.args?.['data'] ?? {}) as Record<string, unknown>;
+  const navigation = events.find((e) => e.name === 'navigationStart' && data(e)['documentLoaderURL'] === url);
+  if (!navigation) throw new Error(`the trace has no navigationStart for ${url}`);
+  const frame = navigation.args?.['frame'];
+  const loaded = events
+    .filter((e) => e.name === 'loadEventEnd' && e.args?.['frame'] === frame && e.ts >= navigation.ts)
+    .sort((a, b) => a.ts - b.ts)[0];
+  if (!loaded) throw new Error(`the trace has no loadEventEnd for the frame that loaded ${url}`);
+  const start = navigation.ts;
+  const end = loaded.ts;
+  const thread = events.filter((e) => e.pid === navigation.pid && e.tid === navigation.tid);
 
   // Events that start inside the window; nesting is resolved per event, so each microsecond is counted once.
   const inWindow = intervals(thread)
@@ -96,15 +105,12 @@ export function mainThreadBreakdown(events: TraceEvent[], url: string): MainThre
   const totals: MainThreadBreakdown = {
     windowMs: 0, busyMs: 0, idleMs: 0, parseHtmlMs: 0, styleMs: 0, layoutMs: 0, paintMs: 0, scriptMs: 0, gcMs: 0, otherMs: 0,
   };
-  const stack: { interval: Interval; childTime: number }[] = [];
-  const close = (frame: { interval: Interval; childTime: number }) => {
-    const self = frame.interval.end - frame.interval.start - frame.childTime;
-    totals[BUCKETS[frame.interval.name] ?? 'otherMs'] += Math.max(0, self);
-  };
+  type Frame = { interval: Interval; childTime: number; bucket: keyof MainThreadBreakdown };
+  const stack: Frame[] = [];
   const closeUntil = (time: number) => {
     for (let top = stack.at(-1); top && top.interval.end <= time; top = stack.at(-1)) {
       stack.pop();
-      close(top);
+      totals[top.bucket] += Math.max(0, top.interval.end - top.interval.start - top.childTime);
     }
   };
   for (const interval of inWindow) {
@@ -113,7 +119,7 @@ export function mainThreadBreakdown(events: TraceEvent[], url: string): MainThre
     if (parent) parent.childTime += interval.end - interval.start;
     // Busy time is clipped to the window: a task still running at the load event counts only up to it.
     else totals.busyMs += Math.min(interval.end, end) - interval.start;
-    stack.push({ interval, childTime: 0 });
+    stack.push({ interval, childTime: 0, bucket: BUCKETS[interval.name] ?? parent?.bucket ?? 'otherMs' });
   }
   closeUntil(Number.POSITIVE_INFINITY);
 

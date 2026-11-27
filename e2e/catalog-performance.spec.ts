@@ -10,7 +10,7 @@ const ROUTE = '/library/resources';
 const ROUNDS = 3;
 // Fresh loads per test: one sample on a shared runner is mostly noise, so the record keeps every sample and the median.
 const LOAD_SAMPLES = 3;
-const TRACE_CATEGORIES = ['devtools.timeline', 'disabled-by-default-devtools.timeline', 'blink.user_timing', 'v8', 'blink'];
+const TRACE_CATEGORIES = ['devtools.timeline', 'disabled-by-default-devtools.timeline', 'blink.user_timing', 'loading'];
 
 const median = (values: number[]) => [...values].sort((a, b) => a - b)[Math.floor(values.length / 2)] ?? 0;
 const medianOf = <T extends Record<string, number | null>>(samples: T[]): T =>
