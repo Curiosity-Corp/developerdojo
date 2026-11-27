@@ -49,7 +49,11 @@ nightly schedule (02:00 UTC), which re-runs `master` so that date-filtered event
 - **`catalog_lifecycle`** (MRs, `master` and the weekly link-check schedule): writes the catalog refresh list from
   `dist/catalog-lifecycle.json` ([docs/catalog-lifecycle.md](docs/catalog-lifecycle.md)); it fails only on a missing
   or malformed ledger.
-- **`master` only:** `pages` (the internal GitLab Pages preview) and `publish_github_pages` (the production release).
+- **`master` only:** `publish_github_pages` (the production release).
+- **`demo` and `dev` only, once protected:** `pages` (demo.developerdojo.org) and `dev_pages`
+  (dev.developerdojo.org, through the pages-only project `Curiosity-Corp/developerdojo-dev`). Both hosts are
+  private. See [docs/preview-branches.md](docs/preview-branches.md) and
+  [decision 0002](docs/decisions/0002-demo-and-dev-preview-branches.md).
 - **Optional:**
   - `external_links`: weekly on a schedule with `LINK_CHECK=true`, and manual on MRs.
   - `stale_resources`: manual on `master`, for the quarterly refresh list.
@@ -106,7 +110,7 @@ No internal hostnames or infrastructure details on public pages. Reward amounts 
 
 ## Publishing
 
-`master` pipelines build the site, publish an internal GitLab Pages preview, and push `dist/` (with
+`master` pipelines build the site and push `dist/` (with
 `CNAME` and `.nojekyll`) plus `.github/workflows/pages.yml` to the GitHub `gh-pages` branch, which GitHub
 Pages serves at https://developerdojo.org. Protected CI variables: `GITHUB_APP_ID`,
 `GITHUB_APP_INSTALLATION_ID`, `GITHUB_APP_PRIVATE_KEY_B64`.

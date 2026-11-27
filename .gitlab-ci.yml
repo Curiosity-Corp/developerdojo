@@ -2,8 +2,13 @@
 #   Merge requests: check, test, build, e2e.
 #   PRODUCTION_E2E=true (ship-window schedules, hand runs): e2e:production only, against the live site.
 #   master and the nightly schedule (02:00 UTC, so date-filtered event lists stay current):
-#                   the same gates, then GitLab Pages internal preview and the publish of the BUILT
-#                   site (dist, with CNAME + .nojekyll) to GitHub Curiosity-Corp/developerdojo gh-pages.
+#                   the same gates, then the publish of the BUILT site (dist, with CNAME + .nojekyll)
+#                   to GitHub Curiosity-Corp/developerdojo gh-pages.
+#   demo and dev (#132, docs/decisions/0002-demo-and-dev-preview-branches.md): the same gates, then
+#                   demo -> this project's GitLab Pages, served at demo.developerdojo.org;
+#                   dev  -> the Pages of the pages-only project Curiosity-Corp/developerdojo-dev,
+#                           served at dev.developerdojo.org (.gitlab/ci/dev-pages.gitlab-ci.yml).
+#                   Both deploy only while the branch is protected. Both hosts are private.
 # Pattern adapted from HardMagic/website (.gitlab/ci/site-release.yml), simplified: no signed
 # provenance tag, no GitLab-side gh-pages branch.
 #
@@ -17,6 +22,8 @@ workflow:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     # Pushes to master AND the nightly pipeline schedule (a schedule runs on master as a branch pipeline).
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    # The preview branches (#132): every push runs the full gates, and a protected push deploys.
+    - if: '$CI_COMMIT_BRANCH == "demo" || $CI_COMMIT_BRANCH == "dev"'
     # A production e2e run started by hand on any branch: Run pipeline (web) or the API / glab ci run
     # (api), with PRODUCTION_E2E=true.
     - if: '$CI_PIPELINE_SOURCE =~ /^(web|api)$/ && $PRODUCTION_E2E == "true"'
@@ -413,7 +420,9 @@ e2e:production:
       - test-results
     expire_in: 30 days
 
-# Internal GitLab Pages preview of the built site.
+# The demo preview (#132): the demo branch's built site is this project's GitLab Pages, which
+# FocusApiary/infrastructure serves at demo.developerdojo.org (sites/junior-branding-sites.yaml) behind
+# Pages access control and Ziti. master no longer deploys here: production is GitHub Pages.
 pages:
   stage: deploy
   needs: [check, test, ux_pathway, bim_pathway, agriculture_pathway, science_pathway, finance_pathway, manufacturing_pathway, media_pathway, education_pathway, health_pathway, build, e2e, links]
@@ -424,9 +433,34 @@ pages:
   artifacts:
     paths:
       - public
+  environment:
+    name: demo
+    url: https://demo.developerdojo.org
   rules:
     - !reference [.skip-in-production-e2e, rules]
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_COMMIT_REF_PROTECTED == "true"'
+    - if: '$CI_COMMIT_BRANCH == "demo" && $CI_COMMIT_REF_PROTECTED == "true"'
+
+# The dev preview (#132). GitLab Pages serves one site root per project, and the site's links are
+# root-relative, so the dev branch gets its own pages-only project, Curiosity-Corp/developerdojo-dev, whose
+# CI configuration is .gitlab/ci/dev-pages.gitlab-ci.yml in this repository. This job starts that
+# project's pipeline after the gates pass; its pages job takes this pipeline's build artifact with the job
+# token (no stored credential). FocusApiary/infrastructure serves it at dev.developerdojo.org.
+dev_pages:
+  stage: deploy
+  needs: [check, test, ux_pathway, bim_pathway, agriculture_pathway, science_pathway, finance_pathway, manufacturing_pathway, media_pathway, education_pathway, build, e2e, links]
+  variables:
+    UPSTREAM_REF: $CI_COMMIT_REF_NAME
+    UPSTREAM_PIPELINE_ID: $CI_PIPELINE_ID
+  trigger:
+    project: Curiosity-Corp/developerdojo-dev
+    branch: main
+    strategy: depend
+  environment:
+    name: dev
+    url: https://dev.developerdojo.org
+  rules:
+    - !reference [.skip-in-production-e2e, rules]
+    - if: '$CI_COMMIT_BRANCH == "dev" && $CI_COMMIT_REF_PROTECTED == "true"'
 
 # Public release: the built artifact only, to GitHub gh-pages. The pages.yml workflow on that branch
 # (.gitlab/ci/gh-pages-workflow.yml) deploys it to GitHub Pages at https://developerdojo.org. The job

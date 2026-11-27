@@ -72,7 +72,8 @@ These steps are the same for every kind of change.
     `Cmd+Shift+R`). If the job is red, see step 6 of [section 9 of the maintainer handbook](docs/handbook.md#9-what-to-do-when-a-pipeline-is-red).
 
 > **Preview.** There is no live preview website for an MR. Use the Markdown preview in the Web IDE while you
-> write. The green pipeline proves the page builds, its links work and it passes the accessibility checks.
+> write. Site editors who work through the `dev` and `demo` branches see their merged work on the private
+> preview sites first: [docs/preview-branches.md](docs/preview-branches.md). The green pipeline proves the page builds, its links work and it passes the accessibility checks.
 > You can always look at the real page after the merge, and fix forward with another small MR.
 
 If you made a mistake after merging, do not undo it. Make a new small MR that fixes it. We fix forward.

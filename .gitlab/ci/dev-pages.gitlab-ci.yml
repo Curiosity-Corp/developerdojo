@@ -1,0 +1,39 @@
+# CI configuration of Curiosity-Corp/developerdojo-dev, the pages-only project behind dev.developerdojo.org
+# (#132, docs/decisions/0002-demo-and-dev-preview-branches.md). That project holds no source: its CI/CD
+# configuration file setting points here (.gitlab/ci/dev-pages.gitlab-ci.yml@Curiosity-Corp/developerdojo), so
+# the whole dev preview path is reviewed in this repository.
+#
+# The dev_pages job of a protected dev pipeline in Curiosity-Corp/developerdojo starts this pipeline once the
+# site's gates have passed. The pages job takes the build artifact of the latest successful dev pipeline (the
+# one that started it, unless a newer one has already finished) with the job token, checks it and publishes it.
+# It needs Curiosity-Corp/developerdojo-dev on the job token allowlist of Curiosity-Corp/developerdojo.
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "pipeline" && $UPSTREAM_REF == "dev"'
+
+stages:
+  - deploy
+
+pages:
+  stage: deploy
+  # The image the site's own pipeline already uses, so runners have it cached.
+  image: mcr.microsoft.com/playwright:v1.64.1-noble
+  interruptible: false
+  resource_group: dev-pages
+  needs:
+    - project: Curiosity-Corp/developerdojo
+      job: build
+      ref: dev
+      artifacts: true
+  script:
+    - echo "Publishing the dev build of Curiosity-Corp/developerdojo (started by pipeline ${UPSTREAM_PIPELINE_ID})"
+    - test -f dist/index.html
+    - sha256sum -c search-index.sha256
+    - mv dist public
+  artifacts:
+    paths:
+      - public
+  environment:
+    name: dev
+    url: https://dev.developerdojo.org

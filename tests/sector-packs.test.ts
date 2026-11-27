@@ -68,7 +68,7 @@ describe('sector packs', () => {
 
   it('holds back deploys until every pack check job passes', () => {
     const jobs = [...new Set(sectorPacks.flatMap((candidate) => candidate.checks.map((check) => check.ciJob)))];
-    for (const deploy of ['pages', 'publish_github_pages']) {
+    for (const deploy of ['pages', 'dev_pages', 'publish_github_pages']) {
       const needs = /needs: \[([^\]]*)\]/.exec(jobScript(deploy))?.[1]?.split(',').map((job) => job.trim()) ?? [];
       for (const job of jobs) expect(needs, deploy + ' needs ' + job).toContain(job);
     }
