@@ -447,7 +447,7 @@ pages:
 # token (no stored credential). FocusApiary/infrastructure serves it at dev.developerdojo.org.
 dev_pages:
   stage: deploy
-  needs: [check, test, ux_pathway, bim_pathway, agriculture_pathway, science_pathway, finance_pathway, manufacturing_pathway, media_pathway, education_pathway, build, e2e, links]
+  needs: [check, test, ux_pathway, bim_pathway, agriculture_pathway, science_pathway, finance_pathway, manufacturing_pathway, media_pathway, education_pathway, health_pathway, build, e2e, links]
   variables:
     UPSTREAM_REF: $CI_COMMIT_REF_NAME
     UPSTREAM_PIPELINE_ID: $CI_PIPELINE_ID
