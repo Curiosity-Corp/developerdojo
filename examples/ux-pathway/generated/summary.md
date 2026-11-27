@@ -105,6 +105,9 @@ Ratios are rounded down to two decimals, so a ratio shown never overstates the r
 - style-guide.md
 - style-guide.svg
 - summary.md
+- usability/session-sheet.md
+- usability/tasks.json
+- usability/walkthrough.md
 - wireframes/discard-dialog.svg
 - wireframes/invoice-new-error.svg
 - wireframes/invoice-new.svg

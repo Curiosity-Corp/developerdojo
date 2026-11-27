@@ -811,6 +811,74 @@
       "state": "verified"
     },
     {
+      "id": "UX-006",
+      "surface": "recipe",
+      "title": "Wire a clickable prototype with overlays and back paths",
+      "href": "/katas/ux-006-clickable-prototype",
+      "area": "artifact-validity",
+      "maintainerRole": "UX pathway maintainer",
+      "provenance": [
+        "Pocket Invoice clickable prototype: /examples/pocket-invoice-prototype/",
+        "Prototyping in Penpot: penpot/prototyping",
+        "Making prototypes (GOV.UK Service Manual): gov-uk/making-prototypes"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers; no independent review yet.",
+      "verifiedOn": "2026-11-26",
+      "dueOn": "2027-02-24",
+      "state": "verified"
+    },
+    {
+      "id": "UX-007",
+      "surface": "recipe",
+      "title": "Check the build against the design",
+      "href": "/katas/ux-007-visual-fidelity",
+      "area": "artifact-validity",
+      "maintainerRole": "UX pathway maintainer",
+      "provenance": [
+        "Pocket Invoice style guide: /examples/pocket-invoice-style-guide/",
+        "Pocket Invoice fidelity report: /examples/ux-pathway/generated/fidelity-report.md",
+        "Inspect mode (Penpot user guide): penpot/dev-tools"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers; no independent review yet.",
+      "verifiedOn": "2026-11-26",
+      "dueOn": "2027-02-24",
+      "state": "verified"
+    },
+    {
+      "id": "UX-008",
+      "surface": "recipe",
+      "title": "Walk usability tasks and plan a session",
+      "href": "/katas/ux-008-usability-walkthrough",
+      "area": "artifact-validity",
+      "maintainerRole": "UX pathway maintainer",
+      "provenance": [
+        "Pocket Invoice usability tasks: /examples/ux-pathway/inputs/usability-tasks.json",
+        "Using moderated usability testing (GOV.UK Service Manual): gov-uk/moderated-usability-testing",
+        "Finding participants for user research (GOV.UK Service Manual): gov-uk/find-user-research-participants"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers; no independent review yet.",
+      "verifiedOn": "2026-11-26",
+      "dueOn": "2027-02-24",
+      "state": "verified"
+    },
+    {
+      "id": "UX-009",
+      "surface": "recipe",
+      "title": "Transfer task: from user need to a tested prototype",
+      "href": "/katas/ux-009-transfer",
+      "area": "artifact-validity",
+      "maintainerRole": "UX pathway maintainer",
+      "provenance": [
+        "The UX pathway example files and script: /examples/ux-pathway/README.md",
+        "Learning about users and their needs (GOV.UK Service Manual): gov-uk/start-by-learning-user-needs",
+        "WCAG 2.2 quick reference: w3c/wcag-quickref"
+      ],
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers; no independent review yet.",
+      "verifiedOn": "2026-11-26",
+      "dueOn": "2027-02-24",
+      "state": "verified"
+    },
+    {
       "id": "UX-R01",
       "surface": "recipe",
       "title": "UX Randori: an unseen flow with a hidden constraint",

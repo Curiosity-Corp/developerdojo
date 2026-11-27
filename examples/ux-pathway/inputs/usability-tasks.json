@@ -1,0 +1,70 @@
+{
+  "note": "Usability tasks for Pocket Invoice (UX-008). Each task is a scenario read aloud to a participant; it names the goal, never the button. start and goal are state ids in pocket-invoice-flow.json; via is a state the task must pass through; maxSteps is the most clicks the design team accepts for the task; acceptedFindings records a problem the walkthrough found and the decision about it. Read by tools/ux_usability.mjs, which finds the shortest path through the flow and checks it. Written by the maintainers for practice; no participant has done these tasks.",
+  "tasks": [
+    {
+      "id": "T1",
+      "scenario": "You have just heard about Pocket Invoice. Get set up so you can start invoicing.",
+      "start": "signup",
+      "goal": "invoices-empty",
+      "maxSteps": 1,
+      "observe": "Does the participant understand what a workspace is before they name one?"
+    },
+    {
+      "id": "T2",
+      "scenario": "Send your first invoice, for a menu redesign you finished, to the client who asked for it.",
+      "start": "signup",
+      "goal": "invoice-sent",
+      "maxSteps": 4,
+      "observe": "Does the participant check the invoice before sending, or look for a way to skip it?"
+    },
+    {
+      "id": "T3",
+      "scenario": "You pressed Check invoice too early and the page shows problems. Get the invoice sent anyway.",
+      "start": "invoice-new-error",
+      "goal": "invoice-sent",
+      "maxSteps": 2,
+      "observe": "Does the participant use the links in the error summary, or scroll to find the fields?"
+    },
+    {
+      "id": "T4",
+      "scenario": "The invoice did not go out. Find out why and send it again.",
+      "start": "send-error",
+      "goal": "invoice-sent",
+      "maxSteps": 3,
+      "observe": "Does the participant trust that the other fields were kept?"
+    },
+    {
+      "id": "T5",
+      "scenario": "You started an invoice by mistake. Throw it away and go back to your list.",
+      "start": "invoice-new",
+      "goal": "invoices-empty",
+      "via": "discard-dialog",
+      "maxSteps": 2,
+      "observe": "Does the participant expect the dialog, and is Discard clear about what is lost?"
+    },
+    {
+      "id": "T6",
+      "scenario": "On the check screen you notice the amount is wrong. Fix it and come back to check again.",
+      "start": "invoice-review",
+      "goal": "invoice-review",
+      "via": "invoice-new",
+      "maxSteps": 2,
+      "observe": "Does the participant expect the other values to still be there?"
+    },
+    {
+      "id": "T7",
+      "scenario": "You already have a Pocket Invoice account. Get to the place where you would sign in.",
+      "start": "signup",
+      "goal": "sign-in",
+      "maxSteps": 1,
+      "observe": "Does the participant find the way to sign in without filling in the form first?",
+      "acceptedFindings": [
+        {
+          "check": "errors-lead-to-goal",
+          "item": "signup-error (transition 2)",
+          "decision": "Found by this walkthrough on 2026-11-26: a returning user who fills in the sign-up form by mistake reaches the sign-up error, which has no way to sign in. Recorded, not fixed here: the fix changes the flow, the Penpot file and its import check together, so it is left as the adapt exercise of UX-008."
+        }
+      ]
+    }
+  ]
+}
