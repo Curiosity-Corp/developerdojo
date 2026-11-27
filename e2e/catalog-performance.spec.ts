@@ -4,14 +4,26 @@
 // time: timings on a shared runner vary with load, so the test records them and checks only that the page works.
 import { expect, test } from '@playwright/test';
 import { recordCatalogMetric } from './catalog-metrics';
+import { mainThreadBreakdown, type MainThreadBreakdown, type TraceEvent } from './main-thread-breakdown';
 
 const ROUTE = '/library/resources';
 const ROUNDS = 3;
+// Fresh loads per test: one sample on a shared runner is mostly noise, so the record keeps every sample and the median.
+const LOAD_SAMPLES = 3;
+const TRACE_CATEGORIES = ['devtools.timeline', 'disabled-by-default-devtools.timeline', 'blink.user_timing', 'loading'];
+
+const median = (values: number[]) => [...values].sort((a, b) => a - b)[Math.floor(values.length / 2)] ?? 0;
+const medianOf = <T extends Record<string, number | null>>(samples: T[]): T =>
+  Object.fromEntries(
+    Object.keys(samples[0] ?? {}).map((key) => {
+      const values = samples.map((sample) => sample[key]).filter((v): v is number => typeof v === 'number');
+      return [key, values.length === samples.length ? median(values) : null];
+    }),
+  ) as T;
 
 type CdpMetric = { name: string; value: number };
 const pick = (metrics: CdpMetric[], ...names: string[]) =>
   Object.fromEntries(names.map((name) => [name, metrics.find((m) => m.name === name)?.value ?? null]));
-const secondsToMs = (value: unknown) => (typeof value === 'number' ? Math.round(value * 1000) : null);
 
 for (const cpuThrottle of [1, 4]) {
   test(`the resource catalogue loads and filters (CPU ${cpuThrottle}x)`, async ({ page, browserName }, testInfo) => {
@@ -32,50 +44,73 @@ for (const cpuThrottle of [1, 4]) {
       }).observe({ type: 'largest-contentful-paint', buffered: true });
     });
 
-    await page.goto(ROUTE);
-    await page.waitForLoadState('load');
-    await expect(page.locator('#resource-filters')).toBeVisible();
-    // Two frames after load: the first paint of the list has happened.
-    await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    const browser = page.context().browser();
+    if (!browser) throw new Error('the test needs a browser it can trace');
+    type LoadSample = Record<string, number | null>;
+    const samples: LoadSample[] = [];
+    const breakdowns: MainThreadBreakdown[] = [];
+    let page0: Record<string, unknown> = {};
+    for (let sample = 0; sample < LOAD_SAMPLES; sample += 1) {
+      await browser.startTracing(page, { categories: TRACE_CATEGORIES });
+      await page.goto(ROUTE);
+      await page.waitForLoadState('load');
+      await expect(page.locator('#resource-filters')).toBeVisible();
+      // Two frames after load: the first paint of the list has happened.
+      await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+      const trace = JSON.parse((await browser.stopTracing()).toString('utf8')) as { traceEvents: TraceEvent[] };
+      breakdowns.push(mainThreadBreakdown(trace.traceEvents, page.url()));
 
-    const load = await page.evaluate(() => {
-      const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-      const fcp = performance.getEntriesByName('first-contentful-paint')[0]?.startTime ?? null;
-      const w = window as unknown as { __catalog: { longTasks: number[]; lcp: number } };
-      const ms = (value: number | null) => (value === null ? null : Math.round(value));
-      return {
-        resources: document.querySelectorAll('[data-resource]').length,
-        domElements: document.querySelectorAll('*').length,
-        htmlTransferBytes: nav.transferSize,
-        htmlEncodedBytes: nav.encodedBodySize,
-        htmlDecodedBytes: nav.decodedBodySize,
-        responseEndMs: ms(nav.responseEnd),
-        domInteractiveMs: ms(nav.domInteractive),
-        domContentLoadedMs: ms(nav.domContentLoadedEventEnd),
-        loadEventMs: ms(nav.loadEventEnd),
-        firstContentfulPaintMs: ms(fcp),
-        largestContentfulPaintMs: ms(w.__catalog.lcp || null),
-        longTasks: w.__catalog.longTasks.length,
-        longTaskTotalMs: ms(w.__catalog.longTasks.reduce((sum, d) => sum + d, 0)),
-        longestTaskMs: ms(Math.max(0, ...w.__catalog.longTasks)),
-        viewport: { width: innerWidth, height: innerHeight },
-      };
-    });
-    const afterLoad = (await cdp.send('Performance.getMetrics')).metrics as CdpMetric[];
-    const work = pick(afterLoad, 'TaskDuration', 'ScriptDuration', 'LayoutDuration', 'RecalcStyleDuration', 'Nodes', 'JSHeapUsedSize');
+      const measured = await page.evaluate(() => {
+        const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+        const fcp = performance.getEntriesByName('first-contentful-paint')[0]?.startTime ?? null;
+        const w = window as unknown as { __catalog: { longTasks: number[]; lcp: number } };
+        const ms = (value: number | null) => (value === null ? null : Math.round(value));
+        return {
+          page: {
+            resources: document.querySelectorAll('[data-resource]').length,
+            domElements: document.querySelectorAll('*').length,
+            htmlTransferBytes: nav.transferSize,
+            htmlEncodedBytes: nav.encodedBodySize,
+            htmlDecodedBytes: nav.decodedBodySize,
+            viewport: { width: innerWidth, height: innerHeight },
+          },
+          timing: {
+            responseEndMs: ms(nav.responseEnd),
+            domInteractiveMs: ms(nav.domInteractive),
+            domContentLoadedMs: ms(nav.domContentLoadedEventEnd),
+            loadEventMs: ms(nav.loadEventEnd),
+            firstContentfulPaintMs: ms(fcp),
+            largestContentfulPaintMs: ms(w.__catalog.lcp || null),
+            longTasks: w.__catalog.longTasks.length,
+            longTaskTotalMs: ms(w.__catalog.longTasks.reduce((sum, d) => sum + d, 0)),
+            longestTaskMs: ms(Math.max(0, ...w.__catalog.longTasks)),
+          },
+        };
+      });
+      page0 = measured.page;
+      samples.push(measured.timing);
+    }
+    const load = { ...page0, ...medianOf(samples) } as { resources: number } & LoadSample;
+    const breakdown = medianOf(breakdowns as unknown as Record<string, number>[]) as unknown as MainThreadBreakdown;
     expect(load.resources).toBeGreaterThan(0);
     recordCatalogMetric('load', testInfo, {
       route: ROUTE,
       cpuThrottle,
+      loadSamples: LOAD_SAMPLES,
       ...load,
+      // Median self time per kind of work on the main thread, navigation start to load event end (main-thread-breakdown.ts).
       mainThreadMs: {
-        task: secondsToMs(work['TaskDuration']),
-        script: secondsToMs(work['ScriptDuration']),
-        layout: secondsToMs(work['LayoutDuration']),
-        styleRecalc: secondsToMs(work['RecalcStyleDuration']),
+        task: breakdown.busyMs,
+        idle: breakdown.idleMs,
+        parseHtml: breakdown.parseHtmlMs,
+        script: breakdown.scriptMs,
+        layout: breakdown.layoutMs,
+        styleRecalc: breakdown.styleMs,
+        paint: breakdown.paintMs,
+        gc: breakdown.gcMs,
+        other: breakdown.otherMs,
       },
-      domNodes: work['Nodes'],
-      jsHeapUsedMiB: typeof work['JSHeapUsedSize'] === 'number' ? Math.round((work['JSHeapUsedSize'] / 2 ** 20) * 10) / 10 : null,
+      samples: samples.map((timing, index) => ({ ...timing, mainThreadMs: breakdowns[index] })),
     });
 
     // Filter response, timed in the page from the change to the next painted frame, so test-runner round trips

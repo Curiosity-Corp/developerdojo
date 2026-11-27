@@ -29,9 +29,9 @@ const byKind = (kind) => records.filter((r) => r.kind === kind).sort((a, b) => `
 
 const lines = ['# Resource catalogue measurements', ''];
 const load = byKind('load');
-lines.push('## Page load', '', '| Project | CPU | Resources | DOM elements | HTML (decoded) | DOMContentLoaded | Load | FCP | LCP | Long tasks (total) | Script | Layout | Style | Runner |', '|---|---|---|---|---|---|---|---|---|---|---|---|---|---|');
+lines.push('## Page load (median of the samples in each record; main-thread times are self time, navigation start to load event end)', '', '| Project | CPU | Resources | DOM elements | HTML (decoded) | HTML parsed (domInteractive) | DOMContentLoaded | Load | FCP | LCP | Long tasks (total) | Main thread busy | Parse HTML | Script | Layout | Style | Paint | Idle | Runner |', '|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|');
 for (const r of load) {
-  lines.push(`| ${r.project}${r.retry ? ` (retry ${r.retry})` : ''} | ${r.cpuThrottle}x | ${r.resources} | ${r.domElements} | ${Math.round((r.htmlDecodedBytes ?? 0) / 1024)} KiB | ${ms(r.domContentLoadedMs)} | ${ms(r.loadEventMs)} | ${ms(r.firstContentfulPaintMs)} | ${ms(r.largestContentfulPaintMs)} | ${r.longTasks} (${ms(r.longTaskTotalMs)}) | ${ms(r.mainThreadMs?.script)} | ${ms(r.mainThreadMs?.layout)} | ${ms(r.mainThreadMs?.styleRecalc)} | ${runner(r)} |`);
+  lines.push(`| ${r.project}${r.retry ? ` (retry ${r.retry})` : ''} | ${r.cpuThrottle}x | ${r.resources} | ${r.domElements} | ${Math.round((r.htmlDecodedBytes ?? 0) / 1024)} KiB | ${ms(r.domInteractiveMs)} | ${ms(r.domContentLoadedMs)} | ${ms(r.loadEventMs)} | ${ms(r.firstContentfulPaintMs)} | ${ms(r.largestContentfulPaintMs)} | ${r.longTasks} (${ms(r.longTaskTotalMs)}) | ${ms(r.mainThreadMs?.task)} | ${ms(r.mainThreadMs?.parseHtml)} | ${ms(r.mainThreadMs?.script)} | ${ms(r.mainThreadMs?.layout)} | ${ms(r.mainThreadMs?.styleRecalc)} | ${ms(r.mainThreadMs?.paint)} | ${ms(r.mainThreadMs?.idle)} | ${runner(r)} |`);
 }
 lines.push('', '## Filter response (median, change to next paint)', '', '| Project | CPU | Resources | Filter | Clear | Script / change | Layout / change | Style / change | Runner |', '|---|---|---|---|---|---|---|---|---|');
 for (const r of byKind('interaction')) {

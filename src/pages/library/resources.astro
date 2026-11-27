@@ -26,7 +26,7 @@ const formatsInUse = FORMATS.filter((format) => sorted.some((resource) => resour
     title="Learning resources"
     subtitle="Courses, videos, docs and tutorials from other publishers. Each link was checked on the date shown."
   />
-  <section class="section">
+  <section class="section catalog">
     <div class="container">
       <p class="back"><a href="/library">Back to the library</a></p>
       <p class="how">
@@ -171,31 +171,32 @@ const formatsInUse = FORMATS.filter((format) => sorted.some((resource) => resour
   }
 </script>
 
-<style>
-  .back {
+<style is:global>
+  /* Global, under .catalog, so Astro stamps no scope attribute on each of the ~1,000 list items (#113). */
+  .catalog .back {
     margin-top: 0;
   }
-  .how {
+  .catalog .how {
     max-width: 70ch;
   }
-  .filters {
+  .catalog .filters {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-3) var(--space-4);
     align-items: flex-end;
     margin-bottom: var(--space-3);
   }
-  .filters[hidden] {
+  .catalog .filters[hidden] {
     display: none;
   }
-  .filters label {
+  .catalog .filters label {
     display: grid;
     gap: var(--space-1);
     font-weight: 700;
     min-width: min(100%, 12rem);
     max-width: 100%;
   }
-  .filters select {
+  .catalog .filters select {
     font: inherit;
     max-width: 100%;
     min-width: 0;
@@ -206,12 +207,12 @@ const formatsInUse = FORMATS.filter((format) => sorted.some((resource) => resour
     background: var(--paper-raised);
     color: inherit;
   }
-  .filters select:focus-visible,
-  .reset:focus-visible {
+  .catalog .filters select:focus-visible,
+  .catalog .reset:focus-visible {
     outline: 3px solid var(--focus);
     outline-offset: 2px;
   }
-  .reset {
+  .catalog .reset {
     font: inherit;
     font-weight: 600;
     padding: var(--space-2) var(--space-4);
@@ -221,11 +222,11 @@ const formatsInUse = FORMATS.filter((format) => sorted.some((resource) => resour
     color: inherit;
     cursor: pointer;
   }
-  .status {
+  .catalog .status {
     margin: 0 0 var(--space-4);
     color: var(--ink-muted);
   }
-  .grid {
+  .catalog .grid {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -234,7 +235,7 @@ const formatsInUse = FORMATS.filter((format) => sorted.some((resource) => resour
     gap: var(--space-4);
   }
   /* Hundreds of cards: let the browser skip layout and paint for the ones off screen. */
-  .grid > li {
+  .catalog .grid > li {
     content-visibility: auto;
     contain-intrinsic-size: auto 15rem;
   }
