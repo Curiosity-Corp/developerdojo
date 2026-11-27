@@ -1,0 +1,214 @@
+# UX pathway (M9): a draft recipe. The worked example and its checks are on /katas/ux-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given; not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: UX pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/91
+review:
+  unavailable: Built and checked by the Dojo maintainers; no independent review yet.
+summary: Compare the built page with its high-fidelity design, element by element, and write down what matches, what does not and what nobody measured.
+metadata:
+  id: UX-007
+  title: Check the build against the design
+  layer: specialization
+  professionalReviewRequired: false
+  outcomeIds:
+    - check-visual-fidelity
+  artifactTypes:
+    - fidelity-report
+  domainIds:
+    - ux
+  capabilityIds:
+    - design-systems
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+    - FND-001
+  stackRecipeIds:
+    - penpot-and-browser
+    - assistant-and-browser
+  pathwayIds:
+    - personas-and-journeys
+    - brand-website-and-mockups
+  constraintIds:
+    - fictional-data
+    - no-personal-data
+    - no-paid-tools
+  externalResources:
+    - penpot/dev-tools
+    - penpot/design-tokens
+    - w3c/wcag-quickref
+  standards:
+    - name: Web Content Accessibility Guidelines (WCAG)
+      version: "2.2"
+      applicability: The practice screens and the Pocket Invoice example only
+      reviewScope: "What the listed checks test: text and control contrast and control size in the drawings, computed from the tokens. No conformance claim for any product."
+      sourceResourceId: w3c/wcag-quickref
+  verificationEvidence:
+    - description: Every drawing is audited for token use, text and boundary contrast, control size and components, and the working page is compared with the high-fidelity screens in every state at 390 px and 1440 px, in the site pipeline
+      method: automated-check
+      standards:
+        - Web Content Accessibility Guidelines (WCAG)
+    - description: A partner compares three states of your build with your design in an inspector and lists every difference they find
+      method: peer-review
+  beltCriteria:
+    - stage: practice
+      criterion: Reads the example fidelity report and finds, in the inspector, the token behind three properties of the working page
+    - stage: adapt
+      criterion: Changes one token, reruns the script, and shows the drawings and the page changing together
+    - stage: demonstrate
+      criterion: Writes a fidelity report for their Randori screens that lists what was compared and what was not measured
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: the Pocket Invoice fidelity report and the style guide page it is checked against."
+  href: /examples/pocket-invoice-style-guide/
+  provenance:
+    creator: Developer Dojo maintainers
+    source: Generated from the Pocket Invoice flow, tokens and brand file by the pathway script, and compared with the working page by the site’s browser tests
+    license: MIT
+    date: "2026-11-25"
+brief:
+  goal: A short fidelity report for your screens that says, for each state, which properties of the build match the design, which do not, and what was not measured.
+  audience: Learners who have a high-fidelity design and a built page of the same screens (UX-004 and UX-005).
+  inputs:
+    - name: Pocket Invoice style guide
+      source: /examples/pocket-invoice-style-guide/
+      terms: Dojo content, MIT licence
+    - name: Pocket Invoice fidelity report
+      source: /examples/ux-pathway/generated/fidelity-report.md
+      terms: Dojo content, MIT licence
+    - name: Inspect mode (Penpot user guide)
+      source: penpot/dev-tools
+      terms: Read on the publisher’s site under its terms
+  doneWhen:
+    - Every colour, type size, weight, corner and border in the design is a token value
+    - For each state, the build’s computed colour, type size and weight, border and control height are compared with the design
+    - Every difference is listed with the state, the element and both values
+    - What was not measured (for example pixels, hover, focus styles or the dark theme) is written down as not measured, not as passed
+stack:
+  components:
+    - part: tool
+      name: Penpot inspect mode, or a browser’s inspector on the style guide page
+      version: 2.18 (the example file was checked on a self-hosted 2.18.7)
+      permissions: Read the design file; no write needed for this step
+      cost: "Penpot Professional plan: $0, up to 8 members and 10 GB, no file limits (penpot.app/pricing, checked 2026-11-20). Browser inspectors are free."
+    - part: harness
+      name: Any chat assistant in a browser
+      version:
+        unavailable: Not fixed; any assistant can draft the text, and its version changes the wording, not the checks
+      permissions: Reads only what you paste into it
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+    - part: instructions
+      name: The prompts on this page
+      version: Draft, 2026-11-26
+      permissions: None
+      cost: None
+    - part: data
+      name: Pocket Invoice, an invented invoicing app
+      version: "Tokens and flow of 2026-11-20"
+      permissions: Fictional; no real company, person or customer
+      cost: None
+  rationale: A fidelity check is only as good as its list of what it compared. Penpot’s inspect mode and the browser’s inspector show the same properties side by side, and the Dojo’s script and browser tests show one way to compare them automatically.
+  alternatives:
+    - name: Pixel comparison (screenshot diff)
+      tradeoff: Catches layout drift the property comparison misses, but fails on font rendering differences between machines and says nothing about which token is wrong. Not run for this pathway.
+      tested: false
+    - name: Figma Dev Mode
+      tradeoff: Shows properties and code for a design, on a paid Dev or Full seat (figma.com/pricing, checked 2026-11-20). Not tried for this pathway.
+      tested: false
+agents:
+  roles:
+    - role: Drafting assistant
+      responsibility: Turns two lists of properties (design and build) for one state into a table of matches and differences.
+      reviewGate: You check every row against the inspector before it goes into the report.
+    - role: Reviewer
+      responsibility: Picks three states, compares them in an inspector without reading your report first, and lists differences.
+      dependsOn:
+        - Drafting assistant
+      reviewGate: A difference counts only when the reviewer names the state, the element and both values.
+setup:
+  steps:
+    - Open the Pocket Invoice style guide page and the working example in two tabs.
+    - Open your browser’s inspector on a button in each and compare the computed colours.
+  auth: None.
+  smokeTest:
+    action: In the style guide, inspect Button/Primary.
+    expected: Its background is var(--pi-color-action-primary), which resolves to the value in the token file.
+    result: passed
+    evidence: /examples/pocket-invoice-style-guide/, compared with the token file by the site’s browser tests on every pipeline
+    date: "2026-11-26"
+prompts:
+  - id: compare-state
+    title: Compare one state
+    purpose: Turns two property lists into a table you can check.
+    text: |-
+      Below are two lists of properties for the same screen state: one from my design (inspect mode), one from my built page (the browser's computed styles).
+      Make a table with one row per element and property: element, property, design value, build value, match or differ.
+      Do not guess a value that is not in either list; write "not given" instead.
+      Design:
+      <paste>
+      Build:
+      <paste>
+exercise:
+  title: Inspect mode (Penpot user guide)
+  resourceId: penpot/dev-tools
+  terms: Read on the publisher’s site under its terms. Credited, not copied. If a course or programme you take part in uses this exercise, follow its rules on AI assistance, and do not submit work an assistant wrote where those rules forbid it.
+execution:
+  steps:
+    - actor: Learner
+      action: Read the example fidelity report and find three of its properties in the inspector.
+      handoff: Collect the design and build properties for one of your own states.
+    - actor: Drafting assistant
+      action: Compare the two lists with the prompt.
+      handoff: You check each row in the inspector and fix the build or the design.
+    - actor: Reviewer
+      action: Compare three states without your report and list differences.
+      handoff: You add anything they found that your report missed, and say why it was missed.
+verification:
+  checks:
+    - action: Audit every high-fidelity drawing for token use, text and boundary contrast, control size and components
+      expected: All 24 drawings pass; lowest text contrast 4.63:1
+      result: passed
+      evidence: /examples/ux-pathway/generated/fidelity-report.md, rerun by the ux_pathway CI job on every pipeline
+      date: "2026-11-21"
+    - action: Compare each element of the working page with its group in the high-fidelity screen, in every state at 390 px and 1440 px
+      expected: Colour, type size and weight, fill, border, control height and order match in all 11 states at both widths
+      result: passed
+      evidence: /examples/pocket-invoice/, compared by the site’s browser tests on every pipeline (the report is attached to each test run)
+      date: "2026-11-25"
+    - action: Compare the style guide page’s specimens with the token file
+      expected: Every specimen’s computed colour and size equal the token value
+      result: passed
+      evidence: /examples/pocket-invoice-style-guide/, checked by the site’s browser tests on every pipeline
+      date: "2026-11-26"
+    - action: Your own fidelity report for three states
+      expected: Every difference listed with both values; what was not measured is named
+      result: not-run
+adaptation:
+  variations:
+    - change: Add a dark theme to the tokens.
+      effect: The comparison doubles; contrast must be checked again for every semantic colour.
+    - change: The build uses a component library you did not design.
+      effect: Compare the library’s tokens with yours first, and list every value that has no token.
+randori:
+  challenge: See the UX Randori recipe.
+  constraints:
+    - Every difference names both values
+  evaluation: A partner finds no difference your report missed in three states.
+maintenance:
+  cadence: Every six months, or when Penpot changes inspect mode
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers, and no learner has run it yet."
+    - "Not measured for the example: a pixel comparison of whole screens, hover and focus styles, the dark theme, text width in the brand font, colour-vision simulation and a review by a designer."
+    - The comparison is with SVG drawings generated from the tokens, not with a file edited in Penpot or Figma; no native design-tool file was compared.
+downloads:
+  - filename: fidelity-checklist.md
+    description: The fidelity checks as a list you can tick off.
+    content: |
+      # Fidelity checks
+
+      - [ ] Every value in the design is a token
+      - [ ] Each state compared: colour, type size and weight, border, control height
+      - [ ] Every difference listed with the state, the element and both values
+      - [ ] What was not measured is written as not measured

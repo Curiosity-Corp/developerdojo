@@ -17,6 +17,8 @@ invoicing app for practice: no real company, person or customer.
 | tools/ux_hifi.mjs | The high-fidelity part of the script, called by ux_pathway.mjs: the style guide, the components, the screens at two widths, and the fidelity audit. (ux_hifi.d.mts gives its types to the site's tests.) |
 | tools/ux_randori.mjs | The Randori part of the script, called by ux_pathway.mjs: checks each worked round's first and adapted flow, including one check per hidden constraint, and records what the constraint changed. (ux_randori.d.mts and ux_pathway.d.mts give types to the site's tests.) |
 | inputs/randori-rounds.json | Four worked UX Randori rounds: one per partner card whose constraint a flow can show, and one that plays the two screen cards (focus order, one action per screen). Each has the first sitemap and the adapted one, in the same format as the flow file; place on an element gives its row and column on the screen. Written by the maintainers, who also wrote the cards. |
+| tools/ux_usability.mjs | The usability part of the script, called by ux_pathway.mjs: walks each task's shortest path through the flow and checks the step budget, that every step is a visible button, and that every error on the way leads back to the goal. (ux_usability.d.mts gives its types to the site's tests.) |
+| inputs/usability-tasks.json | Seven usability tasks for Pocket Invoice, each a scenario read to a participant with its start, goal, step budget and what to watch for, plus one finding recorded with its decision. Written by the maintainers; no participant has done them. |
 | tools/design_tokens.mjs | Reads the token file, resolves aliases and computes WCAG 2 contrast; shared by both scripts. |
 | generated/sitemap.svg | The sitemap: states grouped by screen, numbered arrows, error and recovery arrows dashed. |
 | generated/journey.svg | Every low-fidelity screen on one canvas, each arrow starting at the button that causes it. |
@@ -27,6 +29,7 @@ invoicing app for practice: no real company, person or customer.
 | generated/journey-high.svg | Every high-fidelity phone screen on one canvas, with the same numbered arrows as journey.svg. |
 | generated/fidelity-report.json, generated/fidelity-report.md | The audit of every high-fidelity drawing (token use, text and boundary contrast, control size, components) and what it does not measure. |
 | generated/randori/ | Each round's first and adapted sitemap and adapted screens (SVG), rounds.json and randori.md: what the checks found before and after the constraint. For the screen round, one HTML page per state of each version (D-first/, D-adapted/), which the site's browser test walks with the Tab key. |
+| generated/usability/ | tasks.json and walkthrough.md: each task's shortest path, checks, recoveries and findings; session-sheet.md: a blank sheet for one moderated session. The site's browser tests click each path in the clickable prototype. |
 | generated/flow-checks.json, generated/summary.md | The result of every flow and contrast check, as JSON and as a table. |
 | generated/manifest.json | The generated files, the size of each drawing and the SHA-256 of each input. |
 
@@ -55,6 +58,8 @@ has tried that with these files yet.
 
 The clickable version of the same screens is at /examples/pocket-invoice-prototype/; add ?fidelity=high, or use its
 switch, to see it drawn with the tokens.
+The style guide is also a web page, /examples/pocket-invoice-style-guide/, where every specimen is styled only with the
+tokens, so a browser's inspector shows the token behind each value.
 
 ## How the files are made
 

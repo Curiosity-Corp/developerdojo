@@ -60,6 +60,10 @@
     "UX-003",
     "UX-004",
     "UX-005",
+    "UX-006",
+    "UX-007",
+    "UX-008",
+    "UX-009",
     "UX-R01"
   ],
   "kata-route": [
@@ -146,6 +150,10 @@
     "/katas/ux-003-tokens",
     "/katas/ux-004-components",
     "/katas/ux-005-implement-and-qa",
+    "/katas/ux-006-clickable-prototype",
+    "/katas/ux-007-visual-fidelity",
+    "/katas/ux-008-usability-walkthrough",
+    "/katas/ux-009-transfer",
     "/katas/ux-journey",
     "/katas/ux-pathway",
     "/katas/ux-r01-randori"
@@ -177,6 +185,7 @@
     "build-components",
     "check-apr-tolerance",
     "check-information-requirements",
+    "check-visual-fidelity",
     "clean-data",
     "compare-instructions",
     "complete-unseen-mission",
@@ -217,7 +226,10 @@
     "separate-variation-sources",
     "set-control-limits",
     "stack-comparison",
-    "trace-quantities"
+    "trace-quantities",
+    "transfer-ux-pathway",
+    "walk-usability-tasks",
+    "wire-clickable-prototype"
   ],
   "artifact": [
     "acceptance-record",
@@ -234,6 +246,7 @@
     "edited-model",
     "energy-estimate",
     "et-series",
+    "fidelity-report",
     "fit-report",
     "ids-report",
     "irrigation-estimate",
@@ -255,6 +268,7 @@
     "rule-outcomes",
     "run-budget-record",
     "schedule-mapping",
+    "session-plan",
     "sitemap",
     "source-review",
     "spatial-observation",
@@ -262,6 +276,8 @@
     "token-file",
     "tolerance-check",
     "uncertainty-budget",
+    "usability-walkthrough",
+    "ux-proof-package",
     "variance-components",
     "weather-inspection",
     "wireframe-set"

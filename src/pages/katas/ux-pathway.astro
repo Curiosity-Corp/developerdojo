@@ -9,6 +9,7 @@ import flowChecks from '../../../public/examples/ux-pathway/generated/flow-check
 import manifest from '../../../public/examples/ux-pathway/generated/manifest.json';
 import fidelity from '../../../public/examples/ux-pathway/generated/fidelity-report.json';
 import randori from '../../../public/examples/ux-pathway/generated/randori/rounds.json';
+import usability from '../../../public/examples/ux-pathway/generated/usability/tasks.json';
 
 // The sitemap below is rendered from the same flow the Penpot file and the working example are built from.
 const tokenCount = flattenTokens(tokenFile).length;
@@ -23,6 +24,13 @@ const hifiScreenCount = manifest.outputs.filter((name) => name.startsWith('scree
 // The worked Randori rounds (UX-R01): checked by tools/ux_randori.mjs in the same CI job.
 const RANDORI = '/examples/ux-pathway/generated/randori/';
 if (!randori.pass) throw new Error('The UX Randori record says a round failed; rerun tools/ux_pathway.mjs');
+// The usability walkthrough (UX-008): tools/ux_usability.mjs in the same CI job; e2e/ux-usability.spec.ts replays
+// each path in the clickable prototype.
+const USABILITY = '/examples/ux-pathway/generated/usability/';
+if (!usability.pass) throw new Error('The usability walkthrough says a task failed; rerun tools/ux_pathway.mjs');
+const stateTitle: Record<string, string> = Object.fromEntries(STATES.map((state) => [state.id, state.title]));
+const usabilityPassed = usability.tasks.filter((task) => task.pass).length;
+const usabilityFindings = usability.tasks.flatMap((task) => task.findings.map((finding) => ({ task: task.id, ...finding })));
 const changeCount = (diff: Record<string, string[]>): number => Object.values(diff).reduce((total, items) => total + items.length, 0);
 const ratio = (value: number | null): string => (value === null ? 'not measured' : value.toFixed(2));
 const hifiShots = [
@@ -38,6 +46,10 @@ const steps = [
   { id: 'UX-003', href: '/katas/ux-003-tokens', title: 'Define design tokens', does: 'Colour, type and spacing as a JSON token file, with every pair checked for contrast.' },
   { id: 'UX-004', href: '/katas/ux-004-components', title: 'Build components from tokens', does: 'Buttons, fields, an error summary and a dialog, used on every high-fidelity screen.' },
   { id: 'UX-005', href: '/katas/ux-005-implement-and-qa', title: 'Implement the screens and check accessibility', does: 'A working page from the same flow and tokens, checked with axe, a keyboard and reflow at 320 px.' },
+  { id: 'UX-006', href: '/katas/ux-006-clickable-prototype', title: 'Wire a clickable prototype with overlays and back paths', does: 'Every transition as a link, the dialog as an overlay, Escape and the browser’s Back button as back paths.' },
+  { id: 'UX-007', href: '/katas/ux-007-visual-fidelity', title: 'Check the build against the design', does: 'Compare the built page with the drawings and the style guide, value by value, at two widths.' },
+  { id: 'UX-008', href: '/katas/ux-008-usability-walkthrough', title: 'Walk usability tasks and plan a session', does: 'Write tasks as scenarios, walk their shortest paths through the flow, and prepare a moderated session.' },
+  { id: 'UX-009', href: '/katas/ux-009-transfer', title: 'Transfer task: from user need to a tested prototype', does: 'Repeat the whole path on a product of your own, from a user need to a walked prototype.' },
   { id: 'UX-R01', href: '/katas/ux-r01-randori', title: 'UX Randori: an unseen flow with a hidden constraint', does: 'Map and wire a flow you have not seen; a partner reveals one constraint after you start.' },
 ];
 const shots = [
@@ -199,17 +211,61 @@ const sources = {
     </ul>
   </div></section>
 
+  <section class="section" aria-labelledby="walk-title"><div class="container narrow">
+    <p class="eyebrow">06 / Prototype, style guide and usability</p>
+    <h2 id="walk-title">Walk it end to end: flow, tokens, style guide, prototype, QA</h2>
+    <p>Open these in order. Each one is built from the one before it, and each has a check that runs on every pipeline.</p>
+    <ol class="walk" data-ux-walk>
+      <li><strong>The flow.</strong> <a href="/examples/ux-pathway/inputs/pocket-invoice-flow.json">The flow file</a> (JSON) and <a href="/examples/ux-pathway/generated/sitemap.svg">its sitemap</a>: {STATES.length} states, {TRANSITIONS.length} transitions, every error with a way back.</li>
+      <li><strong>The tokens.</strong> <a href="/examples/ux-pathway/pocket-invoice-tokens.json">The token file</a> (JSON, {tokenCount} tokens): colour, type, spacing, corners and borders.</li>
+      <li><strong>The style guide.</strong> <a href="/examples/pocket-invoice-style-guide/">The style guide as a web page</a>: every token rendered with its name and CSS property, the brand rules, the contrast pairs, and a working specimen of each of the {componentCount} components. Open your browser’s inspector on any specimen to see which token it uses.</li>
+      <li><strong>The prototype.</strong> <a href="/examples/pocket-invoice-prototype/?fidelity=high">The clickable prototype</a>: a link for every transition, the discard dialog as an overlay that Escape closes, and the browser’s Back button as a back path. The address bar names the screen, so any state can be bookmarked.</li>
+      <li><strong>The QA.</strong> <a href="/examples/ux-pathway/qa-report.md">The accessibility and responsive QA report</a> from the working example, <a href="/examples/ux-pathway/generated/fidelity-report.md">the fidelity report</a>, and the usability walkthrough below.</li>
+    </ol>
+    <h3>Usability walkthrough</h3>
+    <p>{usability.tasks.length} tasks, each written as a scenario a participant would hear, with the most clicks the team accepts. A script finds the shortest path the design allows for each, checks that every step is a button on the screen, and that every error on the way leads back to the goal. {usabilityPassed} of {usability.tasks.length} tasks passed. The site’s browser tests then click each path in the prototype at 1440 px, 390 px and 320 px.</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="usability-caption">
+      <table>
+        <caption id="usability-caption">Each usability task: the shortest path and the errors on the way</caption>
+        <thead><tr><th scope="col">Task</th><th scope="col">Scenario</th><th scope="col">Steps (budget)</th><th scope="col">Path</th><th scope="col">Errors on the way</th></tr></thead>
+        <tbody>
+          {usability.tasks.map((task) => (
+            <tr data-usability-task={task.id}>
+              <th scope="row">{task.id}</th>
+              <td>{task.scenario}</td>
+              <td>{task.stepCount} ({task.maxSteps})</td>
+              <td>{task.steps.map((step) => step.control ?? step.trigger).join(' → ') || 'none'}</td>
+              <td>{[...task.recoveries.map((r) => (stateTitle[r.error] ?? r.error) + ': ' + r.steps + ' back'), ...task.findings.map((f) => f.item + ': no way to the goal (finding)')].join('; ') || 'none'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    {usabilityFindings.length > 0 && <>
+      <h3>Findings</h3>
+      <ul data-usability-findings>
+        {usabilityFindings.map((finding) => <li><strong>{finding.task}, {finding.item}:</strong> {finding.decision}</li>)}
+      </ul>
+    </>}
+    <ul class="links">
+      <li><a href={USABILITY + 'walkthrough.md'}>Read the walkthrough</a> (Markdown) or <a href={USABILITY + 'tasks.json'}>its data</a> (JSON), and <a href="/examples/ux-pathway/inputs/usability-tasks.json">the tasks</a> (JSON).</li>
+      <li><a href={USABILITY + 'session-sheet.md'}>The moderated session sheet</a> (Markdown): consent, the scenarios to read aloud and what to watch for. No session has been run with it.</li>
+      <li><a href="/examples/ux-pathway/tools/ux_usability.mjs" download>Download the walkthrough script</a> (JavaScript for Node.js, no packages to install).</li>
+    </ul>
+    <p class="note">A walkthrough shows what the design allows, not what people do. Nobody has done these tasks, so no completion rate or time on task is claimed.</p>
+  </div></section>
+
   <section class="section" aria-labelledby="steps-title"><div class="container narrow">
-    <p class="eyebrow">06 / The steps</p>
-    <h2 id="steps-title">Six katas, in order</h2>
-    <p>Each kata has a brief, prompts, the checks that prove it is done and the evidence for the checks the Dojo has run. They are drafts: the Dojo built and checked the worked example, and no learner has run them yet. Do the foundations first: <a href="/katas/compare-instructions">Compare AI instructions</a> and <a href="/katas/context-trap">Spot a context trap</a>.</p>
+    <p class="eyebrow">07 / The steps</p>
+    <h2 id="steps-title">{steps.length} katas, in order</h2>
+    <p>Each kata has a brief, prompts, the checks that prove it is done and the evidence for the checks the Dojo has run. They are drafts: the Dojo built and checked the worked example, and no learner has run them yet. Do the foundations first: <a href="/katas/compare-instructions">Compare AI instructions</a>, <a href="/katas/context-trap">Spot a context trap</a> and <a href="/katas/fnd-001-stack-comparison">Build a working prototype, then change one stack variable</a>. Each kata also credits an outside exercise, from Penpot’s guides, the GOV.UK Service Manual or the W3C, under that publisher’s own terms; do it on the publisher’s site, and follow its rules on AI assistance.</p>
     <ol class="steps">
       {steps.map((step) => <li><a href={step.href}><span class="step-id">{step.id}</span> {step.title}</a><p>{step.does}</p></li>)}
     </ol>
   </div></section>
 
   <section class="section" aria-labelledby="tools-title"><div class="container narrow">
-    <p class="eyebrow">07 / The tools</p>
+    <p class="eyebrow">08 / The tools</p>
     <h2 id="tools-title">Penpot, and what Figma would cost</h2>
     <p>The pathway uses Penpot because it is open source, runs in a browser, can be self-hosted, and its free plan has no file limits. Facts below are from each publisher’s own pages, checked on 20 November 2026 (the SVG row on 21 November 2026). Plans change: check the source before you rely on one.</p>
     <div class="table-wrap" tabindex="0" role="region" aria-labelledby="tools-caption">
@@ -230,10 +286,10 @@ const sources = {
     </div>
   </div></section>
 
-  <SectorPackEvidence pack="ux" eyebrow="08 / What is checked" facts={{ componentCount, hifiScreenCount, hifiDrawingCount: fidelity.files.length, hifiDrawingsPassed: hifiPassed, minTextContrast: ratio(fidelity.totals.minTextContrast), minControlContrast: ratio(fidelity.totals.minControlContrast), tokenCount, transitionCount: TRANSITIONS.length, stateCount: STATES.length, flowCheckCount: flowChecks.checks.length, flowChecksPassed, contrastPairCount: flowChecks.contrast.length }} />
+  <SectorPackEvidence pack="ux" eyebrow="09 / What is checked" facts={{ usabilityTaskCount: usability.tasks.length, usabilityTasksPassed: usabilityPassed, usabilityFindingCount: usabilityFindings.length, componentCount, hifiScreenCount, hifiDrawingCount: fidelity.files.length, hifiDrawingsPassed: hifiPassed, minTextContrast: ratio(fidelity.totals.minTextContrast), minControlContrast: ratio(fidelity.totals.minControlContrast), tokenCount, transitionCount: TRANSITIONS.length, stateCount: STATES.length, flowCheckCount: flowChecks.checks.length, flowChecksPassed, contrastPairCount: flowChecks.contrast.length }} />
 
   <section class="section" aria-labelledby="credits-title"><div class="container narrow">
-    <p class="eyebrow">09 / Credits</p>
+    <p class="eyebrow">10 / Credits</p>
     <h2 id="credits-title">Credits and terms</h2>
     <ul>
       <li>{PRODUCT.name}, its flow, tokens, Penpot file, SVG drawings, prototype, script and working example: Developer Dojo, MIT licence.</li>
@@ -262,6 +318,7 @@ const sources = {
   table { width: 100%; border-collapse: collapse; }
   caption { text-align: left; font-weight: 800; margin-bottom: var(--space-2, .5rem); }
   th, td { text-align: left; vertical-align: top; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+  .walk li { margin-bottom: var(--space-3, .75rem); }
   .steps { padding-left: 0; list-style: none; display: grid; gap: var(--space-4, 1rem); }
   .steps li { padding: var(--space-4, 1rem); background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); }
   .steps a { font-weight: 800; }

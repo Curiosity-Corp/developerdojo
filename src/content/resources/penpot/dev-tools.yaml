@@ -1,0 +1,9 @@
+title: "Dev tools: inspect mode"
+provider: "Penpot"
+url: "https://help.penpot.app/user-guide/dev-tools/"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [brand-web-design]
+summary: "Penpot explains inspect mode: the measures, properties and code of a design, in View mode and in the workspace. Use it to compare a built page with its design, element by element."
+verifiedOn: 2026-11-26
