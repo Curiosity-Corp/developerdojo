@@ -22,10 +22,12 @@ resources:
   - "charm/bubble-tea-basics-tutorial"
   - "charm/lip-gloss-repository"
   - "charm/huh-repository"
-updated: 2026-11-03
+updated: 2026-11-27
 ---
 
 This is lesson 2 of the PHANTOMS track. It supports the Master Developer platform module and Developer week 5, where you choose how a product shows itself to people. In lesson 1 you learned the pattern. Here you meet the family of starting points that apply it.
+
+> **Under review, November 2026: how the variants are laid out.** The PHANTOMS maintainers are still deciding which repositories hold each variant, what they are finally called, and the shared `AGENTS.md` policy that keeps them from drifting apart. The scope of the terminal variant is being written down at the same time. Today only the core is runnable; PHANTOMS+ web is being modernised and PHANTOMS TUI is planned, with no repository yet. The ideas in this lesson, choosing the smallest variant that fits and recording why, stay the same whatever the layout. The details below will change when those decisions are recorded.
 
 ## 1. Why this matters
 
@@ -58,7 +60,7 @@ Whatever the variant, the pattern from lesson 1 holds:
 |---|---|---|---|
 | **PHANTOMS core** | Learning, prototypes, API-first products | A small static web page plus a JSON API | Public: [github.com/Curiosity-Corp/phantoms](https://github.com/Curiosity-Corp/phantoms) |
 | **PHANTOMS+ web** | Products with a polished, branded web interface | Web app with a design system | Internal starter, described below. Not public. |
-| **PHANTOMS TUI** | Tools used in a terminal | Text user interface | A pattern in this lesson; more to come |
+| **PHANTOMS TUI** | Tools used in a terminal | Text user interface | Planned, not built yet: a pattern in this lesson |
 
 The family will grow. New variants appear when a new kind of product needs a different interface or runtime. Learn to read variants, not to memorise them.
 
@@ -70,7 +72,7 @@ Its **honest limits** matter as much as its contents. It has no user login, no p
 
 ### PHANTOMS+ web
 
-PHANTOMS+ is the **web variant**: the same pattern, built for a product whose interface must look finished. The core starter intentionally uses plain CSS "to keep its first build easy to inspect". A branded product needs more. The recommended-tooling guide in the public starter lists the usual additions, and PHANTOMS+ is built around that menu:
+PHANTOMS+ is the **web variant**: the same pattern, built for a product whose interface must look finished. The core starter intentionally uses plain CSS "to keep its first build easy to inspect", and its decision log (decision 017) says the UI kit belongs to PHANTOMS+, not to core. A branded product needs more. The recommended-tooling guide in the public starter lists the usual additions, and PHANTOMS+ is built around that menu:
 
 - **Tailwind CSS 4** for utility-based styling, so a design system can live in the code.
 - **shadcn/ui** for accessible interface components whose source is copied into your repository, so you own and can change them.

@@ -20,7 +20,7 @@ resources:
   - "owasp/top-10-for-llm-applications"
   - "anthropic/building-effective-agents"
   - "zod/zod-intro"
-updated: 2026-11-22
+updated: 2026-11-27
 ---
 
 This is lesson 6 of the PHANTOMS track. It supports the Master Developer module on AI-agent orchestration, and it pairs with the [Working with AI agents](/library/tracks/working-with-ai-agents/) track. A is the letter most likely to change under your feet, which is exactly why the starter treats it as a boundary and not a vendor.
@@ -52,7 +52,7 @@ The `packages/ai` package is small on purpose. In plain words:
 - It can let the model use **tools**, but only from an allowlist with two gates: the adapter knows only the tools registered when it was built, and each request must name the ones it enables. A request that names none exposes none.
 - It writes one **usage record** per request: model, time taken, token counts and outcome, and never the prompt, the answer or the tool data.
 - It can reach tools served by another program over MCP, the Model Context Protocol, but that is **off by default**, limited to servers listed in server-side configuration, and each server needs its own list of allowed tools.
-- It talks to the model through the AI SDK's "OpenAI-compatible" provider, a common protocol that many hosted and self-hosted model servers speak. That is how one adapter can reach many providers. Not every server supports tools or structured output, so the adapter declares what an endpoint can do and refuses the rest up front.
+- It talks to the model through the AI SDK (version 7.0.162 in the starter's version policy) and its "OpenAI-compatible" provider, a common protocol that many hosted and self-hosted model servers speak. That is how one adapter can reach many providers. Not every server supports tools or structured output, so the adapter declares what an endpoint can do and refuses the rest up front.
 - It makes **no live model call at startup or in tests.** Tests use `createFakeAI`, a fake adapter that applies the same checks and records every call.
 
 That is the whole idea: limited and replaceable, even with tools. The guide says it is "agentic in the practical sense" yet "not an agent framework": long multi-step workflows belong to a framework you evaluate behind the same boundary. The rule stays the one the docs state: "Application code imports a small PHANTOMS AI interface, not a vendor package."

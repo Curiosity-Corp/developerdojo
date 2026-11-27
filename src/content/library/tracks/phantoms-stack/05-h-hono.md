@@ -22,7 +22,7 @@ resources:
   - "hono/hono-secure-headers"
   - "zod/zod-intro"
   - "owasp/rest-security-cheat-sheet"
-updated: 2026-11-24
+updated: 2026-11-27
 ---
 
 This is lesson 5 of the PHANTOMS track. It supports the Master Developer platform and production-launch modules, and Developer week 6, where a demo needs a working back end. H is where your product's rules become code that the outside world can call.
@@ -33,7 +33,7 @@ Your web page, a café's tablet and a partner's tool all need the same orders. T
 
 That one program is the **boundary** of your product. Everything outside it is untrusted: users make typos, scripts send rubbish, attackers send worse. Everything inside it can rely on the data being checked. Put the checks in one place and you can review them in one place.
 
-**Hono** is a small, fast web framework written in TypeScript and built on web standards. In PHANTOMS it runs on Bun. "Small" is a feature: less code to read, less to patch, less for an agent to misuse.
+**Hono** is a small, fast web framework written in TypeScript and built on web standards. In PHANTOMS it runs on Bun, and the starter's version policy pins Hono 4.13.16. "Small" is a feature: less code to read, less to patch, less for an agent to misuse.
 
 For a product manager, the API is where your promises become **rules that run**: who may see an order, what a valid order is, how big a request may be, what happens when something fails. Agents write routes well and quickly. They are less reliable at the boundary rules that nobody asked for out loud. That is your job.
 
@@ -89,7 +89,7 @@ When a café owner says "it broke at ten past three", you need to find that one 
 - **Structured logs.** The API writes one JSON object per line. A machine can search them, and a person can still read them. Each request logs its method, path, status, duration and request ID. It never logs headers, request bodies, query strings or error messages, because those can carry tokens, passwords and personal data. Values under names such as `authorization`, `token` or `password` are hidden as a backstop. That backstop is a safety net, not permission to log secrets.
 - **Tracing, only when you ask for it.** Tracing records how long each step of a request took. The starter can send traces in the standard OpenTelemetry format, but only when you set `OTEL_EXPORTER_OTLP_ENDPOINT`. Without that setting, nothing leaves the machine. The starter has a test that proves tracing works on its pinned Bun version. When Bun or the tracing libraries change version, that test has to pass again. Do not assume it still works.
 
-The starter's decision log records the reason (decision 012): observability and browser tests stay **small, opt-in and pinned**. Choosing a dashboard or a hosted tracing service is a separate decision. Make it when you know your service's targets.
+The starter pins the 2.x line of the OpenTelemetry JavaScript packages today. Its decision log says it moves to the 3.x line at the next dependency refresh (decision 019), and only if that tracing test passes. The starter's decision log records the reason for the small setup (decision 012): observability and browser tests stay **small, opt-in and pinned**. Choosing a dashboard or a hosted tracing service is a separate decision. Make it when you know your service's targets.
 
 ### Safe by default on the network
 

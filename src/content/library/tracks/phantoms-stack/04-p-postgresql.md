@@ -20,7 +20,7 @@ resources:
   - "pgexercises/postgresql-exercises"
   - "youtube-freecodecamp/learn-postgresql-full-course"
   - "drizzle/drizzle-orm-overview"
-updated: 2026-11-03
+updated: 2026-11-27
 ---
 
 This is lesson 4 of the PHANTOMS track. It supports the Master Developer modules on platform and production launch, and Developer week 6, where your demo must work on real data. P is the first letter and the one you may never skip: a product that loses its records has lost its customers' trust.
@@ -77,7 +77,7 @@ In the starter, all database code lives in `packages/db`: the connection, the sc
 
 ### Local database, production database
 
-Locally, the starter runs PostgreSQL in a container with one command (`docker compose up -d postgres`). The container listens only on the local machine (`127.0.0.1`), and the password in `.env.example` is a placeholder for a disposable database. In production the rules change: use a managed or carefully run database, a strong secret from a secret manager, TLS, and an approved image identified by its digest (an exact fingerprint), not just a version tag. The version policy lists PostgreSQL 18.6 for the local container only.
+Locally, the starter runs PostgreSQL in a container with one command (`docker compose up -d postgres`). The container listens only on the local machine (`127.0.0.1`), and the password in `.env.example` is a placeholder for a disposable database. In production the rules change: use a managed or carefully run database, a strong secret from a secret manager, TLS, and an approved image identified by its digest (an exact fingerprint), not just a version tag. The version policy lists PostgreSQL 18.6 for the local container only. PostgreSQL 19 came out in November 2026; the starter stays on 18, which is supported until 2030, until 19 has its first minor release and matching pgvector images (decision 015). The driver is postgres.js 4.0.0, on the 4.x line (decision 018), and Drizzle ORM 0.45.4 builds the queries and migrations.
 
 ## 3. Step by step: how to review a data model
 
