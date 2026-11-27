@@ -36,10 +36,12 @@ Two facts shape the dev host:
 
 1. **Branches.**
    - `demo` and `dev` are long-lived branches, created from `master`.
-   - Work flows from an editor's own branch to `dev`, then to `demo`, then to `master`, by merge request.
+   - Work flows from an editor's own branch to `dev`, then to `demo`, then to `master`. Merge requests are the
+     normal path.
    - `master` stays Maintainers only.
    - FocusApiary/infrastructure `gitlab-branch-protection` declares the protection for `demo` and `dev`: push
-     Maintainers, merge Developers.
+     and merge Developers. The CEO order asks that editors at the Developer role can push and land changes
+     there. Protection still stops force pushes and deletion, and CI still gates every deploy.
 2. **Gates.** A push to `demo` or `dev` runs the same gates as `master`: check, test, the pathway jobs, build,
    e2e and links.
 3. **Demo deploy.**
@@ -64,7 +66,7 @@ Two facts shape the dev host:
 
 The site needs the following from the repositories that own them. Each item goes through their own MRs:
 
-- Protection of `demo` and `dev`: push Maintainers, merge Developers.
+- Protection of `demo` and `dev`: push and merge Developers, no force push.
 - `Curiosity-Corp/developerdojo` in `sites/junior-branding-sites.yaml` with `domain: developerdojo.org` and
   `main_branch: master`. This gives `demo.developerdojo.org` from this project's Pages.
 - The project `Curiosity-Corp/developerdojo-dev`, set up as follows:

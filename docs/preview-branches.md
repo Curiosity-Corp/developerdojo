@@ -10,12 +10,13 @@ the repository. The site does not serve it. The design is in
 | Branch | Who changes it | Where you see it | How a change gets in |
 | --- | --- | --- | --- |
 | your own branch, for example `fix-events-page` | you | in the merge request pipeline (checks only) | you push to it |
-| `dev` | editors, by merge request | https://dev.developerdojo.org (private) | merge your branch into `dev` |
-| `demo` | editors, by merge request | https://demo.developerdojo.org (private) | merge `dev` into `demo` |
+| `dev` | editors | https://dev.developerdojo.org (private) | merge your branch into `dev` |
+| `demo` | editors | https://demo.developerdojo.org (private) | merge `dev` into `demo` |
 | `master` | Maintainers only | https://developerdojo.org (public) | a Maintainer merges `demo` into `master` |
 
-- You cannot push straight to `dev`, `demo` or `master`. Always work on your own branch and open a merge
-  request.
+- Work on your own branch and open a merge request into `dev`. Editors can also push straight to `dev` and
+  `demo`, but a merge request shows the checks before the preview changes. You cannot push to `master`, and
+  nobody can force-push or delete `dev` or `demo`.
 - Every push to `dev` or `demo` runs the full checks: build, links, accessibility and the browser tests. The
   preview site updates only when they are green, about 20 to 45 minutes after the merge.
 - The everyday steps (make a branch, edit, open a merge request, read the pipeline) are in
@@ -77,6 +78,6 @@ member of this project only, at the Developer role. With that role you can:
 
 - create your own branches;
 - open merge requests;
-- merge into `dev` and `demo` once the pipeline is green.
+- push to and merge into `dev` and `demo`.
 
 You cannot push to or merge into `master`.
