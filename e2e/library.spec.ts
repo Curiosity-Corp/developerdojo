@@ -134,3 +134,17 @@ test('resource cards link out safely', async ({ page }) => {
   );
   expect(unsafe).toEqual([]);
 });
+
+test('resource card links keep their new-tab warning and draw the icon', async ({ page }) => {
+  await page.goto('/library/resources');
+  const link = page.locator('[data-resource] h3 a').first();
+  await expect(link).toHaveAccessibleName(/\(opens the publisher's site in a new tab\)$/);
+  // The icon is a CSS mask on ::after (#113), not an inline SVG per card: it must still take up its 16 px.
+  const icon = await link.evaluate((a) => {
+    const style = getComputedStyle(a, '::after');
+    return { content: style.content, width: style.width, height: style.height, mask: style.maskImage || style.webkitMaskImage };
+  });
+  expect(icon).toMatchObject({ content: '""', width: '16px', height: '16px' });
+  expect(icon.mask).toContain('data:image/svg+xml');
+  expect(await page.locator('[data-resource] svg').count()).toBe(0);
+});

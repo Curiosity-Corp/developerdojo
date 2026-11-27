@@ -2,9 +2,12 @@
 /**
  * One external learning resource. Used on /library/resources and in "Further learning" on lessons.
  * Props: resource (a `resources` collection entry), compact? (hide the summary skills and date)
+ *
+ * The catalogue renders this card about a thousand times, so its markup is kept lean (#113): parsing the page's HTML
+ * was most of its load time on a slow device. The styles are global, under `.resource`, so Astro does not stamp a
+ * scope attribute on every element, and the new-tab icon is drawn by CSS rather than an inline SVG per card.
  */
 import type { CollectionEntry } from 'astro:content';
-import Icon from './Icon.astro';
 import { COST_LABELS, FORMAT_LABELS, RESOURCE_LEVEL_LABELS, SKILL_LABELS, formatDate } from '../lib/labels';
 
 interface Props {
@@ -15,12 +18,11 @@ const { resource, compact = false } = Astro.props;
 const data = resource.data;
 ---
 
-<article class="resource" data-resource-id={resource.id}>
+<article class="resource">
   <p class="provider">{data.provider}</p>
   <h3>
     <a href={data.url} rel="noopener noreferrer" target="_blank">
       {data.title}<span class="visually-hidden"> (opens the publisher's site in a new tab)</span>
-      <Icon name="external-link" size={16} />
     </a>
   </h3>
   <ul class="chips" aria-label="About this resource">
@@ -39,7 +41,7 @@ const data = resource.data;
   }
 </article>
 
-<style>
+<style is:global>
   .resource {
     display: grid;
     gap: var(--space-2);
@@ -52,7 +54,7 @@ const data = resource.data;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
   }
-  .provider {
+  .resource .provider {
     margin: 0;
     font-size: var(--text-sm);
     font-weight: 700;
@@ -60,22 +62,37 @@ const data = resource.data;
     text-transform: uppercase;
     color: var(--olive-text);
   }
-  h3 {
+  .resource h3 {
     margin: 0;
     font-family: var(--font-serif);
     font-size: var(--text-xl);
     line-height: 1.25;
   }
-  h3 a {
+  .resource h3 a {
     display: inline-flex;
     gap: var(--space-2);
     align-items: baseline;
   }
-  h3 :global(svg) {
+  /* Lucide's external-link icon (tests/resource-card.test.ts keeps the path in step with the icon set). It is
+     decorative: the hidden text above already says the link opens a new tab. */
+  .resource h3 a::after {
+    content: '';
     flex: none;
     align-self: center;
+    width: 16px;
+    height: 16px;
+    background-color: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6m-11 5L21 3m-3 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3C/svg%3E")
+      center / contain no-repeat;
   }
-  .chips {
+  /* Forced colours replace backgrounds with the canvas colour, which would hide the icon: draw it in link text. */
+  @media (forced-colors: active) {
+    .resource h3 a::after {
+      forced-color-adjust: none;
+      background-color: LinkText;
+    }
+  }
+  .resource .chips {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
@@ -83,7 +100,7 @@ const data = resource.data;
     padding: 0;
     list-style: none;
   }
-  .chip {
+  .resource .chip {
     padding: 0.1rem 0.6rem;
     font-size: var(--text-sm);
     font-weight: 600;
@@ -91,11 +108,11 @@ const data = resource.data;
     border: 1px solid var(--line);
     border-radius: 999px;
   }
-  .summary,
-  .meta {
+  .resource .summary,
+  .resource .meta {
     margin: 0;
   }
-  .meta {
+  .resource .meta {
     font-size: var(--text-sm);
     color: var(--ink-muted);
   }
