@@ -34,7 +34,7 @@ describe('armory registry: published records', () => {
 
   it('lists exactly the entries with a passed smoke test and nothing missing', () => {
     expect(real.entries.filter((entry) => entry.listed).map((entry) => entry.entry.id).sort())
-      .toEqual(['claude-code', 'claude-haiku-5-5', 'claude-sonnet-5-5', 'git', 'ifcopenshell', 'ifctester', 'mcp-filesystem', 'playwright-mcp']);
+      .toEqual(['claude-code', 'claude-haiku-5-5', 'claude-sonnet-5-5', 'git', 'ifcopenshell', 'ifctester', 'mcp-filesystem', 'penpot', 'playwright-mcp']);
     for (const entry of real.entries) expect(entry.listed).toBe(entry.gaps.length === 0);
     // e2e/armory-registry.spec.ts counts the rendered cards; keep both in step.
     expect(real.entries.filter((entry) => !entry.listed)).toHaveLength(16);
@@ -99,6 +99,21 @@ describe('armory registry: evidence matches the records', () => {
     const run = evidence('/examples/armory/ifcopenshell.json') as { output: { ifcopenshell: string; schema: string; counts: Record<string, number> } };
     expect(run.output.ifcopenshell).toBe(resolved('ifcopenshell').entry.version && '0.9.0.post1');
     expect(run.output).toMatchObject({ schema: 'IFC4', counts: { IfcWall: 1, IfcOpeningElement: 1, IfcWindow: 1, IfcBuildingStorey: 1, IfcPropertySet: 2 } });
+  });
+
+  it('Penpot: the smoke test is the import check of the published file, every check passed, on the recorded version', () => {
+    const run = evidence('/examples/armory/penpot.json') as { penpotVersion: string; library: string; file: { sha256: string }; importCheck: string; checks: { name: string; pass: boolean }[] };
+    const record = evidence(run.importCheck) as { penpotVersion: string; fileSha256: string; checks: { name: string; pass: boolean }[] };
+    const entry = resolved('penpot').entry;
+    expect(run.penpotVersion).toBe(record.penpotVersion);
+    expect('value' in entry.version && entry.version.value).toContain(run.penpotVersion);
+    expect('value' in entry.version && entry.version.value).toContain(run.library.replace('@penpot/library@', ''));
+    expect(run.file.sha256).toBe(record.fileSha256);
+    expect(run.checks).toEqual(record.checks.map(({ name, pass }) => ({ name, pass })));
+    expect(run.checks.every((check) => check.pass)).toBe(true);
+    for (const name of ['import', 'pages', 'journey-05', 'desktop-04', 'prototype-walk-04', 'export-round-trip']) expect(run.checks.map((check) => check.name)).toContain(name);
+    if (!('unavailable' in entry.smokeTest)) expect(entry.smokeTest.observed).toContain(run.checks.length + ' of ' + run.checks.length + ' checks passed');
+    expect(JSON.stringify(run)).not.toMatch(/\/tmp\/|\/home\/|127\.0\.0\.1|localhost/);
   });
 
   it('Git: two commits, clean tree, fsck clean', () => {
@@ -182,7 +197,7 @@ describe('armory registry: rules', () => {
   });
 
   it('marks an entry due once its next review date has passed', () => {
-    const later = validateArmory({ entries: armoryEntries, recipes: armoryStackRecipes }, { ...refs, today: '2027-02-21' });
+    const later = validateArmory({ entries: armoryEntries, recipes: armoryStackRecipes }, { ...refs, today: '2027-02-27' });
     expect(later.entries.every((entry) => entry.reviewDue)).toBe(true);
     expect(real.entries.some((entry) => entry.reviewDue)).toBe(false);
   });

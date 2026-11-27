@@ -9,14 +9,21 @@
  * never printed. Each run imports a new copy of the file, so it is safe to repeat.
  *
  * It checks, against the flow in src/data/pocket-invoice.ts:
- *   1. the import succeeds, and the file has the four pages, a board for every state on the low- and
- *      high-fidelity pages, an interaction for every transition, both flows, the eight main components,
- *      the library colours and type styles, and both token sets with the Light theme;
+ *   1. the import succeeds, and the file has the five pages, a board for every state on the low- and
+ *      high-fidelity pages, an interaction for every transition, both flows, a 1280 px board for every
+ *      screen state, the one-canvas journey with every state and a numbered arrow per transition, the
+ *      eight main components, the library colours and type styles, and both token sets with the Light theme;
  *   2. every page opens in the workspace, which lays out the text and saves it (Penpot needs this
  *      before View mode can draw generated text);
- *   3. in View mode, clicking through the prototype reaches every transition's destination.
- * It writes the result to public/examples/ux-pathway/penpot-import-check.json and screenshots of a
- * few boards in View mode to public/examples/ux-pathway/screens/. It exits 1 if any check fails.
+ *   3. in View mode, clicking through the prototype reaches every transition's destination;
+ *   4. Penpot exports the imported file again as .penpot (export-binfile), and the copy has the same
+ *      pages, boards, interactions, components and tokens: the round trip a learner makes when they
+ *      download their own edited file.
+ * It writes the result to public/examples/ux-pathway/penpot-import-check.json, the Armory smoke-test
+ * evidence to public/examples/armory/penpot.json (set PENPOT_IMAGES to the image references with their
+ * digests, comma-separated, to record them) and screenshots of a few boards in View mode to
+ * public/examples/ux-pathway/screens/. It exits 1 if any check fails. After a run, update the Penpot
+ * entry in src/data/armory.ts (version, dates, observed); tests/armory.test.ts checks the two agree.
  *
  * It needs Chromium for Playwright (npx playwright install chromium). It is a maintainer's check,
  * not part of CI: CI has no Penpot server. The tests check the file's structure without one.
@@ -47,14 +54,15 @@ async function rpc(request: APIRequestContext, method: string, data: Json): Prom
   try { return JSON.parse(body) as Json; } catch { throw new Error('Penpot ' + method + ' returned something that is not JSON: ' + body.slice(0, 200)); }
 }
 
-async function importFile(request: APIRequestContext, projectId: string): Promise<string> {
+async function importBytes(request: APIRequestContext, projectId: string, name: string, buffer: Buffer): Promise<string> {
   const response = await request.post(BASE + '/api/main/methods/import-binfile', {
     headers: { accept: 'text/event-stream' },
-    multipart: { name: 'Pocket Invoice (import check)', 'project-id': projectId, file: { name: 'pocket-invoice.penpot', mimeType: 'application/zip', buffer: readFileSync(FILE) } },
+    multipart: { name, 'project-id': projectId, file: { name: 'pocket-invoice.penpot', mimeType: 'application/zip', buffer } },
   });
   const body = await response.text();
   if (!response.ok()) throw new Error('Penpot import failed with HTTP ' + response.status() + ': ' + body.slice(0, 300));
-  const end = /event: end\s*\ndata: \["~u([0-9a-f-]{36})"\]/.exec(body);
+  // Penpot 2.18 ends with data: ["~u<id>"]; 2.19 with data: {"~:file-ids":["~u<id>"],"~:resolution":{}}.
+  const end = /event: end\s*\ndata: (?:\[|\{"~:file-ids":\[)"~u([0-9a-f-]{36})"/.exec(body);
   if (!end?.[1]) throw new Error('Penpot import did not end with a file id: ' + body.slice(-400));
   return end[1];
 }
@@ -70,7 +78,21 @@ const boardForState = (page: Json, state: StateId): Json | undefined => rootBoar
 
 function structure(data: Json): void {
   const pages = (data['pages'] as string[]).map((id) => String((data['pagesIndex'] as Json)[id]['name']));
-  check('pages', pages.length === 4, pages.join(' | '));
+  check('pages', pages.length === 5, pages.join(' | '));
+  const high = pageNamed(data, '04');
+  const desktop = rootBoards(high).filter((board) => String(board['name']).startsWith('Desktop: '));
+  const screenStates = STATES.filter((state) => state.kind !== 'overlay');
+  const noDesktop = screenStates.filter((state) => !desktop.some((board) => String(board['name']).includes('(' + state.id + ', 1280 px)') && board['width'] === 1280)).map((state) => state.id);
+  check('desktop-04', noDesktop.length === 0, noDesktop.length ? 'no 1280 px board for ' + noDesktop.join(', ') : desktop.length + ' boards at 1280 px, one per screen state');
+  const journey = pageNamed(data, '05');
+  const journeyObjects = Object.values(journey['objects'] as Json) as Json[];
+  const canvas = rootBoards(journey);
+  const screens = journeyObjects.filter((o) => o['type'] === 'frame' && o['parentId'] === canvas[0]?.['id']);
+  const arrows = journeyObjects.filter((o) => o['type'] === 'path' && String(o['name']).startsWith('Transition '));
+  const missingScreens = STATES.filter((state) => !screens.some((board) => String(board['name']).startsWith(state.id + ': '))).map((state) => state.id);
+  const missingArrows = TRANSITIONS.filter((tr, i) => !arrows.some((arrow) => String(arrow['name']).startsWith('Transition ' + (i + 1) + ': ' + tr.from + ' to ' + tr.to + ' '))).map((tr) => tr.from + ' to ' + tr.to);
+  check('journey-05', canvas.length === 1 && missingScreens.length === 0 && missingArrows.length === 0,
+    canvas.length !== 1 ? canvas.length + ' root boards' : missingScreens.length || missingArrows.length ? 'missing ' + [...missingScreens, ...missingArrows].join(', ') : 'one canvas with ' + screens.length + ' screens and ' + arrows.length + ' numbered arrows');
   for (const prefix of ['02', '04']) {
     const page = pageNamed(data, prefix);
     const objects = page['objects'] as Json;
@@ -107,6 +129,34 @@ function structure(data: Json): void {
   check('tokens', sets.join(',') === 'core,semantic' && actualCount === expectedCount && themes.join() === 'Mode/Light', 'sets ' + sets.join(', ') + '; ' + actualCount + ' of ' + expectedCount + ' tokens; themes ' + themes.join(', '));
 }
 
+/** Exports the imported file from Penpot as .penpot and imports that copy again, so the result can be read back. */
+async function roundTrip(request: APIRequestContext, projectId: string, fileId: string, before: Json): Promise<void> {
+  const exported = await request.post(BASE + '/api/main/methods/export-binfile', { data: { fileId, includeLibraries: false, embedAssets: false }, headers: { accept: 'text/event-stream' } });
+  const body = await exported.text();
+  if (!exported.ok()) throw new Error('Penpot export failed with HTTP ' + exported.status() + ': ' + body.slice(0, 300));
+  // The end event carries the download link as a Transit URI: data: {"~#uri":"<link>"}.
+  const href = /event: end\s*\ndata: \{"~#uri":"([^"]+)"\}/.exec(body)?.[1];
+  if (!href) throw new Error('Penpot export did not end with a download link: ' + body.slice(-400));
+  const download = await request.get(href.startsWith('http') ? href : BASE + href);
+  if (!download.ok()) throw new Error('Penpot export download failed with HTTP ' + download.status());
+  const bytes = await download.body();
+  const copyId = await importBytes(request, projectId, 'Pocket Invoice (round trip)', bytes);
+  const after = (await rpc(request, 'get-file', { id: copyId }))['data'] as Json;
+  const summary = (data: Json) => {
+    const pages = (data['pages'] as string[]).map((id) => (data['pagesIndex'] as Json)[id] as Json);
+    const objects = pages.flatMap((page) => Object.values(page['objects'] as Json) as Json[]);
+    return [
+      pages.map((page) => String(page['name'])).join(' | '),
+      objects.filter((o) => o['type'] === 'frame').length + ' boards',
+      objects.reduce((sum, o) => sum + ((o['interactions'] ?? []) as Json[]).length, 0) + ' interactions',
+      Object.keys(data['components'] ?? {}).length + ' components',
+      Object.keys((data['tokensLib'] ?? {}) as Json).filter((key) => !key.startsWith('$')).join(',') + ' token sets',
+    ];
+  };
+  const a = summary(before); const b = summary(after);
+  check('export-round-trip', a.join() === b.join(), 'exported ' + bytes.length + ' bytes as .penpot and imported the copy: ' + (a.join() === b.join() ? b.slice(1).join(', ') : 'before ' + a.join('; ') + ' / after ' + b.join('; ')));
+}
+
 async function layOutText(page: Page, request: APIRequestContext, teamId: string, fileId: string, pageIds: string[]): Promise<void> {
   for (const pageId of pageIds) {
     await page.goto(BASE + '/#/workspace?team-id=' + teamId + '&file-id=' + fileId + '&page-id=' + pageId);
@@ -115,7 +165,7 @@ async function layOutText(page: Page, request: APIRequestContext, teamId: string
   await page.goto('about:blank');
   await page.waitForTimeout(2000);
   const data = (await rpc(request, 'get-file', { id: fileId }))['data'] as Json;
-  for (const prefix of ['02', '04']) {
+  for (const prefix of ['02', '04', '05']) {
     const texts = (Object.values(pageNamed(data, prefix)['objects'] as Json) as Json[]).filter((o) => o['type'] === 'text');
     const laidOut = texts.filter((o) => Array.isArray(o['positionData']) && o['positionData'].length).length;
     check('text-layout-' + prefix, laidOut >= texts.length * 0.95, laidOut + ' of ' + texts.length + ' text layers laid out and saved after opening the page in the workspace');
@@ -193,7 +243,7 @@ try {
   const version = (await (await request.get(BASE + '/version.txt')).text()).trim();
   await rpc(request, 'login-with-password', { email: EMAIL, password: readFileSync(PASSWORD_FILE, 'utf8').trim() });
   const profile = await rpc(request, 'get-profile', {});
-  const fileId = await importFile(request, String(profile['defaultProjectId']));
+  const fileId = await importBytes(request, String(profile['defaultProjectId']), 'Pocket Invoice (import check)', readFileSync(FILE));
   check('import', true, 'imported as a new file');
   structure((await rpc(request, 'get-file', { id: fileId }))['data'] as Json);
   const page = await context.newPage();
@@ -205,6 +255,12 @@ try {
   const data = (await rpc(request, 'get-file', { id: fileId }))['data'] as Json;
   await walkPrototype(page, data, fileId, '02', 'low');
   await walkPrototype(page, data, fileId, '04', 'high');
+  // Page 05 in View mode: the whole journey board, scaled to fit, for the README and the pathway page.
+  await page.setViewportSize({ width: 2000, height: 760 });
+  await page.goto(BASE + '/#/view?file-id=' + fileId + '&page-id=' + pageNamed(data, '05')['id'] + '&section=interactions&index=0&zoom=fit');
+  await page.waitForTimeout(6000);
+  await page.screenshot({ path: OUT_DIR + 'screens/journey.png', clip: { x: 0, y: 48, width: 2000, height: 700 } });
+  await roundTrip(request, String(profile['defaultProjectId']), fileId, data);
   check('no-page-errors', errors.length === 0, errors.length ? errors.join(' | ') : 'no uncaught errors in the Penpot UI');
   const record = {
     // The local calendar day, the same convention as every other date on the site (not the UTC day).
@@ -218,11 +274,26 @@ try {
       'Writing to Penpot through a plugin or the MCP server: the file is generated offline with @penpot/library and imported.',
       'Penpot cloud (design.penpot.app): only a self-hosted instance was used.',
       'Editing by a person: the check opens, lays out and clicks the file; it does not edit it.',
-      'Export to other formats (SVG, PDF, PNG) from Penpot.',
+      'Export of boards to SVG, PDF or PNG: those need Penpot\'s exporter service, which this check does not run. Export as .penpot is checked (export-round-trip).',
     ],
     checks,
   };
   writeFileSync(OUT_DIR + 'penpot-import-check.json', JSON.stringify(record, null, 2) + '\n');
+  const library = JSON.parse(readFileSync(fileURLToPath(new URL('node_modules/@penpot/library/package.json', ROOT)), 'utf8')) as { version: string };
+  const armoryEvidence = {
+    entry: 'penpot',
+    date: record.checkedOn,
+    penpotVersion: version,
+    library: '@penpot/library@' + library.version,
+    images: (process.env['PENPOT_IMAGES'] ?? '').split(',').map((item) => item.trim()).filter(Boolean),
+    environment: 'Self-hosted Penpot from the official container images, reachable only from the same machine; a throwaway account; Chromium through Playwright.',
+    file: { name: '/examples/ux-pathway/pocket-invoice.penpot', sha256: record.fileSha256, source: 'Developer Dojo, MIT licence, written with @penpot/library' },
+    importCheck: '/examples/ux-pathway/penpot-import-check.json',
+    steps: ['import-binfile as a new file', 'read the file back and check its structure against the flow', 'open every page in the workspace', 'click through both prototypes in View mode', 'export-binfile, then import the exported copy and compare'],
+    checks: checks.map(({ name, pass }) => ({ name, pass })),
+    notChecked: record.notChecked,
+  };
+  writeFileSync(fileURLToPath(new URL('public/examples/armory/penpot.json', ROOT)), JSON.stringify(armoryEvidence, null, 2) + '\n');
   console.log('Wrote ' + OUT_DIR + 'penpot-import-check.json');
   if (checks.some((item) => !item.pass)) process.exitCode = 1;
 } finally {

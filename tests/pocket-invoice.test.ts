@@ -121,9 +121,30 @@ describe('the published Penpot file', () => {
     return current;
   };
 
-  it('is a Penpot export with the four pages in order', () => {
+  it('is a Penpot export with the five pages in order', () => {
     expect((json(/^manifest\.json$/)[0] as { type: string }).type).toBe('penpot/export-files');
-    expect(pages.map((page) => page.name).sort()).toEqual(['01 Sitemap and flow', '02 Low fidelity (390 px)', '03 Tokens and components', '04 High fidelity (390 px and 1280 px)']);
+    expect(pages.map((page) => page.name).sort()).toEqual(['01 Sitemap and flow', '02 Low fidelity (390 px)', '03 Tokens and components', '04 High fidelity (390 px and 1280 px)', '05 Journey on one canvas']);
+  });
+
+  it('has a 1280 px board for every screen state on the high-fidelity page', () => {
+    const high = pages.find((item) => item.name.startsWith('04 '));
+    const desktop = shapes.filter((shape) => shape.pageId === high?.id && shape.type === 'frame' && shape.parentId === ROOT && shape.name.startsWith('Desktop: '));
+    const screenStates = STATES.filter((state) => state.kind !== 'overlay').map((state) => state.id);
+    expect(desktop.map((board) => /\(([a-z-]+), 1280 px\)$/.exec(board.name)?.[1]).sort()).toEqual([...screenStates].sort());
+    for (const board of desktop) expect((board as Shape & { width?: number }).width, board.name).toBe(1280);
+  });
+
+  it('puts every high-fidelity screen and a numbered arrow per transition on one canvas (page 05)', () => {
+    const journey = pages.find((item) => item.name.startsWith('05 '));
+    const onPage = shapes.filter((shape) => shape.pageId === journey?.id);
+    const canvas = onPage.filter((shape) => shape.type === 'frame' && shape.parentId === ROOT && shape.id !== ROOT);
+    expect(canvas).toHaveLength(1);
+    const screens = onPage.filter((shape) => shape.type === 'frame' && shape.parentId === canvas[0]?.id);
+    expect(screens.map(stateOf).sort()).toEqual([...STATE_IDS].sort());
+    const arrows = onPage.filter((shape) => shape.type === 'path' && shape.name.startsWith('Transition '));
+    expect(arrows.map((arrow) => arrow.name.replace(/ \(.*$/, '')).sort()).toEqual(TRANSITIONS.map((t, i) => 'Transition ' + (i + 1) + ': ' + t.from + ' to ' + t.to).sort());
+    // Reading page, not a prototype: the clickable flow lives on pages 02 and 04.
+    expect(onPage.filter((shape) => (shape.interactions ?? []).length)).toEqual([]);
   });
 
   for (const pageName of ['02 Low fidelity (390 px)', '04 High fidelity (390 px and 1280 px)']) {
