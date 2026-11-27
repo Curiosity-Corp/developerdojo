@@ -1,0 +1,25 @@
+{
+  "script": "tools/health_pathway.py",
+  "python": "3.12",
+  "inputs": {
+    "inputs/bmi-age-2022.csv": "7f416a213157a5209bb6cbfd1b19292510248f3f31fe43c9ff63f6d8e39f7890",
+    "inputs/bmiagerev.csv": "cbeea0e8d500ee15c652f3fdc45bcd02cb9c15d4d1e86f4d8048bbfea8d166e5",
+    "scenario/children.csv": "7334f9cb83b752fb3f85a781f3fcc8a330f7e363d11975754e1f74fa37e1381d"
+  },
+  "method": {
+    "referenceChecks": "CDC, Extended BMI-for-age growth charts: data files (four worked examples) and Child and teen BMI categories (one worked example); every percentile and z-score column of both data files",
+    "lms": "z = ((BMI / M)^L - 1) / (L S); BMI = M (1 + L S z)^(1 / L) (CDC 2000 growth charts)",
+    "extended": "Above the 95th percentile: percentile = 90 + 10 Phi((BMI - P95) / sigma); z = Phi^-1(percentile / 100) (CDC 2022 Extended BMI-for-age)",
+    "age": "Completed months plus 0.5 selects the row; ages 2 through 19 years only",
+    "normal": "Python statistics.NormalDist for Phi and its inverse"
+  },
+  "outputs": [
+    "children.csv",
+    "inspection.json",
+    "manifest.json",
+    "randori/cards.json",
+    "reference-checks.json",
+    "scores.json",
+    "summary.md"
+  ]
+}

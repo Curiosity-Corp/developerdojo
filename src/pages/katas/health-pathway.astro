@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectorPackEvidence from '../../components/SectorPackEvidence.astro';
+// Every number on this page is read from the files CI recomputes
+// (/examples/health-pathway/tools/health_pathway.py, job health_pathway).
+import manifest from '../../../public/examples/health-pathway/generated/manifest.json';
+import referenceChecks from '../../../public/examples/health-pathway/generated/reference-checks.json';
+import inspection from '../../../public/examples/health-pathway/generated/inspection.json';
+import scores from '../../../public/examples/health-pathway/generated/scores.json';
+import cards from '../../../public/examples/health-pathway/generated/randori/cards.json';
+
+const EX = '/examples/health-pathway';
+const GEN = `${EX}/generated`;
+const TABLE_2000 = 'inputs/bmiagerev.csv';
+const TABLE_2022 = 'inputs/bmi-age-2022.csv';
+const hashes = manifest.inputs as Record<string, string>;
+const tableSha = hashes[TABLE_2000];
+const extendedSha = hashes[TABLE_2022];
+if (!tableSha || !extendedSha) throw new Error(`The health manifest has no hash for ${TABLE_2000} or ${TABLE_2022}`);
+const steps = [
+  { id: 'HLT-001', href: '/katas/hlt-001-inspect-growth-reference', title: 'Inspect a growth reference', does: 'Read CDC’s two BMI-for-age tables: their columns, how sex and age select a row, the repeated header and the rows no age selects.' },
+  { id: 'HLT-002', href: '/katas/hlt-002-bmi-for-age-percentile', title: 'Compute a BMI-for-age percentile', does: 'Reproduce CDC’s worked examples, then score fictional children with the LMS method and, above the 95th percentile, the extended method.' },
+  { id: 'HLT-003', href: '/katas/hlt-003-bmi-category-report', title: 'Report the categories with their limits', does: 'Place each child in CDC’s child and teen BMI categories, severe obesity included, and say what the result is not.' },
+  { id: 'HLT-R01', href: '/katas/hlt-r01-randori', title: 'Health Randori: an unseen change', does: 'A partner reveals one changed choice after you start; predict how the percentile and category move, then recompute.' },
+];
+/** One row of scores.json. A child outside ages 2 to 19 has no method, score or category, and no LMS fields. */
+type ChildScore = {
+  child: string; sex: string; age: string; bmi: string;
+  method: string | null; z: string | null; percentile: string | null; percentOfP95: string | null; category: string | null;
+  lmsZ?: string; lmsPercentile?: string; zCeiling?: string;
+};
+const children = scores.children as ChildScore[];
+const scoredE = children.find((child) => child.child === 'E');
+if (!scoredE || scoredE.method !== 'extended' || !scoredE.percentile || !scoredE.lmsZ || !scoredE.lmsPercentile || !scoredE.zCeiling) {
+  throw new Error('The health scores have no child E scored by the extended method with its LMS comparison');
+}
+const childE = { ...scoredE, percentile: scoredE.percentile, lmsZ: scoredE.lmsZ, lmsPercentile: scoredE.lmsPercentile, zCeiling: scoredE.zCeiling };
+const tables = referenceChecks.tables;
+const cardRows = Object.entries(cards).map(([id, card]) => ({ id, ...card }));
+const signed = (value: string | undefined) => (value === undefined ? '' : Number(value) > 0 ? `+${value}` : value);
+const cdc = {
+  extended: 'https://www.cdc.gov/growthcharts/extended-bmi-data-files.htm',
+  categories: 'https://www.cdc.gov/bmi/child-teen-calculator/bmi-categories.html',
+  adult: 'https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html',
+  table2000: 'https://www.cdc.gov/growthcharts/data/zscore/bmiagerev.csv',
+  table2022: 'https://www.cdc.gov/growthcharts/data/extended-bmi/bmi-age-2022.csv',
+  terms: 'https://www.cdc.gov/other/agencymaterials.html',
+};
+---
+<BaseLayout title="Health pathway: from a growth reference table to a checked BMI-for-age percentile" description="Follow a health pathway: read CDC's BMI-for-age growth chart tables, reproduce CDC's worked examples, score fictional children with the LMS and extended methods, and report the categories with their limits, every number computed in CI. Practice only, not medical advice.">
+  <PageHero compact eyebrow="Health · Pathway" title="From a growth reference table to a checked BMI-for-age percentile" accent="." subtitle="Four katas on CDC’s BMI-for-age growth charts, with six fictional children. Each step has a file you can open and a result that CI computes again on every pipeline. Practice only: nothing here is a clinical assessment or medical advice." ctas={[
+    { label: 'Start with HLT-001', href: '/katas/hlt-001-inspect-growth-reference', icon: 'play' },
+    { label: 'Download the scores', href: `${GEN}/children.csv`, variant: 'ghost', icon: 'arrow-right' },
+  ]} />
+
+  <section class="section" aria-labelledby="outcome-title"><div class="container narrow">
+    <p class="eyebrow">01 / The files</p>
+    <h2 id="outcome-title">Two public tables, fictional children, every number rerun</h2>
+    <p>CDC’s National Center for Health Statistics publishes the BMI-for-age growth charts as data files: for each sex and month of age from 2 to 20 years, the parameters that turn a child’s body mass index into a percentile. Its pages give the method, four worked examples and the categories. The script reproduces CDC’s printed values before it scores anyone. The six children are made up by the Dojo, so anyone can check every result and no real child’s measurements are used.</p>
+    <p class="notice" data-health-notice><strong>Not medical advice.</strong> The children are fictional and nothing on this page is a screening, a clinical assessment or a diagnosis. BMI is a screening measure, not a diagnosis; a real child needs a qualified clinician.</p>
+    <ul class="links">
+      <li><a href={`${EX}/${TABLE_2000}`} download>The 2000 table</a> and <a href={`${EX}/${TABLE_2022}`} download>the 2022 extended table</a>: CDC’s files, unchanged (CSV).</li>
+      <li><a href={`${EX}/scenario/children.csv`} download>The fictional children</a>: sex, age, height and weight (CSV).</li>
+      <li><a href={`${GEN}/children.csv`} download>The scores</a> (CSV) and <a href={`${GEN}/scores.json`}>the same with each table row used</a> (JSON).</li>
+      <li><a href={`${GEN}/inspection.json`}>The table inspection</a> and <a href={`${GEN}/reference-checks.json`}>the reference checks</a> (JSON).</li>
+      <li><a href={`${GEN}/summary.md`}>The result summary</a> (Markdown) and every result under <a href={`${GEN}/manifest.json`}>the manifest</a>, with the method and the input hashes.</li>
+      <li><a href={`${EX}/tools/health_pathway.py`}>The pathway script</a> (Python 3.12, standard library only, MIT), so you can rerun every number yourself.</li>
+      <li><a href={`${EX}/README.md`}>README</a>: sources, terms, how to rerun the checks, and what they do not cover.</li>
+    </ul>
+  </div></section>
+
+  <section class="section" aria-labelledby="steps-title"><div class="container narrow">
+    <p class="eyebrow">02 / The steps</p>
+    <h2 id="steps-title">Four katas, in order</h2>
+    <p>Each kata has a brief, prompts, checks and the evidence for the checks the Dojo has run. They are drafts: the Dojo built the example and CI checks it, and no learner has run them yet. Do the foundations first: <a href="/katas/compare-instructions">Compare AI instructions</a> and <a href="/katas/context-trap">Spot a context trap</a>.</p>
+    <ol class="steps">
+      {steps.map((step) => <li><a href={step.href}><span class="step-id">{step.id}</span> {step.title}</a><p>{step.does}</p></li>)}
+    </ol>
+  </div></section>
+
+  <section class="section" aria-labelledby="checks-title"><div class="container narrow">
+    <p class="eyebrow">03 / The checks</p>
+    <h2 id="checks-title">Reproduce CDC, then use its methods</h2>
+    <p>These results come from CI: the pipeline reruns <code>/examples/health-pathway/tools/health_pathway.py</code> and fails if any output differs from the published files.</p>
+
+    <h3 id="reference-title">Reference checks: CDC’s worked examples</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="reference-caption">
+      <table>
+        <caption id="reference-caption">Values CDC prints and the script’s values, rounded as printed</caption>
+        <thead><tr><th scope="col">Source</th><th scope="col">Quantity</th><th scope="col">Printed</th><th scope="col">Computed</th><th scope="col">Result</th></tr></thead>
+        <tbody>
+          {referenceChecks.checks.map((check) => <tr><td>{check.source}</td><td>{check.quantity}</td><td>{check.published}</td><td>{check.computed}</td><td data-reference-check={check.id}>{check.status === 'pass' ? 'Pass' : 'Fail'}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p><strong>{referenceChecks.passed} passed, {referenceChecks.failed} failed.</strong> The script stops without writing any result if one check fails. It also recomputes every printed column of both tables from the row’s own parameters: <span data-table-check="2022">{tables.table2022.withinOneUnit} of {tables.table2022.values}</span> percentiles and z-scores of the 2022 table are within one unit of their last printed digit ({tables.table2022.matchWhenRounded} exactly when rounded), and all <span data-table-check="2000">{tables.table2000.values}</span> percentiles of the 2000 table agree within {tables.table2000.tolerance} kg/m² (largest difference {tables.table2000.largestDifference}), because its parameters carry about nine significant digits. <a href={`${GEN}/reference-checks.json`}>Result (JSON)</a>.</p>
+
+    <h3 id="table-title">The tables (HLT-001)</h3>
+    <p>Each file has {inspection.rowsPerSex.male} rows for boys and {inspection.rowsPerSex.female} for girls, ages {inspection.ageRange.firstAgemos} to {inspection.ageRange.lastAgemos} months. {inspection.halfMonthRule} So a child’s completed months plus 0.5 selects the row; the rows at exactly {inspection.rowsOffTheRule.join(' and ')} months are never selected. The 2000 file repeats its header before the rows for girls, at line <span data-repeated-header>{inspection.files[TABLE_2000].repeatedHeaderLines.join(', ')}</span>. L is negative in all <span data-negative-l>{inspection.negativeL}</span> rows, which caps the LMS z-score: depending on the row, it can never pass a value between {inspection.zCeilingRange.lowest} and {inspection.zCeilingRange.highest}. The two files share L, M and S, as CDC states. <a href={`${GEN}/inspection.json`}>Result (JSON)</a>.</p>
+
+    <h3 id="scores-title">The fictional children (HLT-002 and HLT-003)</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="scores-caption">
+      <table>
+        <caption id="scores-caption">BMI-for-age of six fictional children, CDC growth charts</caption>
+        <thead><tr><th scope="col">Child</th><th scope="col">Sex, age</th><th scope="col">BMI, kg/m²</th><th scope="col">Method</th><th scope="col">z-score</th><th scope="col">Percentile</th><th scope="col">% of 95th percentile</th><th scope="col">Category</th></tr></thead>
+        <tbody>
+          {children.map((child) => <tr><th scope="row">{child.child}</th><td>{child.sex}, {child.age}</td><td>{child.bmi}</td><td>{child.method ?? '—'}</td><td>{child.z ?? '—'}</td><td>{child.percentile ?? 'Unavailable'}</td><td>{child.percentOfP95 ?? '—'}</td><td data-child-category={child.child}>{child.category ?? 'Unavailable: under 2 years'}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>Up to the 95th percentile the LMS method of the 2000 charts gives the z-score; above it, CDC’s 2022 extended method does. For child E the LMS formula would give z {childE.lmsZ} (the {childE.lmsPercentile}th percentile), and for that row it can never pass {childE.zCeiling}; the extended method gives <span data-extended-e>z {childE.z}, the {childE.percentile}th percentile</span>. At {childE.percentOfP95} % of the 95th percentile, child E is in CDC’s category of severe obesity (120 % or more). Child F is 23 months old: the charts start at age 2, so there is no percentile, never a zero. CDC asks for person-first language: a child with obesity, not an obese child. <a href={`${GEN}/scores.json`}>Result (JSON)</a>, <a href={`${GEN}/children.csv`} download>scores (CSV)</a>.</p>
+
+    <h3 id="randori-title">Randori cards</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="randori-caption">
+      <table>
+        <caption id="randori-caption">Each card changes one choice for one fictional child</caption>
+        <thead><tr><th scope="col">Card</th><th scope="col">Change</th><th scope="col">Child</th><th scope="col">Percentile</th><th scope="col">Category</th><th scope="col">Percentile change</th></tr></thead>
+        <tbody>
+          {cardRows.map((card) => <tr><th scope="row">{card.id}</th><td>{card.title}. {card.change}</td><td>{card.child}</td><td>{card.before.percentile} to {card.after.percentile ?? 'none (adult cut-offs)'}</td><td data-randori-card={card.id}>{card.before.category} to {card.after.category}</td><td>{'percentileChange' in card ? signed(card.percentileChange) : '—'}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>The partner keeps this table hidden until the learner has written a prediction; see <a href="/katas/hlt-r01-randori">HLT-R01</a>. <a href={`${GEN}/randori/cards.json`}>Result (JSON)</a>.</p>
+  </div></section>
+
+  <section class="section" aria-labelledby="tools-title"><div class="container narrow">
+    <p class="eyebrow">04 / The tools and sources</p>
+    <h2 id="tools-title">No packages, public sources</h2>
+    <p>The script uses only the Python 3.12 standard library (its <code>statistics.NormalDist</code> gives the normal distribution), so it runs offline with nothing to install. A spreadsheet works for checking one child by hand. The Armory lists the stack recipe <a href="/armory/registry#recipe-python-standard-library">Python standard library</a>.</p>
+    <ul class="links">
+      <li>CDC, <a href={cdc.extended}>Extended BMI-for-age growth charts: data files</a>, last reviewed by CDC on 2 September 2024: the method above and below the 95th percentile, and the four worked examples.</li>
+      <li>The data files: <a href={cdc.table2000}>bmiagerev.csv</a> (CDC 2000 growth charts) and <a href={cdc.table2022}>bmi-age-2022.csv</a> (2022 extended charts).</li>
+      <li>CDC, <a href={cdc.categories}>Child and teen BMI categories</a>: the five categories for ages 2 through 19 and the worked example. CDC, <a href={cdc.adult}>Adult BMI categories</a>: the cut-offs from age 20 that Randori card D misapplies.</li>
+      <li>CDC cites National Health Statistics Reports no. 63 (2013) for how the LMS parameters were built, and Annals of Human Biology 47(6):514-521 (2020) for the method above the 95th percentile. Cited only.</li>
+    </ul>
+  </div></section>
+
+  <SectorPackEvidence pack="health" eyebrow="05 / What is checked" facts={{ tableSha: tableSha.slice(0, 12), extendedSha: extendedSha.slice(0, 12), referenceChecks: referenceChecks.passed, tableValues: tables.table2022.withinOneUnit, extendedPercentile: childE.percentile, lmsPercentile: childE.lmsPercentile, zCeiling: childE.zCeiling }} />
+
+  <section class="section" aria-labelledby="credits-title"><div class="container narrow">
+    <p class="eyebrow">06 / Credits</p>
+    <h2 id="credits-title">Credits and terms</h2>
+    <ul>
+      <li>Data files, method, worked examples and categories: CDC National Center for Health Statistics, https://www.cdc.gov/growthcharts/, 26 November 2026. US government works in the public domain, as <a href={cdc.terms}>CDC’s page on reusing its material</a> states. No CDC or HHS logo is used, and nothing here implies endorsement by CDC.</li>
+      <li>The fictional children, the pathway script and its outputs: Developer Dojo, MIT licence.</li>
+    </ul>
+  </div></section>
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 68rem; }
+  .eyebrow { color: var(--rust-text); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .notice { padding: var(--space-4, 1rem); background: var(--paper-raised); border: 1px solid var(--line); border-left: 4px solid var(--rust-text); border-radius: var(--radius); }
+  .links li { margin-bottom: var(--space-2, .5rem); }
+  .table-wrap { overflow-x: auto; margin-block: var(--space-6, 1.5rem); }
+  .table-wrap:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  table { width: 100%; border-collapse: collapse; }
+  caption { text-align: left; font-weight: 800; margin-bottom: var(--space-2, .5rem); }
+  th, td { text-align: left; vertical-align: top; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+  code { overflow-wrap: anywhere; }
+  h2, h3, p, li, a { overflow-wrap: anywhere; }
+  .steps { padding-left: 0; list-style: none; display: grid; gap: var(--space-4, 1rem); }
+  .steps li { min-width: 0; padding: var(--space-4, 1rem); background: var(--paper-raised); border: 1px solid var(--line); border-radius: var(--radius); }
+  .steps a { font-weight: 800; }
+  .steps p { margin: .25rem 0 0; }
+  .step-id { display: inline-block; min-width: 4.5rem; color: var(--rust-text); }
+</style>

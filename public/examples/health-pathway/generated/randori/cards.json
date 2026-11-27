@@ -1,0 +1,72 @@
+{
+  "A": {
+    "title": "Score above the 95th percentile with the 2000 LMS formula instead of the extended method",
+    "child": "E",
+    "change": "The LMS z-score for this row can never reach 3.110, however high the BMI.",
+    "before": {
+      "percentile": "99.84",
+      "z": "2.939",
+      "category": "severe obesity"
+    },
+    "after": {
+      "percentile": "99.44",
+      "z": "2.537",
+      "category": "severe obesity",
+      "zCeiling": "3.110"
+    },
+    "percentileChange": "-0.40",
+    "categoryChanged": false
+  },
+  "B": {
+    "title": "Use the age in completed years: the row for 15 years 0 months instead of 15 years 4 months",
+    "child": "C",
+    "change": "Row 180.5 months instead of 184.5.",
+    "before": {
+      "percentile": "90.24",
+      "z": "1.295",
+      "category": "overweight"
+    },
+    "after": {
+      "percentile": "90.84",
+      "z": "1.331",
+      "category": "overweight",
+      "agemos": "180.5"
+    },
+    "percentileChange": "0.60",
+    "categoryChanged": false
+  },
+  "C": {
+    "title": "Read the row for the other sex",
+    "child": "C",
+    "change": "The boys' row for the same age.",
+    "before": {
+      "percentile": "90.24",
+      "z": "1.295",
+      "category": "overweight"
+    },
+    "after": {
+      "percentile": "92.49",
+      "z": "1.439",
+      "category": "overweight",
+      "sex": "male"
+    },
+    "percentileChange": "2.25",
+    "categoryChanged": false
+  },
+  "D": {
+    "title": "Apply the adult BMI categories to a child",
+    "child": "D",
+    "change": "BMI 21.76 read against the adult cut-offs of 18.5, 25 and 30 kg/m2, which CDC applies from age 20 only.",
+    "before": {
+      "percentile": "97.00",
+      "z": "1.881",
+      "category": "obesity"
+    },
+    "after": {
+      "percentile": null,
+      "z": null,
+      "category": "healthy weight"
+    },
+    "categoryChanged": true
+  }
+}

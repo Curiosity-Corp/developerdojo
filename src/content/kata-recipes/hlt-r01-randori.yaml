@@ -1,0 +1,182 @@
+# Health pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/health-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job health_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Health pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a paediatrician, registered dietitian or epidemiologist yet.
+summary: "Start from the HLT-002 and HLT-003 scores; a partner reveals one changed choice after you begin (method, age row, sex or cut-offs). Predict how the percentile and category change, then recompute and explain the difference."
+metadata:
+  id: HLT-R01
+  title: "Health Randori: an unseen change of method, row or cut-off"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - compute-bmi-for-age
+  artifactTypes:
+    - bmi-for-age-scores
+  domainIds:
+    - health
+  capabilityIds:
+    - analyze-data
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - cdc/extended-bmi-for-age-data-files
+    - cdc/growth-charts-bmi-for-age-2000
+    - cdc/child-and-teen-bmi-categories
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: CDC 2000 growth charts and 2022 Extended BMI-for-age growth charts, BMI-for-age data files and method
+      version: "bmiagerev.csv (SHA-256 cbeea0e8…d8e39f) and bmi-age-2022.csv (SHA-256 7f416a21…d166e5), downloaded 2026-11-26; method page last reviewed by CDC 2024-09-02, read 2026-11-26"
+      applicability: "The LMS and extended methods and CDC’s categories, recomputed under each changed choice on the Randori cards"
+      reviewScope: "What the listed checks test: that each card’s result matches the CI output. No claim that any card describes a real child."
+      sourceResourceId: cdc/extended-bmi-for-age-data-files
+  verificationEvidence:
+    - description: For the card drawn, a written prediction, the recomputed percentile and category, and an explanation of any gap
+      method: automated-check
+    - description: A Sensei or partner checks that the prediction was written before the recompute and that the explanation names the choice that moved the result
+      method: sensei-review
+  beltCriteria:
+    - stage: practice
+      criterion: Handles card C and explains why the boys’ and girls’ rows differ at the same age
+    - stage: adapt
+      criterion: Handles card A or B and predicts the direction of the change in the percentile correctly
+    - stage: demonstrate
+      criterion: Handles card D, explains why the category changes, and writes a fifth card for a partner
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: CDC’s BMI-for-age data files checked against CDC’s own worked examples and every printed column, then six fictional children scored with the LMS and extended methods and placed in CDC’s child and teen BMI categories, all computed by the site’s CI. Practice only, not a clinical assessment."
+  href: /katas/health-pathway
+  provenance:
+    creator: CDC National Center for Health Statistics (data files, method and categories); Developer Dojo maintainers (fictional children, script and results)
+    source: CDC BMI-for-age data files bmiagerev.csv and bmi-age-2022.csv, the Extended BMI-for-age data files page and the Child and teen BMI categories page (read 2026-11-26); results from /examples/health-pathway/tools/health_pathway.py
+    license: US government work in the public domain (CDC data files and pages; no logo used); fictional scenario, script and outputs MIT
+    date: "2026-11-26"
+brief:
+  goal: Meet one changed choice you did not see in advance, with a prediction first and a recompute after.
+  audience: Learners who finished HLT-003, working with a partner or Sensei.
+  inputs:
+    - name: Your HLT-002 and HLT-003 scores
+      source: Your own output, or /examples/health-pathway/generated/scores.json
+      terms: Dojo output, MIT licence
+    - name: The Randori cards
+      source: The table on /katas/health-pathway (the partner keeps it; the learner sees only the drawn card)
+      terms: Dojo content, MIT licence
+  doneWhen:
+    - Your prediction (direction and rough size of the change in the percentile, and whether the category changes) is written before you recompute
+    - Your recomputed result matches /examples/health-pathway/generated/randori/cards.json for the card
+    - You name the choice the card changed and explain any gap between prediction and result
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: CDC BMI-for-age data files of the 2000 and 2022 Extended growth charts
+      version: "Downloaded 2026-11-26: bmiagerev.csv SHA-256 cbeea0e8…d8e39f, bmi-age-2022.csv SHA-256 7f416a21…d166e5"
+      permissions: Read a copy
+      cost: Free (US government work, public domain)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against CDC’s published values
+      permissions: Reads what you paste in; paste only the CDC tables and the fictional children, never a real child’s measurements or any health record
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library has the normal distribution (statistics.NormalDist) these formulas need, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: An online BMI percentile calculator or a statistics package with growth-chart functions
+      tradeoff: Faster for one child, but a calculator hides which table, which age row and which method above the 95th percentile it uses, the three choices this pathway is about. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Partner or Sensei
+      responsibility: Draws one card after the learner starts and keeps the others hidden.
+      reviewGate: Asks for the prediction, the recompute and the explanation.
+    - role: Learner
+      responsibility: Reads the card, predicts, changes only the one choice and recomputes.
+      dependsOn:
+        - Partner or Sensei
+      reviewGate: The prediction is written down before the recompute runs.
+setup:
+  steps:
+    - Use the folder and Python from HLT-003.
+    - The partner opens the Randori table on /katas/health-pathway; the learner does not.
+  auth: None.
+  smokeTest:
+    action: Recompute all four cards with the pathway script
+    expected: "A (child E with LMS): 99.84 to 99.44, z 2.939 to 2.537 under a ceiling of 3.110; B (child C, row 180.5): 90.24 to 90.84; C (child C, boys’ row): 90.24 to 92.49; D (child D, adult cut-offs): obesity to healthy weight"
+    result: passed
+    evidence: /examples/health-pathway/generated/randori/cards.json, recomputed by CI on every pipeline
+    date: "2026-11-26"
+prompts:
+  - id: predict-first
+    title: Predict before you compute
+    purpose: Make the learner commit to a reading of the method before the code answers.
+    text: |-
+      A fictional child’s BMI-for-age result, computed with CDC’s growth charts, is <paste the child’s row from scores.json>. One choice changes: <paste the card>.
+      Do not compute anything yet. Tell me whether the percentile goes up or down, roughly by how much, and whether the category changes, with your reasoning. Then I will recompute.
+exercise:
+  title: CDC, Extended BMI-for-age growth charts, data files and worked examples
+  resourceId: cdc/extended-bmi-for-age-data-files
+  terms: US government work in the public domain; no CDC or HHS logo is used, and nothing here implies endorsement by CDC.
+execution:
+  steps:
+    - actor: Partner or Sensei
+      action: Waits until the learner has started, then reveals one card.
+      handoff: The learner writes a prediction.
+    - actor: Learner
+      action: Changes only what the card says, recomputes and compares with the prediction.
+    - actor: Partner or Sensei
+      action: Reviews the prediction, the result and the explanation.
+verification:
+  checks:
+    - action: Recompute the four cards with the pathway script
+      expected: "A: percentile -0.40, category unchanged, LMS z under its ceiling; B: +0.60, unchanged; C: +2.25, unchanged; D: obesity to healthy weight"
+      result: passed
+      evidence: /examples/health-pathway/generated/randori/cards.json
+      date: "2026-11-26"
+    - action: A learner meets a drawn card with a prediction written first
+      expected: Prediction, recompute and explanation
+      result: not-run
+  failures:
+    - observed: Card A is predicted to change child E’s category
+      correction: The category depends on P95 and 120 % of P95, which both methods share; only the percentile and z-score above the 95th percentile change. That is why the LMS error is easy to miss.
+adaptation:
+  variations:
+    - change: The partner draws two cards
+      effect: Apply one at a time and recompute after each, so you know which change moved what.
+randori:
+  challenge: Meet one changed choice you have not seen, revealed after you start, on the HLT-002 and HLT-003 results for the fictional children.
+  constraints:
+    - Write your prediction before you compute
+    - Change only what the card says
+    - Name the choice that moved the result
+  evaluation: The recompute matches the CI result for the card, and the partner agrees the explanation names what moved.
+maintenance:
+  cadence: Every six months, or when CDC revises either data file, the method page or the BMI categories page
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on fictional children, not a clinical assessment, a diagnosis or medical advice. BMI is a screening measure, not a diagnosis. No paediatrician, registered dietitian or epidemiologist has reviewed it.
+    - Never paste a real child’s measurements, or any health record, into an assistant for this kata.
+    - The cards are practice changes on fictional children, not real clinical decisions.

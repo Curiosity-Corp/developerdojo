@@ -1,0 +1,190 @@
+# Health pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/health-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job health_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Health pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a paediatrician, registered dietitian or epidemiologist yet.
+summary: "Reproduce CDC’s four worked examples for the BMI-for-age charts, then score five fictional children: the LMS formula up to the 95th percentile and the extended formula above it, with the row chosen by sex and age at the half month, and every printed column of both tables recomputed first."
+metadata:
+  id: HLT-002
+  title: "Compute a BMI-for-age percentile and z-score with CDC’s LMS and extended methods"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - compute-bmi-for-age
+  artifactTypes:
+    - bmi-for-age-scores
+  domainIds:
+    - health
+  capabilityIds:
+    - analyze-data
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - cdc/extended-bmi-for-age-data-files
+    - cdc/growth-charts-bmi-for-age-2000
+    - cdc/child-and-teen-bmi-categories
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: CDC 2000 growth charts and 2022 Extended BMI-for-age growth charts, BMI-for-age data files and method
+      version: "bmiagerev.csv (SHA-256 cbeea0e8…d8e39f) and bmi-age-2022.csv (SHA-256 7f416a21…d166e5), downloaded 2026-11-26; method page last reviewed by CDC 2024-09-02, read 2026-11-26"
+      applicability: "The LMS formula of the 2000 growth charts and the extended formula above the 95th percentile of the 2022 charts, their four worked examples, and every printed percentile and z-score column, used on fictional children for practice"
+      reviewScope: "What the listed checks test: that the code reproduces CDC’s worked examples and printed columns, and that the scores match the CI output. No claim about any real child."
+      sourceResourceId: cdc/extended-bmi-for-age-data-files
+  verificationEvidence:
+    - description: The 21 values of CDC’s four worked examples, every printed column of both tables, and the scores of the five fictional children aged 2 to 19, as the CI output does
+      method: automated-check
+    - description: The learner states which method each child’s score uses and why
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: Reproduces CDC’s four worked examples at the precision CDC prints
+    - stage: adapt
+      criterion: Scores the fictional children, choosing the method by the 95th percentile, and matches the CI output
+    - stage: demonstrate
+      criterion: Explains to a reviewer why the LMS z-score of child E can never pass 3.110 and what the extended method changes
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: CDC’s BMI-for-age data files checked against CDC’s own worked examples and every printed column, then six fictional children scored with the LMS and extended methods and placed in CDC’s child and teen BMI categories, all computed by the site’s CI. Practice only, not a clinical assessment."
+  href: /katas/health-pathway
+  provenance:
+    creator: CDC National Center for Health Statistics (data files, method and categories); Developer Dojo maintainers (fictional children, script and results)
+    source: CDC BMI-for-age data files bmiagerev.csv and bmi-age-2022.csv, the Extended BMI-for-age data files page and the Child and teen BMI categories page (read 2026-11-26); results from /examples/health-pathway/tools/health_pathway.py
+    license: US government work in the public domain (CDC data files and pages; no logo used); fictional scenario, script and outputs MIT
+    date: "2026-11-26"
+brief:
+  goal: CDC’s worked examples reproduced, then a percentile and z-score for each fictional child that you can defend row by row.
+  audience: Learners who finished HLT-001 and want to compute a growth percentile rather than take it from a calculator.
+  inputs:
+    - name: Both CDC BMI-for-age data files
+      source: /examples/health-pathway/inputs/ (unchanged)
+      terms: US government work, public domain
+    - name: The four worked examples of CDC’s Extended BMI-for-age data files page
+      source: cdc/extended-bmi-for-age-data-files (the script holds the printed values and names the example of each)
+      terms: US government work, public domain
+    - name: Six fictional children
+      source: /examples/health-pathway/scenario/children.csv
+      terms: Written by the Dojo, MIT licence; not measurements of any real child
+  doneWhen:
+    - Your values match CDC’s four worked examples at the precision CDC prints
+    - Your BMI, method, z-score and percentile for each child match /examples/health-pathway/generated/scores.json
+    - Child F, aged 1 year 11 months, has no percentile, never zero
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: CDC BMI-for-age data files of the 2000 and 2022 Extended growth charts
+      version: "Downloaded 2026-11-26: bmiagerev.csv SHA-256 cbeea0e8…d8e39f, bmi-age-2022.csv SHA-256 7f416a21…d166e5"
+      permissions: Read a copy
+      cost: Free (US government work, public domain)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against CDC’s published values
+      permissions: Reads what you paste in; paste only the CDC tables and the fictional children, never a real child’s measurements or any health record
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library has the normal distribution (statistics.NormalDist) these formulas need, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: An online BMI percentile calculator or a statistics package with growth-chart functions
+      tradeoff: Faster for one child, but a calculator hides which table, which age row and which method above the 95th percentile it uses, the three choices this pathway is about. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains the LMS and extended formulas and drafts Python for both and their inverses.
+      reviewGate: You run the code and keep it only if it reproduces CDC’s worked examples.
+    - role: Learner as reviewer
+      responsibility: Works out child A’s z-score by hand from L, M and S and compares every score with the CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A score stays only if its row, method and value match the CI output.
+setup:
+  steps:
+    - Use the folder and Python from HLT-001.
+    - Open CDC’s Extended BMI-for-age data files page and the Child and teen BMI categories page beside the script.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/health_pathway.py . out"
+    expected: "24 of 24 worked-example values pass, including example 1 (girl, 114.5 months, BMI 21.2: z 1.4215, 92.2nd percentile) and example 2 (boy, 50.5 months, BMI 22.6: 99.7683rd percentile, z 2.83)"
+    result: passed
+    evidence: /examples/health-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+    date: "2026-11-26"
+prompts:
+  - id: explain-methods
+    title: Explain the two methods
+    purpose: Understand why one formula is not enough before you trust a score above the 95th percentile.
+    text: |-
+      CDC’s BMI-for-age charts give L, M, S, P95 and sigma for each sex and month of age. Up to the 95th percentile, z = ((BMI / M)^L - 1) / (L S). Above it, CDC’s extended method gives percentile = 90 + 10 Phi((BMI - P95) / sigma).
+      Explain why the LMS z-score has a ceiling when L is negative, and why CDC switched methods above the 95th percentile. Then give me Python, standard library only (statistics.NormalDist), for both formulas and their inverses, so I can check you against CDC’s four worked examples.
+      If you are not sure, say so.
+exercise:
+  title: CDC, Extended BMI-for-age growth charts, data files and worked examples
+  resourceId: cdc/extended-bmi-for-age-data-files
+  terms: US government work in the public domain; no CDC or HHS logo is used, and nothing here implies endorsement by CDC.
+execution:
+  steps:
+    - actor: Explaining assistant
+      action: Drafts the code for both methods and their inverses.
+      handoff: You run it on CDC’s four worked examples and compare every value.
+    - actor: Learner
+      action: Score the six fictional children, choosing the row by sex and completed months plus 0.5, and the method by P95.
+    - actor: Learner
+      action: Compare with the CI output, including the LMS z-score and its ceiling for children D and E.
+verification:
+  checks:
+    - action: Reproduce CDC’s worked examples and every printed column with the pathway script
+      expected: "24 of 24 worked-example values; 12,702 of 12,702 values of the 2022 file within one unit of the last printed digit (12,654 exact when rounded); 4,380 percentiles of the 2000 file within 0.000001"
+      result: passed
+      evidence: /examples/health-pathway/generated/reference-checks.json, recomputed by CI on every pipeline
+      date: "2026-11-26"
+    - action: Score the fictional children
+      expected: "A 15.50, LMS, 29.18; B 13.76, LMS, 2.67; C 25.78, LMS, 90.24; D 21.76, extended, 97.00 (z 1.881); E 35.56, extended, 99.84 (z 2.939); F unavailable"
+      result: passed
+      evidence: /examples/health-pathway/generated/scores.json, recomputed by CI on every pipeline
+      date: "2026-11-26"
+    - action: Your own code reproduces the same values
+      expected: The same examples and scores at the precision shown
+      result: not-run
+  failures:
+    - observed: Child E’s z-score comes out as 2.537 and its percentile as 99.44
+      correction: That is the LMS formula above the 95th percentile. CDC’s 2022 charts use the extended method there, which gives z 2.939 and the 99.84th percentile.
+    - observed: Child F gets a percentile from the 24.0 row
+      correction: The BMI-for-age charts start at age 2. At 23 completed months there is no percentile; say unavailable, never zero.
+adaptation:
+  variations:
+    - change: Give a child an age in days instead of months
+      effect: CDC gives a regression for sigma at ages finer than a month; this pathway does not use it, and the Randori card B shows how much one month moves a percentile.
+randori:
+  challenge: See the health Randori recipe, HLT-R01.
+  constraints:
+    - Every worked example matches CDC at the precision printed
+  evaluation: The scores match the CI output and CDC’s examples.
+maintenance:
+  cadence: Every six months, or when CDC revises either data file, the method page or the BMI categories page
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on fictional children, not a clinical assessment, a diagnosis or medical advice. BMI is a screening measure, not a diagnosis. No paediatrician, registered dietitian or epidemiologist has reviewed it.
+    - Never paste a real child’s measurements, or any health record, into an assistant for this kata.

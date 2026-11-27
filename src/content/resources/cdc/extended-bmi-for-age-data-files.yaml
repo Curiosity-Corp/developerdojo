@@ -1,0 +1,9 @@
+title: "Extended BMI-for-age growth charts: data files (CDC National Center for Health Statistics)"
+provider: "CDC"
+url: "https://www.cdc.gov/growthcharts/extended-bmi-data-files.htm"
+cost: "free"
+format: "docs"
+level: "intermediate"
+skills: [data-analytics]
+summary: "CDC's data file of the 2022 Extended BMI-for-age growth charts (L, M, S and sigma, with percentiles to the 99.99th and z-scores to 5, by sex and month of age from 2 to 20 years) and the method that goes with it: the LMS formula up to the 95th percentile, the extended formula above it, and four worked examples whose numbers you can reproduce. A US government work in the public domain."
+verifiedOn: 2026-11-26

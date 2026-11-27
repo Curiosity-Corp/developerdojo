@@ -1,0 +1,183 @@
+# Health pathway (#93): a draft recipe. The worked example, files and CI results are on /katas/health-pathway.
+# Evidence paths are site paths. Checks marked passed were run on the date given and are recomputed by CI (job health_pathway); not-run means nobody has run it yet.
+status: draft
+maintainer:
+  role: Health pathway maintainer
+trackingIssue: https://git.developerdojo.org/Curiosity-Corp/developerdojo/-/issues/93
+review:
+  unavailable: Built and checked by the Dojo maintainers and CI; no independent review, and no review by a paediatrician, registered dietitian or epidemiologist yet.
+summary: "Open CDC’s two BMI-for-age data files, work out how a row is keyed by sex and age, find the repeated header and the two rows an age in completed months never selects, and confirm that the 2022 file keeps the 2000 values up to the 95th percentile, before you score any child."
+metadata:
+  id: HLT-001
+  title: "Inspect a growth reference: what CDC’s BMI-for-age tables hold and how age selects a row"
+  layer: specialization
+  professionalReviewRequired: true
+  outcomeIds:
+    - inspect-growth-reference
+  artifactTypes:
+    - growth-reference-inspection
+  domainIds:
+    - health
+  capabilityIds:
+    - analyze-data
+    - calculate
+    - verify-evidence
+  foundationKataIds:
+    - PRACTICE-001
+    - PRACTICE-002
+  stackRecipeIds:
+    - python-standard-library
+  constraintIds:
+    - no-paid-tools
+    - offline-capable
+    - no-personal-data
+  externalResources:
+    - cdc/extended-bmi-for-age-data-files
+    - cdc/growth-charts-bmi-for-age-2000
+    - cdc/child-and-teen-bmi-categories
+  crossFieldTransfers:
+    - data
+  standards:
+    - name: CDC 2000 growth charts and 2022 Extended BMI-for-age growth charts, BMI-for-age data files and method
+      version: "bmiagerev.csv (SHA-256 cbeea0e8…d8e39f) and bmi-age-2022.csv (SHA-256 7f416a21…d166e5), downloaded 2026-11-26; method page last reviewed by CDC 2024-09-02, read 2026-11-26"
+      applicability: "The columns, row keys and half-month age rule of both data files, read for practice"
+      reviewScope: "What the listed checks test: that the code reads both files and reports their structure as the CI output does. No claim about any child."
+      sourceResourceId: cdc/extended-bmi-for-age-data-files
+  verificationEvidence:
+    - description: Both files’ columns, row counts, age range, line endings and repeated header, and the agreement of their L, M, S and percentiles, as the CI output does
+      method: automated-check
+    - description: The learner states which row a child of a given age and sex uses, and why the 24.0 and 240.0 rows are never selected
+      method: self-check
+  beltCriteria:
+    - stage: practice
+      criterion: States the columns, the units, the 219 rows per sex and the half-month age rule of both files
+    - stage: adapt
+      criterion: Finds the repeated header in the 2000 file and the rows off the half-month rule, and reads them correctly
+    - stage: demonstrate
+      criterion: Explains to a reviewer why L is negative in every row and what that does to the highest LMS z-scores
+showcase:
+  summary: "The Dojo’s worked example, made by the maintainers rather than by a learner: CDC’s BMI-for-age data files checked against CDC’s own worked examples and every printed column, then six fictional children scored with the LMS and extended methods and placed in CDC’s child and teen BMI categories, all computed by the site’s CI. Practice only, not a clinical assessment."
+  href: /katas/health-pathway
+  provenance:
+    creator: CDC National Center for Health Statistics (data files, method and categories); Developer Dojo maintainers (fictional children, script and results)
+    source: CDC BMI-for-age data files bmiagerev.csv and bmi-age-2022.csv, the Extended BMI-for-age data files page and the Child and teen BMI categories page (read 2026-11-26); results from /examples/health-pathway/tools/health_pathway.py
+    license: US government work in the public domain (CDC data files and pages; no logo used); fictional scenario, script and outputs MIT
+    date: "2026-11-26"
+brief:
+  goal: Both CDC tables read correctly, with the row a given child would use found by hand and the two files shown to agree where CDC says they do.
+  audience: Learners who finished the foundation katas and want to read a published reference table before they trust a score computed from it.
+  inputs:
+    - name: CDC 2000 growth charts, BMI-for-age data file
+      source: /examples/health-pathway/inputs/bmiagerev.csv (unchanged)
+      terms: US government work, public domain
+    - name: CDC 2022 Extended BMI-for-age growth charts, data file
+      source: /examples/health-pathway/inputs/bmi-age-2022.csv (unchanged)
+      terms: US government work, public domain
+  doneWhen:
+    - You state the columns, units, 219 rows per sex, ages 24.0 to 240.5 months and the half-month rule of both files
+    - You find the repeated header at line 221 of the 2000 file and the rows at exactly 24.0 and 240.0 months
+    - Your counts match /examples/health-pathway/generated/inspection.json
+stack:
+  components:
+    - part: runtime
+      name: Python, standard library only
+      version: "3.12"
+      permissions: Reads the files you give it and writes only the output folder you name
+      cost: Free
+    - part: tool
+      name: Any spreadsheet
+      version:
+        unavailable: Not fixed; any spreadsheet that opens CSV works
+      permissions: Opens a copy of the CSV files
+      cost:
+        unavailable: Depends on the spreadsheet you use; free ones work
+    - part: data
+      name: CDC BMI-for-age data files of the 2000 and 2022 Extended growth charts
+      version: "Downloaded 2026-11-26: bmiagerev.csv SHA-256 cbeea0e8…d8e39f, bmi-age-2022.csv SHA-256 7f416a21…d166e5"
+      permissions: Read a copy
+      cost: Free (US government work, public domain)
+    - part: harness
+      name: Any chat assistant or coding agent
+      version:
+        unavailable: Not fixed; an assistant may explain a formula or draft code, and every number it gives is checked against CDC’s published values
+      permissions: Reads what you paste in; paste only the CDC tables and the fictional children, never a real child’s measurements or any health record
+      cost:
+        unavailable: Depends on your assistant and plan; not measured
+  rationale: The standard library has the normal distribution (statistics.NormalDist) these formulas need, runs offline with nothing to install, and gives the same numbers on every machine. CI runs the identical script on every pipeline.
+  alternatives:
+    - name: An online BMI percentile calculator or a statistics package with growth-chart functions
+      tradeoff: Faster for one child, but a calculator hides which table, which age row and which method above the 95th percentile it uses, the three choices this pathway is about. Not tried for this pathway, so their numbers are not compared here.
+      tested: false
+agents:
+  roles:
+    - role: Explaining assistant
+      responsibility: Explains the L, M and S parameters and drafts Python that reads both files.
+      reviewGate: You run the code and keep it only if its counts match the files and the CI output.
+    - role: Learner as reviewer
+      responsibility: Finds one child’s row by hand in a spreadsheet and checks every count against the CI output.
+      dependsOn:
+        - Explaining assistant
+      reviewGate: A count stays only if you can point to the lines of the file that give it.
+setup:
+  steps:
+    - Download the pathway folder from /katas/health-pathway, or copy the script, the two CDC files and the scenario into a new folder.
+    - Check that Python 3.12 or later runs with python3 --version.
+  auth: None. Nothing here needs an account.
+  smokeTest:
+    action: "Run: python3 -I tools/health_pathway.py . out"
+    expected: "24 of 24 worked-example values pass, and out/inspection.json reports 219 rows per sex, L negative in all 438 rows and the repeated header at line 221 of bmiagerev.csv"
+    result: passed
+    evidence: /examples/health-pathway/generated/inspection.json, recomputed by CI on every pipeline
+    date: "2026-11-26"
+prompts:
+  - id: explain-table
+    title: Explain the table before you use it
+    purpose: Know what one row means before you compute anything from it.
+    text: |-
+      Here are the header and two rows of CDC’s BMI-for-age data file of the 2000 growth charts:
+      <paste the header and two rows>
+      Explain what Sex, Agemos, L, M and S mean, which row a girl aged 9 years 6 months uses, and why. Then give me Python, standard library only, that reads the file, skips a repeated header line, and prints the number of rows per sex and the first and last Agemos.
+      If you are not sure, say so.
+exercise:
+  title: CDC, Extended BMI-for-age growth charts, data files and worked examples
+  resourceId: cdc/extended-bmi-for-age-data-files
+  terms: US government work in the public domain; no CDC or HHS logo is used, and nothing here implies endorsement by CDC.
+execution:
+  steps:
+    - actor: Learner
+      action: Open both files in a spreadsheet and find the row for a girl aged 9 years 6 months by hand.
+    - actor: Explaining assistant
+      action: Drafts the code that reads both files and counts their rows.
+      handoff: You run it and compare every count with the files.
+    - actor: Learner
+      action: Compare with the CI output and check that L, M and S are the same text in both files.
+verification:
+  checks:
+    - action: Inspect both files with the pathway script
+      expected: "438 data rows each, 219 per sex; ages 24.0 to 240.5 months; header repeated at line 221 of bmiagerev.csv; rows off the half-month rule at 24.0 and 240.0; L negative in all 438 rows; P50 equal to M in all 438; 1,314 L, M and S values identical in both files"
+      result: passed
+      evidence: /examples/health-pathway/generated/inspection.json, recomputed by CI on every pipeline
+      date: "2026-11-26"
+    - action: Your own code reports the same structure
+      expected: The same counts and the same repeated header
+      result: not-run
+  failures:
+    - observed: The reader stops or reports a row of text at line 221 of bmiagerev.csv
+      correction: The 2000 file repeats its header before the rows for girls. Skip a line that repeats the header, and report that you did.
+    - observed: A girl aged 9 years 6 months is matched to the row at 114.0 months
+      correction: Age is listed at the half month. 114.5 stands for 114.0 up to 115.0 completed months; the 24.0 and 240.0 rows are never selected by an age in completed months.
+adaptation:
+  variations:
+    - change: Plot M and P95 against age for each sex in a spreadsheet
+      effect: You see where the 95th percentile rises fastest, which is where an error of one month in the row matters most (Randori card B).
+randori:
+  challenge: See the health Randori recipe, HLT-R01.
+  constraints:
+    - Every count points to the lines of the file that give it
+  evaluation: The counts match the CI output and the files.
+maintenance:
+  cadence: Every six months, or when CDC revises either data file, the method page or the BMI categories page
+  caveats:
+    - "This recipe is a draft: the example was built and checked by the Dojo maintainers and CI, and no learner has run it yet."
+    - This is practice on fictional children, not a clinical assessment, a diagnosis or medical advice. BMI is a screening measure, not a diagnosis. No paediatrician, registered dietitian or epidemiologist has reviewed it.
+    - Never paste a real child’s measurements, or any health record, into an assistant for this kata.

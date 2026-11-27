@@ -1,0 +1,9 @@
+title: "Child and teen BMI categories (CDC)"
+provider: "CDC"
+url: "https://www.cdc.gov/bmi/child-teen-calculator/bmi-categories.html"
+cost: "free"
+format: "docs"
+level: "beginner"
+skills: [data-analytics]
+summary: "How CDC turns a BMI-for-age percentile into a category for ages 2 through 19: underweight, healthy weight, overweight, obesity and severe obesity (120 % of the 95th percentile or more), with a worked example and the reminder that BMI is a screening measure, not a diagnosis. A US government work in the public domain."
+verifiedOn: 2026-11-26

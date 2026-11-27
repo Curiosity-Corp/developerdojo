@@ -52,6 +52,9 @@ export const galleryOutcomeLabels: Record<string, string> = {
   'inspect-learning-page': 'Inspect a learning page',
   'run-accessibility-rules': 'Run accessibility rules on a learning page',
   'report-accessibility-outcomes': 'Report accessibility rule outcomes against WCAG',
+  'inspect-growth-reference': 'Inspect a growth reference table',
+  'compute-bmi-for-age': 'Compute a BMI-for-age percentile with CDC’s methods',
+  'report-bmi-category': 'Report BMI-for-age categories with their limits',
   'check-apr-tolerance': 'Check an annual percentage rate against its tolerance',
 };
 
@@ -458,5 +461,39 @@ export const galleryEntries: GalleryEntryInput[] = [
     fieldIds: ['education'],
     kataId: 'EDU-003',
     exercise: { title: 'Follow the education pathway', href: '/katas/education-pathway' },
+  },
+  {
+    id: 'health-bmi-for-age-scores',
+    title: 'BMI-for-age percentiles and categories for six fictional children, checked against CDC’s growth charts',
+    summary: 'The HLT-002 and HLT-003 worked example. CDC’s two BMI-for-age data files are checked against CDC’s worked examples and every printed column, then six fictional children are scored with the LMS method and, above the 95th percentile, the extended method, and placed in CDC’s child and teen BMI categories. Practice only, not a clinical assessment.',
+    form: 'native',
+    artifact: {
+      format: 'Scores per child (CSV and JSON), the reference checks (JSON) and a one-page summary (Markdown)',
+      files: [
+        { label: 'Read the results summary', href: '/examples/health-pathway/generated/summary.md' },
+        { label: 'Download the scores (CSV)', href: '/examples/health-pathway/generated/children.csv' },
+        { label: 'Download the reference checks (JSON)', href: '/examples/health-pathway/generated/reference-checks.json' },
+      ],
+    },
+    provenance: {
+      creator: 'Developer Dojo maintainers (fictional children, script and results); CDC National Center for Health Statistics (data files, method and categories)',
+      madeWith: 'A Python 3.12 script with no packages, published next to the results, using the methods on CDC’s growth chart pages.',
+      source: 'CDC’s BMI-for-age data files of the 2000 and 2022 Extended growth charts, its Extended BMI-for-age data files page and its Child and teen BMI categories page, read on 2026-11-26.',
+      rights: 'CDC’s files and pages are US government works in the public domain; no CDC logo is used. The fictional children, script and results are Dojo material under the MIT licence.',
+      rightsHref: '/examples/health-pathway/README.md',
+      created: '2026-11-26',
+    },
+    verification: {
+      method: 'automated-check',
+      date: '2026-11-26',
+      checked: 'Every pipeline reruns the script, which first reproduces the values CDC prints in its worked examples and recomputes every printed column of both tables, and fails if any output differs from the published files.',
+      notChecked: 'No real child is assessed: the children are fictional, and nothing here is a screening, diagnosis or medical advice. No learner and no paediatrician, registered dietitian or epidemiologist review.',
+      evidenceHref: '/katas/health-pathway',
+      nextCheck: QUARTERLY,
+    },
+    outcomeIds: ['compute-bmi-for-age'],
+    fieldIds: ['health'],
+    kataId: 'HLT-002',
+    exercise: { title: 'Follow the health pathway', href: '/katas/health-pathway' },
   },
 ];
