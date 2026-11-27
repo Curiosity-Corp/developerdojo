@@ -54,8 +54,9 @@ from there to the public in this order:
    are tested in a line, each on top of the ones before it. An MR merges only if that combined result is
    green, so two MRs that pass alone but clash together cannot break `master`. "Skip the train" is
    switched off. The MR then goes into `master` and a new pipeline starts on `master`.
-4. **The `master` pipeline builds the site again** and runs the same checks, then two deploy jobs run:
-   `pages` (an internal preview) and `publish_github_pages`.
+4. **The `master` pipeline builds the site again** and runs the same checks, then the deploy job
+   `publish_github_pages` runs. (The private preview sites demo.developerdojo.org and dev.developerdojo.org
+   are built from the `demo` and `dev` branches instead: [preview-branches.md](preview-branches.md).)
 5. **`publish_github_pages` copies the BUILT site only** (never the source files) to the `gh-pages` branch of
    the GitHub repository `Curiosity-Corp/developerdojo`. Nobody pushes source code to GitHub.
 6. **GitHub Pages serves that branch** at the custom domain **developerdojo.org**, and **Cloudflare** sits in
