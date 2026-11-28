@@ -54,6 +54,11 @@ Ratios are rounded down to two decimals, so a ratio shown never overstates the r
 - journey-high.svg
 - journey.svg
 - manifest.json
+- randori-unseen/brief.md
+- randori-unseen/partner-card.md
+- randori-unseen/review-sheet.md
+- randori-unseen/rubric.json
+- randori-unseen/rubric.md
 - randori/A-adapted-journey.svg
 - randori/A-adapted-sitemap.svg
 - randori/A-first-sitemap.svg

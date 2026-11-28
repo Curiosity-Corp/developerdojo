@@ -6,7 +6,8 @@
     "pocket-invoice-tokens.json": "9855e7ba68d906fc9bb761bb9da20dd720511214810ab028c477a46736d55a4b",
     "inputs/brand.json": "d4ee1d75e0549268d25e58baaff157fae56bb6657d18fee153ecd436818ffee5",
     "inputs/randori-rounds.json": "2a9e6c4797b703eb22e00d3e6cea55344e816c3f810f557bf97b420e57066b8c",
-    "inputs/usability-tasks.json": "dfed9d480c24d5f085269d7900f8e36ac0ff2a12d47520dffdce0d0699fbf7b1"
+    "inputs/usability-tasks.json": "dfed9d480c24d5f085269d7900f8e36ac0ff2a12d47520dffdce0d0699fbf7b1",
+    "inputs/randori-unseen.json": "cf612f4bf2de747d12acabd741255b50055850d1c5e6c200d974ffc91d80d56e"
   },
   "outputs": [
     "components.svg",
@@ -16,6 +17,11 @@
     "journey-high.svg",
     "journey.svg",
     "manifest.json",
+    "randori-unseen/brief.md",
+    "randori-unseen/partner-card.md",
+    "randori-unseen/review-sheet.md",
+    "randori-unseen/rubric.json",
+    "randori-unseen/rubric.md",
     "randori/A-adapted-journey.svg",
     "randori/A-adapted-sitemap.svg",
     "randori/A-first-sitemap.svg",

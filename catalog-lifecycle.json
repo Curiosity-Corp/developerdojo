@@ -1016,11 +1016,13 @@
       "area": "artifact-validity",
       "maintainerRole": "UX pathway maintainer",
       "provenance": [
-        "An unseen brief and a sealed constraint: Chosen by your partner from the list in the download",
+        "An unseen brief and a sealed constraint: The unseen round on /katas/ux-pathway (round U: the brief, the sealed card for the partner and the review rubric), or a card your partner picks from the list in the download",
         "Moderated usability testing: gov-uk/moderated-usability-testing"
       ],
-      "state": "stale",
-      "reason": "Built and checked by the Dojo maintainers; no independent review yet."
+      "checked": "The maintainers' own checks passed. Built and checked by the Dojo maintainers; no independent review yet.",
+      "verifiedOn": "2026-11-28",
+      "dueOn": "2027-02-26",
+      "state": "verified"
     },
     {
       "id": "claude-code",
@@ -1197,9 +1199,9 @@
         "Plans and pricing",
         "@penpot/library 1.3.0, the official library for writing .penpot files"
       ],
-      "checked": "Penpot documentation, release, licence and pricing pages, npm metadata and the smoke test.",
-      "verifiedOn": "2026-11-27",
-      "dueOn": "2027-02-25",
+      "checked": "Penpot documentation, release, licence and pricing pages, plugin and MCP documentation, npm metadata, the import smoke test and the plugin write check.",
+      "verifiedOn": "2026-11-28",
+      "dueOn": "2027-02-26",
       "state": "verified"
     },
     {
