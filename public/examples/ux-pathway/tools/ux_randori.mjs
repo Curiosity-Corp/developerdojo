@@ -114,6 +114,35 @@ export const CONSTRAINT_CHECKS = {
       return failures;
     },
   },
+  // The unseen round's card (inputs/randori-unseen.json). No worked round uses it, so no answer to it is published.
+  'review-before-commit': {
+    description: 'Every action that takes effect starts from a review screen that has no field of its own and shows a summary, including every value typed on the screen that leads to it; the review screen has a way back that does not take effect, and every screen with fields that it goes back to still holds every value.',
+    run(flow, { byId, out, commits }) {
+      const failures = [];
+      if (commits.length === 0) failures.push('no transition is marked commits, so nothing could be reviewed first');
+      for (const t of commits) {
+        const review = byId[t.from];
+        if (!review) continue;
+        const label = t.from + ' > ' + t.to;
+        if (fields(review).length > 0) { failures.push(label + ': takes effect from ' + t.from + ', a screen with fields, not from a review screen'); continue; }
+        const shown = review.elements.filter((element) => element.type === 'summary').flatMap((element) => element.rows.map((row) => String(row[1])));
+        if (shown.length === 0) { failures.push(label + ': ' + t.from + ' shows no summary of the choices'); continue; }
+        const feeders = flow.transitions.filter((u) => u.to === review.id && !u.commits && byId[u.from] && byId[u.from].kind !== 'error' && fields(byId[u.from]).length > 0).map((u) => byId[u.from]);
+        for (const feeder of feeders) {
+          for (const field of fields(feeder)) {
+            if (!shown.some((value) => value.includes(String(field.value ?? '')) && String(field.value ?? '') !== '')) failures.push(label + ': ' + t.from + ' does not show "' + field.label + '" from ' + feeder.id);
+          }
+        }
+        const back = out(review.id).filter((u) => !u.commits && byId[u.to] && byId[u.to].kind !== 'error');
+        if (back.length === 0) { failures.push(t.from + ': no way back without it taking effect'); continue; }
+        for (const u of back) {
+          const lost = fields(byId[u.to]).filter((field) => field.value === undefined || String(field.value) === '');
+          if (lost.length) failures.push(t.from + ' > ' + u.to + ': going back empties ' + lost.map((field) => '"' + field.label + '"').join(', '));
+        }
+      }
+      return failures;
+    },
+  },
   'offline-keeps-input': {
     description: 'Every state with a field has an offline state that keeps each field and its value, with a way back or on once the connection returns.',
     run(flow, { byId, out }) {

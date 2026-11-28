@@ -55,7 +55,7 @@ describe('the generated low-fidelity files', () => {
   });
 
   it('were made from the inputs published beside them', () => {
-    expect(Object.keys(manifest.inputs).sort()).toEqual(['inputs/brand.json', 'inputs/contrast-pairs.json', 'inputs/pocket-invoice-flow.json', 'inputs/randori-rounds.json', 'inputs/usability-tasks.json', 'pocket-invoice-tokens.json']);
+    expect(Object.keys(manifest.inputs).sort()).toEqual(['inputs/brand.json', 'inputs/contrast-pairs.json', 'inputs/pocket-invoice-flow.json', 'inputs/randori-rounds.json', 'inputs/randori-unseen.json', 'inputs/usability-tasks.json', 'pocket-invoice-tokens.json']);
     for (const [name, sha] of Object.entries(manifest.inputs)) expect(createHash('sha256').update(readFileSync(DIR + name)).digest('hex'), name).toBe(sha);
   });
 });
@@ -113,5 +113,23 @@ describe('the generated high-fidelity files (UX-004, UX-005)', () => {
     expect(faded.failures.join('\n')).toContain('"New invoice" ' + page + ' on ' + page + ': 1.00:1');
     const translucent = audit(svg.replace('<rect ', '<rect opacity="0.5" '), ctx, elements);
     expect(translucent.failures.join('\n')).toContain('opacity');
+  });
+});
+
+describe('the QA checklist (qa-checklist.md)', () => {
+  const checklist = readFileSync(DIR + 'qa-checklist.md', 'utf8');
+  it('covers accessibility, responsive and usability, and every item says how Pocket Invoice was checked', () => {
+    for (const area of ['## Accessibility', '## Responsive', '## Usability']) expect(checklist).toContain(area);
+    const items = checklist.split('\n').filter((line) => /^\| [ARU]\d+\. /.test(line));
+    expect(items.length).toBeGreaterThanOrEqual(12);
+    for (const item of items) expect(item.split(' | ').length, item).toBe(4);
+  });
+  it('points only at evidence the site publishes', () => {
+    const paths = [...checklist.matchAll(/\/examples\/ux-pathway\/[\w./-]+\.(?:md|json)/g)].map((m) => m[0]);
+    expect(paths.length).toBeGreaterThan(0);
+    for (const path of new Set(paths)) expect(() => readFileSync('public' + path), path).not.toThrow();
+  });
+  it('holds every wireframe item the unseen Randori rubric asks the reviewer to apply', () => {
+    for (const item of ['A1. Every field has a visible label', 'A2. One heading names each screen', 'A3. Focus follows reading order', 'R1. No sideways scroll at 320 px', 'R2. Targets are big enough']) expect(checklist).toContain(item);
   });
 });

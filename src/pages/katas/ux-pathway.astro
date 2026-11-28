@@ -10,6 +10,8 @@ import manifest from '../../../public/examples/ux-pathway/generated/manifest.jso
 import fidelity from '../../../public/examples/ux-pathway/generated/fidelity-report.json';
 import randori from '../../../public/examples/ux-pathway/generated/randori/rounds.json';
 import usability from '../../../public/examples/ux-pathway/generated/usability/tasks.json';
+import unseen from '../../../public/examples/ux-pathway/inputs/randori-unseen.json';
+import unseenRubric from '../../../public/examples/ux-pathway/generated/randori-unseen/rubric.json';
 
 // The sitemap below is rendered from the same flow the Penpot file and the working example are built from.
 const tokenCount = flattenTokens(tokenFile).length;
@@ -27,6 +29,10 @@ if (!randori.pass) throw new Error('The UX Randori record says a round failed; r
 // The usability walkthrough (UX-008): tools/ux_usability.mjs in the same CI job; e2e/ux-usability.spec.ts replays
 // each path in the clickable prototype.
 const USABILITY = '/examples/ux-pathway/generated/usability/';
+// The unseen Randori round (UX-R01, round U): its brief and rubric, written by tools/ux_review.mjs in the same CI job.
+// No answer is published; the job runs the review tool on a reference answer kept out of the site.
+const UNSEEN = '/examples/ux-pathway/generated/randori-unseen/';
+const JUDGE: Record<string, string> = { script: 'the review script', reviewer: 'a reviewer', partner: 'the partner', learner: 'you' };
 if (!usability.pass) throw new Error('The usability walkthrough says a task failed; rerun tools/ux_pathway.mjs');
 const stateTitle: Record<string, string> = Object.fromEntries(STATES.map((state) => [state.id, state.title]));
 const usabilityPassed = usability.tasks.filter((task) => task.pass).length;
@@ -75,6 +81,14 @@ const sources = {
   figmaSvg: 'https://help.figma.com/hc/en-us/articles/360040030374-Import-files-into-the-file-browser',
   penpotMigration: 'https://help.penpot.app/user-guide/first-steps/migration-guide/',
   govukErrorSummary: 'https://design-system.service.gov.uk/components/error-summary/',
+  penpotReleases: 'https://github.com/penpot/penpot/releases',
+  penpotPluginsUse: 'https://help.penpot.app/user-guide/plugins/',
+  penpotConfig: 'https://help.penpot.app/technical-guide/configuration/',
+  figmaMcpLimits: 'https://developers.figma.com/docs/figma-mcp-server/rate-limits-access/',
+  figmaMcpWrite: 'https://developers.figma.com/docs/figma-mcp-server/write-to-canvas/',
+  figmaPlugins: 'https://developers.figma.com/docs/plugins/',
+  figmaRest: 'https://developers.figma.com/docs/rest-api/',
+  figmaTerms: 'https://www.figma.com/legal/tos/',
 };
 ---
 <BaseLayout title="UX pathway: from sitemap to a tested SaaS screen" description="Follow a SaaS UX pathway end to end: sitemap with error states, low-fidelity screens, design tokens, components and an accessible, tested implementation, with an editable Penpot file.">
@@ -95,6 +109,8 @@ const sources = {
       <li><a href="/examples/ux-pathway/penpot-import-check.json">Read the Penpot import check</a> (JSON): what was checked in Penpot, including an export from Penpot and a second import, and what was not.</li>
       <li><a href="/examples/ux-pathway/README.md">Read the file guide</a> (Markdown): every file, how to open it, its source and its licence.</li>
       <li><a href="/examples/ux-pathway/qa-report.md">Read the accessibility and responsive QA report</a> (Markdown): every state of the working page, from the site’s browser tests.</li>
+      <li>Read the visual-fidelity report of the working page against its design, <a href="/examples/ux-pathway/build-fidelity-phone.md">at 390 px</a> and <a href="/examples/ux-pathway/build-fidelity-desktop.md">at 1440 px</a> (Markdown): every element in every state, value by value. The browser tests fail if these files differ from what they measure.</li>
+      <li><a href="/examples/ux-pathway/qa-checklist.md">Use the QA checklist</a> (Markdown) on your own build: accessibility, responsive and usability items, each with how the example was checked.</li>
     </ul>
     <div class="shots">
       {shots.map((shot) => <figure><img src={shot.src} width={shot.w} height={shot.h} alt={shot.alt} loading="lazy" /></figure>)}
@@ -212,6 +228,25 @@ const sources = {
       <li><a href={RANDORI + 'randori.md'}>Read the rounds</a> (Markdown): what each check found before the constraint, and every state and transition it changed.</li>
       <li><a href={RANDORI + 'rounds.json'}>The result</a> (JSON) and <a href="/examples/ux-pathway/inputs/randori-rounds.json">the flows</a> (JSON), in the same format as the Pocket Invoice flow.</li>
     </ul>
+    <h3 id="unseen-title">The unseen round: {unseen.brief.product}</h3>
+    <p data-unseen-round={unseen.id}>Every card above now has a published answer, so this round is the one to do cold. <strong>The brief:</strong> {unseen.brief.text} You have {unseen.timeBoxMinutes} minutes and no assistant. Your partner holds a sealed card and shows it after your first sitemap. No answer to this round is published: you hand in both sitemaps as flow files, a reviewer marks them against the rubric, and a script judges the rows it can.</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-labelledby="unseen-caption">
+      <table>
+        <caption id="unseen-caption">The review rubric: what each row asks and who judges it</caption>
+        <thead><tr><th scope="col">Row</th><th scope="col">Criterion</th><th scope="col">Judged by</th><th scope="col">Passes when</th></tr></thead>
+        <tbody>
+          {unseenRubric.rows.map((row) => <tr data-rubric-row={row.id}><th scope="row">{row.id}</th><td>{row.criterion}</td><td>{JUDGE[row.judge] ?? row.judge}</td><td>{row.pass}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p>{unseen.result}</p>
+    <ul class="links">
+      <li><a href={UNSEEN + 'brief.md'}>The brief</a> (Markdown), for you: who it is for, what the flow must include and what to hand in.</li>
+      <li><a href={UNSEEN + 'rubric.md'}>The rubric</a> (Markdown) or <a href={UNSEEN + 'rubric.json'}>its data</a> (JSON), and <a href={UNSEEN + 'review-sheet.md'}>the blank review sheet</a>. They do not reveal the card.</li>
+      <li><a href="/examples/ux-pathway/tools/ux_review.mjs" download>Download the review script</a> (JavaScript for Node.js, no packages to install; it needs the other scripts in the tools folder beside it). Run <code>node tools/ux_review.mjs . adapted.json --first first.json --out review.md</code> in a copy of this folder: it fills in the script rows and lists what the card changed.</li>
+      <li><a href={UNSEEN + 'partner-card.md'}>The sealed card</a> (Markdown), <strong>for the partner only</strong>. If you open it first, the round is no longer unseen.</li>
+    </ul>
+    <p class="note">The maintainers wrote the card and a reference answer, which CI runs through the review script on every pipeline but the site does not publish. Nobody has done this round unseen yet.</p>
   </div></section>
 
   <section class="section" aria-labelledby="walk-title"><div class="container narrow">
@@ -223,7 +258,8 @@ const sources = {
       <li><strong>The tokens.</strong> <a href="/examples/ux-pathway/pocket-invoice-tokens.json">The token file</a> (JSON, {tokenCount} tokens): colour, type, spacing, corners and borders.</li>
       <li><strong>The style guide.</strong> <a href="/examples/pocket-invoice-style-guide/">The style guide as a web page</a>: every token rendered with its name and CSS property, the brand rules, the contrast pairs, and a working specimen of each of the {componentCount} components. Open your browser’s inspector on any specimen to see which token it uses.</li>
       <li><strong>The prototype.</strong> <a href="/examples/pocket-invoice-prototype/?fidelity=high">The clickable prototype</a>: a link for every transition, the discard dialog as an overlay that Escape closes, and the browser’s Back button as a back path. The address bar names the screen, so any state can be bookmarked.</li>
-      <li><strong>The QA.</strong> <a href="/examples/ux-pathway/qa-report.md">The accessibility and responsive QA report</a> from the working example, <a href="/examples/ux-pathway/generated/fidelity-report.md">the fidelity report</a>, and the usability walkthrough below.</li>
+      <li><strong>The build.</strong> <a href="/examples/pocket-invoice/">The working page</a>, built from the same flow and tokens, and its visual-fidelity reports against the high-fidelity design <a href="/examples/ux-pathway/build-fidelity-phone.md">at 390 px</a> and <a href="/examples/ux-pathway/build-fidelity-desktop.md">at 1440 px</a>.</li>
+      <li><strong>The QA.</strong> <a href="/examples/ux-pathway/qa-report.md">The accessibility and responsive QA report</a> from the working example, <a href="/examples/ux-pathway/generated/fidelity-report.md">the drawings’ fidelity report</a>, the usability walkthrough below, and <a href="/examples/ux-pathway/qa-checklist.md">the QA checklist</a> to run on your own build.</li>
     </ol>
     <h3>Usability walkthrough</h3>
     <p>{usability.tasks.length} tasks, each written as a scenario a participant would hear, with the most clicks the team accepts. A script finds the shortest path the design allows for each, checks that every step is a button on the screen, and that every error on the way leads back to the goal. {usabilityPassed} of {usability.tasks.length} tasks passed. The site’s browser tests then click each path in the prototype at 1440 px, 390 px and 320 px.</p>
@@ -270,27 +306,31 @@ const sources = {
   <section class="section" aria-labelledby="tools-title"><div class="container narrow">
     <p class="eyebrow">08 / The tools</p>
     <h2 id="tools-title">Penpot, and what Figma would cost</h2>
-    <p>The pathway uses Penpot because it is open source, runs in a browser, can be self-hosted, and its free plan has no file limits. Facts below are from each publisher’s own pages: Penpot’s checked on 27 November 2026, Figma’s on 20 November 2026 (the SVG row on 21 November 2026). Plans change: check the source before you rely on one. The Armory keeps the full <a href="/armory/registry#penpot">Penpot record</a>: version, licence, plans, permissions and the smoke test.</p>
+    <p>The pathway uses Penpot because it is open source, runs in a browser, can be self-hosted, and its free plan has no file limits. Facts below are from each publisher’s own pages. The release, plans, licence, hosting, plugin, MCP and API rows were checked on 28 November 2026; the file format and token rows on 27 November 2026; the SVG row on 21 November 2026. Plans change: check the source before you rely on one. The Armory keeps the full <a href="/armory/registry#penpot">Penpot record</a>: version, licence, plans, permissions and the smoke test.</p>
     <div class="table-wrap" tabindex="0" role="region" aria-labelledby="tools-caption">
       <table>
         <caption id="tools-caption">Plans, hosting and agent access, from official pages</caption>
         <thead><tr><th scope="col">Fact</th><th scope="col">Penpot</th><th scope="col">Figma</th></tr></thead>
         <tbody>
+          <tr><th scope="row">Version</th><td>2.19.5, released 24 November 2026 (<a href={sources.penpotReleases}>releases</a>); the example file was checked on 2.19.5</td><td>A hosted service with no version to pin</td></tr>
           <tr><th scope="row">Free plan</th><td>Professional: $0, “Free and fully featured”, up to 8 team members and unlimited viewers, 10 GB, 7 days of autosaved versions and file recovery (<a href={sources.penpotPricing}>pricing</a>)</td><td>Starter: free, unlimited drafts, 150 AI credits a day up to 500 a month (<a href={sources.figmaPricing}>pricing</a>)</td></tr>
           <tr><th scope="row">Paid plans</th><td>Unlimited: $7 per editor a month, capped at $175 a month, 25 GB, 30 days of versions; Enterprise: $25 per member a month, unlimited storage, 90 days (<a href={sources.penpotPricing}>pricing</a>)</td><td>Professional: Full seat $16, Dev $12, Collab $3 a month; Organization and Enterprise cost more (<a href={sources.figmaPricing}>pricing</a>)</td></tr>
           <tr><th scope="row">File limits</th><td>“No file limits” on every plan (<a href={sources.penpotPricing}>pricing</a>)</td><td>Unlimited files and projects on Professional and above (<a href={sources.figmaPricing}>pricing</a>)</td></tr>
           <tr><th scope="row">Self-hosting</th><td>Yes: Docker Compose, Kubernetes and other paths (<a href={sources.penpotSelfHost}>technical guide</a>, <a href={sources.penpotDocker}>Docker</a>)</td><td>Not offered on the pricing page</td></tr>
           <tr><th scope="row">Own file format</th><td>.penpot: a ZIP archive with the pages, shapes, components, library and tokens as JSON; import limit 1 GB; boards also export as PNG, JPEG, WEBP, SVG or PDF (<a href={sources.penpotFormat}>file format</a>, <a href={sources.penpotExport}>export and import</a>). Export and re-import of the Pocket Invoice file was run on 2.19.5</td><td>Not checked for this pathway</td></tr>
-          <tr><th scope="row">Licence</th><td>Mozilla Public License 2.0 (<a href={sources.penpotLicence}>licence</a>)</td><td>Proprietary</td></tr>
+          <tr><th scope="row">Licence</th><td>Mozilla Public License 2.0 (<a href={sources.penpotLicence}>licence</a>)</td><td>Proprietary: a limited, revocable right to use the service (<a href={sources.figmaTerms}>terms</a>)</td></tr>
           <tr><th scope="row">Design tokens</th><td>W3C Design Tokens Community Group draft format; importing replaces the file’s global token set (<a href={sources.penpotTokens}>guide</a>)</td><td>Not checked for this pathway</td></tr>
           <tr><th scope="row">SVG from other tools</th><td>The migration guide says to export static assets as SVG, PNG or JPG “and place them in Penpot”; it does not say whether they stay editable (<a href={sources.penpotMigration}>migration guide</a>). Proposed, not run with these files</td><td>Recommends SVG “when moving content between design tools”; SVG marker and pattern elements are not imported (<a href={sources.figmaSvg}>import guide</a>). Proposed, not run with these files</td></tr>
-          <tr><th scope="row">Agent write access</th><td>Plugins ask for permissions such as content:write (<a href={sources.penpotPlugins}>plugins</a>); the MCP server writes to the open page with a personal key and no scopes (<a href={sources.penpotMcp}>MCP</a>)</td><td>Starter: 20 MCP tool calls a month (<a href={sources.figmaPricing}>pricing</a>)</td></tr>
+          <tr><th scope="row">Installing a plugin</th><td>From the Plugin Manager by its manifest URL, or from Penpot Hub; installed per user. The user grants the permissions it asks for (content:read, content:write, library:read, library:write, user:read, comment:read, comment:write, allow:downloads), and is asked again when an update needs new ones (<a href={sources.penpotPluginsUse}>plugins</a>, <a href={sources.penpotPlugins}>permissions</a>). On a self-hosted server with a strict content security policy, plugins need 'unsafe-eval' (<a href={sources.penpotConfig}>configuration</a>)</td><td>A plugin runs only when the user starts it, and can view, create and change layers; its manifest permissions cover users, payments and team libraries, not writing to the file (<a href={sources.figmaPlugins}>plugins</a>)</td></tr>
+          <tr><th scope="row">MCP server</th><td>Official, free and open. Remote (turned on under Account, Integrations) or local (<code>npx @penpot/mcp@stable</code>); it acts through a Penpot plugin in one open browser tab, on the focused page, and can create, change and delete elements, tokens and components. It signs in with a personal token that expires, one per user, and the documentation names no scopes (<a href={sources.penpotMcp}>MCP</a>). A self-hosted server needs the enable-mcp flag and its own MCP container (<a href={sources.penpotConfig}>configuration</a>)</td><td>Starter, and View or Collab seats on any plan: up to 20 tool calls a month; Full or Dev seats: from 200 a day (<a href={sources.figmaMcpLimits}>limits</a>). Writing to the canvas is in beta on Professional and above with edit access, a Full seat outside your drafts, and is to become a paid, usage-based feature (<a href={sources.figmaMcpWrite}>write to canvas</a>)</td></tr>
+          <tr><th scope="row">REST API</th><td>Not checked for this pathway beyond importing and exporting whole .penpot files through the server’s API, which the import check does</td><td>No documented endpoint creates or edits layers; writes are limited to comments, variables (Enterprise), dev resources and webhooks (<a href={sources.figmaRest}>REST API</a>)</td></tr>
+          <tr><th scope="row" id="native-write">Native write, run for this pathway</th><td>Proven through the Plugin API on a self-hosted 2.19.5, checked 28 November 2026: a plugin installed from its manifest URL, with "Read and modify the content of files that users have access to" allowed in Penpot's dialog, added a board, a rectangle and a text to the imported file, and a new session read them back and found them in the export (<a href="/examples/ux-pathway/penpot-plugin-write-check.json">the record</a>). Not run: the MCP server, penpot.app, and Penpot with its content security policy enforced, where a plugin's own window needs its origin allowed. Browser tests of the site do not prove native write access</td><td>Not run: no Figma account or seat is used for this pathway, and the example file is Penpot-only</td></tr>
         </tbody>
       </table>
     </div>
   </div></section>
 
-  <SectorPackEvidence pack="ux" eyebrow="09 / What is checked" facts={{ usabilityTaskCount: usability.tasks.length, usabilityTasksPassed: usabilityPassed, usabilityFindingCount: usabilityFindings.length, componentCount, hifiScreenCount, hifiDrawingCount: fidelity.files.length, hifiDrawingsPassed: hifiPassed, minTextContrast: ratio(fidelity.totals.minTextContrast), minControlContrast: ratio(fidelity.totals.minControlContrast), tokenCount, transitionCount: TRANSITIONS.length, stateCount: STATES.length, flowCheckCount: flowChecks.checks.length, flowChecksPassed, contrastPairCount: flowChecks.contrast.length }} />
+  <SectorPackEvidence pack="ux" eyebrow="09 / What is checked" facts={{ usabilityTaskCount: usability.tasks.length, usabilityTasksPassed: usabilityPassed, usabilityFindingCount: usabilityFindings.length, componentCount, hifiScreenCount, hifiDrawingCount: fidelity.files.length, hifiDrawingsPassed: hifiPassed, minTextContrast: ratio(fidelity.totals.minTextContrast), minControlContrast: ratio(fidelity.totals.minControlContrast), tokenCount, transitionCount: TRANSITIONS.length, stateCount: STATES.length, flowCheckCount: flowChecks.checks.length, flowChecksPassed, contrastPairCount: flowChecks.contrast.length, unseenRubricRowCount: unseenRubric.rows.length, unseenScriptRowCount: unseenRubric.rows.filter((row) => row.judge === 'script').length }} />
 
   <section class="section" aria-labelledby="credits-title"><div class="container narrow">
     <p class="eyebrow">10 / Credits</p>

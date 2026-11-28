@@ -7,8 +7,11 @@ invoicing app for practice: no real company, person or customer.
 | --- | --- |
 | pocket-invoice.penpot | Editable Penpot file (format v3, a ZIP of JSON). Five pages: 01 sitemap and flow, with branches and errors; 02 low fidelity, every state at 390 px, clickable; 03 tokens and main components; 04 high fidelity, every state at 390 px (clickable, with the discard dialog as an overlay and every back path) and every screen at 1280 px; 05 the whole high-fidelity journey on one canvas, joined by numbered arrows. |
 | pocket-invoice-tokens.json | Design tokens in the W3C Design Tokens Community Group draft format, as Penpot imports them: sets core and semantic, theme Mode / Light. |
+| penpot-plugin-write-check.json | A native write through Penpot's Plugin API on a self-hosted 2.19.5: the permission Penpot showed, the board, rectangle and text the plugin added, the read-back and export checks, and what was not checked (the MCP server, penpot.app, an enforced content security policy). |
 | penpot-import-check.json | What was checked when the file was imported into Penpot, exported from it and imported again, the result of each check, and what was not checked. |
-| qa-report.md | The accessibility and responsive QA report for every state of the working page, copied from one run of the site's browser tests. |
+| qa-report.md | The accessibility and responsive QA report for every state of the working page, from the site's browser tests, which fail if this file differs from what they measured. |
+| build-fidelity-phone.md, build-fidelity-desktop.md | The visual-fidelity report of the working page against its high-fidelity design at 390 px and 1440 px: every element in every state, value by value. The browser tests fail if these files differ from what they measured. |
+| qa-checklist.md | The QA checklist to run on your own screens and build: accessibility, responsive and usability items, each with how to check it, when it passes and how Pocket Invoice was checked. |
 | screens/ | Screenshots from Penpot View mode, taken by that check; journey.png is page 05. |
 | inputs/pocket-invoice-flow.json | The flow as plain JSON: screens, the 11 states with their elements, and the 19 numbered transitions. Edit this to change the drawings. |
 | inputs/contrast-pairs.json | The text and control colour pairs the flow script checks against the token file, with their minimum ratios. |
@@ -17,6 +20,8 @@ invoicing app for practice: no real company, person or customer.
 | tools/ux_hifi.mjs | The high-fidelity part of the script, called by ux_pathway.mjs: the style guide, the components, the screens at two widths, and the fidelity audit. (ux_hifi.d.mts gives its types to the site's tests.) |
 | tools/ux_randori.mjs | The Randori part of the script, called by ux_pathway.mjs: checks each worked round's first and adapted flow, including one check per hidden constraint, and records what the constraint changed. (ux_randori.d.mts and ux_pathway.d.mts give types to the site's tests.) |
 | inputs/randori-rounds.json | Four worked UX Randori rounds: one per partner card whose constraint a flow can show, and one that plays the two screen cards (focus order, one action per screen). Each has the first sitemap and the adapted one, in the same format as the flow file; place on an element gives its row and column on the screen. Written by the maintainers, who also wrote the cards. |
+| inputs/randori-unseen.json | The unseen Randori round: a brief no worked round answers, its sealed card and its review rubric. No answer to it is published. |
+| tools/ux_review.mjs | The unseen round's script, called by ux_pathway.mjs to write its brief, card and rubric, and run on its own to review an answer: `node tools/ux_review.mjs . adapted.json --first first.json --out review.md` fills in the rubric rows a script can judge. (ux_review.d.mts gives its types to the site's tests.) |
 | tools/ux_usability.mjs | The usability part of the script, called by ux_pathway.mjs: walks each task's shortest path through the flow and checks the step budget, that every step is a visible button, and that every error on the way leads back to the goal. (ux_usability.d.mts gives its types to the site's tests.) |
 | inputs/usability-tasks.json | Seven usability tasks for Pocket Invoice, each a scenario read to a participant with its start, goal, step budget and what to watch for, plus one finding recorded with its decision. Written by the maintainers; no participant has done them. |
 | tools/design_tokens.mjs | Reads the token file, resolves aliases and computes WCAG 2 contrast; shared by both scripts. |
@@ -29,6 +34,7 @@ invoicing app for practice: no real company, person or customer.
 | generated/journey-high.svg | Every high-fidelity phone screen on one canvas, with the same numbered arrows as journey.svg. |
 | generated/fidelity-report.json, generated/fidelity-report.md | The audit of every high-fidelity drawing (token use, text and boundary contrast, control size, components) and what it does not measure. |
 | generated/randori/ | Each round's first and adapted sitemap and adapted screens (SVG), rounds.json and randori.md: what the checks found before and after the constraint. For the screen round, one HTML page per state of each version (D-first/, D-adapted/), which the site's browser test walks with the Tab key. |
+| generated/randori-unseen/ | brief.md for the learner; partner-card.md, sealed, for the partner; rubric.md and rubric.json for the reviewer; review-sheet.md, blank. |
 | generated/usability/ | tasks.json and walkthrough.md: each task's shortest path, checks, recoveries and findings; session-sheet.md: a blank sheet for one moderated session. The site's browser tests click each path in the clickable prototype. |
 | generated/flow-checks.json, generated/summary.md | The result of every flow and contrast check, as JSON and as a table. |
 | generated/manifest.json | The generated files, the size of each drawing and the SHA-256 of each input. |
@@ -50,7 +56,8 @@ invoicing app for practice: no real company, person or customer.
 Penpot is open source under the Mozilla Public License 2.0. You can run it yourself, or use penpot.app, whose
 Professional plan is $0 (up to 8 team members, 10 GB, 7 days of version history; checked on 2026-11-27 on
 penpot.app/pricing). The Armory record (/armory/registry#penpot) lists the version tested, the plans, what an agent
-can write through the MCP server or a plugin, and what was not checked.
+can write through the MCP server or a plugin, and what was not checked. A plugin's write to this file was checked on
+2026-11-28 on a self-hosted Penpot: penpot-plugin-write-check.json.
 
 The token file is already inside the .penpot file. Import pocket-invoice-tokens.json on its own only into a
 file of your own: importing tokens replaces that file's global token set.

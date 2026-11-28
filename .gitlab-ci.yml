@@ -130,7 +130,9 @@ bim_pathway:
 # Blocking: the UX pathway (#91). Node's standard library only, so nothing to install. Reruns the flow script on the
 # published flow file and tokens: it redraws the sitemap, the one-canvas journey and every low-fidelity screen as
 # SVG, reruns the flow and contrast checks, and fails if a check fails or any output differs from
-# public/examples/ux-pathway/generated, so the files on /katas/ux-pathway are what CI computed.
+# public/examples/ux-pathway/generated, so the files on /katas/ux-pathway are what CI computed. It also refuses an
+# unseen Randori round that a worked round already answers, then runs the round's review tool on the reference answer
+# kept out of the site: the adapted flow must pass every script row, and the first sitemap must miss the card.
 ux_pathway:
   stage: validate
   needs: []
@@ -140,6 +142,8 @@ ux_pathway:
   script:
     - node public/examples/ux-pathway/tools/ux_pathway.mjs public/examples/ux-pathway ux-pathway-out
     - diff -r ux-pathway-out public/examples/ux-pathway/generated
+    - node public/examples/ux-pathway/tools/ux_review.mjs public/examples/ux-pathway tests/fixtures/ux-randori-unseen/adapted.json --first tests/fixtures/ux-randori-unseen/first.json --out ux-pathway-out/reference-review.md
+    - status=0; node public/examples/ux-pathway/tools/ux_review.mjs public/examples/ux-pathway tests/fixtures/ux-randori-unseen/first.json > /dev/null || status=$?; test "$status" -eq 1 || { echo "ux_review should mark the first sitemap not yet (exit 1), got $status"; exit 1; }
   artifacts:
     when: always
     paths:

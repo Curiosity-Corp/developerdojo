@@ -1,5 +1,6 @@
 import { writeFile } from 'node:fs/promises';
 import { expect, test, type Locator, type Page, type TestInfo } from '@playwright/test';
+import { expectPublished } from './published-report';
 import { STATES, stateById, type Element as FlowElement, type StateId } from '../src/data/pocket-invoice';
 
 // The UX pathway's visual-fidelity check (#91): the working Pocket Invoice page against its own high-fidelity
@@ -276,6 +277,11 @@ async function writeReport(rows: Row[], geometry: Geometry[], width: 'phone' | '
   const path = testInfo.outputPath('visual-fidelity-' + width + '.md');
   await writeFile(path, lines.join('\n'));
   await testInfo.attach('visual-fidelity-' + width + '.md', { path, contentType: 'text/markdown' });
+  // The site publishes the report without the geometry, which depends on the CI browser's fonts: every other line is a
+  // token value read from both sides, so the published copy changes only when the design or the build does.
+  const published = lines.slice(0, lines.indexOf('## Geometry, recorded')).join('\n')
+    + '\n\nThe geometry (where each element starts and how much of its column it fills) is recorded in the report attached to each test run, not here: it depends on the fonts of the browser that ran the test.\n';
+  await expectPublished(testInfo, 'public/examples/ux-pathway/build-fidelity-' + width + '.md', published, 'build-fidelity-' + width + '.md');
 }
 
 const button = (from: StateId, to: StateId): string => {

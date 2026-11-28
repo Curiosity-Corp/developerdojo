@@ -1,0 +1,7 @@
+{
+  "name": "Developer Dojo write check",
+  "description": "Adds one board with a rectangle and a text to the current page through the Penpot Plugin API, then reports what it wrote. Used by scripts/ux-pathway/check-penpot-plugin-write.ts.",
+  "version": 2,
+  "code": "plugin.js",
+  "permissions": ["content:read", "content:write"]
+}

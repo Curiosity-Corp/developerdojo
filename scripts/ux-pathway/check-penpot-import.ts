@@ -271,7 +271,7 @@ try {
     fileSha256: createHash('sha256').update(readFileSync(FILE)).digest('hex'),
     method: 'Imported with the import-binfile API into a local, self-hosted Penpot; each page opened in the workspace; the prototypes clicked through in View mode with Playwright (Chromium).',
     notChecked: [
-      'Writing to Penpot through a plugin or the MCP server: the file is generated offline with @penpot/library and imported.',
+      'Writing to Penpot through a plugin or the MCP server: the file is generated offline with @penpot/library and imported. A plugin write was checked separately on 2026-11-28: penpot-plugin-write-check.json.',
       'Penpot cloud (design.penpot.app): only a self-hosted instance was used.',
       'Editing by a person: the check opens, lays out and clicks the file; it does not edit it.',
       'Export of boards to SVG, PDF or PNG: those need Penpot\'s exporter service, which this check does not run. Export as .penpot is checked (export-round-trip).',
