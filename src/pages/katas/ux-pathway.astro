@@ -361,6 +361,8 @@ const sources = {
   .table-wrap:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
   table { width: 100%; border-collapse: collapse; }
   caption { text-align: left; font-weight: 800; margin-bottom: var(--space-2, .5rem); }
+  /* A long command breaks where it must, so it never widens the page at 195 px (200 percent zoom). */
+  li code { overflow-wrap: anywhere; }
   th, td { text-align: left; vertical-align: top; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
   .walk li { margin-bottom: var(--space-3, .75rem); }
   .steps { padding-left: 0; list-style: none; display: grid; gap: var(--space-4, 1rem); }

@@ -91,5 +91,7 @@ test('the UX pathway page shows each usability task and links the walkthrough an
     expect((await request.get(href)).status(), href).toBe(200);
   }
   const walk = page.locator('[data-ux-walk] > li');
-  await expect(walk).toHaveCount(5);
+  // The walk: flow, wireframes, tokens and components, the build, QA, and the Randori (#91 added the build).
+  await expect(walk).toHaveCount(6);
+  await expect(walk.filter({ hasText: 'The build.' })).toHaveCount(1);
 });
