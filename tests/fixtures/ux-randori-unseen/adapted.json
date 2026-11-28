@@ -1,0 +1,395 @@
+{
+  "product": {
+    "name": "Kitchen Share",
+    "job": "A volunteer books a two-hour cooking slot, swaps it when it clashes, or gives it up.",
+    "audience": "Volunteer cooks on a phone, between shifts."
+  },
+  "screens": [
+    {
+      "id": "book",
+      "name": "Book a slot"
+    },
+    {
+      "id": "check",
+      "name": "Check"
+    },
+    {
+      "id": "bookings",
+      "name": "My bookings"
+    }
+  ],
+  "start": "slots",
+  "states": [
+    {
+      "id": "slots",
+      "screen": "book",
+      "kind": "screen",
+      "title": "Book the kitchen",
+      "purpose": "Choose a day, a two-hour time and what you will cook.",
+      "elements": [
+        {
+          "type": "heading",
+          "text": "Book the kitchen"
+        },
+        {
+          "type": "field",
+          "label": "Day",
+          "value": "Thursday 12 March"
+        },
+        {
+          "type": "field",
+          "label": "Time",
+          "value": "18:00 to 20:00"
+        },
+        {
+          "type": "field",
+          "label": "What you will cook",
+          "value": "Soup for the Friday lunch"
+        },
+        {
+          "type": "button",
+          "label": "Check the booking",
+          "variant": "primary",
+          "to": "check"
+        },
+        {
+          "type": "button",
+          "label": "My bookings",
+          "variant": "link",
+          "to": "bookings"
+        }
+      ]
+    },
+    {
+      "id": "clash",
+      "screen": "book",
+      "kind": "error",
+      "title": "That slot is taken",
+      "purpose": "The slot clashes; the free slots that day are offered.",
+      "elements": [
+        {
+          "type": "heading",
+          "text": "That slot is taken"
+        },
+        {
+          "type": "error-summary",
+          "items": [
+            "Thursday 18:00 to 20:00 is booked. Choose a free time: 14:00 to 16:00 or 20:00 to 22:00."
+          ]
+        },
+        {
+          "type": "field",
+          "label": "Day",
+          "value": "Thursday 12 March"
+        },
+        {
+          "type": "field",
+          "label": "Time",
+          "value": "20:00 to 22:00"
+        },
+        {
+          "type": "field",
+          "label": "What you will cook",
+          "value": "Soup for the Friday lunch"
+        },
+        {
+          "type": "button",
+          "label": "Check the booking",
+          "variant": "primary",
+          "to": "check"
+        },
+        {
+          "type": "button",
+          "label": "Choose another day",
+          "variant": "link",
+          "to": "slots"
+        }
+      ]
+    },
+    {
+      "id": "check",
+      "screen": "check",
+      "kind": "screen",
+      "title": "Check your booking",
+      "purpose": "Every choice on one screen; nothing is booked yet.",
+      "elements": [
+        {
+          "type": "heading",
+          "text": "Check your booking"
+        },
+        {
+          "type": "summary",
+          "rows": [
+            [
+              "Day",
+              "Thursday 12 March"
+            ],
+            [
+              "Time",
+              "18:00 to 20:00"
+            ],
+            [
+              "Cooking",
+              "Soup for the Friday lunch"
+            ]
+          ]
+        },
+        {
+          "type": "button",
+          "label": "Book this slot",
+          "variant": "primary",
+          "to": "booked"
+        },
+        {
+          "type": "button",
+          "label": "Change the booking",
+          "variant": "secondary",
+          "to": "slots"
+        }
+      ]
+    },
+    {
+      "id": "book-error",
+      "screen": "check",
+      "kind": "error",
+      "title": "The booking did not go through",
+      "purpose": "Nothing was booked; the choices are kept.",
+      "elements": [
+        {
+          "type": "heading",
+          "text": "The booking did not go through"
+        },
+        {
+          "type": "error-summary",
+          "items": [
+            "The connection dropped and nothing was booked. Your choices are kept: try again."
+          ]
+        },
+        {
+          "type": "button",
+          "label": "Try again",
+          "variant": "primary",
+          "to": "check"
+        }
+      ]
+    },
+    {
+      "id": "booked",
+      "screen": "bookings",
+      "kind": "success",
+      "title": "Booked",
+      "purpose": "The slot is the volunteer's.",
+      "elements": [
+        {
+          "type": "heading",
+          "text": "Booked: Thursday 18:00 to 20:00"
+        },
+        {
+          "type": "button",
+          "label": "My bookings",
+          "variant": "primary",
+          "to": "bookings"
+        }
+      ]
+    },
+    {
+      "id": "bookings",
+      "screen": "bookings",
+      "kind": "screen",
+      "title": "My bookings",
+      "purpose": "The volunteer's slots, each of which can be given up.",
+      "elements": [
+        {
+          "type": "heading",
+          "text": "My bookings"
+        },
+        {
+          "type": "table",
+          "columns": [
+            "Day",
+            "Time",
+            "Cooking"
+          ],
+          "rows": [
+            [
+              "Thursday 12 March",
+              "18:00 to 20:00",
+              "Soup for the Friday lunch"
+            ]
+          ]
+        },
+        {
+          "type": "button",
+          "label": "Give up Thursday's slot",
+          "variant": "secondary",
+          "to": "giveup-check"
+        },
+        {
+          "type": "button",
+          "label": "Book another slot",
+          "variant": "link",
+          "to": "slots"
+        }
+      ]
+    },
+    {
+      "id": "giveup-check",
+      "screen": "check",
+      "kind": "screen",
+      "title": "Give up this slot?",
+      "purpose": "What giving up means, before it happens.",
+      "elements": [
+        {
+          "type": "heading",
+          "text": "Give up this slot?"
+        },
+        {
+          "type": "summary",
+          "rows": [
+            [
+              "Day",
+              "Thursday 12 March"
+            ],
+            [
+              "Time",
+              "18:00 to 20:00"
+            ],
+            [
+              "Then",
+              "The slot goes back on the list for other volunteers"
+            ]
+          ]
+        },
+        {
+          "type": "button",
+          "label": "Give it up",
+          "variant": "primary",
+          "to": "given-up"
+        },
+        {
+          "type": "button",
+          "label": "Keep my slot",
+          "variant": "secondary",
+          "to": "bookings"
+        }
+      ]
+    },
+    {
+      "id": "given-up",
+      "screen": "bookings",
+      "kind": "success",
+      "title": "Slot given up",
+      "purpose": "The slot is free for others again.",
+      "elements": [
+        {
+          "type": "heading",
+          "text": "Slot given up"
+        },
+        {
+          "type": "text",
+          "text": "Thursday 18:00 to 20:00 is free for other volunteers again."
+        },
+        {
+          "type": "button",
+          "label": "Book another slot",
+          "variant": "primary",
+          "to": "slots"
+        }
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "from": "slots",
+      "to": "check",
+      "kind": "forward",
+      "trigger": "Check a free slot"
+    },
+    {
+      "from": "slots",
+      "to": "clash",
+      "kind": "error",
+      "trigger": "Check a slot that is taken"
+    },
+    {
+      "from": "slots",
+      "to": "bookings",
+      "kind": "branch",
+      "trigger": "Open my bookings"
+    },
+    {
+      "from": "clash",
+      "to": "check",
+      "kind": "recover",
+      "trigger": "Check a free time instead"
+    },
+    {
+      "from": "clash",
+      "to": "slots",
+      "kind": "back",
+      "trigger": "Choose another day"
+    },
+    {
+      "from": "check",
+      "to": "booked",
+      "kind": "forward",
+      "trigger": "Book the checked slot",
+      "commits": true
+    },
+    {
+      "from": "check",
+      "to": "slots",
+      "kind": "back",
+      "trigger": "Change the booking; every choice is kept"
+    },
+    {
+      "from": "check",
+      "to": "book-error",
+      "kind": "error",
+      "trigger": "The connection drops while booking"
+    },
+    {
+      "from": "book-error",
+      "to": "check",
+      "kind": "recover",
+      "trigger": "Try again"
+    },
+    {
+      "from": "booked",
+      "to": "bookings",
+      "kind": "forward",
+      "trigger": "See my bookings"
+    },
+    {
+      "from": "bookings",
+      "to": "giveup-check",
+      "kind": "branch",
+      "trigger": "Give up a slot"
+    },
+    {
+      "from": "bookings",
+      "to": "slots",
+      "kind": "branch",
+      "trigger": "Book another slot"
+    },
+    {
+      "from": "giveup-check",
+      "to": "given-up",
+      "kind": "forward",
+      "trigger": "Give up the slot",
+      "commits": true
+    },
+    {
+      "from": "giveup-check",
+      "to": "bookings",
+      "kind": "back",
+      "trigger": "Keep the slot"
+    },
+    {
+      "from": "given-up",
+      "to": "slots",
+      "kind": "forward",
+      "trigger": "Book another slot"
+    }
+  ]
+}

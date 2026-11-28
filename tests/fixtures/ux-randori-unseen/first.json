@@ -1,0 +1,247 @@
+{
+  "product": {
+    "name": "Kitchen Share",
+    "job": "A volunteer books a two-hour cooking slot, swaps it when it clashes, or gives it up.",
+    "audience": "Volunteer cooks on a phone, between shifts."
+  },
+  "screens": [
+    {
+      "id": "book",
+      "name": "Book a slot"
+    },
+    {
+      "id": "bookings",
+      "name": "My bookings"
+    }
+  ],
+  "start": "slots",
+  "states": [
+    {
+      "id": "slots",
+      "screen": "book",
+      "kind": "screen",
+      "title": "Book the kitchen",
+      "purpose": "Choose a day, a two-hour time and what you will cook.",
+      "elements": [
+        {
+          "type": "heading",
+          "text": "Book the kitchen"
+        },
+        {
+          "type": "field",
+          "label": "Day",
+          "value": "Thursday 12 March"
+        },
+        {
+          "type": "field",
+          "label": "Time",
+          "value": "18:00 to 20:00"
+        },
+        {
+          "type": "field",
+          "label": "What you will cook",
+          "value": "Soup for the Friday lunch"
+        },
+        {
+          "type": "button",
+          "label": "Book this slot",
+          "variant": "primary",
+          "to": "booked"
+        },
+        {
+          "type": "button",
+          "label": "My bookings",
+          "variant": "link",
+          "to": "bookings"
+        }
+      ]
+    },
+    {
+      "id": "clash",
+      "screen": "book",
+      "kind": "error",
+      "title": "That slot is taken",
+      "purpose": "The slot clashes; the free slots that day are offered.",
+      "elements": [
+        {
+          "type": "heading",
+          "text": "That slot is taken"
+        },
+        {
+          "type": "error-summary",
+          "items": [
+            "Thursday 18:00 to 20:00 is booked. Choose a free time: 14:00 to 16:00 or 20:00 to 22:00."
+          ]
+        },
+        {
+          "type": "field",
+          "label": "Day",
+          "value": "Thursday 12 March"
+        },
+        {
+          "type": "field",
+          "label": "Time",
+          "value": "20:00 to 22:00"
+        },
+        {
+          "type": "field",
+          "label": "What you will cook",
+          "value": "Soup for the Friday lunch"
+        },
+        {
+          "type": "button",
+          "label": "Book this slot",
+          "variant": "primary",
+          "to": "booked"
+        },
+        {
+          "type": "button",
+          "label": "Choose another day",
+          "variant": "link",
+          "to": "slots"
+        }
+      ]
+    },
+    {
+      "id": "booked",
+      "screen": "bookings",
+      "kind": "success",
+      "title": "Booked",
+      "purpose": "The slot is the volunteer's.",
+      "elements": [
+        {
+          "type": "heading",
+          "text": "Booked: Thursday 18:00 to 20:00"
+        },
+        {
+          "type": "button",
+          "label": "My bookings",
+          "variant": "primary",
+          "to": "bookings"
+        }
+      ]
+    },
+    {
+      "id": "bookings",
+      "screen": "bookings",
+      "kind": "screen",
+      "title": "My bookings",
+      "purpose": "The volunteer's slots, each of which can be given up.",
+      "elements": [
+        {
+          "type": "heading",
+          "text": "My bookings"
+        },
+        {
+          "type": "table",
+          "columns": [
+            "Day",
+            "Time",
+            "Cooking"
+          ],
+          "rows": [
+            [
+              "Thursday 12 March",
+              "18:00 to 20:00",
+              "Soup for the Friday lunch"
+            ]
+          ]
+        },
+        {
+          "type": "button",
+          "label": "Give up Thursday's slot",
+          "variant": "secondary",
+          "to": "given-up"
+        },
+        {
+          "type": "button",
+          "label": "Book another slot",
+          "variant": "link",
+          "to": "slots"
+        }
+      ]
+    },
+    {
+      "id": "given-up",
+      "screen": "bookings",
+      "kind": "success",
+      "title": "Slot given up",
+      "purpose": "The slot is free for others again.",
+      "elements": [
+        {
+          "type": "heading",
+          "text": "Slot given up"
+        },
+        {
+          "type": "text",
+          "text": "Thursday 18:00 to 20:00 is free for other volunteers again."
+        },
+        {
+          "type": "button",
+          "label": "Book another slot",
+          "variant": "primary",
+          "to": "slots"
+        }
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "from": "slots",
+      "to": "booked",
+      "kind": "forward",
+      "trigger": "Book a free slot",
+      "commits": true
+    },
+    {
+      "from": "slots",
+      "to": "clash",
+      "kind": "error",
+      "trigger": "Book a slot that is taken"
+    },
+    {
+      "from": "slots",
+      "to": "bookings",
+      "kind": "branch",
+      "trigger": "Open my bookings"
+    },
+    {
+      "from": "clash",
+      "to": "booked",
+      "kind": "recover",
+      "trigger": "Book a free time instead",
+      "commits": true
+    },
+    {
+      "from": "clash",
+      "to": "slots",
+      "kind": "back",
+      "trigger": "Choose another day"
+    },
+    {
+      "from": "booked",
+      "to": "bookings",
+      "kind": "forward",
+      "trigger": "See my bookings"
+    },
+    {
+      "from": "bookings",
+      "to": "given-up",
+      "kind": "forward",
+      "trigger": "Give up the slot",
+      "commits": true
+    },
+    {
+      "from": "bookings",
+      "to": "slots",
+      "kind": "branch",
+      "trigger": "Book another slot"
+    },
+    {
+      "from": "given-up",
+      "to": "slots",
+      "kind": "forward",
+      "trigger": "Book another slot"
+    }
+  ]
+}

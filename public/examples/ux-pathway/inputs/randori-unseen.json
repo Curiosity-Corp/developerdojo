@@ -1,0 +1,84 @@
+{
+  "about": "The unseen UX Randori round (UX-R01, round U). Unlike the worked rounds in randori-rounds.json, no answer to this brief is published: the learner meets the brief cold, the partner holds the sealed card, and a reviewer marks the result against the rubric. tools/ux_review.mjs runs the rows a script can judge on the learner's own flow file. ux_pathway.mjs refuses this file if its brief or its constraint is one of the worked rounds, because then it would not be unseen.",
+  "id": "U",
+  "timeBoxMinutes": 60,
+  "brief": {
+    "product": "Kitchen Share",
+    "text": "A community kitchen: a volunteer books a two-hour cooking slot, is told when the slot clashes with another booking, and can swap to a free slot or give the slot up.",
+    "user": "A volunteer cook who books the shared kitchen on a phone, often in a hurry between shifts.",
+    "job": "Get a two-hour slot in the kitchen, and change or give it up when plans change.",
+    "mustInclude": [
+      "the clash: what the volunteer sees when the slot they want is taken, and how they get to a free one",
+      "giving a slot up, and what happens to it",
+      "at least one error state with its way back"
+    ],
+    "fictional": "Kitchen Share is invented for practice. Use invented names and times only; no real kitchen, person or booking."
+  },
+  "constraint": {
+    "id": "review-before-commit",
+    "text": "Nothing takes effect until the volunteer has seen every choice they made on one screen and confirmed it there, and going back from that screen keeps every choice.",
+    "revealAfter": "the learner has drawn a first sitemap"
+  },
+  "flowFormat": "Write the sitemap as a flow file in the same format as inputs/pocket-invoice-flow.json: screens, states with their elements, start, and transitions. Mark each transition that takes effect (book, swap, give up) with \"commits\": true. Give every field the value the volunteer typed or chose.",
+  "rubric": [
+    {
+      "id": "structure",
+      "criterion": "The flow holds together: every state is reachable, nothing is a dead end, every error has a way back, every dialog closes and every button is wired.",
+      "judge": "script",
+      "checks": ["unique-states", "screens-known", "transitions-name-states", "reachable", "no-dead-ends", "errors-recover", "dialogs-close", "buttons-wired", "one-transition-per-pair"],
+      "pass": "Every listed check passes on the adapted flow file.",
+      "evidence": "The flow file and the review sheet that tools/ux_review.mjs writes."
+    },
+    {
+      "id": "constraint",
+      "criterion": "The hidden constraint is met.",
+      "judge": "script",
+      "checks": ["review-before-commit"],
+      "pass": "The constraint check passes on the adapted flow file.",
+      "evidence": "The review sheet."
+    },
+    {
+      "id": "brief-covered",
+      "criterion": "The flow does the job in the brief: booking, the clash and the way to a free slot, giving a slot up, and at least one error with its way back.",
+      "judge": "reviewer",
+      "pass": "The reviewer can point to a state or a transition for each item in the brief's must-include list.",
+      "evidence": "The sitemap, with the states named."
+    },
+    {
+      "id": "changed",
+      "criterion": "The learner can say what the constraint changed, and the change is real.",
+      "judge": "reviewer",
+      "pass": "The learner names the states and transitions the constraint added or removed. With the first flow file given, tools/ux_review.mjs computes them, and the learner's account must agree with that list.",
+      "evidence": "Both flow files, and the learner's note of one or two sentences."
+    },
+    {
+      "id": "partner-walk",
+      "criterion": "A partner who did not see the work walks the low-fidelity prototype without help and finishes each task in the brief.",
+      "judge": "partner",
+      "pass": "The partner reaches every goal with no dead end. Every place they stopped or hesitated is written down, with what the learner changed or why they left it.",
+      "evidence": "The walk notes: task, where they went, where they stopped."
+    },
+    {
+      "id": "words",
+      "criterion": "Every error and the clash say what happened and what to do next, in plain words.",
+      "judge": "reviewer",
+      "pass": "Each error state names the problem and the next step, with no code, jargon or blame.",
+      "evidence": "The wireframes of the error states."
+    },
+    {
+      "id": "qa",
+      "criterion": "The screens pass the pathway's QA checklist for wireframes: a visible label on every field, one heading per screen, focus in reading order, a target of at least 24 by 24 px for every control, and no sideways scroll at 320 px.",
+      "judge": "reviewer",
+      "pass": "Every wireframe passes those items of the QA checklist, or the learner names the item it misses and the fix.",
+      "evidence": "The wireframes and the filled QA checklist."
+    },
+    {
+      "id": "own-work",
+      "criterion": "The round was done in the time box, without an assistant, and with fictional data only.",
+      "judge": "learner",
+      "pass": "The learner says so on the review sheet; the partner confirms the time.",
+      "evidence": "The review sheet, signed by both."
+    }
+  ],
+  "result": "Pass when every row passes. A row that does not pass is marked not yet, with the one change that would make it pass; nothing is scored by points."
+}

@@ -1,0 +1,142 @@
+{
+  "checkedOn": "2026-11-28",
+  "penpotVersion": "2.19.5",
+  "method": "A local, self-hosted Penpot 2.19.5 from the official container images, reachable only from the same machine, with a throwaway account. pocket-invoice.penpot imported as a new file and opened in the workspace with Playwright (Chromium). The plugin in scripts/ux-pathway/plugin-write-check (manifest version 2, permissions content:read and content:write) served from the same machine, installed from its manifest URL in the Plugin Manager, its permissions allowed in Penpot's dialog, and opened from the manager. It writes a board, a rectangle and a text with penpot.createBoard(), penpot.createRectangle() and penpot.createText(). The file then read back with get-file in a new API session and exported with export-binfile.",
+  "pluginManifest": "scripts/ux-pathway/plugin-write-check/manifest.json",
+  "permissionsRequested": [
+    "content:read",
+    "content:write"
+  ],
+  "permissionsDialogTitle": "'DEVELOPER DOJO WRITE CHECK' PLUGIN WANTS ACCESS TO:",
+  "permissionsGranted": [
+    "Read and modify the content of files that users have access to."
+  ],
+  "pluginReport": {
+    "ok": true,
+    "fileId": "52fff9aa-4113-80d8-8009-03a18ebd7892",
+    "pageId": "25b493fb-170b-8b0b-91fe-afea33aa9a55",
+    "pageName": "01 Sitemap and flow",
+    "board": {
+      "id": "9ae8cd2f-b4ea-8022-8009-03a19fe53c26",
+      "name": "Plugin write check: board",
+      "type": "board",
+      "width": 360,
+      "height": 200,
+      "fill": "#f4f1ea",
+      "children": [
+        "Plugin write check: text",
+        "Plugin write check: rectangle"
+      ]
+    },
+    "rectangle": {
+      "id": "9ae8cd2f-b4ea-8022-8009-03a19ffc6e4e",
+      "name": "Plugin write check: rectangle",
+      "parentId": "9ae8cd2f-b4ea-8022-8009-03a19fe53c26",
+      "width": 140,
+      "height": 48,
+      "fill": "#1f6feb",
+      "radius": 8
+    },
+    "text": {
+      "id": "9ae8cd2f-b4ea-8022-8009-03a1a005b5f5",
+      "name": "Plugin write check: text",
+      "parentId": "9ae8cd2f-b4ea-8022-8009-03a19fe53c26",
+      "characters": "Written by a Penpot plugin",
+      "fontSize": "20"
+    }
+  },
+  "browserConsoleErrors": [
+    "console: Framing '<plugin server>/' violates the following report-only Content Security Policy directive: \"frame-src 'self'\". The violation has been logged, but no further action has been taken.\n",
+    "console: Framing '<plugin server>/' violates the following report-only Content Security Policy directive: \"frame-src 'self'\". The violation has been logged, but no further action has been taken.\n"
+  ],
+  "notChecked": [
+    "The Penpot MCP server: only the Plugin API, through the Plugin Manager, was used.",
+    "Penpot cloud (penpot.app, design.penpot.app): only a self-hosted instance was used.",
+    "Figma: nothing here touches Figma or a Figma file.",
+    "A person's own editing: the plugin was installed, allowed and opened by Playwright clicking the Plugin Manager as a person would, but no person edited the file.",
+    "Other plugin permissions (library, comments, user, downloads) and plugins from the public plugin list.",
+    "Penpot with its Content-Security-Policy enforced (PENPOT_CSP_MODE=enforce): 2.19.5 ships it report-only, and the browser logged that framing the plugin UI from another origin breaks frame-src 'self' (see browserConsoleErrors); an enforcing deployment needs PENPOT_CSP_FRAME_SRC_EXTRA for the plugin origin."
+  ],
+  "checks": [
+    {
+      "name": "import",
+      "pass": true,
+      "detail": "imported pocket-invoice.penpot as a new file with 5 pages, none of the shapes the plugin writes"
+    },
+    {
+      "name": "install-from-manifest-url",
+      "pass": true,
+      "detail": "Plugin Manager opened by shortcut Ctrl + Alt + P; installed from <plugin server>/manifest.json; the permissions dialog \"'DEVELOPER DOJO WRITE CHECK' PLUGIN WANTS ACCESS TO:\" listed: Read and modify the content of files that users have access to.; allowed"
+    },
+    {
+      "name": "plugin-ran",
+      "pass": true,
+      "detail": "the plugin ran from the manager and reported, through the Plugin API, board Plugin write check: board with children [Plugin write check: text, Plugin write check: rectangle] on page \"01 Sitemap and flow\" of file 52fff9aa-4113-80d8-8009-03a18ebd7892"
+    },
+    {
+      "name": "plugin-files-served",
+      "pass": true,
+      "detail": "Penpot fetched from the plugin server: manifest.json, manifest.json, manifest.json, plugin.js, ui.html"
+    },
+    {
+      "name": "backend-file",
+      "pass": true,
+      "detail": "get-file in a new session (fresh login, no browser) returns the plugin's shapes on page \"01 Sitemap and flow\", the page that was open"
+    },
+    {
+      "name": "backend-board",
+      "pass": true,
+      "detail": "board \"Plugin write check: board\" (frame, 360 x 200, fill #F4F1EA) on page \"01 Sitemap and flow\""
+    },
+    {
+      "name": "backend-rectangle",
+      "pass": true,
+      "detail": "rectangle \"Plugin write check: rectangle\" (rect, 140 x 48, fill #1F6FEB, radius 8) inside the board"
+    },
+    {
+      "name": "backend-text",
+      "pass": true,
+      "detail": "text \"Plugin write check: text\" reads \"Written by a Penpot plugin\" in #1B1B1F, inside the board"
+    },
+    {
+      "name": "backend-ids-match-plugin",
+      "pass": true,
+      "detail": "the ids Penpot stored are the ids the plugin reported for its board, rectangle and text"
+    },
+    {
+      "name": "backend-existing-content-kept",
+      "pass": true,
+      "detail": "pages 5 before, 5 after; shapes on page 1: 149 before, 152 after (the plugin adds 3)"
+    },
+    {
+      "name": "export-binfile",
+      "pass": true,
+      "detail": "export-binfile gave 1219547 bytes, 933 shape entries; the plugin's board is among them"
+    },
+    {
+      "name": "export-board",
+      "pass": true,
+      "detail": "board \"Plugin write check: board\" (frame, 360 x 200, fill #F4F1EA)"
+    },
+    {
+      "name": "export-rectangle",
+      "pass": true,
+      "detail": "rectangle \"Plugin write check: rectangle\" (rect, 140 x 48, fill #1F6FEB, radius 8) inside the board"
+    },
+    {
+      "name": "export-text",
+      "pass": true,
+      "detail": "text \"Plugin write check: text\" reads \"Written by a Penpot plugin\" in #1B1B1F, inside the board"
+    },
+    {
+      "name": "export-ids-match-plugin",
+      "pass": true,
+      "detail": "the ids Penpot stored are the ids the plugin reported for its board, rectangle and text"
+    },
+    {
+      "name": "no-plugin-errors",
+      "pass": true,
+      "detail": "no uncaught errors or console errors mentioning the plugin runtime (2 other console errors)"
+    }
+  ]
+}

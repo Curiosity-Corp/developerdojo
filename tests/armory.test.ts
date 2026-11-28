@@ -116,6 +116,16 @@ describe('armory registry: evidence matches the records', () => {
     expect(JSON.stringify(run)).not.toMatch(/\/tmp\/|\/home\/|127\.0\.0\.1|localhost/);
   });
 
+  it('Penpot: the plugin write check passed every check, on the recorded version, and names no local address', () => {
+    const run = evidence('/examples/ux-pathway/penpot-plugin-write-check.json') as { penpotVersion: string; permissionsRequested: string[]; checks: { name: string; pass: boolean }[] };
+    const entry = resolved('penpot').entry;
+    expect('value' in entry.version && entry.version.value).toContain(run.penpotVersion);
+    expect(run.permissionsRequested).toEqual(['content:read', 'content:write']);
+    expect(run.checks.every((check) => check.pass)).toBe(true);
+    for (const name of ['install-from-manifest-url', 'plugin-ran', 'backend-board', 'backend-rectangle', 'backend-text', 'backend-existing-content-kept', 'export-board']) expect(run.checks.map((check) => check.name)).toContain(name);
+    expect(JSON.stringify(run)).not.toMatch(/\/tmp\/|\/home\/|127\.0\.0\.1|localhost|password/i);
+  });
+
   it('Git: two commits, clean tree, fsck clean', () => {
     expect(evidence('/examples/armory/git.json')).toMatchObject({ output: { version: 'git version 2.53.0', commits: 2, uncommittedFiles: 0, fsck: 'no errors' } });
   });

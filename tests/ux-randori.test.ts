@@ -27,8 +27,12 @@ const round = (id: string): Round => {
 };
 
 describe('the published Randori rounds', () => {
-  it('cover every hidden constraint that has a flow check, each in its own round', () => {
-    expect(input.rounds.map((r) => r.constraint.id).sort()).toEqual(Object.keys(CONSTRAINT_CHECKS).sort());
+  it('cover every hidden constraint that has a flow check, each in its own round, except the unseen round\'s card', () => {
+    // The unseen round (inputs/randori-unseen.json) has a check but no published answer; tests/ux-randori-unseen.test.ts
+    // runs that check on a reference answer kept out of the site.
+    const unseen = (json('inputs/randori-unseen.json') as { constraint: { id: string } }).constraint.id;
+    expect(input.rounds.map((r) => r.constraint.id)).not.toContain(unseen);
+    expect([...input.rounds.map((r) => r.constraint.id), unseen].sort()).toEqual(Object.keys(CONSTRAINT_CHECKS).sort());
   });
 
   it('pass in the generated record: the first sitemap misses the constraint, the adapted one meets it', () => {

@@ -17,6 +17,8 @@ const BIM_CHECKED = '2026-11-21';
 const BIM_NEXT = '2027-02-20';
 /** Penpot (#91): versions, plans and licence read on this day, and the import, prototype and export run against 2.19.5. */
 const PENPOT_CHECKED = '2026-11-27';
+/** The plugin write check and the plugin and MCP facts were checked a day after the import smoke test. */
+const PENPOT_PLUGIN_CHECKED = '2026-11-28';
 const PENPOT_NEXT = '2027-02-26';
 const docsOnly = (what: string) => ({ lastVerified: CHECKED, checked: `Documentation review: ${what}. Not installed or run for the Dojo.`, nextReview: NEXT });
 const notRun = (why: string) => ({ unavailable: `Not run for the Dojo: ${why}` });
@@ -486,11 +488,12 @@ export const armoryEntries: ArmoryEntryInput[] = [
     compatibility: [
       { harness: 'Self-hosted Penpot 2.19.5 in Chromium (Playwright), the file written by @penpot/library 1.3.0', platform: 'Linux', evidence: 'smoke-test' },
       { harness: 'penpot.app (Penpot cloud)', platform: 'Any current desktop browser', evidence: 'documented' },
+      { harness: 'Self-hosted Penpot 2.19.5 in Chromium (Playwright), a plugin installed from its manifest URL with content:write', platform: 'Linux', evidence: 'smoke-test' },
       { harness: 'Penpot MCP server with an MCP-capable agent, through the plugin in an open Penpot tab', platform: 'Any current desktop browser', evidence: 'documented' },
     ],
     permissions: {
       read: 'Reads the files of the teams your account belongs to. Viewers on a shared link see the file in View mode only.',
-      write: 'Editors change files in the workspace; import creates a new file in a project you choose. The MCP server can create, rename, move, delete and restyle shapes on the page open in your browser, and its key has no permission scopes. Plugins ask for permissions such as content:write when you install them.',
+      write: 'Editors change files in the workspace; import creates a new file in a project you choose. The MCP server can create, rename, move, delete and restyle shapes on the page open in your browser, and its key has no permission scopes. Plugins ask for permissions such as content:write when you install them; Penpot asks again when an update needs more, and its dialog shows only the widest line (content:read with content:write reads "Read and modify the content of files that users have access to").',
       execute: 'Runs in the browser tab. A self-hosted instance also runs the backend, frontend and database containers you start; plugins run their own code in your tab.',
       network: 'Sends your files to the Penpot server you use (penpot.app or yours). A default self-hosted frontend fetches Google Fonts and dashboard templates from the internet unless the air-gapped configuration is on.',
       minimal: 'Practise in a file and a team you can lose. Import a copy of a .penpot file rather than the only one, leave the MCP server off unless you are trying it on a practice file, and on your own instance keep registration closed after you create your account.',
@@ -501,7 +504,8 @@ export const armoryEntries: ArmoryEntryInput[] = [
       { action: 'edit', description: 'Opened every page in the workspace, where Penpot laid out the generated text and saved it to the file (at least 95% of text layers on each page).', evidence: 'smoke-test' },
       { action: 'read', description: 'Exported the imported file again as .penpot (export-binfile) and imported that copy: same pages, boards, interactions, components and token sets.', evidence: 'smoke-test' },
       { action: 'generate', description: 'Exports boards and layers as PNG, JPEG, WEBP, SVG or PDF, and all boards of a page as one PDF (needs the exporter service on a self-hosted instance).', evidence: 'documented' },
-      { action: 'edit', description: 'An AI agent can change the open page through the MCP server, or a plugin with write permission can.', evidence: 'documented' },
+      { action: 'edit', description: 'A plugin installed from its manifest URL, with content:write allowed in Penpot\'s dialog, added a board, a rectangle and a text to the open page through the Plugin API; a new session read them back from the server and found them in the exported .penpot, with the rest of the file kept (checked ' + PENPOT_PLUGIN_CHECKED + ').', evidence: 'smoke-test' },
+      { action: 'edit', description: 'An AI agent can change the open page through the MCP server, which acts through a plugin in your open tab.', evidence: 'documented' },
     ],
     setup: [
       'Create a penpot.app account (the Professional plan is $0), or run your own instance with the self-hosting guide.',
@@ -519,22 +523,23 @@ export const armoryEntries: ArmoryEntryInput[] = [
       evidence: ['/examples/armory/penpot.json'],
     },
     securityReview: {
-      date: PENPOT_CHECKED, scope: 'provenance',
+      date: PENPOT_PLUGIN_CHECKED, scope: 'provenance',
       checked: 'Publisher of the container images and the npm library, registry signatures, licence, and the MCP and plugin permission model in the documentation.',
       findings: [
         'The container images are published by the penpotapp organisation on Docker Hub; the tested digests are recorded in the evidence file.',
         '@penpot/library 1.3.0 carries npm registry signatures but no npm provenance (SLSA) attestation.',
-        'The MCP key gives an agent write access to the open page with no permission scopes; a plugin\'s permissions are granted once, when it is installed.',
+        'The MCP key gives an agent write access to the open page, and its documentation names no permission scopes. A plugin\'s permissions are granted when it is installed and asked for again only when an update needs more; content:write lets it change any file you can open while it runs.',
+        'Penpot 2.19.5 ships its content security policy in report-only mode. With it enforced, a plugin\'s own window from another origin is blocked unless that origin is added (PENPOT_CSP_FRAME_SRC_EXTRA); the plugin check logged the report-only warning.',
         'Since 2.19 a default self-hosted backend starts with its admin console flag on; leave it on and configure it, or switch it off, before opening registration.',
       ],
-      notChecked: 'No source audit, no image vulnerability scan and no test of the MCP server or any plugin.',
+      notChecked: 'No source audit, no image vulnerability scan, no test of the MCP server, and no plugin permission other than content:read and content:write.',
     },
     limitations: [
-      'Only a self-hosted 2.19.5 instance was used. penpot.app, the MCP server, plugins and exports to SVG, PDF or images were not run.',
+      'Only a self-hosted 2.19.5 instance was used. penpot.app, the MCP server, plugins from the public list and exports to SVG, PDF or images were not run; one plugin of our own was, with content:write only.',
       'The smoke test imports, lays out, clicks and exports a generated file. No person has edited it in Penpot.',
       'Plan prices and limits are read from the pricing page on the check date; Penpot can change them.',
     ],
-    review: { lastVerified: PENPOT_CHECKED, checked: 'Penpot documentation, release, licence and pricing pages, npm metadata and the smoke test.', nextReview: PENPOT_NEXT },
+    review: { lastVerified: PENPOT_PLUGIN_CHECKED, checked: 'Penpot documentation, release, licence and pricing pages, plugin and MCP documentation, npm metadata, the import smoke test and the plugin write check.', nextReview: PENPOT_NEXT },
   },
 
   // ---- Candidates: real, source-checked, not listed until the gaps are closed ---------------------

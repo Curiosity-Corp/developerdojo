@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page, type TestInfo } from '@playwright/test';
+import { expectPublished } from './published-report';
 import { STATES, TRANSITIONS, stateById, type StateId } from '../src/data/pocket-invoice';
 import { resolveTokens, type TokenFile } from '../src/lib/design-tokens';
 
@@ -73,6 +74,9 @@ async function writeReport(rows: Row[], testInfo: TestInfo): Promise<void> {
   const { writeFile } = await import('node:fs/promises');
   await writeFile(path, lines.join('\n'));
   await testInfo.attach('qa-report.md', { path, contentType: 'text/markdown' });
+  // The published report holds both projects, each under its own heading, with the body this run wrote.
+  const project = testInfo.project.name.charAt(0).toUpperCase() + testInfo.project.name.slice(1) + ' project';
+  await expectPublished(testInfo, 'public/examples/ux-pathway/qa-report.md', lines.slice(2).join('\n'), 'qa-report-' + testInfo.project.name + '-section.md', project);
 }
 
 test('every Pocket Invoice state works, by keyboard, with no serious axe finding', async ({ page }, testInfo) => {
@@ -385,3 +389,25 @@ test('a browser walks the screen round with the Tab key: the first version fails
   }
 });
 
+
+test('the unseen Randori round shows its brief and rubric, and keeps the card for the partner', async ({ page, request }) => {
+  const unseen = JSON.parse(readFileSync('public/examples/ux-pathway/inputs/randori-unseen.json', 'utf8')) as { id: string; brief: { text: string }; constraint: { text: string }; rubric: { id: string }[] };
+  await page.goto('/katas/ux-pathway/');
+  const section = page.locator('section').filter({ has: page.locator('#unseen-title') });
+  await expect(section.locator('[data-unseen-round="' + unseen.id + '"]')).toContainText(unseen.brief.text);
+  await expect(section.getByRole('table', { name: /review rubric/ }).locator('tbody tr')).toHaveCount(unseen.rubric.length);
+  for (const row of unseen.rubric) await expect(section.locator('tr[data-rubric-row="' + row.id + '"]')).toHaveCount(1);
+  // The page, the brief and the rubric must not show the card; only the partner card does.
+  await expect(page.locator('main')).not.toContainText(unseen.constraint.text);
+  for (const file of ['brief.md', 'rubric.md', 'review-sheet.md', 'partner-card.md']) {
+    const link = section.locator('a[href="/examples/ux-pathway/generated/randori-unseen/' + file + '"]');
+    await expect(link, file).toHaveCount(1);
+    const response = await request.get('/examples/ux-pathway/generated/randori-unseen/' + file);
+    expect(response.ok(), file).toBe(true);
+    const text = await response.text();
+    if (file === 'partner-card.md') expect(text).toContain(unseen.constraint.text);
+    else expect(text, file).not.toContain(unseen.constraint.text);
+  }
+  await expect(section.locator('a[href="/examples/ux-pathway/tools/ux_review.mjs"]')).toHaveCount(1);
+  expect((await request.get('/examples/ux-pathway/tools/ux_review.mjs')).ok()).toBe(true);
+});
